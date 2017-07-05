@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>PHPの覚書 | ワクガンス</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+<body>
+<h1 id="header">PHPの覚書</h1>
+<div class="container" >
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1-0" class="sec1" >
+	<h3>日付フォーマット変換（日時にも）</h3>
+			<div class="sec2" style="background-color:#def1de">
+				変換前：2012/2/29<br>変換後：2012-02-29<br>
+
+				<pre>
+	$d='2012/2/29';
+	echo "変換前：".$d."&lt;br>";
+	$d2=date('Y-m-d',strtotime($d));
+	echo "変換後：".$d2."&lt;br>";
+				</pre>
+			</div>
+			<hr>
+
+			<div class="sec2" style="background-color:#def1de">
+				変換前：2012/2/29 12:13:14<br>変換後：12:13:14<br>
+
+				<pre>
+	$d='2012/2/29 12:13:14';
+	echo "変換前：".$d."&lt;br>";
+	$d2=date('h:i:s',strtotime($d));
+	echo "変換後：".$d2."&lt;br>";
+				</pre>
+			</div>
+			<hr>
+
+			<div class="sec2" style="background-color:#def1de">
+				$d=xxxx<br>
+
+				<pre>
+		$d='xxxx';
+		echo '$d='.$d."&lt;br>";
+		$x=strtotime($d);
+		echo $x;
+
+				</pre>
+			</div>
+			<hr>
+
+			<div class="sec2" style="background-color:#def1de">
+				本日を取得する。<br>
+				<strong>$d=date('Y-m-d');</strong><br>
+				→2015-7-31<br>
+				<br>
+				現在日時を取得する。<br>
+				<strong>$dt=date('Y-m-d H:i:s');</strong><br>
+				→2015-07-31 <br>
+				※ <span class="marker">h</span>:i:sにすると03:07:36となる12時間表記になるので注意。
+
+				$d2=date('Y-m-d H:i:s');
+			</div>
+			<hr>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1-1" class="sec1" >
+	<h3>週始めの日付を取得</h3>
+
+	beginWeekDate自作関数について。<br>
+	引数で指定した日付の週の、週始めを取得する。<br>
+	 週始めは日曜日である。ただし月曜日フラグをONにした場合、月曜日が週始めとなる。<br>
+	 <br>
+	 
+	<pre>
+	$date1 = "2016-6-15";
+	$date2 = <strong>beginWeekDate</strong>($date1);
+	echo "指定日：".$date1.'&lt;br&gt;';
+	echo "週始め：".$date2.'&lt;br&gt;';
+	
+	/**
+	 * 週始めの日付を取得
+	 * 
+	 * 指定日付の週の週始めを取得する。
+	 * 週始めは日曜日である。ただし月曜日フラグをONにした場合、月曜日が週始めとなる。
+	 * 
+	 * @param date or string $date1 指定日付
+	 * @param bool $monday_flg 月曜日フラグ  省略可  true:月曜日が週始めとなる。
+	 * @param string $format 日付フォーマット【省略可】
+	 */
+	function <strong>beginWeekDate</strong>($date1,$monday_flg=0,$format='Y-m-d') {
+		$w = date("w",strtotime($date1));
+		
+		if($w==0){
+			if(!empty($monday_flg)){
+				$bwDate = date($format, strtotime("-6 day", strtotime($date1)));
+			}else{
+				$bwDate = date($format, strtotime($date1));
+			}
+			
+		}else{
+			if(!empty($monday_flg)){
+				$w--;
+			}
+			$bwDate = date($format, strtotime("-{$w} day", strtotime($date1)));
+		}
+	
+		return $bwDate;
+	}
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	指定日：2016-6-15
+	週始め：2016-06-12
+	</pre>
+	<br>
+	
+	<a href="http://qiita.com/and8-tamura/items/6cf148ed50b71b27c887" class="ref_link" target="brank">参考</a><br>
+	<br>
+	
+	<time>2016-6-15</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1-2" class="sec1" >
+	<h3>月初めの日付を取得する</h3>
+
+	<pre>
+	/**
+	 * 引数日付から月初めの日付を取得する。
+	 * @param $ymd
+	 */
+	private function getBeginningMonthDate($ymd) {
+		$ym = date("Y-m",strtotime($ymd));
+		$d=$ym.'-01';
+		return $d;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1-3" class="sec1" >
+	<h3>元旦日を取得する</h3>
+
+	<pre>
+	/**
+	 * 引数日付から元旦日を取得する。
+	 * @param $ymd
+	 */
+	private function getBeginningYearDate($ymd) {
+		$y = date("Y",strtotime($ymd));
+		$d=$y.'-01-01';
+		return $d;
+	}
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div  id="sec1-1" class="sec1">
+	<h3>日付の基本</h3>
+	2038年以降の日付にも対応できる。
+
+	<strong>ソースコード</strong>
+	<pre>
+	$date = new DateTime("2006-12-12");
+	echo $date->format("Y-m-d");
+	</pre>
+
+	<strong>本日の場合</strong><br />
+	<pre>
+	$today = new DateTime();
+	echo $today->format("Y-m-d");
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div  id="sec1-2"class="sec1">
+	<h3>日付の加算と減算</h3>
+
+	<pre>
+	$date = new DateTime("2006-12-12");
+	echo $date->format("Y-m-d");
+	$date->modify("+3 day");
+	echo $date->format("Y-m-d");
+	</pre>
+	<br><br>
+	先月を取得する場合<br>
+	<pre>
+		$date = new DateTime();
+		$date->modify("-1 month");
+		echo $date->format("Y-m-d");
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div  id="sec1-3"class="sec1">
+	<h3>日付比較</h3>
+	PHP5.3以降のみ
+
+	<pre>
+	$datetime1 = new DateTime('2009-10-11');
+	$datetime2 = new DateTime('2009-10-13');
+	$interval = $datetime1->diff($datetime2);
+	echo $interval->format('%R%d days');
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-4" class="sec1">
+	<h3>年月日フォーマットから日付型データとして取得</h3>
+
+	<strong>ソースコード</strong>
+	<pre>
+	$strYmd="2010年10月10日";
+	$d=DateTime::createFromFormat('Y年m月d日',$strYmd);
+	$d=$d->format('Y-m-d');
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-5" class="sec1">
+	<h3>日付のループ</h3>
+	日付範囲内でループさせる場合、特殊なループが必要になる。<br>
+	PHP5.3から対応しているらしい。<br>
+	<br>
+<strong>例</strong><br>
+<pre>
+
+	$start = new DateTime('2012/2/25');
+	$end = new DateTime('2012/3/5');
+
+	$interval = DateInterval::createFromDateString('1 day');
+	$period = new DatePeriod($start,$interval,$end);
+
+	foreach($period as $d){
+		$x= $d->format('Y-m-d');//日付
+
+	}
+</pre>
+<br><br>
+<strong>悪い例</strong><br>
+以下のやり方だと無限ループになってしまう。<br>
+<pre>
+	$start = '2012/2/25';
+	$end = '2012/3/5';
+	for($d=$start;$d&lt;=$end;$d++){
+		echo $d;//■■■□□□■■■□□□■■■□□□
+	}
+</pre>
+
+<a class="ref_link" href="http://kamakurasoft.net/blog/?p=1654">参考サイト</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-6" class="sec1">
+	<h3>DateTime型日付と unix timestampの相互変換</h3>
+	DateTime型の日付からunix timestamp取得する場合、以下のようにする。<br>
+	$u=$d1->format("U");<br>
+	<br>
+	unix timestampから日付に変換する場合は以下のようにする。<br>
+	$d2=new DateTime();<br>
+	$d2->setTimestamp(1165964400);<br>
+
+	<br><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/date_unix_timestamp/date_unix_timestamp.php" >サンプル</a>
+	<br><strong>例</strong><br>
+	<pre>
+	$d1 = new DateTime("2006-12-12");
+	echo $d1->format("Y-m-d H:i:s");
+	echo "&lt;br>";
+	$u=$d1->format("U");//☆unix timestampを取得
+
+	echo $u;
+	echo "&lt;br>";
+	$u+=86400;//86400秒を加算して翌日にする。
+	echo $u;
+	echo "&lt;br>";
+	$d2=new DateTime();
+	$d2->setTimestamp($u);//☆unix timestampから日付に再変換。
+	echo $d2->format("Y-m-d H:i:s");
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-7" class="sec1">
+	<h3>日付ループ（DateIntervalを使わない）</h3>
+	DateIntervalが使えないPHPバージョン（PHP5.2など）で日付ループを行う場合、
+	UNIXタイプスタンプを利用してループできる。<br>
+	間隔秒数を調整すれば、1秒毎や分毎などのループも可能。<br>
+
+	<br><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/date_loop_php5_2/date_loop_php5_2.php">サンプル</a><br><br>
+
+	<br>
+	<strong>例</strong><br>
+	<pre>
+	$d1 = new DateTime("2011-12-30 00:00:00");
+	$d2 = new DateTime("2012-3-1 00:00:00");
+	echo $d1->format("Y-m-d")."&lt;br>";
+	echo $d2->format("Y-m-d")."&lt;br>";
+
+	//それぞれのUNIXタイムスタンプを取得
+	$u1=$d1->format("U");
+	$u2=$d2->format("U");
+
+	echo $u1."&lt;br>";
+	echo $u2."&lt;br>";
+
+	//一日の秒数
+	$a=86400;
+
+
+	echo "☆日付ループ( 'U = Y-m-d H:i:s')&lt;br>";
+
+	//☆日付ループ
+	for($u=$u1;$u&lt;=$u2;$u+=$a){
+
+		//setTimestampが使えない場合の代替コード。Datetime::setTimestamp(UNIXタイムスタンプ);
+		$y      = date("Y", $u);
+		$m      = date("m", $u);
+		$d      = date("d", $u);
+		$h      = date("H", $u);
+		$i      = date("i", $u);
+		$s      = date("s", $u);
+		echo "{$y}-{$m}-{$d} {$h}:{$i}:{$s}&lt;br>";
+
+
+	}
+	echo "終了&lt;br>";
+	</pre>
+
+	<br><br>
+	<strong>例2(setTimestampが使える場合）</strong><br>
+	<pre>
+	//開始日付と終了日付をセット
+	$d1 = new DateTime("2011-12-30");
+	$d2 = new DateTime("2012-3-1");
+
+	//それぞれのUNIXタイムスタンプを取得
+	$u1=$d1->format("U");
+	$u2=$d2->format("U");
+
+	//間隔秒数に一日の秒数
+	$a=86400;
+
+
+	$d=new DateTime();
+
+	//☆日付ループ
+	for($u=$u1;$u&lt;=$u2;$u+=$a){
+		$d->setTimestamp($u);//UNIXタイムスタンプから日付に変換。PHP5.2では未対応？
+		echo $d->format("Y-m-d");
+		echo "&lt;br>\n";
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-8" class="sec1">
+	<h3>JSON変換</h3>
+	
+	
+	<p>JSONエンコード</p>
+	<pre><code>
+	$data=array(1=>'ペルシャ',2=>'ボンベイ',3=>'三毛',4=>'シャム',5=>'雉トラ',6=>'スフィンクス');//サンプルデータ
+	$json_str=<strong>json_encode</strong>($data,true);//JSONエンコード
+	</code></pre>
+	<aside>
+	※多次元配列だろうと、複雑な連想配列であろうとJSON変換可能。<br>
+	</aside>
+	<br><hr>
+	
+	
+	<p>JSONデコード</p>
+	<pre><code>
+	$json_str = '{"id":"11","animal_name":"test"}';
+	$data=<strong>json_decode</strong>($json_str,true);//JSONデコード
+	if($data===null){
+		error_log("JSONの展開に失敗しました。  " . json_last_error_msg() . ' ' . $json_str);
+	}
+	</code></pre>
+	<aside>
+	※json_decodeのtrueを省略すると構造が元と変わるので注意。<br>
+	</aside>
+	<br><hr>
+	
+	
+	<p>jsonファイルをJSONデコードする場合</p>
+	<pre><code>
+	$json_str = file_get_contents('test.json'); // test.jsonはutf8でWindosで保存されているファイル。（BOMが付いている）
+
+	// BOMを除去する
+	$json_str = <strong>deleteBom</strong>($json_str);
+	
+	// JSONデコード
+	$data=json_decode($json_str,true);
+	
+	// JSONデコードに失敗した場合
+	if ($error = json_last_error_msg()) {
+		$err_msg = 
+		error_log("JSONの展開に失敗しました。→".$json_str);
+
+	} 
+
+
+	/**
+	 * UTF8ファイルのテキストに付いているBOMを除去する
+	 * @param string $str UTF8ファイルから取得したテキストの文字列
+	 * @return string BOMを除去した文字列
+	 */
+	function deleteBom($str){
+		if (($str == NULL) || (mb_strlen($str) == 0)) {
+			return $str;
+		}
+		if (ord($str{0}) == 0xef &amp;&amp; ord($str{1}) == 0xbb &amp;&amp; ord($str{2}) == 0xbf) {
+			$str = substr($str, 3);
+		}
+		return $str;
+	}
+	</code></pre>
+	<strong>BOMに注意</strong><br>
+	file_get_contents関数などでutf8で保存されたファイルの文字列を取得する場合、先頭にBOMが付いているので注意すること。<br>
+	BOMが付いたままだとJSONデコードに失敗する。<br>
+	BOMはEclipseやいくつかのテキストエディタでは<strong>見えない</strong>。（文字化けすらしない）<br>
+	oedit.exeなど一部のテキストエディタではBOMを文字化けで表示させることも可能である。<br>
+	下記の２つの文字列は一見同じに見えるが、Terapad.exeやoedit.exeなどのテキストエディタへコピペすると文字化けしたBOMを確認できる。<br>
+	<pre>
+	$json_str = '﻿{"id":"11","enquete_name":"test"}';
+	$json_str = '{"id":"11","enquete_name":"test"}';
+	</pre>
+	oedit.exeにコピペするとBOMが「?」に文字化けしている。<br>
+	<img src="img/note/sec1-8.png"  /><br>
+	<br>
+	<a href="http://unsolublesugar.com/20120919/223812/" target='blank' class='btn btn-link'>BOM除去の参考サイト</a>
+	<hr>
+	
+	<div style="padding:10px;background-color:#e2faee;border-radius:5px;margin-bottom:100px;">
+	<p>JSONに次の記号、「&lt;」、「&gt;」、「"」、「'」、「&amp;」、「/」、「&yen;」が含まれるときのJSONエンコード</p>
+	
+	下記のようにオプション指定する。
+	<pre>$json = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);</pre>
+	
+	<h4><strong>検証</strong></h4>
+	<pre class="pre1"><code>
+	$data = array(1=>'&lt;',2=>'&gt;',3=>'"',4=>"'",5=>'&amp;',6=>'/',7=>"\\");
+	var_dump($data);
+	</code></pre>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=7)</i>
+	  1 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'&lt;'</font> <i>(length=1)</i>
+	  2 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'&gt;'</font> <i>(length=1)</i>
+	  3 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'&quot;'</font> <i>(length=1)</i>
+	  4 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'&#39;'</font> <i>(length=1)</i>
+	  5 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'&amp;'</font> <i>(length=1)</i>
+	  6 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'/'</font> <i>(length=1)</i>
+	  7 <font color='#888a85'>=&gt;</font> string <font color='#cc0000'>'\'</font> <i>(length=1)</i>
+	</pre><br>
+	
+	
+	JSONエンコードをかけてダンプしてみる。「&lt;」、「&gt;」、「"」、「'」は変換されている。
+	<pre class="pre1"><code>
+	$json = <strong>json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS)</strong>;
+	var_dump($json);
+	</code></pre>
+	<pre class='xdebug-var-dump' dir='ltr'>string <font color='#cc0000'>'{&quot;1&quot;:&quot;\u003C&quot;,&quot;2&quot;:&quot;\u003E&quot;,&quot;3&quot;:&quot;\u0022&quot;,&quot;4&quot;:&quot;\u0027&quot;,&quot;5&quot;:&quot;\u0026&quot;,&quot;6&quot;:&quot;\/&quot;,&quot;7&quot;:&quot;\\&quot;}'</font> <i>(length=84)</i>
+	</pre><br>
+	input要素にこのJSONを埋め込んでもバグにならない。
+	<pre class="pre1"><code>&lt;input type="text" value='&lt;?php echo $json?&gt;' style="width:100%" /&gt;</code></pre>
+	<input id="json4" type="text" value='{"1":"\u003C","2":"\u003E","3":"\u0022","4":"\u0027","5":"\u0026","6":"\/","7":"\\"}' style="width:100%" />
+	<br>
+	
+	JavaScriptで埋め込まれたJSON文字列をパースしてみる。
+	<script>
+	$(function(){
+		$json4 = $('#json4').val();
+		var data = JSON.parse($json4);
+		console.log(data);
+	});
+	</script>
+	<pre class="pre1"><code>
+		$json4 = $('#json4').val();
+		var data = JSON.parse($json4);
+		console.log(data);
+	</code></pre>
+	<pre><code>Object {1: "&lt;", 2: "&gt;", 3: """, 4: "'", 5: "&amp;", 6: "/", 7: "&yen;"}</code></pre>
+	<br>
+	
+	<a href="/sample/php/a020/json_and_char_symbol/json_and_char_symbol.php" class="btn btn-info">詳細検証</a><br>
+	<br>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<hr>
+	
+	<div style="padding:10px;background-color:#e2faee;border-radius:5px;">
+	<p>json_encodeの第2引数にtrue</p>
+	json_encodeの第2引数にtrueを指定した場合、「&lt;&gt;」記号を含むデータも、JavaScriptでJSONパースすることができる。<br>
+	falseを指定、もしくは省略するとJavaScriptでJSONパースエラーが起こってしまう。<br>
+	どうやらtrue,falseの違いは、「&lt;&gt;」記号をエンコードするか、しないか、であるらしい。<br>
+	<br>
+	php
+	<pre>
+	&lt;?php 
+		$data2 = array('cat'=&gt;'大猫','dog'=&gt;'big_doc<strong>&lt;</strong>input /<strong>&gt;</strong>','iguana'=&gt;"big<strong>&yen;n</strong>iguana");
+		$json2 = json_encode($data2,<strong>true</strong>);
+		echo "&lt;div id='json2'&gt;{$json2}&lt;/div&gt;";
+	?&gt;
+	</pre>
+	JavaScript
+	<pre>
+		var json1 = $('#json2').html();
+		var data1 = JSON.parse(json2);
+	</pre>
+	<a href="/sample/php/a010/json_verification/json_verification.php" class="btn btn-info btn-xs">検証</a>
+	<br>
+	<time>2017-2-8</time>
+	</div>
+	<br>
+	
+	<p>JavaScriptのパースについて</p>
+	<pre>
+	var data=$.parseJSON(json_str);//JSONパース(jQuery版）
+	var data = JSON.parse(json_str);//JSONパース（JSONデコード）
+	var json_str = JSON.stringify(data);//JSONエンコード
+	</pre>
+	<aside>
+	※dataは連想配列（オブジェクト）<br>
+	※JSON.stringifyはオブジェトだけでなく通常の配列もJSON化可能。<br>
+	</aside>
+	<br>
+	
+	<time>2013-9-3 | 2017-6-28</time>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9" class="sec1">
+	<h3>テキストファイルから文字列を読み取る</h3>
+	
+	
+	テキストファイルの内容を取得するサンプル
+	<pre><code>
+	
+		$fn="test.txt";
+		$str=load($fn);
+		echo $str;
+	
+		/**
+		 * テキストファイル内の文字列を取得
+		 *
+		 * @param $txtFn テキストファイル名
+		 * @return テキストファイル内の文字列（改行は\n)
+		 */
+		function load($fn) {
+		
+			// 引数のiniファイル名が空、もしくは存在しなければ、なら、nullを返して終了
+			if (! $fn) {
+				return null;
+			}
+		
+			$str = null;
+			$fn=mb_convert_encoding($fn,'SJIS','UTF-8');
+			if (!is_file($fn)){
+				return null;
+			}
+		
+			if ($fp = fopen ( $fn, "r" )) {
+				$data = array ();
+				while ( false !== ($line = fgets ( $fp )) ) {
+					$str .= mb_convert_encoding ( $line, 'utf-8', 'utf-8,sjis,euc_jp,jis' );
+				}
+			}
+			fclose ( $fp );
+		
+			return $str;
+		}
+	
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	2014-07-22 11:20:58
+	いろはにほへとちりぬのを
+	わかよたれそつねならむ
+	うゐのおくやま けふこえて
+	あさきゆめみし ゑひもせす
+	</pre>
+	
+	<br><time>2013-9-3 | 2016-8-24</time>
+</div><!-- sec1 -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9-2" class="sec1">
+	<h3>文字列をテキストファイルに書き出す</h3>
+	
+	文字列をテキストファイルに書き出すサンプル。<br>
+	<br>
+	
+	書き出し先にあらかじめテキストファイルを作成する必要はない。<br>
+	テキストファイルが存在しないなら新規作成し、存在しないなら<strong>上書き</strong>する。<br>
+	上書きする場合、テキストファイルの内容を一旦消去してから、新たに書き出す。<br>
+	<br>
+	
+	複数行の文字列を書きだす場合、改行コードには「\r\n」を推奨する。<br>
+	文字コードはPHP環境に依存している。utf8を設定しているなら、テキストファイルの文字もutf8である。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	/**
+	 * 文字列テキストファイルに書き出す
+	 *
+	 * @param $txtFn テキストファイル名
+	 * @param $str 文字列
+	 */
+	function writeTextFile($txtFn, $str) {
+	
+		// ファイルを追記モードで開く
+		$fp = fopen ( $txtFn, 'ab' );
+	
+		// ファイルを排他ロックする
+		flock ( $fp, LOCK_EX );
+	
+		// ファイルの中身を空にする
+		ftruncate ( $fp, 0 );
+	
+		// データをファイルに書き込む
+		fwrite ( $fp, $str );
+	
+		// ファイルを閉じる
+		fclose ( $fp );
+	}
+	</code></pre>
+	<br>
+	
+
+	
+	<br><time>2016-8-24</time>
+</div><!-- sec1 -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9-3" class="sec1">
+	<h3>ファイルのソースコードを取得する</h3>
+	
+	PHPファイルのソースコードを文字列として取得することができる。<br>
+	フルパス（Windows環境のパス）を指定しているため、システム稼働中のPHPファイルでも取得可能である。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	// 対象ファイルのフルパスを作成
+	define('DS', DIRECTORY_SEPARATOR);
+	$fp = dirname(__FILE__).DS.'sample'.DS.'NekoController.php';
+	
+	// 対象ファイルのソースコードを取得する
+	$text = load($fp);
+	echo $text;
+	
+	
+	function load($fn) {
+	
+		// 引数のiniファイル名が空、もしくは存在しなければ、なら、nullを返して終了
+		if (! $fn) {
+			return null;
+		}
+	
+		$str = null;
+		$fn=mb_convert_encoding($fn,'SJIS','UTF-8');
+		if (!is_file($fn)){
+			return null;
+		}
+	
+		if ($fp = fopen ( $fn, "r" )) {
+			$data = array ();
+			while ( false !== ($line = fgets ( $fp )) ) {
+				$str .= mb_convert_encoding ( $line, 'utf-8', 'utf-8,sjis,euc_jp,jis' );
+			}
+		}
+		fclose ( $fp );
+	
+		return $str;
+	}
+	
+	</code></pre>
+	<br>
+	
+
+	
+	<br><time>2016-8-23</time>
+</div><!-- sec1 -->
+
+
+
+
+
+
+
+
+
+
+<div class="sec1">
+
+テキストファイルに書き出すサンプル<br>
+<pre>
+
+	$fn="test.txt";
+	$d=date("Y-m-d H:i:s");
+	$str=$d."\nいろはにほへとちりぬのを\nわかよたれそつねならむ\nうゐのおくやま けふこえて\nあさきゆめみし ゑひもせす\n";
+	save($fn,$str);//★
+
+
+	/**
+	 * テキストファイルに書き出して保存
+	 *
+	 * @param $txtFn テキストファイル名
+	 * @param $str 文字列
+	 * @return なし
+	 */
+	function save($txtFn, $str) {
+
+		// ファイルを追記モードで開く
+		$fp = fopen ( $txtFn, 'ab' );
+
+		// ファイルを排他ロックする
+		flock ( $fp, LOCK_EX );
+
+		// ファイルの中身を空にする
+		ftruncate ( $fp, 0 );
+
+		// データをファイルに書き込む
+		fwrite ( $fp, $str );
+
+		// ファイルを閉じる
+		fclose ( $fp );
+	}
+
+</pre>
+
+</div><!-- sec1 -->
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-10" class="sec1">
+	<h3>文字列を指定文字で分割(split,preg_split,explode)</h3>
+	正規表現で文字を分割する場合は、preg_split関数を使い、
+	ただの文字で分割する場合は、より高速なexplode関数を使う。<br>
+	普段はexplode関数を使うことが多いと思われる。<br>
+	ちなみに、splitはPHP5.3以降は非推奨となっている。<br>
+	<br>
+	■explode<br>
+	配列=explode ( 分割文字 , 対象文字 ,分割数 );<br>
+	※分割数は省略可。<br>
+	<pre>
+	$ary=explode(",","猫,犬,たぬき");
+	</pre>
+
+	<a href="http://php.net/manual/ja/function.split.php">splitについての公式サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-11" class="sec1">
+	<h3>空判定について</h3>
+				<table border="1">
+					<thead><tr>
+						<th>空値の種類</th><th>empty</th><th>isset</th><th>is_null</th>
+						<th>== ""</th><th>== null</th><th>== false</th><th>== 0</th>
+						<th>=== ""</th><th>=== null</th><th>=== false</th><th>=== 0</th>
+						</tr></thead>
+					<tbody>
+						<tr><td>""</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td></tr>
+<tr><td>null</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td></tr>
+<tr><td>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td></tr>
+<tr><td>0.0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td></tr>
+<tr><td>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td></tr>
+<tr><td>array()</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td></tr>
+<tr><td>未宣言</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#16458e'>1</td><td style='color:#ef6756'>0</td><td style='color:#ef6756'>0</td></tr>
+					</tbody>
+				</table>
+				※未宣言の変数はemptyとisset以外だと警告が表示される。
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-12" class="sec1">
+	<h3>配列から重複を削除</h3>
+	array_uniqueを使うと配列の重複値を簡単に削除できる。
+	<pre>
+	$ary=array_unique($ary);
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-13" class="sec1">
+	<h3>配列のソート</h3>
+	PHPの配列ソートはいくつか種類があるば、よく使うと思われるものを以下に示す。<br>
+	<br>
+	<table border="1"><tbody>
+	<tr><td>sort</td><td>昇順ソート</td><td>キーは無視（再度、0,1,2...のように割り振られる）</td></tr>
+	<tr><td>srsort</td><td>降順ソート</td><td>キーは無視</td></tr>
+	<tr><td>sasort</td><td>昇順ソート</td><td>キーも維持する。</td></tr>
+	<tr><td>sarsort</td><td>降順ソート</td><td>キーも維持する。</td></tr>
+	</tbody></table>
+	<br><br>
+
+	使用例
+	<pre>
+	sort($ary);
+	</pre>
+
+	他にもソート関連の関数は存在する。<br>
+	<a class="ref_link" href="http://php.net/manual/ja/array.sorting.php">参照URL</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-14" class="sec1" >
+	<h3>2次元配列のソート</h3>
+	array_multisort関数は多次元配列によるソートを可能とする。<br>
+
+	<pre>
+	$data=array(
+		array(
+			'id'=&gt;3,
+			'name'=&gt;'オオヒラタクワガタ',
+			'kind'=&gt;'クワガタ',
+			'date'=&gt;'2012/12/12',
+		),
+		array(
+				'id'=&gt;2,
+				'name'=&gt;'リュウキュウカブト',
+				'kind'=&gt;'カブト',
+				'date'=&gt;'2012/12/15',
+		),
+		array(
+				'id'=&gt;1,
+				'name'=&gt;'タイワンカブト',
+				'kind'=&gt;'カブト',
+				'date'=&gt;'2012/12/2',
+		),
+		array(
+				'id'=&gt;5,
+				'name'=&gt;'ノコギリクワガタ',
+				'kind'=&gt;'クワガタ',
+				'date'=&gt;'2012/12/3',
+		),
+		array(
+				'id'=&gt;6,
+				'name'=&gt;'アカアシクワガタ',
+				'kind'=&gt;'クワガタ',
+				'date'=&gt;'2012/12/22',
+		),
+	);
+	</pre>
+
+	ソート前のデータ<br><table border='1'>
+	<thead><tr><th>id</th><th>name</th><th>kind</th><th>date</th></tr></thead>
+	<tbody>
+	<tr><td>3</td><td>オオヒラタクワガタ</td><td>クワガタ</td><td>2012/12/12</td></tr>
+	<tr><td>2</td><td>リュウキュウカブト</td><td>カブト</td><td>2012/12/15</td></tr>
+	<tr><td>1</td><td>タイワンカブト</td><td>カブト</td><td>2012/12/2</td></tr>
+	<tr><td>5</td><td>ノコギリクワガタ</td><td>クワガタ</td><td>2012/12/3</td></tr>
+	<tr><td>6</td><td>アカアシクワガタ</td><td>クワガタ</td><td>2012/12/22</td></tr>
+	<tbody>
+	</table><hr>
+
+
+	<pre>
+	//IDで昇順ソート
+	$ids=array();
+	foreach($data as $key=&gt; $ent){
+		$ids[$key]=$ent['id'];
+	}
+ 	array_multisort($ids,SORT_ASC,$data);
+	</pre>
+	<table border='1'>
+	<thead><tr><th>id</th><th>name</th><th>kind</th><th>date</th></tr></thead>
+	<tbody>
+	<tr><td>1</td><td>タイワンカブト</td><td>カブト</td><td>2012/12/2</td></tr>
+	<tr><td>2</td><td>リュウキュウカブト</td><td>カブト</td><td>2012/12/15</td></tr>
+	<tr><td>3</td><td>オオヒラタクワガタ</td><td>クワガタ</td><td>2012/12/12</td></tr>
+	<tr><td>5</td><td>ノコギリクワガタ</td><td>クワガタ</td><td>2012/12/3</td></tr>
+	<tr><td>6</td><td>アカアシクワガタ</td><td>クワガタ</td><td>2012/12/22</td></tr>
+	<tbody>
+	</table><hr>
+
+
+	<pre>
+	//kindで降順ソート且つ、nameで昇順ソート
+	$kinds=array();
+	$dates=array();
+	foreach($data as $key=&gt; $ent){
+		$kinds[$key]=$ent['kind'];
+		$names[$key]=$ent['name'];
+	}
+ 	array_multisort($kinds,SORT_DESC,$names,SORT_ASC,$data);
+	</pre>
+	<table border='1'>
+	<thead><tr><th>id</th><th>name</th><th>kind</th><th>date</th></tr></thead>
+	<tbody>
+	<tr><td>6</td><td>アカアシクワガタ</td><td>クワガタ</td><td>2012/12/22</td></tr>
+	<tr><td>3</td><td>オオヒラタクワガタ</td><td>クワガタ</td><td>2012/12/12</td></tr>
+	<tr><td>5</td><td>ノコギリクワガタ</td><td>クワガタ</td><td>2012/12/3</td></tr>
+	<tr><td>1</td><td>タイワンカブト</td><td>カブト</td><td>2012/12/2</td></tr>
+	<tr><td>2</td><td>リュウキュウカブト</td><td>カブト</td><td>2012/12/15</td></tr>
+	<tbody>
+	</table><hr>
+
+
+	<a class="ref_link" href="http://www.multiburst.net/sometime-php/2008/05/php_1/">参考サイト</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/array_multisort/array_multisort.php">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-14-2" class="sec1" >
+	<h3>2次元配列のソート：特定のフィールドでデータを並べ替える関数</h3>
+	
+	<strong>sortData</strong>関数は、フィールド名と並び向きを指定して、データを並べ替える関数である。<br>
+	<br>
+
+	ソースコード
+	<pre><code>
+	$data = [
+		['id'=&gt;0,'animal_name'=&gt;'ネコ'],
+		['id'=&gt;1,'animal_name'=&gt;'ヤギ'],
+		['id'=&gt;2,'animal_name'=&gt;'カニ'],
+		['id'=&gt;3,'animal_name'=&gt;'サメ'],
+	];
+	
+	$data = <strong>sortData</strong>($data,'animal_name',0);
+	var_dump($data);
+	
+	/**
+	 * 特定のフィールドでデータを並べ替える
+	 * @param array $data データ（2次元配列）
+	 * @param strong $sortField 並べ替えフィールド名
+	 * @param int $orderFlg 0:昇順  , 1:降順
+	 */
+	function <strong>sortData</strong>($data,$sortField,$orderFlg){
+		$sfList=array();// ソートフィールドリスト
+		foreach($data as $key=&gt; $ent){
+			$sfList[$key]=$ent[$sortField];
+		}
+	
+		$sortFlg = SORT_ASC;
+		if(!empty($orderFlg)){
+			$sortFlg = SORT_DESC;
+		}
+	
+		array_multisort($sfList,$sortFlg,$data);
+	
+		return $data;
+	}
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data"><code>
+	array (size=4)
+	  0 => 
+	    array (size=2)
+	      'id' => int 2
+	      'animal_name' => string 'カニ' (length=6)
+	  1 => 
+	    array (size=2)
+	      'id' => int 3
+	      'animal_name' => string 'サメ' (length=6)
+	  2 => 
+	    array (size=2)
+	      'id' => int 0
+	      'animal_name' => string 'ネコ' (length=6)
+	  3 => 
+	    array (size=2)
+	      'id' => int 1
+	      'animal_name' => string 'ヤギ' (length=6)
+	</code></pre>
+	<br>
+	
+	<?php 
+	// $data = [
+	// 	['id'=>0,'animal_name'=>'ネコ'],
+	// 	['id'=>1,'animal_name'=>'ヤギ'],
+	// 	['id'=>2,'animal_name'=>'カニ'],
+	// 	['id'=>3,'animal_name'=>'サメ'],
+	// ];
+	
+	// $data = sortData($data,'animal_name',0);
+	// var_dump($data);
+	
+	// /**
+	//  * 特定のフィールドでデータを並べ替える
+	//  * @param array $data データ（2次元配列）
+	//  * @param strong $sortField 並べ替えフィールド名
+	//  * @param int $orderFlg 0:昇順   ,  1:降順
+	//  */
+	// function sortData($data,$sortField,$orderFlg){
+	// 	$sfList=array();// ソートフィールドリスト
+	// 	foreach($data as $key=> $ent){
+	// 		$sfList[$key]=$ent[$sortField];
+	// 	}
+	
+	// 	$sortFlg = SORT_ASC;
+	// 	if(!empty($orderFlg)){
+	// 		$sortFlg = SORT_DESC;
+	// 	}
+	
+	// 	array_multisort($sfList,$sortFlg,$data);
+	
+	// 	return $data;
+	// }
+	?>
+	
+	
+	
+	<br><aside>検証：PHP 5.6</aside>
+	<time>2013-9-3 | 2016-8-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-15" class="sec1" >
+
+
+	<h3>多次元配列のマージ</h3>
+
+
+	<br>
+	他のマージ関数について<br>
+	<table border="1"><thead>
+		<tr>
+			<th>関数</th>
+			<th>説明</th>
+			<th>例</th>
+		</tr></thead>
+		<tbody>
+			<tr>
+				<td>array_merge()</td>
+				<td>キーが文字列であるなら上書きするが、キーが数値であるなら追加になる。</td>
+				<td><pre>$ary1=array_merge($ary1,$ary2);
+// ※$ary1に$ary2を上書き</pre></td>
+			</tr>
+			<tr>
+				<td>array_merge_recursive()</td>
+				<td>上書きでなく追加である。同じキーの値は配列にしてしまう。</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Hash::merge() </td>
+				<td>キーが文字列、数値にかかわらず完全な上書き。<br>
+				Cakeの環境があるなら「Hash::merge」が一番良い。完全な上書きであるため。</td>
+				<td><pre>$ary1=Hash::merge($ary1,$ary2);</pre></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a class="ref_link" href="http://www.tam-tam.co.jp/tipsnote/program/post4067.html">参考サイト</a>
+	
+	<br><time>2013-9-3 | 2017-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-16" class="sec1" >
+	<h3>日付フォーマット変換</h3>
+	サンプルコード<br>
+	<pre>
+
+	$d='2012/2/29';
+
+	//日付フォーマット変換
+	$d2=date('Y-m-d',strtotime($d));
+
+	//出力→ 2012-02-29
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/date_format_convert/date_format_convert.php" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-17" class="sec1" >
+	<h3>改行コードを&lt;br&gt;タグに変換    nl2br()</h3>
+	\n,\r,\n\rなどの改行コードを&lt;br&gt;タグに置換します。
+	<pre>
+	//変換前
+	$str="いろはにほへとちりぬのを\nわかよたれそつねならむ\rうゐのおくやま けふこえて\n\rあさきゆめみしゑひもせす";
+
+	//変換後
+	$str2=nl2br($str);
+
+	</pre>
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/nl2br_test/nl2br_test.php" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-18" class="sec1" >
+	<h3>時刻フォーマット変換</h3>
+	時刻フォーマットは日付フォーマットと同様な方法でできる。<br>
+	サンプルコード<br>
+	<pre>
+
+	$t='4:20:00';
+
+	//日付フォーマット変換
+	$t2=date('H:i',strtotime($t));
+	echo $t2;
+
+	//出力→ 04:20
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-19" class="sec1" >
+	<h3>配列の先頭と最後を取得する</h3>
+	配列から最初の要素を取得する場合、reset()関数を使う。<br>
+	最後の要素を取得する場合はend()関数を使う。<br>
+	<br><br>
+	最初の要素を取得する場合。<br>
+	<pre>$v=reset($ary);</pre>
+	<div class="hosoku">※$v=「$ary[0];」と同等の意味合いを持つ。</div>
+	<a class="ref_link" href="http://php.net/manual/ja/function.reset.php">ドキュメント</a>
+	<br><br><br><br>
+	最後の要素を取得する場合<br>
+	<pre>$v=end($ary)</pre>
+	<div class="hosoku">※参照渡しである</div>
+	<a class="ref_link" href="http://jp1.php.net/manual/ja/function.end.php">ドキュメント</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-20" class="sec1" >
+	<h3>小数点の四捨五入、切上げ、切捨て</h3>
+
+	<table border="1"><thead>
+		<tr>
+			<th>関数名</th>
+			<th>説明</th>
+			<th>使用例</th>
+			<th>ドキュメント</th>
+		</tr></thead>
+		<tbody>
+			<tr>
+				<td>round</td>
+				<td>四捨五入する。オプションで桁指定もできる。</td>
+				<td>$a=round(3.14);<br>
+					//$a=3</td>
+				<td><a class="ref_link" href="http://jp1.php.net/manual/ja/function.round.php">ドキュメント</a></td>
+			</tr>
+			<tr>
+				<td>ceil</td>
+				<td>小数点切り上げ</td>
+				<td>$a=ceil(3.14);<br>
+					//$a=4</td>
+				<td><a class="ref_link" href="http://jp1.php.net/manual/ja/function.ceil.php">ドキュメント</a></td>
+			</tr>
+			<tr>
+				<td>floor</td>
+				<td>小数点切り捨て</td>
+				<td>$a=floor(3.14);<br>
+					//$a=3</td>
+				<td><a class="ref_link" href="http://jp1.php.net/manual/ja/function.floor.php">ドキュメント</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="hosoku">※返り値の型はいずれもfloat型である</div>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div><!-- content -->
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+</ol>
+<div id="footer">(C) kenji uehara 2013/09/03</div>
+</body>
+</html>

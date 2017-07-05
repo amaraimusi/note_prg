@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>PHPの覚書 | ワクガンス</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<h1 id="header">PHPの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-1" class="sec1" >
+	<div class="title">暗号化関数の拡張版 md5Ex</div>
+	
+	md5関数では破られる可能性があるため、この関数はより暗号強化している。<br>
+	md5関数と同様に、パスワードなど秘密文字をGET,POST,登録確認キーなどに利用する。<br>
+	なお、複合化はできない。<br>
+	<br>
+	
+	<pre>
+	/**
+     * 拡張暗号化
+     * MD5関数では破られる可能性があるため、この関数はより暗号強化している。
+     * なお複合化（戻し）はできない。
+     * 
+     * @param $pw パスワードなど秘密の文字
+     * @param $dummy1 任意の文字列1
+     * @param $dummy2 任意の文字列2
+     * 
+     */
+    function md5Ex($pw,$dummy1='nL7q',$dummy2='ho48j4P'){
+    	
+    	$pw2 = MD5($pw);
+    	$pw3 = $dummy1.$pw2.$dummy2;
+    	$pw4 = hash('sha256',$pw3);
+    	
+    	return $pw4;
+
+    }
+	</pre>
+	<a href="http://rasukaru55.sitemix.jp/matome3.php" class="ref_link" target="brank" >参考：PHPで覚えておくと便利な関数まとめ３</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-2" class="sec1" >
+	<div class="title">日時入力チェックのバリデーション</div>
+	
+	<pre>
+	/**
+	 * 日時入力チェックのバリデーション
+	 * ※日付のみあるいは時刻は異常と見なす。
+	 * @param $strDateTime	日時文字列
+	 * @param $reqFlg	必須許可フラグ
+	 * @return boolean	true:正常　　　false:異常
+	 * @date 2015-10-5	改良
+	 */
+	function isDatetime($strDateTime,$reqFlg){
+
+		//空値且つ、必須入力がnullであれば、trueを返す。
+		if(empty($strDateTime) &amp;&amp; empty($reqFlg)){
+			return true;
+		}
+		
+		//空値且つ、必須入力がtrueであれば、falseを返す。
+		if(empty($strDateTime) &amp;&amp; !empty($reqFlg)){
+			return false;
+		}
+	
+	
+		//日時を　年月日時分秒に分解する。
+		$aryA =preg_split( '|[ /:_-]|', $strDateTime );
+		if(count($aryA)!=6){
+			return false;
+		}
+		
+		foreach ($aryA as $key =&gt; $val){
+				
+			//▼正数以外が混じっているば、即座にfalseを返して処理終了
+			if (!preg_match("/^[0-9]+$/", $val)) {
+				return false;
+			}
+			
+		}
+		
+		//▼グレゴリオ暦と整合正が取れてるかチェック。（閏年などはエラー） ※さくらサーバーではemptyでチェックするとバグになるので注意。×→if(empty(checkdate(12,11,2012))){・・・}
+		if(checkdate($aryA[1],$aryA[2],$aryA[0])==false){
+			return false;
+		}
+	
+		//▼時刻の整合性をチェック
+		if($aryA[3] &lt; 0 || $aryA[3] &gt; 23){
+			return false;
+		}
+		if($aryA[4] &lt; 0 ||  $aryA[4] &gt; 59){
+			return false;
+		}
+		if($aryA[5] &lt; 0 || $aryA[5] &gt; 59){
+			return false;
+		}
+		
+		return true;
+	}
+	</pre>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/validation/is_datetime.php" class="ref_link"  >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-3" class="sec1" >
+	<div class="title">現在のUNIXタイムスタンプを取得 | time()</div>
+	
+	<pre>
+	$u=time();//現在のUNIXタイムスタンプを取得
+	$d=date("Y-m-d H:i:s",$u);//フォーマット変換
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-4" class="sec1" >
+	<div class="title">数日後、数年前、数秒後などの日付を取得する</div>
+	
+	<p>基本型</p>
+	<pre class="kata">$date2 = date('Y-m-d', strtotime("3 day", strtotime($date1)));</pre>
+	<br>
+	
+	<p>年月日時分秒を検証</p>
+	数日後、数日前、数年後、数ヶ月後、数時間後、数分後、数秒後を取得する。
+	<pre>
+	$date1='2016-6-15 01:02:03';
+	echo "基準日：".$date1.'&lt;br&gt;';
+	
+	// ３日後を取得
+	$date2 = date('Y-m-d', strtotime("<strong>3 day</strong>", strtotime($date1)));
+	echo "３日後：".$date2.'&lt;br&gt;';
+	
+	// ３日前を取得
+	$date2 = date('Y-m-d', strtotime("-3 day", strtotime($date1)));
+	echo "３日前：".$date2.'&lt;br&gt;';
+	
+	// ３年後を取得
+	$date2 = date('Y-m-d', strtotime("3 year", strtotime($date1)));
+	echo "３年後：".$date2.'&lt;br&gt;';
+	
+	// ３月後を取得
+	$date2 = date('Y-m-d', strtotime("3 month", strtotime($date1)));
+	echo "３月後：".$date2.'&lt;br&gt;';
+	
+	// ３時間後を取得
+	$date2 = date('Y-m-d H:i:s', strtotime("3 hour", strtotime($date1)));
+	echo "３時間後：".$date2.'&lt;br&gt;';
+	
+	// ３分後を取得
+	$date2 = date('Y-m-d H:i:s', strtotime("3 minute", strtotime($date1)));
+	echo "３分後：".$date2.'&lt;br&gt;';
+	
+	// ３秒後を取得
+	$date2 = date('Y-m-d H:i:s', strtotime("3 second", strtotime($date1)));
+	echo "３秒後：".$date2.'&lt;br&gt;';
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	基準日：2016-6-15 01:02:03
+	３日後：2016-06-18
+	３日前：2016-06-12
+	３年後：2019-06-15
+	３月後：2016-09-15
+	３時間後：2016-06-15 04:02:03
+	３分後：2016-06-15 01:05:03
+	３秒後：2016-06-15 01:02:06
+	</pre>
+	<br>
+
+	<p>閏年の検証</p>
+	2016-2-29から3年後の場合、2016-3-1になる。<br>
+	<br>
+	<hr>
+	
+	
+	<p>旧式</p>
+	指定日から数日後を取得する
+	<pre>
+	$date1='2012-12-1 01:02:03';
+	$date2 = fewDaysLater($date1,100);
+	echo '指定日：'.$date1.'&lt;br&gt;';
+	echo '数日後：'.$date2.'&lt;br&gt;';
+	
+	/**
+	 * 指定日から数日後を取得する
+	 * 
+	 * @param string or date $date1 指定日。
+	 * @param int $dayCnt 経過日数。負値で以前の日を取得できる。
+	 * @param string $format 日付フォーマット。省略可能。
+	 * @return string 数日後の日付
+	 */
+	function fewDaysLater($date1,$dayCnt,$format='Y-m-d'){
+		$u1=strtotime($date1);//UNIXタイムスタンプに変換
+		$du = 86400 * $dayCnt;
+		$u2 = $u1 + $du;
+		$d2=date($format,$u2);//日時フォーマット変換
+		return $d2;
+	}
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	指定日：2012-12-1 01:02:03
+	数日後：2013-03-11
+	</pre>
+	<br>
+	<hr>
+	
+	<p>旧式：日時に1時間を加算する例</p>
+	日時をUNIXタイムスタンプに変換してから加算を行う。
+	<pre>
+	$d1='2012-12-1 01:02:03';
+	$u1=strtotime($d1);//UNIXタイムスタンプに変換
+	$h1=3600;//加算する値（1時間＝3600秒）
+	$u2=$u1 + $h1;//加算
+	$d2=date("Y-m-d H:i:s",$u2);//日時フォーマット変換
+
+	//↓出力
+	//'$d1=2012-12-1 01:02:03'
+	//'$d2=2012-12-01 02:02:03'
+	</pre>
+	
+	<time>2016-6-15</time>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-5" class="sec1" >
+	<div class="title">chaekdate関数の要注意バグ</div>
+	checkdate実在する日付かどうか調べることができます。<br>
+	閏年（2/29）にも対応しています。<br>
+	<pre>bool checkdate ( int $month , int $day , int $year )</pre>
+	<hr>
+	
+	<strong>checkdate関数をemptyで判定するとバグになる</strong><br>
+	emptyを使った判定には注意が必要です。PHPのバージョンによって動く場合と動かない場合があります。<br>
+	しかもエラー出力があいまいであり、原因特定に手間がかかってしまいます。<br>
+	ローカル環境で動くがサーバー環境では動かず原因もよく分からない、という事態になりかねないので、
+	必ずfalseによる比較を行うようにします。<br>
+	さくらサーバーではエラーになることを確認済みです。（2015年10月時点）<br>
+	<br>
+	正しい判定方法<br>
+	<pre>
+	if(checkdate($month,$day,$year])<span class="marker">==false</span>){
+		//日付でない場合の処理
+	}
+	</pre>
+	
+	<br>
+	PHPのバージョンによって動いたり、エラーになったりする危険な判定方法。<br>
+	<pre>
+	//×危険
+	if(<span class="marker">empty</span>(checkdate($month,$day,$year])){
+		//日付でない場合の処理
+	}
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-6" class="sec1" >
+	<div class="title">遷移元URLであるリファラを取得する | $_SERVER['HTTP_REFERER']</div>
+	遷移元URLであるリファラを取得するコード
+	<pre>$referer=$_SERVER['HTTP_REFERER'];</pre>
+	クロスドメインでもアクセス元のリファラを取得できる。
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-7" class="sec1" >
+	<div class="title">URLからドメイン、パス、クエリ、ポート番号などを取得する | parse_url</div>
+	parse_url関数でドメイン、パス、クエリ、ポート番号などを取得できる。
+	<hr>
+	サンプルURL:
+	<pre>http://user_name99:pass_word99@www.example.com:8080/animals/neko?id=99&amp;xx=88#kani</pre>
+	<table class="table table-bordered">
+	<thead><tr><th>URLの部位名</th><th>コード</th><th>取得例</th></tr></thead>
+	<tbody>
+		<tr><td>プロトコル名</td><td>$url_scheme=parse_url($url_a,PHP_URL_SCHEME);</td><td>http</td></tr>
+		<tr><td>FQDN(ホスト.ドメイン)</td><td>$url_host=parse_url($url_a,PHP_URL_HOST);</td><td>www.example.com(wwwはホスト、example.comはドメイン）</td></tr>
+		<tr><td>パス</td><td>$url_path=parse_url($url_a,PHP_URL_PATH);</td><td>/animals/neko</td></tr>
+		<tr><td>クエリ</td><td>$url_query=parse_url($url_a,PHP_URL_QUERY);</td><td>id=99&amp;xx=88</td></tr>
+		
+		<tr><td>ポート番号</td><td>$url_port=parse_url($url_a,PHP_URL_PORT);</td><td>8080</td></tr>
+		<tr><td>フラグメント識別子</td><td>$url_fragment=parse_url($url_a,PHP_URL_FRAGMENT);</td><td>kani</td></tr>
+		
+		<tr><td>ユーザー</td><td>$url_user=parse_url($url_a,PHP_URL_USER);</td><td>user_name99</td></tr>
+		<tr><td>パスワード</td><td>$url_pass=parse_url($url_a,PHP_URL_PASS);</td><td>pass_word99</td></tr>
+	</tbody>
+</table>
+<aside>
+※FQDNとはホストとドメインを合わせた名前である。「Fully Qualified Domain Name」の略。<br>
+また、「プロトコル＋ドメイン＋ポート番号」でオリジンと呼ぶ。<br>
+</aside>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/url/parse_url_test.php" class="ref_link"  >サンプル</a>
+</div>
+
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-8" class="sec1" >
+	<div class="title">英数字のランダム文字列を生成する</div>
+	
+	<pre>
+	/**
+	 * 英数字のランダム文字列を生成する
+	 * @param $length: ランダム文字数
+	 * @return 英数字のランダム文字列
+	 */
+	function makeRandStr($length) {
+		$str = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
+		$r_str = null;
+		for ($i = 0; $i &lt;; $length; $i++) {
+			$r_str .= $str[rand(0, count($str))];
+		}
+		return $r_str;
+	}
+	</pre>
+	<a href="http://ameblo.jp/linking/entry-10289895826.html" class="ref_link" target="brank" >ソースコード元：ピグの部屋</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-9" class="sec1" >
+	<div class="title">ホスト（ドメイン）からハッシュを作成する</div>
+	遷移元のURLからホストを抜き出しハッシュを生成する。<br>
+	<br>
+	ソースコード<br>
+	<pre>
+		$url=$_SERVER['HTTP_REFERER'];//遷移元URLを取得
+		$url_host=parse_url($url,PHP_URL_HOST);//ホストを抜き出す。
+		$hash = hash('sha256',MD5($url_host));
+		
+		echo 'URL = '.$url.'&lt;;br&gt;;';
+		echo 'HOST = '.$url_host.'&lt;;br&gt;;';
+		echo 'HASH = '.$hash.'&lt;;br&gt;;';
+	</pre>
+	<pre class="console">
+	URL = http://amaraimusi.sakura.ne.jp/sample/php/index.html
+	HOST = amaraimusi.sakura.ne.jp
+	HASH = 0cf96c2702ef8e3a1c2369387363f52c78d957875c80ddd305c954ce57192081
+	</pre>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/hash/host_to_hash.php" class="ref_link"  >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-10" class="sec1" >
+	<div class="title">連想配列をインデック型である普通の配列に変換する | array_values</div>
+	ソースコード
+	<pre>
+	$ary=array(
+		'neko'=>'ネコ',
+		'yagi'=>'ヤギ',
+		'kani'=>'カニ',
+		'same'=>'サメ',
+	);
+	$ary2=<strong>array_values</strong>($ary);
+	Debugger::dump($ary2);
+	</pre>
+	
+	出力→$ary2<br>
+	<pre class="console">
+	array(
+		(int) 0 => 'ネコ',
+		(int) 1 => 'ヤギ',
+		(int) 2 => 'カニ',
+		(int) 3 => 'サメ'
+	)
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-0" class="sec1" style="display:none">
+	<div class="title">TEST</div>
+	テスト
+	<pre>
+	</pre>
+	<a href="#" class="ref_link" target="brank" >XXX</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+		</div><!-- content -->
+		<div class="yohaku"></div>
+		<ol class="breadcrumb">
+			<li><a href="/">ホーム</a></li>
+			<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+			<li><a href="/note_prg/php">PHPの覚書</a></li>
+		</ol>
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+	</body>
+</html>

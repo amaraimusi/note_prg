@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　Zen Codingの覚書 | Emmet</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+		<script>
+	
+		</script>
+		
+		<style>
+			#content{
+				margin-left:20px;
+			}
+			
+			.link_large li{
+				margin-bottom:40px;
+			}
+			
+			.short_code{
+				display:inline-block;
+				padding-left:10px ;
+				padding-right:10px ;
+				margin-bottom:2px;
+				border-radius:5px;
+				background-color:#384f70;
+				color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="header">Zen Codingの覚書 | Emmet</h1>
+		<div class="container" >
+
+
+
+
+			
+
+
+
+
+
+
+<a href="http://emmet.io/" target="brank">公式サイト  Emmet</a>
+
+<h2>目次</h2>
+<ol>
+	<li><a href="#s1">Zen Codingの概要</a></li>
+	<li><a href="#s2">EclipseにEmmet(Zen Coding)をインストールする手順</a></li>
+	<li><a href="#s3">基本的な使い方</a></li>
+	<li><a href="#s4">選択文字にマークアップを付け加える</a></li>
+	<li><a href="#s5">関連付けるファイルの種類（拡張子）を追加</a></li>
+</ol>
+
+
+
+
+
+
+
+<div id="s1" class="sec4">
+	<h3>Zen Codingの概要</h3>
+	
+	Zen Codingはhtmlのマークアップを入力支援するツールである。<br>
+	短いコード書きTabキーを押すだけでhtmlコードを書きだせる。<br>
+	Eclipseのプラグインとして使う。<br>
+	なお現在は、「Emmet」という名称のようである。
+	<br>
+	
+	<p>使い方</p>
+	<ul>
+		<li>適当なhtmlファイルを開く。</li>
+		
+		<li>
+			「ul&gt;li」を入力しTabキーを押す。
+			<pre>ul&gt;li</pre>
+		</li>
+		
+		<li>
+			下記のようなul要素の骨組みに変換される。
+			<pre>
+&lt;ul&gt;
+	&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+			</pre>
+		</li>
+	</ul>
+	<br>
+
+	
+	<br>
+	htmlファイルだけでなく、xml、phpなどにも対応している。<br>
+	また、Zen CodingはEclipseだけでなく、Visual Studio,EmEditor,サクラエディタなどいくつかのソフトウェアにも対応している。<br>
+	<br>
+	
+	
+	<p>参考リンク</p>
+	<a href="https://github.com/sergeche/eclipse-zencoding" target="brank">GitHub</a><br>
+	<a href="https://code.google.com/archive/p/zen-coding/downloads" target="brank">Google Code | Archive | zen-coding</a><br>
+	<a href="http://news.mynavi.jp/column/ide/098/" target="brank">HTMLを高速コーディング! Zen CodingをEclipseで使ってみる</a><br>
+	<br>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="s2"  class="sec4">
+	<h3>EclipseにEmmet(Zen Coding)をインストールする手順</h3>
+	
+	<ol>
+		<li>Eclipseを起動</li>
+		
+		<li>Help → Install new softwar」と操作し、Install画面を開く。</li>
+		
+		<li>
+			Work Width に「http://emmet.io/eclipse/updates/」を入力してEnterキーを押す。
+			
+		</li>
+		
+		<li>
+			Emmetにチェックを入れ、Nextボタンを押す。<br>
+			<img src="img/s2-1.png" class="img_compact_k" alt="EclipseにEmmet(Zen Coding)をインストールする手順" />
+			<img src="img/s2-2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			規約の同意を選択して、Nextボタンを押す。<br>
+			<img src="img/s2-3.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			あとは道なり。途中でアラート等がでるがNextボタンやYesボタンで進める。<br>
+			<img src="img/s2-4.png" class="img_compact_k" />
+			
+		</li>
+		
+		<li>
+			自動でEclipseが再起動されれば、Eclipseにインストール完了。<br>
+			<img src="img/s2-5.png" class="img_compact_k" />
+		</li>
+	</ol>
+	<aside>※ 2016/4時点のインストール方法です。</aside>
+	<br>
+	
+	<a href="https://github.com/sergeche/eclipse-zencoding#user-content-installation" target="brank">公式のインストール手順</a><br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s3" class="sec4" >
+	<h3>基本的な使い方</h3>
+	
+	短縮コードを書いたあとTabキーを押すことにより、htmlコードが作成されます。<br>
+	短縮コードの書き方にはいくつかの法則がありますので、以下に記載します。<br>
+	<br>
+	
+	短縮コード：<div class="short_code">ul</div>
+	<pre>
+	&lt;ul&gt;&lt;/ul&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">li&gt;a</div><br>
+	「&gt;」で子要素を作成する。
+	<pre>
+	&lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">div#neko</div><br>
+	「#」でid属性を付ける。
+	<pre>
+	&lt;div id="neko"&gt;&lt;/div&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">div.dog</div><br>
+	「.」でclass属性を付ける。
+	<pre>
+	&lt;div class="dog"&gt;&lt;/div&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">strong+span</div><br>
+	「+」で兄弟要素を追加する。
+	<pre>
+	&lt;strong&gt;&lt;/strong&gt;&lt;span&gt;&lt;/span&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">li*4</div><br>
+	「*」で要素を複数作る。
+	<pre>
+	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;/li&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+	短縮コード：<div class="short_code">table>(thead>tr>th*4)+(tbody>tr*3>td*4)</div><br>
+	テーブルを作成する
+	<pre>
+	&lt;table&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th&gt;&lt;/th&gt;
+				&lt;th&gt;&lt;/th&gt;
+				&lt;th&gt;&lt;/th&gt;
+				&lt;th&gt;&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+				&lt;td&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	</pre>
+	<br><br>
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s4" class="sec4" >
+	<h3>選択文字にマークアップを付け加える</h3>
+	
+	選択文字にマークアップを付け加えることができます。
+	<br>
+	
+	<p>手順</p>
+	<ol>
+		<li>文字を選択します。</li>
+		
+		<li>
+			メニューから「Emmet → Wrap With Abbreviation」を選択します。<br>
+			<aside>※ Wrap With Abbreviation → 略称でラップ</aside>
+			<img src="img/s4-1.png"  class="img_compact_k" />
+		</li>
+		
+		<li>
+			マークアップを入力してOKを押します。短縮コードを入力することもできます。<br>
+			例では短縮コード「「div.xxx」を入力。<br>
+			<img src="img/s4-2.png"  class="img_compact_k" />
+		</li>
+		
+		<li>
+			以上で、選択文字にマークアップが付加されます。<br>
+			<img src="img/s4-3.png"  />
+		</li>
+	</ol>
+	<br>
+	
+	
+	<p>ショートカットを使う</p>
+	本来なら文字選択してショートカットキー「Ctrl + Shift + A」で、すぐにマークアップ入力が呼び出せます。<br>
+	しかし、Eclipseのデフォルト設定では「Ctrl + Shift + A」は別機能に割り当てられていて使えません。<br>
+	ですので、ショートカットキーの割り当て画面で設定する必要があります。<br>
+	<br>
+	ショートカットキーの割り当て画面は「Window → Preferences → General → Keys」で呼び出せます。<br>
+	「Ctrl + Shift + A」は Wrap With Abbreviation だけに割り当てるよう設定します。
+	（重複分はショートカットキーを消すか、別のキーに割り当てる）<br>
+	<img src="img/s4-4.png"  class="img_compact_k" />
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s5" class="sec4" >
+	<h3>関連付けるファイルの種類（拡張子）を追加</h3>
+	
+	Emmetの機能はすべてのファイル（拡張子）で利用できるわけでない。<br>
+	だが、設定で拡張子を追加し、Emmetに対応させることができる。<br>
+	<br>
+	
+	<p>ctpファイルをEmmetに対応させる手順</p>
+	<ol class="link_large">
+		<li>「Window → Perferences → Emmet」でEmmetの共通設定画面を開く。</li>
+		
+		<li>
+		関連付けるファイルの拡張子を追加する。<br>
+		「...in files with extensions」にctpを追記。
+		<img src="img/s5.png" class="img-responsive" />
+		</li>
+		
+		<li>OKボタンを押す。</li>
+		
+		<li>以上でctpファイルでもEmmetの機能が使えるようになる。</li>
+	</ol>
+	
+	
+	<br>
+	
+</div>
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sxxx" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/eclipse/">Eclipseの覚書目次</a></li>
+				<li>Zen Codingの覚書</li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2016/4/27</div>
+
+	</body>
+</html>

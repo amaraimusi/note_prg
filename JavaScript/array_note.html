@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | 配列</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | 配列</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>配列から重複を除去</h3>
+
+	ソースコード
+	<pre><code>
+		$(function(){
+			
+			var ary =['abc',10,20,30,'abc',20];
+			ary = array_unique(ary);
+
+			console.log(ary);
+		});
+		
+		/**
+		* 配列から重複を除去する
+		*/
+		function <strong>array_unique</strong>(ary){
+			var ary2= ary.filter(function (x, i, self) {
+				return self.indexOf(x) === i;
+			});
+			
+			return ary2;
+		}
+	</code></pre>
+	<br>
+	
+	<pre class="output_data">
+	Array[4]
+		0:"abc"
+		1:10
+		2:20
+		3:30
+	</pre>
+
+
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>配列内を検索（存在チェック）</h3>
+	
+	ソースコード
+	<pre><code>
+	var ary1 = ['abc','あいう','neko','aka-neko'];
+	var index = ary1.<strong>indexOf</strong>('neko');// →index = 2 ※
+	</code></pre>
+	<aside>※ 配列中に存在しない場合は <strong>-1</strong> が取得される。</aside>
+	<br>
+
+	
+	<br><time>2016-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+	<pre><code>
+	</code></pre>
+	<br>
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | 配列</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-12-8</div>
+</body>
+</html>

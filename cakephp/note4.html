@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CakePHPの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>CakePHPの覚書</h1></div>
+<div class="container">
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-1" class="sec1" >
+	<h3>コントローラでバリデーション情報（入力エラー情報）を取得する方法</h3>
+	通常、バリデーションはsaveやsaveAllを実行したときに発動し、入力方法に関するメッセージ（バリデーション情報）が画面に表示される。<br>
+	しかし、コントローラ内でも、任意のタイミングでバリデーション情報を取得できる。<br>
+	方法は以下の通り。<br>
+
+
+	<pre>
+	//<strong>コントローラクラス内の処理</strong>
+
+	$errors = $this->TestHasManyA->validationErrors;
+	</pre>
+	$errorsはバリデーション情報。<br>
+	TestHasManyAはバリデーションの定義をしているモデル。<br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2" class="sec1" >
+	<h3>DBからデータを取得するコード</h3>
+
+	基本的なデータ取得処理。
+	<pre>
+		if(empty($this->Animal)){
+			App::uses('Animal','Model');
+			$this->Animal=ClassRegistry::init('Animal');
+			//$this->Animal=new Animal();
+		}
+
+		//SELECT情報
+		$fields=array(
+			'id',
+			'xxx',
+			'name',
+		);
+
+		//WHERE情報
+		$conditions=array(
+			"id = {$id}",
+			"xxx = '{$xxx}'",
+			"delete_flg = 0",
+		);
+
+		//ORDER情報
+		$order=array('sort');
+
+		//オプション
+		$option=array(
+			'fields'=>$fields,
+			'conditions'=>$conditions,
+			'order'=>$order,
+			'recursive' => -1,
+		);
+
+		//DBから取得
+		$data=$this->Animal->find('all',$option);
+
+		//2次元配列に構造変換する。
+		if(!empty($data)){
+			$data=Hash::extract($data, '{n}.Animal');
+		}
+		
+		return $data;
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2-2" class="sec1" >
+	<h3>DBからデータを取得するコード(JOIN)</h3>
+
+	基本的なデータ取得処理。
+	<pre>
+		if(empty($this->Animal)){
+			App::uses('Animal','Model');
+			$this->Animal=new Animal();
+		}
+
+		//SELECT情報
+		$fields=array(
+			'Animal.id',
+			'Animal.xxx',
+			'Animal.name',
+			'Food.name',
+		);
+
+		//WHERE情報
+		$conditions=array(
+			"Animal.xxx = '{$xxx}'",
+			"Animal.name like '%{$name}%'",
+		);
+
+		//ORDER情報
+		$order=array('Animal.sort');
+
+		//JOIN情報
+		$joins = array(
+				array(
+						'type'       => 'left',//innerも指定可能
+						'table'      => 'foods',
+						'alias'      => 'Food',
+						'conditions' => array(
+								'Animal.food_id = Food.id',
+						),
+				),
+				//他に連結するテーブルがあれば上記のような配列を連結
+
+		);
+
+		//オプション
+		$option=array(
+			'fields'=>$fields,
+			'conditions'=>$conditions,
+			'joins'=>$joins,
+			'order'=>$order,
+			'recursive' => -1,
+		);
+
+		//DBから取得
+		$data=$this->Animal->find('all',$option);
+
+
+		//データ構造を変換（2次元配列化）
+		$data2=array();
+		foreach($data as $i=>$tbl){
+			foreach($tbl as $ent){
+				foreach($ent as $key => $v){
+					$data2[$i][$key]=$v;
+				}
+			}
+		}
+
+		return $data2;
+		
+		//データを構造変換してエンティティを取得
+		//$ent=array();
+		//if(!empty($data)){
+		//	foreach($data as $i=&gt;$tbl){
+		//		foreach($tbl as $key=&gt;$v){
+		//			$ent[$key]=$v;
+		//		}
+		//	}
+		//}
+		//return $ent;
+
+
+
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2-3" class="sec1" >
+	<h3>DBからエンティティを取得するひな形 | シンプル版</h3>
+
+	DBからレコードをエンティティと取得する、シンプルなコード。
+	<pre>
+	//DBからエンティティを取得
+	$ent = $this->find('first',
+			array(
+					'conditions' => "id={$ent['Neko']['id']}"
+			));
+	$ent=$ent['Neko'];
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2-4" class="sec1" >
+	<h3>findで実行するSQLを取得する</h3>
+	
+	<pre>
+	//SELECT情報
+	$fields=array(
+		'id',
+		'xxx',
+		'name',
+	);
+
+	//WHERE情報
+	$conditions=array(
+		"id = {$id}",
+		"xxx = '{$xxx}'",
+		"delete_flg = 0",
+	);
+
+	$dbo = $this-&gt;Neko-&gt;getDataSource();
+
+	//オプション
+	$option=array(
+			'table' =&gt; $dbo-&gt;fullTableName($this-&gt;Neko),
+			'alias' =&gt; 'Neko',
+			'fields'=&gt;$fields,
+			'conditions'=&gt;$conditions,
+	);
+
+	<strong>$sql = $dbo-&gt;buildStatement($option,$this-&gt;Neko);</strong>
+	//$sql → SELECT ... FROM nekos AS Neko WHERE ...
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2-5" class="sec1" >
+	<h3>SELECTフォーム用のデータをDBから取得するひな形</h3>
+
+	<pre><code>
+	/**
+	 * カテゴリIDに紐づくアニマルリストを取得する
+	 * @param int $category_id カテゴリID
+	 * @return アニマルリスト
+	 */
+	public function getAnimalList($category_id){
+		if(empty($this-&gt;Animal)){
+			App::uses('Animal','Model');
+			$this-&gt;Animal=ClassRegistry::init('Animal');
+		}
+	
+		//SELECT情報
+		$fields=array(
+				'id',
+				'animal_name',
+		);
+	
+		//WHERE情報
+		$conditions=array(
+				"category_id = {$category_id}",
+				"delete_flg != 1",
+			);
+	
+		//ORDER情報
+		$order=array('animal_name');
+	
+		//オプション
+		$option=array(
+				'fields'=&gt;$fields,
+				'conditions'=&gt;$conditions,
+				'order'=&gt;$order,
+		);
+	
+		//DBから取得
+		$data=$this-&gt;Animal-&gt;find('all',$option);
+	
+		//構造変換
+		$list = array();
+		if(!empty($data)){
+			$list=Hash::combine($data, '{n}.Animal.id','{n}.Animal.animal_name');
+		}
+	
+	
+		return $list;
+	}
+	</code></pre>
+	
+	<br><time>2016-11-10</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-3" class="sec1" >
+	<h3>ログインとユーザー認証 | 認証状態の確認および認証不要ページ</h3>
+
+	
+	通常、未認証でページアクセスしようとすると、自動的にログイン認証ページに飛んでしまう。※<br>
+	未認証でもページを表示させたい場合、beforeFilterアクションに「$this->Auth->allow();」を記述する。<br>
+	<aside>※ UsersControllerに認証処理を作成している場合</aside>
+	<br>
+	
+	
+	<p>認証状態と未認証状態を判定</p>
+	認証状態と未認証状態を判定することもできる。<br>
+	「$this->Auth->user()」が空であるなら未認証であり、空でないなら認証中である。<br>
+	<aside>$user = $this->Auth->user(); → 認証中のユーザー情報を取得する関数である。</aside>
+	<br>
+	
+	<p>特定のメソッドだけ未認証を許可する</p>
+	特定のアクションだけ未認証を許可する場合、引数に許可するアクション名（メソッド名）を指定する。
+	<pre>$this->Auth->allow('test_action');</pre>
+	<aside>上記の例では、test_actionアクションだけ未認証OKで、他のアクションは認証必須となる。</aside>
+	<br><br>
+	
+	
+	Controller
+	<pre>
+	class NoAuthController extends AppController {
+	
+		public $name = 'NoAuth';
+		
+		public function beforeFilter() {
+			<strong>$this-&gt;Auth-&gt;allow();</strong> // 認証と未認証の両方に対応したページする。
+			parent::beforeFilter();//基本クラスのメソッドを呼び出し。
+		}
+	
+	    public function index() {
+	    	$msg="認証されていません。";
+	    	if(!empty(<strong>$this-&gt;Auth-&gt;user('id')</strong>)){
+	    		$msg = "認証中です。";
+	    	}
+	    	$this-&gt;set(array('msg'=&gt;$msg));
+	    }
+	
+	}
+	</pre>
+	<br>
+	
+	View
+	<pre>
+	&lt;a href="users/login"&gt;ログイン&lt;/a&gt;&lt;br&gt;
+	&lt;a href="users/logout"&gt;ログアウト&lt;/a&gt;&lt;br&gt;
+	&lt;br&gt;
+	&lt;?php echo $msg?&gt;
+	</pre>
+	<br>
+
+
+
+
+	<h4>ログインリンクとログアウトリンクの作成方法</h4>
+	View(ctpファイル）に以下のリンクを作成するだけである。
+	<pre>
+	&lt;a href="users/login"&gt;ログイン&lt;/a&gt;
+	&lt;a href="users/logout"&gt;ログアウト&lt;/a&gt;
+	</pre>
+	<aside>パス回りは省略しています。必要に応じてルートパスも記述します。</aside>
+	<br>
+
+
+	<h4>完全な認証不要のページ</h4>
+	完全にログイン認証を不要とする場合、コントローラのメンバに「$components=null;」を指定する。<br>
+	ただし、この方法では認証中か未認証かを判定することはできない。<br>
+	<br>
+	
+	Controller
+	<pre>
+	class DemoController extends AppController {
+		public $name = 'Demo';
+		<span class="marker">public $components=null;</span>//ログイン認証不要
+	
+		public function index(){
+
+		}
+	}
+	</pre>
+
+	
+	<br>
+	<aside>CakePHP 2.8.3</aside>
+	<time>2016-5-13 | 2016-9-14</time>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-3-2" class="sec1">
+	<h3>Ajaxとログイン認証</h3>
+	
+	Ajaxでアクションにアクセスする場合でも、認証中と未認証で処理を分けることができる。<br>
+	これにより、認証中のときだけデータを取得するということができる。<br>
+	<br>
+	
+	
+	<p>Controller/NoAuthController.php</p>
+	<pre>
+	class NoAuthController extends AppController {
+		
+		public $name = 'NoAuth';
+		
+		public function beforeFilter() {
+			<strong>$this-&gt;Auth-&gt;allow();</strong> // 認証と未認証の両方に対応したページする。
+			parent::beforeFilter();//基本クラスのメソッドを呼び出し。
+		}
+	
+		
+		public function ajax_auth(){
+	
+		}
+	    
+		// AJAXで呼び出されるアクション
+		public function ajax_auth_test1(){
+			
+			$this-&gt;autoRender = false;//ビュー(ctp)を使わない。
+			
+			// ★認証状態の確認
+			if(empty(<strong>$this-&gt;Auth-&gt;user('id')</strong>)){
+				return '認証されていません';
+			}
+			
+			$json_param=$_POST['key1'];
+	
+			return $json_param;
+		}
+	}
+	</pre>
+	<br>
+	
+	<p>View/NoAuth/ajax_auth.ctp</p>
+	<pre>
+	&lt;input type="button" value="test1" onclick="test1()" /&gt;
+	&lt;div id="xxx"&gt;&lt;/div&gt;
+	</pre>
+	
+	<p>JavaScript</p>
+	<pre>
+	function test1(){
+
+		var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'xxx':111};
+		var json_str = JSON.stringify(data);
+
+		$.ajax({
+			type: "POST",
+			url: "/cake_demo/no_auth/ajax_auth_test1",
+			data: "key1="+json_str,
+			cache: false,
+			dataType: "text",
+			success: function(str_json, type) {
+				$("#xxx").html(str_json);
+			},
+			error: function(xmlHttpRequest, textStatus, errorThrown){
+				$('#xxx').html(xmlHttpRequest.responseText);//詳細エラーの出力
+			}
+		});
+	}
+	</pre>
+	<br>
+	
+	<p>test1ボタンを押した時の出力</p>
+	認証中のとき
+	<pre class="output_data">{"neko":"ネコ","same":{"hojiro":"ホオジロザメ","shumoku":"シュモクザメ"},"xxx":111}</pre>
+	<br>
+	
+	未認証のとき
+	<pre class="output_data">認証されていません</pre>
+	<br>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-4" class="sec1" >
+	<h3>ラジオボタンのヘルパー</h3>
+
+	ビュー(ctpファイル)
+	<pre>
+		echo $this->Form->input('animal', array(
+				'legend' => false,
+				'type' => 'radio',
+				'value'=>'usi',//初期選択値
+				'options' => array('neko'=>'猫','nezumi'=>'ネズミ','usi'=>'牛','tora'=>'虎',)
+		));
+	</pre>
+	value属性を省略したり、nullを指定すると、未選択状態になる。
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-5" class="sec1" >
+
+	<h3>IDに紐づく名称をセットする汎用アルゴリズム</h3>
+	通常、IDに紐づく他のテーブルのレコードの値を引っ張ってくる場合、DBのJOINを用いる。<br>
+	しかし、なんらかの事情で、JOINが使えない場合もあるかもしれない。<br>
+	この場合、以下のソースコードが便利。<br>
+	紐づけ情報の変数を適当に変えるだけで汎用的に利用できる。<br>
+	<br><br>
+	モデル:Category.php<br>
+	<pre>
+	/**
+	 * カテゴリ名をマッピング
+	 * データの指定IDに紐づく名称をカテゴリテーブルからとってきて、データにセットする。
+	 * @param  $data データ
+	 * @return データ
+	 */
+	public function mapping($data){
+
+		//引数データの紐づけ情報
+		$id_key='category_id1';
+		$name_key='category_name1';
+		$model_name1="RecCrud1";
+
+		//結合先テーブルの紐づけ情報
+		$id_key2='id';
+		$name_key2='name';
+		$model_name2="Category";
+
+
+		// データからIDリストを取得
+		$ids=array();
+		foreach($data as $ent){
+			$id=$ent[$model_name1][$id_key];
+			if(!empty($ent[$model_name1][$id_key])){
+				$ids[]=$ent[$model_name1][$id_key];
+			}elseif($ent[$model_name1][$id_key]===0 || $ent[$model_name1][$id_key]==='0'){
+				$ids[]=$ent[$model_name1][$id_key];
+			}
+		}
+
+		// IDリストから重複するIDリストを削除
+		$ids=array_unique($ids);
+
+		if(empty($ids)){
+
+			foreach($data as &amp;$ent){
+				$ent[$model_name1][$name_key]=null;
+			}
+			unset($ent);
+			return $data;
+		}
+
+		// IN句をIDリストから作成する。
+		$str_ids=join($ids,',');
+
+		//元データをDBから取得
+		$fields=array($id_key2,$name_key2);
+		$conditions=array("id IN ({$str_ids})");
+		$option=array(
+				'fields'=>$fields,
+				'conditions'=>$conditions,
+				'recursive' => -1,
+		);
+		$mapData=$this->find('all',$option);
+
+		//マッピングデータを作成
+		$map=array();
+
+		//マッピングデータを作成。ついでにサニタイズ
+		if(!empty($mapData)){
+			foreach($mapData as &amp;$map_ent){
+				$map[$map_ent[$model_name2][$id_key2]]=Sanitize::html($map_ent[$model_name2][$name_key2]);
+			}
+			unset($ent);
+		}
+
+
+		// データ件数分ループして、IDに紐づくマッピングのデータをセット
+		foreach($data as &amp;$ent){
+			if(!empty($map[$ent[$model_name1][$id_key]])){
+				$ent[$model_name1][$name_key]=$map[$ent[$model_name1][$id_key]];
+			}else{
+				$ent[$model_name1][$name_key]=null;
+			}
+		}
+		unset($ent);
+
+		return $data;
+
+
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-6" class="sec1" >
+	<h3>h()関数の使い方</h3>
+	h()関数を使うと、文字列にHTMLが含まれる場合、エスケープして表示できます。<br>
+	XSS攻撃の対策につかうと便利です。<br>
+	下記の例では、文字列を直接出力するとリンク化しますが、h()関数をはさむと、タグをそのまま出力します。<br>
+	<pre>
+	$str1="→テスト&lt;a href='#' onclick='alert(\"XSS攻撃のテスト\");'  > Hello&lt;/a>";
+
+	echo h($str1);
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7" class="sec1">
+	<h3>CakePHP:オリジナルヘルパー（自作ヘルパー）</h3>
+
+
+	CakePHPでは自作のヘルパーであるオリジナルヘルパーを作ることができる。<br>
+	以下に2通りの方法を示す。<br>
+	<br>
+	<h3>①プロジェクトで共通して使う汎用的なオリジナルヘルパーの場合</h3>
+
+	CakePHPに標準で用意されているAppHelper.phpにオリジナルヘルパーのメソッドを追加するだけである。<br>
+	使用方法はctpファイル内で以下のように記述するだけ。<br>
+	$this->Html->test();<br>
+	<br>
+	<br>
+	<strong>オリジナルヘルパーを作成する</strong><br>
+	app/View/Helper/AppHelper.php<br>
+	<pre>
+	class AppHelper extends Helper {
+
+		//オリジナルヘルパーとなるメソッド
+		public function test($v){
+			$v='大きい';
+			return $v;
+		}
+
+	}
+	</pre>
+	<br>
+	<br>
+	<strong>オリジナルヘルパーを使う</strong><br>
+	sample.ctp<br>
+	<pre>
+	echo $this->Html->test('ネコ');
+	//出力例 → 大きいネコ
+	</pre>
+
+	<br><br><hr><br><br>
+
+
+	<h3>②限られた範囲でのみ利用するオリジナルヘルパーの場合</h3>
+	限定した画面でしか使用しないオリジナルヘルパーは、AppHelperに記述すると無駄が生じます。<br>
+	この場合、AppHelper.phpを継承して自作ヘルパークラスを作成することにより、限定的なオリジナルヘルパーを実現できます。<br>
+
+	<br>
+
+	自作ヘルパークラスはAppHelper.phpと同じフォルダ内であるView/Helperフォルダに作成します。<br>
+	<pre>
+	class <span class="marker">Iruka</span>Helper extends AppHelper {
+		public function test(){
+			echo 'イルカ';
+		}
+	}
+	</pre>
+	<br>
+
+	オリジナルヘルパーを使用する画面のコントローラにて、自作ヘルパークラスを設定します。
+	<pre>
+	class SampleController extends AppController {
+		public $helpers = array('<span class="marker">Iruka</span>');
+		～略～
+	</pre>
+	<br>
+	オリジナルヘルパーを使用する場合、ビュー(ctp)に以下のように記述します。<br>
+	sample.ctp<br>
+	<pre>
+	$this-><span class="marker">Iruka</span>->test();
+	//出力例 → イルカ
+	</pre>
+
+	<br>
+	<a class="ref_link" href="http://yakinikunotare.boo.jp/orebase/index.php?PHP%2FCakePHP%2Fhelper%2F%A5%AA%A5%EA%A5%B8%A5%CA%A5%EBhelper%A4%F2%BA%EE%A4%EB">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-8" class="sec1" >
+	<h3>Cake:SQLインジェクション対策された文字を元に戻す</h3>
+	Sanitize::clean(),Sanitize::escape(),Sanitize::html()などSQLインジェクション対策やXSS対策でエスケープされた記号等を元に戻します。<br>
+	ただし、XSS対策として「 &lt; 」記号のみサニタイズします。<br>
+	また改行コードはbrタグに変換します。<br>
+	<br><br>
+
+	サンプルソースコード<br>
+	<pre>
+	public function uhtml_entity_decode_ex($v){
+		$v=html_entity_decode($v);//エスケープされた記号を元に戻す。
+		$v=str_replace('&lt;','&amp;lt',$v);//「 &lt; 」記号のみサニタイズ
+		$v=nl2br($v);//改行コードをbrタグに変換
+		return $v;
+	}
+
+	</pre>
+
+	アスキーアートなど記号をふんだんに使った文字列を表示させたいが、XSS対策は施したいといった場合の時に使うと便利です。
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9" class="sec1" >
+	<h3>CakePHPとbootstrapの連動</h3>
+
+	<h3>おおまかな流れ</h3>
+	<div style="padding-bottom:30px">
+		<ol>
+			<li>bootstrapをダウンロードし組み込むファイルを用意する。</li>
+			<li>bootstrapをCakeの指定箇所に配置する。</li>
+			<li>app/View/Layouts/default.ctpを編集する。</li>
+		</ol>
+	</div>
+
+	<h4>1.  bootstrapをダウンロードし組み込むファイルを用意する。</h4>
+	<div style="padding-left:40px;padding-bottom:30px">
+
+		bootstrapを<a href="http://getbootstrap.com/">公式サイト</a>から取得し、以下のファイルを用意する。
+		<br><br>
+		<ul>
+			<li>css/bootstrap.min.css</li>
+			<li>js/bootstrap.min.js</li>
+			<li>font ←フォルダの中身ごと</li>
+			<li>js/jquery-1.11.1.min.js <span class="hosoku">←これはjqueryのサイトから入手</span></li>
+		</ul>
+
+	</div>
+
+	<h4>2.  bootstrapをCakeの指定箇所に配置する</h4>
+	<div style="padding-left:40px;padding-bottom:30px">
+		app/webroot内に配置する。
+		<img src="img/sec4-9.png" />
+
+	</div>
+
+	<h4>3.  app/View/Layouts/default.ctpを編集する</h4>
+	<div style="padding-left:40px;padding-bottom:30px">
+		Cakeの全体スタイルを変更するにはapp/View/Layouts/default.ctpを変更する。
+
+
+		修正前 app/View/Layouts/default.ctp<br>
+		<pre>
+		$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+		?&gt;
+		&lt;!DOCTYPE html&gt;
+		&lt;html&gt;
+		&lt;head&gt;
+			&lt;?php echo $this-&gt;Html-&gt;charset(); ?&gt;
+			&lt;title&gt;
+				&lt;?php echo $cakeDescription ?&gt;:
+				&lt;?php echo $title_for_layout; ?&gt;
+			&lt;/title&gt;
+			&lt;?php
+				echo $this-&gt;Html-&gt;meta('icon');
+
+				echo $this-&gt;Html-&gt;css(array(
+					<span class="marker">'cake.generic', //←これは、bootstrap.min.cssに置き換わる</span>
+					'http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css'
+				));
+
+				echo $this-&gt;fetch('meta');
+				echo $this-&gt;fetch('css');
+				//echo $this-&gt;fetch('script');
+				echo $this-&gt;Html-&gt;script(array(
+						'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js',
+						'http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js',
+						'http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js',
+					));
+			?&gt;
+			～　以下略　～
+		</pre>
+
+		修正後 app/View/Layouts/default.ctp<br>
+		<pre>
+			$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+			?&gt;
+			&lt;!DOCTYPE html&gt;
+			&lt;html&gt;
+			&lt;head&gt;
+				&lt;?php echo $this-&gt;Html-&gt;charset(); ?&gt;
+				&lt;title&gt;
+					&lt;?php echo $cakeDescription ?&gt;:
+					&lt;?php echo $title_for_layout; ?&gt;
+				&lt;/title&gt;
+				&lt;?php
+					echo $this-&gt;Html-&gt;meta('icon');
+
+					echo $this-&gt;Html-&gt;css(array(
+
+						'<span class="marker">bootstrap.min.css</span>',
+						'http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css'
+					));
+
+					echo $this-&gt;fetch('meta');
+					echo $this-&gt;fetch('css');
+					//echo $this-&gt;fetch('script');
+					echo $this-&gt;Html-&gt;script(array(
+							'<span class="marker">jquery-1.11.1.min.js</span>',
+							'http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js',
+							'<span class="marker">bootstrap.min.js</span>',
+							'http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js',
+						));
+				?&gt;
+				&lt;script&gt;
+					$(function() {
+						$("#datepicker").datepicker({
+							dateFormat:'yy-mm-dd'
+
+						});
+
+						//2つ目の日付入力用
+						$("#datepicker2").datepicker({
+							dateFormat:'yy-mm-dd'
+
+						});
+
+
+			    	});
+				&lt;/script&gt;
+				～　以下略　～
+		</pre>
+
+	</div>
+
+
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-10" class="sec1" >
+	<h3>DBから１つのレコードを削除 | delete</h3>
+	DBからデータを削除する場合、deleteメソッドを使う。<br>
+	deleteメソッドの引数に、削除するidを指定すれば良い。<br>
+	尚、削除は1行ずつである。<br>
+	<br>
+	<pre>
+	$ret=$this->モデル->delete(削除するID);
+	</pre>
+	<pre>
+	//モデルクラス内で削除する場合。
+	$ret=$this->delete(削除するID);
+	</pre>
+
+	<br>
+	返値（$ret）は削除に成功した場合、trueを返す。
+	何らかの理由で失敗した場合はfalseを返すが、
+	削除するidに紐づく行が既に存在しない場合もfalseを返すので注意が必要。<br>
+	<br>
+	id以外の条件で削除したい場合、deleteAllメソッドを用いる。<br>
+	<br>
+
+	<h3>トランザクションと組み合わせたサンプル</h3>
+	<pre>
+
+	// モデル生成
+	if(empty($this->TestModel)){
+		App::uses('TestModel','Model');
+		$this->TestModel=new TestModel();
+	}
+
+	// トランザクション開始
+	$dataSource = $this->TestModel->getDataSource ();
+	$dataSource->begin();
+
+	// ★削除処理 id=10000を削除
+	$ret=$this->TestModel-><strong>delete(10000)</strong>;
+
+	if($ret==true){
+		$dataSource->commit();//コミット
+	}else{
+		$dataSource->rollback();//ロールバック
+	}
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-11" class="sec1" >
+	<h3>DBから複数のレコードを削除 | deleteAll</h3>
+	
+	<a href="http://book.cakephp.org/2.0/ja/models/deleting-data.html">公式ドキュメント</a><br>
+	<br>
+
+	deleteでは1行しか削除できないが、deleteAllで複数行をまとめて削除できる。<br>
+	トランザクションも効く。<br>
+	<br>
+	
+	
+	ソースコード
+	<pre>
+	$this-&gt;Neko-&gt;begin();//トランザクション開始
+	$this-&gt;Neko-&gt;<strong>deleteAll</strong>(array('text1'=&gt;'wani'));//複数行をまとめて削除
+	$this-&gt;Neko-&gt;commit();
+	</pre>
+	<br>
+	
+	deleteAllで実行されるSQL
+	<pre>
+	SELECT `Neko`.`id` FROM `cake_smp`.`nekos` AS `Neko` WHERE `text1` = 'wani' GROUP BY `Neko`.`id`
+	DELETE `Neko` FROM `cake_smp`.`nekos` AS `Neko` WHERE `Neko`.`id` IN (16, 17)
+	</pre>
+	<br>
+	
+	nekosテーブル
+	<table class="table">
+		<thead>
+			<tr><th>id</th><th>val1</th><th>text1</th><th>test_date</th><th>test_dt</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>15</td><td>3</td><td>yagi</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>18</td><td>3</td><td>wani</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>19</td><td>3</td><td>wani</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+
+		</tbody>
+	</table>
+	<br>
+	<time>2016-6-9</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-0" class="sec1" style="display:none">
+	<h3>xxx</h3>
+	テスト
+	<pre>
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/cakephp">CakePHPの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-9-3</div>
+</body>
+</html>

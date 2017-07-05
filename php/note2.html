@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>PHPの覚書 | ワクガンス</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<h1 id="header">PHPの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-1" class="sec1" >
+	<h3>2つの日付の日数差を算出する</h3>
+
+	<pre>
+	$d1 = '2014/9/10';
+	$d2 = '2014/9/21';
+	$diff = <strong>diffDay</strong>($d2,$d1);
+	echo '日付1 : '.$d1.'&lt;br&gt;';
+	echo '日付2 : '.$d2.'&lt;br&gt;';
+	echo '日数差 : '.$diff.'&lt;br&gt;';
+	
+	/**
+	 * 2つの日付の日数差を算出する
+	 * 
+	 * diff = d2 - d1
+	 * 
+	 * @param date or string $d2
+	 * @param date or string $d1
+	 * @return 日数差
+	 */
+	function <strong>diffDay</strong>($d2,$d1){
+	
+		$u1=strtotime($d1);
+		$u2=strtotime($d2);
+	
+		//日数を算出
+		$diff=$u2-$u1;
+		$d_cnt=$diff/86400;
+	
+		return $d_cnt;
+	}
+	</pre>
+	<br>
+
+	出力
+	<pre class="output_data">
+	日付1 : 2014/9/10
+	日付2 : 2014/9/21
+	日数差 : 11
+	</pre>
+	<br>
+	
+	<time>2014/9/10 | 2016-6-15</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-2" class="sec1">
+	<h3>画像を回転させて保存</h3>
+
+	画像を回転させ、ファイル保存するソースコード。<br>
+	ファイルに保存させず、一時的に回転した画像を表示させる方法もある。<br>
+	<pre>
+	&lt;?php
+		// ファイルと回転角
+		$filename = 'test.jpg';//画像ファイル名
+		$ang = 90;//回転角度（90°回転）
+
+		// 画像ファイル名から画像オブジェクトを作成
+		$source = imagecreatefromjpeg($filename);
+
+		// 画像オブジェクトを指定角度で回転
+		$rotate = imagerotate($source, $ang, 0);
+
+		// 画像オブジェクトからJPEGファイルを作成する。引数：画像オブジェクト、保存するファイル名（省略すると保存しない）、品質（0～100　省略時は75）
+		imagejpeg($rotate,$filename,100);
+
+		// メモリの解放
+		imagedestroy($source);
+		imagedestroy($rotate);
+
+
+	?&gt;
+	</pre>
+
+	<a class="ref_link" href ="http://amaraimusi.sakura.ne.jp/sample/php/imagerotate/imagerotate.php">サンプル</a>
+	<a class="ref_link" href ="http://php.net/manual/ja/function.imagerotate.php">ドキュメント</a>
+	<a class="ref_link" href ="http://arakaze.ready.jp/archives/470">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-3" class="sec1" >
+	<h3>web上の画像をコピーする</h3>
+	web上（別ドメイン）の画像をコピーして保存することができる。<br>
+	ただSSL（httsから始まるURL）ページの画像はコピーできないこともある。<br>
+	取得時に失敗するとWarningが出る。try～catchでもとらえられないのが難点。<br>
+
+	<hr>
+
+	サンプルソースコード<br>
+	<pre>
+	$url = 'http://amaraimusi.sakura.ne.jp/sample/php/web_image_get/smp/imori.jpg';//WEB上の画像ファイルURL
+
+	$data = file_get_contents($url);
+
+	file_put_contents('img/test.jpg',$data);
+	</pre>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/web_image_get/web_image_get.php" class="ref_link">サンプル</a>
+	<a href="http://php.net/manual/ja/function.file-get-contents.php" class="ref_link">file_get_contentsのドキュメント</a>
+	<a href="http://codaholic.org/?p=341" class="ref_link">参考サイト</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-4" class="sec1">
+	<h3>変数や配列を１つの文字列にする | serialize</h3>
+	serialize関数で変数や多重構造配列等を1つの文字列に変換できる。<br>
+	変換した文字列はunserialize関数で元の配列に戻すことができる。
+	
+	<p>サンプル</p>
+		<pre>
+	$ary=array(
+			array('id'=>101,'name'=>'ネコ'),
+			array('id'=>102,'name'=>'ネズミ'),
+			array('id'=>103,'name'=>'ウシ'),
+			array('id'=>104,'name'=>'トラ'),
+			array('id'=>105,'name'=>'鵜'),
+			array('id'=>106,'name'=>'猿'),
+	);
+
+	$str = <span class="marker">serialize</span>($ary);//一つの文字列に変換
+
+	//元の配列に戻す。
+	$ary2=<span class="marker">unserialize</span>($str);
+
+		</pre>
+
+
+
+
+		<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/serialize_test/serialize_test.php" class="btn btn-link btn-xs">サンプル</a>
+
+		<a class="ref_link" href="http://php.net/manual/ja/function.serialize.php" class="btn btn-link btn-xs">ドキュメント</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-5" class="sec1" >
+	<h3>配列をデバッグ | var_export</h3>
+	var_export関数で配列をデバッグできる。
+	<pre>
+	$ary=array(1=>'a',2=>'b');
+	echo var_export($ary);//デバッグ
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-6" class="sec1" >
+	<h3>配列からURLのクエリを作成 | http_build_query</h3>
+	http_build_query関数は配列をURLのクエリ文字列に変換できる。<br>
+	変換した文字列はparse_str関数で元の配列に戻すことができる。<br>
+	<div class="sec3">
+		<h2>ソースコード</h2>
+		<pre>
+		&lt;?php
+
+			$ary=array('neko'=&gt;1,'inu'=&gt;'2','tanuki'=&gt;'狸');
+
+			echo "&lt;p&gt;変換前&lt;/p&gt;";
+			echo var_dump($ary);
+
+			echo "&lt;br&gt;&lt;br&gt;&lt;p&gt;変換後：文字列＝http_build_query(配列)&lt;/p&gt;";
+			$str = <span class="marker">http_build_query($ary)</span>;
+			echo $str;
+
+			echo "&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;p&gt;parse_str関数で元に戻す。：parse_str(文字列,配列B)&lt;/p&gt;";
+			<span class="marker">parse_str($str,$ary2)</span>;
+			echo var_dump($ary2);
+
+
+		?&gt;
+		</pre>
+	</div>
+	<div class="sec3">
+		<h2>出力</h2>
+		<p>変換前</p><pre class='xdebug-var-dump' dir='ltr'>
+		<b>array</b> <i>(size=3)</i>
+		  'neko' <font color='#888a85'>=&gt;;</font> <small>int</small> <font color='#4e9a06'>1</font>
+		  'inu' <font color='#888a85'>=&gt;;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+		  'tanuki' <font color='#888a85'>=&gt;;</font> <small>string</small> <font color='#cc0000'>'狸'</font> <i>(length=3)</i>
+		</pre><br><br><p>変換後：文字列＝http_build_query(配列)</p>neko=1&inu=2&tanuki=%E7%8B%B8<br><br><br><p>parse_str関数で元に戻す。：parse_str(文字列,配列B)</p><pre class='xdebug-var-dump' dir='ltr'>
+		<b>array</b> <i>(size=3)</i>
+		  'neko' <font color='#888a85'>=&gt;;</font> <small>string</small> <font color='#cc0000'>'1'</font> <i>(length=1)</i>
+		  'inu' <font color='#888a85'>=&gt;;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+		  'tanuki' <font color='#888a85'>=&gt;;</font> <small>string</small> <font color='#cc0000'>'狸'</font> <i>(length=3)</i>
+		</pre>
+	</div>
+
+		<br><br>
+	<a class="ref_link" href="http://php.net/manual/ja/function.http-build-query.php" >ドキュメント</a>
+	<a class="ref_link" href="http://suin.asia/2011/08/09/4_tips_to_preserve_array_as_string" >参考サイト</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/url/http_build_query.php" >サンプル</a>
+	<br><br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-7" class="sec1" >
+	<h3>日付の月末日を取得する方法 | Y-m-t</h3>
+
+
+
+	<pre>
+		$dateX='2012/12/12';
+		$test = <span class="marker">date('Y-m-t',strtotime($dateX));</span>
+		Debugger::dump('$test＝'.$test);//'$test＝2012-12-31'
+	</pre>
+
+	<div class="hosoku">
+		<hr>
+		以前使っていた古い方法。
+		<pre>
+		/**
+		 * 引数で指定した日付の月末日を取得
+		 * @param  $d	日付
+		 * @return 月末日
+		 */
+		function calcMonthLastDate($d){
+			$type = gettype($d);
+
+			if($type=='string'){
+				$d2 = new DateTime($d);
+			}else{
+				$d2=$d;
+			}
+			$year=$d2->format("Y");
+			$month=$d2->format("m");
+			$lastday = date('t', mktime(0, 0, 0, $month, 1, $year));
+
+			$d3=$year."/".$month."/".$lastday;
+
+			if($type!='string'){
+				$d3 = new DateTime($d3);
+			}
+
+			return $d3;
+		}
+
+		</pre>
+	</div>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-8" class="sec1">
+	<h3>金額など数値の3ケタ区切り | number_format</h3>
+	金額表記変換のサンプル　　3000 → \3,000
+	<pre>
+	echo '&amp;yen'.number_format(3000);
+	// \3,000
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-10" class="sec1" >
+	<h3>配列を等分割する | array_chunk</h3>
+	以下に配列を3等分する例を示す。
+	<pre>
+	$ary=array(1,2,3,4,5,6,7,8,9,10,11,);
+	$ary2=array_chunk($ary,3);
+	</pre><br>
+	$ary2のダンプ
+	<pre>
+	array(
+		(int) 0 => array(
+			(int) 0 => (int) 1,
+			(int) 1 => (int) 2,
+			(int) 2 => (int) 3
+		),
+		(int) 1 => array(
+			(int) 0 => (int) 4,
+			(int) 1 => (int) 5,
+			(int) 2 => (int) 6
+		),
+		(int) 2 => array(
+			(int) 0 => (int) 7,
+			(int) 1 => (int) 8,
+			(int) 2 => (int) 9
+		),
+		(int) 3 => array(
+			(int) 0 => (int) 10,
+			(int) 1 => (int) 11
+		)
+	)
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div><!-- content -->
+		<div class="yohaku"></div>
+		<ol class="breadcrumb">
+			<li><a href="/">ホーム</a></li>
+			<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+			<li><a href="/note_prg/php">PHPの覚書</a></li>
+		</ol>
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+	
+	</body>
+</html>

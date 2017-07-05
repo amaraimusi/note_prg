@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-1" class="sec1" >
+	<h3>Formの基本構成とひな形</h3>
+
+	シンプルなFormまわり<br>
+	<pre>
+	&lt;?php echo $this->Form->create('DataSet', array('url' => 'reg'));?>
+
+
+		&lt;?php
+			echo $this->Form->input("full_name", array(
+				'type' => 'text',
+				'value' => 'イリオモテ　ヤマネコ',
+				'label' => false,
+				'div' => false,
+				'placeholder' => '-- 氏名 --',
+			));
+		?>
+
+		&lt;?php echo $this->Form->submit('登録'); ?>
+
+	&lt;?php echo $this->Form->end(); ?>
+	</pre>
+
+
+	Formまわりの雛型<br>
+	<pre>
+	&lt;?php echo $this->Form->create('DataSet', array('url' => 'reg', 'enctype' => 'multipart/form-data' ));?>
+
+
+		//テキストボックス
+		&lt;?php echo $this->Form->input("full_name", array(
+			'type' => 'text',
+			'value' => 'イリオモテ　ヤマネコ',
+			'label' => false,
+			'div' => false,
+			'placeholder' => '-- 氏名 --',
+			));
+		?>
+
+		//セレクトボックス
+		&lt;?php echo $this->Form->input("age",array(
+			'type'=>'select',
+			'value' => 3,
+			'class'=>'age',
+			'label'=>false,
+			'div'=>false,
+			'options'=>array(1,2,3,4)));
+		?>
+
+		//ラジオボタン
+		&lt;?php echo $this->Form->input("seibetu", array(
+			'type' => 'radio',
+			'value' => $seibetu,
+			'legend' => false,
+			'label' => false,
+			'div' => false,
+			'options' => array('1'=>'男','0'=>'女'),
+			'separator' => '　　　'//←ラジオボタンの間文字
+			));
+		?>
+
+		//チェックボックス
+		&lt;?php echo $this->Form->input("{$i}.Rental.{$cr_id}.count",array(
+			'type'=>'checkbox',
+			'value' => 5,//←チェックが入っている場合に送信する値
+			'checked'=>true,//←チェックはここで設定
+			'label'=>false,
+			'div'=>false,
+			'class'=>'rental',
+		));?>
+
+		//hidden
+		&lt;?php echo $this-&gt;Form-&gt;input("test", array(
+			'type' => 'hidden',
+			'value' => $sample_id,
+			));
+		?&gt;
+
+
+
+		//サブミットボタン
+		&lt;?php echo $this->Form->submit('登録', array('div' => false, 'class' => 'btn btn-primary')); ?>
+
+	&lt;?php echo $this->Form->end(); ?>
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-1-2" class="sec1" >
+	<h3>HTMLヘルパーでバリデーションを組み込む | pattern</h3>
+
+	pattern属性に正規表現を指定することによって、バリデーションを組み込むことができる。
+	<pre>
+	//半角数字のバリデーション
+	echo $this->Form->input('test_tel',
+	array(
+			'type' => 'tel',
+			<span class="marker">'pattern' => "^[0-9]+$"</span>,
+			'title' => 'ハイフン「-」なし、半角数字で入力せよ',
+			'placeholder' => '例）09011112222',
+			'required',
+			'maxlength' => 11,
+	)
+	);
+
+	//カタカナのバリデーション
+	echo $this->Form->input('katakana_name',
+			array(
+					'type' => 'text',
+					'pattern' => "^[ァ-ンー]+$",
+					'title' => '全角カタカナで入力しなさい',
+					'placeholder' => 'カタカナデス',
+					'required',
+					'maxlength' => 20,
+			)
+	);
+	</pre>
+
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-2" class="sec1" >
+	<h3>HTMLヘルパー | hidden</h3>
+
+	<h4>簡略的な書き方</h4>
+	<p>hiddenフォームの簡略な書き方</p>
+	<pre>&lt;?php echo $this-&gt;Form-&gt;hidden('xxx_id');?&gt;</pre>
+	<br>
+	
+	<p>HTMLソース</p>
+	<pre>&lt;input type="hidden" name="data[Neko][xxx_id]" id="NekoXxxId"&gt;</pre>
+	<br>
+	
+	<hr>
+	<h4>通常の書き方</h4>
+	<p>HTMLヘルパー:hiddenの使用例【ctpファイル】</p>
+	<pre>
+	&lt;?php
+		echo $this-&gt;Form-&gt;input("test", array(
+				'type' => 'hidden',
+				'value' => $sample_id,
+		));
+	?&gt;
+
+	//コントローラでの取得例
+	//$sample_id=$this->request->data[フォーム名]['test'];
+	</pre>
+	<hr>
+	
+	<h4>少し複雑なデータ構造の使用例</h4>
+	<pre>
+	&lt;?php
+		echo $this-&gt;Form-&gt;input("{$i}.xxx.test", array(
+				'type' => 'hidden',
+				'value' => $sample_id,
+		));
+	?&gt;
+
+	//コントローラでの取得例
+	//$sample_id=$this->request->data[フォーム名][$i]['xxx']['test'];
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-3" class="sec1" >
+	<h3>ログインユーザー情報を取得</h3>
+
+	Authで認証している場合、「$this->Auth->user();」でログインユーザー情報を取得できる。<br>
+	ただしモデルでは使用できないのでコントローラー内で使用すること。<br>
+	Auth情報は未確認であるが$_SESSIONに格納されているようである。<br>
+	<br>
+	<pre>
+	$this->Auth->user();
+	</pre>
+
+	以下のサンプルでは多数のユーザーに関する情報が表示されます<br>
+	<pre>
+	Debugger::dump($this->Auth->user());
+	</pre>
+
+	ログインユーザーIDだけ取得する場合<br>
+	<pre>
+	Debugger::dump($this->Auth->user('id'));
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-4" class="sec1" >
+	<h3>モデル生成 | ClassRegistry</h3>
+	モデルを直接生成<br>
+	<pre>
+	$ModelA = ClassRegistry::init('ModelA');
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-5" class="sec1" >
+	<h3>DBと直接結びつけない、且つコントローラ内でバリデーションを実装</h3>
+
+	<pre>
+	private function valid_ent($ent){
+
+		// ▽入力チェック対象のデータの例
+		// 		$ent=array(
+		// 			'id' => '10002',
+		// 			'last_name_kana' => 'モトブあああああ',
+		// 			'first_name_kana' => 'タロウ',
+		// 			'age' => '40',);
+
+		//バリデーション情報
+		$valids = array(
+				'last_name_kana'=> array(
+						'maxLength'=>array(
+								'rule' => array('maxLength', 4),
+								'message' => '4文字以内で入力してください',
+								'allowEmpty' => true
+						),
+				),
+				'first_name_kana'=> array(
+						'maxLength'=>array(
+								'rule' => array('maxLength', 4),
+								'message' => '4文字以内で入力してください',
+								'allowEmpty' => true
+						),
+				),
+		);
+
+		//モデルを生成
+		if(empty($this->ModelA)){
+			App::uses('ModelA','Model');
+			$this->ModelA=new ModelA();
+		}
+
+		//モデルへバリデーション情報をセット
+		$this->ModelA->validate=$valids;
+
+		//入力エラー情報
+		$err=null;
+
+		//入力チェックするエンティティをセット
+		$this->ModelA->set($ent);
+
+		//入力チェック
+		if ($this->ModelA->validates($ent)){//正常である場合
+			Debugger::dump('入力エラーなし');
+		}
+
+		else{//入力エラーがある場合。
+
+			//入力チェックエラー情報を取得
+			$errors=$this->ModelA->validationErrors;
+
+			//入力エラーメッセージを組み立て
+			$errMsg="";
+			foreach ($errors  as  $err){
+				foreach($err as $val){
+					$errMsg.= $val.' ： ';
+				}
+			}
+
+			$err['errors']=$errors;
+			$err['err_msg']=$errMsg;
+
+			Debugger::dump($err);
+
+			// $errの内容
+			// array(
+			//	(int) 0 => '4文字以内で入力してください',
+			//	'err_msg' => '4文字以内で入力してください ： '
+			// )
+
+		}
+
+		return $err;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-6" class="sec1" >
+	<h3>コントローラでバリデーション（2次元データ版）</h3>
+	<pre>
+	private function valid_sanka_edit($data){
+
+		// ▽入力チェック対象のデータの例
+		// array(
+		// 	(int) 0 => array(
+		// 		'id' => '10005',
+		// 		'last_name_kana' => 'リュウキュウ',
+		// 		'first_name_kana' => 'ヤマガメ',
+		// 		'age' => '81',
+		// 	),
+		// 	(int) 1 => array(
+		// 		'id' => '10006',
+		// 		'last_name_kana' => 'オキナワ',
+		// 		'first_name_kana' => 'ハブタロウ',
+		// 		'age' => '10',
+		// 	)
+		// )
+
+		Debugger::dump($data);
+
+		//バリデーション情報
+		$valids = array(
+				'last_name_kana'=> array(
+						'maxLength'=>array(
+								'rule' => array('maxLength', 4),
+								'message' => '名は4文字以内で入力してください',
+								'allowEmpty' => true
+						),
+				),
+				'first_name_kana'=> array(
+						'maxLength'=>array(
+								'rule' => array('maxLength', 4),
+								'message' => '氏は4文字以内で入力してください',
+								'allowEmpty' => true
+						),
+				),
+		);
+
+		//モデルを生成
+		if(empty($this->ModelA)){
+			App::uses('ModelA','Model');
+			$this->ModelA=new ModelA();
+		}
+
+		//モデルへバリデーション情報をセット
+		$this->ModelA->validate=$valids;
+
+		//入力エラー情報
+		$errs=null;
+		$row_no=1;
+		$errsMsg="";
+		$err_flg=false;
+
+		foreach ($data as $ent) {
+			//入力チェックするエンティティをセット
+			$this->ModelA->set($ent);
+
+			//入力チェック
+			if ($this->ModelA->validates($ent)){//正常である場合
+				$errs[]=null;
+			}
+
+			else{//入力エラーがある場合。
+
+				//入力チェックエラー情報を取得
+				$errors=$this->ModelA->validationErrors;
+
+				//入力エラーメッセージを組み立て
+				$errMsg="";
+				foreach ($errors  as  $err){
+					foreach($err as $val){
+						$errMsg.= $row_no.'行目:'.$val.' : ';
+					}
+				}
+
+				$errsMsg.=$errMsg.'&lt;br>';
+
+				$err['errors']=$errors;
+				$err['err_msg']=$errMsg;
+
+				$errs[]=$err;
+
+
+
+			}
+
+			$row_no++;
+
+		}
+
+		$ret=null;
+		if($err_flg==true){
+			$ret['errs']=$errs;
+			$ret['errs_msg']=$errsMsg;
+		}
+
+
+		Debugger::dump($ret);
+
+		return $ret;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-7" class="sec1">
+	<h3>現在のURLを取得する</h3>
+	「Router::url()」で現在のURLを取得できる。<br>
+	引数を指定することによりいくつかのパターンでURLを取得できる。<br>
+	<br>
+	「Router::url()」のいくつかのパターンサンプル<br>
+	<pre>
+	$x=Router::url(); 		→ /test/xxx/
+	$x2=Router::url('/'); 		→ /
+	$x3=h(Router::url(null, true)); 	→ http://localhost/test/xxx/
+	$x4=h(Router::url('/', true)); 		→ http://localhost/
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-8" class="sec1">
+	<h3>SQLを直接実行する</h3>
+	いたってシンプル。以下のようにするだけ。<br>
+	$data=$this->query(SQLクエリー);<br>
+	<br>
+	サンプル<br>
+	<pre>
+		$data = $this->query(
+			"SELECT
+				TestA.id
+				,TestA.stock_flg
+				,TestB.stock_date
+				,TestB.stock_count as zan
+			FROM
+				test_as AS TestA
+				LEFT JOIN test_bs AS TestB ON TestA.id = TestB.stock_group_id
+			WHERE
+				TestA.stock_flg=2
+				AND TestA.delete_flg=0
+				AND TestB.stock_date='2012-12-12'
+				AND TestB.delete_flg=0"
+		,false);
+
+
+		return $data;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-9" class="sec1">
+	<h3>いろんなバリデーション</h3>
+
+	<pre>
+	public $validate = array(
+
+			//必須バリデーション
+			'neko' => array(
+
+					'notEmpty'=>array(
+							'rule' => 'notEmpty',
+							'message' => 'メールアドレスは必須入力です。'
+					),
+
+			),
+
+			//最大文字数バリデーション
+			'kj_title' => array(
+				'maxLength'=>array(
+						'rule' => array('maxLength', 50),
+						'message' => 'タイトルは50文字以内で入力してください。',
+						'allowEmpty' => true//空を許可
+				)
+			),
+
+			//自然数のバリデーション
+			//<span class="marker">※注意</span>：電話番号で使ってはいけない。0から始まる値は自然数と見なされない。
+			'kani' => array(
+					'naturalNumber'=>array(
+							'rule' => array('naturalNumber', true),  // 0以上の整数
+							'message' => 'kaniは0以上の自然数を入力してください。',
+					),
+					//数値範囲
+					'range'=>array(
+							'rule' => array('range', -1, 10),
+							'message' => 'kaniは0～9の自然数を入力してください。'
+					),
+			),
+			
+			//数値範囲のバリデーション。小数もOK。
+			'tanuki'=> array(
+
+					'range'=>array(
+							'rule' => array('range', 0,99999),
+							'message' => 'タヌキ数値は0を超える数値を入力してください。（小数可、最大99999）',
+							'allowEmpty' => false
+					),
+			),
+
+			//整数（負数を含む）のバリデーション
+			'int_x' => array(
+				'custom'=>array(
+					'rule' => array( 'custom', '/^[-]?[0-9]+?$/' ),
+					'message' => 'int_xは整数を入力してください。',
+							'allowEmpty' => true
+					),
+			),
+
+			//半角英数字といくつかの記号のバリデーション
+			'yagi' => array(
+
+				'notEmpty'=>array(
+					'rule' => 'notEmpty',
+					'message' => 'yagiは空白禁止です'
+				),
+				'custom'=>array(
+					'rule' => array( 'custom', '/^[a-zA-Z0-9_\-.!~|]*$/' ),
+					'message' => 'yagiは半角英数と特定の記号( -_.!~ )以外は入力できません。'
+				),
+				'maxLength'=>array(
+					'rule' => array('maxLength', 5),
+					'message' => 'yagiは5文字以内です。'
+				)
+			),
+
+			//日付形式のバリデーション
+			'buta'=> array(
+					'rule' => array( 'date', 'ymd'),
+					'message' => '日付は日付形式【yyyy-mm-dd】で入力してください。',
+					'allowEmpty' => true
+			),
+
+			//時刻のバリデーション。先頭に「8：00」だとはじかれる。「8：00」としなければならない模様
+			'tori'=> array(
+					'time'=>array(
+							'rule' => array('time', 'his'),
+							'message' => '時間はh:i:s形式で入力してください。（例 12:12:12)',
+							'allowEmpty' => false
+					),
+
+			),
+
+			//メールアドレスのバリデーション
+			'kirin' => array(
+					'email'=>array(
+							'rule' => array('email'),
+							'message' => 'メールアドレスは書式に従って入力してください。（全角になっていないか注意）',
+					),
+
+			),
+			
+			//電話番号のバリデーション
+			'tel'=> array(
+					'maxLength'=>array(
+						'rule' => array('maxLength', 36),
+						'message' => '電話番号は36文字以内で入力してください',
+						'allowEmpty' => false
+					),
+					'tel'=>array(
+						'rule' => array( 'custom', '/^[0-9+＃*-]*$/' ),
+						'message' => '電話番号は半角数字と特定の記号( - # + *)以外は入力できません。'
+					),
+			),
+
+			//カタカナのバリデーション
+			'end_name_kana'=> array(
+
+					'katakana'=>array(
+						'rule' => array( 'custom', "/^[ァ-ヶー゛゜　\s]*$/u" ),
+						'message' => '氏のフリガナはカタカナで入力してください。（全角カタカナ）'
+					),
+			),
+			
+			//カタカナのバリデーション（オリジナル関数呼び出し型）
+			'first_name_kana'=> array(
+						'katakana' => array(
+								'rule' => array('katakana_only'),
+								'message' => '名は全角カタカナで記入してください(半角カタカナは不可）',
+						),
+			),
+
+			//日時のバリデーション
+			'datetime_a'=> array(
+				'rule' => array( 'datetime', 'ymd'),
+				'message' => '日時形式【yyyy-mm-dd h:i:s】で入力してください。',
+				'allowEmpty' => true
+			),
+
+			//時分のカスタムバリデーション
+			'test_hi'=> array(
+
+				'is_time_hi' => array(
+						'rule' => array('is_time_hi'),
+						'message' => '集合時間はh:i形式で入力してください。（例 12:00)',
+				),
+
+			),
+
+
+	);
+
+	//カタカナチェック。全角スペースと半角スペースも許可。カスタムバリデーション。
+	function katakana_only( $wordvalue){
+
+		$value = array_shift($wordvalue);
+
+		return preg_match("/^[ァ-ヶー゛゜　\s]*$/u", $value); // スペースも含むカタカナ
+
+	}
+
+
+	/**
+	 * カスタムバリデーション
+	 * h:i型の時刻チェック（時分のみ）
+	 * @param $v	時刻文字列
+	 * @return true:false
+	 */
+	//時分チェック（h:i形式）
+	function is_time_hi($v){
+
+
+		if(empty($v)){
+			return true;
+		}
+
+		//値が配列で入って来るケースがあるので対策
+		if(is_array($v)){
+			$v=reset($v);
+		}
+
+		$v=trim($v);
+
+
+		$ary=explode(':',$v);
+
+		if(count($ary) != 2){
+
+			return null;
+		}
+
+		$h=trim($ary[0]);
+		$m=trim($ary[1]);
+
+		if(!preg_match('/^[0-9]+$/', $h)){
+			return false;
+		}
+
+		if(!preg_match('/^[0-9]+$/', $m)){
+			return false;
+		}
+
+		if($h < 0 || $h > 23){
+			return false;
+		}
+
+		if($m < 0 || $m > 59){
+			return false;
+		}
+
+		return true;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-0" class="sec1" style="display:none">
+	<div class="title"></div>
+	テスト
+	<pre>
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

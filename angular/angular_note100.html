@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Angularの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div id="header" ><h1>Angularの覚書 詳細</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s100" class="sec4" >
+	<h3>AngularJSのMVC</h3>
+	
+	MVCのパターンはフレームワークにより呼び方が変わるが、
+	AngularJSのMVCはMVWと呼ぶ。<br>
+	Model,View,<strong>Whatever</strong>である。<br>
+	Whateverは"なんでも"という意味であり、柔軟な設計思想であることが分かる。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s101" class="sec4" >
+	<h3>Model</h3>
+	
+	ビジネスロジック、サーバー側との通信、データ、ローカルストレージなどが実装できる。<br>
+	基本的に柔軟な設計思想である。<br>
+	<br>
+	ModelではAJAX機能も備えられている。
+	Angular2のModelはHTTP_PROVIDERSと呼ばれているようである。<br>
+	<br>
+	
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+<div id="s102" class="sec4" >
+	<h3>View</h3>
+	
+	普通のhtmlファイルがViewである。<br>
+	Angular用のタグがあり、テンプレート、HTMLヘルパーに該当する機能も存在する。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s103" class="sec4" >
+	<h3>Scope</h3>
+	
+	Conroller,Model,Viewの間でデータを保管する場所である。<br>
+	ConrollerでScopeにデータをセットし、ViewでScopeからデータを取り出し表示する。<br>
+	ModelでもScopeとの結びつけが存在する。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s104" class="sec4" >
+	<h3>Controller</h3>
+	
+	基本的に他のフレームワークのコントローラと変わらない。<br>
+	Model,Viewの間をとりなす。<br>
+	Scopeへデータセットするのが主な作業。<br>
+	<br>
+	
+	Angular2のControllerはComponentと呼ばれる。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="s108" class="sec4" >
+	<h3>Directive</h3>
+	
+	Viewをラップするテンプレートのことかと思われる。
+	<aside>CakePHPのdefault.ctpに相当。</aside>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s109" class="sec4" >
+	<h3>Filter</h3>
+	
+	いわゆるHtmlヘルパーのこと。<br>
+	各Viewの共通ロジックを記述する。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="s110" class="sec4" >
+	<h3>recipe</h3>
+	
+	Serviceの作成方法のことである。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+<div id="s115" class="sec4" >
+	<h3>Service</h3>
+	
+	JSクラスのインスタンスを取得する<a href="#s110" class="livipage">recipe</a>である。<br>
+	シングルトン、DIコンテナ、スコープが該当する。<br>
+	<br>
+	
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s116" class="sec4" >
+	<h3>Value</h3>
+	
+	値の<a href="#s110" class="livipage">recipe</a>である。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="s117" class="sec4" >
+	<h3>Factory</h3>
+	
+	関数の<a href="#s110" class="livipage">recipe</a>である。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+<div id="s120" class="sec4">
+	<h3>Provider</h3>
+
+	汎用的な<a href="#s110" class="livipage">recipe</a>であるが、configなど特別な場所で使用したほうが良い。
+	通常は、Value,Factoryなどを利用すべきである。<br>
+	<br>
+	
+	<br><time>2016-9-16</time>
+</div>
+
+
+
+
+
+
+
+<div id="s121" class="sec4" >
+	<h3>Constant</h3>
+	<a href="#s116" class="livipage">Value</a>と同様であるが、configでも利用できる。<br>
+	設定系の定数かと思われる。<br>
+	<a href="#s120" class="livipage">Provider</a>とセットで使うことが多い。<br>
+	<br>
+	
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sxxx" class="sec4" >
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/angular/">Angularの覚書</a></li>
+	<li>詳細</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-9-16</div>
+</body>
+</html>

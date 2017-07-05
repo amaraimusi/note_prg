@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0-1" class="sec1">
+	<div class="title">空判定関数</div>
+	undefined,null,0,空文字,空配列,空オブジェクトなど様々な空値を判定する関数。
+	<pre>
+	// 空判定
+	function <strong>_empty</strong>(v){
+		if(v == null || v == '' || v=='0'){
+			return true;
+		}else{
+			if(typeof v == 'object'){
+				if(Object.keys(v).length == 0){
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	</pre>
+	
+	<a href="/sample/js/null_check/null_check.html" class="btn btn-info">検証</a><br>
+	<br>
+
+	<br><time>2014-5-6 | 2017-2-7</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1" class="sec1">
+	<div class="title">デバッグ方法</div>
+	FireFoxのfirebugとChromeで利用できる。
+	<table border="1">
+		<thead><tr><th>関数</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr><td>console.log(hoge);</td><td>コンソール画面に出力する</td></tr>
+			<tr><td>console.dir(obj);</td><td>オブジェクトのダンプを出力する</td></tr>
+			<tr><td>console.trace();</td><td>トレースを出力。呼び出し元がわかる。</td></tr>
+		</tbody>
+	</table>
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-2" class="sec1">
+	<div class="title">メモリ解放の方法</div>
+	「delete」を使う。
+	<pre>
+	delete obj;
+	</pre>
+
+	<br /><br />
+	「void 0;」をセットする方法もある。メモリ上に確保されていない値にも有効。
+	<pre>
+	ary.a=void 0;
+	</pre>
+
+	<div class="hosoku"><a href="http://blog.livedoor.jp/aki_mana/archives/2587785.html" >参考サイト</a></div>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-3" class="sec1">
+	<div class="title">チェックボックスにチェックを入れる方法</div>
+	チェックボックスにチェックを入れたり外し利する方法。<br>
+
+	<pre><code>
+	$(".chk_sel").prop({'checked':true}); // チェックを入れる。
+	$(".chk_sel").prop({'checked':false}); // チェックをはずす。
+	</code></pre>
+	<br>
+	
+	以下の方法も可
+	<pre><code>
+	$(".chk_sel").prop({'checked':1}); // チェックを入れる。
+	$(".chk_sel").prop({'checked':0}); // チェックをはずす。
+	</code></pre>
+	<br>
+
+	<br><time>2014-6-24 | 2016-11-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-4" class="sec1">
+	<div class="title">数値を文字列化する</div>
+
+	<pre>
+	var num=12345.6789;
+	var str=num.toString();
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-5" class="sec1">
+	<div class="title">文字列を数値化する</div>
+
+	<pre>
+	var str="12345.6789";
+	var num=str * 1;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-6" class="sec1">
+	<div class="title">文字列を検索し、その位置を取得</div>
+	「indexOf」関数を使う。<br>
+	位置 = 対象文字列.<span style="color:red">indexOf</span>( "検索文字"[, 検索位置・省略可] )<br>
+	<br>
+	見つからなかった場合、 <strong>-1</strong> が取得される。<br>
+	先頭が一致した場合、<strong>0</strong> が取得される。<br>
+	<br>
+	
+
+	<a class='ref_link' href='http://www.red.oit-net.jp/tatsuya/js/string.htm'>参考サイト</a><br>
+	<br>
+	
+	<br><time>2014-6-24 | 2016-10-12</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-7" class="sec1">
+	<div class="title">極小値と極大値（Number.MIN_VALUE、Number.MAX_VALUE）</div>
+	JavaScriptで扱える極大値と極小値は定数で用意されている。<br>
+	<br>
+	極小値の定数。<br>
+	Number.MIN_VALUE<br>
+	値は5e-324<br>
+	<br>
+	極大値の定数。<br>
+	Number.MAX_VALUE<br>
+	値は1.7976931348623157e+308<br>
+	※Number.MAX_VALUEより大きい値は'Infinity'となる。<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-8" class="sec1">
+	<div class="title">覚書：連想配列（オブジェクト）に要素を追加</div>
+	Javascriptの連想配列は通常の配列とは、全く別物であるので混同しないように注意。<br>
+	また連想配列とオブジェクトは全く同じものである。
+
+	<br><br>
+	連想配列（オブジェクト）に値を追加する方法は2通りある。<br>
+	キーを指定して値をセットする方法と、プロパティのようにセットする方法であり、
+	意味するところは全く同じである。<br>
+	<br>
+	連想配列（オブジェクト）にキーを指定して値をセット<br>
+	<pre>
+	var obj={};
+	obj['x']=20;
+	obj['y']=21;
+	console.dir(obj);
+	</pre><br>
+	プロパティのようにセットしているが、上と全く同じ。<br>
+	<pre>
+	var obj={};
+	obj.x=20;
+	obj.y=21;
+	console.dir(obj);
+	</pre><br><br><br>
+
+	配列のように値をセットすることもできる。<br>
+	<pre>
+	var obj={};
+	obj[0]=20;
+	obj[1]=21;
+	console.dir(obj);
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9" class="sec1">
+	<div class="title">半角英数字チェック</div>
+
+<pre>
+	function is_alpha_numeric(str)
+	{
+		return /^[a-zA-Z0-9]+$/.test(str);
+	}
+</pre><br>
+※空値はfalseと判定
+
+<br><br>
+<strong>半角英数字チェック。ハイフンやアンダースコア記号もOK</strong><br>
+<pre>
+
+	function is_alpha_numeric2(str)
+	{
+		return /^[a-zA-Z0-9_\-]+$/.test(str);
+	}
+</pre>
+<a href="http://amaraimusi.sakura.ne.jp/sample/js/alpha_numeric/alpha_numeric.html">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-10" class="sec1">
+	<div class="title">filter（フィルター）の使い方</div>
+
+	filterメソッドを使うと配列への絞り込みが容易になる。
+
+	<pre>
+	var ary=[1,2,3,4,5,6,7,8,9,10];
+
+	//★5以上を抽出するフィルター
+	var ary2=ary.filter(function(value, index, ar){
+		return (value &gt;= 5);//条件に一致するのみ値のみ新しい配列にセット。条件外は除外。
+	});
+	</pre>
+	<br><br>
+	<strong>サンプル</strong>
+	<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"&gt;
+		&lt;meta name="google" content="notranslate" /&gt;
+		&lt;title&gt;filter（フィルター）の使い方&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="common1.css"  /&gt;
+		&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+		&lt;script&gt;
+
+
+			$(document).ready(function(){
+
+				var ary=[1,2,3,4,5,6,7,8,9,10];
+
+				//★5以上を抽出するフィルター
+				var ary2=ary.filter(function(value, index, ar){
+					return (value &gt;= 5);
+				});
+
+
+				$("#a1").html(ary.join(","));
+				$("#a2").html(ary2.join(","));
+
+			});
+
+
+		&lt;/script&gt;
+
+		&lt;style type="text/css"&gt;
+
+		&lt;/style&gt;
+
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div id="page1"&gt;
+		&lt;h1 id="header"&gt;filter（フィルター）の使い方&lt;/h1&gt;
+		&lt;div class="container" &gt;
+
+			&lt;div class="sec1"&gt;
+
+				&lt;div&gt;フィルター前&lt;/div&gt;
+				&lt;div id="sec1-1"&gt;&lt;/div&gt;
+				&lt;hr&gt;
+				&lt;div&gt;フィルター後(5以上でフィルターをかける)&lt;/div&gt;
+				&lt;div id="sec1-2"&gt;&lt;/div&gt;
+
+			&lt;/div&gt;&lt;!-- sec1 --&gt;
+
+		&lt;/div&gt;&lt;!-- content --&gt;
+		&lt;div id="footer"&gt;(C) kenji uehara 2014/08/05&lt;/div&gt;
+		&lt;/div&gt;&lt;!-- page1 --&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/filter_base/filter_base.html">サンプル</a><br>
+	<a class="ref_link" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">参考サイト</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-11" class="sec1">
+	<div class="title">SELECTのオプション要素にリストの値をセットする</div>
+
+	<pre><code>
+	/**
+	 * SELECTのオプション要素にリストの値をセットする
+	 * @param selElm SELECT要素
+	 * @param list  リスト。 リストの構造→ [キー] = テキスト
+	 * @parma value 始めの選択値【省略可】
+	 * @parma empty_text 空選択肢のテキスト【省略可】
+	 */
+	function _setSelectOption(selElm,list,value,empty_text){
+		
+		var ops_str='';
+		
+		if(!_empty(empty_text)){
+			ops_str = "&lt;option value=''&gt;" + empty_text + "&lt;/option&gt;&yen;n"
+		}
+		
+		for(var i in list){
+			var text = list[i];
+			
+			var selected = '';
+			if(i == value){
+				selected = 'selected';
+			}
+			ops_str += "&lt;option value='" + i + "' " + selected + "&gt;" + 
+				text + "&lt;/option&gt;&yen;n";
+		}
+		
+		selElm.html(ops_str);
+		
+	}
+	</code></pre>
+	
+	<time>2017-4-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2014/06/24</div>
+</body>
+</html>
+
+

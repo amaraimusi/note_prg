@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>PHPの覚書 | ワクガンス</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">PHPの覚書</h1>
+		<div id="content" >
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-1" class="sec1" >
+	<h3>時分チェック関数</h3>
+	<pre>
+	//時分チェック（h:i形式）
+	function is_time_hi($v){
+
+		$v=trim($v);
+
+
+		if(empty($v)){
+			return true;
+		}
+
+
+		$ary=explode(':',$v);
+
+		if(count($ary) != 2){
+			return false;
+		}
+
+		$h=trim($ary[0]);
+		$m=trim($ary[1]);
+
+		if(!preg_match('/^[0-9]+$/', $h)){
+			return false;
+		}
+
+		if(!preg_match('/^[0-9]+$/', $m)){
+			return false;
+		}
+
+		if($h < 0 || $h > 23){
+			return false;
+		}
+
+		if($m < 0 || $m > 59){
+			return false;
+		}
+
+		return true;
+	}
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/validation/is_time_hi.php" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-2" class="sec1">
+	<h3>期間月分割 | 開始日から終了日までの期間を月ごとに分割する関数</h3>
+
+	2012/12/25から2015/5/12の期間を下記のように指定月毎に分割する関数。
+	<pre>
+	0:　　2012-12-25　～　2012-12-31
+	1:　　2013-01-01　～　2013-03-31
+	2:　　2013-04-01　～　2013-06-30
+	3:　　2013-07-01　～　2013-09-30
+	4:　　2013-10-01　～　2013-12-31
+	5:　　2014-01-01　～　2014-03-31
+	6:　　2014-04-01　～　2014-06-30
+	7:　　2014-07-01　～　2014-09-30
+	8:　　2014-10-01　～　2014-12-31
+	9:　　2015-01-01　～　2015-03-31
+	10:　　2015-04-01　～　2015-05-12
+	</pre>
+
+	<br><br>
+
+	<stong>関数</stong>
+	<pre>
+	/**
+	 * 開始日から終了日までの期間を月ごとに分割する。
+	 * 月間隔を指定するなら季節ごとの分割も再現できる。(1月を基準とし、月間隔値の倍数で分割）
+	 * @param $start 開始日
+	 * @param $end 終了日
+	 * @param $interval 月間隔
+	 * @return 期間分割リスト
+	 */
+	function termMonthSplit($start,$end,$interval){
+
+		//Y-m-d形式にする。
+		$start=date('Y-m-d',strtotime($start));
+		$end=date('Y-m-d',strtotime($end));
+
+		// 開始日を年月日に分割
+		$start_y=date('Y', strtotime($start));
+		$start_m=date('m', strtotime($start));
+
+
+		// 終了日を年月日に分割
+		$end_y=date('Y', strtotime($end));
+		$end_m=date('m', strtotime($end));
+
+
+		$m1=0;	// 月値1
+		$m2=0;	// 月値2
+		$list=array();
+		// 開始年から終了年までの年ループ
+		for($y=$start_y ; $y <= $end_y ; $y++){
+
+			// 年ループは初周回であるか？
+			if($y == $start_y){
+				$m1 = $start_m; // 月ループの月値1に開始月をセット
+
+			}else{
+				$m1 = 1;	// 月ループの月値1に1をセット
+			}
+
+			// 年ループは最周回であるか？
+			if($y == $end_y){
+				$m2 = $end_m;// 月ループの月値2に終了月をセット
+
+			}else{
+				$m2 = 12; // 月ループの月値2に12
+			}
+
+			// 月ループ	月値1から月値2までループ
+			for($m=$m1 ; $m <= $m2 ; $m++){
+
+
+				// 年ループの初周回且つ、月ループの初周回であるか？
+				if($y == $start_y && $m == $m1){
+					$list[]=$start; // リストに開始日を追加
+				}
+
+				// 年ループの最周回且つ、月ループの最周回であるか？
+				if($y == $end_y && $m == $m2 ){
+					$list[]=$end;// リストに最終日を追加
+				}
+
+				// 月値は月間隔の倍数であるか？
+				if(($m % $interval) == 0){
+
+ 					$str_ym1=$y.'-'.$m.'-1';
+
+					// 月値の月末を取得し、リストに追加
+					$yml = date('Y-m-t',strtotime($str_ym1));
+
+ 					$list[]=$yml;
+
+					// 次月の月初を取得し、リストに追加
+					if($m == 12){
+						$str_ym2=($y + 1).'-1-1';
+					}else{
+						$str_ym2=$y.'-'.($m + 1).'-1';
+					}
+					$ym1=date('Y-m-d',strtotime($str_ym2));
+					$list[]=$ym1;
+
+				}
+
+			}
+		}
+
+		$list2=array_chunk($list,2);//開始年と終了年のリストになるよう構造変換
+
+		return $list2;
+	}
+
+
+
+	</pre>
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/php/term_month_split/term_month_split.php" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-3-1" class="sec1" >
+	<h3>XSSサニタイズ</h3>
+
+	<p>XSSエスケープ</p>
+	<pre><code>
+	/**
+	 * XSSエスケープ（XSSサニタイズ）
+	 *
+	 * @note
+	 * XSSサニタイズ
+	 * 記号「&lt;&gt;」を「&amp;lt;&amp;gt;」にエスケープする。
+	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
+	 *
+	 * @param any $data 対象データ | 値および配列を指定
+	 * @return void
+	 */
+	function xss_escape(&amp;$data){
+		
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				xss_escape($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre><br>
+	
+	<p>XSSアンエスケープ</p>
+	<pre><code>
+	/**
+	 * XSSアンエスケープ（XSSサニタイズデコード）
+	 *
+	 * @note
+	 * XSSエスケープされたデータを元に戻す。
+	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
+	 *
+	 * @param any $data 対象データ | 値および配列を指定
+	 * @return void
+	 */
+	function xss_unescape(&amp;$data){
+		
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				xss_unescape($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace(array('&amp;lt;','&amp;gt;'),array('&lt;','&gt;'),$data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre><br>
+
+
+	<hr>
+	<aside>旧記述 2017-4-27</aside>
+	
+	改行やXSSの危険可能性がある文字列を出力する場合、以下の1行コードが便利。
+	<pre>echo nl2br (h($str));</pre>
+
+	<aside>
+		※<br>
+		nl2br()関数は改行を&lt;br&gt;に置換<br>
+		h関数はXSS対策サニタイズ<br>
+	</aside>
+	
+	<p>簡易版のXSSサニタイズ関数</p>
+	<pre><code>
+	/**
+	 * XSSサニタイズ
+	 * @param string $str 対象文字列
+	 * @return XSSサニタイズ後の文字列
+	 */
+	function xss_sanitize($str){
+		return str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$str);
+	}
+	</code></pre>
+	
+	<br><time>2013-9-3 | 2017-6-1</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-3-2" class="sec1" >
+	<h3>SQLインジェクション用のサニタイズ</h3>
+	
+	<h4>SQLインジェクションサニタイズ</h4>
+	<pre><code>
+	/**
+	 * SQLインジェクションサニタイズ
+	 *
+	 * @note
+	 * SQLインジェクション対策のためデータをサニタイズする。
+	 * 高速化のため、引数は参照（ポインタ）にしている。
+	 *
+	 * @param any サニタイズデコード対象のデータ | 値および配列を指定
+	 * @return void
+	 */
+	protected function sql_sanitize(&amp;$data){
+	
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				$this-&gt;sql_sanitize($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = addslashes($data);// SQLインジェクション のサニタイズ
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre>
+	<br>
+	
+	<h4>SQLサニタイズデコード</h4>
+	<pre><code>
+	/**
+	 * SQLサニタイズデコード
+	 *
+	 * @note
+	 * SQLインジェクションでサニタイズしたデータを元に戻す。
+	 * 高速化のため、引数は参照（ポインタ）にしている。
+	 *
+	 * @param any サニタイズデコード対象のデータ | 値および配列を指定
+	 * @return void
+	 */
+	protected function sql_sanitize_decode(&amp;$data){
+	
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				$this-&gt;sql_sanitize_decode($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = stripslashes($data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre>
+	
+	<hr>
+	下記は旧記述 2017-5-22<br>
+	<br>
+
+	
+	<pre><code>
+	/**
+	 * SQLインジェクションのサイニタイズ
+	 *
+	 * @note
+	 * 高速化のため参照型の引数としている。（返値をかねた引数）
+	 * 引数には文字列と多重配列を指定できる。
+	 * addslashes関数を使用しているため文字コードShift_JISやGBKでは不安要素あり。
+	 *
+	 * @param string/array $any 対象文字列または配列
+	 * @return void
+	 */
+	private function sql_sanitize(&amp;$any){
+		if (is_array($any)){
+			foreach ($any as $i =&lt; &amp;$val){
+				$this-&lt;sql_sanitize($val);
+			}
+			unset($val);
+		}else{
+	
+			if(gettype($any)=='string'){
+				//SQLインジェクション のサニタイズ
+				$any=addslashes($any);
+	
+			}
+		}
+	
+	}
+	</code></pre>
+	<br>
+	
+	<strong>補足</strong><br>
+	addslashes関数でサニタイズした文字列はstripslashes関数で戻せる。<br>
+	<br>
+	
+	
+	
+	<p>旧</p>
+	SQLインジェクション対策にはmysql_real_escape_string関数を使うと便利である。<br>
+	mysql_real_escape_string関数はシングルクォートにバックスラッシュを付加する。<br>
+	<br>
+	
+	<pre><code>
+	$v = " || a=''";
+	$v = <strong>mysql_real_escape_string</strong>($v);
+	echo $v;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">	|| a=\'\'</pre>
+	<br>
+	
+	mysql_real_escape_stringが使えない場合<br>
+	<pre>
+	$str = str_replace("'","\'",$str);
+	</pre>
+	※不完全である。他にも注意しておいた方がよい記号た多数存在する。
+	<br>
+
+	<p>注意</p>
+	mysql_real_escape_stringはPHP5.5から非推奨になり、PHP7からは削除された。<br>
+	以下が代替手段とのこと。しかい、DB接続設定が必要になるので使いにくい。<br>
+	<ul>
+		<li><a href="http://php.net/manual/ja/mysqli.real-escape-string.php" target="blank">mysqli_real_escape_string()</a></li>
+		<li><a href="http://php.net/manual/ja/pdo.quote.php" target="blank">PDO::quote()</a></li>
+	</ul>
+	<br>
+	
+
+
+	<br><time>2016-8-22 | 2017-5-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-3-3" class="sec1" >
+	<h3>XML出力用のエスケープ</h3>
+	
+	<p>XMLエスケープ</p>
+	<pre><code>
+	/**
+	 * XMLエスケープ
+	 *
+	 * @note
+	 * XMLに出力データをエスケープする。
+	 * 記号「&lt;&gt;"'&amp;」を「&amp;lt;&amp;gt;&amp;amp;&amp;quot;&amp;apos;」にエスケープする。
+	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
+	 *
+	 * @param any $data 対象データ | 値および配列を指定 
+	 * @return void
+	 */
+	function xml_escape(&amp;$data){
+		
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				xml_escape($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace(array('&amp;','&lt;','&gt;','"',"'"),array('&amp;amp;','&amp;lt;','&amp;gt;','&amp;quot;','&amp;apos;'),$data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre>
+	<a href="/sample/php/a020/xml_escape/xml_escape.php">検証</a><br>
+	<br>
+	
+	<p>XMLアンエスケープ</p>
+	<pre><code>
+	/**
+	 * XMLアンエスケープ
+	 *
+	 * @note
+	 * XMLエスケープされたデータを元に戻す。
+	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
+	 *
+	 * @param any $data 対象データ | 値および配列を指定
+	 * @return void
+	 */
+	function xml_unescape(&amp;$data){
+		
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				xml_unescape($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace(array('&amp;lt;','&amp;gt;','&amp;quot;','&amp;apos;','&amp;amp;'),array('&lt;','&gt;','"',"'",'&amp;'),$data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre><br>
+
+	<time>2017-6-1</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-4" class="sec1" >
+	<h3>PHPの注意：PHPの関数と同じ名前でオリジナル関数を作ってはいけない。</h3>
+	環境により、呼び出す関数が変化する。<br>
+	開発環境では正常に動いても、本番環境（サーバー上）では正常に動かない可能性がある。<br>
+	<br>
+	関数「getSize()」で確認。<br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-5" class="sec1" >
+	<h3>2次元配列から列を抜き出す</h3>
+
+	array_column関数は2次元配列から縦区切りで、データを抽出できます。
+	<pre>
+	require_once 'array_column.php';//PHP5.5未満の環境でもarray_column関数を使えるようにする。
+
+	//1列目だけを抽出例。
+	$dd=array(
+		array(1,'nezumi','a'),
+		array(2,'usi','b'),
+		array(3,'tora','c'));
+	$ary=array_column($dd, 1);
+	echo var_dump($ary);
+	</pre>
+
+	<div>出力</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=3)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'nezumi'</font> <i>(length=6)</i>
+	  1 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'usi'</font> <i>(length=3)</i>
+	  2 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'tora'</font> <i>(length=4)</i>
+	</pre>;
+
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/array_column/">サンプル</a>
+	<hr>
+
+	もちろんインデックスだけでなくキー名を指定して列を抽出することも可能。<br>
+	列は1つだけなく複数取得できる。<br>
+	<a href="http://php.net/manual/ja/function.array-column.php" class="ref_link" >ドキュメント</a><br>
+	<br>
+
+	array_columnはPHP5.5からの関数である。
+	PHP5.5未満の対応方法は<a href="https://github.com/ramsey/array_column/blob/master/src/array_column.php">ここから</a>
+
+
+
+</div>
+<hr />
+
+
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-7" class="sec1">
+	<h3>数値を2桁表記にする（例 2→02)</h3>
+
+	<pre>
+	$m=2;
+	$m2=sprintf('%02d', $m);
+	//$m2='02'
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-8" class="sec1">
+	<h3>科学記法を10進数表記にする(例 1.23E+14 → 123000000000000)</h3>
+	巨大な整数を出力する科学記法になってしまう。<br>
+	<br>
+	科学記法になってしまう例<br>
+	<pre>
+	$a=123000000000000;// ←巨大な整数
+	echo $a;// → (float) 1.23E+14
+	</pre>
+	<br>
+	科学記法でなく10進数で表記したい場合、以下のようにする。<br>
+	<pre>
+	$a=number_format($a, 0, '.', '');
+	echo $a;// → 123000000000000
+	</pre>
+	<br>
+	※ただ小数点以下の数値には対応していない。小数点以下は無視されてしまう。<br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-9" class="sec1" >出す | array_keys</div>
+
+
+	array_keys関数でキーのリストを取り出すことができる。<br>
+	<br>
+	ソースコード<br>
+	<pre>
+	$ary=array('neko'=>'猫','hituji'=>'羊','kani'=>'蟹','same'=>'鮫',);
+	$keys=array_keys($ary);
+	Debugger::dump($keys);
+	</pre>
+	<br>
+
+	ダンプ<br>
+	<pre>
+	array(
+		(int) 0 => 'neko',
+		(int) 1 => 'hituji',
+		(int) 2 => 'kani',
+		(int) 3 => 'same'
+	)
+	</pre>
+
+	※配列が空であれば、空のキーリストを返す。エラーにはならない。<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-10" class="sec1">
+	<h3>文字列を指定文字数ごとに区切って配列にする | str_split</h3>
+	str_split関数は文字列を指定文字数ごとに区切ることができる。<br>
+	<br>
+	ソースコード<br>
+	<pre>
+	$str="20120229";
+	$ary=str_split($str,2);
+	Debugger::dump($ary);
+	</pre>
+	ダンプ<br>
+	<pre>
+	array(
+		(int) 0 => '20',
+		(int) 1 => '12',
+		(int) 2 => '02',
+		(int) 3 => '29'
+	)
+	</pre>
+	<br><hr><br>
+	区切り文字数を省略すると一文字ごとの配列になる<br>
+	<pre>
+	$str="20120229";
+	$ary=str_split($str);
+	Debugger::dump($ary);
+	</pre>
+	ダンプ
+	<pre>
+	array(
+		(int) 0 => '2',
+		(int) 1 => '0',
+		(int) 2 => '1',
+		(int) 3 => '2',
+		(int) 4 => '0',
+		(int) 5 => '2',
+		(int) 6 => '2',
+		(int) 7 => '9'
+	)
+	</pre>
+	<br><hr><br>
+	空文字（$str=null）である場合、データ1件の配列になる。nullにはならないので注意。<br>
+	<pre>
+	$str=null;
+	$ary=str_split($str);
+	Debugger::dump($ary);
+	</pre>
+	ダンプ
+	<pre>
+	array(
+		(int) 0 => ''
+	)
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

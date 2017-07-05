@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　HTML5の覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script src="../js/jquery-1.11.1.min.js"></script>
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">HTML5の覚書</h1>
+		<div id="content" >
+
+
+
+
+
+
+
+
+		<!-- --------------------------------------------------------------- -->
+		<div id="sec2-1" class="sec1" >
+			<h3>ツールチップのtitle属性内で改行する</h3>
+
+			title属性に「&amp;#13;」を入力すると改行する。<br>
+			<br>
+			サンプル<br>
+			<pre>&lt;pre title="いろは&amp;#13;ニホヘト"&gt;TEST&lt;/pre&gt;</pre>
+			<span title="いろは&#13;ニホヘト" style="color:#4b84e2">TEST</span>
+		</div>
+		<hr />
+		<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+		<!-- --------------------------------------------------------------- -->
+		<div id="sec2-2" class="sec1" >
+			<h3>初期表示領域をスマートフォンの画面サイズに合わせる</h3>
+
+			<pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</pre>
+			ブラウザ画面をスマートフォンのサイズに合わせるmetaタグ。<br>
+			viewportは表示領域を設定することを意味する。<br>
+			width=device-widthは端末画面の幅に合わせる設定。<br>
+			initial-scaleは初期のズーム倍率。<br>
+			<br>
+			他の属性設定は下記を参照。<br>
+			<a class="ref_link" href="http://www.tagindex.com/html5/page/meta_viewport.html">参考URL</a>
+
+		</div>
+		<hr />
+		<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+		<!-- --------------------------------------------------------------- -->
+		<div id="sec2-3" class="sec1" >
+			<h3>IE11で過去バージョン5,7,8,9,10をエミュレートする</h3>
+
+			IE11で過去バージョンをエミュレートできる。<br>
+			サポートしていないAPIの挙動を調べるのにとても便利。<br>
+			<br>
+			<h3>使い方</h3>
+			<ol>
+				<li>IE11を起動する。</li>
+				<li>F12を押す。</li>
+				<li>「エミュレーション」タブを選択。(※下矢印によるドロップダウン表示jなっている場合もある。)</li>
+				<li>ドキュメントモードからエミュレートしたいバージョンを選択する。</li>
+				<li>これで選択バージョンに対応していないAPI等があればエラーになったりする。</li>
+			</ol>
+
+			<img src="img/sec2-3.png" /><br><br>
+
+
+			<a class="ref_link" href="http://write-remember.com/archives/2548/">参考サイト</a><br>
+
+			<a class="ref_link" href="https://w3g.jp/blog/ie_supportlist">参考サイト：IEバージョンごとのAPI対応表</a><br>
+
+
+
+		</div>
+		<hr />
+		<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- --------------------------------------------------------------- -->
+		<div id="sec2-5" class="sec1" >
+			<h3>入力フォームのいずれかにHTML5バリデーション入力エラーがあるか調べる関数</h3>
+
+			<pre>
+	/**
+	 * 入力フォームのいずれかに１つでもHTML5バリデーション入力エラーがあればfalseを返す。
+	 * pattern属性やrequired属性などのHTML5バリデーションに対応。
+	 * @return true:入力エラーなし、もしくは未対応（IE9ではpatternが使えないのでtrueに）    false:いずれかに入力エラーあり
+	 */
+	function checkHtml5Valid(){
+
+
+			var form = document.forms[0];
+
+			for (i in form) {
+
+				try{
+					var v=form[i].validity.valid;
+
+					if(v==false){
+						return false;
+					}
+				}catch( e ){
+
+				}
+
+			}
+
+			return true;
+	}
+			</pre>
+		</div>
+		<hr />
+		<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-6" class="sec1" >
+	<h3>補足文はasideタグ</h3>
+
+	補足文にはasideタグが使える。<br>
+	なお、基本的にはブロック要素である。<br>
+	<pre>
+	&lt;aside&gt;
+	補足文章です。
+	&lt;/aside&gt;
+	</pre>
+	<aside>
+	※注意<br>
+	カッコ内の補足にasideタグを使うのはふさわしくない。<br>
+	また一連の文章中の中に含めるのも良くない。<br>
+	あくまで独立した補足文章に用いること。<br>
+
+	</aside>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-7" class="sec1" >
+	<h3>セレクトボックス機能を持つテキストボックス | autocomplete属性</h3>
+
+	<input type="text" autocomplete="on" list="test1">
+
+	<datalist id="test1">
+	    <option value="ネコ">
+	    <option value="ヤギ">
+	    <option value="カニ">
+	    <option value="サメ">
+	    <option value="ワシ">
+	    <option value="ラマ">
+	    <option value="ブタ">
+	    <option value="トキ">
+	    <option value="ヘビ">
+	    <option value="ダニ">
+	    <option value="ケムシ">
+	</datalist>
+	<br><br>
+
+	ソースコード<br>
+	<pre>
+	&lt;input type="text" autocomplete="on" list="test1"&gt;
+
+	&lt;datalist id="test1"&gt;
+	    &lt;option value="ネコ"&gt;
+	    &lt;option value="ヤギ"&gt;
+	    &lt;option value="カニ"&gt;
+	    &lt;option value="サメ"&gt;
+	    &lt;option value="ワシ"&gt;
+	    &lt;option value="ラマ"&gt;
+	    &lt;option value="ブタ"&gt;
+	    &lt;option value="トキ"&gt;
+	    &lt;option value="ヘビ"&gt;
+	    &lt;option value="ダニ"&gt;
+	    &lt;option value="ケムシ"&gt;
+	&lt;/datalist&gt;
+	</pre>
+	<aside>IEは10くらいから対応らしい</aside>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-8" class="sec1" >
+	<h3>buttonタグをサブミットしないただのボタンにする</h3>
+	<pre>
+	&lt;;button type="button"&gt;ただのボタン&lt;;/button&gt;
+	&lt;;button &gt;サブミットボタン&lt;;/button&gt;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-10" class="sec1" >
+	<h3>ハートマーク表示方法</h3>
+	<div style="font-size:2.0em;color:#c2473c;">&hearts;</div>
+	<pre>&amp;hearts; or  &amp;#9829;</pre>
+	<br><br>
+	中抜きのハートマーク<br>
+	<div style="font-size:2.0em;color:#c2473c;">&#9825;</div>
+	<pre>&amp;#9825;</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source2-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015/1/9</div>
+		</div><!-- page1 -->
+	</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>HTML5の覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+
+	<style>
+		area{
+			background-color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="header" ><h1>HTML5の覚書</h1></div>
+<div class="container">
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-1" class="sec1" >
+	<h3>html5:テキストエリア内の改行とタブのコード | 「&amp;#13;」,「 &amp;#x0009;」</h3>
+
+	改行 → <strong>&amp;#13;</strong><br>
+	タブ → <strong> &amp;#x0009;</strong><br>
+	<br>
+	
+	サンプル(俳句はタブ区切り）<br>
+	<textarea style="width:300px;height:50px;">五月雨を&#x0009;あつめて早し&#x0009;最上川&#13;いろは&#13;</textarea>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-2" class="sec1" >
+	<h3>&lt;meta&gt;について</h3>
+
+	metaタグは、&lt;head&gt;内のタグで、その他の設定という意味合いがあります。<br>
+	さまざまな設定ができますが、代表的なものを列挙します。<br>
+	<br>
+	
+	<table class="table">
+		<thead><tr><th>meta設定</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr><td>&lt;meta charset="UTF-8"&gt;</td><td>文字コードの設定</td></tr>
+			<tr><td>&lt;meta name="keywords" content="HTML5の覚書,沖縄,プログラマー"&gt;</td><td>検索エンジン向けのキーワード指定</td></tr>
+			<tr><td>&lt;meta name="description" content="検索エンジンで表示される見出し"&gt;</td><td>検索エンジンで検索したときに表示される見出し</td></tr>
+			<tr><td>&lt;meta name="robots" content="noindex,nofollow"&gt;</td><td>検索エンジンへ、このページは検索情報に追加しないよう通知する</td></tr>
+			<tr><td>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</td><td>スマートフォン用の初期表示領域</td></tr>
+		</tbody>
+	</table>
+	
+	<a href="http://www.htmq.com/html5/meta.shtml" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-3" class="sec1">
+	<h3>実体参照と文字参照</h3>
+
+	実体参照とはHTMLで「&lt;」などの文字を「&amp;lt;」と表記する方法である。<br>
+	文字参照とは「&lt;」を「&amp;#60;」と数値付きで表記する。また文字参照は16進数で「&amp;#x3C;」と表記することもできる。<br>
+	<a href="http://e-words.jp/p/r-htmlentity.html" target="brank" class="btn btn-link">特殊文字の実体参照</a><br>
+	<br>
+	
+	<p>文字と実体参照と文字参照</p>
+	<table class="tbl2">
+		<thead>
+			<tr><th>文字</th><th>実体参照</th><th>文字参照</th><th>名称</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>4</td><td> </td><td>&amp;#52;</td><td></td></tr>
+			<tr><td>C</td><td> </td><td>&amp;#67;</td><td></td></tr>
+			<tr><td>あ</td><td> </td><td>&amp;#12354;</td><td></td></tr>
+			<tr><td>～</td><td> </td><td>&amp;#65374;</td><td>全角チルダ（波ダッシュとは別）</td></tr>
+			<tr><td>&amp;</td><td>&amp;amp;</td><td>&amp;#38;</td><td>アンパサンド</td></tr>
+			<tr><td>&lt;</td><td>&amp;lt;</td><td>&amp;#60;</td><td>小なり</td></tr>
+			<tr><td>&gt;</td><td>&amp;gt;</td><td>&amp;#62;</td><td>大なり</td></tr>
+		</tbody>
+	</table>
+	<br>
+	
+	<p>PHPにて文字を文字参照で出力するソースコード</p>
+	<pre>
+	&lt;?php 
+	$str = "4Cあ～&amp;&lt;&gt;";
+	$convmap = array(0, 0x10FFFF, 0, 0x10FFFF);
+	$str =  mb_encode_numericentity("$str", $convmap, 'UTF-8');
+	echo htmlspecialchars($str);
+	?&gt;
+	</pre>
+	出力
+	<pre class="output_data">	&amp;#52;&amp;#67;&amp;#12354;&amp;#65374;&amp;#38;&amp;#60;&amp;#62;	</pre>
+	<a href="http://www.furimuke.com/2013/11/htmlspecialchars-mbconvertencoding-mbencodenumericentity.html" target="brank" >参考</a><br>
+	<br>
+	
+	<p>よく使う特殊記号の実体参照</p>
+	<table class="tbl2">
+		<thead>
+			<tr><th>特殊記号</th><th>実体参照</th><th>名称</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>&amp;</td><td>&amp;amp;</td><td>アンパサンド</td></tr>
+			<tr><td>&lt;</td><td>&amp;lt;</td><td>小なり</td></tr>
+			<tr><td>&gt;</td><td>&amp;gt;</td><td>大なり</td></tr>
+			<tr><td>&copy;</td><td>&amp;copy;</td><td>著作権記号</td></tr>
+			<tr><td>&harr;</td><td>&amp;harr;</td><td>両向き矢印</td></tr>
+			<tr><td>&hArr;</td><td>&amp;hArr;</td><td>両向き二重矢印</td></tr>
+			<tr><td>&hearts;</td><td>&amp;hearts;</td><td>ハート</td></tr>
+			<tr><td>&frac12;</td><td>&amp;frac12;</td><td>2分の1</td></tr>
+			<tr><td>&nbsp;</td><td>&amp;nbsp;</td><td>半角スペース</td></tr>
+	
+		</tbody>
+	</table>
+	
+	
+	
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-4" class="sec1" >
+	<h3>OGPとは | meta og:image ...</h3>
+
+	OGPはSNSに伝える情報のことである。<br>
+	対応しているSNSはFacebook,Google+,mixiなどである。<br>
+	metaタグにタイトルや代表画像など、SNSに伝える情報を記述をする。<br>
+	<br>
+	
+	<pre>
+	&lt;meta property="og:title" content="タイトル" /&gt;
+	&lt;meta property="og:site_name" content="ページタイトル" /&gt;
+	&lt;meta property="og:description" content="紹介内容など" /&gt;
+	&lt;meta property="og:type" content="website,blogなどページの種類を指定" /&gt;
+	&lt;meta property="og:url" content="ページのURL" /&gt;
+	&lt;meta property="og:image" content="ページの代表的な画像" /&gt;
+	</pre>
+	<br>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-5" class="sec1" >
+	<h3>フラグメント識別子とは</h3>
+
+	フラグメント識別子とはURLの「#」のことである。<br>
+	「#」から右側の文字列をハッシュという。そのためハッシュ記号、ハッシュフラグメントという呼ばれ方もする。<br>
+	<br>
+	
+	<pre>http://example/com<strong>#</strong>hoge</pre>
+	
+	<time>2016-6-17</time>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-6" class="sec1" >
+	<h3>accep属性について | ファイル要素で受け入れるファイルを指定する</h3>
+
+	ファイル要素で受け入れるファイルをaccept属性で指定できる。<br>
+	ただし絶対的なものではないので、補助的なものであると認識すること。<br>
+	<br>
+	
+	<aside>
+	acceptの指定方法はいくつか書き方があるが、ブラウザごとに挙動が異なる。
+	下記のサンプルは各ブラウザでなるべく共通して動くものを列挙している。
+	</aside>
+	<br>
+	
+	画像系
+	<pre>
+	&lt;input type="file" <strong>accept</strong>="image/*"/&gt;
+	&lt;input type="file" accept="image/jpeg,image/png"/&gt;
+	</pre>
+	
+	オーディオ系
+	<pre>	&lt;input type="file" accept="audio/*,video/*"/&gt;</pre>
+	<br>
+	
+	テキスト系（CSVなど）
+	<pre>	&lt;input type="file" accept="text/*"/&gt;</pre>
+	<br>
+	
+	ZIP
+	<pre>	&lt;input type="file" accept="application/zip"/&gt;</pre>
+	<br>
+
+	<br><time>2016-10-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-7" class="sec1">
+	<h3>プレースホルダ(placeholder)で改行をする</h3>
+
+	<pre><code>
+		&lt;textarea placeholder="（例）&amp;#13;&amp;#10;ネコ<strong>&amp;#13;&amp;#10;</strong>ヤギ&amp;#13;&amp;#10;カニ&amp;#13;&amp;#10;サメ"&gt;&lt;/textarea&gt;
+	</code></pre>
+
+	<br><time>2017-4-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/html5">HTML5の覚書</a></li>
+</ol>
+</div><!-- container -->
+<div id="footer">(C) kenji uehara 2015/1/9</div>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>PHPの覚書 | ワクガンス</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script src="../js/jquery-1.11.1.min.js"></script>
+
+
+	</head>
+	<body>
+		<h1 id="header">PHPの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-1" class="sec1" >
+	<h3>テキストファイルを途中から読み込む</h3>
+
+	fseek関数にてテキストファイルを途中から読み込むことができる。<br>
+	先頭から読み込むのと比べ、途中読込は処理時間を大幅に短くできる。<br>
+	<br>
+	
+	途中読込の実装はfseek関数にオフセット(offset)を指定する。<br>
+	オフセットは現在のカーソル位置であり、先頭から何バイト目かを示している。<br>
+	<br>
+	
+	オフセットはftell関数で取得可能である。<br>
+	テキストファイル読み込みを途中中断する際、ftell関数でオフセットを取得および保持しておき、
+	再開するときfseek関数に保持していたオフセットを指定すれば、途中から読み込みを再開できる。<br>
+	<br>
+	
+	<p>応用</p>
+	巨大なCSVファイルからデータを取り出しDBに保存する処理を、分割で処理にするのに役立つ。<br>
+	<br>
+	
+	
+
+	<hr>
+	<h4>サンプル</h4>
+	
+	テキストファイル（text3.txt）
+	<pre class='input_data'>
+	色はにほへど
+	散りぬるを
+	我が世たれぞ
+	常ならむ
+	有為の奥山
+	今日越えて
+	浅き夢見じ
+	酔ひもせず
+	</pre>
+	<br>
+
+	ソースコード
+	<pre>
+	&lt;?php 
+	$txtFn='test3.txt';
+	$txtFn = mb_convert_encoding ( $txtFn, 'SJIS', 'UTF-8' );//全角ファイル名に対応
+	echo "&lt;table border='1'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;offset&lt;/th&gt;&lt;th&gt;行テキスト&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	
+	if ($fp = fopen ( $txtFn, "r" )) {
+		<strong>fseek($fp, 54);</strong>//54バイト目から読み込む
+		$data = array ();
+		while ( false !== ($line = fgets ( $fp )) ) {
+			<strong>$offset=ftell($fp);</strong>
+			echo "&lt;tr&gt;&lt;td&gt;{$offset}&lt;/td&gt;&lt;td&gt;{$line}&lt;/td&gt;&lt;/tr&gt;";
+		}
+	}
+	fclose ( $fp );
+	
+	echo '&lt;/tbody&gt;&lt;/table&gt;';
+	?&gt;
+	</pre>
+	<br>
+	
+	出力
+	<table class="tbl2 ouput_data">
+		<thead>
+			<tr><th>offset</th><th>行テキスト</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>67</td><td>常ならむ</td></tr>
+			<tr><td>83</td><td>有為の奥山</td></tr>
+			<tr><td>99</td><td>今日越えて</td></tr>
+			<tr><td>115</td><td>浅き夢見じ</td></tr>
+			<tr><td>130</td><td>酔ひもせず</td></tr>
+			<tr><td></td></tr>
+	
+		</tbody>
+	</table>
+	※offsetは現在のカーソル位置であり、先頭から何バイト目かを示している。
+	<br>
+	
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-2" class="sec1" >
+	<h3>POSTデータの容量を増やす | Warning: POST Content-Length of ...</h3>
+
+
+	下記のエラーが発生する場合、POSTデータの容量不足である。
+	<pre>Warning: POST Content-Length of 16698999 bytes exceeds the limit of 8388608 bytes in Unknown on line 0</pre>
+	<br>
+	
+	<p>POSTデータの容量を増やすphp.iniの設定</p>
+	php.iniをテキストエディタで開き、「post_max_size」の値を増やせばよい。<br>
+	<br>
+	
+	変更前
+	<pre>post_max_size=8M</pre>
+	<br>
+	
+	変更後の例
+	<pre>post_max_size=80M</pre>
+	<br>
+	
+	値を増やしたら、XAMPP Control PanelのApacheを再Startすれば完了。<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-3" class="sec1" >
+	<h3>テキストファイルからオフセットで指定した1行を読み込む</h3>
+
+
+	テキストファイル（text3.txt）
+	<pre>
+	色はにほへど
+	散りぬるを
+	我が世たれぞ
+	常ならむ
+	有為の奥山
+	今日越えて
+	浅き夢見じ
+	酔ひもせず
+	</pre>
+	<br>
+
+	ソースコード
+	<pre>
+	&lt;?php 
+	$txtFn='test3.txt';
+	$txtFn = mb_convert_encoding ( $txtFn, 'SJIS', 'UTF-8' );//全角ファイル名に対応
+	
+	echo '&lt;pre&gt;';
+	if ($fp = fopen ( $txtFn, "r" )) {
+		fseek($fp, 54);//54バイト目から読み込む
+		
+		$line = fgets ( $fp );
+		echo $line;
+		
+		$offset=ftell($fp);
+		echo '→次のオフセット:'.$offset;
+		
+	}
+	fclose ( $fp );
+	echo '&lt;/pre&gt;';
+	?&gt;
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	常ならむ
+	→次のオフセット:67
+	</pre>
+	
+	
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-4" class="sec1">
+	<h3>波ダッシュを全角チルダに変換する</h3>
+	
+	<pre>
+	$wave_dash1 = '&#12316;'; // 波ダッシュ → 文字参照は「 &amp;#12316;」
+	$tilde1=<strong>preg_replace("/\xE3\x80\x9C/", "\xEF\xBD\x9E", $wave_dash1);</strong>
+	echo $wave_dash1.' → '.$tilde1;
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">&#12316; → &#65374;</pre>
+	<br>
+	
+	<a href="http://d.hatena.ne.jp/tamamo-ch/20090730" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-6" class="sec1" >
+	<h3>期間を指定月間で分割</h3>
+
+	期間を指定した月数で分割し、日付リストとして返す関数、splitByMonthRange。<br>
+	<br>
+	
+
+	<br>
+	
+	<p>サンプル</p>
+	<pre>
+	$first_date='2015-1-1';
+	$end_date = date('Y-m-d');
+	$month_range=4;
+	$format='Y-m-d H:i:s';
+	$res = <strong>splitByMonthRange</strong>($first_date,$end_date,$month_range,$format);
+	echo var_dump($res);
+	
+	/**
+	 * 期間を指定月間で分割
+	 * 	 
+	 * 期間は開始日と終了日で指定する。
+	 * 開始日に月末日を指定すると月がずれて分割されてしまう。
+	 * なので、開始日や終了日はなるべく第一日（月の初日）を指定する。
+	 * 
+	 * @param string/date $first_date 期間の開始日(月の第一日）
+	 * @param string/date  $end_date 期間の終了日
+	 * @param int  $month_range 指定月間
+	 * @param string $format 返りデータの日付フォーマット（省略可、秒単位まで指定可）
+	 * @return array 分割日付リスト
+	 */
+	function <strong>splitByMonthRange</strong>($first_date,$end_date,$month_range,$format='Y-m-d'){
+		$start = new DateTime($first_date);
+		$end = new DateTime($end_date);
+		$interval = DateInterval::createFromDateString($month_range.' month');
+		$period = new DatePeriod($start,$interval,$end);
+		$dates = array();
+		foreach($period as $d){
+			$dates[] = $d-&gt;format($format);
+		}
+		return $dates;
+	}
+	</pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	array (size=5)
+	  0 =&gt; string '2015-01-01 00:00:00' (length=19)
+	  1 =&gt; string '2015-05-01 00:00:00' (length=19)
+	  2 =&gt; string '2015-09-01 00:00:00' (length=19)
+	  3 =&gt; string '2016-01-01 00:00:00' (length=19)
+	  4 =&gt; string '2016-05-01 00:00:00' (length=19)
+	</pre>
+	
+	<a href="/sample/php/split_by_month_range/split_by_month_range.php"  >サンプル</a><br>
+	<br>
+	
+	<time>2016-5-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-7" class="sec1" >
+	<h3>アップロード容量を増やすphp.iniの設定</h3>
+
+
+	PHP.iniを開き、以下項目の値を増やすと、アップロード容量が増える。<br>
+	<br>
+	
+	<pre>
+	;メモリ上限
+	memory_limit = 500M
+	
+	;POST最大サイズ
+	post_max_size = 500M
+	
+	;アップロード最大サイズ
+	upload_max_filesize = 500M
+	</pre>
+	<aside>※ php.iniの修正後は、修正後Apacheを再起動すること</aside>
+	<br>
+	
+	phpMyAdminで大容量データをインポートするとき、必須の設定である。<br>
+	<br>
+
+
+	<a href="http://www.php-factory.net/trivia/05.php" target="brank" class="btn btn-link btn-xs">参考サイト:【設定方法その1】サーバー管理画面から設定する</a><br>
+	<br>
+	
+	<time>2016-5-24</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-8" class="sec1" >
+	<h3>複数の改行コードに対応した改行分割 | preg_split</h3>
+
+	preg_splitに「<strong>/\R/</strong>」を指定すると3種類の改行コード「\r」「\n」[\r\n」に対応した分割をすることができる。
+	<pre>
+	$text = "シャムネコ\nやぎ\rハイイロオオカミ\r\nライオンタマリン";
+	$ary =preg_split( "<strong>/\R/</strong>", $text );
+	echo var_dump($ary);
+	</pre>
+	<br>
+
+	出力
+	<pre class="output_data">
+	array(
+		(int) 0 => 'シャムネコ',
+		(int) 1 => 'やぎ',
+		(int) 2 => 'ハイイロオオカミ',
+		(int) 3 => 'ライオンタマリン'
+	)
+	</pre>
+	<br>
+
+	<p>注意</p>
+	Ajaxで送られてきた日本語文字列に対して「/\R/」で分割するとバグが起こる。<br>
+	日本語文字列の特定文字で分割されてしまう。しかも特定文字に該当するケースは多い。<br>
+	文字コードの問題かもしれない。<br>
+	この場合、「/\n/」で分割するとバグは起こらない。\n以外の改行には対応できなくなるが・・・。<br>
+	<br>
+	
+	<time>2016-6-14 | 2016-6-15</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-9" class="sec1" >
+	<h3>配列から空白を除去</h3>
+	
+	配列から空白行を除去するにはarray_filterとarray_valuesを組み合わせて使う。<br>
+	インデックスの振り直しが不要であれば、array_filterだけでよい。<br>
+	<br>
+	
+	<pre>
+	$list=array("カラス","","スズメ","ムクドリ");
+	$list = <strong>array_filter($list, "strlen")</strong>;// 空白行を除去(indexの降り直しは行われない）
+	$list = <strong>array_values</strong>($list);// インデックスの振り直し
+	echo var_dump($list);
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	array (size=3)
+	  0 => string 'カラス' (length=9)
+	  1 => string 'スズメ' (length=9)
+	  2 => string 'ムクドリ' (length=12)	
+	</pre>
+
+	
+	<time>2016-6-14</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-10" class="sec1" >
+	<h3>緯度経度を度分秒表記（60進数）から10進数に変換</h3>
+
+	60進数表記の緯度経度を10進数表記に変換する。<br>
+	60進数表記も「度分秒」、「°’”」など複数の記号表記に対応している。<br>
+	<br>
+	
+	<pre>
+	/**
+	 * 緯度経度を度分秒表記（60進数）から10進数に変換
+	 * @param string or array $p 60進数緯度経度
+	 * - 例
+	 * - 26,40,32.73
+	 * - 26度40分32.73秒
+	 * - 26°40’32.73”
+	 * - 26,40'32.73"
+	 * - N26,40'32.73"
+	 * - array(26,40,32.73)
+	 * @return 10進数緯度経度
+	 */
+	function <strong>latlon60to10</strong>($p){
+		$res = null;
+		if(is_array($p)){
+			$ary = $p;
+		}else{
+			
+			if(!is_numeric(mb_substr($p ,0 ,1))){
+				$p = mb_substr($p ,1 );
+	
+			}
+			$ary = preg_split("/,|度|分|秒|°|’|”|'|\"/",$p);
+			
+			if(count($ary) &lt; 3){
+				return null;
+			}
+		}
+		
+		$res = $ary[0] + $ary[1]/60 + $ary[2]/3600;
+		
+		return $res;
+		
+	}
+	</pre>
+	<br>
+
+
+	<p>検証</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>60進数表記</th>
+				<th>10進数表記</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>26,40,32.73</td><td>26.675758333333</td></tr><tr><td>26度40分32.73秒</td><td>26.675758333333</td></tr><tr><td>26°40’32.73”</td><td>26.675758333333</td></tr><tr><td>N26,40'32.73"</td><td>26.675758333333</td></tr><tr><td><pre class='xdebug-var-dump' dir='ltr'>
+			<b>array</b> <i>(size=3)</i>
+			  0 <font color='#888a85'>=&gt;</font> <span>int</span> <font color='#4e9a06'>26</font>
+			  1 <font color='#888a85'>=&gt;</font> <span>int</span> <font color='#4e9a06'>40</font>
+			  2 <font color='#888a85'>=&gt;</font> <span>float</span> <font color='#f57900'>32.73</font>
+			</pre></td><td>26.675758333333</td></tr>		</tbody>
+	</table>
+	
+
+	
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source8-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<br>
+	
+	<time>2016-5-24</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+		</div><!-- content -->
+		<div class="yohaku"></div>
+		<ol class="breadcrumb">
+			<li><a href="/">ホーム</a></li>
+			<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+			<li><a href="/note_prg/php">PHPの覚書</a></li>
+		</ol>
+		<div id="footer">(C) kenji uehara 2016/3/7</div>
+	</body>
+</html>

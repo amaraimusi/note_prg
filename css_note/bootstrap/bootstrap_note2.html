@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrapの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Bootstrapの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="http://getbootstrap.com/" target="brank">公式サイト</a>
+
+
+
+
+
+
+
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>丸ボタンにする</h3>
+	
+	<a href="http://diglog.org/css/2008.html" target="blank">参考サイト：Bootstrap3 : アイコン用の丸いボタン。「Circle Button」コミット其二。@Bootsnipp</a><br>
+	<br>
+	
+	<pre><code>
+	&lt;style&gt;
+	.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+	}
+	.btn-circle.btn-lg {
+	width: 50px;
+	height: 50px;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border-radius: 25px;
+	}
+	.btn-circle.btn-xl {
+	width: 70px;
+	height: 70px;
+	padding: 10px 16px;
+	font-size: 24px;
+	line-height: 1.33;
+	border-radius: 35px;
+	}
+	&lt;/style&gt;
+
+	</code></pre>
+	<br>
+	
+	bootstrapのbtnセレクタと組み合わせて使用する<br>
+	<pre>
+	&lt;button type="button" class="btn btn-default <strong>btn-circle</strong>"&gt;&lt;i class="glyphicon glyphicon-ok"&gt;&lt;/i&gt;&lt;/button&gt;
+	</pre>
+	<br>
+	
+	<br><time>2016-11-7</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec2-2" class="sec4">
+	<h3>コンテキストカラー</h3>
+	
+	<div class="text-muted">text-muted</div>
+	<div class="text-primary">text-primary</div>
+	<div class="text-success">text-success</div>
+	<div class="text-info">text-info</div>
+	<div class="text-warning">text-warning</div>
+	<div class="text-danger">text-danger</div>
+
+
+	<br><time>2016-12-9</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/css/">CSSの覚書</a></li>
+	<li>Bootstrapの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-11-7</div>
+</body>
+</html>

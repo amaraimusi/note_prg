@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>PHPの覚書 | ワクガンス</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-1" class="sec1" >
+	<h3>配列判定 | is_array</h3>
+
+	<pre>
+	if (<strong>is_array</strong>($hoge)) {
+		echo "配列である";
+	} else {
+		echo "配列でない";
+	}
+	</pre>
+	<br>
+	
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-2" class="sec1" >
+	<h3>複数の区切りで文字列を分割</h3>
+	
+	<pre>
+	$str ="ネコ,ヤギ-カニあサメ.ワシ";
+	$ary = preg_split("<strong>/,|-|あ|\./</strong>",$str);
+	var_dump($ary)
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	array (size=5)
+	  0 => string 'ネコ' 
+	  1 => string 'ヤギ' 
+	  2 => string 'カニ' 
+	  3 => string 'サメ' 
+	  4 => string 'ワシ' 
+	</pre>
+	<br>
+		
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-3" class="sec1" >
+	<h3>先頭の一文字を取得する</h3>
+
+	<pre>
+	$str="いろは";
+	$s = <strong>mb_substr($str ,0 ,1)</strong>;
+	echo $s;
+	</pre>
+	<br>
+
+	出力
+	<pre class="output_data">
+	い
+	</pre>
+	<br>
+	
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-4" class="sec1" >
+	<h3>先頭の一文字をカットする</h3>
+
+	<pre>
+	$str="いろは";
+	$str = <strong>mb_substr($str ,1);</strong>
+	echo $str;
+	</pre>
+
+	出力
+	<pre class="output_data">
+	ろは
+	</pre>
+	<br>
+	
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-5" class="sec1" >
+	<h3>分数表記を浮動小数点式に変換する</h3>
+	
+	fracToFloat関数は、「 314/1000」、「-1732/1000」のような分数表記の文字列を浮動小数値に変換する。<br>
+	<br>
+	
+	fracToFloat関数
+	<pre>
+	/**
+	 * 分数表記を浮動小数点式に変換する
+	 * @param string $str 分数表記の文字列 (例： 314/100)
+	 * @return number 浮動小数値
+	 */
+	function <strong>fracToFloat</strong>($str){
+		
+		// 「/」が文字列中に存在しなかったり、空であったりするなら、引数を返して処理を抜ける
+		if(!preg_match("/\//", $str) || empty($str)){
+			return $str;
+		}
+		
+		// 「/」で分割して配列を作り、チェックと数値加工を施す。
+		$ary=explode("/",$str);
+		foreach($ary as $i => $v){
+			$v = floatval ($v);
+			if(is_numeric($v)){
+				$ary[$i] = $v;
+			}else{
+				return $str;
+			}
+		}
+		
+		// 分母が0でないなら除算をする。
+		if($ary[1]==0){
+			return $str;
+		}
+		$v = $ary[0] / $ary[1];
+		
+		return $v;
+
+	}
+	</pre>
+	<br>
+	
+	
+	<input type="button" value="検証コード" class="btn btn-info" onclick="$('#sec9-5kensho').toggle(500)" />
+	<div id="sec9-5kensho" style="display:none">
+		検証コード
+		<pre>
+		&lt;?php 
+			$samples[] = "314/1000";
+			$samples[] = " 314 / 1000 ";
+			$samples[] = "3141000";
+			$samples[] = "aaa/bbb";
+			$samples[] = "100/bbb";
+			$samples[] = "aaa/100";
+			$samples[] = " 314 / 1000 / 2";
+			$samples[] = " -314 / 1000 ";
+			$samples[] = " -3.14 / 1000 ";
+			$samples[] = null;
+			
+			
+			
+			foreach($samples as $str){
+				$v = null;
+				try {
+					$v = fracToFloat($str);
+				} catch (Exception $e) {
+					$v = $e-&gt;getMessage();
+				}
+				echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$v}&lt;/td&gt;&lt;/tr&gt;&yen;n";
+			}
+			
+		
+			/**
+			 * 分数表記を浮動小数点式に変換する
+			 * @param string $str 分数表記の文字列 (例： 314/100)
+			 * @return number 浮動小数値
+			 */
+			function fracToFloat($str){
+				
+				// 「/」が文字列中に存在しなかったり、空であったりするなら、引数を返して処理を抜ける
+				if(!preg_match("/&yen;//", $str) || empty($str)){
+					return $str;
+				}
+				
+				// 「/」で分割して配列を作り、チェックと数値加工を施す。
+				$ary=explode("/",$str);
+				foreach($ary as $i =&gt; $v){
+					$v = floatval ($v);
+					if(is_numeric($v)){
+						$ary[$i] = $v;
+					}else{
+						return $str;
+					}
+				}
+				
+				// 分母が0でないなら除算をする。
+				if($ary[1]==0){
+					return $str;
+				}
+				$v = $ary[0] / $ary[1];
+				
+				return $v;
+		
+			}
+			
+			
+		?&gt;	
+		</pre>
+		<br>
+		
+		出力
+		<table class="tbl2"><thead><tr><th>引数</th><th>返値</th></tr></thead><tbody>
+		<tr><td>314/1000</td><td>0.314</td></tr>
+		<tr><td> 314 / 1000 </td><td>0.314</td></tr>
+		<tr><td>3141000</td><td>3141000</td></tr>
+		<tr><td>aaa/bbb</td><td>aaa/bbb</td></tr>
+		<tr><td>100/bbb</td><td>100/bbb</td></tr>
+		<tr><td>aaa/100</td><td>0</td></tr>
+		<tr><td> 314 / 1000 / 2</td><td>0.314</td></tr>
+		<tr><td> -314 / 1000 </td><td>-0.314</td></tr>
+		<tr><td> -3.14 / 1000 </td><td>-0.00314</td></tr>
+		<tr><td>null</td><td></td></tr>
+		</tbody></table>
+	</div>
+	
+	<br><br>
+	
+	<time>2016-6-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-6" class="sec1" >
+	<h3>Exifを取得</h3>
+
+	Jpeg画像からExifデータは抜き出すにはexif_read_data関数を使う。
+	<pre class="kata">$exifData = <strong>exif_read_data</strong>('img/test4.jpg');</pre><br>
+	<br>
+	
+	<a href="/sample/php/exif/exif1.php" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<time>2016-6-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-7" class="sec1" >
+	<h3>文字列から日付の部分を別の日付に置換</h3>
+
+	replaceDate関数は対象文字列の日付部分を検索して、別の文字に置き換えることができます。<br>
+	<br>
+	
+	<pre>
+	/**
+	 * 文字列から日付の部分を別の日付に置換
+	 * @param string | date $replace_date
+	 * @param string $str 対象文字列
+	 * @return string 置換後の文字列
+	 */
+	function <strong>replaceDate</strong>($replace_date,$subject){
+		$re = '/([0-9]{4})(\/|-|年)([0-9]{1,2})(\/|-|月)([0-9]{1,2})/';
+		$res = preg_replace($re, $replace_date, $subject);
+		
+		return $res;
+	}
+	</pre>
+	<br>
+	
+	<input type="button" class="btn btn-info" value="検証" onclick="$('#sec9-7kensho').toggle(500)" />
+	<div id="sec9-7kensho" style="display:none">
+	<p>検証ソースコード</p>
+	<pre>
+	&lt;table class="table"&gt;
+	&lt;thead&gt;&lt;tr&gt;&lt;th&gt;置換前&lt;/th&gt;&lt;th&gt;置換後&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+	&lt;?php 
+	$tests=null;
+	$tests[] = "いろは2016-6-6ネコ";
+	$tests[] = "いろは2016-06-06タヌキ";
+	$tests[] = "いろは2016-12-31ロバ";
+	$tests[] = "いろは9999-99-99ブタ";
+	$tests[] = "いろは2016/6/6イヌ";
+	$tests[] = "いろは2016年6月6日ヤギ";
+	$tests[] = "いろは2016-6カニ";
+	$tests[] = "いろは2016カニ";
+	$tests[] = "いろは";
+	
+	foreach($tests as $test){
+		$res = <strong>replaceDate</strong>('2012-12-12',$test);
+		echo "&lt;tr&gt;&lt;td&gt;{$test}&lt;/td&gt;&lt;td&gt;{$res}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	
+	/**
+	 * 文字列から日付の部分を別の日付に置換
+	 * @param string | date $replace_date
+	 * @param string $str 対象文字列
+	 * @return string 置換後の文字列
+	 */
+	function <strong>replaceDate</strong>($replace_date,$subject){
+		$re = '/([0-9]{4})(\/|-|年)([0-9]{1,2})(\/|-|月)([0-9]{1,2})/';
+		$res = preg_replace($re, $replace_date, $subject);
+		
+		return $res;
+	}
+	?&gt;
+	&lt;/tbody&gt;&lt;/table&gt;
+	</pre>
+	<br>
+	
+	<p>出力</p>
+	<table class="table">
+	<thead><tr><th>置換前</th><th>置換後</th></tr></thead><tbody>
+	<tr><td>いろは2016-6-6ネコ</td><td>いろは2012-12-12ネコ</td></tr>
+	<tr><td>いろは2016-06-06タヌキ</td><td>いろは2012-12-12タヌキ</td></tr>
+	<tr><td>いろは2016-12-31ロバ</td><td>いろは2012-12-12ロバ</td></tr>
+	<tr><td>いろは9999-99-99ブタ</td><td>いろは2012-12-12ブタ</td></tr>
+	<tr><td>いろは2016/6/6イヌ</td><td>いろは2012-12-12イヌ</td></tr>
+	<tr><td>いろは2016年6月6日ヤギ</td><td>いろは2012-12-12日ヤギ</td></tr>
+	<tr><td>いろは2016-6カニ</td><td>いろは2016-6カニ</td></tr>
+	<tr><td>いろは2016カニ</td><td>いろは2016カニ</td></tr>
+	<tr><td>いろは</td><td>いろは</td></tr>
+	</tbody></table>
+	</div>
+	<br><br>
+
+
+	
+	
+	
+	<time>2016-6-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-8" class="sec1" >
+	<h3>array_splice | 配列要素の挿入、変更、削除</h3>
+
+
+	array_splice関数の第2引数は位置を示している。<br>
+	第3引数は、削除する個数である。<br>
+	第4引数は、新規挿入する値である。<br>
+	これらの組み合わせで、挿入、変更、削除を実現している。<br>
+	<br>
+	
+	
+	
+	<p>要素1から2行だけ除去する</p>
+	<pre>
+	$ary = [10,20,30,40];
+	var_dump($ary);
+	array_splice($ary,<strong>1,2</strong>);
+	var_dump($ary);
+	</pre>
+	<pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>30</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=2)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><br>
+	
+	
+	
+	<p>要素2に1000を挿入</p>
+	<pre>
+	$ary = [10,20,30,40];
+	var_dump($ary);
+	array_splice($ary,2,<strong>0</strong>,1000);
+	var_dump($ary);
+	</pre>
+	<pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>30</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=5)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>1000</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>30</font>
+	  4 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><br>
+	
+	
+	
+	<p>要素2に「abc」に置き換え（変更）</p>
+	<pre>
+	$ary = [10,20,30,40];
+	var_dump($ary);
+	array_splice($ary,2,<strong>2</strong>,'abc');
+	var_dump($ary);
+	</pre>
+	<pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>30</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'abc'</font> <i>(length=3)</i>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><br>
+	
+	<p>要素2以降を除去する</p>
+	<pre>
+	$ary = [10,20,30,40];
+	var_dump($ary);
+	<strong>array_splice($ary,2);</strong>
+	var_dump($ary);
+	</pre>
+	<pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>30</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>40</font>
+	</pre><pre class='xdebug-var-dump output_data' dir='ltr'>
+	<b>array</b> <i>(size=2)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>10</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>20</font>
+	</pre><br>
+
+	
+	<time>2016-6-30</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-9" class="sec1" >
+	<h3>PHPのコールバック</h3>
+
+	<p>関数を引数として渡す方法</p>
+	<pre>
+	$str = "ネコ";
+	<strong>$funcA</strong> = function($str){ echo "Hello " . $str; };
+	test1( $str, <strong>$funcA</strong> );
+	
+	function test1( $str, <strong>$callback</strong> ) {
+		echo 'Test1&lt;br&gt;';
+		$callback($str);
+	}
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	Test1
+	Hello ネコ
+	</pre>
+	<br><br>
+	
+
+	
+	<p>JavaScriptでよく見かけるコールバック関数の記述方法</p>
+	<pre>
+	$str = "ヤギ";
+	test2( $str, <strong>function</strong>($str){ 
+			echo "Hello " . $str; } 
+	);
+	
+	function test2( $str, $callback ) {
+		echo 'Test2&lt;br&gt;';
+		$callback($str);
+	}
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	Test2
+	Hello ヤギ
+	</pre>
+	<br><br>
+	
+	<time>2016-7-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-10" class="sec1" >
+	<h3>PHPのコールバック | 関数名を文字列として指定する</h3>
+
+	<p>コールバック関数を関数名で指定する方法</p>
+	<pre>
+	$str = "カニ";
+	test3( $str, <strong>'hello_print'</strong> );
+	
+	function test3( $str, $callback ) {
+		return <strong>call_user_func</strong>( $callback, $str );
+	}
+	
+	function <strong>hello_print</strong>($str) {
+		echo "Hello " . $str;
+	}
+	</pre>
+	<br>
+	出力
+	<pre class="output_data">
+	Hello ヤギ
+	</pre>
+	<br><br>
+	
+	
+	
+	
+	
+	<p>クラスのメソッドを文字列で指定する方法</p>
+	<pre>
+	$str = "サメ";
+	$obj4 = new Class4();
+	test4( $str, array( <strong>$obj4,'hello_print4'</strong>));
+	
+	function test4( $str, $callback ) {
+		return call_user_func( $callback, $str );
+	}
+	
+	class Class4{
+		public function hello_print4($str){
+			echo "Hello " . $str;
+		}
+	}
+	</pre>
+	<br>
+	出力
+	<pre class="output_data">
+	Hello サメ
+	</pre>
+	<br><br>
+	
+	<time>2016-7-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source9-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<br>
+	
+	<time>2016-6-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+</div><!-- content -->
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php">PHPの覚書</a></li>
+</ol>
+<div id="footer">(C) kenji uehara 2016-6-20</div>
+</body>
+</html>

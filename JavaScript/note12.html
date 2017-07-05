@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	
+	<!-- ソースコードをハイライト表示する -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-1" class="sec1" >
+	<h3>親要素からフィールドリストを指定してエンティティを取得する | GetEntityFromParent.js</h3>
+
+	GetEntityFromParent.jsは、親要素からフィールドリストを指定してエンティティを取得するJSライブラリである。<br>
+	<br>
+	
+	子要素や孫要素など親要素の下位要素からフィールドを指定してエンティティの値を取得する。<br>
+	フィールドが指し示すものは、下位要素のname属性またはclass属性である。<br>
+	<br>
+	
+	下位要素は、DIV,SELECT,INPUTなど数種に対応している。<br>
+	<br>
+
+	<a href="/cake_demo/js/GetEntityFromParent.js" class="btn btn-info btn-xs">GetEntityFromParent.js</a><br>
+	<br>
+	
+	<input type="button" class="btn btn-default btn-xs" value="ソースコード" onclick="open_src('#sec12-1a1','/cake_demo/js/GetEntityFromParent.js')" />
+	<pre id="sec12-1a1" style="display:none"></pre>
+	<br>
+	
+	<br><time>2016-11-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-2" class="sec1" >
+	<h3>ファイルのソースコードを表示する</h3>
+
+	ソースコード
+	<pre><code>
+	$.ajax({
+		url: '/xxx/example1.xxx',// ソースコードへのパス
+		cache: false,
+		dataType: "text",
+		processData : false,
+		contentType : false,
+		success: function(txt, type) {
+
+			// XSS対策
+			txt=txt.replace(/&lt;/g,'&amp;lt');
+			txt=txt.replace(/&gt;/g,'&amp;gt');
+			
+			var outElm = $('#xxx');// ソースコードの出力先
+			outElm.html(txt);
+			outElm.show();
+			
+
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown){
+			console.log(xmlHttpRequest.responseText);
+			
+			alert(textStatus);
+		}
+
+	});
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-3" class="sec1" >
+	<h3>onkeypress属性、onkeydown属性、onkeyup属性を組み込める要素</h3>
+
+	onkeypress属性、onkeydown属性、onkeyup属性はフォーカスを当てられる要素にしか指定できない。<br>
+	input要素やtextarea要素などフォーカスできる要素に指定可能である。<br>
+	しかし、DIV要素などフォーカスできない要素には指定してもイベントは発生しない。<br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	function test1(){
+		var keyCode = <strong>window.event.keyCode</strong>;
+		console.log(keyCode);
+		if(keyCode == 13){
+			alert('Enterキーが押されました。');
+		}
+	}
+	&lt;/script&gt;
+	&lt;div <strong>onkeypress</strong>="test1()" style="width:200px;height:200px;background-color:#eaf0fb"&gt;
+		DIV要素にonkeypressを組み込んでも、イベントは発動しない。
+	&lt;/div&gt;
+	
+	&lt;input type="text" value="" <strong>onkeypress</strong>="test1()" /&gt;
+	&lt;aside&gt;テキストボックスにフォーカスを当ててEnterを押してください。&lt;/aside&gt;
+	</code></pre>
+	<br>
+	
+	<a href="/sample/js/a003/enter_press_event/enter_press_event.php#demo2" class="btn btn-info">デモ</a><br>
+	<br>
+
+	
+	<br><time>2016-12-14</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-4" class="sec1" >
+	<h3>アップロードファイルのバリデーション | UploadFileValidation.js</h3>
+	
+	
+	UploadFileValidation.jsは、アップロードするファイルのバリデーションを行う。<br>
+	現バージョンでは拡張子、MIMEタイプ、ファイルサイズでチェックしている。<br>
+	<br>
+
+	<a href="/sample/js/a002/file_upload_ajax/demo6/uf_validation1.html" class="btn btn-info">デモ</a><br>
+	<br>
+
+
+	<input type="button" onclick="open_src('#sec12-4a1','/sample/js/a002/file_upload_ajax/demo6/UploadFileValidation.js')" value="UploadFileValidation.js" class="btn btn-success btn-sm" />
+	<pre id="sec12-4a1" style="display:none"></pre><br>
+	<br>
+	
+	
+	
+	
+
+	
+	
+	
+	
+	<p>ソースコード :check() メソッド</p>
+	チェンジイベントデータからアップロードファイルのバリデーションを行う
+	<pre><code>
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="UploadFileValidation.js"&gt;&lt;/script&gt;
+
+	&lt;script&gt;
+	$( function() {
+		
+		// アップロードファイルのバリデーションクラスを生成する。
+		var upFileValid = new UploadFileValidation();
+		
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+
+			// アップロードファイルのバリデーション
+			var valid_res = upFileValid.<strong>check</strong>(e,['png','jpg','jpeg'],['image/png','image/jpeg']);
+			if(valid_res){
+				alert(valid_res);
+				return;
+			}
+
+			// ～ 省略 ～
+		
+		
+	});
+	&lt;/script&gt;
+
+
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	</code></pre>
+	<br><hr>
+
+
+
+
+	<p>ソースコード :checkImage() メソッド</p>
+	画像用 | チェンジイベントデータからアップロードファイルのバリデーションを行う
+	<pre><code>
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="UploadFileValidation.js"&gt;&lt;/script&gt;
+
+	&lt;script&gt;
+	$( function() {
+		
+		// アップロードファイルのバリデーションクラスを生成する。
+		var upFileValid = new UploadFileValidation();
+		
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			
+			// アップロードファイルのバリデーション
+			var valid_res = upFileValid.<strong>checkImage</strong>(e);
+			if(valid_res){
+				alert(valid_res);
+				return;
+			}
+
+			// ～ 省略 ～
+		
+		
+	});
+	&lt;/script&gt;
+
+
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	</code></pre>
+	<br><hr>
+
+
+
+
+	<p>ソースコード :checkFileObjForImg() メソッド</p>
+	画像用 | ファイルオブジェクトからアップロードファイルのバリデーションを行う
+	<pre><code>
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="UploadFileValidation.js"&gt;&lt;/script&gt;
+
+	&lt;script&gt;
+	$( function() {
+		
+		// アップロードファイルのバリデーションクラスを生成する。
+		var upFileValid = new UploadFileValidation();
+		
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			
+			var files = e.target.files;
+			var oFile = files[0];
+			
+			// アップロードファイルのバリデーション
+			var valid_res = upFileValid.<strong>checkImage</strong>(oFile);
+			if(valid_res){
+				alert(valid_res);
+				return;
+			}
+
+			// ～ 省略 ～
+		
+		
+	});
+	&lt;/script&gt;
+
+
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	</code></pre>
+	<br><hr>
+
+
+
+
+	<p>ソースコード :checkFileObject() メソッド</p>
+	ファイルオブジェクトからアップロードファイルのバリデーションを行う
+	<pre><code>
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="UploadFileValidation.js"&gt;&lt;/script&gt;
+
+	&lt;script&gt;
+	$( function() {
+		
+		// アップロードファイルのバリデーションクラスを生成する。
+		var upFileValid = new UploadFileValidation();
+		
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			
+			var files = e.target.files;
+			var oFile = files[0];
+			
+			// アップロードファイルのバリデーション
+			var valid_res = upFileValid.<strong>checkFileObject</strong>(oFile,['png','jpg','jpeg'],['image/png','image/jpeg']);
+			if(valid_res){
+				alert(valid_res);
+				return;
+			}
+
+			// ～ 省略 ～
+		
+		
+	});
+	&lt;/script&gt;
+
+
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	</code></pre>
+	<br><hr>
+	
+	
+	
+	
+	<br><time>2016-12-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-5" class="sec1" >
+	<h3>データを指定キーでソートする</h3>
+
+	<a href="/sample/js/a004/object_sort/object_sort.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	/**
+	 * オブジェクトをソートする
+	 * @date 2016-12-19
+	 */
+	$(function(){
+		
+		data=[
+		       {'id':1,'name':'yagi','value1':103},
+		       {'id':2,'name':'kani','value1':104},
+		       {'id':3,'name':'same','value1':102},
+		       {'id':4,'name':'wasi','value1':100},
+		       {'id':5,'name':'gori','value1':101},
+		       {'id':6,'name':'roba','value1':105},
+		       {'id':7,'name':'semi','value1':106},
+		       {'id':8,'name':'tako','value1':107},
+		       {'id':9,'name':'hebi','value1':1000},
+		       {'id':10,'name':'kame','value1':108},
+		       ];
+		
+		// データをソートする
+		data = <strong>sortData</strong>(data,'value1','asc');
+		console.log(data);
+		
+	});
+	
+	
+	/**
+	 * データをソートする
+	 * 
+	 * @note
+	 * データはObject型エンティティの配列である。
+	 * 
+	 * @param data データ
+	 * @param key エンティティのフィールド(プロパティ）
+	 * @param order 並び順  asc:昇順,  desc:降順
+	 * @return ソート後のデータ
+	 */
+	function <strong>sortData</strong>(data,field,order='asc'){
+		
+		if(order=='asc'){
+			data.sort(function(a,b){
+				if(a[field] &lt; b[field]){
+					return -1;
+				
+				}else if(a[field] &gt; b[field]){
+					return 1;
+				}
+				return 0;
+			});
+		}
+		
+		else if(order=='desc'){
+			data.sort(function(a,b){
+				if(a[field] &lt; b[field]){
+					return 1;
+				
+				}else if(a[field] &gt; b[field]){
+					return -1;
+				}
+				return 0;
+			});
+		}
+	
+		return data;
+		
+	}
+	</code></pre>
+
+	
+	<br><time>2016-12-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-6" class="sec1" >
+	<h3>エンティティリスト型のデータからHTMLテーブルを生成</h3>
+	
+	
+	ソースコード
+	<pre><code>
+	var data=[
+	       {'id':1,'name':'yagi','value1':103},
+	       {'id':2,'name':'kani','value1':104},
+	       {'id':3,'name':'same','value1':102},
+	       {'id':4,'name':'wasi','value1':100},
+	       ];
+	
+	var tblHtml = createHtmlTable(data);
+	$('#res1').html(tblHtml);
+	
+	/**
+	 * エンティティリスト型のデータからHTMLテーブルを生成
+	 * @param data エンティティリスト型のデータ
+	 * @return string HTMLテーブルのHTMLソース
+	 */
+	function createHtmlTable(data){
+		
+		if(data.length==0){
+			return "";
+		}
+		
+		var html = "&lt;table class='tbl2'&gt;";
+		
+		// 0件目のエンティティからtheadを作成
+		html += "&lt;thead&gt;&lt;tr&gt;";
+	
+		var ent0 = data[0];
+		for(var field in ent0){
+			html += "&lt;th&gt;" + field + "&lt;/th&gt;";
+		}
+		html += "&lt;/tr&gt;&lt;/thead&gt;&yen;n";
+		
+		// tbodyの部分を作成
+		for(var i in data){
+			var ent = data[i];
+			html += "&lt;tr&gt;";
+			for(var f in ent){
+				html += "&lt;td&gt;" + ent[f] + "&lt;/td&gt;"
+			}
+			html += "&lt;/tr&gt;&yen;n";
+			
+		}
+		
+		html+= "&lt;/table&gt;";
+	
+		return html;
+		
+	}
+	</code></pre>
+	<br>
+
+	
+	<br><time>2016-12-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-7" class="sec1" >
+	<h3>テーブルの行を入れ替えることによる並べ替え | ExchangeTr.js</h3>
+
+	ExchangeTr.jsはHTMLテーブルの行並べ替えを容易に実現することができる。<br>
+	当ライブラリを組み込むと行入替フォームが自動的に生成される。<br>
+	行入替フォームで各種並べ替えを行うことができる。<br>
+	<br>
+	
+	ExchangeTr.jsは軽い処理であるため、テーブル一覧が多くても対応可能。<br>
+	使い方は下記のソースコードを参照。<br>
+	<br>
+	
+	<aside>
+	jQueryとBootstrapが必要である。
+	</aside>
+	<br>
+	
+	<a href="/sample/js/a004/ExchangeTr/ExchangeTr.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<p>使い方</p>
+	<pre><code>
+	&lt;link href="bootstrap.min.css" rel="stylesheet"&gt;
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="bootstrap.min.js"&gt;&lt;/script&gt;
+	&lt;script src="<strong>ExchangeTr.js</strong>"&gt;&lt;/script&gt;
+
+	&lt;script type="text/javascript"&gt;
+	var exchangeTr;
+	$(function(){
+		exchangeTr = new <strong>ExchangeTr</strong>({
+			'tbl_slt':'#tbl1',
+		});
+	});
+	
+	function exchageTrRap(btnElm){
+		exchangeTr.showForm(btnElm);
+	}
+	&lt;/script&gt;
+
+	------ any code ---------
+
+	&lt;table id="tbl1" class="table"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;順番&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;入替&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="入替" onclick="exchageTrRap(this)"  /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;山羊&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="入替" onclick="exchageTrRap(this)"  /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="入替" onclick="exchageTrRap(this)"  /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="入替" onclick="exchageTrRap(this)"  /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;td&gt;&lt;input type="button" value="入替" onclick="exchageTrRap(this)"  /&gt;&lt;/td&gt;&lt;/tr&gt;
+	
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	</code></pre>
+	<hr>
+	
+	<p>入替後コールバック</p>
+	行を入替後に実行するコールバックを指定することができる。
+	<pre><code>
+	var exchangeTr;
+	$(function(){
+		exchangeTr = new ExchangeTr({
+			'tbl_slt':'#tbl1',
+		},<strong>afterCallBack</strong>);
+	});
+	function exchageTrRap(btnElm){
+		exchangeTr.showForm(btnElm);
+	}
+	
+	// 入替後のコールバック関数
+	function <strong>afterCallBack</strong>(param){
+		console.log('from_row_index =' + param['from_row_index']);
+		console.log('to_row_index =' + param['to_row_index']);
+	}
+	</code></pre>
+
+	
+	<br><time>2017-3-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-8" class="sec1" >
+	<h3>複数選択SELECTと選択順でデータ取得</h3>
+
+	<a href="/sample/js/a004/mult_select_and_order/mult_select_and_order.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	
+	<pre><code>
+	&lt;script&gt;
+	var vals = [];
+	function chg_test(){
+		for(var i=0; i &lt;$('#animals option').length; i++) {
+			if ($($('#animals option')[i]).prop('selected') ) {
+				if (!vals.includes(i)) {
+					vals.push(i);
+				}
+			} else {
+				if (vals.includes(i)) {
+					vals.splice(vals.indexOf(i), 1);
+				}
+			}
+		}
+		console.log(vals); 
+	}
+	&lt;/script&gt;
+	
+	
+	&lt;select id="animals" size="4" multiple onchange="chg_test()" &gt;
+		&lt;option value="0"&gt;0 ヤンバルテナガコガネ&lt;/option&gt;
+		&lt;option value="1"&gt;1 ケナガネズミ&lt;/option&gt;
+		&lt;option value="2"&gt;2 ヤシガニ&lt;/option&gt;
+		&lt;option value="3"&gt;3 オオサンショウウオ&lt;/option&gt;
+		&lt;option value="4"&gt;4 タヌキ&lt;/option&gt;
+		&lt;option value="5"&gt;5 アカネコ&lt;/option&gt;
+		&lt;option value="6"&gt;6クロイヌ&lt;/option&gt;
+		&lt;option value="7"&gt;7 シマドジョウ&lt;/option&gt;
+	&lt;/select&gt;
+	</code></pre>
+	
+
+	
+	<br><time>2017-3-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-9" class="sec1" >
+	<h3>Ajax送信データの実体参照エスケープ</h3>
+
+	「&amp;」記号と 実体参照「&amp;lt;」、「&amp;gt;」、「&amp;amp;」をAjaxで送信できるように変換する。<br>
+	<br>
+
+	<pre>
+	/**
+	 * Ajax送信データの実体参照エスケープ
+	 * 
+	 * @note 
+	 * 対応している実態参照→ &amp;lt; &amp;gt; &amp;amp; &amp;
+	 * 
+	 * @param any data エスケープ対象 :文字列、オブジェクト、配列を指定可
+	 * @returns エスケープ後
+	 */
+	function _escapeForAjax(data){
+		if (typeof data == 'string'){
+			if ( data.indexOf('&amp;') != -1) {
+				data = data.replace(/&amp;lt;/g,'&lt;').replace(/&amp;gt;/g,'&gt;').replace(/&amp;amp;/g,'&amp;');
+				return encodeURIComponent(data);
+			}else{
+				return data;
+			}
+		}else if (typeof data == 'object'){
+			for(var i in data){
+				data[i] = _escapeForAjax(data[i]);
+			}
+			return data;
+		}else{
+			return data;
+		}
+	}
+	</pre>
+
+	
+	<br><time>2017-4-10 | 2017-4-12</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-10" class="sec1" >
+	<h3>要素オブジェクトから自分自身のタグを含めたHTMLコードを吐き出す</h3>
+	outerHTML関数で要素オブジェクトから自分自身のタグを含めたHTMLコードを取得することが可能である。<br>
+	<br>
+
+	<pre><code>
+	&lt;div id="xxx"&gt;いろは&lt;/div&gt;
+	
+	&lt;script&gt;
+	$(function(){
+		
+		var text = $('#xxx')<strong>[0].outerHTML</strong>;
+		console.log(text); // 出力→ &lt;div id="xxx"&gt;いろは&lt;/div&gt;
+	});
+	&lt;/script&gt;
+	</code></pre>
+	
+	
+	
+	<br><time>2017-4-10</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+
+	
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-11-18</div>
+</body>
+</html>

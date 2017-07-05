@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ワクガンス　|　JavaScriptの覚書</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">JavaScriptの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-1" class="sec1" >
+	<h3>JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする代替案</h3>
+	
+	<h4>方法（新）</h4>
+	新しい方法を確認。<br>
+	「<a href="note7.php#sec7-7">JavaScriptでクラスを実現する</a>」のソースコードを参考。
+	2016-4-5
+	
+	<h4>方法（旧）</h4>
+	JSクラスのコールバック関数内ではthisを使って、自分のメンバやメソッドにアクセスすることができない。<br>
+	スマートなやり方でないが、以下の代替案で、自分のメンバにアクセスしてみた。<br>
+	<br>
+	ソースコード
+	<pre>
+	function test(){
+		var c1=new Class1();
+		c1.init(c1);
+		c1.execution();
+	}
+	</pre>
+	
+	クラス<br>
+	<pre>
+	var class1;//自分自身のインスタンス。コールバック関数内で使用する。
+	var Class1 =function(){
+	
+		this.m_test='hello world';
+		
+		this.init=function(instanse){
+			class1=instanse;
+		}
+		
+		this.execution=function(){
+			//一秒後に関数をコールバックする。
+			setTimeout(function(){
+				//コールバック関数内
+				
+				// 自分自身のインスタンスを通して、メンバの値を取得する。  × this.m_testを指定すると値が取れない。
+				var test=class1.m_test;
+				alert(test);
+			}, 1000);
+		};
+	};
+	</pre>
+	<a  href="http://amaraimusi.sakura.ne.jp/sample/js/class_sample/class_this_bind.html">サンプル</a>
+	<br><br>
+	
+	<aside>
+		bindを使う方法もある。→
+		<a class="ref_link" target="brank" href="http://dqn.sakusakutto.jp/2012/05/javascript_bind_this_callback_method.html">参照</a>
+	</aside>
+	
+	<hr>
+	<h3>方法2：引数に自分自身のインスタンスを渡す方法</h3>
+	こちらのやり方がスマートである。<br>
+	<br>
+	
+	ソースコード
+	<pre>
+	function test(){
+		var c1=new Class1();
+		c1.execution(c1);
+	}
+	</pre>
+	
+	クラス
+	<pre>
+	var Class1 =function(){
+		
+		//★引数に自分自身の
+		this.execution=function(<strong>myself</strong>){
+			//一秒後に関数をコールバックする。
+			setTimeout(function(){
+				//コールバック関数内
+				
+				// 自分自身のインスタンスを通して、メンバの値を取得する。  × this.m_testを指定すると値が取れない。
+				var test=<strong>myself</strong>.m_test;
+				alert(test);
+			}, 1000);
+		};
+	};
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-2" class="sec1" >
+	<h3>ワーカーログクラス | LogForWorker</h3>
+	最初の数十件のログと最後の数十件のログを蓄積しておき、必要な時にまとめて出力するクラス。<br>
+	最初と最後の数十件のみ保存するので、メモリの節約になる。<br>
+	<br>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/log/LogForWorker.js">LogForWorker.js</a><br>
+	<br>
+	
+	インクルード
+	<pre>	&lt;script src="LogForWorker.js"&gt;&lt;/script&gt;</pre>
+	<br>
+	
+	ソースコード<br>
+	<pre>
+	$( function() {
+		<strong>var logW=new LogForWorker();</strong>
+		for(var i=0;i&lt;32;i++){
+			<strong>logW.log(i);</strong>
+		}
+		var fLogs=logW.getFirstLogs();
+		$('#res_f').html(fLogs.join(','));
+		var lLogs=logW.getLastLogs();
+		$('#res_l').html(lLogs.join(','));
+
+	});
+	</pre>
+	<br>
+	
+	出力<br>
+	<pre>
+	0,1,2,3,4,5,6,7,8,9
+	22,23,24,25,26,27,28,29,30,31
+	</pre>
+	
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/log/log_for_worker.html">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-3" class="sec1">
+	<h3>文字列から記号を取り除く</h3>
+	<br>
+	
+	ソースコード<br>
+	<pre>str=str.replace(/[!"#$%&amp;'()\*\+\-\.,\/:;&lt;=&gt;?@\[\\\]^_`{|}~]/g, '');</pre>
+	<br><br>
+	
+	「-」、「:」、「_」は取り除かない<br>
+	<pre>str=str.replace(/[!"#$%&amp;'()\*\+\.,\/;&lt;&gt;?@\[\\\]^`{|}~]/g, '');</pre>
+	
+	<a class="ref_link" target="brank" href="http://endlab.net/javascript/89/">参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-4" class="sec1" >
+	<h3>URLからホスト・ドメインを取得する</h3>
+
+	<div style="margin-bottom:40px">
+		<h4>取得方法その1 | 正規表現を使う方法</h4>
+		ソースコード<br>
+		<pre>
+		var url="http://www.example.com:8080/animals/";//例
+		var host_domain = url.match(/^[httpsfile]+:\/{2,3}([0-9a-z\.\-:]+?):?[0-9]*?\//i)[1];
+		</pre>
+		<br>
+		<table id="res_tbl1" class="table">
+			<caption>正規表現を使った方法の検証</caption>
+			<thead><tr><th>URL</th><th>抽出ホスト・ドメイン</th></tr></thead>
+			<tbody>
+				<tr><td>http://user_name99:pass_word99@www.example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>false</td></tr>
+				<tr><td>http://www.example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>www.example.com</td></tr>
+				<tr><td>http://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>https://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>ws://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>false</td></tr>
+				<tr><td>http://example.com/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>http://example.com</td><td>false</td></tr>
+				<tr><td></td><td>false</td></tr>
+			</tbody>
+		</table>
+		<a href="http://tenderfeel.xsrv.jp/javascript/484/" target="brank">参照元</a>
+	</div>
+	<hr>
+	
+	<div style="margin-bottom:40px">
+		<h4>取得方法その2 | URLからホスト・ドメインを取得する関数</h4>
+		<p>extractHostDomain関数</p>
+		<pre>	
+		/**
+		 * URLからホスト・ドメインを取得する。
+		 * @param url URL
+		 * @returns ホスト・ドメイン（例：www.example.com）
+		 * @link http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string
+		 */
+		function extractHostDomain(url) {
+		    var host_domain;
+		    
+		    if (url.indexOf("://") &gt; -1) {
+		        host_domain = url.split('/')[2];
+		    }
+		    else {
+		        host_domain = url.split('/')[0];
+		    }
+	
+		    host_domain = host_domain.split(':')[0];
+	
+		    return host_domain;
+		}
+		</pre>
+		<br>
+		<table id="res_tbl2" class="table" >
+			<caption>extractHostDomain関数の検証</caption>
+			<thead><tr><th>URL</th><th>抽出ホスト・ドメイン</th></tr></thead>
+			<tbody>
+				<tr><td>http://user_name99:pass_word99@www.example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>user_name99</td></tr>
+				<tr><td>http://www.example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>www.example.com</td></tr>
+				<tr><td>http://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>https://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>ws://example.com:8080/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>http://example.com/animals/neko?id=99&amp;xx=88#kani</td><td>example.com</td></tr>
+				<tr><td>http://example.com</td><td>example.com</td></tr>
+				<tr><td></td><td></td></tr>
+			</tbody>
+		</table>
+		<a href="http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string" target="brank">参照元</a>
+	</div>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/url/url_host_domain.html" class="ref_link" >サンプル</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-5" class="sec1" >
+	<h3>JavaScriptでサブミットする</h3>
+
+	<strong>html source</strong>
+	<pre>
+	&lt;form action="/neko/reg/"  id="neko_form" method="post" &gt;
+	・・・
+	&lt;/form&gt;
+	</pre>
+	<br>
+	
+	<strong>js source</strong>
+	<pre>	$("#neko_form").<strong>submit</strong>();</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-6" class="sec1" >
+	<h3>テキストエリアに貼り付けたExcelデータをJSONコード化する</h3>
+	タブ区切りの複数行からなるデータを、行列配列に変換し、さらにJSON化する。
+	<h4>html source</h4>
+	<pre>
+	&lt;textarea id="pasting_csv" placeholder="CSVを貼り付けてください"&gt;&lt;/textarea&gt;
+	&lt;input type="button" value="行列データ（JSON)に変換" onclick="execution1()"  /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</pre>
+	
+	<h4>js source</h4>
+	<pre>
+	function execution1(){
+		var text = $('#pasting_csv').val();
+		var ary = text.split(/\r\n|\r|\n/);
+		var data=[];
+		for (var i=0;i&lt;ary.length;i++){
+			var row=ary[i];
+			var dd=row.split(/\t/);
+			data.push(dd);
+		}
+		var jsonStr = JSON.stringify(data);
+		$('#res').html(jsonStr);
+	}
+	</pre>
+
+
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/pasting_csv/pasting_csv_and_array.html" class="btn btn-link btn-xs">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-7" class="sec1" >
+	<h3>数値範囲入力のUI noUiSlider</h3>
+	
+	<img src="img/6-7.png" class="img-responsive" >
+
+	<h4>必要なファイル</h4>
+	<pre>
+	&lt;link href="nouislider.min.css" rel="stylesheet"&gt;
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="nouislider.min.js"&gt;&lt;/script&gt;
+	</pre>
+
+	<h4>html source</h4>
+	<pre>
+	&lt;div id="slider" style="width:350px;"&gt;&lt;/div&gt;
+	&lt;input id="test_v1" type="number" value="0" /&gt;
+	&lt;input id="test_v2" type="number" value="0" /&gt;
+	</pre>
+	
+	<h4>js source</h4>
+	<input type="button" value="source" onclick="$('#source6-7').toggle()" class="btn btn-primary btn-xs" />
+	<pre  id="source6-7" style="display:none">
+	$( function() {
+		//～読込イベント処理～
+		
+		var slider = $('#slider').get(0);
+
+		//noUiSliderスライダーの生成と設定をする。
+		noUiSlider.create(slider, {
+			start: [20, 80],//初期値
+			step:10,//ステップ：スライダー一切りの間隔値
+			connect: true,
+			tooltips: false,// true:スライダーにツールチップを表示
+			range: {//入力できる数値の範囲
+				'min': 0,
+				'max': 100
+			}
+		});
+		
+		//スライダーを動かしたときのイベント
+		slider.noUiSlider.on('update', function ( values, handle ) {
+			var v1=values[0];
+			var v1=Math.round(v1);
+			$('#test_v1').val(v1);
+		
+			var v2=values[1];
+			var v2=Math.round(v2);
+			$('#test_v2').val(v2);
+		});
+		
+		//テキストボックスの値を変更したときに、スライダーにも反映させる。
+		$('#test_v1').blur(function(e){
+			var v1=$('#test_v1').val();
+			var v2=$('#test_v2').val();
+			
+			slider.noUiSlider.set([v1,v2]);
+		});
+		
+		//テキストボックスの値を変更したときに、スライダーにも反映させる。（右の値）
+		$('#test_v2').blur(function(e){
+			var v1=$('#test_v1').val();
+			var v2=$('#test_v2').val();
+			
+			slider.noUiSlider.set([v1,v2]);
+		});
+		
+
+	});
+	</pre><br><br>
+
+	<a href="http://refreshless.com/nouislider/" target="brank" class="btn btn-link">公式サイト・ダウンロード先</a><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/no_ui_slider/no_ui_slider_example2.html" target="brank" class="btn btn-link">サンプル</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-8" class="sec1">
+	<h3>livipage.js | ページ内リンク先プレビュー</h3>
+	livipage.jsは、リンクにカーソルを合わせたとき、リンク先をプレビュー表示させることができる。<br>
+	ただしページ内リンク限定で、別ファイルのページリンクしている要素には対応していない。<br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/livipage/livipage.js">livipage.jsのダウンロード</a>
+	<br><br>
+	
+	<h4>使い方</h4>
+	プレビュー表示させたいリンクのclass属性にlivipageを指定するだけ。
+	<p>インクルード</p>
+	<pre>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="<strong>livipage.js</strong>"&gt;&lt;/script&gt;
+	</pre>
+	
+	<p>例</p>
+	<pre>
+	&lt;div style="width:100px;height:400px"&gt;
+	&lt;a href="<strong>#sample1</strong>" class="<strong>livipage</strong>" &gt;いろは歌&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+	&lt;/div&gt;
+	
+	&lt;div id="<strong>sample1</strong>" &gt;
+		いろはにほへとちりぬるをわかよたれそつねならむ&lt;br&gt;
+		うゐのおくやまけふこえてあさきゆめみしゑひもせす&lt;br&gt;
+	&lt;/div&gt;
+	</pre>
+	<br>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/livipage/livipage.html" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-9" class="sec1">
+	<h3>URLエンコード | encodeURIComponent</h3>
+
+	<p>URLエンコードの基本</p>
+	<pre>
+	var str = 'あ'
+	var str2 = encodeURIComponent(str);
+	console.log(str2);
+	//あ → %E3%81%82
+	</pre>
+	<br>
+	
+	<p>URLエンコードの種類</p>
+	URLエンコードは下記の3種類存在する。違いはエンコードできる記号がそれぞれ異なっている。<br>
+	またそれぞれに対応するデコード関数も存在する。<br>
+	<table class = "table">
+	<thead>
+		<tr><th>エンコード</th><th>デコード</th><th>エンコード対象外</th><th>注意</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>encodeURI</td><td>decodeURI</td><td>;/?:@&amp;=+$-_!~*.,()a#'</td></tr>
+		<tr><td>encodeURIComponent</td><td>decodeURIComponent</td><td>-_!~*.()a'</td></tr>
+		<tr><td>escape</td><td>unescape</td><td>*+-_./</td><td>非推奨。ブラウザごとに挙動が異なるようである。</td></tr>
+
+	</tbody>
+	
+	
+</table>
+	<br>
+	
+	<a href="http://logic.moo.jp/data/archives/438.html" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<a href="http://javascript.dohow.jp/basic/encode.shtml" target="brank" class="btn btn-link btn-xs">参考サイト2</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-10" class="sec1">
+	<h3>印文字から左側および右側の文字を切り出す</h3>
+	
+	<h4>印文字から左側の文字を切り出す</h4>
+	<p>source code</p>
+	<pre>
+	function stringLeft(s,mark){
+		if (s==null || s==""){
+			return s;
+		}
+		var a=s.indexOf(mark);
+		var s2=s.substring(0,a);
+		return s2;
+	}
+	</pre>
+	<p>使用例</p>
+	<pre>
+	var str = 'ネズミを捕る老いたネコが布団の上で寝ている';
+	var res = stringLeft(str,'ネコ');
+	console.log(res);// → res = 'ネズミを捕る老いた'
+	</pre>
+
+	
+	
+	<h4>印文字から右側の文字を切り出す</h4>
+	<p>source code</p>
+	<pre>
+	function stringRight(s,mark){
+		if (s==null || s==""){
+			return s;
+		}
+		
+		var a=s.indexOf(mark);
+		var s2=s.substring(a+mark.length,s.length);
+		return s2;
+
+	}
+	</pre>
+	<p>使用例</p>
+	<pre>
+	var str = 'ネズミを捕る老いたネコが布団の上で寝ている';
+	var res = stringRight(str,'ネコ');
+	console.log(res);// → res = 'が布団の上で寝ている'
+	</pre>
+	
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015/10/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

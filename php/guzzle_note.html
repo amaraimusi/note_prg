@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHP Guzzleの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	<!-- ソースコードをハイライト表示する -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="header" ><h1>PHP Guzzleの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="http://docs.guzzlephp.org/en/latest/" target="brank">Guzzle 6 のドキュメント</a>
+
+
+
+
+
+
+
+
+
+<div id="s10" class="sec4">
+	<h3>PHPだけでクロスドメイン</h3>
+	通常、クロスドメイン通信はAjaxで行う。そのためJavaScriptの力も借りることになる。<br>
+	しかし、Guzzleを使えばPHPだけでクロスドメイン通信ができる。<br>
+	<br>
+	
+	
+	
+	
+	<p>サンプル</p>
+	下記サンプルではサーバーAから別ドメインであるサーバーBにクロスドメイン通信する。<br>
+	POSTデータの送信とレスポンスの受取も行っている。<br>
+	<br>
+	
+	バージョン情報
+	<aside>
+	Guzzle 6.2(PHP 5.5以上が必須）<br>
+	</aside>
+	<br>
+	
+	サーバーA
+	<pre>
+	&lt;?php 
+		// Composerでインストールした各種ライブラリを読み込む（Guzzleもインストールされていること）
+		require_once 'vendor/autoload.php';
+	
+		// サーバーBへのURL
+		$url = "http://example.com/server_side.php";
+	
+		// サーバーBへ送信するPOSTデータ
+		$data = ['id'=&gt;888,'name'=&gt;'dog'];
+		$json = json_encode($data);
+		
+		// サーバーBとクロスドメイン通信を行う。
+		$client = new GuzzleHttp\Client();
+		$res = $client-&gt;<strong>request</strong>('POST', $url,['form_params'=&gt;['key1'=&gt;$json]]);
+		
+		// クロスドメイン通信のレスポンスを出力
+		echo $res-&gt;getStatusCode();
+		echo '&lt;br&gt;';
+		
+		$body = $res-&gt;getBody();
+		$contents = $body-&gt;getContents();
+		var_dump($contents);
+	?&gt;
+	</pre>
+	<br>
+	
+	サーバーB (server_side.php)
+	<pre>
+	&lt;?php 
+		// クロスドメイン通信を許可する（本来なら認証チェックや、アクセス元のオリジン【ドメイン＋ポート】に制限をかけるべき）
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: POST');
+		
+		// デフォルトデータにPOSTデータをマージする。マージしたデータはJSONに変換して出力。
+		$data = ['id'=&gt;1,'name'=&gt;'cat','status'=&gt;2];
+	
+		if(!empty($_POST['key1'])){
+			$json=$_POST['key1'];
+			$data2=json_decode($json,true);//JSONデコード
+			$data = array_merge($data, $data2);
+		}
+		
+		$json = json_encode($data);//JSONエンコード
+		
+		echo $json;
+	
+	?&gt;
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	string '{"id":888,"name":"dog","status":2}' (length=34)
+	</pre>
+	<aside>サーバーAソースコードの出力</aside>
+	<br>
+	
+
+	<time>2016-7-6</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="s300" class="sec4" >
+	<h3>Guzzle3によるクロスドメイン</h3>
+	Guzzle3はComposerでインストールする。また動作条件はPHP5.3.3以上が必要<br>
+	<br>
+	
+	サンプルはサーバーAとサーバーBのクロスドメイン通信である<br>
+	POSTデータを送信して、JSONデータを受け取る。<br>
+	<br>
+	
+	<aside>
+	Guzzleは送信側（サーバーA）にインストールする。サーバーB側は不要。<br>
+	また、Guzzleはバージョンによりソースコードの記述方法が異なるので注意。
+	</aside>
+	<br>
+	
+	<p>サーバーA</p>
+	<pre><code>
+	
+	// Composerでインストールしたライブラリ群をインクルードする（Guzzle3ライブラリも含まれる）
+	require_once '../vendor/autoload.php';
+
+	// 送信データ
+	$data = ['id'=&gt;1200,'delete_flg'=&gt;false, 'animal_name'=&gt;'lion'];
+	$json = json_encode($data);
+	
+	// クロスドメイン通信先URL（別ドメインのサイト）
+	$url = "http://amaraimusi.sakura.ne.jp/sample/php/guzzle3/cross_domain/test_serv_side.php";
+
+	// 通信先URLと送信データをセットして、クロスドメイン通信を開始する。
+	$client = new \Guzzle\Http\Client($url);
+	<strong>$request = $client-&gt;post($url,null,array('key1' =&gt; $json));
+	$res = $request-&gt;send();</strong>
+	
+	// レスポンスをJSONとして受け取り出力する
+	$json = <strong>$res-&gt;json()</strong>;
+	var_dump($json);
+	</code></pre>
+	<br>
+	
+	<p>サーバーB</p>
+	<pre><code>.
+	&lt;?php 
+	// クロスドメイン通信を許可する
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: POST');
+	
+	
+	$data = ['id'=&gt;1,'animal_name'=&gt;'cat','delete_flg'=&gt;true];
+	if(!empty($_POST['key1'])){
+		$json=$_POST['key1'];
+		$data2=json_decode($json,true);//JSONデコード
+		$data = array_merge($data, $data2);
+	}
+	
+	$json = json_encode($data);//JSONエンコード
+	
+	echo $json;
+	
+	?&gt;
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="xdebug-var-dump output_data" dir="ltr"><b>array</b> <i>(size=3)</i>
+	  'id' <font color="#888a85">=&gt;</font> <span style='font-size:0.9em'>int</span> <font color="#4e9a06">1200</font>
+	  'animal_name' <font color="#888a85">=&gt;</font> <span style='font-size:0.9em'>string</span> <font color="#cc0000">'lion'</font> <i>(length=4)</i>
+	  'delete_flg' <font color="#888a85">=&gt;</font> <span style='font-size:0.9em'>boolean</span> <font color="#75507b">false</font>
+	</pre>
+	
+	
+	
+	
+	<br>
+	<time>2016-7-8</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sxxx" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+	<li>PHP Guzzleの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-7-6</div>
+</body>
+</html>

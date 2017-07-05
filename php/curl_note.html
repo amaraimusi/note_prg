@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ワクガンス | cURLの覚書</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+		<style>
+
+			
+			.link_large li{
+				margin-bottom:40px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="header">cURLの覚書</h1>
+		<div class="container">
+
+
+
+
+			
+
+
+
+
+
+
+<a href="#" target="brank">公式サイト</a>
+
+
+
+
+
+
+
+
+
+<div id="s1" class="sec4">
+	<h3>cUrlの概要</h3>
+	cURLはカールと呼び、さまざまなプロトコルでデータ送受信ができるフリーウェアである。<br>
+	libcurlとcURLに分けられている。<br>
+	cURLはコマンドラインツールで、libcurlはライブラリという関係らしい。<br>
+	cURLがlibcurlの機能を利用しているとのこと。<br>
+	<br>
+	
+	cUrlはFILE,FTP,HTTP,HTTPS,IMAP,POP3,SMTPSなど多くのプロトコルをサポートしている。<br>
+	なお正確には<a href="#s100" class="livipage">プロトコルでなくスキーム</a>をサポートとことである。<br>
+	<br>
+	
+	<p>基本的な使い方(HTTPリクエスト)</p>
+	cURLの基本的な利用方法はcurlのあとにURLを記述する方式である。
+	<pre class="kata">curl www.example.com</pre>
+	コマンドを実行すると、www.example.comのソースコードを表示したり別ファイルで書き出せたりする。<br>
+	POSTデータを送信することも可能である。<br>
+	<br>
+	
+	<p>cURLに対応しているプログラム言語</p>
+	cURLはさまざまな40以上のプログラミング言語に対応している。<br>
+	パッケージをインストールすれば、Linuxのコマンドや、Windowsのコマンドプロンプトとして利用できる。<br>
+	PHPからももちろん利用可能である。<br>
+	Javascriptからはajaxを通して利用できる。<br>
+	<br>
+</div>
+
+
+
+
+
+
+
+
+<div id="s100" class="sec4" >
+	<h3>プロトコルとスキームの違い</h3>
+	プロトコル名とスキーム名は同じであることがあるので混同しやすいが別物である。<br>
+	スキームはURLを構成する文字列である。<br>
+	URLの接頭辞でhttp,file,mailto,https,javascript,blob,data,ftpなどがある。<br>
+	スキームはURLスキーム、URIスキームとも呼ばれることもある。<br>
+	<br>
+	
+	プロトコルは文字列でなく通信手順、規約である。<br>
+	<br>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sxxx" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+			<div class="yohaku"></div>
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/php/">PHPの覚書目次</a></li>
+				<li>cURLの覚書</li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2016/6/6</div>
+		
+	</body>
+</html>

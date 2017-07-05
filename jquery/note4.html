@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>jQueryの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	<!-- ソースコードをハイライト表示する -->
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>jQueryの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-1" class="sec1" >
+	<h3>オリジン許可を必要としないクロスドメイン | jquery.xdomainajax.js | スクレイピング</h3>
+	
+
+	<strong>jquery.xdomainajax.js</strong> はJavaScriptでクロスドメインまたはスクレイピングができるライブラリである。<br>
+	サーバーサイド側にてオリジンの許可設定を必要せずにクロスドメインができる。<br>
+	内部でYQLというYahoo APIを使用しているようである。<br>
+	YQLは xmlをjsonpに変換するAPIである。<br>
+	<br>
+	
+	
+	
+	
+
+	<aside>
+	オリジンの許可について<br>
+	オリジン許可を許可するにはクロスドメイン通信先ファイルをphpファイルにし、以下のコードを付け加える必要がある。<br>
+	header('Access-Control-Allow-Origin: *');
+	<input type="button" value="例" class="btn btn-default btn-xs" onclick="$('#sec4-1a1').toggle(500);" />
+	<pre id = "sec4-1a1" style="display: none">
+	&lt;?php 
+	<strong>header('Access-Control-Allow-Origin: *');</strong>
+	?&gt;
+	
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+	...
+	&lt;/html&gt;
+	</pre>
+	</aside>
+	<br>
+	<hr>
+	
+	
+	<a href="/sample/js/xdomainajax/xdomainajax.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+	
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+		&lt;script src="jquery.xdomainajax.js"&gt;&lt;/script&gt;
+
+		&lt;script&gt;
+
+		function test(){
+			
+			// 外部ページのURL
+			url = ' http://www.yahoo.co.jp/';
+			
+			// jquery.xdomainajax.jsによるクロスドメイン（スクレイピング）
+			$.get(url, function(data){
+				
+				// 外部ページのHTMLテキスト（ソース）を取得する
+				var html_text = data.responseText;
+				
+				// HTMLテキストをjQueryオブジェクトにパースする。$.parseHTMLはパースするとき外部ページのJavaScriptを実行しない。
+				var jobj = $.parseHTML(html_text);
+				
+				// 外部ページから一部の要素だけ抜き出し、表示する。
+				var content = $(jobj).find('.topicsindex').html();
+				$("#res").html(content);
+			});
+
+		}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	
+	&lt;body&gt;
+	
+	&lt;input type="button" value="Test" onclick="test()" /&gt;&lt;br&gt;
+	&lt;br&gt;
+	
+	&lt;p&gt;出力&lt;/p&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</code></pre>
+	<br>
+	
+	<p>リンク</p>
+	<ul>
+		<li><a href="http://james.padolsey.com/javascript/cross-domain-requests-with-jquery/" target="blank">公式サイト</a></li>
+		<li><a href="https://github.com/padolsey-archive/jquery.fn/blob/master/cross-domain-ajax/jquery.xdomainajax.js" target="blank">GitHub</a></li>
+		<li><a href="http://ficc-workbook.tumblr.com/post/99308277381/javascript%E3%81%A7%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%AE%E5%A3%81%E3%82%92%E9%A3%9B%E3%81%B3%E8%B6%8A%E3%81%88%E3%82%8B%E6%96%B9%E6%B3%95" target="blank">参考</a></li>
+	</ul>
+	
+	
+
+	
+	
+	<time>2016-7-14</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2" class="sec1" >
+	<h3>スライドアニメーションによる画面要素の切替</h3>
+	
+	要素をスライドで切り替える。<br>
+	jQuery.UIが必要である。<br>
+	<a href="/sample/js/jqu_slide/jqu_slide.html" class="btn btn-info">応用サンプル</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;link href="jquery-ui.min.css" rel="stylesheet"&gt;
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="jquery-ui.min.js"&gt;&lt;/script&gt;
+	
+	～省略～
+	
+	&lt;div class="sec4"&gt;
+		&lt;input type="button" value="戻りスライド" onclick="slidePrev('#s1','#s2')" /&gt;
+		&lt;input type="button" value="次へスライド" onclick="slideNext('#s1','#s2')" /&gt;
+	&lt;/div&gt;
+	
+	
+	&lt;div id="s1" &gt;
+		&lt;h3&gt;ページA&lt;/h3&gt;
+		いろはにほへとちりぬる&lt;br&gt;
+		をわかよたれそつねならむ&lt;br&gt;
+	&lt;/div&gt;
+	
+	
+	&lt;div id="s2" style='display:none'&gt;
+		&lt;h3&gt;ページB&lt;/h3&gt;
+		うゐのおくやまけふこえてあさきゆめみしゑひもせす&lt;br&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+
+	<p>JavaScript</p>
+	<pre><code>
+	function slidePrev(elm1,elm2, delay,callback) {
+
+		$(elm2).hide("slide", {direction: 'right'}, delay, function(){
+			$(elm1).show("slide", {direction: 'left'}, delay, function(){
+				if(callback != undefined){
+					callback();
+				}
+			});
+	
+		});
+	
+	}
+	
+	function slideNext(elm1,elm2, delay,callback) {
+
+		$(elm1).hide("slide", {direction: 'left'}, delay, function(){
+			$(elm2).show("slide", {direction: 'right'}, delay, function(){
+				if(callback != undefined){
+					callback();
+				}
+			});
+	
+		});
+	
+	}
+	</code></pre>
+	<br>
+	
+
+
+	<br><time>2016-8-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-3" class="sec1" >
+	<h3>要素の存在チェック</h3>
+	
+	要素（セレクタ）が存在するか調べるには以下のようにする。
+	<pre>
+	if(<strong>$('#neko')[0]</strong>){
+		alert('neko要素は存在します');
+	}else{
+		alert('neko要素は存在しません');
+	}
+	</pre>
+	<br>
+	
+	「style="display:none"」で非表示になっていてもHTMLソースに存在するなら、”存在”と判定される。<br>
+	<br>
+
+	<time>2016-9-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-4" class="sec1" >
+	<h3>弟要素を追加および取得</h3>
+	
+	<a href="/sample/js/a002/jq_add_brother_element/jq_add_brother_element.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<p>追加</p>
+	<pre><code>
+	$('#sample1').<strong>after</strong>('&lt;div&gt;123&lt;/div&gt;');
+	</code></pre>
+	<br>
+	
+	<p>取得</p>
+	<pre><code>
+	var elm = $('#sample1').<strong>next</strong>();
+	alert(elm.html());
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-9-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-5" class="sec1" >
+	<h3>兄要素を追加および取得</h3>
+	
+	<a href="/sample/js/a002/jq_add_brother_element/jq_add_brother_element.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<p>追加</p>
+	<pre><code>
+	$('#sample2').<strong>before</strong>('&lt;div&gt;123&lt;/div&gt;');
+	</code></pre>
+	<br>
+	
+	<p>取得</p>
+	<pre><code>
+	var elm = $('#sample2').<strong>prev</strong>();
+	alert(elm.html());
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-9-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-5-2" class="sec1" >
+	<h3>兄弟要素を取得する</h3>
+	
+	<a href="/sample/js/a004/jq_sibling_element/jq_sibling_element.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	
+	
+	サンプルHTML
+	<pre>
+	&lt;div&gt;
+		&lt;div&gt;ネコ&lt;/div&gt;
+		&lt;label&gt;ヤギ&lt;/label&gt;
+		&lt;div id="test1"&gt;ヤモリ&lt;/div&gt;
+		&lt;div&gt;サメ&lt;/div&gt;
+		&lt;div&gt;&lt;span class="text-success"&gt;奈良&lt;/span&gt;シカ&lt;/div&gt;
+		&lt;span&gt;たぬき&lt;/span&gt;
+	&lt;/div&gt;
+	</pre>
+
+	<div style="display:inline-block;background-color:#fffaec;padding:10px;border-radius:5px">
+		<div>ネコ</div>
+		<label>ヤギ</label>
+		<div id="test1" class="text-danger">ヤモリ</div>
+		<div>サメ</div>
+		<div><span class="text-success">奈良</span>シカ</div>
+		<span>たぬき</span>
+	</div>
+
+
+
+	<h4>検証1:自分以外の兄弟要素を取得する。</h4>
+	<pre><code>
+	var elms = $('#test1').<strong>siblings</strong>();
+	elms.each(function(){
+		var str = $(this).html() + '&lt;br&gt;';
+		$('#res').append(str);
+	});
+	</code></pre>
+	<pre id="res1" class="output_data">ネコ<br>ヤギ<br>サメ<br><span class="text-success">奈良</span>シカ<br>たぬき<br></pre>
+	
+
+	<h4>TEST2:条件を指定して兄弟要素を取得する</h4>
+	下記の例では条件にDIV要素を指定している。
+	<pre><code>
+	var elms = $('#test1').siblings('<strong>div</strong>');
+	elms.each(function(){
+		var str = $(this).html() + '&lt;br&gt;';
+		$('#res2').append(str);
+	});
+	</code></pre>
+	<pre id="res2" class="output_data">ネコ<br>サメ<br><span class="text-success">奈良</span>シカ<br></pre>
+
+
+
+
+	<h4>TEST3:自分から下の弟要素だけ取得する</h4>
+	取得に自分自身は含まれない。
+	<pre><code>
+	function test3(){
+		var elms = $('#test1').<strong>nextAll</strong>();
+		elms.each(function(){
+			var str = $(this).html() + '&lt;br&gt;';
+			$('#res3').append(str);
+		});
+	}
+	</code></pre>
+	<pre id="res3" class="output_data">サメ<br><span class="text-success">奈良</span>シカ<br>たぬき<br></pre>
+
+
+
+	<h4>TEST4:自分自身も含めてすべての兄弟要素を取得する</h4>
+	<pre><code>
+	function test4(){
+		var elms = $('#test1').<strong>parent().children()</strong>;
+		elms.each(function(){
+			var str = $(this).html() + '&lt;br&gt;';
+			$('#res4').append(str);
+		});
+	}
+	</code></pre>
+	<pre id="res4" class="output_data">ネコ<br>ヤギ<br><span class="text-danger">ヤモリ</span><br>サメ<br><span class="text-success">奈良</span>シカ<br>たぬき<br></pre>
+	
+	<br>
+	
+	
+
+
+	<br><time>2017-6-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-6" class="sec1" >
+	<h3>テーブルから対象要素の行番（インデックス）を取得する</h3>
+	
+	HTMLテーブルの行内にボタンやアンカーなどのイベントトリガー要素を配置しているとする。<br>
+	イベントトリガー要素をクリックしたとき、行の番号インデックスを取得することができる。<br>
+	<br>
+	
+	<a href="/sample/js/a002/table_row_index/table_row_index.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;table id="sample_tbl1" &gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;天然記念物名&lt;/th&gt;&lt;th&gt;ボタン&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;ムラサキオカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="<strong>edit(this)</strong>" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;オカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;ナキオカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;サキシマオカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;オオナキオカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;コムラサキオカヤドカリ&lt;/td&gt;&lt;td&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;ヤンバルクイナ&lt;/td&gt;&lt;td&gt;&lt;span style="color:red"&gt;&lt;input type="button" onclick="edit(this)" value="edit" /&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+	
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>HTML</p>
+	<pre><code>
+	function edit(elm){
+		// 先祖をさかのぼりtr要素を取得する
+		<strong>var tr=$(elm).parents('tr');</strong>
+		
+		// 行番（インデックス）を取得する
+		<strong>var index = tr.index();</strong>
+		
+		alert('行番:' + index);
+	}
+	</code></pre>
+	<br>
+
+	<br><time>2016-9-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7" class="sec1" >
+	<h3>name属性で取得する</h3>
+	
+	name属性で要素を指定して取得する。
+	<pre>$("input[name='tokage']")</pre><br>
+	<br>
+	
+	サンプル
+	<pre><code>
+	&lt;script&gt;
+	function test1(){
+		var test = $("input[name='tokage']").val();
+		alert(test);
+	}
+	&lt;/script&gt;
+	&lt;input type="button" value="test" onclick="test1()" /&gt;&lt;br&gt;
+	&lt;input type="text" name="tokage" value="トカゲ" /&gt;
+	</code></pre>
+
+	<br><time>2016-9-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-8" class="sec1" >
+	<h3>複数要素である場合の $('#xxx').text() を検証する</h3>
+
+	要素内部が複数要素になっている場合、text関数は次のような値を返す。<br>
+	複数要素すべての文字列を連結し、一つの文字列として返す。<br>
+	<br>
+	
+
+
+	HTML
+	<pre><code>
+	&lt;div id="neko"&gt;ベンガル
+	  &lt;span style="color:blue"&gt;シャムネコ&lt;/span&gt;
+	  &lt;strong&gt;スフィンクス
+	    &lt;span style="color:red"&gt;三毛猫&lt;/span&gt;
+	  &lt;/strong&gt;タヌキ
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	検証1
+	<pre><code>
+	var v = $('#neko').text();
+	</code></pre>
+	<pre class="output_data">	ベンガルシャムネコスフィンクス三毛猫タヌキ</pre>
+	<br>
+	
+	
+	検証2:先頭要素だけ取得
+	<pre><code>
+	var v = $('#neko :first').text();
+	</code></pre>
+	<pre class="output_data">	シャムネコ</pre>
+	<aside>※ 注意：「:first」の前に半角スペースを入れること</aside>
+	<br>
+	
+	<a href="/sample/js/a002/jq_text/jq_text.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	<br><time>2016-9-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9" class="sec1" >
+	<h3>対象文字列をID属性とセレクタに分類する</h3>
+	
+	<pre><code>
+	/**
+	 * 対象文字列をID属性とセレクタに分類する
+	 * @param slt 対象文字列
+	 * @returns res
+	 *  - xid ID属性
+	 *  - slt セレクタ
+	 */
+	function classifySlt(slt){
+		
+		var xid='';
+		var slt2 = '';
+		
+		var s1 = slt.charAt(0);
+		if(s1=='#'){
+			xid = slt.replace('#','');
+			slt2 = slt;
+		}else{
+			xid = slt;
+			slt2 = '#' + slt;
+		}
+		
+		var res = {
+				'xid':xid,
+				'slt':slt2
+		}
+		
+		return res;
+		
+		
+	};
+	</code></pre>
+	<br>
+
+	<br><time>2016-9-30</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-10" class="sec1" >
+	<h3>兄弟要素の末尾を取得 | $(xxx).eq(-1)</h3>
+	
+	「eq(-1)」で末弟要素を取得することができる。<br>
+	エイリアスとしてlast()がある。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script&gt;
+	$(function(){
+		var tr = $('#sample_tbl tbody tr').<strong>eq(-1)</strong>;
+		console.log(tr.html());
+	});
+	&lt;/script&gt;
+
+	&lt;table id="sample_tbl"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;山羊&lt;/td&gt;&lt;td&gt;草食&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;/tr&gt;
+	
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;
+	</pre>
+	<br>
+
+	<br><time>2016-10-7</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-7-14</div>
+</body>
+</html>

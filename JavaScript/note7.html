@@ -1,0 +1,996 @@
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-1" class="sec1" >
+	<h3>File API | ファイル名、サイズ、MIME、更新日時を取得</h3>
+	File APIはHTML5の機能である。<br>
+	選択したファイルからファイル名、ファイルサイズ、MINEタイプ、更新日時を取得する。<br>
+	これらのファイル情報はJavaScriptのみで取得でき、サーバーサイド（PHPなど）で何もする必要はない。<br>
+	複数のファイルを選択することも可能である。<br>
+	<br>
+	
+	html
+	<pre><code>
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+			&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+			&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+			&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+			&lt;script src="file_api1.js"&gt;&lt;/script&gt;
+		&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="file1" type="file" multiple&gt;
+		&lt;div id="res"&gt;&lt;/div&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</code></pre>
+	<br>
+	
+	javascript(file_api1.js)
+	<pre><code>
+	$( function() {
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			//ファイルオブジェクト配列を取得（配列要素数は選択したファイル数を表す）
+			var files = e.target.files;
+			//ファイルオブジェクトからファイル名、ファイルサイズ、MIMEタイプ、更新日時を取得する。
+			var fileInfo = "none";
+			for(var i = 0; i &lt; files.length; i++){
+				var fileObj = files[i];
+				fileInfo +=
+					'ファイル名：' + fileObj.name + '&lt;br&gt;' +
+					'ファイルサイズ：' + fileObj.size + ' Byte&lt;br&gt;' +
+					'MIME：' + fileObj.type + '&lt;br&gt;' +
+					'更新日時：' + fileObj.lastModifiedDate + '&lt;hr&gt;';
+				}
+			$('#res').append(fileInfo);
+		});
+	});
+	</code></pre>
+	<br>
+
+
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api1.php" class="btn btn-link btn-xs">サンプル</a><br>
+	<a href="http://tokidoki-web.com/2013/08/file-api%E3%81%A7%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E6%83%85%E5%A0%B1%E5%8F%96%E5%BE%97%E3%81%97%E3%81%A6%E3%82%84%E3%82%93%E3%82%88/" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+
+	<time>2015-10-22 | 2016-12-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-2" class="sec1">
+	<h3>File API | ファイルからテキストデータを取得</h3>
+	
+	
+	選択したファイルからテキストを読み込み表示する。<br>
+	JavaScriptのみでテキスト読み込みを行っており、サーバーサイド（PHPなど）で何もする必要はない。<br>
+	<br>
+
+	html
+	<pre>
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+			&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+			&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+			&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+			&lt;script src="file_api2.js"&gt;&lt;/script&gt;
+		&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="file1" type="file" multiple&gt;
+		&lt;div id="res"&gt;&lt;/div&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+	<br>
+	
+	javascript(file_api2.js)
+	<pre>
+	$( function() {
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			//ファイルオブジェクト配列を取得（配列要素数は選択したファイル数を表す）
+			var files = e.target.files;
+			var fileObj = files[0];
+			//ファイルリーダーにファイルオブジェクトを渡すと、ファイル読込完了イベントなどをセットする。
+			var reader = new FileReader();
+			reader.readAsText(fileObj, "Shift_JIS");
+			//ファイル読込完了イベント
+			reader.onload = function(evt) {
+				//テキストデータを取得する
+				var text_data = evt.target.result;
+				//XSSサニタイズ
+				text_data = xssSanitaizeEncode(text_data);
+				//出力
+				$("#res").html(text_data);
+			}
+		});
+	});
+	
+	
+	 
+	//XSSサニタイズエンコード
+	function xssSanitaizeEncode(str){
+		return str.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;').replace(/"/g, '&amp;quot;').replace(/'/g, '&amp;#39;');
+	}	
+	</pre>
+	<br>
+	
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api2.php" >サンプル</a><br>
+	<br>
+	
+	関連サンプル<br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api1.php" >File API | ファイル名、サイズ、MIME、更新日時を取得</a><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api3.php" >File API | ファイル読込の進捗</a><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api4.php" >File API | 複数ファイルアップロード</a><br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-3" class="sec1">
+	<h3>選択状態のテキストを取得 | jQuery.selection</h3>
+
+	<a href="http://madapaja.github.io/jquery.selection/ja_jp.html">jQuery.selection</a>
+	ライブラリを利用すると、選択状態のテキストを容易に取得可能である。<br>
+	基本的な使用方法は「jquery.selection.js」を読込、「$.selection()」を呼び出すだけである。<br>
+	<aside>※jQueryは必要である。</aside>
+	<br>
+	
+	
+	ソースコード<br>
+	<pre>
+	～略～
+	&lt;script src="jquery.selection.js"&gt;&lt;/script&gt;
+	～略～
+	&lt;script&gt;
+	var res = $.selection();//選択範囲の文字列を取得する。
+	～略～
+	&lt;/script&gt;
+	</pre>
+	<br>
+	
+	<a href="http://madapaja.github.io/jquery.selection/ja_jp.html" target="brank" class="btn btn-link">公式サイト</a>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/jq_selection/jq_selection.html" class="btn btn-link">サンプル</a>
+	<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-4" class="sec1">
+	<h3>テキストエリア内にて選択状態のテキストを取得 | jQuery.selection</h3>
+	
+	<a href="http://madapaja.github.io/jquery.selection/ja_jp.html">jQuery.selection</a>
+	を利用して、テキストエリア内で選択しているテキストを取得できる。<br>
+	また、選択テキストの前後に文字を挿入、選択テキストを別の文字に置き換えることもできる。<br>
+	<br>
+
+	<p>htmlソース</p>
+	<pre>
+	～略～
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="jquery.selection.js"&gt;&lt;/script&gt;
+	～略～
+	&lt;textarea id="test1" &gt;
+	いろはにほへとちりぬるをわかよたれそつねならむ
+	うゐのおくやまけふこえてあさきゆめみしゑひもせす
+	&lt;/textarea&gt;
+	</pre>
+	<br>
+	
+	<p>選択中のテキストを取得する</p>
+	<pre>	var res = $('#test1').selection();</pre>
+	<br>
+	
+	<p>選択テキストの前後に文字を挿入</p>
+	<pre>
+	$('#test1')
+		.selection('insert', {text: 'Neko', mode: 'before'}) //選択テキストの前に挿入
+		.selection('insert', {text: 'Yagi', mode: 'after'}); //選択テキストの後に挿入
+	</pre>
+	<br>
+	
+	<p>選択テキストを別文字に置換する</p>
+	<pre>	$('#test1').selection('replace', {text: '置き換え文字A'});</pre>
+	
+	<a href="http://madapaja.github.io/jquery.selection/ja_jp.html" target="brank" class="btn btn-link">公式サイト</a>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/jq_selection/jq_selection_ta.html" class="btn btn-link">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-5" class="sec1" >
+	<h3>テキストエリアにアンドゥ機能とリドゥ機能を組み込むundo_a.js  | Undo,Redo</h3>
+
+	テキストエリアにアンドゥ機能とリドゥ機能を組み込みます。<br>
+	<br>
+
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/undo/undo_a.js" >undo_a.jsのダウンロード</a><br>
+	<br>
+	
+	ソースソード
+	<pre>
+	&lt;html lang="ja"&gt;
+		&lt;head&gt;
+			&lt;script src="jquery"&gt;&lt;/script&gt;
+			&lt;script src="undo_a.js"&gt;&lt;/script&gt;
+			&lt;script&gt;
+			$( function() {
+				var params = {
+					'ta_slt':'#ta1',
+					'undo_btn_slt':'#undo1',
+					'redo_btn_slt':'#redo1',
+				};
+				var undoA = new UndoA(params);
+			});
+			&lt;/script&gt;
+		&lt;/head&gt;
+	
+	&lt;body&gt;
+		&lt;button type="button" id="undo1"&gt;UNDO&lt;/button&gt;
+		&lt;button type="button" id="redo1"&gt;REDO&lt;/button&gt;&lt;br&gt;
+		&lt;textarea id="ta1" style="width:500px;height:200px"&gt;いろは&lt;/textarea&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+
+	<a href="http://amaraimusi.sakura.ne.jp/sample/js/undo/undo.html"  class="btn btn-link btn-xs">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-6" class="sec1" >
+	<h3>正規表現</h3>
+
+	
+	<a href="/sample/js/reg_exp/reg_exp.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	<pre>res = "あいうえお9aabbc123".match('あ');</pre>
+	
+<table id="res_tbl" class="tbl2">
+			<thead>
+				<tr><th>x:正規表現</th><th>一致</th><th>返値</th><th>ソースコード</th><th>説明</th></tr>
+			</thead>
+			<tbody>
+			<tr><td>/あ/</td><td>○</td><td>あ</td><td>var res = "あいうえおx/y\z9aabbc123".match('あ');</td><td>「あ」が文字列中に含まれているか</td></tr><tr><td>/い/</td><td>○</td><td>い</td><td>var res = "あいうえおx/y\z9aabbc123".match('い');</td><td>「い」が文字列中に含まれているか</td></tr><tr><td>/12/</td><td>○</td><td>12</td><td>var res = "あいうえおx/y\z9aabbc123".match('12');</td><td>「12」が文字列中に含まれているか</td></tr><tr><td>/^あ/</td><td>○</td><td>あ</td><td>var res = "あいうえおx/y\z9aabbc123".match('^あ');</td><td>先頭は「あ」であるか</td></tr><tr><td>/^い/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('^い');</td><td>先頭は「い」であるか</td></tr><tr><td>/3$/</td><td>○</td><td>3</td><td>var res = "あいうえおx/y\z9aabbc123".match('3$');</td><td>末尾は「3」であるか</td></tr><tr><td>/2$/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('2$');</td><td>末尾は「2」であるか</td></tr><tr><td>/\d{1}$/</td><td>○</td><td>3</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{1}$');</td><td>末尾は数値か（1連続)</td></tr><tr><td>/\d{2}$/</td><td>○</td><td>23</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{2}$');</td><td>末尾は2連続の数値か</td></tr><tr><td>/\d{3}$/</td><td>○</td><td>123</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{3}$');</td><td>末尾は3連続の数値か</td></tr><tr><td>/\d{4}$/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{4}$');</td><td>末尾は4連続の数値か</td></tr><tr><td>/\d{1,2}$/</td><td>○</td><td>23</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{1,2}$');</td><td>末尾の1-2番目に数値が含まれているか</td></tr><tr><td>/\d{1,3}$/</td><td>○</td><td>123</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{1,3}$');</td><td>末尾の1-3番目に数値が含まれているか</td></tr><tr><td>/\d{1,4}$/</td><td>○</td><td>123</td><td>var res = "あいうえおx/y\z9aabbc123".match('\d{1,4}$');</td><td>末尾の1-4番目に数値が含まれているか</td></tr><tr><td>/^\d{1,4}/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('^\d{1,4}');</td><td>先頭の1-4番目に数値が含まれているか</td></tr><tr><td>/a{2}/</td><td>○</td><td>aa</td><td>var res = "あいうえおx/y\z9aabbc123".match('a{2}');</td><td>「aa」が含まれているか</td></tr><tr><td>/a{3}/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('a{3}');</td><td>「aaa」が含まれているか</td></tr><tr><td>/\w/</td><td>○</td><td>x</td><td>var res = "あいうえおx/y\z9aabbc123".match('\w');</td><td>「A-Za-z0-9_」が含まれているか</td></tr><tr><td>/^\d+$/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('^\d+$');</td><td>すべて数値か</td></tr><tr><td>/^\w+$/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('^\w+$');</td><td>すべて半角英数字か</td></tr><tr><td>/^[ぁ-んァ-ン]+\w+$/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('^[ぁ-んァ-ン]+\w+$');</td><td>前半はかな（カタカナも含む）で後半は半角英数字であるか</td></tr><tr><td>/いう/</td><td>○</td><td>いう</td><td>var res = "あいうえおx/y\z9aabbc123".match('いう');</td><td>「いう」が文字列中に含まれているか</td></tr><tr><td>/ねこ/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('ねこ');</td><td>「ねこ」が文字列中に含まれているか</td></tr><tr><td>/い|え/</td><td>○</td><td>い</td><td>var res = "あいうえおx/y\z9aabbc123".match('い|え');</td><td>「い」または「え」が文字列中に含まれているか</td></tr><tr><td>/犬|え/</td><td>○</td><td>え</td><td>var res = "あいうえおx/y\z9aabbc123".match('犬|え');</td><td>「犬」または「え」が文字列中に含まれているか</td></tr><tr><td>/犬|豚/</td><td>×</td><td>null</td><td>var res = "あいうえおx/y\z9aabbc123".match('犬|豚');</td><td>「犬」または「え」が文字列中に含まれているか</td></tr><tr><td>///</td><td>○</td><td>/</td><td>var res = "あいうえおx/y\z9aabbc123".match('/');</td><td>「/」が文字列中に含まれているか</td></tr><tr><td>/\\/</td><td>○</td><td>\</td><td>var res = "あいうえおx/y\z9aabbc123".match('\\');</td><td>「\」が文字列中に含まれているか ※</td></tr><tr><td>/;|&lt;|&gt;|%|$|./|\\/</td><td>○</td><td>x/</td><td>var res = "あいうえおx/y\z9aabbc123".match(';|&lt;|&gt;|%|$|./|\\');</td><td>ファイル名のチェック用</td></tr></tbody>
+		</table>
+	<aside>
+		※「\」バックスラッシュについて。<br>
+		バックスラッシュは /\\\\/ とコーディングする。<br>
+		上記の表ではバックスラッシュ２つなっているが、ソースコード中では４つである。<br>
+		<br>
+		
+	</aside>
+	
+	
+	<time>2015-4-4 | 2016-12-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-7" class="sec1" >
+	<h3>JavaScriptでクラスを実現する</h3>
+
+
+	JavaScriptでもクラスを実現することができる。<br>
+	<br>
+
+	Publicメソッドだけでなく、コンストラクタやPrivateメソッドも実現可能である。<br>
+	コールバック関数やPrivateメソッドからメンバにアクセスする場合、thisではなくmyselfを介すること。<br>
+	<br>
+	
+	<a href="#sec7-8" >継承</a>も実現可能である。<br>
+	<br>
+
+	
+	<p>実装ソースコード<p>
+	<pre>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="Animal.js"&gt;&lt;/script&gt;
+	～省略～
+	&lt;script&gt;
+	var animal;//動物クラス
+	
+	$( function() {
+		// 初期値を渡しながら、Animalクラスを作成する。
+		var param ={
+			'res_slt':'#res',
+			'animal_name':'ヤンバルクイナ'};
+			
+		animal = new Animal(param);
+	});
+
+	function test1(){
+		// タイトルを表示する
+		animal.showTitle();
+		
+		// 数秒後に動物名を表示する
+		animal.showAnimalName('国頭村');
+	}
+	&lt;/script&gt;
+	～省略～
+	&lt;input type="button" value="テスト実行" onclick="test1()" /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</pre>
+	<br>
+	
+	<p>Animalクラスのソースコード<p>
+	<pre>
+	var Animal =function(p_params){
+		
+		// 出力要素
+		this.res_slt = p_params.res_slt;
+		
+		// 動物名
+		this.animal_name = p_params.animal_name;
+	
+		// 自分自身のインスタンス。  プライベートメソッドやコールバック関数で利用するときに使う。
+		var myself=this;
+	
+		/**
+		 * コンストラクタ
+		 */
+		this.constract=function(){
+			var str = "コンストラクタが呼び出されました。&lt;br&gt;";
+			$(this.res_slt).append(str);
+		};
+		
+		/**
+		 * 当クラスのインスタンスを取得する
+		 */
+		this.getInstance = function(){
+			return this;
+		};
+		
+		/**
+		 * タイトルを表示する
+		 */
+		this.showTitle = function(){
+			var str = '動物のタイトル&lt;br&gt;';
+			$(this.res_slt).append(str);
+		};
+	
+		/**
+		 * 動物名を表示させる。
+		 * 
+		 * コールバック系の関数であるsetTimeoutを使い、2秒後に動物名を表示させる。
+		 * @param string place 場所
+		 */
+		this.showAnimalName=function(place){
+		    setTimeout(function(){
+		    	var str = place + 'の' + myself.animal_name + 'について。【2秒後に表示】&lt;br&gt;';
+		    	$(myself.res_slt).append(str);
+	
+				privateName();//プライベートメソッドを呼び出せる
+		    	
+		    },2000);
+		};
+		
+		
+		/**
+		 * プライベートなメソッド
+		 * メンバにアクセスするときはthisではなくmyselfを使ってアクセスすること。
+		 */
+		function privateName(){
+			var str = 'プライベートな' + myself.animal_name;;
+			$(myself.res_slt).append(str);
+		};
+		
+		//コンストラクタ呼出し(クラス末尾にて定義すること）
+		this.constract();
+	};
+	</pre>
+	<br>
+	
+
+	<h4>出力</h4>
+	<div id="res" class="output_data">
+		コンストラクタが呼び出されました。<br>
+		動物のタイトル<br>
+		国頭村のヤンバルクイナについて。【2秒後に表示】<br>
+		プライベートなヤンバルクイナ<br>
+	</div>
+	<br>
+	
+	<a href="/sample/js/class_sample/sample1/class_sample.html" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-7-2" class="sec1" >
+	<h3>JavaScriptのクラス | その2</h3>
+
+
+	<pre><code>
+	/**
+	 * Class of JavaScript
+	 * 
+	 * @param param
+	 * - flg
+	 */
+	var Animal =function(param){
+		
+		
+		this.param = param;
+		
+		var self=this; // Instance of myself.
+	
+		/**
+		 * initialized.
+		 */
+		this.constract=function(){
+			
+			// If Param property is empty, set a value.
+			this.param = _setParamIfEmpty(this.param);
+			
+		}
+		
+		// If Param property is empty, set a value.
+		function _setParamIfEmpty(param){
+			
+			if(param == undefined){
+				param = {};
+			}
+			
+			if(param['flg'] == undefined){
+				param['flg'] = 0;
+			}
+			
+			return param;
+		}
+		
+		
+		
+		this.execute = function(){
+			console.log('execute');
+		}
+	
+		// call constractor method.
+		this.constract();
+	}
+	</code></pre>
+	
+	<br><time>2016-9-30 | 2017-3-3</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-7-3" class="sec1" >
+	<h3>JavaScriptのクラス | その3</h3>
+
+	JavaScriptのクラスのひな形。<br>
+	パラメータをローカルストレージに保存する機能を備えている。<br>
+	現在、フレームワーク化を検討中・・・2017-3-24<br>
+	<br>
+
+	<pre><code>
+	/**
+	 * Class of JavaScript
+	 * 
+	 * @param param
+	 * - flg
+	 */
+	var Animal =function(param){
+		
+		
+		this.param = param;
+		
+		this.saveKeys = ['flg','xxx']; // ローカルストレージへ保存と読込を行うparamのキー。
+		
+		this.ls_key = "Animal"; // ローカルストレージにparamを保存するときのキー。
+		
+		var self=this; // Instance of myself.
+	
+		/**
+		 * initialized.
+		 */
+		this.constract=function(){
+			
+			// If Param property is empty, set a value.
+			this.param = _setParamIfEmpty(this.param);
+			
+		}
+		
+		// If Param property is empty, set a value.
+		function _setParamIfEmpty(param){
+			
+			if(param == undefined){
+				param = {};
+			}
+		
+			// ローカルストレージで保存していたパラメータをセットする
+			var param_json = localStorage.getItem(self.ls_key);
+			if(!_empty(param_json)){
+				var lsParam = JSON.parse(param_json);
+				if(lsParam){
+					for(var i in self.saveKeys){
+						var s_key = self.saveKeys[i];
+						param[s_key] = lsParam[s_key];
+					}
+				}
+			}
+			
+			if(param['flg'] == undefined){
+				param['flg'] = 0;
+			}
+			
+			return param;
+		}
+		
+		
+		
+		this.execute = function(){
+			console.log('execute');
+		}
+	
+	
+		/**
+		 * ローカルストレージにパラメータを保存する
+		 */
+		this.saveParam = function(){
+			var lsParam = {};
+			for(var i in self.saveKeys){
+				var s_key = self.saveKeys[i];
+				lsParam[s_key] = self.param[s_key];
+			}
+			var param_json = JSON.stringify(lsParam);
+			localStorage.setItem(self.ls_key,param_json);
+		}
+		
+		
+		/**
+		 * ローカルストレージで保存しているパラメータをクリアする
+		 */
+		this.clear = function(){
+			localStorage.removeItem(self.ls_key);
+		}
+		
+		
+		/**
+		 * Get value by the field.
+		 * 
+		 * @note
+		 * Find the element that matches the field from the parent element and get its value.
+		 * The field is class attribute or name attribute.
+		 * 
+		 * @param parElm : parent element.
+		 * @param field 
+		 * @returns
+		 */
+		function _getValueByField(parElm,field){
+			var v = undefined;
+			var elm = _findInParentEx(parElm,field);
+			if(elm[0]){
+				v = _getValueEx(elm);
+			}
+			return v;
+		}
+		
+		
+		/**
+		 * Get value from elements regardless of tag type.
+		 * @param elm : Value element.
+		 * @returns Value from value element.
+		 */
+		function _getValueEx(elm){
+			
+			var v = undefined;
+			var tagName = elm.prop("tagName"); 
+			
+			if(tagName == 'INPUT' || tagName == 'SELECT' || tagName=='TEXTAREA'){
+				
+				var typ = elm.attr('type');
+	
+				if(typ=='checkbox'){
+					
+					v = 0;
+					if(elm.prop('checked')){
+						v = 1;
+					}
+					
+				}
+				
+				else if(typ=='radio'){
+					var opElm = form.find("[name='" + f + "']:checked");
+					v = 0;
+					if(opElm[0]){
+						v = opElm.val();
+					}
+		
+				}
+				
+				else{
+					v = elm.val();
+	
+				}
+				
+			}else{
+				v = elm.html();
+			}
+			return v;
+		}
+		
+		
+		
+		/**
+		 * Search for matched elements from the parent element regardless of class attribute, name attribute, id attribute.
+		 * @param parElm : parent element.
+		 * @param field : class, or name attribute
+		 * @returns element.
+		 */
+		function _findInParentEx(parElm,field){
+			var elm = parElm.find('.' + field);
+			if(!elm[0]){
+				elm = parElm.find("[name='" + field + "']");
+			}else if(!elm[0]){
+				elm = parElm.find('#' + field);
+			}
+			return elm;
+		}
+		
+		
+		// Check empty.
+		function _empty(v){
+			if(v == null || v == '' || v=='0'){
+				return true;
+			}else{
+				if(typeof v == 'object'){
+					if(Object.keys(v).length == 0){
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+		
+		
+	
+		// call constractor method.
+		this.constract();
+	}
+	</code></pre>
+	
+	<br><time>2017-3-16 | 2017-3-24</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-8" class="sec1" >
+	<h3>基本クラスの継承</h3>
+
+	基本クラスを作成し、サブクラスに継承をさせることをJavaScriptでも実現できる。<br>
+	メソッドのオーバーライドも可能である。<br>
+	<br>
+	以下のサンプルはCatクラスの挙動を確かめている。<br>
+	Catクラスは基本クラスであるAnimalクラスを継承している。<br>
+	<br>
+	
+	<h4>サンプル</h4>
+	<p>実装のソースコード</p>
+	<pre>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="Animal.js"&gt;&lt;/script&gt;
+	&lt;script src="Cat.js"&gt;&lt;/script&gt;
+	～省略～
+	&lt;script&gt;
+	$( function() {
+		// 初期値を渡しながら、Catクラスを作成する。CatはAnimalクラスを継承している。
+		var param ={'res_slt':'#res'};
+		var cat = new Cat(param);
+		
+		// 基本クラス(Animal)から継承したshowTitleメソッドを呼び出す。showTitleはCatクラスでは未定義。
+		cat.showTitle();
+		
+		// 基本クラスのrunメソッドをオーバーライドしたrunメソッドを呼び出す。
+		cat.run('東村');
+		
+		// 基本クラスのrunメソッドを呼び出す。
+		cat.base.run('沖縄県');
+	});
+	&lt;/script&gt;
+	～省略～
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</pre>
+	<br>
+	
+	<p>基本クラスであるAnimalクラスのソースコード</p>
+	<pre>
+	var Animal =function(p_params){
+		this.res_slt = p_params.res_slt;//出力要素
+		
+		this.showTitle = function(){
+			var str = '動物のタイトル&lt;br&gt;';
+			$(this.res_slt).append(str);
+		};
+	
+		this.run=function(place){
+			var str = place + 'を動物が走る&lt;br&gt;';
+			$(this.res_slt).append(str);
+			return str;
+		};
+	};
+	</pre>
+	<br>
+	
+	<p>Catクラスのソースコード</p>
+	<pre>
+	var Cat =function(p_params){
+		<strong>// ★動物クラス継承
+		this.base = new Animal(p_params);
+		for(key in this.base){
+			this[key] = this.base[key];
+		}</strong>
+		
+		this.res_slt = p_params.res_slt;//出力要素
+	
+		// Animalのrunメソッドをオーバーライドしている
+		this.run=function(place){
+			var str = place + 'を猫が走る&lt;br&gt;';
+			$(this.res_slt).append(str);
+			return str;
+		};
+	};
+	</pre>
+	<br>
+	
+
+	<h4>出力</h4>
+	<div id="res" class="output_data">
+		動物のタイトル<br>
+		東村を猫が走る<br>
+		沖縄県を動物が走る<br>
+	</div>
+	
+	<hr>
+	
+	<a href="/sample/js/class_sample/sample3/class_base.html" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-9" class="sec1" >
+	<h3>HTMLファイル（自身）の更新日を取得</h3>
+
+	以下のコードで自身ファイルの最終更新日時を取得できる。
+	<pre>document.lastModified;</pre>
+	外部JSファイルで「document.lastModified」を実行した場合、外部JSファイルでなくhtmlファイル側の最終更新日時を取得する。<br>
+	<br>
+	
+	<p>「y/m/d」形式で最終更新日を取得する場合</p>
+	<pre>var modified_date=new Date(document.lastModified).toLocaleDateString();// 例→ modified_date=2016/4/7</pre>
+	<br>
+	<hr>
+	
+	<h4>サンプル</h4>
+	<p>ソースコード</p>
+	<pre>
+	&lt;script&gt;
+	$(function(){
+		var modified_dt=document.lastModified;
+		$('#res1').html(modified_dt);
+		
+		var modified_date=new Date(document.lastModified).toLocaleDateString();
+		$('#res2').html(modified_date);
+	});
+	&lt;/script&gt;
+	～略～
+	最終更新日時：&lt;span id="res1"&gt;&lt;/span&gt;&lt;br&gt;
+	最終更新日：&lt;span id="res2"&gt;&lt;/span&gt;&lt;br&gt;
+	</pre>
+
+
+	<p>出力</p>
+	<div class="output_data">
+		最終更新日時：04/07/2016 10:47:00<br>
+		最終更新日：2016/4/7<br>
+	</div>
+	
+	<a href="/sample/js/modified_date_of_myself/modified_date_of_myself.html" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-10" class="sec1" >
+	<h3>テキストエリアの全選択</h3>
+
+	テキストエリア内のテキストを全選択する。<br>
+	js<br>
+	<pre>$('#ta1').select();</pre>
+	html<br>
+	<pre>&lt;textarea id="ta1"&gt;&lt;/textarea&gt;</pre>
+	<br>
+	
+	テキストエリア内をフォーカスする場合
+	<pre>$('#ta1').focus();</pre>
+	<br>
+	
+	<a href="/sample/js/textarea_select/all_select.html" class="btn btn-link btn-xs">サンプル</a><br>
+	<a href="http://ysklog.net/javascript/2154.html" target="brank" class="btn btn-link btn-xs">参考:usklog:【javascript】テキストエリアの文字列を選択状態にする</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015/10/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

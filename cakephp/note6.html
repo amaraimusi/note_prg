@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+			.code{
+				color:#e75547;
+				vertical-align:middle;
+			}
+			.dump pre{
+				color:#0f750a;
+				vertical-align:middle;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-1" class="sec1">
+	<h3>CakePHPのリダイレクト</h3>
+	書き方は2通りある。<br><br>
+
+	①リダイレクト先をコントローラとアクションを指定する方法。
+	<pre>
+	$this->redirect(array('controller' => 'animal', 'action' => 'show_list'));
+	</pre><br><br>
+
+
+	②リダイレクト先のURLを直接記入する方法
+	<pre>
+	$this->redirect('/animal/show_list?id=1');
+	</pre><br><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-2" class="sec1" >
+	<h3>CakePHP1.3とCakePHP2系のリクエストデータの違いを検証</h3>
+	$this->dataや$this->request->dataの違いがあいまいであったので調査。
+
+
+
+	<table border="1">
+	<thead>
+		<tr><th colspan="2">CakePHP1.3</th><th colspan="2">CakePHP2系</th></tr>
+		<tr><th>コード</th><th>ダンプ</th><th>コード</th><th>ダンプ</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="code">$this->data</td>
+			<td class="dump"><pre>array(
+	'Neko' => array(
+		'val1' => '12345',
+		'text1' => 'いろはにほへと'
+	)
+)</pre></td>
+			<td class="code">$this->request->data</td>
+			<td class="dump"><pre>array(
+	'Neko' => array(
+		'val1' => '12345',
+		'text1' => 'いろはにほへと'
+	)
+)</pre></td>
+		</tr>
+		<tr>
+			<td class="code">$this->params['url']['url']</td>
+			<td class="dump"><pre>null</pre></td>
+			<td class="code">$this->request->url</td>
+			<td class="dump"><pre>'neko/nobasu/'</pre></td>
+		</tr>
+		<tr>
+			<td class="code">$this->params['controller'];</td>
+			<td class="dump"><pre>'neko'</pre></td>
+			<td class="code">$this->request->controller;</td>
+			<td class="dump"><pre>'neko'</pre></td>
+		</tr>
+		<tr>
+			<td class="code">$this->action;</td>
+			<td class="dump"><pre>'nobasu'</pre></td>
+			<td class="code">$this->request->action;</td>
+			<td class="dump"><pre>'nobasu'</pre></td>
+		</tr>
+		<tr>
+			<td class="code">$this->params['pass'];</td>
+			<td class="dump"><pre>array()</pre></td>
+			<td class="code">$this->request->pass;</td>
+			<td class="dump"><pre>array()</pre></td>
+		</tr>
+		<tr>
+			<td class="code">$this->params['named'];</td>
+			<td class="dump"><pre>array()</pre></td>
+			<td class="code">$this->request->named;</td>
+			<td class="dump"><pre>array()</pre></td>
+		</tr>
+
+
+
+	</tbody>
+	</table>
+
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/neko/nobasu/">サンプル</a>
+	<a class="ref_link" href="http://blog.takahash.com/entry/20120206/p2">参考サイト</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-3" class="sec1">
+	<h3>遷移元URL リファラ | $this->referer()</h3>
+
+	リンクによる遷移元のURLを取得する方法を３つほど挙げる。ただし3番目は不明。<br>
+	ブラウザに直接URLを入力した場合は、"/"のみが取得される。<br>
+	<br>
+	①CakePHPの関数
+	<pre>$url=$this->referer()</pre><br>
+
+	②PHPの関数
+	<pre>$url = env('HTTP_REFERER');</pre><br>
+
+	③不明
+	<pre>$url = env('HTTP_X_FORWARDED_HOST');</pre><br>
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test1/referer_test/">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-4" class="sec1">
+	<h3>テキストエリアと改行コードについて</h3>
+
+	テキストエリアに改行の入った文字列を入力する。<br>
+	<img src="img/sec6-4-1.png" />
+	<br><br><br>
+
+
+	サブミットボタンを押した後、リクエスト内からテキストエリア内の文字列を取得。
+	テキストエリア内の文字列は以下のように改行コード「&yenr&yenn」が入っている。
+	<pre>
+		$note = $this->request->data['RecY']['note']
+		//$note → aaa<span class="marker">\r\n</span>bbb<span class="marker">\r\n</span>ccc
+	</pre>
+	<br><br><br>
+
+
+	セキュアなDB保存にするため、SQLインジェクションのサニタイズをかけた場合、改行コード「&yen&yenr&yen&yenn」となる。
+	<pre>
+		$note=Sanitize::escape($note);//SQLインジェクションのサニタイズ
+		//$note → aaa<span class="marker">\\r\\n</span>bbb<span class="marker">\\r\\n</span>ccc
+	</pre>
+	<br><br><br>
+
+
+	DBに保存されるデータ場合、以下が保存される。(phpMyAdminで確認した場合）
+	<pre>		aaa\r\nbbb\r\nccc</pre>
+	<br><br><br>
+
+
+	次にDBから取得場合。
+	<pre>		aaa\\r\\nbbb\\r\\nccc</pre>
+	<br><br><br>
+
+
+	何もせずにHTML側に出力すると改行コードまで見えてしまう上に改行されていない。※&yenはバックスラッシュになって表示される。
+	<pre>		aaa\r\nbbb\r\nccc</pre>
+
+	<br><br><br>
+
+
+	そのためHTMLとして出力する場合、サニタイズされた改行コードを&ltbr&gtに置換すること。
+	<pre>		$note=str_replace('\\r\\n', '&ltbr&gt', $note);</pre>
+	<br><br><br>
+
+
+
+	テキストエリアに再表示させる場合、サニタイズされた改行コードを「&amp#13;」に置換すること。<br>
+	またヘルパーでテキストエリアを生成している場合、「'escape'=>false」を設定すること<br>
+	<pre>
+		&lt?php
+		$note=str_replace('\\r\\n', '<span class="marker">&amp#13;</span>', $note);//サニタイズされた改行コードを「&amp#13;」に置換
+
+		echo $this->Form->input('str', array(
+				'value' => $note,
+				'type' => 'textarea',
+				'placeholder' => '-- サンプル --',
+				'label' => false,
+				'div'=>false,
+				<span class="marker">'escape'=>false</span>
+		));
+		?&gt
+	</pre>
+	<br><br><br>
+
+
+	「nl2br()」という関数もある。&yenr&yennを&ltbr&gtに置換することができる。<br>
+	ただしサニタイズされた改行コード「&yen&yenr&yen&yenn」には効かないので注意。<a></a>
+	<br><br><br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-5" class="sec1">
+	<h3>サブミットボタンを配列として管理</h3>
+
+
+
+	<div style ="border: solid 1px #112d65;margin-bottom:30px;padding:12px">
+		<h3>方法1</h3>
+		<div>
+			ソースコード(test.ctp)
+			<pre>
+		echo $this->Form->submit('サブミットA1',array('name'=>'<span class="marker">test.0</span>'));
+		echo $this->Form->submit('サブミットA2',array('name'=>'<span class="marker">test.1</span>'));
+			</pre>
+
+		</div>
+		<div>
+			サブミットA1のリクエストの中身<br>
+			<pre>
+	array(
+		'test_<span class="marker">0</span>' => 'サブミットA1'
+	)
+			</pre>
+			<br>
+			サブミットA2のリクエストの中身<br>
+			<pre>
+	array(
+		'test_<span class="marker">1</span>' => 'サブミットA2'
+	)
+			</pre>
+
+		</div>
+		<div>
+			キーがtest_0,test_1などのように「 _ 」で綴られている。<br>
+			配列に近い形なので、コントローラ内でループによるサブミット判定に使える。<br>
+			ひと手間かかりそうだが、これなら何とかサブミットボタンを配列として管理できるだろう。
+		</div>
+	</div>
+
+	<div style ="border: solid 1px #112d65;margin-bottom:30px;padding:12px">
+		<h3>方法2</h3>
+		<div>
+			ソースコード(test.ctp)
+			<pre>
+		echo $this->Form->submit('サブミットB1',array('name'=>'<span class="marker">test[0]</span>'));
+		echo $this->Form->submit('サブミットB2',array('name'=>'<span class="marker">test[1]</span>'));
+			</pre>
+		</div>
+		<div>
+			サブミットB1のリクエストの中身<br>
+			<pre>
+	array(
+		'test' => array(
+			(int) <span class="marker">0</span> => 'サブミットB1'
+		)
+	)
+			</pre>
+			<br>
+				サブミットB2のリクエストの中身<br>
+			<pre>
+	array(
+		'test' => array(
+			(int) <span class="marker">1</span> => 'サブミットB2'
+		)
+	)
+			</pre>
+
+		</div>
+		<div>
+
+			サブミットボタンは「test」キーに配列がセットされている。<br>
+			配列の要素を見るとサブミットB1,サブミットB2のキーはそれぞれ 0 , 1 となっている。<br>
+			配列要素のキーを見れば、サブミットボタンを配列として管理できる。<br>
+
+		</div>
+	</div>
+
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test1/submit_array">サンプル</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-6" class="sec1">
+	<h3>Cakemailのメールテンプレートをテストでプレビュー表示したい</h3>
+
+	メールテンプレートは通常「app/View/Emails/text/xxx.ctp」のように配置している。<br>
+	メールテンプレートを利用して作成されたメール文を確認したい場合、実際に送信されたメールの内容を見ることになる。<br>
+	しかしローカル環境（開発環境）では実際にメール送信できないことが多い。<br>
+	そのためメール送信せずにメールテンプレートで生成されたメール文を確認する方法が必要になる。<br>
+	<br>
+	メールテンプレートは通常のctpファイルと基本は同じであるため、通常のctpと同じように表示できる。<br>
+	以下のコードをコントローラのアクションの末尾に追加。<br>
+	<b>メールテンプレート(app/View/Emails/text/xxx.ctp)をプレビュー表示する場合</b><br>
+	<pre>
+		$this->render('../Emails/text/xxx');
+	</pre>
+	データの受け渡しは普通のビューと同じように$this->set(...)で。<br>
+	ただし、裏ワザ的なやり方なので、ローカル環境でしか動かないかもしれない。（sakuraサーバーにアップしたらダメだった）<br>
+	<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-7" class="sec1" >
+	<h3>ビュー用便利ヘルパー | エンティティ内の値をいろいろ加工して出力</h3>
+
+	<pre>
+
+		&lt?php
+		App::uses('Helper', 'View');
+		class AppHelper extends Helper {
+
+
+			/**
+			 * エンティティ内の値をタイプに合わせて加工して表示。
+			 *
+			 * @param $ent エンティティ
+			 * @param $key エンティティのキー
+			 * @param $type	0(省略):空対応のみ	1:XSSサニタイズ	2:金額表記	3:有無フラグ用	4:改行文字対応 5:長文字用 6:テキストエリア用
+			 * @param $option:オプションデータ $typeの値によって意味が変わる
+			 * @return 値
+			 */
+			public function ent_show_x($ent,$key,$type=null,$option=array()){
+
+				$v = ( !empty($ent[$key]) ) ? $ent[$key] : null;
+
+				if(!empty($option)){
+					$v = ( !empty($option[$v]) ) ? $option[$v] : null;
+				}
+
+
+				switch ($type) {
+					case null:
+						break;
+
+					case 1://サニタイズ
+						$v=h($v);
+						break;
+
+					case 2://金額表記
+						$v= '&yen'.number_format($v);
+						break;
+
+					case 3://有無フラグ
+
+						if($v==0){
+							$v="&ltspan style='color:#23d6e4;'&gt有効&lt/span&gt";
+						}elseif($ent['delete_flg']==1){
+							$v="&ltspan style='color:#b4b4b4;'&gt無効&lt/span&gt";
+						}
+						break;
+
+					case 4://改行対応
+						if(empty($v)){break;}
+
+						$v= str_replace('\\r\\n', '&ltbr&gt', h($v));
+						$v= str_replace('\\n', '&ltbr&gt', $v);
+						$v= str_replace('\\', '', $v);
+						break;
+
+					case 5://長文字用。テキストエリアなど長文字を指定文字数分表示。
+
+						if(empty($v)){break;}
+
+						$strLen=20;//表示文字数
+						if(!empty($option)){
+							$strLen=$option;
+						}
+						$v=mb_strimwidth($v, 0, $strLen, "...");
+						$v= str_replace('\\r\\n', ' ', h($v));
+						$v= str_replace('\\n', ' ', $v);
+						$v= str_replace('\\', '', $v);
+
+						break;
+
+					case 6://テキストエリア用（改行対応）
+						if(empty($v)){break;}
+
+						$v=str_replace('\\r\\n', '&amp#13;', h($ent['note']));//サニタイズされた改行コードを「&amp#13;」に置換
+						$v= str_replace('\\', '', $v);
+
+						break;
+
+					default:
+						break;
+				}
+
+				return $v;
+
+			}
+		}
+	</pre>
+	<br>
+	<p>使用例:ctpファイル内</p>
+	<pre>
+		echo $this->Html->ent_show_x($ent,'id');//空でも警告がでない。
+		echo $this->Html->ent_show_x($ent,'shop_id',0,$shopNames);//マッピングデータに紐づく値を表示
+		echo $this->Html->ent_show_x($ent,'text1',1);//XSSサニタイズ
+		echo $this->Html->ent_show_x($ent,'billing_amount',2);//金額表記
+		echo $this->Html->ent_show_x($ent,'flg',3);//有無フラグ用
+		echo $this->Html->ent_show_x($ent,'note',4);//テキストエリア用（改行に対応）
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-9" class="sec1">
+	<h3>チェックボックスの配列から値を取得</h3>
+
+	ビュー：チェックボックスの配列を作成する。<br>
+	<pre>
+ 	&lt?php
+ 	for($i=0;$i<4;$i++){
+		//チェックボックス
+		echo $this-&gtForm-&gtinput("StatusIds.{$i}"//フォーム名＋インデックス（連番）
+			,array(
+				'type'=&gt'checkbox',
+				'value' =&gt 1,//←チェックが入っている1が送信され、入っていない場合は0が送信される。
+				'checked'=&gttrue,//←初期のチェックはここで設定
+				'label'=&gt'TEST'.$i,//←ラベル名
+				'div'=&gtfalse,
+				'style'=>'margin-left:15px;',
+			)
+		);
+	}
+	 ?&gt
+	</pre>
+
+	<br>
+	コントローラ：取得結果をダンプしてみる<br>
+	<pre>
+	public function index() {
+
+		Debugger::dump($this-&gtrequest-&gtdata);
+	}
+	</pre>
+
+	<br>
+	ダンプ<br>
+	<pre>
+	array(
+
+		'StatusIds' =&gt array(
+			(int) 0 =&gt '1',//チェックが入っている場合は1
+			(int) 1 =&gt '0',//チェックが入っていない場合は0
+			(int) 2 =&gt '0',
+			(int) 3 =&gt '1'
+		),
+
+		//...略
+	)
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-10" class="sec1">
+	<h3>モデルクラスファイルなしでモデルのインスタンスを取得：ClassRegistry::init();</h3>
+
+	モデルクラスファイルがなくても、モデルのインスタンスを取得できる。<br>
+	ただしモデルに関連するテーブルは必要である。<br>
+	下記の例ではAnimal.phpファイルは未作成だが、DBにanimalsテーブルが存在する場合に有効である。<br>
+	<pre>
+	$this->Animal=ClassRegistry::init('Animal');
+	</pre>
+	Animal.php（モデル）ファイルを作成していても利用できる。<br>
+	内部的にシングルトンパターン（GOFデザインパターンの１つ）を利用しているようであるので、インスタンスは1つに保たれ無駄がない。<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-0" class="sec1" style="display:none">
+	<div class="title"></div>
+	テスト
+	<pre>
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

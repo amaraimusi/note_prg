@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Boostrap:グリッド | ヘッダー、フッター、区分などに</title>
+
+		<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../common2.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"></script>
+		<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+
+		<style>
+			.sec1{
+				border-style:solid;
+				border-width:2px;
+				border-color:#dac5fe;
+				padding:10px;
+				margin-bottom:50px;
+
+			}
+		</style>
+	</head>
+
+<body>
+<div class="container">
+
+	<div class="row">
+		<div id="header" class="col-lg-12" >
+			<h1>Boostrap:グリッド </h1>
+			<p>ヘッダー、フッター、区分などに</p>
+		</div>
+	</div>
+
+	<div class="sec3">
+		<h2>説明</h2>
+		Boostrapのグリッドは、画面サイズごとにレイアウト調整を自動で行ってくれます。<br>
+		PC、タブレット、スマホなど異なる画面サイズに対応させるWEBサイトを作るときに便利です。<br>
+
+	</div>
+
+
+
+
+	<div class="sec3">
+
+		<h2>使い方</h2>
+		グリッドはcontainerとrowの内部に記述します。。<br>
+		グリッドはclass属性にcol-md-6のように指定します。
+		数値部分は合計12になるように割り振ります。。
+		<br><br>
+		<strong>グリッドのサンプルソース</strong><br>
+		<pre>
+	&ltdiv class="row"&gt
+		&ltdiv class="col-md-<span class="marker">6</span>" style="background-color:#f8ffb9"&gtA&lt/div&gt
+		&ltdiv class="col-md-<span class="marker">6</span>" style="background-color:#d7e3f9"&gtB&lt/div&gt
+		<span class="hosoku">※赤字の数値の合計が<span class="marker">12</span>になるようにする。</span>
+	&lt/div&gt
+
+	&ltdiv class="row"&gt
+		&ltdiv class="col-md-4" style="background-color:#b6a6c5"&gtC&lt/div&gt
+		&ltdiv class="col-md-4" style="background-color:#beccdc"&gtD&lt/div&gt
+		&ltdiv class="col-md-4" style="background-color:#eeb7bb"&gtE&lt/div&gt
+	&lt/div&gt
+	&ltdiv class="row"&gt
+		&ltdiv class="col-md-3" style="background-color:#beccdc"&gtF&lt/div&gt
+		&ltdiv class="col-md-3" style="background-color:#eeb7bb"&gtG&lt/div&gt
+		&ltdiv class="col-md-2" style="background-color:#b6a6c5"&gtH&lt/div&gt
+		&ltdiv class="col-md-4" style="background-color:#b4feb4"&gtI&lt/div&gt
+	&lt/div&gt
+	</pre>
+		<br>
+		<strong>グリッドのサンプル</strong><br>
+
+		<div class="row">
+			<div class="col-md-6" style="background-color:#f8ffb9">A</div>
+			<div class="col-md-6" style="background-color:#d7e3f9">B</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4" style="background-color:#b6a6c5">C</div>
+			<div class="col-md-4" style="background-color:#beccdc">D</div>
+			<div class="col-md-4" style="background-color:#eeb7bb">E</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3" style="background-color:#beccdc">F</div>
+			<div class="col-md-3" style="background-color:#eeb7bb">G</div>
+			<div class="col-md-2" style="background-color:#b6a6c5">H</div>
+			<div class="col-md-4" style="background-color:#b4feb4">I</div>
+		</div>
+		<span class="hosoku">画面サイズを変更するとレイアウトが調整されます。</span>
+
+		<br><br>
+		<strong>グリッドのサイズについて</strong><br>
+		サイズは大きい順にlg,md,sm,xsから指定できます。<br>
+		極小のxsを指定する場合、「col-xs-6」のように記述します。
+	</div>
+
+
+
+	<br><br>
+	<a href="http://www.atmarkit.co.jp/ait/articles/1403/19/news034_2.html" class="btn btn-link btn-xs">参考サイト</a>
+	<br><br>
+
+	<div class="row">
+		<div id="footer" class="col-md-12"  >
+			<p>(c)wacgance 2014-10-23</p>
+		</div>
+	</div>
+
+</div><!-- container  -->
+</body>
+</html>

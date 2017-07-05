@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pythonの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Pythonの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>WinPythonの入手</h3>
+	
+
+	Windows環境のPythonにWinPythonというものがある。<br>
+	<a href="http://winpython.github.io/" target="blank" class="btn btn-link">WinPythonのダウンロード先</a><br>
+	<br>
+	
+	WinPythonはUSBでも持ち運び可能とのこと。<br>
+	管理者権限なしでWindowsにインストールできる。<br>
+	<br>
+	
+	インストールはウィザードに適当に従うだけでよい。<br>
+	Spyder.exeがPythonのIDE（開発環境）となっている。<br>
+	<br>
+
+	<br><time>2017-4-10</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>EclipseプラグインPyDevのインストールおよびインタプリタにWinpythonを設定</h3>
+
+
+	EclipseとWinpythonはインストール済みとする。<br>
+	<br>
+	
+	PC情報<br>
+	Windows7 64bit<br>
+	<br>
+	
+	Eclipseの情報<br>
+	Eclipse for PHP Developers<br>
+	Version: Neon.2 Release (4.6.2)<br>
+	<br>
+	
+
+	
+	<p>PyDevをEclipseへインストール</p>
+	<ol>
+		<li>Eclipeをオープン。</li>
+		<li>Help → Install New software と操作し、install画面を表示する。</li>
+		<li>
+			install画面の「Work with」 テキストボックスに「http://pydev.org/updates」を入力してEnter。<br>
+			<img src="img/note1/thum/sec1-2a1.png" class="img_panel_x" />
+		</li>
+		<li>一覧でPyDevにチェックを入れてNextボタンを押すとインストールが始まる。</li>
+		<li>インストール中に同意画面が表示されたら同意にチェックをいれて続行する。</li>
+		<li>さらに続行確認画面が表示されたら、上記の一覧にチェックをいれて続行する。</li>
+	</ol>
+	<br>
+	
+	<p>PyDevのインタプリタにWinpythonを指定する</p>
+	<ol>
+		<li>Window → Preferences → PyDev → Interpreters → Python Interpreter と操作してPython Interpreters画面を表示させる。</li>
+		<li>Interpreter Name には任意の名前を入力する。（例：winpython3_6)</li>
+		<li>
+			Interpreter Executableには、WinPythonをイントールしたフォルダのどこかに存在するpython.exeを指定する
+			（例：C:\python\WinPython-64bit-3.6.0.1Qt5\python-3.6.0.amd64\python.exe）<br>
+			<img src="img/note1/thum/sec1-2a2-1.png" class="img_panel_x" />
+		</li>
+		<li>OKを押すと設定処理が始まるのでしばらく待つ。</li>
+		<li>
+			下記の画面が表示されたらOK。<br>
+			<img src="img/note1/thum/sec1-2a2-2.png" class="img_panel_x" />
+		</li>
+	</ol>
+	<br>
+	
+	
+	<p>新しくPythonプロジェクトを立ち上げてHello world</p>
+	<ol>
+		<li>
+			File→New→Other→PyDev→PyDev Project と操作しプロジェクト名を入力すると新プロジェクトが作成される。<br>
+			<img src="img/note1/thum/sec1-2a3-1.png" class="img_panel_x" />
+		</li>
+		<li>新プロジェクトを右クリック→New→Other→PyDev→PyDev &amp;Moduleと操作し、ファイル名を入力するとpyファイルが作成される。(pyファイル名を入力する際、拡張子のpyを入力する必要はない）</li>
+		<li>pyファイルを開き、「print("Hello World!")」を入力する。</li>
+		<li>
+			上段の実行ボタン（緑右矢印ボタン）を押すと実行される。<br>
+			<img src="img/note1/thum/sec1-2a3-2.png" class="img_panel_x" />
+		</li>
+		<li>コンソールにHello World!と表示されたら成功。</li>
+	</ol>
+	<br>
+	
+	
+	<br><time>2017-4-12 | 2017-4-17</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/python/">JavaScriptの覚書</a></li>
+	<li>Pythonの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-4-10</div>
+</body>
+</html>

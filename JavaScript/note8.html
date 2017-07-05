@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ワクガンス　|　JavaScriptの覚書</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+		
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">JavaScriptの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-1" class="sec1" >
+	<h3>テキストエリアの部分範囲選択</h3>
+
+	テキストエリア内のテキストを部分範囲選択する<br>
+	部分範囲は数値で指定する。<br>
+	<br>
+	
+	JS<br>
+	<pre>$('#ta1')[0].setSelectionRange(3, 9);</pre>
+	
+	htm<br>
+	<pre>&lt;textarea id="ta1"&gt;&lt;/textarea&gt;</pre>
+	<br>
+	
+	
+	<a href="/sample/js/textarea_select/selection_range.html" class="btn btn-link">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-2" class="sec1" >
+	<h3>要素内のコンテンツをPDF変換する | jsPDF</h3>
+	
+	<a href="https://parall.ax/products/jspdf" target="brank">jsPDF.js</a>
+	を使って、要素内の画像や文章などのコンテンツをPDF化できます。<br>
+	<br>
+	PC環境とスマホで動作が少し異なります。<br>
+	PC環境であればPDFプレビュー画面が表示され、この画面からダウンロードできます。<br>
+	スマホ環境であればすぐにPDFダウンロードが開始されます。<br>
+		
+	<br>
+	
+	<h2>ソースコード</h2>
+	html2canvas.jsでコンテンツを画像化し、その画像をjsPDF.jsでPDF化します。
+	
+	<p>html</p>
+	<pre>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="html2canvas.js"&gt;&lt;/script&gt;
+	&lt;script src="<strong>jspdf.min.js</strong>"&gt;&lt;/script&gt;
+	～略～
+	&lt;div id = "test1" style="background-color:white"&gt;
+		うゐのおくやまけふこえてあさきゆめみしゑひもせす&lt;br&gt;
+		&lt;input type="button" value="PDFダウンロード" onclick="test1()" class="btn btn-success" /&gt;&lt;br&gt;
+		&lt;img id = "img1" src="imori.jpg" /&gt;&lt;br&gt;
+	&lt;/div&gt;
+	
+	<strong>&lt;iframe id="renderSpace" frameborder="0" width="450" height="450"&gt;&lt;/iframe&gt;</strong>
+	</pre>
+	<br>
+	
+	<p>js</p>
+	<pre>
+	function test1(){
+		// コンテンツ化を画像化します。
+		html2canvas(document.getElementById("test1"), {
+	        onrendered: function (canvas) {
+	        	// コンテンツの画像化が完了したら以下の処理を行います。
+	        	
+	        	// コンテンツの画像データを取得します。
+	            var dataURI = canvas.toDataURL("image/jpeg");
+	            
+	            // ｊｓPDFを生成し、画像データを渡します。
+	            var pdf = new jsPDF();
+	            pdf.addImage(dataURI, 'JPEG', 0, 0);
+	            
+	            // とりこんだ画像データからレンダリングデータを作成し、PDFプレビュー画面を表示します。
+	            var renderString = pdf.output("datauristring");
+	            $("iframe").attr("src", renderString);
+	        }
+	    });   
+	}
+	</pre>
+	
+	
+	<a href="https://parall.ax/products/jspdf" target="brank">公式サイト</a><br>
+	<a href="/sample/js/js_pdf/js_pdf_smp1.html" >サンプル</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-3" class="sec1" >
+	<h3>テキストエリア内でタブ入力する | tab_input_k.js</h3>
+
+	tab_input_k.jsはテキストエリア内でタブ入力できるようにします。<br>
+	また、複数行を選択してタブ入力することも可能です。<br>
+	ShiftキーとTabキーを押すことで元に戻ります。<br>
+
+	<h4>使い方</h4>
+	javascript
+	<pre>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="tab_input_k.js"&gt;&lt;/script&gt;
+
+	&lt;script&gt;
+	$(function(){
+		
+		tab_input_k("#ta1");
+		
+	});
+	&lt;/script&gt;
+	</pre>
+	<br>
+	
+	html
+	<pre>
+	&lt;textarea id="ta1"&gt;&lt;/textarea&gt;
+	</pre>
+	<br>
+	
+	
+	<a href="/sample/js/textarea_tab/tab_input_k.html">tab_input_k.jsの公式サイト</a>
+	
+	
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-4" class="sec1" >
+	<h3>2つの日付の日数差</h3>
+
+	2つの日付の日数差を算出する。<br>
+	日時を比較することも可能である。<br>
+	<br>
+	<a href="/sample/js/date_ex/date_diff.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre>
+	$(function(){
+		var str_date1 = '2016/4/18 00:00:00';
+		var str_date2 = '2016/4/15 00:00:00';
+		var date_count =<strong>diffDate</strong>(str_date1,str_date2);
+		console.log('日数 = ' + date_count);
+	});
+	
+	/**
+	 * 2つの日付の日数差を算出
+	 * 
+	 * 文字列型日付、日付オブジェクトの両方に対応
+	 * 
+	 * @param d1 比較日付1
+	 * @param d2 比較日付2
+	 * @returns number 日数
+	 */
+	function diffDate(d1,d2){
+		
+		// 引数が文字列型の日付なら日付オブジェクトに変換
+		if(typeof d1 == "string"){
+			
+			if(d1.indexOf('-') &gt; -1){
+				d1 = d1.replace('-','/');// IEは「-」の区分に対応していないので「/」に置換
+			}
+			var d1 = new Date(d1);
+		}
+		if(typeof d2 == "string"){
+			if(d2.indexOf('-') &gt; -1){
+				d2 = d2.replace('-','/');
+			}
+			var d2 = new Date(d2);
+		}
+		
+		var u1 = Math.floor(d1);// UNIXタイムスタンプに変換
+		var u2 = Math.floor(d2);
+		
+		// 2つの日付の日数差を算出
+		var diff_u = u1 - u2;
+		var date_count = diff_u / 86400000 ;
+		
+		return date_count;
+
+	}
+	</pre>
+
+	<br><time>2016-4-15 | 2016-10-18</time>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-4-2" class="sec1" >
+	<h3>日数差を適切な単位（年月日時分秒のいずれか）で返す</h3>
+	
+	 日付差を求める時、特定単位で出力すると小数や大きな値で出力される。<br>
+	例えば、日にち単位で出力すると0.12日だとか48315日など分かりづらい表記になってしまう。<br>
+ 	日付差を分かりやすい表記にするために、単位（年月日時分秒のいずれか）を、付加して出力する。<br>
+ 	単位は日付差の大きさにより、適切なものが選ばれる。<br>
+ 	<br>
+ 	
+ 	
+	<h4>diffDateX関数</h4>
+	<pre>
+	/**
+	 * 日数差を適切な単位（年月日時分秒のいずれか）で返す
+	 * 
+	 * 文字列型日付、日付オブジェクトの両方に対応
+	 * 
+	 * @param date1 比較日付1
+	 * @param date2 比較日付2
+	 * @returns number 日数
+	 */
+	function diffDateX(date1,date2){
+		var d1 = date1;
+		var d2 = date2;
+		
+		// 引数が文字列型の日付なら日付オブジェクトに変換
+		if(typeof String(d1) === "string"){
+			var d1 = new Date(d1);
+		}
+		if(typeof String(d2) === "string"){
+			var d2 = new Date(d2);
+		}
+		
+		var u1 = Math.floor(d1);// UNIXタイムスタンプに変換
+		var u2 = Math.floor(d2);
+		
+		// 日数差を適切な単位（年月日時分秒のいずれか）で返すを算出
+		var diff_u = u1 - u2;
+		var date_str = '';
+		var v = 0;
+		if(diff_u &gt;= 31556952000){
+			v = Math.round(diff_u / 31556952000);
+			date_str = '約' + v + '年間';
+		}else if(diff_u &gt;= 2629746000){
+			v = Math.round(diff_u / 2629746000);
+			date_str = '約' + v + 'ヶ月間';
+		}else if(diff_u &gt;= 86400000){
+			v = Math.round(diff_u / 86400000);
+			date_str = '約' + v + '日間';
+		}else if(diff_u &gt;= 3600000){
+			v = Math.round(diff_u / 3600000);
+			date_str = '約' + v + '時間';
+		}else if(diff_u &gt;= 60000){
+			v = Math.round(diff_u / 60000);
+			date_str = '約' + v + '分間';
+		}else if(diff_u &gt;= 1000){
+			v = Math.round(diff_u / 1000);
+			date_str = '約' + v + '秒';
+		}else{
+			date_str = '約' + v + 'ミリ秒';
+		}
+		return date_str;
+	}
+	</pre><br>
+	<br>
+	
+	<p>実装例</p>
+	<input type="button" value="source" onclick="$('#source8-4-2').toggle()" class="btn btn-primary btn-xs" />
+	<div id="source8-4-2" style="display:none">
+	<pre>
+	$(function(){
+		var str_date1 = '2016/4/18 00:00:00';
+		var str_date2 = '2016/4/15 00:00:00';
+		var data = [
+			{'d1':'2016/4/18','d2':'2014/5/18'},
+			{'d1':'2016/4/18','d2':'2016/2/20'},
+			{'d1':'2016/4/18 00:00:00','d2':'2016/4/15 10:30:00'},
+			
+			{'d1':'2016/4/18 16:00:00','d2':'2016/4/18 10:40:00'},
+			{'d1':'2016/4/18 16:00:00','d2':'2016/4/18 15:25:00'},
+			{'d1':'2016/4/18 16:00:00','d2':'2016/4/18 15:59:20'},
+		];
+		for(var i=0 ; i &lt; data.length ; i++){
+			var ent = data[i];
+			var d1 = ent.d1;
+			var d2 = ent.d2;
+			var date_str = <strong>diffDateX(d1,d2);</strong>
+			
+			var str = '&lt;tr&gt;&lt;td&gt;' + d1 + '&lt;/td&gt;&lt;td&gt;' + d2 + '&lt;/td&gt;&lt;td&gt;' + date_str + '&lt;/td&gt;&lt;/tr&gt;'
+			$('#res tbody').append(str);
+		}
+	});
+
+	</pre>
+	<table id="res" class="tbl2 output_data">
+		<thead><tr><th>日付1</th><th>日付2</th><th>日付差</th></tr></thead>
+		<tbody>
+			<tr><td>2016/4/18</td><td>2014/5/18</td><td>約2年間</td></tr>
+			<tr><td>2016/4/18</td><td>2016/2/20</td><td>約2ヶ月間</td></tr>
+			<tr><td>2016/4/18 00:00:00</td><td>2016/4/15 10:30:00</td><td>約3日間</td></tr>
+			<tr><td>2016/4/18 16:00:00</td><td>2016/4/18 10:40:00</td><td>約5時間</td></tr>
+			<tr><td>2016/4/18 16:00:00</td><td>2016/4/18 15:25:00</td><td>約35分間</td></tr>
+			<tr><td>2016/4/18 16:00:00</td><td>2016/4/18 15:59:20</td><td>約40秒</td></tr>
+		</tbody>
+	</table>
+	</div>
+	<br>
+	
+	<a href="/sample/js/date_ex/date_diff_x.html" >サンプル</a><br>
+	<time>2016-4-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-5" class="sec1" >
+	<h3>プルダウン・パネル</h3>
+	ボタンなどトリガー要素の下にパネルをプルダウン表示します。<br>
+	<br>
+	<a href="/sample/js/panel_x/pulldown_panel/pulldown_panel.html" >
+		<img src = "img/note8/sec8-5.png" class = "img-responsive" />
+	</a>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre>
+	&lt;script src="/sample/style2/js/jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="<strong>pulldown_panel.js</strong>"&gt;&lt;/script&gt;
+	～略～
+	&lt;script&gt;
+	$(function(){
+		// プルダウン・パネルのCSSデータ
+		var css={
+			'width':'300px',
+			'height':'200px',
+			'background-color':'#f8e7ba',
+		};
+		
+		
+		// プルダウン・パネルを作成する
+		<strong>pulldown_panel('#btn1','neko_div','タイトル1','&lt;div&gt;あいうえお&lt;/div&gt;',css);</strong>
+	});
+	&lt;/script&gt;
+	～略～
+	いろはにほへと&lt;input id="btn1" type="button" value="XXXテスト1" /&gt;&lt;br&gt;
+	ちりぬるをわかよたれそつねならむ　うゐのおくやまけふこえてあさきゆめみしゑひもせす
+	</pre>
+	<a href = "/sample/js/panel_x/pulldown_panel/pulldown_panel.js" class="btn btn-success">pulldown_panel.js</a><br>
+	
+	<a href="/sample/js/panel_x/pulldown_panel/pulldown_panel.html" >サンプル</a><br>
+	
+	<time>2016-4-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-6" class="sec1" >
+	<h3>URLクエリを取得する | GETパラメータ</h3>
+
+	URLクエリデータ（GETパラメータ）を取得する。
+	
+	<p>javascript</p>
+	<pre>
+	$(function(){
+
+		// URLクエリデータを取得する
+		var querys = <strong>getUrlQuery();</strong>
+		
+		console.log(querys);
+		var json = JSON.stringify(querys);
+		$('#res').html(json);
+		
+	});
+	
+	/**
+	 * URLクエリデータを取得する
+	 * 
+	 * @return object URLクエリデータ
+	 */
+	function getUrlQuery(){
+		query = window.location.search;
+		
+		if(query =='' || query==null){
+			return {};
+		}
+		var query = query.substring(1,query.length);
+		var ary = query.split('&amp;');
+		var data = {};
+		for(var i=0 ; i&lt;ary.length ; i++){
+			var s = ary[i];
+			var prop = s.split('=');
+			
+			data[prop[0]]=prop[1];
+	
+		}	
+		return data;
+	}
+	</pre>
+	<br>
+	
+	出力※
+	<pre class="output_data">{"animal":"neko","id":"99","v":"2"}</pre>
+	<aside>※ URL → http://amaraimusi.sakura.ne.jp/sample/js/url/url_query.html?<strong>animal=neko&id=99&v=2</strong></aside>
+	<br>
+	
+	<a href="/sample/js/url/url_query.html?animal=neko&id=99&v=2" class="btn btn-link btn-xs">サンプル</a><br>
+	<a href="http://qiita.com/ma_me/items/03aaebb5dc440b380244" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<time>2016-4-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-7" class="sec1" >
+	<h3>約時変換 | UNIXタイムスタンプから適切な単位（年月日時分秒のいずれか）で返す</h3>
+
+	<pre>
+	/**
+	 * UNIXタイムスタンプから適切な単位（年月日時分秒のいずれか）で返す
+	 * 
+	 * 文字列型日付、日付オブジェクトの両方に対応
+	 * 
+	 * @param date1 比較日付1
+	 * @param date2 比較日付2
+	 * @returns number 日数
+	 */
+	function aboutDate(u){
+
+		var v = 0;
+		var data_str = '';
+
+		if(u &gt;= 31556952000){
+			v = Math.round(u / 31556952000);
+			date_str = '約' + v + '年間';
+		}else if(u &gt;= 2629746000){
+			v = Math.round(u / 2629746000);
+			date_str = '約' + v + 'ヶ月間';
+		}else if(u &gt;= 86400000){
+			v = Math.round(u / 86400000);
+			date_str = '約' + v + '日間';
+		}else if(u &gt;= 3600000){
+			v = Math.round(u / 3600000);
+			date_str = '約' + v + '時間';
+		}else if(u &gt;= 60000){
+			v = Math.round(u / 60000);
+			date_str = '約' + v + '分間';
+		}else if(u &gt;= 1000){
+			v = Math.round(u / 1000);
+			date_str = '約' + v + '秒';
+		}else{
+			date_str = '約' + v + 'ミリ秒';
+		}
+		return date_str;
+	}
+	</pre>
+	
+	<time>2016-4-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-8" class="sec1" >
+	<h3>SimpleAjaxFormK.js | Ajax簡易入力フォーム</h3>
+	
+	SimpleAjaxFormK.jsは、入力要素（input,textarea,select）を簡易な方法でAjax送信できるJSライブラリ。<br>
+	指定要素内に存在するinput系要素から、すべての値を取得してJSON化し、サーバー先へAjax送信する。<br>
+	<br>
+	<pre class="intro_source_code">
+	simpleAjaxFormK({
+		'range':'#dummy',
+		'url':'test.php',
+		'msg_slt':'#msg',
+		'callback':function(res){
+			
+			var data = JSON.parse(res);
+			～ サーバーからのレスポンス後の任意処理（Ajaxレスポンス語の処理） ～
+
+		}
+	});
+	</pre>
+
+	<a href="/sample/js/simple_ajax_form_k/SimpleAjaxFormK.js" class="btn btn-success btn-sm">SimpleAjaxFormK.jsのダウンロード</a>
+	<br><br>
+	
+	<p>HTMLソースコード</p>
+	<pre>
+	～ 省略 ～
+	
+	&lt;script src="/sample/style2/js/jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="SimpleAjaxFormK.js"&gt;&lt;/script&gt;
+	
+	～ 省略 ～
+		
+	&lt;div id="msg" style="color:#1de4a4;"&gt;&lt;/div&gt;
+	&lt;div id="dummy"&gt;
+	
+		&lt;input id="neko_text" type="text" value = "ネコ" /&gt;
+		&lt;br&gt;&lt;br&gt;
+		
+		&lt;textarea id="yagi_ta"&gt;黒い&amp;#13;ヤギ&lt;/textarea&gt;
+		&lt;br&gt;&lt;br&gt;
+		
+		&lt;select  id="kani_select"&gt;
+			&lt;option value="1"&gt;モズクガニ&lt;/option&gt;
+			&lt;option value="2" selected&gt;サワガニ&lt;/option&gt;
+			&lt;option value="3"&gt;ヤシガニ&lt;/option&gt;
+		&lt;/select&gt;
+		&lt;br&gt;&lt;br&gt;
+		
+		&lt;input type="radio" name="same_radio" value="1" checked="checked" /&gt;アオザメ
+		&lt;input type="radio" name="same_radio" value="2" /&gt;ラブカ
+		&lt;br&gt;&lt;br&gt;
+		
+		&lt;input type="checkbox" name="wasi_check" value="1" checked="checked" /&gt;ワシ
+		&lt;br&gt;&lt;br&gt;
+		
+		&lt;input id="gori_text.0" type="text" value = "ゴリラ" /&gt;
+		&lt;input id="gori_text.1" type="text" value = "チンパンジー" /&gt;
+		&lt;br&gt;&lt;br&gt;
+
+	
+	&lt;/div&gt;
+
+	&lt;input type="button" value="Ajax送信テスト" onclick="test1()" class="btn btn-success" /&gt;
+	
+	～ 省略 ～
+	</pre>
+	<img src="img/note8/sec8-8.png" class="img_compact_k" /><br>
+	<br>
+	
+	<p>JavaScript</p>
+	<pre>
+	function test1(){
+		simpleAjaxFormK({
+			'range':'#dummy',
+			'url':'test.php',
+			'msg_slt':'#msg',
+			'callback':function(res){
+				
+				var data = JSON.parse(res);
+
+				$('#msg').html('Ajaxレスポンス&lt;br&gt;');
+				$('#msg').append(res);
+				
+				console.log(res);
+			}
+		});
+	}
+	</pre>
+	
+	<a href="/sample/js/simple_ajax_form_k/simple_ajax_form_k.html"  >サンプル</a><br>
+	<time>2016-5-10</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-9" class="sec1" >
+	<h3>SectionEditK.js | div内の節文を編集可能にし、その節文をAjaxで送受信する</h3>
+	
+	<p>SectionEditK.jsライブラリ</p>
+	このライブラリは指定した親要素内のdiv要素を編集可能にします。<br>
+	また更新ボタンも表示します。<br>
+	更新ボタンを押すと編集した文章をサーバー側へAjaxで送ります。<br>
+	div以外にinputなど他の各要素にも対応しています。<br>
+	<img src="img/note8/sec8-9.png" alt="SectionEditK.jsのサンプル画像" class="img_compact_k" />
+	<br>
+	
+	読込機能も備えています。<br>
+	最初に表示する際、サーバーからAjaxによるデータ取得を行い、各要素に表示します。<br>
+	<br>
+	
+	<p>html</p>
+	<pre class="intro_source_code">
+	&lt;div id="test2"&gt;
+		&lt;div class="id"&gt;100&lt;/div&gt;
+		&lt;div class="animal_name"&gt;fox&lt;/div&gt;
+		&lt;div class="note"&gt;abc123&lt;/div&gt;
+	&lt;/div&gt;
+	</pre>
+	
+	<p>JavaScript</p>
+	<pre class="intro_source_code">
+	sectionEditK('#test2',
+		['.id','.animal_name','.note'],
+		'test_save.php',
+		'test_read.php'
+		);
+	</pre>
+	
+	<a href="/sample/js/section_edit_k/section_edit_k.html"  class="btn btn-success btn-lg">サンプル</a><br>
+	<time>2016-5-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-10" class="sec1" >
+	<h3>アップロードJPEGファイルからExifを取得 | jquery.exif.js</h3>
+
+	<strong>jquery.exif.js</strong>(jQuery fileEXIF)は、jpeg画像からExif情報を取得するライブラリ。<br>
+	phpなどのサーバー側に依存せず、javascriptだけでExif情報を取得できる。<br>
+	<br>
+	
+	やや重たい処理であるため、多用は禁物である。<br>
+	<br>
+	
+	<a href="http://plugins.jquery.com/file-exif/" target="brank" >公式サイト</a><br>
+	<br>
+	
+	ファイル送信要素(&lt;input type="file" /&gt;)によるアップロードファイルからExif情報を取得するサンプルコードを以下に示す。<br>
+	<br>
+	
+	html
+	<pre>
+		&lt;script src="<strong>jquery.exif.js</strong>"&gt;&lt;/script&gt;
+		～略～
+		&lt;input type="file" id="file1" /&gt;
+	</pre>
+	<br>
+	
+	javascript
+	<pre>
+	$('#file1').change(function() {
+		// アップロードファイルからExif情報を抜出す。
+		$(this).<strong>fileExif</strong>(function(exif) {
+			console.log(exif);
+		});
+	});
+	</pre>
+	<br>
+	
+
+	
+	<a href="/sample/js/jquery_exif_js/jquery_exif_js.html" >サンプル</a><br>
+	
+	
+	<time>2016-5-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-11" class="sec1" >
+	<h3>サーバー上のjpegからExif情報を取得 | jquery.exif.js</h3>
+
+	サーバー上のjpegからAjaxを通して、バイトデータ（バイナリ情報）を取得し、バイトデータからBlobを作成する。<br>
+	そのBlobをjquery.exif.jsの関数fileExifに渡して、Exif情報を取得できる。<br>
+	<br>
+
+
+	html
+	<pre>	&lt;script src="<strong>jquery.exif.js</strong>"&gt;&lt;/script&gt;</pre>
+	<br>
+	
+	javascript
+	<pre>
+	function test(){
+		// サーバー上の画像ファイルから、Ajaxを利用してバイトデータを取得する
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'img/test4.jpg', true);
+		xhr.responseType = 'arraybuffer';
+		xhr.onload = function(e) {
+			
+			// 画像ファイルのバイトデータを取得する
+			var arrayBuffer = this.response;
+	
+			// バイトデータとコンテンツタイプからBlobを生成する
+			var blob = new Blob([arrayBuffer], {type: "image/jpeg"});
+			
+			// BlobからExif情報を取得する
+			<strong>$.fileExif(blob,function(exif)</strong>{
+				console.log(exif);
+			});
+		};
+		xhr.send();
+	}
+	</pre>
+	<br>
+	
+	<a href="/sample/js/jquery_exif_js/jquery_exif_js.html#sample2" >サンプル</a><br>
+	
+	
+	<time>2016-5-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<time>2016-4-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015/10/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

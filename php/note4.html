@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPの覚書 | ワクガンス</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-1" class="sec1" >
+	<h3>配列をカンマ区切り連結文字に変換(IN句,CSV用に) | implode</h3>
+
+	
+	<pre>
+	$ary=array('neko','yagi','kani','same');
+	<strong>$j_str = "'".implode("','",$ary)."'";</strong>
+
+	//出力→ $j_str = 'neko','yagi','kani','same'
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2" class="sec1" >
+	<h3>URLをサニタイズ | 要素属性へのXSS攻撃</h3>
+
+
+		<p>説明</p>
+		a要素のhrefへ、自由にURLを指定できるようなシステムの場合、XSSの危険性がある。<br>
+		また、aタグ以外でも、要素の属性を指定できる場合、XSSを起きる。<br>
+		該当する属性は、href,srcだけでなく、すべてに注意。<br>
+		<br>
+		悪意のあるXSS攻撃にはセッションハイジャックがある。<br>
+		クッキーからセッションIDを表示させるJSコードが埋め込まれてしまい、セッションIDを盗まれる。<br>
+		セッションIDを盗まれるとなりすましも可能になる。<br>
+		<br>
+		<strong>対策</strong><br>
+		URLに含まれる次の記号、「&lt;&gt;"'」をサニタイズすれば良い。<br>
+		また、記号「:;」も除去しておいた方が良い。
+		<br>
+
+		<hr>
+
+		<p>XSSを引き起こすコードの例</p>
+
+		<dl>
+
+			<dt>典型的な危険コード</dt>
+				<dd>
+					a要素のhrefに以下のコードが指定されていると、画面を開いただけでJSが実行される。<br>
+					http://example.com/?&lt;script&gt;alert(document.domain);&lt;/script&gt; <br>
+					<br><br>
+
+					クリックするとJavaScriptが実行される。<br>
+					&lt;a href="javascript:alert('XSS')" &gt;テスト&lt;/a&gt;<br>
+					<a href="javascript:alert('XSS')" >テスト</a><br>
+					<br>
+					以下のような特殊環境で起こるケースも。<br>
+					javascript:alert%28location%29<br>
+
+				</dd>
+
+			<dt>リンクに触るだけで、XSSを引き起こす特に注が必要な危険コード。</dt>
+				<dd>
+					以前、TwitterにXSS脆弱性の問題があったが、以下と同様なものである。<br>
+					http://example.com/"onmouseover="alert(1)"<br>
+				</dd>
+
+			<dt>a要素以外も注意</dt>
+				<dd>
+					&lt;IMG SRC="jav&#x09;ascript:alert('XSS');"&gt;<br>
+					&lt;IMG SRC="javascript:alert('XSS')"+<br>
+				</dd>
+
+			<dt>IE7以前では、CSS内でJSコードを実行することも</dt>
+				<dd>
+					&lt;div style="color:expression(alert('XSS'));"&gt;a&lt;/div&gt;<br>
+					&lt;div style='behavior:url(test.sct)'&gt;a&lt;/div&gt;<br>
+				</dd>
+		</dl>
+
+		<hr>
+		<p>サンプル</p>
+
+
+		ソースコード<br>
+		<pre>
+	&lt;?php
+		$xssList=array(
+			"http://example.com/\"onmouseover=\"alert(1)\"",
+			"http://example.com/?&lt;script&gt;alert(document.domain);&lt;/script&gt;",
+			"https://example.com/?neko=1&amp;yagi=2\"onmouseover=\"alert(1)\"",
+			"javascript:alert('XSS')",
+			"jav&#x09;ascript:alert('XSS');",
+			"color:expression(alert('XSS'));",
+			"behavior:url(test.sct)",
+		);
+
+
+		foreach($xssList as $xss){
+
+			$s=htmlspecialchars_url($xss);
+
+
+			echo htmlspecialchars($xss);
+			echo " → ";
+			echo htmlspecialchars($s);
+			echo "&lt;br&gt;";
+		}
+
+		/**
+		 * URL用のサニタイズ
+		 * 記号「&lt;&gt;"'」をエンコードし、記号「:;」を除去する。
+		 * ただし「http:」「https:」に付いている「:」は除去しない。
+		 * @param  $xss	サニタイズ対象文字
+		 * @return サニタイズ後の文字
+		 */
+		function htmlspecialchars_url($xss){
+			$s=htmlspecialchars($xss, ENT_QUOTES, 'UTF-8');
+			$s=str_replace('http:','http&lt;',$s);
+			$s=str_replace('https:','https&lt;',$s);
+			$s=str_replace(':','',$s);
+			$s=str_replace(';','',$s);
+			$s=str_replace('http&lt;','http:',$s);
+			$s=str_replace('https&lt;','https:',$s);
+			return $s;
+		}
+
+	?&gt;
+		</pre>
+
+		<br>
+		実行結果<br>
+		http://example.com/&quot;onmouseover=&quot;alert(1)&quot; → http://example.com/&amp;quotonmouseover=&amp;quotalert(1)&amp;quot<br>
+		http://example.com/?&lt;;script&gt;;alert(document.domain);&lt;;/script&gt;; → http://example.com/?&amp;ltscript&amp;gtalert(document.domain)&amp;lt/script&amp;gt<br>
+		https://example.com/?neko=1&amp;yagi=2&quot;onmouseover=&quot;alert(1)&quot; → https://example.com/?neko=1&amp;ampyagi=2&amp;quotonmouseover=&amp;quotalert(1)&amp;quot<br>
+		javascript:alert('XSS') → javascriptalert(&amp;#039XSS&amp;#039)<br>jav&amp;#x09;ascript:alert('XSS'); → jav&amp;amp#x09ascriptalert(&amp;#039XSS&amp;#039)<br>
+		color:expression(alert('XSS')); → colorexpression(alert(&amp;#039XSS&amp;#039))<br>
+		behavior:url(test.sct) → behaviorurl(test.sct)<br>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-3" class="sec1" >
+	<h3>文字化け対策した日本語ファイル名のファイルコピー |  move_uploaded_file</h3>
+
+	日本語ファイル名をコピーする場合、ファイル名の文字コードをShift-JISに変換せねばならない。<br>
+	$file_name = mb_convert_encoding($_FILES['files']['name'][$i], "SJIS", "auto");<br>
+	<br><br>
+
+	例（複数ファイルアップロードの場合）<br>
+	<pre>
+	if(!empty($_FILES)){
+
+		$lenth=count($_FILES["files"]["name"]);
+		for($i=0;$i&lt;$lenth;$i++){
+
+			//日本語ファイル名の文字化け対策
+			$file_name = mb_convert_encoding($_FILES['files']['name'][$i], "SJIS", "auto");
+
+			//一時ファイルをtestフォルダにコピー
+			move_uploaded_file($_FILES["files"]["tmp_name"][$i], "test/" . $file_name);
+		}
+
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-4" class="sec1" >
+	<h3>日本語ディレクトリの存在チェック | 日本語フォルダに対応したis_dir</h3>
+	<br>
+	関数<br>
+	<pre>
+	/**
+	 * 日本語ディレクトリの存在チェック
+	 * @param  $dn	ディレクトリ名
+	 * @return boolean	true:存在	false:未存在
+	 */
+	function is_dir_ex($dn){
+		$dn=mb_convert_encoding($dn,'SJIS','UTF-8');
+		if (is_dir($dn)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-5" class="sec1">
+	<h3>ディレクトリを作成しながらファイルコピー（日本語名ファイル対応）</h3>
+
+	copy関数はディレクトリごとファイルコピーできない。また日本語名のファイルだと文字化けする。<br>
+	下記のcopyEx関数は、ディレクトリごとのコピーと、日本語名ファイルコピーに対応する。<br>
+	<br>
+	関数<br>
+	<pre>
+
+	/**
+	 * 拡張コピー　存在しないディテクトリも自動生成
+	 * 日本語ファイルに対応
+	 * @param コピー元ファイル名 $sourceFn
+	 * @param コピー先ファイル名 $copyFn
+	 */
+	function <span class="marker">copyEx</span>($sourceFn,$copyFn){
+
+		//フルファイル名からパスを取得する。
+		$di=dirname($copyFn);
+
+		//コピー先ファイル名とコピー元ファイル名が同名であれば、Nullを返して処理を終了
+		if($sourceFn==$copyFn){
+			return null;
+		}
+
+		//ディレクトリが存在するかチェック。
+		if (is_dir_ex($di)){
+
+			//存在するならそのままコピー処理
+			$sourceFn=mb_convert_encoding($sourceFn,'SJIS','UTF-8');
+			$copyFn=mb_convert_encoding($copyFn,'SJIS','UTF-8');
+			copy($sourceFn,$copyFn);
+		}else{
+
+			//存在しない場合。
+			//パスを各ディレクトリに分解し、ディレクトリ配列をして取得する。
+			$ary=explode('/', $di);
+			//ディレクトリ配列の件数分以下の処理を繰り返す。
+			$iniFlg=true;
+			foreach ($ary as $key =&gt; $val){
+
+				//作成したディレクトリが存在しない場合、ディレクトリを作成
+				if ($iniFlg==true){
+					$iniFlg=false;
+					$dd=$val;
+				}else{
+					$dd.='/'.$val;
+				}
+
+				if (!(is_dir_ex($dd))){
+					mkdir($dd);//ディレクトリを作成
+				}
+
+			}
+
+			$sourceFn=mb_convert_encoding($sourceFn,'SJIS','UTF-8');
+			$copyFn=mb_convert_encoding($copyFn,'SJIS','UTF-8');
+			copy($sourceFn,$copyFn);//ファイルをコピーする。
+
+		}
+	}
+
+
+	/**
+	 * 日本語ディレクトリの存在チェック
+	 * @param  $dn	ディレクトリ名
+	 * @return boolean	true:存在	false:未存在
+	 */
+	function is_dir_ex($dn){
+		$dn=mb_convert_encoding($dn,'SJIS','UTF-8');
+		if (is_dir($dn)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</pre>
+
+	<br><br><hr><br>
+	使用例<br>
+	<pre>
+	$fn="日本語.pdf";
+	$ffn="tmp2/".$fn;
+
+	$ffn2 ='dummy2/'. $fn;//コピー先。dummy2は未作成でも良い。
+
+	//拡張コピー。存在しないディレクトリも自動生成し、日本語ファイル名にも対応。
+	<span class="marker">copyEx($ffn,$ffn2);</span>
+
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-6" class="sec1" >
+	<h3>ディレクトリ内のファイルを列挙</h3>
+	<br>
+	関数<br>
+	<pre>
+	/**
+	 * scandir関数の拡張関数。
+	 * 
+	 * @note
+	 * 「.」「..」となっているファイル名は除外する。
+	 * 日本語ファイル名に対応するためUTF-8に変換している。
+	 * そのため、当関数で取得したファイル名でWindows上のファイルを扱う場合、Shift-JISに戻す必要がある。
+	 * WindowsのファイルはShift-JISで扱わねばならないためである。
+	 *
+	 * @param  $dir_name	ディレクトリ名
+	 * @return ファイル名の配列
+	 */
+	function scandir2($dir_name){
+		$files = scandir($dir_name);
+		
+		// 「.」,「..」名のファイルを除去、および日本語ファイルに対応。
+		$files2 = array();
+		foreach($files as $file){
+			if($file=='.' || $file=='..'){
+				continue;
+			}
+			$file = mb_convert_encoding($file, 'UTF-8', 'SJIS');
+			$files2[] = $file;
+		}
+
+	
+		return $files2;
+	}
+	</pre>
+	<br>
+
+	使用例<br>
+	<pre>
+	$dir_name="tmp2";
+	<span class="marker">$files = scandir2($dir_name);</span>
+	echo var_dump($files);
+	</pre>
+	
+	<aside>検証：PHP 5.6</aside>
+	
+	<time>2015-12-7 | 2016-8-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-6-2" class="sec1" >
+	<h3>ディレクトリ階層化の全ファイルを列挙</h3>
+
+
+	<pre><code>
+	$fileNames = getAllFileNamesInDir('tmp');
+	var_dump($fileNames);
+	
+	/**
+	 * ディレクトリ階層化の全ファイル名を取得する
+	 * @param string $dir ディレクトリ
+	 * @param array $list ファイル名リスト（内部処理用なのでセット不要)
+	 * @return ファイル名リスト
+	 */
+	function <strong>getAllFileNamesInDir</strong>($dir,$list=array()) {
+		if ($handle = opendir("$dir")) {
+			while (false !== ($item = readdir($handle))) {
+				if ($item != "." && $item != "..") {
+					if (is_dir("$dir/$item")) {
+						$list = getAllFileNamesInDir("$dir/$item",$list);
+					} else {
+						//unlink("$dir/$item");
+						$list[] = "$dir/$item";
+					}
+				}
+			}
+			closedir($handle);
+			
+		}
+		return $list;
+	}
+	</code></pre>
+	<br>
+	
+	出力例
+	<pre class="output_data">
+	array (size=11)
+	  0 => string 'tmp/xxx/icon_kabuto.jpg' (length=23)
+	  1 => string 'tmp/xxx/icon_tilapia.jpg' (length=24)
+	  2 => string 'tmp/xxx/imori.jpg' (length=17)
+	  3 => string 'tmp/xxx/imori_md.jpg' (length=20)
+	  4 => string 'tmp/xxx/imori_md.png' (length=20)
+	  5 => string 'tmp/xxx/inago.jpg' (length=17)
+	  6 => string 'tmp/xxx/sasigame.jpg' (length=20)
+	  7 => string 'tmp/xxx/smp1.png' (length=16)
+	  8 => string 'tmp/xxx/test1.jpg' (length=17)
+	  9 => string 'tmp/xxx/test3.jpg' (length=17)
+	</pre>
+	<br><time>2016-10-25</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7" class="sec1" >
+	<h3>ディレクトリ内のファイルをまとめて削除</h3>
+	<br>
+	関数<br>
+	<pre>
+	/**
+	 * ディレクトリ内のファイルをまとめて削除する。
+	 * @param  $dir_name ファイル削除対象のディレクト名
+	 * @return
+	 */
+	function <span class="marker">dirClear</span>($dir_name){
+		//フォルダ内のファイルを列挙
+		$files = scandir($dir_name);
+		$files = array_filter($files, function ($file) {
+			return !in_array($file, array('.', '..'));
+		});
+
+		foreach($files as $fn){
+			$ffn=$dir_name.'/'.$fn;
+			try {
+				unlink($ffn);//削除
+			} catch (Exception $e) {
+				throw e;
+			}
+		}
+
+		return true;
+	}
+	</pre>
+	<br>
+
+	使用例<br>
+	<pre>
+	$dir_name="tmp3";
+	<span class="marker">dirClear($dir_name);</span>
+	echo 'フォルダ内のファイルを削除しました。';
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7-2" class="sec1" >
+	<h3>ディレクトリごとファイルを削除する</h3>
+	
+	<pre><code>
+	/**
+	 * ディレクトリごとファイルを削除する。（階層化のファイルまで削除可能）
+	 * @param string $dir 削除対象ディレクトリ
+	 */
+	function removeDirectory($dir) {
+		if ($handle = opendir("$dir")) {
+			while (false !== ($item = readdir($handle))) {
+				if ($item != "." &amp;&amp; $item != "..") {
+					if (is_dir("$dir/$item")) {
+						removeDirectory("$dir/$item");
+					} else {
+						unlink("$dir/$item");
+					}
+				}
+			}
+			closedir($handle);
+			rmdir($dir);
+		}
+	}
+	</code></pre>
+	
+	<a href="http://kidokorock.com/php%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AD%89%E3%81%8C%E5%86%85%E5%8C%85%E3%81%95%E3%82%8C%E3%81%9F%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%EF%BC%88%E3%83%95%E3%82%A9/" target="blank">参考サイト</a><br>
+	<br>
+
+	<br><time>2016-10-25</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-8" class="sec1" >
+	<h3>ファイル名からディレクトリ、ファイル名、拡張子を取得する | pathinfo()</h3>
+
+	<pre>
+	$path_param = pathinfo('/okinawa/kunigami/oku/habu.jpg');
+
+	echo $path_param['dirname'],	//→ '/okinawa/kunigami/oku',
+	echo $path_param['basename'];	//→ 'habu.jpg',
+	echo $path_param['extension'];	//→ 'jpg'
+	echo $path_param['filename'];	//→ 'habu'
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-8-2" class="sec1" >
+	<h3>ディレクトリが存在しないならディレクトリを作成する</h3>
+
+	<pre><code>
+	$dirName = "C:\xampp\htdocs\xample\test";
+	<strong>makeDirEx</strong>($dirName);
+	</code></pre>
+	<br>
+	
+	<hr>
+	
+	<p>mkdirの拡張メソッド</p>
+	パスに新しく作成せねばならないディレクトリ情報が複数含まれている場合でも、順次ディレクトリを作成する。<br>
+	<br>
+	<pre><code>
+	/**
+	 * ディレクトリを作成する
+	 * 
+	 * @note
+	 * ディレクトリが既に存在しているならディレクトリを作成しない。
+	 * パスに新しく作成せねばならないディレクトリ情報が複数含まれている場合でも、順次ディレクトリを作成する。
+	 * 日本語ディレクトリ名にも対応。
+	 * パスセパレータは「/」と「&yen;」に対応。
+	 * ディレクトリのパーミッションの変更をを行う。(既にディレクトリが存在する場合も）
+	 * 
+	 * @version 1.2
+	 * @date 2016-8-24 | 2014-4-13
+	 * 
+	 * @param string $dir_path ディレクトリパス
+	 */
+	public function makeDirEx($dir_path,$permission = 0705){
+		
+		if(empty($dir_path)){return;}
+		
+		// 日本語名を含むパスに対応する
+		$dir_path=mb_convert_encoding($dir_path,'SJIS','UTF-8');
+		
+		// ディレクトリが既に存在する場合、書込み可能にする。
+		if (is_dir($dir_path)){
+			chmod($dir_path,$permission);// 書込み可能なディレクトリとする
+			return;
+		}
+		
+		// パスセパレータを取得する
+		$sep = DIRECTORY_SEPARATOR;
+		if(strpos($dir_path,"/")!==false){
+			$sep = "/";
+		}
+		
+		//パスを各ディレクトリに分解し、ディレクトリ配列をして取得する。
+		$ary=explode($sep, $dir_path);
+		
+		//ディレクトリ配列の件数分以下の処理を繰り返す。
+		$dd = '';
+		foreach ($ary as $i =&gt; $val){
+			
+			if($i==0){
+				$dd=$val;
+			}else{
+				$dd.=$sep.$val;
+			}
+		
+			//作成したディレクトリが存在しない場合、ディレクトリを作成
+			if (!is_dir($dd)){
+				mkdir($dd,$permission);//ディレクトリを作成
+				chmod($dd,$permission);// 書込み可能なディレクトリとする
+			}
+		}
+	}
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-8-24 | 2017-4-13</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9" class="sec1" >
+	<h3>ファイル削除を日本語名ファイルで行う方法 | unlink</h3>
+
+	<pre>
+
+	$ffn='/sample/xxx/日本語.pdf';
+
+	$ffn=mb_convert_encoding($ffn,'SJIS','UTF-8');//日本語ファイル名に対応
+	if(file_exists($ffn)){//ファイルが存在するか？
+		unlink($ffn);//ファイルを削除
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-10" class="sec1" >
+	<h3>IPアドレスを取得する</h3>
+	
+	<pre>
+	$ipAddr=$_SERVER["REMOTE_ADDR"];//IPアドレス取得
+
+	$ipVal = ip2long($ipAddr);// IPアドレスを数値変換
+	
+	$ipAddr=$this->request->clientIp(false);//CakePHPでのIPアドレス取得
+	</pre>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/ip_address/ip_address.php" class="ref_link" target="brank" >サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php">PHPの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-9-3</div>
+</body>
+</html>

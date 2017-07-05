@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>PHPの覚書 | ワクガンス</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-1" class="sec1" >
+	<h3>cURLでクロスドメイン</h3>
+	
+	サーバー1からサーバー2へ、cURLを用いクロスドメイン通信を行う。<br>
+	これだけだとセキュリティ的に弱いので認証キーを組み込んだ方が良い。<br>
+	<br>
+
+
+	<p>サーバー1</p>
+	<pre><code>
+	// 外部URL
+	$url = "http://amaraimusi.sakura.ne.jp/sample/php/curl/curl_post/serv_side_cros.php";
+	
+	// POSTデータの作成
+	$data=['id'=>1303,'animal_name'=>'tiger'];
+	$json = json_encode($data);
+	$data2 = ['key1'=>$json];
+	$query = http_build_query($data2);
+	
+	$curl = curl_init(); // cURLのセッション開始およびcURLハンドラの取得
+	
+	// 設定
+	<strong>curl_setopt_array</strong>($curl, [
+			CURLOPT_URL=>$url,
+			CURLOPT_RETURNTRANSFER=>true,
+			CURLOPT_POST=>true,
+			CURLOPT_POSTFIELDS=>$query,
+			CURLOPT_FOLLOWLOCATION=>true,
+	]);
+	
+	$html =  <strong>curl_exec</strong>($curl); // 外部URLからコンテンツを取得する。
+	curl_close($curl); // cURLのセッションを終了させる。
+	
+	echo $html;
+	</code></pre>
+	<br>
+	
+	<p>サーバー2</p>
+	http://amaraimusi.sakura.ne.jp/sample/php/curl/curl_post/serv_side_cros.php
+	<pre><code>
+	// クロスドメイン通信の許可（cURLの場合、省略しても動くようである。）
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: POST');
+	
+	
+	// デフォルトデータにPOSTで受け取ったデータをマージする。
+	$data = ['id'=>1,'animal_name'=>'dog','delete_flg'=>true];
+	
+	if(!empty($_POST['key1'])){
+		$json=$_POST['key1'];
+		$data2=json_decode($json,true);//JSONデコード
+		$data = array_merge($data, $data2);
+	}
+	
+	// データをJSON化して、レスポンスする。
+	$json = json_encode($data);
+	echo $json;
+	</code></pre>
+	<br>
+	
+	
+	<p>出力</p>
+	<pre class="output_data"><code>
+	{"id":1303,"animal_name":"tiger","delete_flg":true}
+	</code></pre>
+
+	
+	<time>2016-7-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-2" class="sec1" >
+	<h3>POSTとPUTの違い</h3>
+
+	URIの決定権がサーバーにあるときPOSTである。<br>
+	URIの決定権がクライアントにあるときPUT。<br>
+	ほんどの場合、サーバーがURIを決めるのでPOSTがよく使われる。<br>
+	<br>
+	
+	CakePHPはURLの一部をデータ扱いできるため、PUTを実現するのが容易である。<br>
+	<br>
+	
+	<time>2016-7-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-3" class="sec1" >
+	<h3>ヘッダー情報を取得 | getallheaders</h3>
+
+	ヘッダー情報を取得を取得するにはgetallheaders関数を使う。<br>
+	<br>
+
+	<pre><code>
+	$headers = getallheaders();//ヘッダー情報を取得する
+	var_dump($headers);
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data"><code>
+	array (size=4)
+	  'Host' => string 'localhost' (length=9)
+	  'Accept' => string '*/*' (length=3)
+	  'Content-Length' => string '146' (length=3)
+	  'Content-Type' => string 'application/x-www-form-urlencoded' (length=33)
+	</code></pre>
+	<br>
+	
+	<time>2016-7-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-4" class="sec1" >
+	<h3>cURLによるクロスドメイン：認証キー付き</h3>
+	
+	
+	サーバー1とサーバー2の間でクロスドメイン通信を行います。<br>
+	公開鍵暗号による認証処理を組み込んでいます。<br>
+	<br>
+	
+
+	<p>サーバー1</p>
+		<pre><code>
+	&lt;?php 
+
+	// 外部URL
+	$url = "http://amaraimusi.sakura.ne.jp/sample/php/curl/curl_auth/server2.php";
+	
+	// 認証キー
+	<strong>$hash</strong>="08977553564800ea12cf5277006e238577b2318850e201b353204e9486364788";
+
+	// POSTデータのサンプル
+	$data=['id'=&gt;1401,'animal_name'=&gt;'unagi',<strong>'hash'</strong>=&gt;$hash];
+	$json = json_encode($data);
+	$data2 = ['key1'=&gt;$json];
+	$query = http_build_query($data2);
+	
+	$curl = curl_init(); // cURLのセッション開始およびcURLハンドラの取得
+	
+	// 設定
+	curl_setopt_array($curl, [
+			CURLOPT_URL=&gt;$url,
+			CURLOPT_RETURNTRANSFER=&gt;true,
+			CURLOPT_POST=&gt;true,
+			CURLOPT_POSTFIELDS=&gt;$query,
+			CURLOPT_FOLLOWLOCATION=&gt;true,
+	]);
+	
+	$html =  curl_exec($curl); // 外部URLからコンテンツを取得する。
+	curl_close($curl); // cURLのセッションを終了させる。
+	
+	echo $html;
+	?&gt;
+	</code></pre>
+	<br>
+
+
+
+
+	<p>サーバー2</p>
+	http://amaraimusi.sakura.ne.jp/sample/php/curl/curl_auth/server2.php
+	<pre><code>
+	&lt;?php 
+	// クロスドメイン通信の許可（cURLの場合、許可しなくても通信できる）
+	// header('Access-Control-Allow-Origin: *');
+	// header('Access-Control-Allow-Methods: POST');
+	
+	// デフォルトデータ
+	$data = ['id'=&gt;1400,'animal_name'=&gt;'kame','age'=&gt;20];
+	
+	if(!empty($_POST['key1'])){
+		
+		// データにPOSTデータをマージします。
+		$json=$_POST['key1'];
+		$data2=json_decode($json,true);
+		$data = array_merge($data, $data2);
+		
+		// 認証処理
+		$secretKey="xxx123";// 秘密キー（便宜上、ソースコードに直接記述しているが、本来ならDBなどから取得すべき）
+		$ip=$_SERVER['REMOTE_ADDR'];// 遷移元のIPアドレスを取得する
+		$hash = hash('sha256',MD5($ip.$secretKey));// IPアドレスと秘密キーから認証キーを作成する。
+		
+		kenshoOutput($hash);// 検証出力 ■■■□□□■■■□□□■■■□□□テスト用
+		
+		if($hash != $data['hash']){// POSTの認証キーと、上記で作成した認証キーを比較判定する。
+			echo "Fail Auth";//認証失敗
+			die();
+		}
+	
+	}else{
+		echo "NONE";
+		die();
+	}
+	
+	// データをレスポンス可してレスポンスします。
+	$json = json_encode($data);//JSONエンコード
+	echo $json;
+	
+	// 検証出力
+	function kenshoOutput($hash){
+		echo '認証キー:'.$hash.'&lt;br&gt;';
+		echo 'IPアドレス【SERVER_ADDR】:'.$_SERVER['SERVER_ADDR'].'&lt;br&gt;';
+		echo 'IPアドレス【REMOTE_ADDR】:'.$_SERVER['REMOTE_ADDR'].'&lt;br&gt;';
+		echo 'リファラ:'.$_SERVER['HTTP_REFERER'].'&lt;br&gt;';
+		echo 'ユーザーエージェント:'.$_SERVER['HTTP_USER_AGENT'].'&lt;br&gt;';
+		//var_dump($_SERVER);
+	}
+	?&gt;
+	</code></pre>
+	<br>
+
+
+
+
+	<p>出力</p>
+	<pre class="output_data"><code>
+	認証キー:08977553564800ea12cf5277006e238577b2318850e201b353204e9486364788
+	IPアドレス【SERVER_ADDR】:59.106.171.54
+	IPアドレス【REMOTE_ADDR】:59.106.171.54
+	リファラ:
+	ユーザーエージェント:
+	{"id":1401,"animal_name":"unagi","age":20,"hash":"08977553564800ea12cf5277006e238577b2318850e201b353204e9486364788"}
+	</code></pre>
+	<br>
+	
+	
+	
+	<time>2016-7-11 | 2016-7-13</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-5" class="sec1" >
+	<h3>file_get_contents関数でスクレイピング</h3>
+
+
+	file_get_contents関数によりスクレイピングが可能になる。<br>
+	スクレイピングとは、ドメインが異なる外部サイトからコンテンツを取得する方法である。<br>
+	<br>
+	
+	<aside>類似するものにcURLがあり、こちらの方が高速と言われる。</aside>
+	<br>
+
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;?php
+	$opts = array(
+		'http'=&gt;array(
+			'method'=&gt;"GET",
+			'header'=&gt;"Accept-language: en&yen;r&yen;n" .
+			"Cookie: foo=bar&yen;r&yen;n"
+	  )
+	);
+	
+	echo file_get_contents('http://www.example.com', false, stream_context_create($opts));
+	?&gt;
+	
+	</code></pre>
+	<br>
+	
+	<br>
+	<time>2016-7-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-6" class="sec1" >
+	<h3>file_get_contentsによるクロスドメイン</h3>
+
+	file_get_contents関数は、スクレイピング（外部サイトのコンテンツを取得）で よく使われる。<br>
+	file_get_contents はコンテンツを取得するだけでなく、POSTデータを送信してレスポンスを受け取ることができる。
+	つまりクロスドメインが可能である。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;?php
+	
+	// POSTデータとクエリ化
+	$data = array(
+	    "animal_name" =&gt; "dog",
+	    "animal_value" =&gt; "101"
+	);
+	$data = http_build_query($data, "", "&amp;");
+	
+	// HTTPヘッダー情報
+	$header = array(
+	    "Content-Type: application/x-www-form-urlencoded",
+	    "Content-Length: ".strlen($data)
+	);
+	
+	// HTTPリクエストの設定
+	$option = array(
+	    "http" =&gt; array(
+	        "method"  =&gt; "POST",
+	        "header"  =&gt; implode("&yen;r&yen;n", $header),
+	        "content" =&gt; $data
+	    )
+	);
+	
+	// クロスドメイン通信先
+	$url = "http://amaraimusi.sakura.ne.jp/sample/php/cross_domain/file_get_contents/test_serv_side.php";
+	
+	// クロスドメイン通信
+	$res = <strong>file_get_contents</strong>($url, false, stream_context_create($option));
+	
+	echo $res;
+	?&gt;
+	</code></pre>
+	<br>
+
+	<p>サーバーサイド</p>
+	http://amaraimusi.sakura.ne.jp/sample/php/cross_domain/file_get_contents/test_serv_side.php
+	<pre><code>
+	&lt;?php 
+	// クロスドメイン通信の許可は不要
+	// header('Access-Control-Allow-Origin: *');
+	// header('Access-Control-Allow-Methods: POST');
+	
+	if(!empty($_POST)){
+		echo 'POSTデータを受け取りました。&lt;br&gt;';
+		foreach($_POST as $key =&gt; $val){
+			echo $key.' = ' . $val . '&lt;br&gt;';
+		}
+	
+	}else{
+		echo 'NONE';
+	}
+	?&gt;	
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	POSTデータを受け取りました。
+	animal_name = dog
+	animal_value = 101
+	</pre>
+	<br>
+	
+	<a href="http://d.hatena.ne.jp/ryster/20070907/1189148449" target="blank">参考サイト</a><br>
+	<br>
+	
+	<br>
+	<time>2016-7-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-7" class="sec1" >
+	<h3>２次元配列データからHTMLテーブルを作成</h3>
+	
+	データからHTMLのtable要素を作成する。<br>
+	データはエンティティの配列である。<br>
+	<br>
+
+	<pre><code>
+	/**
+	 * ２次元配列データからHTMLテーブルを作成
+	 * 
+	 * @param array $data ２次元配列データ
+	 * @param array $clms 列名リスト（省略可能。省略した場合はキーがフィールド名になる)
+	 * @return string HTMLテーブルのソースコード
+	 */
+	public function createHtmlTable($data,$clms=array()){
+		
+		if(empty($data)){
+			return "";
+		}
+		
+		$ary = array();
+		$ary[] = "&lt;table class='table'&gt;";
+		
+		//列を作成する
+		$ary[] = "&lt;thead&gt;&lt;tr&gt;";
+		$fields = array_keys($data[0]);
+		foreach($fields as $i =&gt; $field){
+			
+			// デフォルトの列名
+			$clmName = $field;
+			
+			// 列名リストに列名があるなら、こちらを列名として取得する
+			if(!empty($clms[$i])){
+				$clmName = $clms[$i];
+			}elseif(!empty($clms[$field])){
+				$clmName = $clms[$field];
+			}
+			$ary[] = "&lt;th&gt;{$clmName}&lt;/th&gt;";
+		}
+		$ary[] = "&lt;/tr&gt;&lt;/thead&gt;";
+		
+		
+		
+		
+		//データ部分を作成する
+		$ary[] = "&lt;tbody&gt;";
+		foreach($data as $i=&gt;$ent){
+			$ary[] = "&lt;tr&gt;";
+			foreach($ent as $v){
+				$ary[] = "&lt;td&gt;{$v}&lt;/td&gt;";
+			}
+			
+			$ary[] = "&lt;/tr&gt;";
+		}
+		$ary[] = "&lt;/tbody&gt;";
+		
+
+		$ary[] = "&lt;/table&gt;";
+		
+		
+		$code = join("&yen;n",$ary);
+		
+		return $code;
+		
+	}
+	</code></pre>
+
+	<br><time>2016-8-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-8" class="sec1" >
+	<h3>フルパスを取得 (Windows環境でのパス）</h3>
+
+	<pre><code>	
+	echo __FILE__;
+	echo dirname(__FILE__);
+	echo basename(__FILE__);
+	</code></pre>
+    <br>
+    
+	出力
+	<pre class="output_data"><code>
+	C:\xampp\htdocs\example\note10.php
+	C:\xampp\htdocs\example
+	note10.php
+	</code></pre>
+	<br>
+ 
+	<br><time>2016-8-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-9" class="sec1" >
+	<h3>フルパスのディレクトリセパレータ定数 DIRECTORY_SEPARATOR</h3>
+
+	フルパスのセパレータはOSごとにスラッシュ,バックスラッシュ,「&yen;」と微妙な違いがある。<br>
+	DIRECTORY_SEPARATORは、OSごとのセパレータ違いを吸収できる。<br>
+	短く、「DS]として定義しなおすと使いやすくなる。<br>
+	<br>
+	
+	<pre><code>
+	define('DS', <strong>DIRECTORY_SEPARATOR</strong>);
+	$fp = dirname(__FILE__).DS.'sample'.DS.'NekoController.php';
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data"><code>
+	C:\xampp\htdocs\xample\NekoController.php 
+	</code></pre>
+	<br>
+
+	<br><time>2016-8-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-10" class="sec1" >
+	<h3>ファイルおよびフォルダの更新日時を取得する</h3>
+	
+	filemtime関数でファイル、フォルダの更新日時を取得できる。<br>
+	<br>
+	
+	スラッシュで区切ったパスだけでなく、バックスラッシュで区切ったフルパスから更新日時を取得できる。<br>
+	なお、フルパスで指定する場合、フルパスをShift-JISに変換しなければならない。<br>
+	<br>
+	
+	
+	日本語ファイル名の更新日時を取得する場合、ファイル名をShift-JISに変換する必要がある。<br>
+	日本語フォルダ名でも同じ。<br>
+	<br>
+	
+	
+	ソースコード
+	<pre><code>
+	$fn = 'C:\xampp\htdocs\livipage_js\README.md';
+
+	// 日本語のフォルダ名、ファイル名に対応。ついでにフルパスのバックスラッシュを日本語に対応。
+	$fn=mb_convert_encoding($fn,'SJIS','UTF-8');
+
+	// フォーマット変換しながら更新日時を取得
+	$dt = date("Y-m-d H:i:s", <strong>filemtime</strong>($fn));
+	
+	echo $fn.'&lt;br&gt;';
+	echo $dt;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	C:/xampp/htdocs/livipage_js/README.md
+	2016-08-30 10:34:59
+	</pre>
+	<br>
+	
+	<aside>PHP 5.6 にて検証</aside>
+	<br>
+	
+
+
+	<br><time>2016-8-30 | 2016-8-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+</div><!-- content -->
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php">PHPの覚書</a></li>
+</ol>
+<div id="footer">(C) kenji uehara 2016-7-11</div>
+</body>
+</html>

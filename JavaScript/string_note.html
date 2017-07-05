@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | 文字列操作</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | 文字列操作</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#" target="brank">公式サイト</a>
+
+<h2>目次</h2>
+<ol>
+	<li><a href="#s1">JavaScriptの覚書 | 文字列操作</a></li>
+	<li><a href="#s2">XXX</a></li>
+</ol>
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>2つの印文字に挟まれた文字列を取得する</h3>
+	
+	ソースコード
+	<pre><code>
+	var str = "大きな赤いノラ猫のごみ漁り"
+	var str2 = <strong>stringHasami</strong>(str,'赤い','のごみ');
+	console.log(str2); // 出力→ ノラ猫
+	
+	/**
+	 * 2つの印文字に挟まれた文字列を取得する
+	 * 
+	 * @note
+	 * 印文字1、印文字2は対象文字の左から検索する。
+	 * 
+	 * @param s 対象文字列
+	 * @param mark1 印文字1
+	 * @param mark2 印文字2
+	 * @return 印文字に挟まれた文字列
+	 */
+	function stringHasami(s,mark1,mark2){
+		if (s==null || s==""){
+			return s;
+		}
+		
+		var a=s.indexOf(mark1);
+		s=s.substring(a+mark1.length,s.length);
+
+		a=s.indexOf(mark2);
+		s=s.substring(0,a);
+	
+		return s;
+
+	}
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>文字列を左側から印文字を検索し、左側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	var str = "ミヤマクワガタとノコギリクワガタ";
+	var str2 = <strong>stringLeft</strong>(str,'クワガタ');
+	console.log(str2);//→ ミヤマ
+	
+	/**
+	 * 文字列を左側から印文字を検索し、左側の文字を切り出す。
+	 * @param s 対象文字列
+	 * @param mark 印文字
+	 * @return 印文字から左側の文字列
+	 */
+	function stringLeft(s,mark){
+
+		if (s==null || s==""){
+			return s;
+		}
+		var a=s.indexOf(mark);
+		var s2=s.substring(0,a);
+		return s2;
+		
+	}
+	</code></pre>
+	<br>
+
+
+	<script>
+
+	</script>
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>文字列を左側から印文字を検索し、右側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	var str = "大きな赤いたぬきと赤いきつね";
+	var str2 = <strong>stringRight</strong>(str,'赤い');
+	console.log(str2);//→たぬきと赤いきつね
+	
+	/**
+	 * 文字列を左側から印文字を検索し、右側の文字を切り出す。
+	 * @param s 対象文字列
+	 * @param mark 印文字
+	 * @return 印文字から右側の文字列
+	 */
+	function stringRight(s,mark){
+		if (s==null || s==""){
+			return s;
+		}
+		
+		var a=s.indexOf(mark);
+		var s2=s.substring(a+mark.length,s.length);
+		return s2;
+	}
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>文字列を右側から印文字を検索し、左側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	var str = "ミヤマクワガタとノコギリクワガタ";
+	var str2 = <strong>stringLeftRev</strong>(str,'クワガタ');
+	console.log(str2);//→ ミヤマクワガタとノコギリ
+	
+	/**
+	 * 文字列を<strong>右側</strong>から印文字を検索し、左側の文字を切り出す。
+	 * @param s 対象文字列
+	 * @param mark 印文字
+	 * @return 印文字から左側の文字列
+	 */
+	function stringLeftRev(s,mark){
+
+		if (s==null || s==""){
+			return s;
+		}
+		var a=s.lastIndexOf(mark);
+		var s2=s.substring(0,a);
+		return s2;
+		
+	}
+	</code></pre>
+	<br>
+
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>文字列を右側から印文字を検索し、右側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	var str = "大きな赤いたぬきと赤いきつね";
+	var str2 = <strong>stringRightRev</strong>(str,'赤い');
+	console.log(str2);//→きつね
+	
+	/**
+	 * 文字列を<strong>右</strong>側から印文字を検索し、右側の文字を切り出す。
+	 * @param s 対象文字列
+	 * @param mark 印文字
+	 * @return 印文字から右側の文字列
+	 */
+	function stringRightRev(s,mark){
+		if (s==null || s==""){
+			return s;
+		}
+		
+		var a=s.lastIndexOf(mark);
+		var s2=s.substring(a+mark.length,s.length);
+		return s2;
+	}
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-12-8</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<pre><code>
+	</code></pre>
+	<br>
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | 文字列操作</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-12-8</div>
+</body>
+</html>

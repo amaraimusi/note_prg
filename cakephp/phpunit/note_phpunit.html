@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="google" content="notranslate" />
+		
+		<title>CakePHPのPHPUnit</title>
+
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/common2.css"  />
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+		<style>
+			.list_large li{
+				margin-bottom:40px;
+			}
+			.list_sm li{
+				font-size:0.9em;margin-bottom:2px;
+				list-style-type: none;
+
+			}
+			.list_iroha li{
+				font-size:0.9em;
+				margin-bottom:2px;
+				list-style-type: katakana-iroha;
+			}
+			.gakubuti{
+				border:solid 4px #d1d1d1;
+				border-radius:5px;
+			}
+		</style>
+
+	</head>
+
+<body>
+<div class="container">
+
+	<div id="header" >
+		<h1>CakePHPのPHPUnit</h1>
+	</div>
+	
+
+	
+	
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html" target="brank" class="btn btn-link btn-sm">CakePHPのPHPUnitドキュメント</a><br>
+	<a href="https://phpunit.de/" target="brank" class="btn btn-link btn-sm">PHPUnitの公式サイト</a><br>
+	<br>
+	
+	<h2>目次</h2>
+	ページ内の目次
+	<ol >
+		<li><a href="#s1" >PHPUnitとは</a></li>
+		<li><a href="#s2" >CakePHPに同梱されているPHPUnitを動かしてみる</a></li>
+		<li><a href="#s4" >テストクラスの作り方と実行方法</a></li>
+		<li><a href="#s5" >PHP Unit でできるテストについて</a></li>
+		<li>
+			<a href="#s6-0" >コントローラのテスト</a>
+			<ol class="list_sm">
+				<li><a href="#s6-1" >コントローラテストでPOSTデータを渡す方法</a></li>
+				<li><a href="#s6-2" >コントローラテストでリダイレクトをテスト</a></li>
+				<li><a href="#s6-3" >コントローラテストでセッションを渡す方法</a></li>
+			</ol>
+		</li>
+		
+		<li>
+			<a href="#s7-0" >DBと結びついたモデルをテストする</a>
+			<ol class="list_sm">
+				<li><a href="#s7-1">フィクスチャとは</a></li>
+				<li><a href="#s7-1-1">フィクスチャを使う前の準備</a></li>
+				<li><a href="#s7-1-2">フィクスチャの作成方法とテストクラスの書き方</a></li>
+				<li><a href="#s7-2">DB登録系のモデルのメソッドをテストする方法</a></li>
+				<li><a href="#s7-3">saveとsaveAllの違い、およびトランザクション有無によるテスト難易度</a></li>
+			</ol>
+		</li>
+		
+		<li><a href="#s8">テストスイートで まとめてテストを実行する</a></li>
+		
+		<li><a href="#s9">テスト計測の指標 | コードカバレッジ</a></li>
+		
+		<li>補足
+			<ol class="list_sm">
+				<li><a href="#s100" >通常画面にテスト項目画面を表示させる</a></li>
+				<li><a href="#s110" >「App::import('vendor', 'vendor/autoload');」について</a></li>
+				<li><a href="#s120" >よく使うアサーション</a></li>
+				<li><a href="#s125" >テストクラスの基本クラスの種類</a></li>
+			</ol>
+		</li>
+		
+		<li>
+			<a href="#s198" >テストの原則</a>
+			<ol class="list_sm">
+				<li><a href="#s200" >テストで入力する値のパターン</a></li>
+				<li><a href="#s201" >境界値テスト</a></li>
+				<li><a href="#s202" >コードカバレッジ | パターンの網羅</a></li>
+				<li><a href="#s203" >同値分割</a></li>
+			</ol>
+		</li>
+		
+	</ol>
+	
+
+	
+	<div id="s1" class = "sec4">
+		<h3>PHPUnitとは</h3>
+
+		PHPUnitとはPHPのユニットテスト用のPHPライブラリであり、
+		PHPのクラス単位でテストを行う。<br>
+		<br>
+		
+		PHP Unitはどんなソースコードでもテストできるわけではない。<br>
+		ある程度テストしやすい設計が求められている。<br>
+		なるべくクラスは他のクラスと疎結合であるとテストしやすくなる。<br>
+		<br>
+		
+		PHP Unitを利用するからといって、テスト作業がすべて自動化されるわけではない。<br>
+		PHP Unitも「<a href="#s198" class="livipage">テストの原則</a>」則っている。<br>
+		そのため、テストコードを書かねばならず、時間もかかる。<br>
+		<br>
+		
+		PHPUnitと手動テストは互いに得意、不得意があるので、
+		PHPUnitだけに頼るのでなく、場所によっては手動テストを行い、使い分けるのが良い。<br>
+		<br>
+		
+		PHP Unitのテストコードは複雑にならないようにしなければならない。<br>
+		何をしているかすぐに分からないテストコードは、開発コストを高くする。<br>
+		<br>
+		
+		<p>メリット</p>
+		数値を少し変えて繰り返し行うようなテストに効果的である。<br>
+		修正をしたあと、PHPUnitを実行して他の個所に影響がないか確かめることができる。<br>
+		品質をある程度数値化するのに役に立つ。<br>
+		プログラマーとっては手動テストよりも、やりがいがあるテスト手法である。<br>
+		<br>
+		
+		
+		<p>デメリット</p>
+		PHPUnitではテストできない箇所がある。<br>
+		テストコードを書かねばならない。<br>
+		ソースコードの設計によっては、不十分なテスト結果しか出せない。<br>
+		<br>
+		
+		<p>テストできないケース</p>
+		どうしてもPHPUnitではテストできない箇所もある。<br>
+		テストできない箇所
+		<ul>
+			<li>javascriptまわり</li>
+			<li>privateメソッド</li>
+		</ul>
+		<br>
+		
+	</div>
+
+
+
+	
+	
+
+
+	<div id="s2" class = "sec4" >
+		<h3>CakePHPに同梱されているPHPUnitを動かしてみる</h3>
+		
+		PHPUnitはCakePHPに最初から同梱されている場合がある。<br>
+		この場合、ConmoserやPEARを使用してインストールする作業は不要になる。<br>
+		<br>
+		
+		テストの実行方法は以下のURLにアクセスするだけである。<br>
+		<pre>http://localhost/hello_okinawa/test.php</pre>
+		<aside>※ローカル環境(localhost)でプロジェクト名が「hello_okinawa」である場合。</aside>
+		<br>
+		
+		以下の画面が表示された場合、PHPUnitは動作している。<br>
+		<img src="img/s2.png" class = "img-responsive gakubuti" />
+		<aside>
+			※テストクラスファイルを一つも作成していない場合の表示である。<br>
+			1つ以上のテストクラスを作成をしている場合、テスト実行リンクが表示される。
+		</aside>
+		<br>
+		
+		「Missing Controller」などのエラーが表示された場合は、ComposerでPHPUnitをインストールする必要がある。<br>
+		<br>
+	</div>
+
+
+
+	
+	
+
+
+
+
+
+	
+	
+
+
+	<div id="s100" class = "sec4" >
+		<h4>通常画面にテスト項目画面を表示させる</h4>
+		
+		通常画面であるViewのctpファイルにテスト項目画面を出力することができる。<br>
+		<br>
+		
+		test.ctp<br>
+		<pre>
+&lt;? php
+App::import('vendor', 'vendor/autoload'); // ※<a href="#s110" class="livipage">bootstrap.phpに記述している場合</a>は不要。
+require_once CAKE . 'TestSuite' . DS . 'CakeTestSuiteDispatcher.php';
+CakeTestSuiteDispatcher::run();
+?&gt;
+		</pre>
+	</div>
+
+
+
+	
+	
+
+
+	<div id="s110" class = "sec4" >
+		<h4>「App::import('vendor', 'vendor/autoload');」について</h4>
+		<br>
+		<pre>App::import('vendor', 'vendor/autoload');</pre>
+		このコードは、Composerでインストールしたすべてのライブラリを使用可能にする。<br>
+		通常は「app/Config/bootstrap.php」に記述する。<br>
+		このコードは1回だけ呼び出せばよく、bootstrap.phpに記述しておけば各所で記述する必要がなくなる。<br>
+		<br>
+		
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="s120" class = "sec4" >
+		<h4>よく使うアサーション</h4>
+		
+		よく使うと思われるアサーション関数を列挙する。
+		<table class="tbl2">
+			<thead>
+				<tr><th>アサーション関数</th><th>判定方法</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>assertNull($variable)</td><td>$variable が null である</td></tr>
+				<tr><td>assertEquals($expected,$actual)</td><td>$expected と $actual が等しい。</td></tr>
+				<tr><td>assertSame(($expected,$actual)</td><td>$expected と $actual は型も含めて等しい。</td></tr>
+				<tr><td>assertTrue($condition)</td><td>$condition は true である</td></tr>
+				<tr><td>assertFalse($condition)</td><td>$condition は false である</td></tr>
+		
+			</tbody>
+		</table>
+		<br>
+		
+		<p>参考リンク</p>
+		<a href="https://phpunit.de/manual/current/ja/appendixes.assertions.html#appendixes.assertions.assertFalse" target="brank">公式ドキュメント：付録Aアサーション</a><br>
+		<a href="http://qiita.com/rev84/items/12fbd16d210d6a86eff9" target="blank">Qiita PHPUnitの主なAssertメソッド一覧</a><br>
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="s125" class = "sec4" >
+		<h4>テストクラスの基本クラスの種類</h4>
+		
+		<table class="tbl2">
+			<thead>
+				<tr><th>基本クラス</th><th>説明</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>PHPUnit_Framework_TestCase</td>
+					<td>PHPUnitの基本テストクラス。通常、一般的なテストクラスは、このクラスを継承する。</td>
+				</tr>
+				
+				<tr>
+					<td>CakeTestCase</td>
+					<td>CakePHPに特化した基本テストクラス。<br>
+					PHPUnit_Framework_TestCaseを継承して拡張している。<br>
+					PHPUnitではなくCakePHPが用意している基本テストクラスである。</td>
+				</tr>
+				
+				<tr>
+					<td>ControllerTestCase</td>
+					<td>CakePHPのコントローラに特化した基本テストクラス。<br>
+					CakePHPコントローラのテストクラスを作るとき、この基本クラスを継承する。<br>
+				</tr>
+				
+				<tr><td>PHPUnit_Extensions_PerformanceTestCase</td><td>パフォーマンスが関わってくるテスト。指定時間に処理が終わっているかを確認できる。</td></tr>
+				<tr><td>PHPUnit_Extensions_OutputTestCase</td><td>出力を確認できる。</td></tr>
+				<tr><td>PHPUnit_Extensions_Database_TestCase</td><td>データベースまわり用。</td></tr>
+		
+			</tbody>
+		</table>
+	</div>
+
+
+
+	
+	
+
+
+	<div id="s4" class = "sec4" >
+		<h3>テストクラスの作り方と実行方法</h3>
+		
+		PHP Unitではクラス１つに対してテストクラスを1つ作成し、テストクラスにテストコードを記述する。<br>
+		テストコードはテスト対象クラスのpublicメソッドごとに記述する。<br>
+		CakePHPのモデルクラスであるFish.phpを例に、テストクラスの作成、テストコードの書き方、テスト実行方法の手順を示する。<br>
+		<br>
+		
+		
+		
+		Fish.php
+		<pre>
+	&lt;?php
+	App::uses('Model', 'Model');
+	
+	class Fish extends Model {
+	
+		public $name='Fish';
+		public $useTable = false;
+		public $validate = null;
+		
+		public function getName1(){
+			return 'グルクン';
+		}
+		
+		public function getValue1(){
+			return 999;
+		}
+	}
+		</pre>
+		<br>
+		
+		<p>手順：Fish.phpのテストクラス作成、テストコード記述、テスト実行</p>
+		<ol class="list_large">
+			<li>
+				テストクラス「FishTest.php」を作成する。<br>
+				「hello_okinawa/app/Test/Case/Model」にFishTest.phpファイルを作成する。<br>
+				テストファイル名はテスト対象クラス名にTestの文字を付け加える必要がある。<br>
+				<pre>「クラス名 + Test.php」</pre>
+				<img src="img/s4-2-1.png" class="img_compact_k" />
+				<img src="img/s4-2-2.png" class="img_compact_k" />
+			</li>
+			
+			<li>
+				FishTest.phpに以下のテストコードを記述する。
+				<pre>
+	&lt;?php
+	App::uses('Fish', 'Model');
+	
+	class FishTest extends CakeTestCase  {
+	
+	    // テストの準備
+	    public function setUp() {
+	        $this-&gt;Fish = new Fish;
+	        parent::setUp();
+	    }
+	    
+	    // テスト終了後の片づけ
+	    public function tearDown() {
+	        unset($this-&gt;Fish);
+	        parent::tearDown();
+	    }
+	
+	    public function testGetName1() {
+	    	
+	        $res = $this-&gt;Fish-&gt;getName1();
+	        $this-&gt;assertEquals('グルクン', $res);
+	    }
+	
+	    public function testGetValue1() {
+	    	
+	        $res = $this-&gt;Fish-&gt;getValue1();
+	        $this-&gt;assertEquals(999, $res);
+	    }
+	}				
+				</pre>
+				<input type="button" value="テストコードの書き方" class="btn btn-info btn-xs" onclick="$('#s4-2').toggle(500)" />
+				<div id="s4-2" style="display:none">
+					<p>class FishTest extends CakeTestCase  {</p>
+					テストクラスでは「CakeTestCase」を継承する。<br>
+					CakeTestCaseはCakephp専用のPHPUnit基本クラスである。基本クラスには他にもいくつか種類がある。<br>
+					(<a href="#s125" class="livipage">テストクラスの基本クラスの種類</a>)<br>
+					<br>
+					
+					<p>public function setUp() {</p>
+					テストコードを実行する前に呼び出される準備処理である。<br>
+					テスト対象クラスのインスタンスを生成など、テスト前の設定を行う。<br>
+					<br>
+					
+					<p>public function tearDown() {</p>
+					テストコードを実行が終わった後に呼び出される片づけ処理である。<br>
+					<br>
+					
+					<p>public function testGetName1() {</p>
+					実際のテストコードである。
+					テスト対象クラスのpublicメソッド１つに対し、1つのテスト用メソッド作成する。<br>
+					テスト用メソッドの名前は、getName1メソッドならtestを先頭に付け加えtestGetName1という名称にする。<br>
+					<pre>テスト用メソッド名 → <strong>test + メソッド名（先頭大文字）</strong></pre>
+					<br>
+					
+					
+					<p>$this->assertEquals('グルクン', $res);</p>
+					この部分はアサーションと呼ぶ。<br>
+					アサーションでは予想値と実測値が一致しているか調べ、テスト画面に結果を表示する。<br>
+					<pre>$this->assertEquals(予測値, 実測値);</pre>
+					アサーションは多数の種類が存座する。
+					(<a href="#s120" class="livipage">参考：よく使うアサーション</a>)<br>
+					<br>
+					
+					
+				</div>
+			</li>
+			
+			
+			<li>
+				これでテスト準備は終わりましたので、テスト実行画面を開く。<br>
+				テスト実行画面には以下のURLからアクセスできる。<br>
+				<pre>http://localhost/hello_okinawa/test.php</pre>
+				<img src="img/s4-3.png" class="img_compact_k" />
+			</li>
+			
+			
+			<li>
+				「Model/Fish」をクリックしてテストを実行する。<br>
+				エラーがなければ緑色のバーが表示され、
+				エラーであれば赤色のバーが表示される。<br>
+				<img src="img/s4-4.png" class="img_compact_k" />
+				<img src="img/s4-4-2.png" class="img_compact_k" />
+			</li>
+			
+			
+		</ol>
+	</div>
+	
+
+
+	
+
+
+	<div id="s5" class = "sec4">
+		<h3>PHP Unit でできるテストについて</h3>
+		
+		<div id="s5-1"><p>CakePHPのコントローラをテスト</p>
+		PHP Unitはコントローラをクラス単位でテストできる。<br>
+		コントローラはHTTPリクエストやセッションと多くの関わりを持つ。<br>
+		そのためテストコードはコントローラならではの書き方が存在する。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-2"><p>CakePHPのモデルをテスト</p>
+		PHP Unitはモデルをクラス単位でテストできる。<br>
+		モデルのメソッドはたいていの場合、データベースとの結びついている。<br>
+		そのためテストコードは、データベースまわりならではの書き方がある。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-3"><p>CakePHPのビューをテスト</p>
+		レイアウト崩れはPHP Unitでテストできない。<br>
+		指定の文字が表示されているかはテスト可能である。<br>
+		また、オリジナルヘルパーのテストも可能である。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-4"><p>ブラウザのリロードによる二重登録テスト</p>
+		入力画面や編集画面からの登録結果画面では二重登録のバグが出てくるかもしれません。<br>
+		登録結果画面※を表示したときにF5キーを押してブラウザをリロードを行い、二重登録がされてないかテストする。<br>
+		PHPUnitでテストする場合、少し工夫が必要である。<br>
+		<aside>
+			※ 入力画面でDB保存をするボタンを押した直後に表示される画面
+		</aside>
+		<br></div>
+		
+		
+		
+		<div id="s5-5"><p>セッション切れのテスト</p>
+		セッションに入っているデータにより、振る舞いの異なる画面では、セッションに関するテストが必要である。<br>
+		PHP Unitでセッションまわりのテストを行う場合、少し工夫が必要である。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-6"><p>様々なブラウザでテスト</p>
+		Chrome,Firefox,Opera,Internet Explorer，SafariなどでレイアウトやJavascriptまわりを中心にテストする。<br>
+		ブラウザ間の違いを厳密になくそうとするのは困難であるので、ある程度の妥協は必要である。<br>
+		PHPUnitはサーバーサイドであるPHPのテストなので、このテストは対象外である。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-7"><p>セキュリティのテスト</p>
+		クレジット情報など個人情報が漏れる可能性がないか、よく調査する。<br>
+		漏らされる可能がある問題に、XSS（クロスサイトスクリプティング）、DBインジェクションなどがある。<br>
+		非常に重要な部分ということもあり、PHPUnitだけでなく手動テストでの確認も必要である。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-8"><p>認証機能のテスト</p>
+		認証を必要とするページに、認証せずにページにアクセスできるかテストする。<br>
+		PHP Unitでもできないことはないだが、準備が大変である。<br>
+		なので、手動でテストした方がよいと思われる。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-9"><p>レイアウトまわりのテスト</p>
+		レイアウトの崩れがないかテストをする。<br>
+		PHP Unitでは全く対応できないテストであるので、手動テストで確認する。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-10"><p>負荷テスト</p>
+		大量アクセスにどこまで耐えられるかテストする。<br>
+		PHP Unitでは非対応である。<br>
+		WEBツールに専用のテストツールが存在するので利用できる。<br>
+		<br></div>
+		
+		
+		
+		<div id="s5-11"><p>マルチスレッド、並列処理、排他制御のテスト</p>
+		複数のスレッドによる同時アクセステストである。<br>
+		データベースの同時更新や、ファイル同時書き出しなどを中心にテストする。<br>
+		PHP Unitでは非対応である。<br>
+		WEBツールに専用のテストツールが存在するので利用できる。<br>
+		<br></div>
+		
+		
+		
+	</div>
+	
+
+
+
+	
+	
+
+
+<div id="s6-0" class = "sec4" >
+	<h3>コントローラのテスト</h3>
+	
+	PHPUnitでCakePHPのコントローラをテストすることができる。<br>
+	基本的なテストの方法は、testAction関数でページを呼出し、そのページのテキストに指定の文字列が含まれているかテストする。<br>
+	<br>
+	
+	<p>注意</p>
+	コントローラでは、末尾に「$this->render();」付け加える必要がある。<br>
+	これがなくても最低限な動作確認はできますが、ページ内のテキストは取得できないため、詳細な検証はできなくなる。<br>
+	<br>
+	
+	
+	<p>テストコントローラの配置場所</p>
+	「app/Test/Case/Controller」にテストコントローラを配置する。<br>
+	<img src="img/s6-0-1.png"  class="img_compact_k" /><br>
+	<br>
+	
+	<p>テスト対象のコントローラ</p>
+	<pre>
+	class FishController extends AppController {
+		public $name = 'fish';
+	
+		function test1(){
+	
+			<strong>$this-&gt;render();</strong>
+		}
+	
+	}
+	</pre><br>
+	
+	
+	<p>テストコントローラ</p>
+	<pre>
+	class FishControllerTest extends ControllerTestCase {
+
+		public function testTest() {
+			
+	 		$result=$this-><strong>testAction</strong>('/fish/test1');
+			debug($result);//出力のみ
+			$this->assertTextContains('Fish', $result);
+	
+		}
+	
+	}
+	</pre><br>
+	
+	testAction関数でテスト対象コントローラを動かす。<br>
+	debug関数はコンソールとtest.phpの結果ページにページ内のテキストを出力する。出力のみで検証はしない。<br>
+	assertTextContains関数はテキスト内に指定の文字列が含まれているかテストする。<br>
+	<br>
+	
+	<p>test.php</p>
+	「http://localhost/hello_okinawa/app/webroot/test.php」でテスト実行する。<br>
+	<img src="img/s6-0-2-1.png" class="img_compact_k" />
+	<img src="img/s6-0-2-2.png" class="img_compact_k" />
+	<aside>もちろん<a href="/sample_and_quality/make_good/make_good.html">MakeGood</a>でもテスト可能である。</aside>
+	<br>
+	
+	<p>参考リンク</p>
+	<ul>
+		<li><a href="http://book.cakephp.org/2.0/ja/development/testing.html#id23" target="brank" >公式ドキュメント</a></li>
+		<li><a href="http://j-caw.co.jp/blog/?p=1015" target="brank" >CakePHPのControllerの画面遷移のユニットテストってどうやるの</a></li>
+		<li><a href="http://d.hatena.ne.jp/fullkawa/20120616/p1" target="brank" >Controllerのテストを書くときに気をつけること</a></li>
+	</ul>
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s6-1" class = "sec4" >
+	<h4>コントローラテストでPOSTデータを渡す方法</h4>
+	
+	コントローラをテストする際、テスト用のPOSTデータをセットすることができる。<br>
+	<br>
+	
+	<p>テスト対象のコントローラ</p>
+	<pre>
+	class FishController extends AppController {
+		public $name = 'fish';
+	
+		function test2(){
+			
+			$key1='none';
+			if(!empty($this-&gt;request-&gt;data['Fish'])){
+				$data = $this-&gt;request-&gt;data['Fish'];
+				$key1 = $data['key1'];
+			}
+			
+			$this-&gt;set(array('key1'=&gt;$key1));
+			$this-&gt;render();
+		}
+	
+	}
+	</pre><br>
+	
+	
+	<p>テストコントローラ</p>
+	<pre>
+	class FishControllerTest extends ControllerTestCase {
+
+		public function testTest2() {
+			$data = array(
+					'Fish' =&gt; array(
+							'key1' =&gt; 'hello world',
+					)
+			);
+			$result = $this-&gt;testAction(
+					'/fish/test2',
+					<strong>array('data' =&gt; $data, 'method' =&gt; 'post')</strong>
+					);
+			debug($result);
+	
+			$this-&gt;assertTextContains('hello world', $result);
+		
+		}
+	
+	}
+	</pre><br>
+	postをgetと書き換えるだけで、getパラメータをセットすることができる。<br>
+	<pre>array('data' => $data, 'method' => '<strong>get</strong>')</pre>
+	<br>
+	
+	
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id23" target="brank">公式ドキュメント</a><br>
+	<br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s6-2" class = "sec4" >
+	<h4>コントローラテストでリダイレクトをテスト</h4>
+	
+	PHPUnitでリダイレクトが含まれるコードをテストすることは可能だが、コーディングの際にルールがある。<br>
+	「$this->redirect」にはreturnを付けなければならない。returnがない場合、「$this->redirect」以降の処理まで実行してしまう。<br>
+	<br>
+	
+	<pre><strong>return</strong> $this->redirect(array('action' => 'index'));</pre>
+	<br>
+	
+	また、リダイレクト先のページ内容は取得できないが、リダイレクト先のURLは取得できる。<br>
+	リダイレクト先が予想値と一致するかアサーションコードを記述する。<br>
+	<br>
+	
+	<p>テスト対象のコントローラ</p>
+	<pre>
+	class FishController extends AppController {
+		function test3(){
+			$this-&gt;redirect(array('action' =&gt; 'test3_r'));
+		}
+		
+		function test3_r(){
+		
+		}
+	}
+	</pre><br>
+	
+	
+	<p>テストコントローラ</p>
+	<pre>
+	class FishControllerTest extends ControllerTestCase {
+		$this-&gt;testAction('/fish/test3');
+		$this-&gt;assertContains('/test3_r', $this-&gt;headers['Location']);// リダイレクト先ページが「test3_r」であるかテストする。
+	}
+	</pre><br>
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id23" target="brank">公式ドキュメント</a><br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s6-3" class = "sec4" >
+	<h4>コントローラテストでセッションを渡す方法</h4>
+	
+	PHPUnitはブラウザ主体でなくコンソール主体のテストである。
+	そのためセッションが使えない。<br>
+	だが、ControllerTestCaseクラスにはモックという機能がある。
+	モックにセッションデータを仮セットすることによりテスト実行できる。<br>
+	<aside>※ テスト実行が終わったら、仮のセッションデータは破棄される。</aside>
+	<br>
+	
+
+	
+	<p>テスト対象のコントローラ</p>
+	<pre>
+	class FishController extends AppController {
+		function test4(){
+			$msg = <strong>$this-&gt;Session-&gt;read('test4_fish');</strong>
+			$this-&gt;set(array('msg'=&gt;$msg));
+			$this-&gt;render();
+		}
+	}
+	</pre><br>
+	
+	
+	<p>テストコントローラ</p>
+	<pre>
+	class FishControllerTest extends ControllerTestCase {
+		public function testTest4() {
+	
+			// モックをセット
+			$this-&gt;controller = $this-&gt;generate('<strong>Fish</strong>', array(
+					'components' =&gt; array(
+							'Session',
+					)
+			));
+	
+			// モックにセッションデータを仮セット
+			$this-&gt;controller-&gt;Session-&gt;expects($this-&gt;any())
+				-&gt;method('read')
+				-&gt;will($this-&gt;returnValueMap(<strong>[['test4_fish', '勝連城']]</strong>));
+			
+			$result = $this-&gt;testAction('/fish/test4');
+			debug($result);
+			$this-&gt;assertTextContains('勝連城', $result);
+		
+		}
+	}
+	</pre><br>
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id25" target="brank">公式ドキュメント</a><br>
+	<a href="http://blog.open.tokyo.jp/2013/09/13/cakephp-2.html" target="brank">CakePHPのコントローラテストで注意すること</a><br>
+	
+</div>
+	
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+<div id="s7-0" class = "sec4" >
+	<h3>DBと結びついたモデルをテストする</h3>
+	CakePHPのモデルはほとんどの場合、データベースと結びついている。<br>
+	データベースと結びついたモデルのメソッドは、SELECT文の参照系と、 INSERT,UPDATE,DELETEの更新系に分けられる。<br>
+	<br>
+	
+	参照系に関しては、特に難しいことはなく、テスト実測値とデータベースから取得したデータをアサーションで比較すればよい。<br>
+	<br>
+	
+
+	<p>テストコードの例（参照系）</p>
+	モデル
+	<pre>
+	App::uses('Model', 'Model');
+
+	class Fish extends Model {
+	
+		public $name='Fish';
+	
+		public function <strong>getRec</strong>($id){
+			
+			$conditions=array(
+					"id = {$id}",
+			);
+			
+			$data=$this-&gt;find('all',array(
+					'conditions'=&gt;$conditions,
+			));
+			
+			return $data;
+		}
+	}
+	</pre><br>
+	
+	テストコード
+	<pre>
+	App::uses('Fish', 'Model');
+	
+	class FishTest extends CakeTestCase  {
+	
+		public function <strong>testUpdateRec</strong>(){
+			$this-&gt;Fish-&gt;begin();//トランザクション開始
+			
+			$res=$this-&gt;Fish-&gt;<strong>updateRec</strong>(2,"トビウオ");//テスト実施
+			
+			debug($res);
+			$this-&gt;Fish-&gt;rollback();// ロールバック
+	
+			$this-&gt;assertEquals(2, $res['Fish']['id']);
+			$this-&gt;assertEquals("トビウオ", $res['Fish']['fish_name']);
+			
+		}
+	}
+	</pre><br>
+	
+	<p>更新系のテストについて</p>
+	更新系は、データベースを更新するため1回しかテストできないという事態に陥りやすい。<br>
+	PHPUnitは何度もテスト実行するものなので、テスト後データを戻すという必要がある。（<a href="#s7-2" class="livipage">DB登録系のモデルのメソッドをテストする方法</a>を参照）<br>
+	しかし<a href="#s7-1" class="livipage">フィクスチャ</a>という仮データ機能を利用すれば、テスト後、データを戻す作業は不要になる。<br>
+	<br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-1" class = "sec4" >
+	<h4>フィクスチャとは</h4>
+	
+	フィクスチャとは、DBの代わりに仮データを提供する機能である。<br>
+	テストデータはDBにではなく、フィクスチャに記述する。<br>
+	そのフィクスチャをテストクラスに組み込むと、DBから取得および更新する処理をテストする際、フィクスチャに記述されているデータを参照する。<br>
+	<br>
+	
+	
+	<p>フィクスチャのメリット</p>
+	仮のテストデータでテストができる。<br>
+	DB更新系処理をテストする場合、データを元に戻す必要がない。<br>
+	DB側にテストデータを投入する手間が省ける。<br>
+	<br>
+		
+	
+	<p>フィクスチャのデメリット</p>
+	MakeGoodプラグインではフィクスチャが使えない。<br>
+	app/Config/database.php にある $test に別のデータベースを用意する必要がある。<br>
+	フィクスチャを作成して仮データを用意するのは手間である。<br>
+	<br>
+	
+	
+	<p>フィクスチャを使うには</p>
+	フィクスチャを使う前に、app/Config/database.php にある $test に別のデータベースを定義する必要がある。<br>
+	$testに設定するデータベースは実際に利用しているデータベースとは別にしなければならない。<br>
+	このデータベースはフィクスチャが内部的に利用しているようである。<br>
+	詳しくは「<a href="#s7-1-1" class="livipage">フィクスチャを使う前の準備</a>」を参考<br>
+	<br>
+	
+	準備ができたらフィクスチャを作成し、仮データを記述する。<br>
+	そしてテストクラスは、作成したフィクスチャを組み込み設定する。<br>
+	以上でテスト実行すると、DBデータを参照せず、フィクスチャのデータを参照するようになる。<br>
+	詳しくは「<a href="#s7-1-2" class="livipage">フィクスチャの作成方法とテストクラスの書き方</a>」を参考。<br>
+	<br>
+	
+	<p>参考リンク</p>
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id15" target="brank">公式ドキュメント：フィクスチャ</a><br>
+	<br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-1-1" class = "sec4" >
+	<h4>フィクスチャを使う前の準備</h4>
+	
+	フィクスチャを使う前に、テスト用のデータベースを登録する必要がある。<br>
+	テスト用のデータベースはフィクスチャが内部で利用しているようなので、通常設定のデータベースとは別にデータベースを用意すること。<br>
+	また、CakePHPはデバッグモードにする。<br>
+	<br>
+	
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>
+			「app/Config/core.php」を開き、デバッグモードにする。
+			<pre>Configure::write('debug', <strong>2</strong>);</pre>
+			1または2にする。0はデバッグモードOFF。
+		</li>
+		<li>実際のデータベースとは別にテスト用のデータベースを用意する。</li>
+		<li>「app/Config/database.php」を開く</li>
+		<li>
+			「public $test ～」にテスト用データベースの設定を記述する。<br>
+			<br>
+			
+			database.php
+			<pre>
+class DATABASE_CONFIG {
+	public $default = array(
+			'datasource' => 'Database/Mysql',
+			'persistent' => false,
+			'host' => 'localhost',
+			'login' => 'root',
+			'password' => 'xxxxxx',
+			'database' => 'hello_okinawa',
+			'prefix' => '',
+			'encoding' => 'utf8',
+	);
+	
+	public <strong>$test</strong> = array(
+			'datasource' => 'Database/Mysql',
+			'persistent' => false,
+			'host' => 'localhost',
+			'login' => 'root',
+			'password' => 'xxxxxx',
+			'database' => 'hello_okinawa_test',
+			'prefix' => '',
+			'encoding' => 'utf8',
+	);
+	～　省略　～
+			</pre>
+		</li>
+		<li>
+			以上の準備でフィクスチャを作成できるようになる。<br>
+			フィクスチャの作成方法については
+			「<a href="#s7-1-2" class="livipage">フィクスチャの作成方法とテストクラスの書き方</a>」を参考。
+		</li>
+	</ol>
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-1-2" class = "sec4" >
+	<h4>フィクスチャの作成方法とテストクラスの書き方</h4>
+	
+	基本的な流れは、フィクスチャを作成してから、各テストファイルに使用するフィクスチャを設定するという流れである。<br>
+	<br>
+	
+	
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>
+			「app/Test/Fixture」フォルダにフィクスチャをPHPファイルとして作成する。<br>
+			fishテーブルのフィクスチャを作成する場合、フィクスチャは「FishFixture.php」となる。
+			<aside>※ nekosテーブルならNekoFixture.php</aside>
+			<img src="img/s7-1-2a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			フィクスチャに仮データ等を記述する。
+			<pre>
+	class FishFixture extends <strong>CakeTestFixture</strong> {
+	
+		// 異なるテスト用データソースにフィクスチャを読み込む時にこのプロパティを指定してください。
+		public $useDbConfig = 'test';
+	
+		public <strong>$import</strong> = 'Fish';// DBのfishテーブルからフィールド情報をインポートする。
+	
+		// 仮データをセットする
+		public <strong>$records</strong> = array(
+				array(
+						'id' =&gt; 1,
+						'fish_name' =&gt; 'First Fish',
+						'fish_date' =&gt; '2007-03-01',
+						'value1' =&gt; '10',
+				),
+				array(
+						'id' =&gt; 2,
+						'fish_name' =&gt; 'kani',
+						'fish_date' =&gt; '2007-03-02',
+						'value1' =&gt; '20',
+				),
+				array(
+						'id' =&gt; 3,
+						'fish_name' =&gt; 'サメ',
+						'fish_date' =&gt; '2007-03-03',
+						'value1' =&gt; '30',
+				),
+				array(
+						'id' =&gt; 4,
+						'fish_name' =&gt; 'グルクン',
+						'fish_date' =&gt; '2007-03-04',
+						'value1' =&gt; '40',
+				),
+		);
+		
+		// 動的な仮データをセットしたい場合は、こちらのメソッドでセットする
+		public function init() {
+			$this-&gt;records[3]['fish_date'] = date('Y-m-d');
+	
+			parent::init();
+		}
+	}
+			</pre>
+		</li>
+		
+		<li>
+			以上でフィクスチャーの作成は終了。続いてテストコードにフィクスチャを適用させる方法へ。
+		</li>
+		
+		<li>
+			テストコードの「$fixtures」メンバに、適用するフィクスチャをセットするだけである。
+			<pre>
+	App::uses('Fish', 'Model');
+	class FishTest extends CakeTestCase  {
+	
+		<strong>public $fixtures = array('app.fish');</strong>// フィクスチャをセットする。
+	
+		public function setUp() {
+			//$this-&gt;Fish = new Fish;
+			parent::setUp();
+			$this-&gt;Fish = ClassRegistry::init('Fish');
+		}
+	
+		public function tearDown() {
+			unset($this-&gt;Fish);
+			parent::tearDown();
+		}
+		
+		// 更新系メソッドのテストコード
+		public function testUpdateRec(){
+			
+			$this-&gt;Fish-&gt;begin();//トランザクション開始
+			$res=$this-&gt;Fish-&gt;updateRec(2,"トビウオ");//テスト実施
+			debug($res);
+			$this-&gt;Fish-&gt;rollback();// ロールバック
+			$this-&gt;assertEquals(2, $res['Fish']['id']);
+			$this-&gt;assertEquals("トビウオ", $res['Fish']['fish_name']);
+	
+		}
+	}
+			</pre>
+		</li>
+		<li>
+			以上でテスト実行したとき、フィクスチャでセットした仮データからテストデータを取得するようになる。
+			<aside>※MakeGoodプラグインではフィクスチャからでなく、通常のデータベースから値を取ってくるので注意</aside>
+		</li>
+	
+	</ol>
+	<br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id15" target="brank">公式ドキュメント：フィクスチャ</a>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-2" class = "sec4" >
+	<h4>DB登録系のモデルのメソッドをテストする方法</h4>
+	
+	PHPUnitは繰り返し何度もテストする仕様である。<br>
+	そのため、１回しかテストできないというテストコードは避けるべきである。<br>
+	DBまわりをテストする場合、１回の実施でDBにデータが登録されてしまい、2回目のテスト実施ができなくなるという事態になるかもしれない。<br>
+	そのため、繰り返しテストができるよう、テストで変更したデータを元に戻す処理がテストコードに必要になる。<br>
+	元に戻す処理はトランザクションのロールバックを使うのが一番簡単である。<br>
+	<br>
+	
+	モデルがトランザクションを使わず、即コミットするような仕様である場合、テストするのは難しくなる。<br>
+	この場合、SQLのDELETEやUPDATEを駆使し、テストで変更したデータを元に戻さねばならない。<br>
+	トランザクションも考慮しておらず、複雑な登録処理をしているモデルは、データを元に戻すだけでも非常に困難であり、危険も伴う。<br>
+	なので、こういったモデルはPHPUnitでテストすべきでない。<br>
+	<br>
+	
+	
+	
+	更新系メソッドにはsave()とsaveAll()があるが、それぞれ動きは違うためテスト方法も異なる。<br>
+	詳しくは「<a href="#s7-3" class="livipage">saveとsaveAllの違い、およびトランザクション有無によるテスト難易度</a>」を参考。<br>
+	<br>
+	
+	以下にモデルのINSERT系処理とUPDATE系処理のテストコード記述例を示す。<br>
+	<ul>
+		<li><a href="#s7-2-1" class="livipage">モデルのINSERT系メソッドをテストする</a></li>
+		<li><a href="#s7-2-2" class="livipage">モデルのUPDATE系メソッドをテストする</a></li>
+	</ul>
+	<br>
+	
+	
+
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-2-1" class = "sec4" >
+	<h5>モデルのINSERT系メソッドをテストする</h5>
+	
+	<p>モデル</p>
+	<pre>
+	App::uses('Model', 'Model');
+	class Fish extends Model {
+		public $name='Fish';
+		public function insertRec($fish_name){
+			
+			$rec=array(
+					'fish_name' =&gt; $fish_name,
+					'fish_date' =&gt; date('Y-m-d'),
+					'value1' =&gt; 6,
+			);
+			
+			$res=$this-&gt;save($rec, array('atomic' =&gt; false));
+		
+			return $res;
+			
+		}
+	}
+	</pre>
+	<br>
+	
+	<p>テストコード</p>
+	<pre>
+	App::uses('Fish', 'Model');
+	class FishTest extends CakeTestCase  {
+	
+	    // テストの準備
+	    public function setUp() {
+	        //$this-&gt;Fish = new Fish;
+	        parent::setUp();
+	        $this-&gt;Fish = ClassRegistry::init('Fish');
+	    }
+	    
+	    // テスト終了後の片づけ
+	    public function tearDown() {
+	        unset($this-&gt;Fish);
+	        parent::tearDown();
+	    }
+	    
+	    public function <strong>testInsertRec</strong>(){
+	    	$this-&gt;Fish-&gt;begin();//トランザクション開始
+	    	$res=$this-&gt;Fish-&gt;insertRec("カツオ");//テスト実施
+	    	debug($res);
+	    	$this-&gt;Fish-&gt;rollback();// ロールバック
+	    	$this-&gt;assertEquals("カツオ", $res['Fish']['fish_name']);
+	    }
+	}
+	</pre>
+	
+	DB更新系のテストはトランザクション内で行い、ロールバックで戻すのが基本である。<br>
+	<br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-2-2" class = "sec4" >
+	<h5>モデルのUPDATE系メソッドをテストする</h5>
+	
+	<p>モデル</p>
+	<pre>
+	App::uses('Model', 'Model');
+	class Fish extends Model {
+	
+		public $name='Fish';
+	
+		public function updateRec($id,$fish_name){
+			$rec=array(
+					'id' =&gt; $id,
+					'fish_name' =&gt; $fish_name,
+					'fish_date' =&gt; date('Y-m-d'),
+					'value1' =&gt; 6,
+			);
+			$res=$this-&gt;save($rec, array('atomic' =&gt; false));
+			return $res;
+		}
+	}
+	</pre>
+	<br>
+	
+	<p>テストコード</p>
+	<pre>
+	App::uses('Fish', 'Model');
+	class FishTest extends CakeTestCase  {
+		// テストの準備
+		public function setUp() {
+			//$this->Fish = new Fish;
+			parent::setUp();
+			$this->Fish = ClassRegistry::init('Fish');
+		}
+		
+		// テスト終了後の片づけ
+		public function tearDown() {
+			unset($this->Fish);
+			parent::tearDown();
+		}
+		
+		public function <strong>testUpdateRec</strong>(){
+			$this->Fish->begin();//トランザクション開始
+			$res=$this->Fish->updateRec(2,"トビウオ");//テスト実施
+			debug($res);
+			$this->Fish->rollback();// ロールバック
+			$this->assertEquals(2, $res['Fish']['id']);
+			$this->assertEquals("トビウオ", $res['Fish']['fish_name']);
+		}
+	}
+	</pre>
+	
+	DB更新系のテストはトランザクション内で行い、ロールバックで戻すのが基本である。<br>
+	<br>
+	
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s7-3" class = "sec4" >
+	<h4>saveとsaveAllの違い、およびトランザクション有無によるテスト難易度</h4>
+	
+	<aside>※ <a href="#s7-1" class="livipage">フィクスチャ</a>を使わない場合</aside>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>テスト難易度</th><th>save,saveAll</th><th> トランザクション</th><th>例</th><th>レスポンス</th><th>テストについて</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+			<td>○</td>
+			<td>save</td>
+			<td>有り</td>
+			<td><pre>$res=$this->save($rec, array('atomic' => false));</pre></td>
+			<td>$res=更新データの配列</td>
+			<td>1行更新用。更新したデータがレスポンスとして取得できる上、ロールバックもできるのでテストがとてもしやすい。</td>
+			</tr>
+
+			<tr>
+			<td>△</td>
+			<td>save</td>
+			<td>無し</td>
+			<td><pre>$res=$this->save($rec);</pre></td>
+			<td>$res=更新データの配列</td>
+			<td>1行更新用。更新したデータがレスポンスとして取得できるが、ロールバックはできない。テストコードでデータを戻すときはSQLのdeleteやupdateを使わなければならない。</td>
+			</tr>
+
+			<tr>
+			<td>△</td>
+			<td>saveAll</td>
+			<td>有り</td>
+			<td><pre>$res=$this->saveAll($data, array('atomic' => false));</pre></td>
+			<td>$res=true</td>
+			<td>複数行の更新用。レスポンスはtrueかfalseなので、更新したデータはSQLのselect文で取らねばならない。ロールバックはできるのでテストはしやすい。</td>
+			</tr>
+
+			<tr>
+			<td>×</td>
+			<td>saveAll</td>
+			<td>無し</td>
+			<td><pre>$res=$this->saveAll($data);</pre></td>
+			<td>$res=true</td>
+			<td>複数行の更新の上、ロールバックが効かない。複数行のデータを元に戻すのは危険が伴う上、たいへんである。PHPUnitではテストしないほうがよい。</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<br>
+	
+	トランザクションが有効か無効かで、テストコードの書きやすさは全く違ってくる。<br>
+	なのでsave,saveAllをソースコードに書くときは、「array('atomic' => false)」を指定し、トランザクションに対応させること。<br>
+	<br>
+	
+	ただし、<a href="#s7-1" class="livipage">フィクスチャ</a>を利用している場合、トランザクションに対応させてなくても、テスト後のデータを元に戻すのは容易である。<br>
+	というよりデータを元に戻すことを考える必要はない。<br>
+	<br>
+	
+</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+<div id="s8" class = "sec4" >
+	<h4>テストスイートで まとめてテストを実行する</h4>
+	
+	まとめてテストを実行するには、テストスイートを作成する。<br>
+	テストスイートはtest.phpの画面から実行できる。<br>
+	<br>
+
+	<p>テストスイートの作成手順</p>
+	<ol class="list_large">
+		<li>
+			app/Test/Caseに「AllTestsTest.php」を作成する。<br>
+			<img src="img/s8a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			AllTestsTest.phpに下記のソースコードを記述する。（そのままコピペで良い）
+			<pre>
+	&lt;?php
+	class <strong>AllTestsTest</strong> extends CakeTestSuite {
+	    public static function suite() {
+	        $suite = new CakeTestSuite('All tests');
+	        $suite-&gt;addTestDirectoryRecursive(TESTS . 'Case');
+	        return $suite;
+	    }
+	}
+			</pre>
+		</li>
+		
+		<li>以上でテストスイートは完成。つづいてテストスイートでまとめてテストを実行する方法へ。</li>
+		
+		<li>
+			test.phpにアクセスする。<br>
+			<br>
+			例<pre>http://localhost/hello_okinawa/app/webroot/test.php</pre>
+		</li>
+		
+		<li>
+			「AllTests」リンクをクリックすれば、まとめてテストが実行される。<br>
+			<img src="img/s8a5-1.png" class="img_compact_k" />
+			<img src="img/s8a5-2.png" class="img_compact_k" />
+		</li>
+
+	</ol>
+	<br>
+	
+	<p>モデルのみ実行するテストスイート</p>
+	AllModelTest.php
+	<pre>
+	&lt;?php
+	class AllModelTest extends CakeTestSuite {
+		public static function suite() {
+			$suite = new CakeTestSuite('All model tests');
+			$suite-&gt;addTestDirectory(TESTS . 'Case/Model');
+			return $suite;
+		}
+	}
+	</pre>
+	<aside>※ 配置場所はAllTestｓTest.phpと同じフォルダ</aside>
+	<br>
+	
+	<p>参考リンク</p>
+	<a href="http://book.cakephp.org/2.0/ja/development/testing.html#id29" target="brank">公式ドキュメント：テストスイート</a>
+</div>
+	
+
+
+
+	
+	
+
+
+<div id="s9" class = "sec4" >
+	<h3>テスト計測の指標 | コードカバレッジ</h3>
+	
+	PHPUnitにはコードカバレッジという、テストがどのくらいなされているか計測する指標がある。<br>
+	<br>
+
+	コードカバレッジは、テストコードがテスト対象のソースコードをどのくらい網羅しているかを表す網羅率である。<br>
+	つまり、コードカバレッジが高いほど、十分にテストがなされているということである。<br>
+	<br>
+	
+	コードカバレッジは0%～100%での数値であるため、品質を図る指標の一つとすることができる。<br>
+	<br>
+	
+	
+	<p>注意</p>
+	コードカバレッジが100%でも、テストは不十分であるケースがある。<br>
+	また、100%でなくとも十分テストができている場合がある。<br>
+	なのでコードカバレッジは目安として認識する必要がある。<br>
+	コードカバレッジは、だいたい80%くらいあればよいと言われている。<br>
+	<br>
+	
+	
+	<p>コードカバレッジを確認する手順</p>
+	
+	<ol class="list_large">
+		<li>
+			テスト実行画面のtest.phpにアクセスする。
+			<pre class="kata">http://localhost/hello_okinawa/test.php</pre>
+		</li>
+		
+		<li>
+			テスト対象を選びテストを実行する。<br>
+			<img src="img/s9a2.png"  class="img_compact_k" />
+		</li>
+		
+		<li>
+		
+			「Analyze Code Coverage」をクリックするとコードカバレッジを確認できる。<br><br>
+			<img src="img/s9a3-1.png"  class="img_compact_k" />
+			<br>
+			
+			<pre>FishController.php Code coverage: 48.72%</pre><br>
+			<img src="img/s9a3-2.png"  class="img_compact_k" /><br>
+			例の場合、コードカバレッジは48.72%なのでテストは不十分といえる。<br>
+			<br>
+			
+			<aside>
+				※「FishController.php Code coverage: 48.72%」リンクからテストされていないコードが確認できる。<br>
+				テストされていないソースコードは赤、テストされているコードは緑で表示されている。<br>
+				<img src="img/s9a3-3.png"  class="img_compact_k" />
+			</aside>
+		</li>
+
+	</ol>
+	<br>
+	
+	
+	
+
+	
+	
+	
+	<time>2016-6-16</time>
+</div>
+
+	
+
+
+
+	
+	
+
+
+
+
+
+
+	
+	
+
+
+	<div id="s198" class = "sec4" >
+		<h3>テストの原則</h3>
+		真のテストとは、テスト担当者の頭の中で、あらゆる予測を立てながら行うものであり、ツールの中だけで行うものではない。<br>
+		また、完全なテストというものは存在せず、完全無欠な品質を作り出すことは不可能である。<br>
+		「何をして、どうなったのか」の積み重ねにより、品質を高めることはできる。<br>
+		<br>
+		
+		
+		PHPUnitは、テスト担当者の知識をもとに行うテストフレームワークである。<br>
+		PHPUnitはテストに役立つ関数とフレームワークを提供しているだけである。<br>
+		どのようにテストを行うかはテスト担当者に任されている。<br>
+		とはいえ、テストにはある程度の共通するパターンがある。<br>
+		詳しくは下記のテストパターンのヒントを参照。<br>
+		<br>
+		
+		
+		
+		<p>テストパターンのヒント</p>
+		<ul>
+			<li><a href="#s201" class="livipage" >境界値テスト</a></li>
+			<li><a href="#s202" class="livipage" >コードカバレッジ | パターンの網羅</a></li>
+			<li><a href="#s203" class="livipage" >同値分割</a></li>
+			<li style="margin-top:10px"><a href="#s200-1" class="livipage">文字列系のテスト入力パターン</a></li>
+			<li><a href="#s200-2" class="livipage">数値系のテスト入力パターン</a></li>
+			<li><a href="#s200-3" class="livipage">日付型のテスト入力パターン</a></li>
+			<li><a href="#s200-4" class="livipage">bool系のテスト入力パターン</a></li>
+			<li><a href="#s200-5" class="livipage">計算系のテストパターン</a></li>
+			<li><a href="#s200-6" class="livipage">電話番号のテスト入力パターン</a></li>
+			<li style="margin-top:10px"><a href="#s5-4" class="livipage">ブラウザのリロードによる二重登録テスト</a></li>
+			<li><a href="#s5-5" class="livipage">セッション切れのテスト</a></li>
+			<li><a href="#s5-6" class="livipage">様々なブラウザでテスト</a></li>
+			<li><a href="#s5-7" class="livipage">セキュリティのテスト</a></li>
+			<li><a href="#s5-8" class="livipage">認証機能のテスト</a></li>
+			<li><a href="#s5-9" class="livipage">レイアウトまわりのテスト</a></li>
+			<li><a href="#s5-10" class="livipage">負荷テスト</a></li>
+			<li><a href="#s5-11" class="livipage">マルチスレッド、並列処理、排他制御のテスト</a></li>
+		</ul>
+	</div>
+
+
+
+	
+	
+
+
+	<div id="s200" class = "sec4" >
+		<h4>テストで入力する値のパターン</h4>
+
+		<div id="s200-1" style="margin-top:50px"><p>文字列系のテスト入力パターン</p>
+		<ul>
+			<li>NULLの時</li>
+			<li>空文字 "" の時</li>
+			<li>半角英数字の時</li>
+			<li>日本語の時</li>
+			<li>前後に半角スペースが付いている時</li>
+			<li>半角スペースのみである場合</li>
+			<li>改行コードが含まれる時</li>
+			<li>長い文字列である時</li>
+			<li>XSSを引き起こす文字列の時</li>
+			<li>SQLインジェクションを引き起こす文字列の時</li>
+			<li>記号の時</li>
+			<li>アスキーアートの時</li>
+		</ul>
+		</div>
+		
+		<div id="s200-2" style="margin-top:50px"><p>数値系のテスト入力パターン</p>
+		<ul>
+			<li>数値でない時</li>
+			<li>NULLの時</li>
+			<li>0の時</li>
+			<li>境界値の時(2から5まで受け付ける処理なら、境界値である1,2,5,6でテスト）</li>
+			<li>負値の時</li>
+			<li>小数値の時</li>
+			<li>範囲外の時（int型の場合、-2,147,483,648以下、2,147,483,647以上）</li>
+			<li>浮動小数で8桁を超える時(float型の7桁制限）</li>
+			<li>bool型の時(true,false)</li>
+			<li>文字列型数値の時</li>
+		</ul>
+		</div>
+		
+		
+		<div id="s200-3" style="margin-top:50px"><p>日付型のテスト入力パターン</p>
+		<ul>
+			<li>日付でない時</li>
+			<li>NULLの時</li>
+			<li>2月29日の時（閏年）</li>
+			<li>日時フォーマット(Y-m-d h:i:s)である時</li>
+			<li>日付フォーマット(Y-m-d)である時</li>
+			<li>時刻フォーマット(h:i:s)である時</li>
+			<li>日付のセパレータが「/」である時</li>
+			<li>存在しない日付である時（例：2016-4-31）</li>
+			<li>1970/1/1 00:00:00 より以前の時（UNIXタイムスタンプの開始値まわり）</li>
+			<li>2038-01-19 12:14:07を超える時（2038年問題）</li>
+		</ul>
+		</div>
+		
+		
+		<div id="s200-4" style="margin-top:50px"><p>bool系のテスト入力パターン</p>
+		<ul>
+			<li>falseまたはtrueの時</li>
+			<li>0または1の時</li>
+			<li>0と1以外の数値の時</li>
+			<li>NULLの時</li>
+		</ul>
+		</div>
+		
+		
+		<div id="s200-5" style="margin-top:50px"><p>計算系のテストパターン</p>
+		<ul>
+			<li>ゼロ除算が発生する入力値の時</li>
+			<li>浮動小数で桁落ちする時(float型の場合、7桁を超える値が計算過程や結果に出現する場合）</li>
+			<li>int型の最小および最大を超える時（計算過程や結果に最大、最小を超える状態になる場合）</li>
+		</ul>
+		</div>
+		
+		
+		<div id="s200-6" style="margin-top:50px"><p>電話番号のテスト入力パターン</p>
+		<ul>
+			<li>固定電話の時</li>
+			<li>携帯電話の時</li>
+			<li>PHSの時</li>
+			<li>IP電話の時</li>
+			<li>国際電話の時</li>
+		</ul>
+		</div>
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="s201" class = "sec4" >
+		<h4>境界値テスト</h4>
+		境界値テストとは、入力条件として「20未満」のような範囲指定があるとき、20の境界値である19,20,21を入力するテストである。<br>
+		境界値付近は、バグが集中しやすいため行われる。<br>
+		<br>
+		
+		数値や日付の範囲、上下、前後を判定する箇所でよく行われるテストである。<br>
+		また<a href="#s203" class="livipage">同値分割法</a>とセットで使われる。<br>
+		<br>
+		
+		境界値テストは境界値分析、限界値分析とも呼ばれる。<br>
+		<br>
+		
+		<p>PHPUnitで利用できる関数</p>
+		<table class="tbl2">
+			<thead>
+				<tr><th>アサーション関数</th><th>判定方法</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><strong>assertGreaterThan</strong>($expected,$actual)</td><td>$expected &lt; $actual である</td></tr>
+				<tr><td><strong>assertLessThan</strong>($expected,$actual)</td><td>$expected &gt; $actual</td></tr>
+				<tr><td><strong>assertGreaterThanOrEqual</strong>($expected,$actual)</td><td>$expected &lt;= $actual である</td></tr>
+				<tr><td><strong>assertLessThanOrEqual</strong>($expected,$actual)</td><td>$expected &gt;= $actual である</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="s202" class = "sec4" >
+		<h4>コードカバレッジ | パターンの網羅</h4>
+		コードカバレッジはパターンを分岐処理を網羅するテストである。<br>
+		命令網羅、分岐網羅、条件網羅の3種類が存在しており、条件の複雑さによって使い分ける。<br>
+		<br>
+		
+		
+		テストの精度は以下の比較の通りである。<br>
+		<pre>命令網羅 ＜ 分岐網羅 ＜ 条件網羅</pre>
+		ただし、精度が増すほどテストケースは多くなり、テスト量も増える。<br>
+		<br>
+		
+		
+		コードカバレッジには網羅率という概念が存在する。<br>
+		全パターンでテストすれば、100%である。
+		あまりにも条件が多い処理をテストする場合、網羅率を下げることも必要になる。<br>
+		<br>
+		
+		
+	
+		<h5>命令網羅</h5>
+		別名：ステートメントカバレッジ<br>
+		「平日、午前中は3割引き」という条件処理の場合、以下のパターンでのみテストする。<br>
+		<ul>
+			<li>3割引価格となるパターンでテスト</li>
+		</ul>
+		これだけで命令網羅率は100%になる。<br>
+		<br>
+		
+		
+		<p>定義</p>
+		プログラム中の主な<strong>命令</strong>を必ず一度は実行すること。<br>
+		<pre>
+if(...){
+	～ 主な命令処理 ～
+} else  {
+	～ どうでもいい処理 ～
+}
+		</pre>
+		「主な命令処理」だけ一回、テスト実施すればよく、それ以外の分岐は省略できる。<br>
+		<br>
+		
+		
+		<p>どのようなときに行うテストか？</p>
+		命令網羅は分岐網羅と似ているが、こちらは命令文に重きを置いている。<br>
+		主な命令処理以外の分岐が重要でないのなら、命令網羅を採用できる。<br>
+		例外処理(try ～ catch)に向いている。<br>
+		テストケースは最も少なくて楽だが、精度は低い。<br>
+		<br>
+		
+		
+		
+
+		<h5>分岐網羅</h5>
+		別名：ブランチカバレッジ<br>
+		「平日、午前中は3割引き」という条件処理の場合、以下のパターンを網羅したテストをする。<br>
+		<ul>
+			<li>3割引価格となるパターンで1回テスト</li>
+			<li>通常価格となるパターンで1回テスト</li>
+		</ul>
+		上記の2パターンを実施した場合、分岐網羅率100%となる。<br>
+		<br>
+		
+		
+		<p>定義</p>
+		プログラム中の条件分岐について、<strong>分岐</strong>を必ず一度は実行すること<br>
+		<pre>
+if(...){
+	～ 分岐処理1 ～
+} else if(...){
+	～ 分岐処理2 ～
+}
+		</pre>
+		「分岐処理1」と「分岐処理2」を最低1回はテスト実施する。<br>
+		<br>
+		
+		
+		<p>どのようなときに行うテストか？</p>
+		条件網羅と命令網羅の中間くらいのテストケース量と精度である。<br>
+		分岐条件が比較的シンプルであるときに採用できる。<br>
+		swich文のテストに向いている。<br>
+		<br>
+		
+		
+
+		
+		<h5>条件網羅</h5>
+		別名：コンディションカバレッジ<br>
+		なるべく全パターンを網羅する。<br>
+		「平日、午前中は3割引き」という条件処理の場合、以下の全パターンを網羅したテストをする。<br>
+
+		<table class="tbl2">
+			<thead>
+				<tr><th>平日/土日</th><th>午前/午後</th><th>割引/通常</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>平日である</td><td>午前中である</td><td>3割引価格</td></tr>
+				<tr><td>平日である</td><td>午後以降である</td><td>通常価格</td></tr>
+				<tr><td>土日である</td><td>午前中である</td><td>通常価格</td></tr>
+				<tr><td>土日である</td><td>午後以降である</td><td>通常価格</td></tr>
+		
+			</tbody>
+		</table>
+		上記の4パターンをすべて実施した場合、条件網羅率100%となる。<br>
+		<br>
+		
+		<p>定義</p>
+		プログラムの条件分岐について、組み合わせをすべて実施する。<br>
+		<pre>
+if( ～ 複雑な条件 ～){
+	...
+} else if ( ～ 複雑な条件 ～ )  {
+	...
+}
+		</pre>
+		<aside>※ 複雑な条件の例 → flg1 == 1 || val1 > 2 &amp;&amp; val2 !=null</aside>
+		複雑な条件を分解し、一つ一つ、すべて網羅するようにテストする。<br>
+		<br>
+
+
+		<p>どのようなときに行うテストか？</p>
+		AND条件、OR条件、大なり（＞）、小なり（＜）などの複雑な条件組み合わせなら、こちらを採用する。<br>
+		テストの精度は高いが、テストケースの量は多くなりたいへんである。<br>
+		<br>
+
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="s203" class = "sec4">
+		<h4>同値分割</h4>
+		同値分割はテストケースを減らすための手法である。<br>
+		<br>
+
+		出力が同値になる入力値をグループごとに分割する。<br>
+		それぞれのグループから任意の入力値を代表として1つ選び、テスト実施する手法である。<br>
+		通常、同値分割は<a href="#s201" class="livipage">境界値テスト</a>とセットで実施する。<br>
+		<br>
+		
+		
+		
+		「日付からキャンプ場料金を取得する」処理を例にした場合、全ての日付を網羅してテストする必要はない。<br>
+		4パターンの代表日付だけテストすれば済む。<br>
+		<br>
+		
+		
+		キャンプ場<br>
+		<table class="tbl2">
+			<thead>
+				<tr><th>月間</th><th>料金</th><th>代表の日付の例</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>7月～8月</td><td>割増料金</td><td>7月15日</td></tr>
+				<tr><td>9月～11月</td><td>通常料金</td><td>10月3日</td></tr>
+				<tr><td>12月～3月</td><td>休園</td><td>1月1日</td></tr>
+				<tr><td>4月～6月</td><td>通常料金</td><td>5月1日</td></tr>
+		
+			</tbody>
+		</table>
+		「7月～8月」の料金情報を取得するテストを行う場合、7月～8月から任意の日付を一つ選び、
+		その日付で1回テストすればよい。
+		<br>
+		
+	</div>
+	
+
+
+
+	
+	
+
+
+	<div id="sxxx" class = "sec4" style="display:none">
+		<h4>テンプレート</h4>
+	</div>
+	
+	
+	
+	<div style="width:auto;height:400px">
+	</div>
+
+
+
+
+
+	<ol class="breadcrumb">
+		<li><a href="/">ホーム</a></li>
+		<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+		<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+		<li>CakePHPのPHPUnit</li>
+	</ol>
+
+	<div id="footer">(C) kenji uehara 2015-5-18</div>
+
+	
+
+		
+
+
+</div><!-- container  -->
+</body>
+</html>

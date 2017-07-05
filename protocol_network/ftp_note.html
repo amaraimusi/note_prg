@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FTPの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>FTPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>FTPとは</h3>
+	FTPとは、ファイル送受信するための通信プロトコル。File Transfer Protocolの略。<br>
+	ホームページ用のファイルをサーバーにアップするときに利用される。<br>
+	<br>
+	
+	<p>HTTPとの比較</p>
+	HTTPと異なり、アップロードとダウンロードが自在にできる。<br>
+	転送速度はHTTPよりも若干速い。<br>
+	ただしセキュリティはHTTPより弱い。複数人により同時アクセスにも弱い。<br>
+	<br>
+	
+	<p>ポート</p>
+	ポートは2種類、21番と20番を利用する。<br>
+	21番ポートで制御コマンドを送受信し、20番ポートでデータ送受信する<br>
+	<br>
+
+	<br><time>2016-9-26</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>FTPのSSL暗号化通信 | ExplicitとImplicit</h3>
+
+	Explicit は AUTH SSLやAUTH TLSコマンドを発行した後にハンドシェイクして暗号化する。<br>
+	FTPの標準である21番ポートを使う。<br>
+	<aside>SSLハンドシェイクとは、SSLでデータを送信する前に行う通信処理のこと。</aside>
+	<br>
+	
+	Implicitはサーバーに接続したらすぐにハンドシェイクを開始。<br>
+	Implicitは990番ポートでSSLする。<br>
+	わざわざ異なるポートを利用するメリットもないようなのでImplicitは使わなくなりつつある。<br>
+	<br>
+	
+	
+	<a href="http://www.aconus.com/~oyaji/bbs/past/0010/B0006432.html" target="blank">参考</a><br>
+	<br>
+	
+	
+	<p>FFFTPでの設定</p>
+	「ホストの設定」画面の暗号化タブで暗号設定が可能。
+	<pre>FFTPを起動 → 一覧から対象接続先を選択 → 設定変更ボタン → 暗号化タブ → 「FTPS(Explicit)で接続」にチェック</pre>
+	<br>
+
+	<strong>暗号化設定しなかった場合</strong><br>
+	パスワードが盗み取られるかもしれない。<br>
+	以前、高速化するため、「暗号化なしで接続を許可」にチェックを入れていたが、あるとき見事にハッキングされてしまった。<br>
+	連休に入る直前にハッキングされたことから、かなり前からパスワード等を盗み取られてしまい、連休で留守の時をねらわれたようだ。<br>
+	<br>
+	
+	
+	
+	<br><time>2016-9-26</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/html/">HTMLの覚書</a></li>
+	<li>FTPの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-9-26</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　Composerの覚書</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+
+		<style>
+			#content{
+				margin-left:20px;
+			}
+			
+			.link_large li{
+				margin-bottom:40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Composerの覚書</h1>
+		<div id="content" >
+
+			<a href="https://getcomposer.org/" target="brank">公式サイト</a>
+
+			<h2>目次</h2>
+			<ol>
+				<li><a href="#s1">Composerの概要</a></li>
+				<li><a href="#s2">Composerの入手</a></li>
+				<li><a href="#s3">composer.pharとは</a></li>
+				<li><a href="#s4">composer.pharはどこに配置すべきか</a></li>
+				<li><a href="#s5">ライブラリをインストールする</a></li>
+				<li><a href="#s6">ライブラリを更新する</a></li>
+				<li><a href="#s7">ライブラリをプロジェクトに組み込む</a></li>
+				<li><a href="#s8">推奨:リポジトリ管理から外す</a></li>
+			</ol>
+		
+
+			<div id="s1" class="sec3">
+				<h3>Composerの概要</h3>
+				Composerはサードパーティ製ライブラリを<a href="https://packagist.org/" target="brank">packagist.org</a>というサイトから取ってきて、指定フォルダに一括インストールするプログラムである。<br>
+				プロジェクトへの組み込みも<a href="#s7" class="livipage">1行のコード</a>で組み込め、非常に簡単である。<br>
+				packagist.orgだけでなく、PEARやGitHubからインストールすることも可能である。<br>
+				<br>
+				
+			</div>
+			
+			
+			
+			
+			<div id="s2" class="sec3">
+				<h3>Composerの入手</h3>
+				公式サイトから<a href="https://getcomposer.org/download/" target="brank">Composer-Setup.exe</a>をダウンロードする。<br>
+				Composer-Setup.exeを実行すると「C:\ProgramData\ComposerSetup\bin」にいくつかのファイルされる。<br>
+				必要なのは「composer.phar」のみ。<br>
+				<br>
+			</div>
+			
+			
+			
+			
+			<div id="s3" class="sec3">
+			<h3>composer.pharとは</h3>
+				composer.pharとはComposerの本体であり実行ファイルである。<br>
+				コマンドプロンプトでphpコマンドを通して動かす。<br>
+				<br>
+			</div>
+			
+			
+			
+			
+			<div id="s4" class="sec3">
+				<h3>composer.pharはどこに配置すべきか？</h3>
+				自由に配置できる。<br>
+				ただし、composer.pharの配置場所はライブラリのインストール場所でもある。<br>
+				CakePHPの場合、appフォルダと同じ階層にあるvendorsフォルダにcomposer.phar配置したほうがよい。<br>
+				<br>
+			</div>
+			
+			
+			
+			
+			
+			<div id="s5" class="sec3">
+				<h3>ライブラリをインストールする</h3>
+				
+				各種サードパーティ製のライブラリをインストールする手順<br>
+				<br>
+				
+				<ol class="link_large">
+				<li>
+					appフォルダと同じ階層にあるvendorsフォルダにcomposer.phar配置する。
+					(参考：<a href="#s4" class="livipage">composer.pharはどこに配置すべきか？</a>)
+				</li>
+				
+				<li>
+					composer.jsonを作成し、インストールするライブラリの情報を書き込む。<br>
+					<p>composer.jsonの記述例</p>
+					<pre>
+{
+	"require": {
+		"phpunit/phpunit": "3.7.*",
+		"guzzlehttp/guzzle":"6.2"
+	}
+}
+					</pre>
+					<aside>
+						※ ２つのライブラリ、phpunitとguzzleをインストールする場合の設定例<br>
+						composer.jsonはただのテキストファイルなのでテキストエディタで作成できる。(utf-8で保存）<br>
+					</aside>
+					各種ライブラリは<a href="https://packagist.org/explore/" target="brank" >packagist.org</a>から選ぶ <br>
+					<br>
+
+					<a href="http://ameblo.jp/itboy/entry-11993937919.html" target="brank">参考サイト</a><br>
+					
+				</li>
+				
+				<li>コマンドプロンプトを起動する</li>
+				
+				<li>
+					コマンドプロンプトでcomposer.pharを配置しているディレクトリへ移動する。
+					<pre class="console">&gt;cd  C:\xampp\htdocs\cakedemo\vendors</pre>
+				</li>
+				
+				<li>
+					phpコマンドを通して「composer.phar install」を実行する。
+					<pre class="console">C:\xampp\php\php.exe composer.phar install</pre>
+					コマンド実行後、数十秒ほど待つとライブラリのインストールが始まる。
+				</li>
+				
+				<li>
+					以上でインストール終わり。<br>
+					ライブラリのインストール先はcomposer.pharが置いていあるフォルダと同じである。(vendorsにインストールされる）
+				</li>
+				</ol>
+				
+				<p>installコマンドは1回のみ</p>
+				installを1回実行後、もう一度実行するとエラーが表示されインストールできない。<br>
+				もう一度インストールするにはupdateコマンドを使うか、composer.lockとインストールしたライブラリを削除してからinstallコマンドを実行する。<br>
+				<br>
+				
+			</div>
+			
+			
+			
+			<div id="s6" class="sec3">
+				<h3>ライブラリを更新する</h3>
+				composer.lockが作成されている状態でないと実行できない。<br>
+				composer.lockはinstallコマンドを実行したときに作成される。<br>
+				<br>
+				以下のコマンドでライブラリを更新する
+				<pre class="console">C:\xampp\php\php.exe composer.phar update</pre>
+				<br>
+				
+				指定ライブラリだけを更新する場合
+				<pre class="console">C:\xampp\php\php.exe composer.phar update phpunit/phpunit</pre>
+				<br>
+				
+			</div>
+			
+
+			
+			<div id="s7" class="sec3">
+				<h3>ライブラリをプロジェクトに組み込む</h3>
+				autoload.phpを呼び出すだけである。<br>
+				以下のソースコードを書くだけで、インストールしたすべてのライブラリが使用可能になる。<br>
+				<pre>App::import('vendor', 'vendor/autoload');</pre>
+				<br>
+				
+				CakePHPならbootstrap.phpに記述してもよい。<br>
+				<br>
+			</div>
+			
+			
+			
+			<div id="s8" class="sec3">
+				<h3>推奨:リポジトリ管理から外す</h3>
+				Gitなどプロジェクトをリポジトリ管理している場合、
+				インストールしたライブラリをリポジトリ管理から外すこと。<br>
+				各種ライブラリをバージョンアップしたとき、リポジトリの更新情報に多数変更がでるためである。<br>
+				<br>
+				
+				<p>Eclipse + Git でリポジトリ管理外にする方法</p>
+				<ol>
+					<li> EclipseのPHP Explorerでリポジトリ管理外にするファイルまたはフォルダを右クリックする。</li>
+					<li> 「Team」→「Ignore]と操作する。</li>
+					<li>以上でリポジトリ管理外になる。</li>
+				</ol>
+			</div>
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec8-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<time>2016-4-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/php/">PHPの覚書目次</a></li>
+				<li>Composerの覚書</li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2016/4/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

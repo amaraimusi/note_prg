@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+			h2{
+				margin-top:70px;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div id="header" ><h1>Cake PHPの覚書</h1></div>
+		<div class="container">
+
+		
+			<h2 id="public">目次</h2>
+			<ol>
+				<li><a href="#attention_index">注目</a></li>
+				<li><a href="#public_note">一般</a></li>
+				<li><a href="#hash_index">Hash</a></li>
+				<li><a href="phpunit/note_phpunit.html">CakePHPのPHPUnit</a></li>
+
+			</ol>
+			
+			
+			
+
+			
+			<h2 id="attention_index">注目</h2>
+			<ol>
+				<li><a href="note4.html#sec4-2" >DBからデータを取得するコード</a></li>
+				<li><a href="note7.html#sec7-1" >Ajaxの雛型 | CakePHP,JSON,JQuery</a></li>
+			</ol>
+			
+			
+			<h2 id="public_note">一般</h2>
+			<ol>
+
+				<li><a href="note.html#sec1-0-5" >CakePHPを導入直後にやるべきこと</a></li>
+				<li><a href="note.html#sec1-1" >ビュー(ctp)を使わず直接コントローラから値を出力する方法</a></li>
+				<li><a href="note.html#sec1-2" >モデルでデータベースのテーブルと関連付けないようにする</a></li>
+				<li><a href="note.html#sec1-3" >コントローラ、ビュー、モデルをフォルダで階層化する設定方法</a></li>
+				<li><a href="note.html#sec1-4" >外部クラスを使う設定方法</a></li>
+				<li><a href="note.html#sec1-5" >関数ファイルを使う場合（クラスでない関数集ファイル）の設定</a></li>
+				<li><a href="note.html#sec1-6" >コントローラ側でPOSTからデータを取得する方法</a></li>
+				<li><a href="note.html#sec1-7" >コントローラで対応していないモデルを使う方法</a></li>
+				<li><a href="note.html#sec1-8" >SQLインジェクションとXSS（クロスサイトスクリプティング）のサニタイズ | Sanitize::clean(),Sanitize::html(),Sanitize::escape()</a></li>
+				<li><a href="note.html#sec1-10" >Noticeエラーを表示させない</a></li>
+				<li><a href="note.html#sec1-11" >セッション(session)へのデータ保存と読取</a></li>
+				<li><a href="note.html#sec1-12" >モデル名と異なるテーブルと関連付ける</a></li>
+				<li><a href="note.html#sec1-13" >デバッグのため、発行したSQLのログを画面に表示する</a></li>
+				<li><a href="note.html#sec1-14" >コンフィグ(Config)のデータを取得</a></li>
+				<li><a href="note.html#sec1-17" >複数行のPOST</a></li>
+				<li><a href="note.html#sec1-18" >Cake PHPのコアライブラリを別のディレクトリに配置する場合の設定方法</a></li>
+				<li><a href="note.html#sec1-19" >ローカル環境およびLAN環境でのDB設定</a></li>
+				<li><a href="note.html#sec1-20" >ページネーション</a></li>
+				<li><a href="note2.html#sec2-1" >WEBルート（パス）を取得</a></li>
+				<li><a href="note2.html#sec2-2" >サニタイズで変換された改行文字を元に戻す。</a></li>
+				<li><a href="note2.html#sec2-3" >別のアクションに遷移する方法</a></li>
+				<li><a href="note2.html#sec2-4" >jsファイルやcssファイルをインポートする</a></li>
+				<li><a href="note2.html#sec2-5" >GETからパラメータを受け取る</a></li>
+				<li><a href="note2.html#sec2-6" >デプロイ：書込権限に関するエラー：「tmp」まわりのエラー</a></li>
+				<li><a href="note2.html#sec2-7" >デプロイ：DBアクセスのエラー：「SQLSTATE[28000] [1045] Access denied for user ...」</a></li>
+				<li><a href="note2.html#sec2-8" >ログイン認証するとき、パスワードを暗号化する</a></li>
+				<li><a href="note2.html#sec2-9" >ルートパスの取得方法（絶対パスの取得）</a></li>
+				<li><a href="note2.html#sec2-10" >SQLをそのまま実行する</a></li>
+				<li><a href="note2.html#sec2-11" >デバッグ：トレース</a></li>
+				<li><a href="note2.html#sec2-12" >コントローラでモデルを使わない設定</a></li>
+				<li><a href="note2.html#sec2-13" >Cakeのマルチセレクト（select 複数選択）</a></li>
+				<li><a href="note2.html#sec2-14" >ログインできない場合(Cake2.4)</a></li>
+				<li><a href="note2.html#sec2-15" >シェルを動かす</a></li>
+				<li><a href="note2.html#sec2-16" >特定の画面をホーム（トップ）にする方法</a></li>
+				<li><a href="note2.html#sec2-17" >パンくずリストの記述法</a></li>
+				<li><a href="note2.html#sec2-18" >saveとsaveAllの違い</a></li>
+				<li><a href="note2.html#sec2-19" >Cakephpのファイルアップロード</a></li>
+				<li><a href="note2.html#sec2-20" >トランザクション | begin,rollback,commit</a></li>
+				<li><a href="note3.html#sec3-1" >アソシエーション | 結合モデルのデータ表示と更新 | hasMany</a></li>
+				<li><a href="note4.html#sec4-1" >コントローラでバリデーション情報（入力エラー情報）を取得する方法</a></li>
+				<li><a href="note4.html#sec4-2" >DBからデータを取得するコード</a></li>
+				<li><a href="note4.html#sec4-2-2" >DBからデータを取得するコード(JOIN)</a></li>
+				<li><a href="note4.html#sec4-2-3" >DBからエンティティを取得するひな形 | シンプル版</a></li>
+				<li><a href="note4.html#sec4-2-4" >findで実行するSQLを取得する</a></li>
+				<li><a href="note4.html#sec4-2-5" >SELECTフォーム用のデータをDBから取得するひな形</a></li>
+				<li><a href="note4.html#sec4-3" >ログインとユーザー認証 | 認証状態の確認および認証不要ページ</a></li>
+				<li><a href="note4.html#sec4-3-2" >Ajaxとログイン認証</a></li>
+				<li><a href="note4.html#sec4-4" >ラジオボタンのヘルパー</a></li>
+				<li><a href="note4.html#sec4-5" >IDに紐づく名称をセットする汎用ソースコード | JOINによる紐づけ</a></li>
+				<li><a href="note4.html#sec4-6" >簡易なXSSサニタイズ関数、h()の使い方　｜</a></li>
+				<li><a href="note4.html#sec4-7" >CakePHP:オリジナルヘルパー（自作ヘルパー）</a></li>
+				<li><a href="note4.html#sec4-8" >Cake:SQLインジェクション対策された文字を元に戻す。 | エスケープ解除</a></li>
+				<li><a href="note4.html#sec4-9" >CakePHPとbootstrapの連動</a></li>
+				<li><a href="note4.html#sec4-10" >DBから１つのレコードを削除 | delete</a></li>
+				<li><a href="note4.html#sec4-11" >DBから複数のレコードを削除 | deleteAll</a></li>
+				<li><a href="note5.html#sec5-1" >Formの基本構成とひな形 | HTMLヘルパー</a></li>
+				<li><a href="note5.html#sec5-1-2" >HTMLヘルパーでバリデーションを組み込む | pattern</a></li>
+				<li><a href="note5.html#sec5-2" >HTMLヘルパー | hidden</a></li>
+				<li><a href="note5.html#sec5-3" >ログインユーザー情報を取得 | Auth,UserId</a></li>
+				<li><a href="note5.html#sec5-4" >モデル生成 | ClassRegistry</a></li>
+				<li><a href="note5.html#sec5-5" >DBと直接結びつけない、且つコントローラ内でバリデーションを実装</a></li>
+				<li><a href="note5.html#sec5-6" >コントローラでバリデーション（2次元データ版）</a></li>
+				<li><a href="note5.html#sec5-7" >現在のURLを取得する</a></li>
+				<li><a href="note5.html#sec5-8" >SQLを直接実行する</a></li>
+				<li><a href="note5.html#sec5-9" >いろんなバリデーション</a></li>
+				<li><a href="note6.html#sec6-1" >リダイレクト | $this->redirect()</a></li>
+				<li><a href="note6.html#sec6-2" >CakePHP1.3とCakePHP2系のリクエストデータの違いを検証 | $this->data,$this->request->data</a></li>
+				<li><a href="note6.html#sec6-3" >遷移元URL リファラ | $this->referer()</a></li>
+				<li><a href="note6.html#sec6-4" >テキストエリアと改行コードについて | textarea,&yen;r&yen;n,&yen;&yen;r&yen;&yen;n,&amp;#13;</a></li>
+				<li><a href="note6.html#sec6-5" >サブミットボタンを配列として管理</a></li>
+				<li><a href="note6.html#sec6-6" >Cakemailのメールテンプレートをテストでプレビュー表示したい</a></li>
+				<li><a href="note6.html#sec6-7" >ビュー用便利ヘルパー | エンティティ内の値をいろいろ加工して出力 | オリジナルヘルパー,サニタイズ,金額表記,テキストエリア,有無フラグ,マッピング</a></li>
+				<li><a href="note6.html#sec6-9" >チェックボックスの配列から値を取得</a></li>
+				<li><a href="note6.html#sec6-10" >モデルクラスファイルなしでモデルのインスタンスを取得：ClassRegistry::init();</a></li>
+				<li><a href="note7.html#sec7-1" >Ajaxの雛型 | CakePHP,JSON,JQuery</a></li>
+				<li><a href="note7.html#sec7-1-1" >Ajaxの雛型その２</a></li>
+				<li><a href="note7.html#sec7-2" >ビューに共通用のビューを埋め込む | echo $this->element('test');</a></li>
+				<li><a href="note7.html#sec7-3" >クロスドメインによるAjax</a></li>
+				<li><a href="note7.html#sec7-5" >リダイレクトでパラメータを送る</a></li>
+				<li><a href="note7.html#sec7-6" >リンク、アンカーボタン、サブミットボタンのHTMLヘルパー | link,button,submit</a></li>
+				<li><a href="note7.html#sec7-7" >SQLをダンプしてデバッグする</a></li>
+				<li><a href="note7.html#sec7-8" >CakePHPで静的htmlを組み込む方法</a></li>
+				<li><a href="note7.html#sec7-9" >CakePHPエラー:システムのタイムゾーンの設定に依存することは安全ではありません</a></li>
+				<li><a href="note7.html#sec7-10" >メール送信 | CakeEmail</a></li>
+				<li><a href="note8.html#sec8-1" >セッションの保存先をDBへ</a></li>
+				<li><a href="note8.html#sec8-2" >キャッシュクリア</a></li>
+				<li><a href="note8.html#sec8-3" >デバッグモードの取得 | Configure::read('debug');</a></li>
+				<li><a href="note8.html#sec8-4" >セキュリティシードの変更 | Security.salt | Security.cipherSeed</a></li>
+				<li><a href="note8.html#sec8-5" >定数の使い方</a></li>
+				<li><a href="note8.html#sec8-6" >関数の入れ子をするとバグ：Class declarations may not be nested in ...</a></li>
+				<li><a href="note8.html#sec8-7" >アクションと関連付けるビューを変更する</a></li>
+				<li><a href="note8.html#sec8-8" >IN句条件の指定方法</a></li>
+				<li><a href="note8.html#sec8-9" >セッションが不安定になる問題</a></li>
+				<li><a href="note8.html#sec8-10" >複数のテキスト入力フォームを配列として定義する</a></li>
+				<li><a href="note9.html#sec9-1" >一括新規登録 | 一意フィールド指定型</a></li>
+				<li><a href="note9.html#sec9-2" >週の集計データを取得する</a></li>
+				<li><a href="note9.html#sec9-3" >CakePHPのバージョンを確認する方法</a></li>
+				<li><a href="note9.html#sec9-4" >FormHelperの拡張 | オリジナルヘルパー</a></li>
+				<li><a href="note9.html#sec9-5" >データベース名を指定して、DBを動的に切り替える</a></li>
+				<li><a href="note9.html#sec9-6" >各テーブルで共通するフィールドをセットする | setCommonToEntity</a></li>
+				<li><a href="note9.html#sec9-7" >テーブル名からモデル名に変換</a></li>
+				<li><a href="note9.html#sec9-8" >モデル名からテーブル名に変換する</a></li>
+				<li><a href="note9.html#sec9-9" >favicon.icoをCakePHPで設定する方法</a></li>
+
+			</ol>
+			
+			
+		
+			
+			<h2 id="hash_index">Hash</h2>
+			<ol>
+				<li><a href="note_hash.html#sec_h-1" >Hash:get() | パスを指定して配列から1つの値を取り出す</a></li>
+				<li><a href="note_hash.html#sec_h-2" >Hash::combine | 多重配列から構造変換した配列を取得</a></li>
+				<li><a href="note_hash.html#sec_h-3" >Hash::exitract | 多重配列から必要な情報だけを抽出</a></li>
+				<li><a href="note_hash.html#sec_h-4" >Hash::insert | 配列にキーやパスを指定して値を挿入する</a></li>
+				<li><a href="note_hash.html#sec_h-5" >Hash::remove | パスに該当する値を削除する</a></li>
+				<li><a href="note_hash.html#sec_h-6" >Hash::format | フォーマットされた文字を返す</a></li>
+				<li><a href="note_hash.html#sec_h-7" >Hash::flatten | 多次元配列を1次元配列化する</a></li>
+				<li><a href="note_hash.html#sec_h-8" >Hash::expand | カンマ区切りのキーを分解して多次元配列化する</a></li>
+				<li><a href="note_hash.html#sec_h-9" >Hash::merge | 2つの配列をマージして1つにまとめる</a></li>
+				<li><a href="note_hash.html#sec_h-10" >Hash::dimensions | 先頭から次元数を取得する</a></li>
+				<li><a href="note_hash.html#sec_h-11" >Hash::maxDimensions | 最大の次元数を取得する</a></li>
+				<li><a href="note_hash.html#sec_h-12" >Hash::sort | パスで指定した値で並べ替える</a></li>
+				<li><a href="note_hash.html#sec_h-13" >Hash::normalize | diff 2つの配列から差分を抽出</a></li>
+			</ol>
+		
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li>CakePHPの覚書目次</li>
+			</ol>
+			
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2014/4/24</div>
+	</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-1" class="sec1">
+	<h3>WEBルートを取得</h3>
+	WEBルートでパス指定すると、動的な階層のページから、別のページに遷移できるので便利。<br />
+	「../」などの相対パスではなく、絶対パスで指定可能である。<br />
+	<pre>
+	$editUrl=$this->Html->webroot.'rec?id='.$ent['id'];
+	echo "&lt; input type='button' value= '編集' onclick=\"location.href='{$editUrl}'\" />";
+	</pre><br /><br />
+
+	出力<br />
+	<pre>
+	&lt; input type='button' value= '編集' onclick="location.href='/nogyo2/rec?id=987'" />
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-2" class="sec1">
+	<h3>サニタイズで変換された改行文字を元に戻す。</h3>
+
+	SQLインジェクション対策およびXSS対策でサニタイズされてしまった改行コードを元に戻す方法。
+
+	<pre>
+	//XSS対策でサニタイズされた改行コードを元に戻す。
+	$v = str_replace ('\\r\\n', "\r\n", $v);
+
+	//SQLインジェクション対策でサニタイズされた改行コードを元に戻す。
+	$v = str_replace ('\\\r\\\n', "\r\n", $v);
+	</pre>
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-3" class="sec1">
+	<h3>別のアクションに遷移する方法</h3>
+	同コントロール内であれば別のアクションにリダイレクトせずに画面遷移できる。
+
+	<pre>
+	public function index(){
+		$this->setAction('dummy');//dummyアクションに遷移する。
+	}
+
+	public function dummy(){
+
+	}
+	</pre>
+	<a class="ref_link" href="http://oki2a24.com/2012/07/16/study-action-of-cakephp/">参照元</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-4" class="sec1">
+	<h3>JavaScriptファイルやCSSファイルをインポートする（組み込む）</h3>
+
+		webrootのjsフォルダ内に外部JSファイルを配置する。<br />
+		xxx.jsを配置する場合→ app/webroot/js/xxx.js<br />
+		<br />
+		View（ctpファイル）の先頭あたりに以下のコードを記述する。<br />
+		下記はneko.jsとyagi.jsをインポートする例。<br>
+		<pre>
+	$this->assign('script', $this->Html->script(array('neko','yagi')));
+		</pre><br><br>
+
+
+		別の方法
+		<pre>
+	echo $this->Html->script('xxx', array('inline' => false));
+		</pre>
+
+		<br />
+		「app/View/Layouts/default.ctp」のheadタグ内に以下のコードを記述。<br />
+		<pre>
+	&lt;?php echo $this->fetch('script'); ?>
+		</pre>
+		<br /><br />
+
+		<div class="hosoku">※フォルダ分けしたい場合。</div>
+		例：app/webroot/js/Neko/index.js<br />
+		<pre>
+	echo $this->Html->script('Neko/index', array('inline' => false));
+		</pre>
+
+
+	<hr>
+	<strong>CSSファイルをインポートする場合</strong>
+	「app\webroot\css\Test\xxx.css」をインポートする例
+	<pre>$this->assign('css', $this->Html->css(array('Test/xxx.css')));</pre>
+	<br><br>
+	HTMLとしてのコード出力はdefault.ctpの「$this->fetch('css');」で出力されている模様。未確認。
+	<pre>default.ctp → echo $this->fetch('css');</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-5" class="sec1">
+	<h3>GETからパラメータを受け取る</h3>
+
+	コントローラーにてGETからパラメータを受け取る場合、「$this->params['url']['xxx'];」で受け取れる。<br><br>
+	
+	GET用にクエリ２つ（testとtest2）を付加したURL<br>
+	<pre>http://localhost/animal/cat_list/?test=4&amp;test2=2</pre>
+	<br>
+	
+	コントローラーのアクション内にて、GETでパラメータ（クエリ）を取得する。
+	<pre>
+	$test=$this->params['url']['test'];
+	$test2=$this->params['url']['test2'];
+    </pre>
+	<aside>※CakePHP2.x系でもこちらが無難（2015年現在）</aside>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-6" class="sec1">
+	<h3>デプロイ：書込権限に関するエラー：「tmp」まわりのエラー</h3>
+
+	サーバー側で書込権限がないときの起こるエラーです。<br>
+	パーミッションを設定することでエラーを回避できます。<br>
+	パーミッションの設定はFFFTPなどで設定可能です。<br>
+	<br>
+	FFFTPを立ち上げ、サーバー側（右側）ウィンドウのフォルダやファイルを右クリックし、属性変更を選択。<br>
+	<img src="img/b6_1.png" /><br><br>
+
+	書込権限がない場合、以下のようになっているはず。<br>
+	<img src="img/b6_2.png" /><br><br>
+
+	書込にチェックを入れてOKを押す。「実行」もチェックを入れたが必要ないかも。<br>
+	<img src="img/b6_3.png" /><br><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-7" class="sec1">
+	<h3>デプロイ：DBアクセスのエラー：「SQLSTATE[28000] [1045] Access denied for user ...」</h3>
+	ホストやログイン名、パスワードが合っているのにシステム側からDBにアクセスできない場合、
+	MySQL側での設定に問題があることがあります。<br>
+	phpMyAdminを使っている場合、「特権」をいろいろ修正することにより治せるかもしれません。<br>
+
+	<a class="ref_link" href="http://www.phpbook.jp/tutorial/pdo/index6.html">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-8" class="sec1">
+	<h3>パスワードを暗号化する</h3>
+
+	<pre>
+	$password = 'test';
+	$ango=$this->Auth->password($password);//パスワードを暗号化する。
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-9" class="sec1">
+	<h3>ルートパスの取得方法（絶対パスの取得）</h3>
+	「$this->webroot;」を使う。<br>
+	例えば処理画面のURLが「http://localhost/sample/aaa/bbb/ccc」と深い階層化にある場合でも、「/sample/」の部分を返す。
+	<br><br><br>
+
+	コントローラーでの書き方<br>
+	<pre>
+	$path=$this->webroot;
+	</pre>
+
+	<br><br>
+	ビュー(ctp)での書き方<br>
+	<pre>
+	$path=$this->Html->webroot;
+
+	//もしくは・・・
+	$path=$this->Form->webroot;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-10" class="sec1">
+	<h3>SQLをそのまま実行する</h3>
+	SQL文を直接実行する方法は以下の通り。<br>SELECTだけでなく、UPDATE,INSERT,DELETEも可能。<br>
+	<pre>
+	$data=$this->Xxx->query("SELECT * FROM  `tests` WHERE test_name LIKE  'テスト%'");
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-11" class="sec1">
+	<h3>デバッグ：トレース</h3>
+
+	<pre>
+	echo Debugger::trace();
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-12" class="sec1">
+	<h3>コントローラでモデルを使わない設定</h3>
+	コントローラにvar $uses = false;をメンバとして追加するだけ。
+	<pre>
+	class TestMultiSelectController extends AppController {
+		public $name = 'TestMultiSelect';
+		var $uses = false;//★モデルを使わない。
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-13" class="sec1">
+	<h3>Cakeのマルチセレクト（select 複数選択）</h3>
+
+	<strong>ビュー    index.ctp</strong>
+	<pre>
+	&lt;?php
+
+	echo $this->Form->create('TestMultiSelect', array('url' => '#'));
+
+	//選択肢一覧
+	$sels = array('1' => 'ネコ', '2' => 'ネズミ', '3' => 'ウシ', '4' => 'トラ','5'=>'カニ','6'=>'カラス','7'=>'アグー');
+
+	//選択値 ※未選択にする場合はnullをセット
+	$ary=array('2','3','6');
+
+	//マルチセレクトを作成
+	echo $this->Form->input('test_list', array('type' => 'select',
+			'options' => $sels, 'multiple' => true,
+			'size' => 4, 'value' => $ary));
+
+
+	echo $this->Form->submit('サブミット');
+	echo $this->Form->end();
+
+	?>
+	</pre>
+	<br><br>
+
+	<strong>コントローラ</strong>
+	<pre>
+
+	App::uses('AppController', 'Controller');
+	class TestMultiSelectController extends AppController {
+		public $name = 'TestMultiSelect';
+
+		var $uses = false;
+
+	    public function index() {
+
+			//サブミットからデータを取得する。
+	    	if(isset($this->data['TestMultiSelect']['test_list'])){
+	    		Debugger::dump($this->data['TestMultiSelect']['test_list']);
+	    	}
+
+
+	    }
+
+
+	}
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-14" class="sec1">
+	<h3>ログインできない場合(Cake2.4)</h3>
+	Authを利用したログインができない場合があるようである。<br>
+	原因の一つにCake2.3で開発されたシステムをCake2.4で動かすとログインできない。<br>
+	パスワード※の暗号化方法が変わったことにあるらしい。<br>
+	<br>
+	<div class="hosoku">
+	※AuthのログインはまずユーザーIDでUserテーブル（任意で指定可）からレコードを取得し、
+	レコードのパスワードを暗号化して比較するようである。
+	</div>
+	<a class="ref_link" href="http://ultrah.zura.org/?p=8277">参照サイト</a>
+
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-15" class="sec1">
+	<h3>シェルを動かす</h3>
+	シェルは長い処理（バッチ処理）を内部で実行するときや、
+	定期的に指定時刻に自動実行する処理（Cron）などに使う。<br>
+	サーバー側や開発環境ではコンソール（コマンドプロンプト）から動かすことができる。<br>
+	<br>
+	今回はブラウザでシェルを動かす方法を以下に示す。<br>
+	方法はコントローラを通してシェルを動かすやり方。<br>
+
+	<hr>
+	シェルはAppShellを継承したクラスである。<br>
+	mainメソッドを用意するのがマナー。<br>
+	app/Console/Commandディレクトリにシェルクラスを作る。<br>
+	<pre>
+	class MyShell extends <span class="marker">AppShell</span> {
+		public function main() {
+			echo 'Shell Hello world!';
+			$this -> out( "Shell Hello world!");
+
+		}
+	}
+	</pre>
+	<br>
+	コントローラではAppShellとMyShellをインポートする。<br>
+	あとは普通のクラスと同様。<br>
+	<pre>
+	App::uses('AppController', 'Controller');
+	<span class="marker">App::uses('AppShell','Console/Command');</span>
+	<span class="marker">App::uses('MyShell','Console/Command');</span>
+	/**
+	 * シェルを動かす
+	 * ☆履歴
+	 * 2014/8/22	新規作成
+	 * @author k-uehara
+	 *
+	 */
+	class TestShellController extends AppController {
+		public $name = 'TestShell';
+		public $uses=null;//モデルを使わない。
+
+	    public function index() {
+
+
+	    	$shell = new <span class="marker">MyShell();</span>
+	    	$shell->initialize();//シェルの初期化。シェル内のusesなどの処理
+	    	$shell->main();//★シェル実行
+
+
+	    }
+
+
+}
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_shell">テスト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-16" class="sec1">
+	<h3>特定の画面をホームにする方法</h3>
+	NekoControllerの画面をホームにする場合、routes.phpを以下のように設定。<br>
+	<br>
+	<div>app/Config/routes.php</div>
+	<pre>
+	Router::connect('<span class="marker">/</span>', array('controller' => '<span class="marker">neko</span>', 'action' => 'index'));
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-17" class="sec1">
+	<h3>パンくずリストの記述法</h3>
+	パンくずリストはビューに記述する場合、addCrumbヘルパーメソッドを使えばよい。<br>
+	リンク化させないようにする場合はaddCrumbメソッドの第2引数を省略すればよい。<br>
+	<pre>
+	&lt;?php
+	$this-&gt;Html-&gt;addCrumb("ホーム", "/main");
+	$this-&gt;Html-&gt;addCrumb("猫", "/neko");
+	$this-&gt;Html-&gt;addCrumb("サンプルパンくず");
+	echo $this-&gt;Html-&gt;getCrumbs(" &gt; ");
+	?&gt;
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_crumb">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-18" class="sec1">
+	<h3>saveとsaveAllの違い</h3>
+
+	<ul>
+		<li>saveAllは複数レコードを一括保存するときに。</li>
+		<li>saveは一つのレコードを保存するときに。</li>
+	</ul>
+	
+	<p>UPDATEとINSERT</p>
+	saveAll,saveどちらも、idをセットすれば<strong>UPDATE</strong>文の処理を行い、idが未セットなら<strong>INSERT</strong>文の処理を行う。<br>
+	<br>
+	
+	<p>ループしながらsaveを連続して呼び出すときの注意</p>
+	saveを連続して呼び出すと不具合が生じる。<br>
+	ループしながら連続してsave()を呼び出す場合は、<strong>create</strong>()メソッドも呼び出すこと。<br>
+	<a class="ref_link" href="http://book.cakephp.org/2.0/ja/models/saving-your-data.html" >参考</a>
+	<br>
+	
+
+
+	<hr>
+	
+	<h4>saveAllのサンプル（トランザクション用）</h4>
+	<pre>
+	$this-&gt;begin();//トランザクション開始
+	try {
+		$rs=$this-&gt;saveAll($data, array('atomic' =&gt; false,'validate'=&gt;false));
+		//...他の保存処理・・・
+		$this-&gt;commit();//コミット
+	} catch (Exception $e) {
+		$this-&gt;rollback();//ロールバック
+		throw $e;
+	}
+	</pre>
+	<br>
+	
+	<h4>saveのサンプル</h4>
+	<pre>$rs = $this->save($ent, array('atomic' => false,'validate'=>'false'));</pre>
+
+	
+	<h4>オプションの説明</h4>
+	<table class="table">
+		<tr><td>atomic</td><td>true:トランザクション自動化 , false:トランザクション手動（begin～commitではさむ）</td></tr>
+		<tr><td>validate</td><td>true:バリデーション有効 , false:バリデーション無効</td></tr>
+	</table>
+	<br>
+	
+	
+	<p>DB保存に失敗する場合</p>
+	validate属性がtrueになっていると、バリデーションに引っかかり、保存されないことがある。
+	<pre>$rs = $this->save($ent, array('atomic' => false,'validate'=>'<strong>true</strong>'));</pre>
+	この場合、validate属性をfalseにするか、バリデーションまわりの修正を行うこと。<br>
+	<br>
+	
+	<p>アソシエーション</p>
+	saveAllはアソシエーションデータを保存することもできるようである。<br>
+	アソシエーションデータは複数のモデルを結合したデータのようで、JOINによるテーブル結合と似ている。<br>
+	ただ、アソシエーションデータは考えて使わないとすごく遅い処理になるので注意が必要である。<br>
+	<br>
+	　
+	DB保存関連は他にsaveManyやsaveAssociatedがあるが、いずれもsaveAllの内部に組み込まれている。<br>
+	<br>
+	<br>
+
+	<time>2013-9-3 | 2017-4-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-19" class="sec1">
+	<h3>Cakephpのファイルアップロード</h3>
+	Cakeのファイルアップロードも基本的な仕組みはプレーンなPHPと同じである。<br>
+	ただCakeはバリデーションが便利。<br>
+	ファイルサイズチェックやファイルの種類チェックが容易である。<br>
+
+	<hr>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_fileupload">サンプル</a>
+
+	<div>コントローラ：TestFileuploadController.php</div>
+	<pre>
+	class TestFileuploadController extends AppController {
+		public $name = 'TestFileupload';
+		public $uses=array('TestFileupload');
+
+
+		public function index() {
+
+			$img_fn=null;
+
+			//UPLOADボタンが押されたとき、以下の処理を行う。
+			if ($this->request->is('post')) {
+
+				//バリデーション（ファイルの種類や、ファイルサイズのチェック）
+				$this->TestFileupload->set($this->request->data['Neko']);
+				if ($this->TestFileupload->validates($this->request->data['Neko'])){
+
+					//アップロード画像ファイル情報を取得
+					$image = $this->request->data['Neko']['smp_img'];
+
+					//アップロードする画像ファイルの名前を指定する。
+					$img_fn="img/TestFileupload/sample.jpg";
+
+					//一時ファイルからコピー
+					move_uploaded_file($image['tmp_name'], $img_fn);
+
+				}else{
+					$errors=$this->TestFileupload->validationErrors;//入力チェックエラー情報を取得
+					Debugger::dump($errors);
+				}
+
+
+
+			}
+
+
+			$this->set(array(
+					'img_fn'=> $img_fn,
+			));
+
+		}
+
+
+	}
+	</pre>
+	<br>
+	<div>モデル：TestFileupload.php</div>
+	<pre>
+	App::uses('Model', 'Model');
+	class TestFileupload extends Model {
+
+		var $name='TestFileupload';
+		public $useTable = false;//テーブルを使わない
+
+		//バリデーション
+		public $validate = array(
+		   'smp_img'=>array(
+		      'exten' => array(
+		         //拡張子チェック
+		         'rule' => array('extension',array('jpg','jpeg','png')),
+		         'message' => 'jpg,jpeg,png以外のファイルはアップロードできません',
+		         'allowEmpty' => true,
+		      ),
+		      'img_size' => array(
+		         //画像サイズ制限
+		         'rule' => array('fileSize', '&lt;=', '1000000'),
+		         'message' => '画像サイズは1MBまでです',
+		      )
+		   ),
+		);
+	}
+	</pre>
+
+	<br>
+	<div>ビュー：index.ctp</div>
+	<pre>
+	&lt;h1&gt;Cakephpでのファイルアップロード&lt;/h1&gt;
+
+	&lt;?php echo $this-&gt;Form-&gt;create('Neko', array('type'=&gt;'file', 'enctype' =&gt; 'multipart/form-data'));?&gt;
+
+	&lt;?php  echo $this-&gt;Form-&gt;input('smp_img', array('label' =&gt; false, 'type' =&gt; 'file', 'multiple'));?&gt;
+
+	&lt;?php echo $this-&gt;Form-&gt;submit('UPLOAD');?&gt;
+
+	&lt;?php echo $this-&gt;Form-&gt;end()  ?&gt;
+
+
+	&lt;div&gt;
+	&lt;img src="&lt;?php echo $img_fn?&gt;" /&gt;
+	&lt;/div&gt;
+	</pre>
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-20" class="sec1" >
+	<h3>トランザクション</h3>
+	
+	複数のテーブルを更新する場合におけるトランザクションの応用例。<br>
+	更新処理にはINSERT,UPDATE,DELETEの3種類がある。<br>
+	begin～commit内に別モデルの更新処理が含まれていても、同一のトランザクションと見なされる。<br>
+	保存にはsaveAll()を使い、属性にatomic=>falseを指定
+	
+	<br>
+	<hr>
+	<strong>ソースコードその1</strong><span style="color:#c85261">　検証中・・・saveメソッドでもトランザクションはできるなど調べる必要あり</span><br>
+	<pre>
+	$this-&gt;Neko-&gt;begin();//トランザクション開始
+
+	//INSERT,UPDATE,DELETEの更新処理。saveAllメソッドでは「'atomic' => false」を指定する。省略可能？
+	$rs=$this->Neko->saveAll($dataA, array('atomic' => false,'validate'=>'true'));
+	if($rs==false){$this-&gt;Neko-&gt;rollback();return false;}
+	
+	//別テーブルのINSERT,UPDATE,DELETEの更新処理。
+	$rs=$this->Yagi->saveAll($dataB, array('atomic' => false,'validate'=>'true'));
+	if($rs==false){$this-&gt;Neko-&gt;rollback();return false;}
+	
+	$this-&gt;Neko-&gt;commit();//コミット
+	</pre>
+	<hr>
+	
+	<strong>ソースコードその2</strong><br>
+	<pre>
+	class Animal extends Model {
+
+
+		function saveAnimal($data,$option){
+				$this->begin();//トランザクション開始
+
+
+				//テーブルAへ更新処理（INSERT,UPDATE,DELETE)
+				$rs=$this->saveA($dataA);
+				if($rs==false){
+					$this->rollback();
+					return false;
+				}
+
+
+				//別モデルの更新処理もトランザクションの適用域に含まれる。
+				$rs=$this->Food->saveB($dataB);
+				if($rs==false){
+					$this->rollback();
+					return false;
+				}
+
+				$this->commit();//コミット
+
+				return true;
+		}
+
+
+	}
+	</pre>
+	<hr>
+
+	<strong>ソースコードその3</strong><br>
+	<pre>
+	$dataSource = $this->TestHasManyA->getDataSource();
+	$dataSource->begin();
+
+
+	$this->TestHasManyA->saveAll($this->request->data['TestHasManyA'],array(<span class="marker">'atomic'=>false</span>));
+	$errors=$this->TestHasManyA->validationErrors;//バリデーションによる入力エラー情報を取得
+
+	//別モデルの保存処理も、コミット、ロールバックの対象となる。
+
+	if (empty($errors)) {
+		$dataSource->commit();//コミット
+	} else {
+		$dataSource->rollback();//ロールバック
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-0" class="sec1" style="display:none">
+	<div class="title"></div>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

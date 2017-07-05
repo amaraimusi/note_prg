@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!-- template ver 2.0  -->
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Doxygenの使い方 | php,javaのソースからドキュメントを作成するツール</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script src="../js/jquery-1.11.1.min.js"></script>
+
+	</head>
+	
+	<body>
+		<div id="page1">
+		<h1 id="header">Doxygenの使い方 | php,javaのソースからドキュメントを作成するツール</h1>
+		<div id="content" >
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<h2 id="index">目次</h2>
+<ol>
+	<li><a href="#sec1-1" >紹介とダウンロード</a></li>
+	<li><a href="#sec1-2" >DoxygenをCakePHPで使う場合の設定</a></li>
+	<li><a href="#sec1-3" >Doxygenに合わせたコメントの書き方</a></li>
+	<li><a href="#sec1-4" >Doxygenのコマンド</a></li>
+	<li><a href="#sec1-5" >役立ちリンク</a></li>
+</ol>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1" class="sec1" >
+	<h3>紹介とダウンロード</h3>
+	DoxgenはC/C++ソースコードのコメントからドキュメントを生成するツールである。
+	現在は拡張されJava,PHP,C#などに対応している。<br>
+	<br>
+	ソースコードのコメント形式はいくつかあるが、Eclipseを使っている場合、javadoc形式を採用したほうがよい。<br>
+	
+	<h4>ダウンロードと導入</h4>
+	Windeowsであるならdoxygen-1.8.10-setup.exe (18.3MB)※を
+	<a href="http://www.stack.nl/~dimitri/doxygen/download.html" target="brank">ダウンロード(Doxygen)</a>
+	する。<br>
+	あとは通常のWindowsプログラムと同様にインストールするだけ。
+	<br>
+	<br>
+	<aside>※2015-12のバージョン</aside>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-2" class="sec1" >
+	<h3>DoxygenをCakePHPで使う場合の設定</h3>
+
+	<h4>① Wizard/Project ワークフォルダや、ソースコードフォルダ、出力先フォルダなどを設定する</h4>
+	<ol>
+		<li>「Step 1:Specify ...」の入力項目にワークフォルダのパスを入力します。作業用なので適当なフォルダで構いません。</li>
+		<li>左枠からWizardタグ→Topics→Projectと選択します。</li>
+		<li>右枠にいくつか設定します。</li>
+		<li>「Project name」にプロジェクト名を入力します。</li>
+		<li>「Project synopsis」や「Project version or id」は適当に入力します。</li>
+		<li>「Source code directory」にソースコードのフォルダを指定します。CakePHPなら「app」フォルダが適切です。</li>
+		<li>「Scan recursively」にチェックを入れます。</li>
+		<li>「Destination directory」にドキュメントの出力先フォルダを指定します。</li>
+		<li>入力が終わったら「Next」ボタンを押して、次の設定画面を開きます。</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-1').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-1" src="img_doxygen_note/sec1-2-1.png" style="display:none" />
+	
+	
+
+	<h4>② Wizard/Mode ソースコードのプログラム言語などを設定します。</h4>
+	<ol>
+		<li>「All Entities」を選択します。</li>
+		<li>「Include cross-refernced source ...」にチェックを入れます。（ソースコードをドキュメントに表示）</li>
+		<li>「Optimize for Cor PHP output」を選択します。</li>
+		<li>入力が終わったら「Next」ボタンを押して、次の設定画面を開きます。</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-2').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-2" src="img_doxygen_note/sec1-2-2.png" style="display:none" />
+	
+
+
+	<h4>③ Wizard/Output　ドキュメントの形式を設定します。</h4>
+	<ol>
+		<li>「HTML」にチェックを入れます。（HTML形式のドキュメントを出力）</li>
+		<li>「plain HTML」を選択します。</li>
+		<li>「With search function」にチェックを入れます。</li>
+		<li>PDFドキュメントは不要である場合、LaTeXのチェックをはずします。</li>
+		<li>入力が終わったら「Next」ボタンを押して、次の設定画面を開きます。</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-3').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-3" src="img_doxygen_note/sec1-2-3.png" style="display:none" />
+	
+	
+
+	<h4>④ Wizard/Diagrams ダイアグラム（図解）の設定</h4>
+	<ol>
+		<li>デフォルトの設定で問題ありません。デフォルトの「Use built-in class...」はクラス図の表示と思われます。</li>
+		<li>次は「Expert/input」でctpファイルやドキュメント対象外のフォルダを指定します。</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-4').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-4" src="img_doxygen_note/sec1-2-4.png" style="display:none" />
+	
+	
+
+	<h4>⑤ Expert/input　ctpファイルやドキュメント対象外のフォルダを指定</h4>
+	<ol>
+		<li>左枠にてExpertタブ→inputを選択します。</li>
+		<li>
+			「FILE_PATTERNS」のテキストボックスに「*.ctp」を追加して「＋」ボタンを押し、ctpファイルに対応させます。<br>
+			<img id="img1-2-4" src="img_doxygen_note/sec1-2-6.png"  />
+		</li>
+		<li>
+			CakePHPのappフォルダ内には、Configなどドキュメント出力してはまずいフォルダがいくつか存在します。<br>
+			「EXCLUDE」に出力したくないフォルダやファイルを入力し、「＋」ボタンを押し、対象外リストに追加していきます。<br>
+			<img id="img1-2-4" src="img_doxygen_note/sec1-2-7.png"  />
+		</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-5').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-5" src="img_doxygen_note/sec1-2-5.png" style="display:none" />
+	
+	
+
+	<h4>⑤ ドキュメントの出力実行</h4>
+	<ol>
+		<li>左枠にて「run」を選択します。</li>
+		<li>「Run doxgen」を押すとドキュメント作成が始まります。ドキュメントは①で指定した出力先フォルダに作成されます。</li>
+		<li>終了するとき、設定を保存すると次回から再設定する必要はなくなるので便利です。（File→Save)</li>
+	</ol>
+	<input type="button" value="設定例" onclick="$('#img1-2-8').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-2-8" src="img_doxygen_note/sec1-2-8.png" style="display:none" />
+	
+	<br><br>
+	<a href="#index" target="brank" class="btn btn-private btn-xs">目次に戻る</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-3" class="sec1" >
+	<h3>Doxygenに合わせたコメントの書き方</h3>
+	
+	基本的にjavadoc形式で記述します。（javadoc形式以外もある)<br>
+	行を開けずにコメントを書くと、改行されませんが、1行空けると改行されます。<br>
+	「-」をつけるとリストになります。<br>
+	「-#」をつけると連番リストになります。<br>
+	一行空けてから、タブのあとにコメントを書くと囲みになります。<br>
+	
+	<h4>書き方の例</h4>
+	<pre>
+	/**
+	 * ネコが吠える
+	 * 
+	 * いろはにほへとちりぬるを
+	 * わかよたれそつねならむ
+	 * 
+	 * 一行空けると改行されます。
+	 * 
+	 * ◇「-」をつけるとリストになります。
+	 * - シャム
+	 * - ボンベイ
+	 * - 三毛
+	 * - 階層1：タブを入れると階層化されます。
+	 * 	- 階層2
+	 * 		- 階層3
+	 * 
+	 * ◇「-#」をつけると連番リストになります。
+	 * -# 山羊
+	 * -# カニ
+	 * -# 鮫
+	 * 
+	 * ◇囲み
+	 * 
+	 * 	一行空けてから、タブのあとにコメントを書くと囲みになります。
+	 * 	hello world!
+	 *  
+	 * @param id $cat_id ネコID
+	 * @param string $cat_name ネコ名
+	 * 
+	 * @author k-uehara
+	 * @return 戻り値
+	 */
+	public function barkingCat($cat_id,$cat_name){
+		//...略...
+	}
+	</pre>
+	<input type="button" value="Doxygenドキュメント" onclick="$('#img1-3').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-3" src="img_doxygen_note/sec1-3.png" style="display:none;padding:12px;border:solid 4px #45a5d4" /><br>
+
+	<h4>注意</h4>
+	コマンド（@paramなど）を記述する際、隙間に全角スペースを入れないようにします。<br>
+	全角スペースが入った場合、Eclipseのoutlineに索引が表示されなくなり、開発が不便になります。<br>
+	
+	<div class="exam">
+		<p>＜例＞</p>
+		× @param　nako_name<span class="annot">←分かりにくいが@paramとnako_nameの間に全角スペースが入っている</span><br>
+		○ @param nako_name<br>
+	</div>
+	<br>
+
+	
+	<a href="#index" target="brank" class="btn btn-private btn-xs">目次に戻る</a>
+	<a href="http://mits-whisper.info/post/126780999970/%EF%BD%83%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AEdoxygen#sec_newline" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-4" class="sec1" >
+	<h3>Doxygenのコマンド</h3>
+	コマンドは@マークから始まるコードです。
+	説明文を項目ごとに分類するのに使います。
+	
+	<h4>書き方の例</h4>
+	<pre>
+	/**
+	 * 
+	 * @version 0.9
+	 * @date 2015-12-4
+	 * @attention 注意事項を書きます。
+	 * @note 覚書を書きます。
+	 * @remarks 注釈を書きます。
+	 * @see 参照先を書きます。  例→http://amaraimusi.sakura.ne.jp/
+	 * @warning 警告を書きます。
+	 * @throw 例外を記述します。
+	 * @param int $id 引数を書きます。
+	 * @return 返値の説明を書きます。
+	 * 
+	 */
+	public function barkingKani($id){
+		//...略...
+	}
+	</pre>
+	
+	<input type="button" value="Doxygenドキュメント" onclick="$('#img1-4').toggle()" class="btn btn-primary btn-xs" /><br>
+	<img id="img1-4" src="img_doxygen_note/sec1-4.png" style="display:none;padding:12px;border:solid 4px #45a5d4" /><br>
+	
+	<h4>コマンドのピックアップ</h4>
+	<table class="table">
+		<thead><tr><th>コマンド</th><th>説明</th><th>例</th></tr></thead>
+		<tbody>
+			<tr><td>@version</td><td>バージョン</td><td>0.9</td></tr>
+
+			<tr><td>@date</td><td>日付</td><td>2015-12-4</td></tr>
+			
+			<tr><td>@attention</td><td>注意事項</td><td>使用の注意・・</td></tr>
+			
+			<tr><td>@note</td><td>覚え書き</td><td></td></tr>
+			
+			<tr><td>@remarks</td><td>注釈</td><td></td></tr>
+			
+			<tr><td>@see</td><td>参照先</td><td>http://amaraimusi.sakura.ne.jp/</td></tr>
+			
+			<tr><td>@warning</td><td>警告</td><td>○○を引数に指定しないでください。</td></tr>
+			
+			<tr><td>@throw</td><td>例外</td><td>○○Exception</td></tr>
+			
+			<tr><td>@param</td><td>引数</td><td>int $id テストID</td></tr>
+			
+			<tr><td>@return</td><td>返値</td><td>取得値</td></tr>
+			
+			<tr><td>@attention</td><td>注意</td><td></td></tr>
+			
+			<tr><td>@bug</td><td>バグ</td><td></td></tr>
+			
+			<tr><td>@include</td><td>インクルード</td><td></td></tr>
+			
+			<tr><td>@file</td><td>ファイル名</td><td></td></tr>
+		</tbody>
+	</table>
+	
+	<aside>
+		※他にも多数のコマンドが存在する。
+		<a href="http://www.doxygen.jp/commands.html#cmddate" target="brank" class="btn btn-link btn-xs">参照:Doxgen 特殊コマンド</a>
+	</aside>
+
+	<a href="#index" target="brank" class="btn btn-private btn-xs">目次に戻る</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-5" class="sec1" >
+	<h3>役立ちリンク</h3>
+
+	<ul>
+		<li><a href="http://www.doxygen.jp/manual.html" target="brank" class="btn btn-link btn-xs">
+			日本語マニュアル</a></li>
+		
+		<li><a href="http://www.doxygen.jp/config.html#cfg_abbreviate_brief" target="brank" class="btn btn-link btn-xs">
+			設定方法</a></li>
+		
+		<li><a href="http://www.stack.nl/~dimitri/doxygen/" target="brank" class="btn btn-link btn-xs">
+			本サイト（英語）</a></li>
+		
+		<li><a href="http://www.doxygen.jp/commands.html#cmddate" target="brank" class="btn btn-link btn-xs">
+			コマンド一覧</a></li>
+		
+		<li><a href="http://mits-whisper.info/post/126780999970/%EF%BD%83%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AEdoxygen#sec_newline" target="brank" class="btn btn-link btn-xs">
+			参考サイト</a></li>
+		
+		<li><a href="%1" target="brank" class="btn btn-link btn-xs">
+			</a></li>
+	
+	</ul>
+	
+	<a href="#index" target="brank" class="btn btn-private btn-xs">目次に戻る</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+	<input type="button" value="source" onclick="$('#source2-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#index" target="brank" class="btn btn-private btn-xs">目次に戻る</a>
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015-12-2</div>
+		</div><!-- page1 -->
+	</body>
+</html>

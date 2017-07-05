@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-1" class="sec1" >
+	<h3>アソシエーション | 結合モデルのデータ表示と更新 | hasMany</h3>
+
+	<br>
+	　アソシエーションは複数のモデルを１つのモデルにまとめる技術。テーブル結合のJOINと似ているが少し異なる。<br>
+	一つのモデルに複数のテーブル情報を定義しておけば、あたかも一つのテーブルのようにデータを取得や更新ができる。<br>
+	ただし、バリデーションは各テーブルに該当するモデルごとに定義したほうが良い。<br>
+	またDB更新も複雑なテーブル連結だと上手く行かないようである。下記の更新処理もテーブルごとに分けて更新している。<br>
+	<br><br>
+
+	<strong>コントローラ:/Controller/TestHasManyController</strong><br>
+	<pre>
+	class TestHasManyController extends AppController {
+		public $name = 'TestHasMany';
+		public $uses = array (
+				'TestHasManyA',
+				'TestHasManyB',
+				'TestHasManyC'
+		);
+		public function index() {
+			if (! empty ( $this->request->data )) {
+
+				$dataSource = $this->TestHasManyA->getDataSource ();
+				$dataSource->begin ();
+
+				$this->TestHasManyA->saveAll ( $this->request->data ['TestHasManyA'], array (
+						'atomic' => false
+				) );
+				$errors = $this->TestHasManyA->validationErrors;
+
+				if (empty ( $errors )) {
+					$this->TestHasManyB->saveAll ( $this->request->data ['TestHasManyB'], array (
+							'atomic' => false
+					) );
+					$errors = $this->TestHasManyB->validationErrors;
+				}
+				if (empty ( $errors )) {
+					$this->TestHasManyC->saveAll ( $this->request->data ['TestHasManyC'], array (
+							'atomic' => false
+					) );
+					$errors = $this->TestHasManyC->validationErrors;
+				}
+
+				if (empty ( $errors )) {
+					$dataSource->commit ();
+				} else {
+					$dataSource->rollback ();
+				}
+			} else {
+			}
+
+			$data = $this->TestHasManyA->find ( 'all' );
+
+			$this->set ( array (
+					'data' => $data
+			) );
+		}
+
+	}
+	</pre>
+	<hr>
+
+	<strong>モデル:/Model/TestHasManyA</strong><br>
+	<pre>
+	App::uses('Model', 'Model');
+	class TestHasManyA extends Model {
+
+		public $name = 'TestHasManyA';
+
+		//アソシエーション（モデル連結）hasManyは1:多の関係を表す。
+		public $hasMany = array(
+				'TestHasManyB' => array(
+						'className'     => 'TestHasManyB',
+						'foreignKey'    => 'test_has_many_a_id',
+						'dependent'     => true //連動削除
+				),
+				'TestHasManyC' => array(
+						'className'     => 'TestHasManyC',
+						'foreignKey'    => 'test_has_many_a_id',
+						'dependent'     => true //連動削除
+				),
+		);
+
+		//バリデーション情報
+		public $validate = array(
+				'name' => array(
+
+					'maxLength'=>array(
+						'rule' => array('maxLength', 5),
+						'message' => '一般名は5文字以内です。'
+					)
+				),
+
+		);
+
+
+	}
+	</pre><br><br>
+
+	<strong>モデル:/Model/TestHasManyB</strong><br>
+	<pre>
+	App::uses('Model', 'Model');
+	class TestHasManyB extends Model {
+
+		public $name = 'TestHasManyB';
+
+		public $validate = array(
+				'kind' => array(
+
+					'maxLength'=>array(
+						'rule' => array('maxLength', 8),
+						'message' => '種類は8文字以内です。'
+					)
+				),
+
+		);
+
+
+	}
+	</pre><br><br>
+
+	<strong>モデル:/Model/TestHasManyC</strong><br>
+	<pre>
+	App::uses('Model', 'Model');
+	class TestHasManyC extends Model {
+
+		public $name = 'TestHasManyC';
+
+		public $validate = array(
+				'note' => array(
+
+					'maxLength'=>array(
+						'rule' => array('maxLength', 16),
+						'message' => 'ノートは16文字以内です。'
+					)
+				),
+
+		);
+	}
+	</pre><br><br>
+
+	<hr>
+
+	<strong>ビュー:/View/TestHasMany/index.ctp</strong><br>
+	<pre>
+	&lth1&gt結合モデルのデータ表示と更新 | hasMany&lt/h1&gt
+
+	&lttable border="1"&gt
+
+		&ltthead&gt
+			&lttr&gt&ltth&gtA_ID&lt/th&gt&ltth&gt一般名&lt/th&gt&ltth&gtテーブルBデータ&lt/th&gt&ltth&gtテーブルCデータ&lt/th&gt&lt/tr&gt
+		&lt/thead&gt
+
+		&lttbory&gt
+		&lt?php
+		echo $this-&gtForm-&gtcreate('DataX', array('url' =&gt '#'));
+		foreach($data as $i=&gt $ary){
+
+			echo "&lttr&gt";
+			$entA=$ary['TestHasManyA'];
+			$id=$entA['id'];
+			echo "&lttd&gt";
+			echo $entA['id'];
+			echo $this-&gtForm-&gtinput("TestHasManyA.{$id}.id", array('type' =&gt 'hidden','value' =&gt $id,'label' =&gt false,));
+			echo "&lt/td&gt\n";
+
+			echo "&lttd&gt";
+			echo $this-&gtForm-&gtinput("TestHasManyA.{$id}.name", array('type' =&gt 'text','value' =&gt $entA['name'],'label' =&gt false,));
+			echo "&lt/td&gt";
+
+			//Bデータを表示
+			$dataB=$ary['TestHasManyB'];
+			echo "&lttd&gt\n&ltul&gt";
+			foreach($dataB as $i_b=&gt $entB){
+				$id=$entB['id'];
+				echo "&ltli&gt";
+				echo $this-&gtForm-&gtinput("TestHasManyB.{$id}.kind", array('type' =&gt 'text','value' =&gt $entB['kind'],'label' =&gt false,));
+				echo $this-&gtForm-&gtinput("TestHasManyB.{$id}.id", array('type' =&gt 'hidden','value' =&gt $entB['id'],'label' =&gt false,));
+				echo $this-&gtForm-&gtinput("TestHasManyB.{$id}.test_has_many_a_id", array('type' =&gt 'hidden','value' =&gt $entB['test_has_many_a_id'],'label' =&gt false,));
+				echo "&lt/li&gt\n";
+			}
+			echo "&lt/ul&gt&lt/td&gt\n";
+
+			//Cデータを表示
+			$dataC=$ary['TestHasManyC'];
+			echo "&lttd&gt\n&ltul&gt";
+			foreach($dataC as $i_c=&gt$entC){
+				$id=$entC['id'];
+				echo "&ltli&gt";
+				echo $this-&gtForm-&gtinput("TestHasManyC.{$id}.note", array('type' =&gt 'text','value' =&gt $entC['note'],'label' =&gt false,));
+				echo $this-&gtForm-&gtinput("TestHasManyC.{$id}.id", array('type' =&gt 'hidden','value' =&gt $entC['id'],'label' =&gt false,));
+				echo $this-&gtForm-&gtinput("TestHasManyC.{$id}.test_has_many_a_id", array('type' =&gt 'hidden','value' =&gt $entC['test_has_many_a_id'],'label' =&gt false,));
+
+				echo "&lt/li&gt\n";
+			}
+			echo "&lt/ul&gt&lt/td&gt\n";
+			echo "&lt/tr&gt\n";
+
+		}
+
+
+		?&gt
+		&lt/tbory&gt
+	&lt/table&gt
+
+
+	&lt?php
+	echo $this-&gtForm-&gtsubmit('DB更新');
+	echo $this-&gtForm-&gtend();
+	?&gt
+	</pre>
+	<hr>
+
+
+	<strong>DBテーブル</strong><br>
+
+	     <!-- テーブル test_has_many_as -->
+	    <table border="1">
+	    <caption>test_has_many_as</caption>
+	    <thead><tr><th>id</th><th>name</th></tr></thead>
+	    <tbody>
+        <tr name="test_has_many_as">
+
+            <td name="id">1</td>
+            <td name="name">ネコX7</td>
+        </tr>
+        <tr name="test_has_many_as">
+            <td name="id">2</td>
+            <td name="name">カエル</td>
+        </tr>
+        </tbody>
+        </table><br>
+
+        <!-- テーブル test_has_many_bs -->
+	    <table border="1">
+	    <caption>test_has_many_bs</caption>
+	    <thead><tr><th>id</th><th>test_has_many_a_id</th><th>kind</th></tr></thead>
+	    <tbody>
+        <tr name="test_has_many_bs">
+            <td name="id">1</td>
+            <td name="test_has_many_a_id">1</td>
+            <td name="kind">ペルシャネコ</td>
+        </tr>
+        <tr name="test_has_many_bs">
+            <td name="id">2</td>
+            <td name="test_has_many_a_id">1</td>
+            <td name="kind">スフィンクス</td>
+        </tr>
+        </tbody>
+        </table><br>
+
+        <!-- テーブル test_has_many_cs -->
+	    <table border="1">
+	    <caption>test_has_many_cs</caption>
+	    <thead><tr><th>id</th><th>test_has_many_a_id</th><th>note</th></tr></thead>
+	    <tbody>
+        <tr name="test_has_many_cs">
+            <td name="id">1</td>
+            <td name="test_has_many_a_id">1</td>
+            <td name="note">いろは</td>
+        </tr>
+        <tr name="test_has_many_cs">
+            <td name="id">2</td>
+            <td name="test_has_many_a_id">2</td>
+            <td name="note">にほへと</td>
+        </tr>
+        <tr name="test_has_many_cs">
+            <td name="id">3</td>
+            <td name="test_has_many_a_id">2</td>
+            <td name="note">ちりぬのを</td>
+        </tr>
+        </tbody>
+        </table><br>
+    </database>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

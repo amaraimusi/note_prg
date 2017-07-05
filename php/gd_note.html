@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>画像処理 GDの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>画像処理 GDの覚書</h1></div>
+<div class="container">
+
+
+<a href="http://php.net/manual/ja/book.image.php" target="brank">PHPマニュアル</a>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>画像を取り込む</h3>
+	画像ファイル名から取り込みを行い、画像IDを取得する。<br>
+	画像IDはハンドラ的なもので各種画像処理で必要とされる。<br>
+	<pre>
+	$img = <strong>imagecreatefrompng</strong>("imori.png");
+	var_dump($img);
+	imagedestroy($img); // 破棄
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	resource(3, gd)
+	</pre>
+	<br>
+	
+	<aside>
+		ファイルが存在しない場合、falseを返すが、警告も表示される。<br>
+		警告を出したくない場合は@マークを付加する。 例: $img = @imagecreatefrompng("none.png");<br>
+	</aside>
+	
+	<a href="/sample/php/gd/standard/gd_standard.php" class="btn btn-default btn-xs">検証</a>
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>取り込んだ画像からサイズを取得する</h3>
+	
+	<img src="img/gd_note/imori.png"  />
+	<pre>
+	$img = imagecreatefrompng("imori.png");
+	$sx = <strong>imagesx</strong>($img); // → 320
+	$sy = <strong>imagesy</strong>($img);// → 180
+	imagedestroy($img);
+	</pre>
+	<br>
+	
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>別名で保存する</h3>
+	<pre>
+	$img = imagecreatefrompng("imori.png");
+	
+	// 楕円を描画
+	$col_ellipse = imagecolorallocate($img, 255, 255, 255);
+	imageellipse($img, 200, 150, 300, 200, $col_ellipse);
+	
+	// 別名で保存
+	<strong>imagepng</strong>( $img, "imori2.png");
+	imagedestroy($img);
+	</pre>
+	<img src="img/gd_note/imori2.png"  />
+	<br>
+	
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>空画像を作成してファイル保存する</h3>
+	
+	<pre>
+	// 空の画像を作成する
+	$img = <strong>imagecreatetruecolor</strong>(200, 160);
+	
+	// 楕円の色を選択しますRGB
+	$col = imagecolorallocate($img, 44,168,108);
+	imageellipse($img, 50, 50, 60, 60, $col);
+	
+	// 画像を出力します
+	imagepng( $img, "sec1-4.png");
+	
+	imagedestroy($img);
+	</pre>
+	<img src="img/gd_note/sec1-4.png"  />
+	<br>
+	
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4">
+	<h3>アルファチャネルによる透明</h3>
+	
+	元画像：toumei.png:背景透明<br>
+	<img src="img/gd_note/sec1-5/toumei.png" /><br>
+	<br>
+	
+	元画像を取り込み、赤い円を描画し、透明を保ったまま保存する。<br>
+	<pre>
+	$img = imagecreatefrompng("toumei.png");
+	
+	//ブレンドモードを無効にする
+	<strong>imagealphablending</strong>($img, false);
+	
+	//完全なアルファチャネル情報を保存するフラグをonにする
+	<strong>imagesavealpha</strong>($img, true);
+	
+	// 楕円を描画RGB
+	$col = imagecolorallocate($img, 221,77,64);
+	imageellipse($img, 50, 50, 60, 60, $col);
+	
+	// 別名で保存
+	imagepng( $img, "toumei2.png");
+	imagedestroy($img);
+	</pre>
+	<br>
+	
+	画像：toumei2.png
+	<div style="background-color:#bdeffd">
+		<img src="img/gd_note/sec1-5/toumei2.png" />
+	</div>
+	<br><br>
+	
+	
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4">
+	<h3>複数の画像を合成し、一枚の画像を作成する</h3>
+	
+	合成する4枚の画像<br>
+	<img src="img/gd_note/sec1-6/toumei1.png" />
+	<img src="img/gd_note/sec1-6/toumei2.png" />
+	<img src="img/gd_note/sec1-6/toumei3.png" />
+	<img src="img/gd_note/sec1-6/toumei4.png" />
+	<br>
+	
+	4枚の画像を合成して一枚の画像ファイルを作成する。透明、半透明を透過させながら合成する。<br>
+	<pre>
+		// 空の画像を作成する
+		$img = imagecreatetruecolor(320, 240);
+		
+		// 背景を透明にする
+		imagecolortransparent($img, imagecolorallocate($img, 0, 0, 0));
+		
+		// 画像ファイル名群
+		$imgFns = array('toumei1.png','toumei2.png','toumei3.png','toumei4.png');
+	
+		// シンプルな画像合成
+		foreach($imgFns as $fn){
+	 		$img2 = imagecreatefrompng($fn); // 合成する画像を取り込む
+	
+	 		// 合成する画像のサイズを取得
+			$sx = imagesx($img2);
+			$sy = imagesy($img2);
+			
+			<strong>imageLayerEffect</strong>($img, IMG_EFFECT_ALPHABLEND);// 合成する際、透過を考慮する
+			<strong>imagecopy</strong>($img, $img2, 0, 0, 0, 0, $sx, $sy); // 合成する
+			
+			imagedestroy($img2); // 破棄
+		}
+		
+		// 別名で保存
+		imagepng( $img, "combine.png");
+		imagedestroy($img);
+	</pre>
+	<br>
+	
+	画像：combine.png<br>
+	<img src="img/gd_note/sec1-6/combine.png" style="border:solid 4px red"/>
+	<br><br>
+	
+	<br><time>2017-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>画像に別画像を拡大縮小しながらコピーする | imagecopyresampled</h3>
+	
+	imagecopyでは拡縮しながら別画像をコピーすることができない。<br>
+	拡縮したい場合は、代わりにimagecopyresampled関数を用いる。<br>
+	<br>
+	
+	<pre>	imagecopyresampled($img, $img2, コピー位置X, コピー位置Y,0, 0,拡縮サイズX, 拡縮サイズY,コピー元サイズX,コピー元サイズY);</pre>
+	<br>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>引数</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>$img</td><td>コピー先、またはベース画像の画像リソースID。</td></tr>
+			<tr><td>$img2</td><td>コピー元、つまり別画像の画像リソースID。</td></tr>
+			<tr><td>コピー位置X, コピー位置Y</td><td>コピー先でのコピー元画像の位置。</td></tr>
+			<tr><td>0,0</td><td>コピー元画像上における座標を示す。基本的に0でよい。</td></tr>
+			<tr><td>拡縮サイズX,拡縮サイズY</td><td>拡大または縮小したときの画像幅を指定する。</td></tr>
+			<tr><td>コピー元サイズX,コピー元サイズY</td><td>コピー元画像の幅。</td></tr>
+	
+		</tbody>
+	</table>
+
+	<br><time>2017-3-1</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+	<li>画像処理 GDの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-2-28</div>
+</body>
+</html>

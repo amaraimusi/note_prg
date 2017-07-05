@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　HTML5の覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">HTML5の覚書</h1>
+		<div id="content" >
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a1" class="sec1">
+	<div class="title">タグとエレメントの違い</div>
+	タグとは&lt;div>,&lt;br>などを指す。<br /><br />
+	エレメントとは開始タグ、内容、終了タグからなる構成物全体を指す。「要素」とも呼ぶ。<br />
+
+	&lt;div>～&lt;/div>　←これらの一連の構成をエレメントまたは要素と呼ぶ。
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a2" class="sec1">
+	<div class="title">新しいページで開く</div>
+	属性に「target="_blank"」を記述。
+	<pre>
+	&lt;A HREF="リンクするページのURL" target="_blank">TOPページ&lt;/A>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a3" class="sec1">
+	<div class="title">chromeによる自動翻訳をさせない。</div>
+	metaタグに以下を追加すればよい。
+	<pre>
+	&lt;meta name="google" content="notranslate" /&gt;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a4" class="sec1">
+	<div class="title">ローカルストレージについて</div>
+	<strong>◇クッキーとローカルストレージとの違い</strong><br />
+	<table border="1"><thead><tr><th>Cookie</th><th>WebStorage</th></tr></thead>
+	<tbody>
+		<tr><td>サイズは1サイト4KBまで</td><td>サイズ制限なし</td></tr>
+		<tr><td>データはHTTPリクエストに付加され送信される</td><td>付加されない</td></tr>
+		<tr><td>有効期限を指定できる。</td><td>有効期限は指定できない</td></tr>
+		<tr><td>JavaScriptのオブジェクトは格納できない</td><td>JavaScriptのオブジェクトも格納できる。</td></tr>
+	</tbody>
+	</table>
+
+
+
+	<br /><br />
+	<strong>◇ローカルストレージの値がクリアされる条件。</strong><br />
+	履歴削除。<br />
+	セッションストレージはWindowsオブジェクトと同じ生存期間。<br />
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a5" class="sec1">
+	<div class="title">クロスドメイン通信を許可する。（PHPファイル）</div>
+
+	<pre>
+	header("Access-Control-Allow-Origin:*");//クロスドメイン通信を許可する。
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="a0" class="sec1">
+	<div class="title">TEST</div>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<pre>
+■■機能説明
+■公式説明サイト
+http://www.htmq.com/html5/
+
+■参考サイト（ブラウザごとの対応状況）
+http://www.findmebyip.com/litmus/
+
+
+
+
+
+■新タグ
+figure 〔要素のグループ化〕
+	図や文章でまとまったデータをグループ化する。
+	ブロック要素の意味合いが強い。内部にlegend要素を入れておくルールがある。
+	&lt;div>要素と役割がかぶるため、利用するかどうかは不明
+img〔画像の埋め込み〕
+iframe〔インラインフレーム〕
+	基本は従来のと同じ
+	廃止された属性と新属性がある。
+		◇新属性を一部紹介
+		seamless属性
+		フレーム内のコンテンツを親ページの一部のように表示
+		sandbox属性
+		フレーム内のコンテンツの表示に制限を加える（allow-same-origin・allow-forms・allow-scripts）
+embed〔マルチメディアの埋め込み〕
+	プラグインを必要とするコンテンツを埋め込む。（Flash,PDF,mpeg,QuickTime,Wave,midといろいろある。）
+object〔オブジェクトの埋め込み〕
+	&lt;object>タグで指定された外部リソースは、データのタイプにより、 画像、入れ子の閲覧コンテンツ、プラグインで処理されるデータのいずれかとして扱われます。
+	embed,imgなどを合わせたようなタグ。何でもタイプ。
+
+param〔パラメータ〕
+	&lt;param>タグは、&lt;object>～&lt;/object>の中に子要素として配置
+	type属性・valuetype属性は廃止。
+video 〔動画の埋め込み〕
+	動画を埋め込む。
+	例：
+		&lt;video>
+		&lt;source src="sample.mp4">
+		&lt;source src="sample.ogv">
+		&lt;p>動画を再生するには、videoタグをサポートしたブラウザが必要です。&lt;/p>
+		&lt;/video>
+audio 〔音声の埋め込み〕
+	音声再生。音量調節ガシェットのようなのが表示される。
+
+source 〔メディアリソース〕
+	video,audoの子要素
+canvas 〔グラフィック〕
+	動的に図を書くことが可能。
+map〔イメージマップの定義〕
+	地図を表示する。
+	一応従来からある。
+area〔イメージマップ領域〕
+	イメージマップにハイペーリンクを設定
+	一応従来からある。
+ruby
+	前から一部のブラウザに存在したが今回HTML５では標準の仕様になった。
+	漢字の上に小さい文字でルビをふることができる。
+		例
+			&lt;ruby>
+			漢&lt;rt>かん&lt;/rt>
+			字&lt;rt>じ&lt;/rt>
+			&lt;/ruby>&lt;br>
+&lt;wbr>
+	改行して良い位置に指定。ワードブレイク効果
+
+
+
+◇DIV系の新要素
+&lt;section> …… 一つのセクションであることを示す
+	&lt;div>と同じ。任意で情報を区分するためだけのもの
+&lt;nav> ………… ナビゲーションであることを示す
+	&lt;div>と同じ。メニュー系に利用する。
+&lt;article> …… 記事であることを示す
+	&lt;div>と同じ
+&lt;aside> ……… 余談・補足情報のセクションであることを示す
+	&lt;div>と同じ
+&lt;hgroup> …… セクションの見出しを表す、見出しをまとめる
+	&lt;div>と同じ
+&lt;header> ……ヘッダであることを示す
+&lt;footer> …… フッタであることを示す
+	&lt;div>と同じ
+&lt;time> ……… 日付や時刻を正確に示す
+	&lt;span>と同じ
+	日付が表示されるわけではないマナー的なもの。別システムが何らかの目的で利用
+&lt;mark> ……… 文書内の該当テキストを目立たせる
+	spanと同じ
+	文章中の特定ワードを際立たせたい場合に用いる。&lt;b>や&lt;strong>のような効果があるわけではない。
+
+
+■テーブル系
+&lt;table> …… テーブル（表）を作成する
+	table要素には、HTML4.01ではborder属性・cellpadding属性・cellspacing属性・frame属性・rules属性・width属性が用意されていました。 HTML5ではこれらの属性は廃止され、summary属性のみが残されています。
+&lt;caption> …… テーブル（表）にキャプションをつける
+	HTML4.01では、caption要素には揃え位置を指定するalign属性が、非推奨とされながらも用意されていました。 HTML5では、caption要素のalign属性は廃止されています。 揃え位置の指定にはCSSを使用してください。
+&lt;colgroup> …… 表の縦列をグループ化する
+	colgroup要素は、HTML5ではalign属性・char属性・charoff属性・valign属性・width属性が廃止され、 span属性だけが残されています。
+&lt;col> …… 表の縦列の属性やスタイルを指定する
+	align属性・char属性・charoff属性・valign属性・width属性が廃止
+&lt;tbody> …… テーブル（表）のボディ部分を定義する
+&lt;thead> …… テーブル（表）のヘッダ部分を定義する
+&lt;tfoot> …… テーブル（表）のフッタ部分を定義する
+	thead要素・ tbody要素・ tfoot要素には、HTML4.01ではalign属性・char属性・charoff属性・valign属性が用意されていました。 HTML5ではこれらの属性は廃止され、要素固有の属性はありません。
+
+	また、HTML4.01では、&lt;tfoot>は&lt;tbody>よりも前に配置することになっていましたが、 HTML5では、&lt;tbody>と&lt;tfoot>の配置位置はどちらでも良いことになっています。 &lt;tfoot>を&lt;tbody>の前に配置しても、ブラウザ上ではフッタ部分はテーブルの最後に表示されます。
+&lt;tr> …… テーブル（表）の横一行を定義する
+&lt;td> …… テーブル（表）のデータセルを作成する
+&lt;th> …… テーブル（表）の見出しセルを作成する
+
+■INPUT系
+&lt;label>input系フォーム部品にラベルを付けられる
+&lt;input type="search"> …… 検索テキストの入力欄を作成する
+	検索専用テキストボックス。	ちょっとした機能がついている。
+&lt;input type="tel"> …… 電話番号の入力欄を作成する
+	現状ではtextとあまり変わらず
+&lt;input type="url"> …… URLの入力欄を作成する
+	基本テキストと同じ。入力された値が「http://」で始まる妥当な絶対URLでは無い場合にバリデーションが働くようです
+&lt;input type="email"> …… メールアドレスの入力欄を作成する
+	基本textと同じ。 入力された値にアットマーク（ @ ）を含む妥当なメールアドレスでは無い場合にバリデーションが働くようです。
+&lt;input type="password"> …… パスワード入力欄を作成する
+&lt;input type="datetime"> …… 協定世界時による日時の入力欄を作成する
+	基本text
+&lt;input type="date"> …… 日付の入力欄を作成する
+	基本テキスト
+&lt;input type="month"> …… 月の入力欄を作成する
+&lt;input type="week"> …… 週の入力欄を作成する
+&lt;input type="time"> …… 時間の入力欄を作成する
+&lt;input type="datetime-local"> …… ローカル日時の入力欄を作成する
+&lt;input type="number"> …… 数値の入力欄を作成する
+	★
+	数値専用text
+		文字列は入力できない。入力補助機能あり。
+
+&lt;input type="range"> …… レンジ入力欄を作成する
+	アナログ調整型の新インターフェース。
+
+&lt;input type="color"> …… 色の入力欄を作成する
+	基本text
+&lt;input type="file"> …… サーバーへファイルを送信する
+	複数のファイル指定が可能になった。
+&lt;input type="submit"> …… 送信ボタンを作成する
+	&lt;form>に記述していた属性を、ボタン側にも記述できるようになった。
+&lt;input type="image"> …… 画像ボタンを作成する
+
+&lt;input autofocus> …… 入力欄にカーソルを当てて自動フォーカスする
+	ページを表示した場合、自動的にフォーカスがあてられる。
+
+&lt;input placeholder> …… 入力欄に初期表示する内容を指定する
+&lt;input required> …… 入力必須であることを示す
+&lt;input pattern> …… 正規表現で入力値のパターンを指定する
+&lt;input min max> …… 入力できる最小値と最大値を指定する
+&lt;input step> …… 入力欄で刻むステップ値を指定する
+&lt;input autocomplete> …… 入力候補を提示して入力内容を自動補完する
+&lt;input multiple> …… 複数の値を入力・選択できるようにする
+
+
+
+
+◇INPUT系の新属性
+
+&lt;input autofocus> …… 入力欄にカーソルを当てて自動フォーカスする
+&lt;input placeholder> …… 入力欄に初期表示する内容を指定する
+&lt;input required> …… 入力必須であることを示す
+&lt;input pattern> …… 正規表現で入力値のパターンを指定する
+&lt;input min max> …… 入力できる最小値と最大値を指定する
+&lt;input step> …… 入力欄で刻むステップ値を指定する。数値系用。
+&lt;input autocomplete> …… 入力候補を提示して入力内容を自動補完する
+&lt;input multiple> …… 複数の値を入力・選択できるようにする
+	入力必須にする
+list属性
+	ユーザーに入力候補として提案するデータリストの要素を、その要素のid属性の値で指定する
+
+
+◇その他　新入力系タグ
+&lt;datalist> …… 入力候補となるデータリストを定義する
+&lt;textarea> …… 複数行のテキスト入力欄を作成する
+&lt;keygen> …… フォーム送信時にキーを発行する
+&lt;output> …… 計算結果を示す
+&lt;progress> … タスク完了までの進行状況を示す
+&lt;meter> …… 規定範囲内の測定値を表す
+
+◇ブラウザごとにばらつき
+&lt;details> …… 備考や操作手段などの詳細情報を示す
+&lt;summary> …… &lt;details>の内容の要約を示す
+&lt;command> … 操作メニューの各コマンドを指定する
+&lt;menu> ……… 操作メニューを作成する
+
+■基本系
+&lt;!DOCTYPE html>
+&lt;html lang="ja">
+	&lt;head>
+		&lt;meta charset="UTF-8">
+		&lt;title>サイトのタイトル&lt;/title>
+		&lt;link rel="stylesheet" type="text/css" href="css/html5reset.css"  />
+
+
+		&lt;!-- HTML5 未対応ブラウザ　対策-->
+		&lt;!--[if lt IE 9]>
+		&lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js">&lt;/script>
+		&lt;![endif]-->
+
+
+	&lt;/head>
+	&lt;body>
+
+		//ここにサイトに表示するコンテンツ内容を記述
+
+	&lt;/body>
+&lt;/html>
+
+※HTML5では上記のlink要素のtype属性は省略可能です。また、style要素・script要素などのtype属性も省略可能です。
+
+■Web Storage
+HTML5 Web Storageは、簡単なキー／バリューのデータ構造を持つ永続ストレージです。
+	Local StorageとSessionStorageがある。
+
+■Local Storage
+	Google Chromeに備わっているHTML5のlocalStorage機能を使うと、Javascriptのデータをブラウザに保存することができます。
+保存した情報は、ブラウザを閉じても保持されます。
+
+◇クッキーとの違い
+	通信料削減
+	セキュリティ向上。クッキーはリクエストのたびに送信するが、Local Starateはそうしない。
+	タイムアウトによるデータ削除はない
+
+◇スコープ
+	Web Storage のスコープはオリジン（プロトコル、ドメイン、ポート）
+
+◇スコープ範囲
+LocalStorageは、サイト（オリジン）ごとに一意の永続領域で、同じサイト内の全てのWebページ／ウィンドウ間で共有され、永続化される期間は無制限です。
+
+
+■SessionStorage
+	SessionStorageは、ブラウザウィンドウごとの保存領域。
+		タブ、ウィンドウ毎の保存領域で、ウィンドウを閉じるとSessionStarage内のデータも消えます。
+
+
+■postMessage
+・ウィンドウ(フレーム)間でメッセージの送受信
+・HTML内にあるiframeに対してメッセージを送信することができます。
+◇参考サイト
+http://news.mynavi.jp/special/2009/html5-2/005.html
+
+■Offline Applications
+インターネットに接続していないオフラインの状態でも、 ユーザーがウェブアプリケーション（ウェブサイト）を利用できるようにするための機能
+
+■Workers
+	マルチスレッド
+
+
+■Query Selector
+	DOM関連。
+	getElementById系のメソッドの強力版。JQueryと同様な使い方ができる。
+	JQueryはQuery Selectorが使用かのであれば利用しているようだ。機能的にはJQueryがすぐれているかと思われる。
+	処理速度としてはgetElementByIdが圧倒的に早い。ある検証サイトによれば15倍の差
+
+	◇代表的なメソッド
+	document.querySelectorAll("li")
+
+■WebSQL Database
+	恐らくDB関連。FireFox,IEでは未対応
+	W3Cは今後開発しないと発言しているため無視。
+
+■IndexDB Database
+	全ブラウザで未対応
+
+■Drag and Drop
+	Operaのみ未対応
+	要素をドラッグ＆ドロップで動かせる
+
+
+■Hash Change
+	ハッシュとは&lt;a href="test.htm#no1">の「#no」の部分を指す。
+	hashchangeは、ハッシュ部分が画面遷移（自己遷移）で変化した場合のイベントを検知できる。
+	ブラウザの戻るボタンや進むボタンによるハッシュの変化も検知できる。
+
+
+■History Management
+	履歴関連？
+
+■Canvas
+HTML5のCanvasタグを使って、ゲームを作成することもできます。
+
+■WebSockets
+	新プロトコル。
+		1接続で双方向通信
+		HTTPヘッダーは利用しない
+■Touch
+	未対応
+
+■GeoLocation
+	緯度経度の取得や、地図表示を行えるらしい。
+
+
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

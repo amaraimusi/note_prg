@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>	
+	
+	<!-- ソースコードをハイライト表示する -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-1" class="sec1">
+	<h3>画像を重ねて表示</h3>
+	
+	CSSだけで、複数の画像を１つに重ねることができる。<br>
+	画像は透過ありのpng形式である。（gifも可能と思われる）<br>
+	<br>
+	
+	
+
+	<a href="/sample/js/a003/img_layer/img_layer_demo1.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;style&gt;
+		#img_div{
+			<strong>width:200px;</strong>
+			<strong>height:200px;</strong>
+		}
+		.test1{
+			<strong>position:absolute;</strong>
+		}
+	&lt;/style&gt;
+	
+	
+	&lt;div id="img_div"&gt;
+		&lt;img src="toumei1.png" class="test1" /&gt;
+		&lt;img src="toumei2.png" class="test1" /&gt;
+		&lt;img src="toumei3.png" class="test1" /&gt;
+		&lt;img src="toumei4.png" class="test1" /&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-2" class="sec1">
+	<h3>画像を重ねて表示 | 文字も重ねる</h3>
+
+	重ねた画像に、さらに文字を重ねることができる。<br>
+	文字の位置はimg_divのwidthとheightで調整する。<br>
+	<br>
+	
+	
+	<a href="/sample/js/a003/img_layer/img_layer_demo2.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;style&gt;
+		#img_div{
+			<strong>width:200px;</strong>
+			<strong>height:50px;</strong>
+		}
+		.test1{
+			position:absolute;
+		}
+	&lt;/style&gt;
+	
+	
+	
+	&lt;div id="img_div"&gt;
+		&lt;img src="toumei1.png" class="test1" /&gt;
+		&lt;img src="toumei2.png" class="test1" /&gt;
+		&lt;img src="toumei3.png" class="test1" /&gt;
+		&lt;img src="toumei4.png" class="test1" /&gt;
+	&lt;/div&gt;
+	<strong>いろは</strong>&lt;br&gt;
+	&lt;br&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-3" class="sec1">
+	<h3>画像を重ねて、1枚の画像としてIMG要素に表示</h3>
+
+	複数の透過付きPNG画像を重ね、それを1枚の画像データとしてIMG要素に表示することができる。<br>
+	DOM要素からバイナリ（画像データ）に変換するのに<a href="https://html2canvas.hertzen.com/" target=blank>html2canvas.js</a>を使っている。<br>
+	<br>
+
+	<a href="/sample/js/a003/img_layer/img_layer_demo3.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="html2canvas.js"&gt;&lt;/script&gt;
+	
+	
+	&lt;style&gt;
+		#img_div{
+			width:200px;
+			height:200px;
+		}
+		.test1{
+			position:absolute;
+		}
+	&lt;/style&gt;
+	
+	&lt;script&gt;
+	function test2(){
+		
+		// 画像を重ねて表示しているDIV要素を取得する。
+		var element = $('#img_div')[0];
+  
+		// DIV要素を画像のバイナリデータに変換する。
+		html2canvas(element, { onrendered: function(canvas) {
+			// 変換後に呼び出されるコールバック
+		
+			// 変換後、バイナリデータをデータURLスキームとして取得する。
+			var data_url_scheme= canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+			
+			// IMG要素へデータURLスキームをセットして画像表示する。
+			$('#img2')[0].src = data_url_scheme;
+
+		}});
+	}
+	&lt;/script&gt;
+	
+	～略～
+	
+	&lt;input type="button" class="btn btn-success btn-xs" value="テスト" onclick="test2()" /&gt;&lt;br&gt;
+	&lt;div  style="width:200px;height:200px;background-color:#cdebd9"&gt;
+		&lt;div id="img_div2"&gt;いろは&lt;/div&gt;
+		&lt;div id="img_div"&gt;
+			&lt;img src="toumei1.png" class="test1" /&gt;
+			&lt;img src="toumei2.png" class="test1" /&gt;
+			&lt;img src="toumei3.png" class="test1" /&gt;
+			&lt;img src="toumei4.png" class="test1" /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	
+	&lt;img id="img2" src="" alt="" /&gt;&lt;br&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-4" class="sec1">
+	<h3>画像を重ねて、1枚の画像としてダウンロードする</h3>
+	
+	複数の透過付きPNG画像を重ね、それを1枚の画像ファイルに変換し、ダウンロードすることができる。<br>
+	DOM要素からバイナリ（画像データ）に変換するのに<a href="https://html2canvas.hertzen.com/" target=blank>html2canvas.js</a>を使っている。<br>
+
+	<a href="/sample/js/a003/img_layer/img_layer_demo4.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="html2canvas.js"&gt;&lt;/script&gt;
+	
+	&lt;style&gt;
+		#img_div{
+			width:200px;
+			height:200px;
+		}
+		.test1{
+			position:absolute;
+		}
+	&lt;/style&gt;
+	
+	&lt;script&gt;
+	function test2(){
+		// 画像を重ねて表示しているDIV要素を取得する。
+		var element = $('#img_div')[0];
+	
+		//DOM要素を画像のバイナリデータに変換する。
+		html2canvas(element, { onrendered: function(canvas) {
+			// 変換後に呼び出されるコールバック
+		
+			// 変換後、バイナリデータをデータURLスキームとして取得する。
+		  	var data_url_scheme= canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+		  	
+			// データURLスキームをロケーションにセットすることにより、画像ファイルダウンロードを行う。
+			window.<strong>location.href</strong> = data_url_scheme;
+	
+		}});
+	}
+	&lt;/script&gt;
+	
+	
+	～略～
+	
+	
+	&lt;input type="button" class="btn btn-success btn-xs" value="ダウンロード" onclick="test2()" /&gt;&lt;br&gt;
+	&lt;div  &gt;
+		&lt;div id="img_div2"&gt;いろは&lt;/div&gt;
+		&lt;div id="img_div"&gt;
+			&lt;img src="toumei1.png" class="test1" /&gt;
+			&lt;img src="toumei2.png" class="test1" /&gt;
+			&lt;img src="toumei3.png" class="test1" /&gt;
+			&lt;img src="toumei4.png" class="test1" /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-5" class="sec1">
+	<h3>画像を重ねて、1枚の画像としてダウンロードする | ファイル名指定可能</h3>
+	
+	複数の画像を重ねて1枚画像に変換する。<br>
+	変換した一枚画像をファイル名指定してファイルダウンロードする。<br>
+	<br>
+	
+	DOM要素からバイナリ（画像データ）に変換するのに<a href="https://html2canvas.hertzen.com/" target=blank>html2canvas.js</a>を使っている。<br>
+	また、ダウンロードファイルにファイル名を指定可能にするため、<a href="https://github.com/eligrey/FileSaver.js/" target="blank">FileSaver.js</a>も使っている。<br>
+	<br>
+
+	<a href="/sample/js/a003/img_layer/img_layer_demo5.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="html2canvas.js"&gt;&lt;/script&gt;
+	&lt;script src="FileSaver.js"&gt;&lt;/script&gt;
+	
+	&lt;style&gt;
+		#img_div{
+			width:200px;
+			height:200px;
+		}
+		.test1{
+			position:absolute;
+		}
+	&lt;/style&gt;
+	
+	&lt;script&gt;
+	function test2(){
+		// 画像を重ねて表示しているDIV要素を取得する。
+		var element = $('#img_div')[0];
+	
+		//DOM要素を画像のバイナリデータに変換する。
+		html2canvas(element, { onrendered: function(canvas) {
+			// 変換後に呼び出されるコールバック
+		
+			// MIMEタイプ
+			var type = 'image/png';
+			
+			/// 変換後、バイナリデータをデータURLスキームとして取得する。
+			var data_url_scheme= canvas.toDataURL(type).replace("image/png", "image/octet-stream");
+	
+			// データURLスキームのデータ部分をバイナリデータとして抜き出す。
+			var bin = atob(data_url_scheme.split(',')[1]);
+			
+			// 空の Uint8Arrayビューを作る
+			var buffer = new Uint8Array(bin.length);
+			
+			// バイナリデータの値をUint8Arrayビューに 1 バイトずつ値を埋めいく。
+			for (var i = 0; i &lt; bin.length; i++) {
+			  buffer[i] = bin.charCodeAt(i);
+			}
+			
+			// Uint8Arrayビューのバッファーを抜き出し、それを元に Blob を作る
+			var blob = new Blob([buffer.buffer], {type: type});
+	
+			// FileSaver.jsの機能を利用し、Blob化したデータをファイルダウンロードする。（ここでファイル名を指定できる）
+				saveAs(
+					  blob
+					, "test_usagi.png"
+				);
+	
+		}});
+	}
+	&lt;/script&gt;
+	
+	～略～
+	
+	&lt;input type="button" class="btn btn-success btn-xs" value="ダウンロード" onclick="test2()" /&gt;&lt;br&gt;
+	&lt;div&gt;
+		&lt;div id="img_div2"&gt;いろは&lt;/div&gt;
+		&lt;div id="img_div"&gt;
+			&lt;img src="toumei1.png" class="test1" /&gt;
+			&lt;img src="toumei2.png" class="test1" /&gt;
+			&lt;img src="toumei3.png" class="test1" /&gt;
+			&lt;img src="toumei4.png" class="test1" /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-6" class="sec1">
+	<h3>画像を重ねて、1枚の画像とし、Ajaxでサーバーに送信する</h3>
+
+	複数の画像を重ねて1枚画像に変換する。<br>
+	さらに、変換した一枚画像をAjaxでサーバへ送信する。<br>
+	<br>
+
+	DOM要素からバイナリ（画像データ）に変換するのに<a href="https://html2canvas.hertzen.com/" target=blank>html2canvas.js</a>を使っている。<br>
+	<br>
+
+	<a href="/sample/js/a003/img_layer/img_layer_demo6.html" class="btn btn-info">Sample</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script src="jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="html2canvas.js"&gt;&lt;/script&gt;
+	
+	&lt;style&gt;
+		#img_div{
+			width:200px;
+			height:200px;
+		}
+		.test1{
+			position:absolute;
+		}
+	&lt;/style&gt;
+	
+	&lt;script&gt;
+	function test2(){
+		// 画像を重ねて表示しているDIV要素を取得する。
+		var element = $('#img_div')[0];
+	
+		//DOM要素を画像のバイナリデータに変換する。
+		html2canvas(element, { onrendered: function(canvas) {
+			// 変換後に呼び出されるコールバック
+		
+			// MIMEタイプ
+			var type = 'image/png';
+			
+			// DOM要素からバイナリの一種であるデータURLスキームに変換する
+		  	var data_url_scheme= canvas.toDataURL(type).replace("image/png", "image/octet-stream");
+	
+			// データURLスキームからbase64形式のバイナリデータに変換する
+			var base64 = btoa(data_url_scheme);
+			base64 = base64.replace(/^.*,/, '');
+			
+			// ファイル名を指定
+			var file_name = "demo6.png";
+			file_name = encodeURIComponent(file_name);// URLエンコード
+			
+			// base64形式のバイナリデータをAjaxでサーバーに送信する。
+			$.ajax({
+				type: "POST",
+				url: "upload.php",
+				data: 'base64=' + base64 + '&amp;file_name=' + file_name,
+				cache: false,
+				dataType: "text",
+				success: function(res, type) {
+					$('#res').html('サーバーへファイルを保存しました。→ '+res);
+				},
+				
+				error: function(xmlHttpRequest, textStatus, errorThrown){
+					console.log(xmlHttpRequest.responseText);
+					alert(textStatus);
+				}
+				
+			});// ajax
+	
+		}});
+	}
+	&lt;/script&gt;
+	
+	～略～
+	
+	&lt;input type="button" class="btn btn-success btn-xs" value="AJAX" onclick="test2()" /&gt;&lt;br&gt;
+	&lt;div&gt;
+		&lt;div id="img_div2"&gt;いろは&lt;/div&gt;
+		&lt;div id="img_div"&gt;
+			&lt;img src="toumei1.png" class="test1" /&gt;
+			&lt;img src="toumei2.png" class="test1" /&gt;
+			&lt;img src="toumei3.png" class="test1" /&gt;
+			&lt;img src="toumei4.png" class="test1" /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<p>upload.php</p>
+	<pre><code>
+	&lt;?php
+	$base64=$_POST['base64'];
+	$file_name=$_POST['file_name'];
+	
+	$file_name = urldecode ($file_name);
+	$file_name = 'upload_img/'.$file_name;
+	echo $file_name;
+	
+	
+	// BASE64バイナリ文字列をファイルに変換して書き出す
+	$base64 = base64_decode($base64);
+	$base64 = preg_replace("/data:[^,]+,/i","",$base64);
+	$base64 = base64_decode($base64);
+	file_put_contents($file_name, $base64);
+	</code></pre>
+	<br>
+	
+	<br><time>2016-11-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-7" class="sec1" >
+	<h3>TableDataK.js | テーブル要素からフィールドを指定してデータを取得する</h3>
+
+	Download<br>
+	<a href="/note_prg/js/TableDataK.js" class="btn btn-default btn-xs">TableDataK.js</a><br>
+	<br>
+	
+	<input type="button" class="btn btn-default btn-xs" value="source code" onclick="$('#sec11-7a').toggle()"/>
+	<pre id="sec11-7a" style="display:none"><code>
+	/**
+	 * TableDataK.js | テーブル要素からフィールドを指定してデータを取得する
+	 * 
+	 * @version 0.5 未テスト
+	 * @date 2016-11-8
+	 */
+	var TableDataK =function(option){
+		
+		
+		this.option = option;
+		
+		var myself=this; // Instance of myself.
+	
+		/**
+		 * initialized.
+		 */
+		this.constract=function(){
+			
+			// If Option property is empty, set a value.
+			this.option = setOptionIfEmpty(this.option);
+			
+		};
+		
+		// If Option property is empty, set a value.
+		function setOptionIfEmpty(option){
+			
+			if(option == undefined){
+				option = {};
+			}
+			
+			if(option['flg'] == undefined){
+				option['flg'] = 0;
+			}
+			
+			return option;
+		};
+		
+		
+		
+	
+		/**
+		 *  一覧からデータを取得する
+		 *  
+		 *  @version 1.0
+		 *  
+		 *  @param tbl_slt テーブルのセレクタ
+		 *  @param fields フィールドリスト
+		 *  @param 一覧のデータ
+		 */
+		this.getDataFromTable = function(tbl_slt,fields){
+			
+			var data = [];
+			$(tbl_slt + ' tbody tr').each(function(){
+				var tr = $(this);
+				
+				// TR要素からフィールド名を指定して、エンティティを取得する
+				var ent = myself.getEntity(tr,fields);
+				
+				data.push(ent);
+			});
+			
+	
+			return data;
+		};
+		
+		
+		/**
+		 * 親要素からフィールド名を指定して、エンティティを取得する
+		 *  @param parElm 親要素
+		 *  @param fields フィールドリスト
+		 *  @return エンティティ
+		 */
+		this.getEntity = function(parElm,fields){
+			
+			
+			
+			var ent = {}; // エンティティ
+			
+			for(var i in fields){
+				
+				var f = fields[i];
+		
+				// name属性またはclass属性を指定して値要素を取得する。
+				var valueElm = getValueElm(parElm,f);
+				
+	
+				// 値要素が取得できなければcontinueする。
+				if(valueElm[0]==undefined){
+					continue;
+				}
+				
+				
+				// 値要素のタグ名を取得する
+				var tagName = valueElm.get(0).tagName; 
+	
+				// 値を取得する
+				var v = null;
+				if(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA'){
+					
+					// type属性を取得する
+					var typ = valueElm.attr('type');
+					
+					if(typ=='file'){
+	
+						// アップロードファイル系である場合、ひもづいているlabel要素から値を取得する。
+						v = getValFromLabel(parElm,f);
+	
+					}
+					
+					else if(typ=='checkbox'){
+						v = 0;
+						if(valueElm.prop('checked')){
+							v = 1;
+						}
+						
+					}
+					
+					else if(typ=='radio'){
+						var opElm = parElm.find("[name='" + f + "']:checked");
+						v = 0;
+						if(opElm[0]){
+							v = opElm.val();
+						}
+			
+					}
+					
+					else{
+						v = valueElm.val();
+						
+					}
+				}
+				
+				// IMGタグへのセット
+				else if(tagName == 'IMG'){
+					
+					//IMG系である場合、ひもづいているlabel要素から値を取得する。
+					v = getValFromLabel(parElm,f);
+	
+				}
+				
+				else{
+					v = valueElm.html();
+				}
+				
+				ent[f] = v;
+	
+			}
+	
+	
+			return ent;
+		};
+		
+		
+		/**
+		 * フィールド名から親要素内をname属性またはclass属性で探し、該当する要素を値要素として取得する
+		 * 
+		 * @param parElm 親要素
+		 * @param feild フィールド名（name属性またはclass属性）
+		 * @return jquery_object 値要素
+		 */
+		function getValueElm(parElm,feild){
+			
+			
+			var valueElm = parElm.find("[name='" + feild + "']");
+			if(valueElm[0]==undefined){
+				valueElm = parElm.find('.' + feild);
+			}
+			return valueElm;
+		};
+		
+		
+		/**
+		 * フィールドを指定してlabel要素から値を取得する
+		 * @param parElm フォーム要素オブジェクト
+		 * @param field フィールド名
+		 * @return labelから取得した値
+		 */
+		function getValFromLabel(parElm,field){
+			var v = null;
+			var label = parElm.find("[for='" + field + "']");
+			if(label[0]){
+				v = label.html();
+			}
+			
+			return v;
+					
+		};
+		
+		
+		
+		
+		// call constractor method.
+		this.constract();
+	};
+	</code></pre>
+	<br>
+
+	
+	<br><time>2016-11-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-8" class="sec1" >
+	<h3>カテゴリ連動型SELECT | CSelectLinkage.js</h3>
+
+	<a href="/sample/js/a003/category_select/category_select.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	カテゴリ連動型SELECTはカテゴリSELECTと主SELECTの２つから構成される。<br>
+	カテゴリSELECTで選択を行うと、連動して主SELECTの選択リストはカテゴリに属したリストに切り替わる。<br>
+	<br>
+
+	<br><time>2016-11-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-9" class="sec1" >
+	<h3>ラジオボタンのイベント挙動を調査</h3>
+
+	<a href="/sample/js/a003/radio_event/radio_event.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script&gt;
+	function test1(e){
+		var radio = $(e);
+		var v = radio.attr('value');
+		$('#res1').html(v);
+	}
+	&lt;/script&gt;
+	
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal2" value="1" onclick="test1(this)" /&gt;ネコ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal2" value="2" checked onclick="test1(this)" /&gt;ヤギ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal2" value="3" onclick="test1(this)" /&gt;カニ&lt;/label&gt;
+	&lt;div id="res1"&gt;&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<aside>
+	onclickの代わりにonchangeでも同様な動きになる。<br>
+	（2016年11月時点のChrome,IE,Firefox,Operaで確認）
+	</aside>
+	
+	<br><time>2016-11-15</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-10" class="sec1" >
+	<h3>ラジオボタンを扱いやすくする方法 | ラジオボタンをhidden要素と連動する</h3>
+
+	ラジオボタンは他のテキスト要素など他の入力要素と比べるとかなり特異で扱いにくい。<br>
+	hidden要素と連動する方式は、この弱点を解決できる。<br>
+	<br>
+	
+	ラジオボタンをユーザーがクリックしたとき、hidden要素に値をセットする。<br>
+	他のプログラムは、そのhidden要素から値を取得するようにする。<br>
+	hidden要素は扱いやすいので、シンプルで分かりやすいソースコードになる。<br>
+	<br>
+
+	
+
+	<a href="/sample/js/a003/radio_event/radio_and_hidden.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script&gt;
+	/**
+	* ラジオボタンの選択値を指定したhidden要素にセットする
+	* @param e ラジオボタン要素
+	* @param hdd_slt hidden要素のセレクタ
+	*/
+	function setHidden(e,hdd_slt){
+		var radio = $(e);
+		var v = radio.attr('value');
+		$(hdd_slt).val(v);
+	}
+	&lt;/script&gt;
+	
+	&lt;input id="animal1" type="hidden" value="2" /&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal1" value="1" onclick="setHidden(this,'#animal1')" /&gt;ネコ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal1" value="2" checked onclick="setHidden(this,'#animal1')" /&gt;ヤギ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio"  name="animal1" value="3" onclick="setHidden(this,'#animal1')" /&gt;カニ&lt;/label&gt;
+	</code></pre>
+	<br>
+	
+	<aside>
+	2016年11月時点のChrome,IE,Firefox,Operaで確認
+	</aside>
+	
+	<br><time>2016-11-15</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-11" class="sec1" >
+	<h3>ラジオボタンをhidden要素と連動する | リフレッシュ</h3>
+
+	<a href="/sample/js/a003/radio_event/radio_and_hidden_demo3.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	/**
+	* ラジオボタンの選択値を指定したhidden要素にセットする
+	* @param e ラジオボタン要素
+	* @param hdd_slt hidden要素のセレクタ
+	*/
+	function setHidden(e,hdd_slt){
+		
+		var radio = $(e);
+		var v = radio.attr('value');
+		$(hdd_slt).val(v);
+	}
+	
+	function <strong>refresh</strong>(){
+		var v = $('#animal1').val();
+		$("[name='animal1']").val([v]);
+	}
+	&lt;/script&gt;
+	
+	&lt;input id="animal1" type="number" min="0" max="4" value="2" /&gt;
+	&lt;input type="button" class="btn btn-primary btn-sm" value="リフレッシュ" onclick="refresh()" /&gt;&lt;br&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio" name="animal1" value="1" onclick="setHidden(this,'#animal1')" /&gt;ネコ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio" name="animal1" value="2" checked onclick="setHidden(this,'#animal1')" /&gt;ヤギ&lt;/label&gt;
+	&lt;label class="animal_label"&gt;&lt;input type="radio" name="animal1" value="3" onclick="setHidden(this,'#animal1')" /&gt;カニ&lt;/label&gt;
+	</code></pre>
+	
+	<br><time>2016-11-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-12" class="sec1" >
+	<h3>name属性名とvalueを指定してラジオボタンにチェックを入れる</h3>
+
+
+	<pre><code>
+	/**
+	 * name属性名とvalueを指定してラジオボタンにチェックを入れる
+	 * @param name ラジオボタンのname属性名
+	 * @param value value属性の値
+	 * @returns
+	 */
+	function _putCheckedToRadio(name,value){
+		var slt = "[name='" + name +"'][value='" + value + "']";
+		$(slt).prop({'checked':true});
+	}
+	</code></pre>
+
+	
+	<br><time>2017-2-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec11-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+
+	
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-11-4</div>
+</body>
+</html>

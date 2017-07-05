@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GitとGitHubの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>GitとGitHubの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s10" class="sec4" >
+	<h4>Reset | リセット</h4>
+	
+	Resetは一種の戻り処理である。
+	<a href="github_note.html#s120" class="livipage">コミット</a>を取り消すときなどに利用できる。<br>
+	Eclipseでは以下のように呼び出す。
+	<pre>プロジェクト名をクリック → Team → Rest</pre>
+	<img src="/photos/note_prj/git/github_note/s10a3.png" class="img_compact_k" />
+	<img src="/photos/note_prj/git/github_note/s10a4.png" class="img_compact_k" /><br>
+	<br>
+	
+	Resetは複雑であるが、大きく分けて以下の3つの概念がある。<br>
+	<br>
+	<ol>
+		<li><a href="#s10-1" class="livipage">どの状態に戻すか</a></li>
+		<li><a href="#s10-2" class="livipage">どのリポジトリとブランチへ戻すのか</a></li>
+		<li><a href="#s10-3" class="livipage">いつのコミットへ戻すのか</a></li>
+	</ol>
+	<br><br>
+	
+	
+	<div id="s10-1">
+		<p>どの状態に戻すか</p>
+		<img src="/photos/note_prj/git/github_note/s10a5.png" class="img_compact_k" /><br>
+		<br>
+		
+		戻す状態はSoft、Mixed、Hardの3種類がある。<br>
+		<aside>Mixedがデフォルト選択されており、標準的な扱いになっている。</aside>
+		<ol>
+			<li><strong>Soft</strong>はHEADのみ戻す。</li>
+			<li><strong>Mixed</strong>はHEADとインデックスを戻す</li>
+			<li><strong>HARD</strong>はHEAD、インデックス、ワークツリーを戻す。</li>
+		</ol>
+		<br>
+		
+		下図を参考に説明する。<br>
+		<img src="/photos/note_prj/git/github_note/s10a1.png" /><br>
+		<br>
+		
+		
+		<strong class="text-warning">コミットCからコミットBへSoftで戻す</strong><br>
+		HEADだけがコミットBになり、<a href="github_note.html#s127" class="livipage">インデックス</a>と
+		<a href="github_note.html#s132" class="livipage">ワークツリー</a>はコミットCのままである。<br>
+		この状態でCommitを実行するとコミットCと同じ状態になる。つまり、コミットCになる直前状態と言える。<br>
+		<br>
+		
+		<img src="/photos/note_prj/git/github_note/s10a6.png" /><br>
+		<aside>
+			SoftでReset後のプロジェクトの状態<br>
+			インデックスにはコミットCのファイル情報が存在するので、プロジェクト名に「*」アイコンが付いている。
+		</aside>
+		<br><br>
+		
+		<strong class="text-warning">コミットCからコミットBへMixedで戻す</strong><br>
+		HEADとインデックスがコミットBになり、ワークツリーはコミットCのままである。<br>
+		この状態でCommitを実行すると、コミットするファイルの選択が求められる。インデックスにコミット予定のファイルがないからである。<br>
+		<br>
+		
+		<img src="/photos/note_prj/git/github_note/s10a7.png" /><br>
+		<aside>
+			MixedでReset後の状態<br>
+			ワークツリーはコミットCのまま、つまりファイル自体は戻っていない。ファイルを戻した時の状態にする場合、HEADまたはインデックスと置換したり、比較を行う。（参考：Resetでコミットをやりなおす）
+		</aside>
+		<br><br>
+		
+		<strong class="text-warning">コミットCからコミットBへHardで戻す</strong><br>
+		HEAD、インデックス、ワークツリーがすべてコミットBと同じ状態になる。<br>
+		もはやファイル内容も含めてコミットBと同じである。<br>
+		<aside>プロジェクトがEclipseから消えることがあるので注意。元に戻すにはEclipseの新規プロジェクト作成を作り直せば良い。ファイル自体が消えたわけでないのですぐに復元できる。</aside>
+		<br><br>
+	</div>
+
+	
+	<br><br><br><br>
+	
+	
+	<div id="s10-2">
+		<p>どのリポジトリとブランチへ戻すのか</p>
+		<br>
+		<img src="/photos/note_prj/git/github_note/s10a8.png" class="img_compact_k" /><br>
+		<br>
+		
+		
+		コミットCからコミットBに戻す（Reset）という上記の説明の場合、コミットBのリポジトリまたはブランチはどれにするかという選択である。<br>
+		大きく分けると２通りあり、ローカルリポジトリ系とリモートリポジトリ系がある。<br>
+		<br>
+		
+		<strong class="text-warning">ローカルリポジトリ系</strong><br>
+		ローカルリポジトリ内で複数のブランチを切っているなら、戻し先のブランチはどれにするか選択する。<br>
+		<br>
+		
+		<a href="github_note.html#s133" class="livipage">HEAD</a>、
+		<a href="github_note.html#s134" class="livipage">ORIG_HEAD</a>、
+		<a href="github_note.html#s135" class="livipage">FETCH_HEAD</a>があるが、これらはコミットの選択である。<br>
+		<strong>HEAD</strong> は現在作業中のコミットである。1つ前のコミット、３つ前のコミットなども選べる。
+		詳しくは後述の「<a href="#s10-3" class="livipage">いつのコミットへ戻すのか</a>」にて。<br>
+		<strong>ORIG_HEAD</strong>は、前回、Resetを実行したときの直前コミットに戻す。誤ってResetを実行してしまったときなど、元に戻したいときに選択する。<br>
+		<strong>FETCH_HEAD</strong>は最後にfetchを行った時のコミットに戻す。他のユーザーが最後に修正したコミットに戻りたいときに使う。<br>
+		<br><br>
+		
+		<strong class="text-warning">リモートリポジトリ系</strong><br>
+		リモートリポジトリに複数のブランチが作成されているなら、戻し先のブランチを選択する。<br>
+		また、複数のGitサービス※と連携している場合、戻し先のWebサービスとブランチを選択する。<br>
+		<aside>※ GitHub,Bitbucketなど</aside>
+		<br><br>
+	</div>
+	
+	
+	
+	<br><br><br><br>
+	
+	
+	
+	<div id="s10-3">
+		<p>いつのコミットへ戻すのか</p>
+		References/HEAD を選択しているとき、1つ前のコミット、３つ前のコミットなどを選択することが可能である。<br>
+		「Reset to」に<strong> Head<span class="text-danger">~</span></strong> を入力すると一つ前のコミットに戻すことができる。<br>
+		<img src="/photos/note_prj/git/github_note/s10a9.png" class="img_compact_k" /><br>
+		<br>
+		
+		3つ前のコミットに戻す場合は <strong> Head<span class="text-danger">~3</span></strong> のように<strong >~3</strong>を付加する。<br>
+		<img src="/photos/note_prj/git/github_note/s10a10.png"  /><br>
+		<br>
+	</div>
+	
+	
+	<br><time>2016-9-9</time>
+	<br><br><br><br>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="s11" class="sec4" >
+	<h3>Resetで１つ前のコミットに戻す</h3>
+	
+	間違ってコミットしてしまった場合、1つ前のコミットに戻って修正することができる。<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			プロジェクト名を右クリック → Team → Reset 
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/sec1a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			References → HEAD と選択。<br>
+			Reset to に 「<strong>HEAD~1</strong>」を入力する。<br>
+			Reset type はMixedを選択。<br>
+			入力が終わったら Resetボタンを押す。<br>
+			以上でコミットは１つ前に戻る。
+			<aside>
+				HEAD~1は一つ前のコミットを意味する。
+				4つ前のコミットならHEAD~4とする。
+				なお、1つ前であるなら数値部分を省略し HEAD~ としてよい。
+			</aside>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/sec1a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			コミットを一つ戻したからと言って、ファイルまで元に戻ったわけではない。<br>
+			<img src="/photos/note_prj/git/github_note/sec1a3.png"  /><br>
+			<br>
+			
+			元のファイルはHEAD Revisionと比較すると確認できる。<br>
+			<img src="/photos/note_prj/git/github_note/sec1a4.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/sec1a5.png" class="img_compact_k" />
+			<aside>現在のHEADは1つ前のコミットに戻っている状態である。</aside>
+		</li>
+		
+		<li>
+			あとは、ファイルを修正、追加、削除などを行い、最後にコミット→プッシュとおなじみの操作をすればよい。
+			<br>
+		
+		</li>
+		
+		
+	</ol>
+	
+	<br><time>2016-9-12</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="s12" class="sec4" >
+	<h3>Revert | プッシュの取り消し</h3>
+	
+	誤ってコミットをプッシュした場合、取り消しが可能である。<br>
+	取り消しの方法は、誤コミット自体をなくすことでなく、誤コミットをプッシュする前の状態を、もう一度プッシュするという方法である。
+	(誤コミット前の状態で上書きする)
+	<br>
+	以下に手順を示す。<br>
+	<br>
+	
+	
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			GitHubのWebサイトへアクセスし、対象リポジトリ、コミット一覧を開く。
+			図にあるTEST28コミットを取り消してみる。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			Eclipseを開き、対象プロジェクトを開く。<br>
+			<aside>TEST28コミットではREADME.md内のテキストを少し変更している。</aside>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			EclipseでHistoryビューを開く。
+			<pre>プロジェクト名を右クリック → Team → Show in History</pre>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a3.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			Historyビューではコミット一覧が表示される。<br>
+			取り消し対象コミットを確認する。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a4.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			取り消し対象であるTEST28コミットを右クリック、<strong class="text-danger">Revert Commit</strong> を選択する。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a5.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			すると、TEST28コミットで修正したファイルが元に戻る。
+			<aside>図では、README.mdが元に戻っていることを確認できる。(TEST27コミットの状態に戻っている)</aside>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a6.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			このままファイル修正やコミットは行わず、<strong>プッシュ</strong>する。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a7.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s12a8.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			
+			以上でTEST28コミットプッシュが取り消される。<br>
+			GitHubのWebサイトでもう一度、コミット一覧を確認すると「Revert "TEST28"」というコミットが追加され、
+			TEST28コミットが取り消されたことが分かる。
+			<aside>TEST27のコミットで再度、上書きすることによりTEST28を取り消している。</aside>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s12a9.png" class="img_compact_k" />
+		</li>
+	</ol>
+	
+	<br><time>2016-9-13</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="s13" class="sec4" >
+	<h3>競合の修正方法</h3>
+	
+	
+	<a href="github_note.html#s121" class="livipage">プル</a>、
+	<a href="github_note.html#s126" class="livipage">プッシュ</a>、
+	<a href="github_note.html#s123" class="livipage">マージ</a>
+	したときに<a href="github_note.html#s124" class="livipage">競合が発生</a>することがある。<br>
+	<br>
+	
+	競合の修正は手動で行う。（Marge Tool を活用できる）<br>
+	手動での修正後は、保存、インデックスへ追加、コミット、プッシュという流れである。<br>
+	<br>
+	
+	詳しい修正手順は以下の通り。<br>
+	<br>
+	
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		
+		<li>
+			競合しているファイルを手動で修正する。<br>
+			<br>
+			
+			<aside>
+				修正にはMerge Tool を活用することもできる。<br>
+				<strong>Merge Tool の開き方</strong><br>
+				競合発生中のファイルを右クリック → 
+				Team → Merge Tool でマージツールを開き、競合を修正する。<br>
+				<br>
+			</aside>
+			
+			修正が終わったら保存ボタンを押す。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a1.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a2.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a3.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a4.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			続いて、インデックスへ修正を追加する。<br>
+			プロジェクト名を右クリック → Team → Add to Index と操作する。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a5.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			修正したファイルに「*」アイコンが表示されることを確認する。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a6.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			ローカルリポジトリへコミットする。(プロジェクト名を右クリック → Team → Commit)
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a7.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a8.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a9.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			プッシュする。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a10.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a11.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s125a12.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			以上で競合の修正完了。<br>
+			プロジェクト名と競合してたファイルから競合アイコンが消えていることを確認する。
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s125a13.png" class="img_compact_k" />
+		</li>
+		
+	</ol>
+	
+	<br><time>2016-9-6</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="s14" class="sec4" >
+	<h4>SSHを設定する</h4>
+	SSH接続の設定は大まかに説明すると以下の通り。
+	<ol>
+		<li>Eclipseで公開キーと秘密キーを作成する。</li>
+		<li>公開キーをGitHubサイトに登録する。</li>
+	</ol>
+	<br>
+	
+	<aside>公開キーは、ばれても良いが秘密キーは他の人に教えないように。</aside>
+	<br>
+	
+	詳細な手順を以下に説明する。
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			まず、秘密キーと公開キーをEclipseで発行する。<br>
+			<br>
+			
+			Eclipseを起動し、以下の操作を行い、発行画面に遷移する。
+			<pre>window → prefrence → General → NetworkConnection → SSH2</pre>
+			<br>
+			
+			Generalタグをクリックする。<br>
+			<br>
+			
+			「SSH2 home:」には秘密キーと公開キーを保存する任意のディレクトリを指定する。<br>
+			<br>
+			
+			「Private keys:」には「id_rsa」を入力する。<br>
+			<br>
+			
+			Applyボタンを押して適用する。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a1.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			Key Management タブをクリックする。<br>
+			<br>
+			
+			Passphrase に任意のパスワードを新規入力する。<br>
+			<br>
+			
+			<strong>Generate RSA Key</strong> ボタンを押す<br>
+			<br>
+			
+			「You can paste ..」のテキストボックスに公開キーが作成されるので、コピーして保管する。（GitHubサイト側で必要になる）<br>
+			<aside>テキストボックスの公開キーは2行しか見えていないが、実際は3行ぐらいあるで注意。間違えやすいのでCtrl + a でテキストボックス内を全体選択してコピーしたほうがよい。</aside>
+			<br>
+			
+			<strong>Save Private Key</strong> ボタンを押す。秘密キー(id_rsa)と公開キー(id_rsa.pub)が指定ディレクトリに保存される。※<br>
+			<br>
+			
+			Applyボタン、そしてOKボタンを押す。<br>
+			
+			<br>
+			<img src="/photos/note_prj/git/github_note/s14a2.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s14a3.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s14a4.png" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note/s14a10.png" class="img_compact_k" />
+			
+			<aside>※ id_rsaをテキストエディタで開くと秘密キーが確認できる。id_rsa.pubを同様に開くと公開キーが確認できる。</aside>
+		</li>
+
+		<li>
+			続いて、GitHubサイトにサインインする。<br>
+			<br>
+			
+			右上アイコン → Settings と操作する。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a5.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			SSH and GPG Keys をクリックする。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a6.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			New SSH key を押して、SSHキーの登録画面を開く。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a7.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			「title」には任意の名前を入力する。<br>
+			<br>
+			
+			<strong>Key</strong> にはコピーして保管していた<strong>公開キー</strong>をペーストする。<br>
+			<br>
+			
+			入力が終わったら、Add SSH key ボタンを押す。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a8.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			以上でSSH設定は完了である。<br>
+			コミット＆プッシュで動作確認してみること。<br>
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/s14a9.png" class="img_compact_k" />
+		</li>
+
+
+	</ol>
+	
+	<br><time>2016-9-15</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s0" class="sec4" style="display:none">
+	<h4>XXX</h4>
+	
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			
+			<br>
+		
+			<img src="/photos/note_prj/git/github_note/%0" class="img_compact_k" />
+		</li>
+		
+	</ol>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/it/">情報技術</a></li>
+	<li><a href="/note_prg/git/github_note.html">GitとGitHubの覚書</a></li>
+	<li>ページ2</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-8-25</div>
+</body>
+</html>

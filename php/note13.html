@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>PHPの覚書 | ワクガンス</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-1" class="sec1">
+	<h3>連続するスペースを一つにする</h3>
+	
+	<pre><code>	$str = preg_replace('/\s+/', ' ', $str); // 連続するスペースを１つにする</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-2" class="sec1">
+	<h3>文字列で指定した関数を呼び出す</h3>
+
+<pre><code>
+	&lt;?php 
+	$str = 'barking_cat';
+	if (function_exists($str)) {
+		$str(); // 出力 → ウオーン
+	} else {
+		echo "関数は存在せず";
+	}
+	
+	function barking_cat(){
+		echo 'ウオーン&lt;br&gt;';
+	}
+	?&gt;
+</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-3" class="sec1">
+	<h3>文字列のクラス名とメソッド名を指定して実行する</h3>
+
+	<pre><code>
+		&lt;?php 
+		$className = 'DogClass';
+		$methodName = "bark";
+		if (method_exists($className, $methodName)) {
+			echo "メソッド実行可&lt;br&gt;";
+			$obj = new $className;
+			$obj-&gt;$methodName(); // 出力→フォンフォン
+		} else {
+			echo "メソッドは使用できません。";
+		}
+		
+		class DogClass{
+			function bark(){
+				echo 'フォンフォン';
+			}
+		}
+		?&gt;
+	</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-4" class="sec1" >
+	<h3>拡張URLエンコード</h3>
+
+	<pre><code>
+	/**
+	 * 拡張URLエンコード
+	 *
+	 * @note
+	 * 多次元配列に対応
+	 * 高速化のため、引数は参照（ポインタ）であり返値もかねている。
+	 *
+	 * @param any $data URLエンコード対象データ（参照型） | 値および配列を指定
+	 * @return void
+	 */
+	protected function urlencodeEx(&amp;$data){
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				$this-&gt;urlencodeEx($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = urlencode($data);// URLエンコード
+		}else{
+			// 何もしない
+		}
+	}	
+	</code></pre>
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-5" class="sec1" >
+	<h3>CSV用データに変換</h3>
+
+	<pre><code>
+	 * CSV用データに変換
+	 * 
+	 * @note
+	 * 文字列データはダブルクォートで括る
+	 * 多次元配列に対応
+	 * 高速化のため、引数は参照（ポインタ）であり返値もかねている。
+	 * 
+	 * @param array $data データ
+	 * @return array CSV用のデータ
+	 */
+	protected function convToCsvData(&amp;$data){
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				$this-&gt;convToCsvData($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace($data,'"','""');
+			$data = '"' . $data .'"';
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-5-2" class="sec1" >
+	<h3>CSVファイルを読み込み配列データに格納する</h3>
+
+	<pre><code>
+	/**
+	 * CSV読込
+	 *
+	 * @note
+	 * 当サーバー上に配置してあるCSVファイルからデータを読み込む。
+	 * ダブルクォートの括り内に存在する改行やコンマにも対応している。
+	 *
+	 * @version 4.1
+	 * @date 2011-9-26 | 2017-7-4
+	 *
+	 * @param array $csv_fp CSVファイルパス
+	 * @param array $delim 区分記号: 「,」や「&yen;t」を指定する。デフォルトは「,」。
+	 * @param array $sjis_flg Shift-JISフラグ: true（デフォルト）:Shift-JISからUTF8に変換
+	 * 
+	 * @return array CSVデータ配列
+	 * @throw エラーメッセージ
+	 */
+	public function load($csv_fp,$delim=',',$sjis_flg=true){
+		
+		
+		if(!file_exists($csv_fp) || !is_readable($csv_fp)){
+			throw new Error('There is no csv file!');
+		}
+		
+		
+		$data = array();
+		
+		// Shift-JIS形式のCSVである場合
+		if($sjis_flg){
+			
+			// CSVファイルをUTF8に書き換える
+			$buffer = mb_convert_encoding(file_get_contents($csv_fp), "UTF-8", "SJIS");
+			$csv_fp= tmpfile();
+			fwrite($csv_fp, $buffer);
+			rewind($csv_fp);
+			
+			$header = NULL;
+			while (($row = fgetcsv($csv_fp, 0, $delim)) !== FALSE) {
+				
+				if(!$header){
+					$header = $row;
+				}else{
+					$data[] = array_combine($header, $row);
+				}
+			}
+			fclose($csv_fp);
+		}
+
+		// UTF8形式のCSVである場合
+		else{
+			
+			$header = NULL;
+			if (($handle = fopen($csv_fp, 'r')) !== FALSE)
+			{
+				while (($row = fgetcsv($handle, 1000, $delim)) !== FALSE)
+				{
+					if(!$header){
+						$header = $row;
+					}else{
+						$data[] = array_combine($header, $row);
+					}
+				}
+				fclose($handle);
+			}
+		}
+
+		return $data;
+
+	}
+	</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-7-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-6" class="sec1" >
+	<h3>evalの使い方</h3>
+
+	<p>検証0</p>
+	<pre><code>
+	$str0 = "echo 'マンモス'; ";
+	eval($str0);
+	</code></pre>
+	出力
+	<pre class="output_data">	マンモス</pre>
+	<hr>
+	
+	<p>検証1</p>
+	eval実行する文字列にPHPコードやHTMLコードが混在している場合。
+	<pre><code>
+		$str = "動物名：&lt;?php echo 'アフリカゾウ'; ?&gt;&lt;hr&gt;";
+		eval(' ?&gt;'.$str.'&lt;?php ');
+	</code></pre>
+	出力
+	<pre class="output_data">	動物名：アフリカゾウ</pre>
+	<hr>
+	
+	<p>検証2</p>
+	evalの外で宣言している変数をeval内で実行する
+	<pre><code>
+		$animal_name= 'インド象';
+		$str2 = "動物名：&lt;?php echo &yen;$animal_name; ?&gt;&lt;br&gt;";
+		eval(' ?&gt;'.$str2.'&lt;?php ');
+	</code></pre>
+	出力
+	<pre class="output_data">	動物名：インド象</pre>
+	<hr>
+
+	
+	<p>検証2.1</p>
+	evalで実行する文字列を「"」で括った場合と、「'」で括った場合を検証する。
+	<pre><code>
+		$animal_name= 'インド象';
+		$str2 = "動物名：&lt;?php echo &yen;$animal_name; ?&gt;&lt;br&gt;";
+		eval(' ?&gt;'.$str2.'&lt;?php ');
+		$str2 = '動物名：&lt;?php echo $animal_name; ?&gt;&lt;hr&gt;';
+		eval(' ?&gt;'.$str2.'&lt;?php ');
+	</code></pre>
+	出力
+	<pre class="output_data">	動物名：インド象
+	動物名：インド象</pre>
+	<hr>
+
+	
+	<p>検証3</p>
+	eval内で宣言されている変数を、eval外で参照してみる。
+	<pre><code>
+		$str3 = "&lt;?php &yen;$nauman='ナウマンゾウ&lt;hr&gt;'; ?&gt;";
+		eval(' ?&gt;'.$str3.'&lt;?php ');
+		echo $nauman;
+	</code></pre>
+	出力
+	<pre class="output_data">	ナウマンゾウ</pre>
+	<hr>
+
+	
+	<p>検証4</p>
+	eval内でエラーが起きたときのエラー情報をキャッチする。
+	<pre><code>
+	&lt;?php 
+		$str4 = "
+			&lt;?php
+				&yen;$a='大きな';
+				&yen;$b='ゾウは';
+				&yen;$c= 10 / 0; // ワザとエラーにする。
+				&yen;$d='m あります。';
+				echo &yen;$a . &yen;$b . &yen;$c . &yen;$d;
+			?&gt;
+			";	
+		echo $str4;
+		 $response = @eval(' ?&gt;'.$str4.'&lt;?php ');
+		if (error_get_last()){
+			echo '&lt;div style="color:red"&gt;eval内のエラーです&lt;br&gt;';
+			print_r(error_get_last());
+			echo '&lt;/div&gt;';
+		}
+	?&gt;
+	</code></pre>
+	出力
+	<pre class="output_data">	
+	大きなゾウはm あります。
+	eval内のエラーです
+	Array ( [type] => 2 [message] => Division by zero [file] => C:\xampp\htdocs\sample\php\a020\eval_demo\eval_demo.php(133) : eval()'d code [line] => 5 )
+	</pre>
+	<hr>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-6-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-7" class="sec1" >
+	<h3>globalの検証</h3>
+
+
+	<p>検証1</p>
+	<pre><code>
+		// 正常なパターン：グローバル変数が表示される
+		$a = 'オオムラサキ';
+		test1();
+		function test1(){
+			global $a;
+			echo $a; // → オオムラサキ
+		}
+	</code></pre>
+	
+	<p>検証2</p>
+	<pre><code>
+		// globalを使わないとエラーになる。
+		$a = 'オオムラサキ';
+		test1();
+		function test1(){
+	
+			echo $a; // → エラー
+		}
+	</code></pre>
+	
+	<p>検証3</p>
+	<pre><code>
+		// 関数内の変数をglobalすると空になる。
+		test1();
+		function test1(){
+			$a = 'オオムラサキ';
+			global $a;
+			echo $a; // → 空値になる
+		}
+	</code></pre>
+	
+	<p>検証4</p>
+	<pre><code>
+		// 関数内の変数からglobalを除去すると空にならない。
+		test1();
+		function test1(){
+			$a = 'オオムラサキ';
+			$a;
+			echo $a; // → オオムラサキ
+		}
+	</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-6-9</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-8" class="sec1" >
+	<h3>パスの末尾にスラッシュがなければ追加（削除）</h3>
+
+	<p>パスの末尾にスラッシュがなければ追加</p>
+	<pre><code>
+	/**
+	 * パスの末尾にスラッシュがなければ追加。
+	 * 
+	 * @param string $path パス
+	 * @param $sep セパレータ: デフォルトは「/」である。「&yen;」を指定することも可能。
+	 * @return 末尾にスラッシュを付加したパス
+	 * 
+	 */
+	private function addSlashToPathEnd($path,$sep='/'){
+		if(empty($path)){
+			return $path;
+		}
+		
+		$end_str = mb_substr($path,-1);
+		if($end_str== $sep){
+			return $path;
+		}
+		
+		$path .= $sep;
+		
+		return $path;
+		
+	}
+	</code></pre><br>
+
+	<p>パスの末尾にスラッシュがあれば削除</p>
+	<pre><code>
+	/**
+	 * パスの末尾にスラッシュがあれば削除
+	 *
+	 * @param string $path パス
+	 * @param $sep セパレータ: デフォルトは「/」である。「&yen;」を指定することも可能。
+	 * @return 末尾からスラッシュを削除したパス
+	 *
+	 */
+	private function removeSlashToPathEnd($path,$sep='/'){
+		if(empty($path)){
+			return $path;
+		}
+		
+		$end_str = mb_substr($path,-1);
+		if($end_str != $sep){
+			return $path;
+		}
+		
+		$path = mb_substr($path,0,mb_strlen($path)-1);// 末尾の一文字を削る
+		
+		return $path;
+		
+	}
+	</code></pre><br>
+	
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-6-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-9" class="sec1" >
+	<h3>XMLファイルを読み込んでパースする | simplexml_load_file</h3>
+
+
+	<pre><code>
+	/**
+	 * ファイルアップロード情報からXMLパース形式のデータを取得する
+	 * 
+	 * @param string $xmlFp XMLファイルパス
+	 * @return array XMLパース形式のデータ
+	 */
+	private function getDataFromXml($xmlFp){
+		
+		$res = array(
+				'err_msg' =&gt; '',
+				'data' =&gt; $data
+				);
+		
+		$xmlData = <strong>simplexml_load_file</strong>($xmlFp);
+		
+		if(!empty($xmlData)){
+			$res['data'] = json_decode(json_encode($xmlData), true);
+		}else{
+			$res['res_msg'] = 'XMLデータの読込に失敗、もしくはXMLが空です。';
+		}
+		
+		return $res;
+
+	}
+	</code></pre>
+	
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-6-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-10" class="sec1" >
+	<h3>JAX.phpでXMLと配列データを相互変換する</h3>
+
+	<a href="http://0-oo.net/sbox/php-tool-box/jax" target="brank">公式サイト</a>
+	
+	<h2>デモ</h2>
+	<pre><code>
+		require_once 'JAX.php';
+		
+		// 配列データのサンプル
+		$data = array(
+				'id' =&gt; 99,
+				'name' =&gt; '赤猫',
+				'option' =&gt; array(
+						'age'=&gt;0,
+						'date'=&gt;'2017-5-1'
+				)
+		);
+	
+		var_dump($data);
+		
+		// 配列データからXMLテキストに変換する
+		$jax = new JAX();
+		$xml_fp = 'test1.xml';
+		$xml_text = $jax-&gt;<strong>array2xml</strong>('cat',$data);
+		var_dump($xml_text);
+		
+	
+		// XMLテキストから配列データに変換する。
+		$data2 = @$jax-&gt;<strong>xml2array</strong>($xml_text);
+		var_dump($data2);
+	</code></pre><br>
+	
+	<p>出力</p>
+	<pre class='output_data' dir='ltr'>
+	<b>array</b> <i>(size=3)</i>
+	  'id' <font color='#888a85'>=&gt;</font> <span>int</span> <font color='#4e9a06'>99</font>
+	  'name' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'赤猫'</font> <i>(length=6)</i>
+	  'option' <font color='#888a85'>=&gt;</font> 
+	    <b>array</b> <i>(size=2)</i>
+	      'age' <font color='#888a85'>=&gt;</font> <span>int</span> <font color='#4e9a06'>0</font>
+	      'date' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'2017-5-1'</font> <i>(length=8)</i>
+	</pre><pre class='output_data' dir='ltr'><span>string</span> <font color='#cc0000'>'&lt;?xml version=&quot;1.0&quot;?&gt;&#10;&lt;cat&gt;&lt;id&gt;99&lt;/id&gt;&lt;name&gt;&amp;#x8D64;&amp;#x732B;&lt;/name&gt;&lt;option&gt;&lt;age&gt;0&lt;/age&gt;&lt;date&gt;2017-5-1&lt;/date&gt;&lt;/option&gt;&lt;/cat&gt;&#10;'</font> <i>(length=124)</i>
+	</pre><pre class='output_data' dir='ltr'>
+	<b>array</b> <i>(size=3)</i>
+	  'id' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'99'</font> <i>(length=2)</i>
+	  'name' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'赤猫'</font> <i>(length=6)</i>
+	  'option' <font color='#888a85'>=&gt;</font> 
+	    <b>array</b> <i>(size=2)</i>
+	      'age' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+	      'date' <font color='#888a85'>=&gt;</font> <span>string</span> <font color='#cc0000'>'2017-5-1'</font> <i>(length=8)</i>
+	</pre>
+
+
+
+
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-6-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+</div><!-- content -->
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php">PHPの覚書</a></li>
+</ol>
+<div id="footer">(C) kenji uehara 2017-5-26</div>
+</body>
+</html>

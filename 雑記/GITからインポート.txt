@@ -1,0 +1,64 @@
+◇GITの手順（最初に始めるプロジェクトのインポート）
+プロジェクトの何もないところを右クリック
+インポート
+Git→Gitからプロジェクトを選択して「次へ」ボタン
+Clone URIを選択
+レッドマイン概要にある以下のURIを入力
+	ssh://gitosis@192.168.xxx.xxx/「プロジェクト名」.git
+パスワード
+	PCパスワードと同じもの
+あとは道なり。
+	プロジェクトフォルダはデフォルトを選択しておくことが無難。
+１０分くらい待つ
+
+
+◇シンボリックリンクの作成
+GITのインポートでは、デフォルトでマイドキュメント内にプロジェクトが配置される。
+本来、Apacheのhtdocs内にプロジェクトを作成させなければならないが、移動させるといろいろ不具合がでる。
+なのでhtdocs内にはシンボリックリンクを作る。
+シンボリックリンクはとあるディレクトリを別のディレクトリにあるかのように見せかけるものである。
+シンボリックリンクはLinuxなどで良く使わる技術であるが、Windowsには元々ない機能である。
+しかし、「Link Shell Extension」をインストールすれば、Windowsでも使えるようになる。
+まずは「Link Shell Extension」をインストールすること。
+インストールは簡単。他のアプリケーションのインストールと同じように、普通にダウンロードして普通インストールするだけ。※日本語を選択
+「Link Shell Extension」は常駐型のプログラムである。
+機能はWindowsエクスプローラーに組み込まれている。
+フォルダを開いた画面で、右クリックと現れるポップアップメニューに「Link Shell Extension」の機能が現れる。
+使い方はリンク元のフォルダを選び、リンク先フォルダに配置という流れである。
+GITインポートで作成されたプロジェクトのwebrootフォルダを右クリックして、
+「Link Shell Extension」の機能である「リンク元として選択」を選択する。
+Apacheのhtdocsフォルダ内の何もないところを右クリックし、「シンボリックリンク」を作成を選択。
+セキュリティソフトで警告が出るが無視して続行する。
+これで、Apacheのhtdocsフォルダ内にシンボリックリンクが作成される。
+これでhttp://localhostを指定でアクセス可能になる。
+
+
+◇複数のローカルホストを設定する。
+メモ帳を管理者権限で実行する。（メモ帳を右クリックして「管理者権限で実行」を選択）
+メモ帳で「C:\Windows\System32\drivers\etc\host」を開く。hostは拡張子のないファイル。
+hostファイルは以下のように設定
+
+・設定前
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+
+・設定後
+# localhost name resolution is handled within DNS itself.
+	127.0.0.1       localhost
+	127.0.0.1       localhost-okiraku-portal
+	127.0.0.1       localhost_diving
+#	::1             localhost
+
+Apacheの「apache\conf\extra\httpd-vhosts.conf」の末尾に以下を追加する。
+
+<VirtualHost localhost:80>
+    DocumentRoot "C:/web/pleiades/xampp/htdocs/okiraku-portal"
+    ServerName localhost-okiraku-portal
+</VirtualHost>
+
+
+<VirtualHost localhost:80>
+    DocumentRoot "C:/web/pleiades/xampp/htdocs/diving"
+    ServerName localhost_diving
+</VirtualHost>

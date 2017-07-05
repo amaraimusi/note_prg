@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　Boostrapの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../../common1.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Boostrapの覚書</h1>
+		<div id="content" >
+
+
+
+			<h2>概要</h2>
+			CSSフレームワークの１つで、精錬されたデザインを簡単に利用できます。<br>
+			以前は「Twitter Bootstrap」と呼ばれていました。<br>
+			メニューやボタン、アンカーに対するCSSスタイルが用意されています。<br>
+			デザインは以下のデモから確認できます。<br>
+			<a class="ref_link" href="http://bootswatch.com/">デモ</a><br>
+			<br>
+			<a class="ref_link" href="http://getbootstrap.com/">公式サイト/ダウンロード</a><br>
+			<br><br>
+
+
+			<h3>2014年10月時点の対応状況</h3>
+			IE7,Firefox3.6以下はサポート外です。<br>
+			またIE9以下はRespond.jsが必要になります。（CSS3はIE8以下で未対応のため）<br>
+			<br><br>
+
+
+			<h3>基本HTMLのソースコード</h3>
+			<pre>
+	&lt!DOCTYPE html&gt
+	&lthtml lang="ja"&gt
+	  &lthead&gt
+	    &ltmeta charset="utf-8"&gt
+	    &ltmeta http-equiv="X-UA-Compatible" content="IE=edge"&gt
+	    &ltmeta name="viewport" content="width=device-width, initial-scale=1"&gt
+	    &lttitle&gtBoostrapのサンプル1&lt/title&gt
+
+	    &ltlink href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"&gt
+	    &lt!--[if lt IE 9]&gt
+	      &ltscript src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"&gt&lt/script&gt
+	      &ltscript src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"&gt&lt/script&gt
+	    &lt![endif]--&gt
+
+	    &ltscript src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"&gt&lt/script&gt
+	    &ltscript src="bootstrap-3.2.0-dist/js/bootstrap.min.js"&gt&lt/script&gt
+
+	  &lt/head&gt
+	  &ltbody&gt
+	    &lth1&gtHello world!&lt/h1&gt
+
+
+	    &ltbutton type="button" class="btn btn-primary btn-lg"&gtテストボタン&lt/button&gt
+	  &lt/body&gt
+
+	&lt/html&gt
+			</pre>
+
+			<a class="ref_link" href="sample1.html">サンプル1</a><br>
+
+			<br><br>
+			<h4>他の要素へのスタイル</h4>
+			他にもナビケーション、ラベル、リスト、テーブルなど多数のスタイルが用意されています。
+			詳しくは公式サイトのデモを参考にしてください。<br>
+			<a class="ref_link" href="http://getbootstrap.com/examples/theme/">公式のデモ</a><br>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/10/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

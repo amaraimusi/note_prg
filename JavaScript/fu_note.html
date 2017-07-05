@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | ファイルアップロード</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | ファイルアップロード</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1" class="sec4" >
+	<h3>任意要素にドラッグ＆ドロップによるファイルアップロード機能を組み込む</h3>
+	任意の要素でファイルアップロードができるようにする<br>
+	<br>
+	
+	<a href="/sample/js/a004/fileupload2017/fileupload_by_any_elm.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	$(function(){
+		var fuElm = $('#test1');
+		fuElm[0].addEventListener('drop',function(evt){
+			evt.stopPropagation();
+			evt.preventDefault();
+	
+			var files = evt.dataTransfer.files; 
+	
+			var fns = [];
+			for (var i = 0; i &lt; files.length; i++) {
+				fns.push(files[i].name);
+			}
+
+		},false);
+		
+		fuElm[0].addEventListener('dragover',function(evt){
+			// evt.stopPropagation();
+			evt.preventDefault();
+		},false);
+	});
+	&lt;/script&gt;
+	
+	
+	&lt;div id="test1"&gt;
+		ファイルをドラッグ＆ドロップしてください。&lt;br&gt;
+		（複数ファイルも可）
+	&lt;/div&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</code></pre>
+
+	<a href="/sample/js/a004/fileupload_by_any_elm/img_file_upload_v2017" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	
+	<br><time>2017-1-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>画像ファイルアップロード | 画像サイズ(width,height)を取得する</h3>
+
+	アップロード中の画像サイズを取得するには、Imageオブジェクトを利用する。<br>
+	<br>
+	
+	<a href="/sample/js/a004/fileupload2017/img_fu_width.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	ソースコード<br>
+	<pre>
+	&lt;script&gt;
+	/*
+	 * 画像ファイルアップロード | 画像サイズ(width,height)を取得する
+	 * @date 2017-1-30
+	 */
+	$(function(){
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			var files = e.target.files;
+			var oFile = files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(oFile);
+	
+			// データURLスキームを取得後に実行される処理
+			reader.onload = function(evt) {
+				<span class="text-danger">// Imageオブジェクトを介して画像サイズ(width,height)を取得する
+				var img = new Image;
+				img.src = reader.result;
+				img.onload = function() { 
+					var msg = "width=" + img.width + "&lt;br&gt;" +
+						"height=" + img.height;
+					$('#res').html(msg);
+				 };</span>
+			}
+		});
+	
+	});
+	&lt;/script&gt;
+	
+	&lt;!-- any code --&gt;
+	
+	&lt;input type="file" id="file1" /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</pre>
+	
+	<br><time>2017-1-30</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>画像ファイルアップロード | プレビュー,DnD</h3>
+	
+	画像用ファイルアップロードのサンプル。<br>
+	<br>
+	
+	<p>機能</p>
+	<ol>
+	<li>プレビュー：画像をIMG要素へセットしてプレビュー表示する。(JavaScriptのみで実現)</li>
+	<li>DnD:任意領域へのドラッグ＆ドロップでファイルアップロードできる。</li>
+	</ol>
+
+	<a href="/sample/js/a004/fileupload2017/img_fu_p_d.html" class="btn btn-info">サンプル</a><br>
+	<br><br>
+	
+	<p>ソースコード</p>
+	HTML
+	<pre><code>
+	&lt;div id="test1"&gt;
+		&lt;div id="test1_init"&gt;
+			ファイルをドラッグ＆ドロップしてください。
+			（複数ファイルも可）
+			&lt;input type="file" id="file1" /&gt;
+		&lt;/div&gt;
+		&lt;img id="img1" src="" alt="" /&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<button class="btn btn-default" onclick="$('#sec1-2a').toggle()">JavaScript</button><br>
+	<pre id="sec1-2a" style="display:none"><code>
+	/**
+	 * 画像ファイルアップロード | プレビュー,DnD
+	 * @date 2017-1-27
+	 */
+	$(function(){
+		var fuElm = $('#test1');
+	
+		fuElm[0].addEventListener('drop',function(evt){
+			evt.stopPropagation();
+			evt.preventDefault();
+	
+			var files = evt.dataTransfer.files; 
+	
+			var fns = [];
+			for (var i = 0; i &lt; files.length; i++) {
+				fns.push(files[i].name);
+			}
+			
+			// ファイル名を出力する
+			var strFns = fns.join("&lt;br&gt;");
+			$('#res').html(strFns);
+			
+			img_preview(files); // 画像プレビューを表示する
+	
+		},false);
+		
+		fuElm[0].addEventListener('dragover',function(evt){
+			// evt.stopPropagation();
+			evt.preventDefault();
+		},false);
+		
+		//ファイルアップロードイベント
+		$('#file1').change(function(e) {
+			//ファイルオブジェクト配列を取得（配列要素数は選択したファイル数を表す）
+			var files = e.target.files;
+			img_preview(files);
+	
+		});
+	
+	});
+	
+	/**
+	 * プレビュー画像を表示する
+	 * @param files
+	 */
+	function img_preview(files){
+	
+		$('#test1_init').hide();
+		
+		//ファイルオブジェクト配列を取得（配列要素数は選択したファイル数を表す）
+		var oFile = files[0];
+	
+		var reader = new FileReader();
+		reader.readAsDataURL(oFile); // データURLスキーム取得処理を非同期で開始する
+	
+		// データURLスキームを取得後に実行される処理
+		reader.onload = function(evt) {
+			// img要素にデータURLスキームをセットし、画像表示する。
+			$('#img1').attr('src',reader.result);
+			
+			// 枠区分を画像にフィットさせる
+			var img = new Image;
+			img.src = reader.result;
+			img.onload = function() { 
+				 $('#test1').css({
+					'width':img.width,
+					'height':img.height});
+			 };
+	
+		}
+	}
+	</code></pre>
+
+	<br><time>2017-1-30</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | ファイルアップロード</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-1-27</div>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WordPressの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WordPressの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-1" class="sec4" >
+	<h3>WordPressのデータダウンロード(csv,jsonファイルとしてダウンロード)</h3>
+	
+	WordPressでのダウンロード機能を作成する場合、一般的なPHPの方法は使えず。<br>
+	template_redirectフックを利用する必要がある。<br>
+	<br>
+	
+	URLの例 （プラグインのパスは含まないので注意）
+	<pre><code>
+	http://localhost/test/wordpress?download=true
+	</code></pre>
+	<br>
+	
+	サンプル
+	<pre><code>
+	add_action('<strong>template_redirect</strong>', 'download_action');
+	function download_action() {
+		if($_GET['download'] == 'true') {
+	
+			$lineList = array();
+			$lineList[] = '大きな栗の木の下で';
+			$lineList[] = 'あなたとゾウムシ';
+			$lineList[] = '栗ひろいでしのぎをけずる';
+			
+			$txt_file = "test.txt";
+			$utf8_flg = false; // true:utf8のファイルにする | false:shift-jisファイルにする
+			
+			
+			$buf="";// バッファ
+			
+			// Shift-jisでダウンロードする
+			if(empty($utf8_flg)){
+			
+				foreach($lineList as $line){
+					$buf .= mb_convert_encoding($line."&yen;r&yen;n", "SJIS-win", "UTF-8");
+				}
+			
+			}
+			else{
+				$buf = "&yen;xEF&yen;xBB&yen;xBF"; // utf-8形式のファイルにするため、BOMをセットする。
+			
+				foreach($lineList as $line){
+					$buf .= $line."&yen;r&yen;n";
+				}
+			}
+			
+			header ("Content-disposition: attachment; filename=" . $txt_file);
+			header ("Content-type: application/octet-stream; name={$txt_file}; charset=utf-8");
+			print($buf);
+			
+			exit; 
+		}
+	}
+	</code></pre>
+	<br>
+	
+	<aside>download_action関数内で「global $wpdb;」を利用したDBアクセスは可能である。</aside>
+	
+	
+	<br><time>2017-5-30</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec4-2" class="sec4" >
+	<h3>カスタム投稿タイプの作成</h3>
+	
+	
+	カスタム投稿タイプを作成するには、プラグインのソースファイルに設定を記述するのが適切である。<br>
+	<aside>（function.phpに記述することもできる）</aside>
+	
+	
+	<p>プラグインのソースファイル(test_animal.php)</p>
+	<img src="img/note4/thum/sec4-2a1.png" class="img_panel_x" />
+	<pre><code>
+	// カスタム投稿タイプ
+	add_action( 'init', create_custam_post_type1 ));
+
+	/**
+	 * カスタム投稿タイプを作成する
+	 */
+	public function create_custam_post_type1() {
+		register_post_type( 'gecko_diary',
+			array(
+				'labels' =&gt; array(
+					'name' =&gt; __( 'ヤモリ' ),
+					'singular_name' =&gt; __( 'Gecko' )
+				),
+				'public' =&gt; true,
+				'has_archive' =&gt; true,
+			)
+		);
+	}
+	</code></pre><br>
+	
+	
+	プラグインを有効にしてダッシュボードを開くと右側のメニューに新項目が追加されている。<br>
+	ここから作成したカスタム投稿タイプに投稿できる。<br>
+	<img src="img/note4/thum/sec4-2a2.png" class="img_panel_x" />
+	<br>
+	
+	
+	<p>パーマリンク</p>
+	パーマリンクとはカスタム投稿タイプの投稿を一般へ公開するためのURLである。<br>
+	パーマリンクは書換え可能である。<br>
+	パーマリンクを適用するにはパーマリンクの更新を行わなければならない<br>
+	<aside>新投稿を行った後、パーマリンクを修正したあとにパーマリンクを更新する</aside>
+	<br>
+	
+	<strong>パーマリンクの更新方法</strong><br>
+	設定→パーマリンク設定→「変更を保存」ボタン<br>
+	<img src="img/note4/thum/sec4-2a3.png" class="img_panel_x" />
+	<br>
+	
+	以上で、パーマリンクにアクセスすると投稿が一般表示される。<br>
+	<br>
+	
+	
+	<br><time>2017-6-5</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-3" class="sec4" >
+	<h3>WordPressのリダイレクト | wp_redirect</h3>
+	
+	<pre><code>
+	wp_redirect( 'URL' );
+	exit;
+	</code></pre>
+	
+	<aside>
+	注意:
+	get_header()よりも前に呼び出さなければならないため、動かない場面も多い。
+	</aside><br>
+	
+	<strong>投稿ページへのリダイレクト</strong>
+	<pre><code>
+	wp_redirect( admin_url('post.php') );
+	exit;
+	</code></pre><br>
+	
+	
+	<a href="https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/wp_redirect" target="blank" class="btn btn-link">リファレンス</a><br>
+	<br>
+	
+	<br><time>2017-6-6</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-4" class="sec4" >
+	<h3>コアからフックを探す方法</h3>
+	
+	WordPressでのプラグイン開発ではフック探しが重要である。<br>
+	コアファイルのソースコードを<strong>do_action</strong>または<strong>apply_filters</strong>で検索するとフックの元場所が分かる。<br>
+	<br>
+	
+	<aside>
+	フックを検索する正規表現
+	<pre><code>(do_action|apply_filters)(_ref_array)?\( ?['"][_'"\w]*検索したい文字列</code></pre>
+	</aside>
+
+	<br><time>2017-6-6</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-5" class="sec4">
+	<h3>カスタム投稿タイプへ独自入力フォームを追加（さらにメタデータとして保存)</h3>
+	
+	
+	プラグインファイル<br>
+	<img src="img/note4/thum/sec4-5a1.png" class="img_panel_x" />
+	
+	
+	<p>test_animal.php</p>
+	<input type="button" class="btn btn-info" value="ソースコード" onclick="$('#sec4-5src').toggle()" />
+	<pre id="sec4-5src" style="display:none"><code>
+	&lt;?php
+	/*
+	 Plugin Name: テスト・アニマル・プラグイン
+	 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+	 Description: プラグイン開発のHello Worldです。
+	 Version: 1.0
+	 Author: kenji uehara
+	 Author URI: http://amaraimusi.sakura.ne.jp/
+	 License: MIT
+	 */
+	class TestAnimal {
+
+		public function __construct(){
+	
+			// 管理者メニューへ項目を追加する
+			add_action('admin_menu', function(){
+				// 省略
+				
+			});
+	
+			// カスタム投稿タイプを作成
+			add_action( 'init', array($this, 'create_custam_post_type1' ));
+			
+			// カスタム投稿タイプに独自の入力フォームを追加する。 | add_meta_boxと利用した方法
+			add_action( 'edit_form_advanced', function($post){
+				add_meta_box('post_dog', '飼い犬名', array($this, 'add_metabox_post_dog' ), 'gecko_diary', 'advanced', 'high');
+			});
+	
+			// 独自入力フォームからのメタデータをDB保存する
+			add_action('save_post',array($this, 'save_meta_post_dog'));
+	
+		}
+		
+		/**
+		 * 独自入力フォームからのメタデータをDB保存する
+		 * @param unknown $post_id
+		 * @return unknown
+		 */
+		public function save_meta_post_dog($post_id){
+			
+			// 投稿タイプをチェック
+			if ( 'gecko_diary' != $_POST['post_type'] ) {
+				return $post_id;
+			}
+			
+			// POSTから値を取得する
+			$post_dog= $_POST['post_dog'];
+			
+			// DB保存する
+			$this-&gt;save_post_meta_value($post_id,'post_dog',$post_dog);
+			
+		}
+		
+		/**
+		 * メタ値をDB登録する
+		 * @param unknown $value メタ値
+		 */
+		private function save_post_meta_value($post_id,$meta_key,$meta_value){
+			if(get_post_meta($post_id, $meta_key) == ""){
+				add_post_meta($post_id, $meta_key, $meta_value, true);
+			}elseif($meta_value != get_post_meta($post_id, $meta_key, true)){
+				update_post_meta($post_id, $meta_key, $meta_value);
+			}elseif($meta_value == ""){
+				delete_post_meta($post_id, $meta_key, get_post_meta($post_id, $meta_key, true));
+			}
+		}
+		
+		
+		
+		/**
+		 * 独自の入力フォームを作成する
+		 */
+		public function add_metabox_post_dog(){
+			global $post;
+			$value = get_post_meta($post-&gt;ID, 'post_dog', true);
+			echo "&lt;input type='text' name='post_dog'  value='{$value}' /&gt;";
+		}
+		
+		
+		/**
+		 * カスタム投稿タイプを作成する
+		 */
+		public function create_custam_post_type1() {
+			
+			register_post_type( 'gecko_diary',
+					array(
+							'labels' =&gt; array(
+									'name' =&gt; __( 'ヤモリ' ),
+									'singular_name' =&gt; __( 'Gecko' )
+							),
+							'public' =&gt; true,
+							'has_archive' =&gt; true,
+							'exclude_from_search' =&gt; false, //検索対象に含めるか
+							'show_in_menu' =&gt; true,
+							'supports' =&gt; array(
+	 								'title',
+	 								'editor',
+	// 								'comments',
+	// 								'excerpt',
+	//  							'thumbnail',
+	// 								'custom-fields',
+	// 								'post-formats',
+	// 								'page-attributes',
+	// 								'trackbacks',
+	// 								'revisions',
+	// 								'author'
+							), 
+					)
+			);
+			
+		}
+	
+	}
+	
+	$testAnimal = new TestAnimal();
+	</code></pre><br>
+	<br>
+	
+	
+	
+	<p>カスタム投稿タイプの画面</p>
+	<img src="img/note4/thum/sec4-5a2.png" class="img_panel_x" /><br>
+	<br>
+	
+	<a href="http://webscripter.jp/technical-note/set-the-original-custom-field-wordpress/" target="blank" class="btn btn-link" >参考サイト</a><br>
+	<br>
+	
+	<br><time>2017-6-6</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-6" class="sec4" >
+	<h3>プラグインディレクトリパスを取得 (URLではない一般OSのパス）</h3>
+	
+	<pre><code>
+	$plugin_dp = WP_PLUGIN_DIR . '/' . plugin_basename(__DIR__);
+	// 出力例→ C:&yen;xampp&yen;htdocs&yen;wordpress1&yen;wp-content&yen;plugins&yen;animal
+	</code></pre><br>
+	
+	<br><time>2017-6-16</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-7" class="sec4" >
+	<h3>WPクーロン</h3>
+	
+	<pre><code>
+	/*
+	 Plugin Name: テスト・アニマル・プラグイン
+	 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+	 Description: プラグイン開発のHello Worldです。
+	 Version: 1.0
+	 Author: kenji uehara
+	 Author URI: http://amaraimusi.sakura.ne.jp/
+	 License: MIT
+	 */
+	class TestAnimal {
+	
+		public function __construct(){
+			// WPクーロンが未登録なら登録する
+			if ( ! wp_next_scheduled( 'cron_event1') ) {
+				wp_schedule_event( time(), 'hourly', 'cron_event1');
+			}
+			add_action( 'cron_event1', array($this, 'barkCat' ));
+			
+			// wp_clear_scheduled_hook('cron_event1'); // WPクーロンを登録解除する
+		
+		}
+	
+		public function barkCat(){
+			error_log('吠えるネコ'); // 一時間に一回、debug.logに出力される
+		}
+	}
+	</code></pre>
+	<br>
+	
+	クーロンの登録コード（cron_event1）は他のプラグインと重複しないように注意する。<br>
+	WP-Cronプラグインをインストールするとクーロンの登録状況を容易に調べられる。<br>
+	<br>
+	
+	<a href="https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/wp_schedule_event" target="blank" class="btn btn-link">参考サイト</a><br>
+	<br>
+	
+	<br><time>2017-6-20 | 2017-6-21</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-8" class="sec4" >
+	<h3>実行したSQLを表示する</h3>
+	
+	<pre><code>
+	// デバッグモードのSQLダンプ準備
+	$wpdb-&gt;<strong>show_errors</strong>();
+	
+	// ★INSERT実行
+	$result = $wpdb-&gt;insert( $table, $ent_s);
+	
+	// デバッグモードのSQLダンプ出力
+	$wpdb-&gt;<strong>print_error</strong>();
+	</code></pre>
+	
+	<br><time>2017-6-29</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">WordPressの覚書</a></li>
+	<li>WordPressの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-5-30 </div>
+</body>
+</html>

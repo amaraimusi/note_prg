@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス | Apacheの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+</head>
+<body>
+<h1 id="header">Apacheの覚書</h1>
+<div class="container">
+
+
+
+
+			
+
+
+
+
+
+
+<a href="https://httpd.apache.org/" target="brank">Apacheの公式サイト</a>
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="s100" class="sec4" >
+	<h3>.htaccessでできること</h3>
+
+	<ul>
+		<li>リダイレクトできる。</li>
+		<li>index.phpをトップにできる。</li>
+		<li>ブラウザの種類ごとにリダイレクト先を変更できる。</li>
+		<li>リファラによるアクセス制限により直リンク禁止を実現できる。</li>
+		<li>特定のIPアドレスのみを許可したり、はじいたりできる。</li>
+		<li>アクセス日時によるアクセス制限をかけられる。</li>
+		<li>404ページの設定が可能である。</li>
+		<li>wwwの有無を設定可能である。</li>
+		<li>ベーシック認証によるログイン機能を実装できる。</li>
+		<li>拡張子「php」を「html」に変更できる。</li>
+		<li>ダウンロードできるファイルの種類を制限できる。</li>
+		<li>モバイルからのアクセスを制限する。</li>
+	</ul>
+	<br>
+	
+	<p>参考リンク</p>
+	便利ツール：
+	<a href="http://www.htaccesseditor.com/#a_extension" target="brank" class="btn btn-link btn-xs">.htaccessEditor</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="s101" class="sec4" >
+	<h3>.htaccessの有効範囲</h3>
+	
+	.htaccessの有効範囲は配置先ディレクトリと、そこから先の下層ディレクトまでにおよぶ。<br>
+	<br>
+	
+	<img src="img/note1/s101.png" alt="htaccessの有効範囲" /><br>
+	<br>
+	図のようにanimalフォルダに .htaccessファイルを配置した場合、animalフォルダのファイルだけでなく、fishフォルダ以降の下層ファイルにも影響を与える。<br>
+	<br>
+	
+	
+	
+	<time>2016-7-19</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="s102" class="sec4" >
+	<h3>別のURLへリダイレクト</h3>
+	
+	<a href="/sample/apache/htaccess_redirect/a/animal/fish/sakana.html" class="btn btn-info" target="blank">サンプル</a><br>
+	<br>
+	
+	<p>.htaccess</p>
+	<pre><code>
+	&lt;IfModule mod_rewrite.c&gt;
+	RewriteEngine on
+	RewriteBase /
+	RewriteCond %{REQUEST_URI} /sample/apache/htaccess_redirect/a/animal/fish/sakana.html
+	RewriteRule ^(.*)$ http://example.com/ [R=301,L]
+	&lt;/IfModule&gt;
+	</code></pre>
+	<br>
+	
+	<p>.htaccess の配置</p>
+	<img src="img/note1/s102.png"  class="img_compact_k" /><br>
+	<br>
+	
+	<p>コードの解説</p>
+	サンプルは、URL「/sample/apache/htaccess_redirect/a/animal/fish/sakana.html」にアクセスされた時、
+	「http://example.com/」にリダイレクトさせる方法である。<br>
+	<br>
+	
+	mod_rewrite.cはApacheのURL書換機能である。
+	&lt;IfModule mod_rewrite.c&gt; はmod_rewrite.cが有効になっているか判定している。<br>
+	「RewriteEngine on」は機能開始の合図である。<br>
+	「RewriteBase /」はURL書換え後のベースということらしい。これがないとローカル環境の物理パスになってしまう。<br>
+	<br>
+	
+	
+	RewriteCondは、判定、つまりif文のような働きである。
+	サンプルの場合、「 /sample/apache/htaccess_redirect/a/animal/fish/sakana.html 」であるなら、次のRewriteRule～ に進む。<br>
+	正規表現や拡張で判定することもできる。<br>
+	<br>
+	
+	RewriteRuleは、リダイレクト先のURLである。相対パスで指定することも可能（例：/sample/top.html)<br>
+	<br>
+	
+	<p>.htaccessを修正するときの注意点</p>
+	.htaccessを修正したら、ブラウザのキャッシュを一旦削除する必要がある。(Chromeの場合)<br>
+	<br>
+	
+	<br>
+	<time>2016-7-19</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="s103" class="sec4" >
+	<h3>複数URLのリダイレクト</h3>
+	
+	複数のURLを条件に含める場合は、[OR]で連結する。<br>
+	リダイレクト先が他にもあるなら、モジュールを分けて記述することもできる。<br>
+	<br>
+	
+	<p>.htaccess</p>
+	<pre><code>
+	&lt;IfModule mod_rewrite.c&gt;
+		RewriteEngine on
+		RewriteBase /
+		RewriteCond %{REQUEST_URI} /sample/apache/htaccess_put_rules/a/animal/animal.html <strong>[OR]</strong>
+		RewriteCond %{REQUEST_URI} /sample/apache/htaccess_put_rules/a/animal/fish/fish.html
+		RewriteRule ^(.*)$ /sample/apache/htaccess_put_rules/b.html [R=301,L]
+	&lt;/IfModule&gt;
+	
+	&lt;IfModule mod_rewrite.c&gt;
+		RewriteEngine on
+		RewriteBase /
+		RewriteCond %{REQUEST_URI} /sample/apache/htaccess_put_rules/a/a.html
+		RewriteRule ^(.*)$ /sample/apache/htaccess_put_rules/c.html [R=301,L]
+	&lt;/IfModule&gt;
+	</code></pre>
+	<br>
+	
+	<img src="img/note1/s103.png" class="img_compact_k" /><br>
+	<br>
+	
+	<p>サンプル</p>
+	<a href="/sample/apache/htaccess_put_rules/b.html">/sample/apache/htaccess_put_rules/b.html</a><br>
+	<a href="/sample/apache/htaccess_put_rules/a/a.html">/sample/apache/htaccess_put_rules/a/a.html</a><br>
+	<a href="/sample/apache/htaccess_put_rules/a/animal/animal.html">/sample/apache/htaccess_put_rules/a/animal/animal.html</a><br>
+	<a href="/sample/apache/htaccess_put_rules/a/animal/fish/fish.html">/sample/apache/htaccess_put_rules/a/animal/fish/fish.html</a><br>
+	<a href="/sample/apache/htaccess_put_rules/a/animal/fish/sakana.html">/sample/apache/htaccess_put_rules/a/animal/fish/sakana.html</a><br>
+	<br>
+	
+	
+	<time>2016-7-19</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="s104" class="sec4" >
+	<h3>アクセスを禁止する</h3>
+	
+	.htaccessに「deny_from_all」を記述するとアクセス拒否ができる。<br>
+	アクセス拒否は.htaccess を配置したフォルダ内および、その下層フォルダ内の全ファイルが影響する。<br>
+	<br>
+	
+	下記のサンプルは、animalフォルダ以降へのアクセスをすべて拒否する例である。<br>
+	<br>
+	
+	<p>.htaccess</p>
+	<pre><code>
+	&lt;IfModule mod_rewrite.c&gt;
+		<strong>deny_from_all</strong>
+	&lt;/IfModule&gt;
+	</code></pre>
+	<br>
+	
+	<p>.htaccess の配置</p>
+	<img src="img/note1/s104.png"  /><br>
+	<br>
+	赤枠内のファイルにはURLアクセスできない。<br>
+	<br>
+	
+	<p>検証</p>
+	<a href="/sample/apache/deny_from_all/b.html">/sample/apache/deny_from_all/b.html</a><br>
+	<a href="/sample/apache/deny_from_all/a/a.html">/sample/apache/deny_from_all/a/a.html</a><br>
+	<a href="/sample/apache/deny_from_all/a/animal/animal.html">/sample/apache/deny_from_all/a/animal/animal.html</a><br>
+	<a href="/sample/apache/deny_from_all/a/animal/fish/fish.html">/sample/apache/deny_from_all/a/animal/fish/fish.html</a><br>
+	<a href="/sample/apache/deny_from_all/a/animal/fish/sakana.html">/sample/apache/deny_from_all/a/animal/fish/sakana.html</a><br>
+	<br>
+	
+	<br>
+	<time>2016-7-19</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sxxx" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br>
+	<time></time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/it/">情報技術</a></li>
+	<li>Apacheの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-6-2</div>	
+</body>
+</html>

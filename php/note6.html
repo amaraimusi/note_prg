@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>PHPの覚書 | ワクガンス</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+		<script src="../js/jquery-1.11.1.min.js"></script>
+
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">PHPの覚書</h1>
+		<div id="content" >
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-1" class="sec1" >
+	<h3>文字化け対策をとして、PHP.iniの設定をutf8にする</h3>
+	文字化け対策はいくつも存在するが、PHP.iniを修正する方法も対策の一つである。<br>
+	php.iniに以下を記述する。<br>
+	<pre>
+	mbstring.http_input = UTF-8
+	mbstring.encoding_translation = On
+	mbstring.internal_encoding = UTF-8
+	mbstring.substitute_character = "?"
+	default_charset = UTF-8
+	</pre>
+	<a href="http://lets.postgresql.jp/documents/tutorial/with_php/utf8_as_int_enc/" class="ref_link" target="brank" >参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-2" class="sec1" >
+	<h3>覚書:php:配列の先頭と最後を取得 | end,reset</h3>
+	
+	<pre>
+	//サンプル配列
+	$ary=array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
+	
+	//配列の末尾要素を取得
+	$last = end($ary);//  $last→鮫
+	
+	//配列の先頭用をを取得
+	$first = reset($ary):// $first→猫
+	</pre>
+	
+	<table class="table">
+		<caption>類似関数表</caption>
+		<thead><tr><th>関数</th><th>説明</th><th>例</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>current() </td>
+				<td>
+					現在の要素を返す。配列を値込で宣言した場合、内部インデックスは先頭である。<br>
+					配列に値を追加した場合、内部インデックスは末尾となる。</td>
+				<td>$v=current($ary);</td>
+			</tr>
+			<tr>
+				<td>each()</td>
+				<td>現在の要素とキーを返す。</td>
+				<td>$res=each($ary);
+					<pre>
+$resのダンプ例
+array(
+	(int) 1 => '鷲',
+	'value' => '鷲',
+	(int) 0 => 'wasi',
+	'key' => 'wasi'
+)
+					</pre>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>reset()</td>
+				<td>先頭の要素を返す。また内部インデックスを先頭にする。</td>
+				<td>$v=reset($ary);</td>
+			</tr>
+			<tr>
+				<td>end()</td>
+				<td>末尾の要素を返す。また内部インデックスを末尾にする。</td>
+				<td>$v=end($ary);</td>
+			</tr>
+			<tr>
+				<td>next() </td>
+				<td>次の要素を返す。また内部インデックスを1進める。内部インデックスが末尾である場合falseを返す。</td>
+				<td>$v=next($ary);</td>
+			</tr>
+			<tr>
+				<td>prev() </td>
+				<td>前の要素を返す。また内部インデックスを1戻す。内部インデックスが先頭である場合falseを返す。</td>
+				<td>$v=prev($ary);</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<a href="http://php.net/manual/ja/function.end.php" class="ref_link" target="brank" >参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-3" class="sec1" >
+	<h3>PHPのエラー</h3>
+
+	<h4>そのようなファイル、又はディレクトリはありません</h4>
+	<pre>failed to open stream: No such file or directory'</pre>
+	ファイルのOPEN処理やinclude関数、require関数、unlink関数などで起こるエラー。ファイルが存在しないときに起こる。<br>
+
+	<a href="http://www.triton.biz/sb1/2009/08/08/php-%E3%82%88%E3%81%8F%E3%81%82%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%A8%E5%AF%BE%E7%AD%96-%EF%BC%88%E3%81%9D%E3%81%AE1%EF%BC%89/" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-4" class="sec1" >
+	<h3>一意なハッシュコードを生成 | 照合用のハッシュに・・・</h3>
+	ユニーク（一意）なハッシュコードを作成します。<br>
+	登録確認にメールを介するシステムなど、照合用のハッシュコードとして使えます。<br>
+	<pre>$hash=md5(uniqid(rand(),1));</pre>
+	例:$hash→437af5c55e1f5b697845578e37b74f01<br>
+	<br>
+	
+	<aside>uniqid関数はマイクロ秒単位に基づいたユニークコードを生成する。</aside>
+	
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-5" class="sec1" >
+	<h3>サーバー名またはホスト名を取得 | $_SERVER['SERVER_NAME']</h3>
+
+	<pre>
+	$server_name=$_SERVER['SERVER_NAME'];
+	</pre>
+	ローカル環境である場合、localhostが取得される。
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-6" class="sec1">
+	<h3>Proxyサーバー経由のアクセス元IPアドレスを取得する</h3>
+
+	$_SERVERでProxyサーバーに関する情報を取得できる。<br>
+	
+	$_SERVERのREMOTE_ADDRにプロキシサーバーのIPアドレスが入る。
+	プロキシサーバーを使用していないのであるならアクセス元のIPアドレスが入っている。<br>
+	<br>
+	
+	多くのプロキシサーバソフトはHTTP_X_FORWARDED_FORとHTTP_CLIENT_IPにアクセス元のIPアドレスをセットしている。<br>
+	<br>
+	
+	HTTP_X_FORWARDED_FORはあくまで正規のプロキシサーバー用なので、
+	攻撃的なプロキシについて考える場合、$_SERVERの情報をまるごとログとして保存したほうが良いかもしれない。<br>
+	<br>
+
+	<h4>Proxyサーバーに関する情報</h4>
+	<table class="table">
+		<thead>
+			<tr><th>コード</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>$_SERVER['REMOTE_ADDR']</td><td>ProxyサーバーのIPアドレス。プロキシサーバーを使用していない場合はアクセス元IPアドレスが取得できる。</td></tr>
+			<tr><td>$_SERVER['SERVER_ADDR']</td><td>WebサーバーのIPアドレス</td></tr>
+			<tr><td>$_SERVER['HTTP_X_FORWARDED_FOR']</td><td>多くのプロキシサーバーソフトは、ここにアクセス元のIPアドレスをセットする。webProxyの場合は取得できない。</td></tr>
+			<tr><td>$_SERVER['HTTP_SP_HOST']</td><td></td></tr>
+			<tr><td>$_SERVER['HTTP_VIA']</td></tr>
+			<tr><td>$_SERVER['HTTP_CLIENT_IP']</td><td>一部のプロキシサーバーソフトはこちらを利用する。偽装されることもあるらしい。</td></tr>
+			<tr><td>$_SERVER['HTTP_FORWARDED']</td><td></td></tr>
+			<tr><td>$_SERVER['HTTP_FROM']</td><td></td></tr>
+		</tbody>
+	</table>
+	
+	<h4>参考サイト一覧</h4>
+	<ul>
+		<li><a href="http://uguisu.skr.jp/Windows/proxy.html" target="brank" class="btn btn-link btn-xs">Proxyとは何か？多段プロクシの設定方法</a></li>
+
+		<li><a href="http://www.84kure.com/blog/2014/09/04/php-proxy%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E7%B5%8C%E7%94%B1%E6%99%82%E3%81%AB%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E5%85%83%E3%81%AEip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%82%92%E5%8F%96/" target="brank" class="btn btn-link btn-xs">[PHP] Proxyサーバー経由のアクセス元IPアドレスを取得する</a></li>
+		
+		<li><a href="http://atamoco.boy.jp/php5/request/client-ip-address.php" target="brank" class="btn btn-link btn-xs">PHP5 クライアントの IPアドレスを取得する</a></li>
+		
+		<li><a href="http://www.walbrix.com/jp/blog/2013-10-reverse-proxy.html" target="brank" class="btn btn-link btn-xs">mod_extract_forwardedと多段 Proxy</a></li>
+		
+		<li><a href="http://www.walbrix.com/jp/blog/2013-10-reverse-proxy.html" target="brank" class="btn btn-link btn-xs">ウェブプロキシ(WebProxy)の概要と設置サイト</a></li>
+		
+		<li><a href="https://www.cman.jp/network/support/ip.html" target="brank" class="btn btn-link btn-xs">ドメイン/IPアドレス サーチ 【whois情報検索】</a></li>
+
+	</ul>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-7" class="sec1" >
+	<h3>プロキシサーバーが設定している値を取得する</h3>
+
+	多くのプロキシサーバーが設定している値を取得する。<br>
+	ただし合法的なプロキシサーバーのみ。<br>
+	<br>
+		
+	<p>getValueByProxy()関数のソースコード</p>
+	<input type="button" value="source" onclick="$('#source6-7').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-7" style="display:none">
+	$data=getValueByProxy();
+	var_dump($data);
+	
+	/**
+	 * Proxyが設定した値を取得する。
+	 * 
+	 * 正規のプロキシサーバーにのみ対応。
+	 * webProxyはminiProxyで確認。
+	 * 
+	 * @return Proxy設定したと思われる値の配列。空配列の場合、Proxy未使用か、より違法性の高いProxyサーバー。
+	 * 
+	 */
+	function getValueByProxy(){
+		
+		$data=array();//Proxy設定データ
+		
+		//多くのプロキシサーバーソフトが設定しているキーのリスト
+		$keys=array(
+				'HTTP_SP_HOST',
+				'HTTP_VIA',
+				'HTTP_CLIENT_IP',
+				'HTTP_FORWARDED',
+				'HTTP_X_FORWARDED_FOR',
+				'HTTP_FROM',
+				'REMOTE_HOST'//webProxy用
+				
+		);
+		
+		foreach($keys as $key){
+			if(isset($_SERVER[$key])){
+				$data[$key]=$_SERVER[$key];
+			}
+		}
+		
+		if(preg_match('/via|squid|gate|httpd|proxy|cache|gateway|www|anonymous|keeper/i', $_SERVER['HTTP_USER_AGENT']) ){
+			$data['HTTP_USER_AGENT']=$_SERVER['HTTP_USER_AGENT'];
+		}
+		
+		return $data;
+		
+		
+		
+	}
+	</pre><br>
+	<br>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/proxy_value/proxy_value.php" >サンプル</a><br>
+	<a href="http://ameblo.jp/mingw/entry-10382249881.html" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-8" class="sec1">
+	<h3>ユーザーエージェントの取得</h3>
+	
+	ユーザーエージェントはアクセス元のブラウザや端末情報である。<br>
+	PC、スマホ、モバイルで振り分けに利用できる。<br>
+	ユーザーエージェントは偽装できるようなので過信は禁物である。<br>
+	<br>
+	
+	最大文字数は512文字とのこと。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre>$user_agent = $_SERVER['HTTP_USER_AGENT'];</pre>
+
+	<p>取得値の例</p>
+	<pre>Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-9" class="sec1" >
+	<h3>ob_startとob_end_cleanによる出力バッファのクリア</h3>
+
+	「ob_start」と「ob_end_clean」に囲まれた範囲は出力されなくなります。
+	<h2>検証</h2>
+
+	<p>source code</p>
+	<pre>
+&lt;?php 
+echo 'ねこ&lt;br&gt;';
+ob_start();
+echo 'やぎ&lt;br&gt;';<strong>←出力されない</strong>
+ob_end_clean();
+echo 'かに&lt;br&gt;';
+?&gt;
+	</pre>
+	<br>
+	
+	<p>出力</p>
+	<div style="color:#dd4f43">
+		ねこ<br>かに<br>		
+	</div>
+	<br>
+	
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/ob_start/ob_start.php" target="brank" class="btn btn-link btn-xs">サンプル</a>
+	<a href="http://php.net/manual/ja/function.ob-end-clean.php" target="brank" class="btn btn-link btn-xs">ドキュメント</a>
+	
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-10" class="sec1" >
+	<h3>文字の一致率 | レーベンシュタイン距離 | similar_text</h3>
+	2つの類似する文字列がどのくらい一致しているか、「similar_text」関数により一致率を算出できます。
+	
+	<p>sorce code</p>
+	<pre>
+	$str1="お問い合わせ番号";
+	$str2="問合番号";
+	$percent=null;//一致率
+	<strong>similar_text($str1,$str2,$percent);</strong>//一致率ポインタを渡す。
+	echo $percent;// → 66.67...	
+	</pre>
+	完全の一致の場合、一致率（$percent）は100になります。
+	<br>
+	<br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/similar/similar.php" target="brank" class="btn btn-link btn-xs">サンプル</a><br>
+	<a href="http://amaraimusi.sakura.ne.jp/sample/php/similar/similar_tool.php" target="brank" class="btn btn-link btn-xs">文字の一致率測定ツール | similar_text</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec6-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source2-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/11/17</div>
+		</div><!-- page1 -->
+	</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/common2.css"  />
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+			.code{
+				color:#e75547;
+				vertical-align:middle;
+			}
+			.dump pre{
+				color:#0f750a;
+				vertical-align:middle;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-1" class="sec1">
+	<h3>セッションの保存先をDBへ</h3>
+	
+	<p>なぜセッションデータをDBに保存するのか？</p>
+	通常、セッションは指定フォルダ※1にファイル単位で保存される。<br>
+	セッションデータはすぐに溜り、ファイル数は膨大になる。<br>
+	膨大になるのであれば、ファイルよりDBで管理したほうが適切と言える。<br>
+	<br>
+	
+	また、デフォルトのままだとWEBサーバーが複数台存在する場合に問題が起こる。<br>
+	WEBページにアクセスするとき、複数のサーバーから任意のサーバーが割り当てられるのだが、
+	その割り当てられたサーバーにのみ、セッションファイルは保存される。<br>
+	もう一度アクセスしたとき、別のサーバーが割り当てられることがあるが、その場合セッションファイルはないので、セッションが効かなくなる現象が起こる。<br>
+	セッションデータを一つのDBテーブルで管理すれば、こうした問題は起こらない。<br>
+	<br>
+	
+	<br>
+	<aside>※1 デフォルトのままである場合、セッションデータは 「app/tmp/sessions」に保存されている</aside>
+
+	<h4>設定方法</h4>
+	<p>DBにcake_sessionsテーブルを作成</p>
+	テーブル生成SQL
+	<pre>
+	CREATE TABLE IF NOT EXISTS `cake_sessions` (
+	  `id` varchar(255) NOT NULL DEFAULT '',
+	  `data` text NOT NULL,
+	  `expires` int(11) DEFAULT NULL,
+	  `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時'
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='セッション保存用';
+	</pre><br>
+	
+	
+	<p>bootstrap.phpにコードを記述</p>
+	「app/Config/bootstrap.php」ファイルの適当な場所に以下のコードを記述すればよい。
+	<pre>
+	Configure::write('Session', array(
+	    'defaults' => 'database',
+	    'cookie' => 'SID',
+	    'timeout' => 259200,
+	    'ini' => Array(
+	        'session.cookie_lifetime' => 2580000,
+	        'session.gc_maxlifetime' => 2580000,
+	        'session.gc_probability' => 1,
+	        'session.gc_divisor' => 100
+	    )
+	));
+	</pre><br>
+
+	<h4>メンテナンス</h4>
+	ユーザーアクセスが多いほど、セッションデータは膨れ上がっていくので、定期的にセッションデータは削除すると良い。<br>
+	<br>
+	
+	すぐに数千万件のレコード数になる場合、削除するのに時間がかかりたいへんである。
+	MySQLのパーティション機能を使うとこの問題を解決できる。<br>
+	パーティションされたテーブルをDROPすれば削除は一瞬である。<br>
+	<br>
+	
+	
+	<a class="ref_link" target="brank" href="http://weble.org/2012/03/22/cakephp-session-database">参考:CakePHP で Session の保存先にデータベースを使用する方法</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-2" class="sec1">
+	<h3>キャッシュクリア</h3>
+	
+	「app/tmp/cashe/」配下のキャッシュファイル群をクリアできる。<br>
+	<br>
+
+	<p>キャッシュをクリアするコード<p>
+	<pre>
+	$config_list = Cache::configured();
+	foreach ($config_list as $value) {
+		Cache::clear(false, $value);
+	}
+	clearCache();
+	</pre>
+	<br>
+
+	<p>キャッシュファイルのクリア前とクリア後を比較</p>
+	<br>
+	<table>
+		<tr><td><strong>クリア前</strong></td><td></td><td><strong>クリア後</strong></td></tr>
+		<tr><td><img src="img/sec8-2a.png" /></td>
+		<td>　<strong class="ann">キャッシュクリア→</strong>　</td>
+		<td>
+			<img src="img/sec8-2b.png" /><br><br>
+			<aside>※キャッシュクリア後、すぐにキャッシュが作成されている</aside>
+		</td></tr>
+	</table>
+	<br>
+	
+
+	<a class="ref_link" target="brank" href="http://be-hase.com/php/cakephp/111/">参照</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-3" class="sec1">
+	<h3>デバッグモードの取得 | Configure::read('debug');</h3>
+	
+	現在のデバッグモードを数値で取得できる。<br>
+	デバッグモードが0であるならデバッグモードはOFFとなっている。<br>
+	0以外（通常は2）の場合、デバッグモードである。<br>
+	デバッグモードをONにするとページ下部にSQLのダンプと、デバッグ用のダンプ出力が表示される。
+	【ダンプ出力例→Debugger::dump('hello world');】<br>
+	<br>
+	
+	<p>デバッグモードを取得するコード</p>
+	<pre>
+	$debug_mode=Configure::read('debug');//デバッグモード取得	0:実務モード    2:デバッグモード
+	//出力例 $debug_mode → 2
+	</pre>
+
+	<h4>デバッグモードの設定</h4>
+	デバッグモードの設定はcore.phpファイルにて設定できる。
+	<p>core.phpにてデバッグモードをONに設定する例</p>
+	<pre>
+	Configure::write('debug', 2);// 0:デバッグモードOFF 2:デバッグモードON
+	</pre>
+
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-4" class="sec1">
+	<h3>セキュリティシードの変更 | Security.salt | Security.cipherSeed</h3>
+	CakePHP 2.4.x以上である場合、セキュリティシードを変更しなければならない。<br>
+	セキュリティシードは「app/config/core.php」で変更する。<br>
+	<br>
+	
+	変更箇所は2か所ありSecurity.saltとSecurity.cipherSeedの値を任意の値に書き換える。<br>
+	<pre>
+	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	↓任意のコードに変更
+	<strong>Configure::write('Security.salt', 'Neko2E3WoAgerunara0141NoW0Ne123456789999');</strong>
+	</pre>
+	
+	<pre>
+	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
+	↓任意の数値に変更
+	<strong>Configure::write('Security.cipherSeed', '98765416451431778414612416733');</strong>
+	</pre>
+	
+	<h4>変更しなかったら起こるエラー</h4>
+	上記の設定を行わなかった場合、以下のエラーが表示されることがある。<br>
+	<br>
+	
+	Security.saltの値を変更しなかった場合のエラー
+	<pre>Notice (1024): Please change the value of 'Security.salt' in APP/Config/core.php to a salt value specific to your application. [CORE/Cake/Utility/Debugger.php, line 845]</pre>
+	<br>
+	
+	Security.cipherSeedの値を変更しなかった場合のエラー
+	<pre>Notice (1024): Please change the value of 'Security.cipherSeed' in APP/Config/core.php to a numeric (digits only) seed value specific to your application. [CORE/Cake/Utility/Debugger.php, line 849]</pre>
+	<br>
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-5" class="sec1">
+	<h3>定数の使い方</h3>
+	
+	<ol>
+		<li>
+			「app/Config/bootstrap.php」を開き、任意の場所に「config('animal');」を記述する。<br>
+			bootstrap.php<br>
+			<pre>config('animal');</pre>
+		</li>
+
+		<li>
+			「app/Config」に定数を記述するphpファイルを、任意の名前で作成する。<br>
+			phpファイルを新規作成 → app/Config/animal.php<br>
+		</li>
+	
+		<li>
+			定数ファイル（animal.php)を開き、定数を記述する。
+			<pre>define('NEKO','ネコ');</pre>
+		</li>
+	
+		<li>以上で定数「NEKO」がプロジェクト内のどこでも使用可能になる</li>
+	</ol>
+	
+
+	<a class="ref_link" target="brank" href="http://14-00.com/archives/23">その定数は作らなくて大丈夫！覚えておきたいCakePHPのデフォルト定数</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-6" class="sec1">
+	<h3>関数の入れ子をするとバグ：Class declarations may not be nested in ...</h3>
+	
+	
+	関数を入れ子にしすぎるとバージョンによってはエラーになる。<br>
+	下記の例では「Cake varsion:2.2.1」のバージョンでエラーが起こる。バージョン「Cake varsion:2.4.7」ではエラーは起こらず。<br>
+	<pre>
+	if(<strong>empty(trim($ent2['contact_no']))</strong>){
+		continue;
+	}
+	</pre>
+	<br>
+	
+	画面には下記のエラーだけが表示されるので、原因が分かりづらい。
+	<pre>Fatal error: Class declarations may not be nested in /home/okinawa/lib/php/Cake/Error/ExceptionRenderer.php on line 54</pre>
+	<br>
+	
+	しかし、「app/temp/logs/error.log」に詳細なエラーの個所が記載されている。<br>
+	<p>「app/temp/logs/error.log」の例</p>
+	<pre>
+2016-02-16 20:35:25 Error: Fatal Error (64): Can't use function return value in write context in [/home/xxx/app/Controller/XxxController.php, line 235]
+2016-02-16 20:35:25 Error: [FatalErrorException] Can't use function return value in write context
+	</pre>
+	<br>
+	
+	<p>解決方法</p>
+	以下のように関数は入れ子にしないようにすること。
+	<pre>
+	$contact_no = trim($ent2['contact_no']);
+	if(empty($contact_no)){
+		continue;
+	}
+	</pre>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-7" class="sec1" >
+	<h3>アクションと関連付けるビューを変更する</h3>
+	
+	<p>ソースコード</p>
+	コントローラのcat_run_awayアクションはビューにrun_away.ctpを用いる場合
+	<pre>
+	public function cat_run_away(){
+		<strong>$this->render('run_away');</strong>//ビューはrun_awayを使う
+	}
+	</pre>
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-8" class="sec1" >
+	<h3>IN句条件の指定方法</h3>
+	conditionsのフィールドに配列を渡すとIN句検索となる。<br>
+	<br>
+	
+	ソースコード
+	<pre>
+	$texts =array('kani','yagi','tori');//IN句条件
+	$res = $this-&gt;find(
+		'all',
+		array(
+			<strong>'conditions' =&gt; array('text1' =&gt; $texts)</strong>
+		)
+	);
+	</pre>
+	<br>
+	
+	実行されるSQL
+	<pre>SELECT * FROM TestA WHERE text1 IN ('kani', 'yagi', 'tori');</pre>
+
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-9" class="sec1">
+	<h3>セッションが不安定になる問題</h3>
+	IE8、Android,リダイレクト、存在しない画像パス、セキュリティレベルなどが原因で、セッションが切れることがある。<br>
+	<br>
+
+	対処法1:ユーザーエージェントを切る<br>
+	core.php<br>
+	<pre>Configure::write('Session.checkAgent', false);</pre>
+	※ただしIE8 などでポップアップ窓を開いたとき、別セッションが始まる可能性がある。<br>
+	<br>
+	
+	対処法2:セッションのキー名を変えてみる。<br>
+	<br>
+	
+	対処法3:存在する画像パスのみにする。もしくはImg系のヘルパーは使わない。<br>
+	<br>
+	
+	対処法4:セキュリティレベルを下げてみる。<br>
+	<br>
+	
+	<hr>
+	<p>参照リンク</p>
+	<ul>
+		<li><a target="brank" href="http://yakinikunotare.boo.jp/orebase2/cakephp/session_runout_for_smart_phone">CakePHP/スマートフォンでセッションが切れる</a></li>
+		<li><a target="brank" href="http://webinlet.com/2015/cakephp2%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%BE%E3%81%A8%E3%82%81">cakePHP2セッション問題まとめ</a></li>
+		<li><a target="brank" href="http://endoyuta.com/2013/08/15/cakephp-android%E3%81%A7%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%AA%E3%81%84%EF%BC%9F/">cakePHP Androidでセッションが使えない</a></li>
+		<li><a target="brank" href="http://note.onichannn.net/archives/9">特定のブラウザでCakephp2.2のSessionが消える問題。</a></li>
+		<li><a target="brank" href="http://www.kaasan.info/archives/2259">号泣。CakePHPでSessionが突如切れるのはfaviconのパスが問題でした</a></li>
+	
+	</ul>
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-10" class="sec1" >
+	<h3>複数のテキスト入力フォームを配列として定義する</h3>
+	
+	フォーム要素を配列にするときは、name属性に「フィールド名.配列要素番号」を指定する。<br>
+	<br>
+	
+	<p>ビュー</p>
+	<pre>
+	&lt;?php 
+	echo $this-&gt;Form-&gt;create('Rabo', array('url' =&gt; true ));
+	
+	echo $this-&gt;Form-&gt;input('<strong>neko_name.0</strong>', array(
+			'value' =&gt; 'ペルシャ',
+	));
+	
+	echo $this-&gt;Form-&gt;input('<strong>neko_name.1</strong>', array(
+			'value' =&gt; 'シャム',
+	));
+	
+	echo $this-&gt;Form-&gt;submit('Submit', array(
+			'name' =&gt; 'btn1',
+	));
+	
+	echo $this-&gt;Form-&gt;end()
+	?&gt;
+	</pre>
+	<img src="img/sec8-10.png" class="img_compact_k" />
+	<br>
+	
+	<p>HTMLソースで見たとき</p>
+	<pre class = "output_data">
+	&lt;input name="data[neko_name][0]" value="ペルシャ" type="text" id="neko_name0"&gt;
+	&lt;input name="data[neko_name][1]" value="シャム" type="text" id="neko_name1"&gt;
+	</pre>
+	<br>
+	
+	<p>コントローラ</p>
+	<pre>
+	// Submitボタンが押された時の処理
+	if($this-&gt;request-&gt;data){
+		Debugger::dump($this-&gt;request-&gt;data);
+	}
+	</pre>
+	<br>
+	
+	<p>「$this->request->data」の中身</p>
+	Submitボタンを押したときの出力
+	<pre class = "output_data">
+	array(
+		'btn1' => 'Submit',
+		'neko_name' => array(
+			(int) 0 => 'ペルシャ',
+			(int) 1 => 'シャム'
+		)
+	)
+	</pre>
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec8-0" class="sec1" style="display:none">
+	<h3>xxx</h3>
+	テスト
+	<pre>
+
+	</pre>
+	<a class="ref_link" target="brank" href="xxxx">参照</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WordPressの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WordPressの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec3-1" class="sec4" >
+	<h3>wpdpのSELECT</h3>
+	
+	サンプル
+	<aside>test_animalテーブルへのSELECT</aside>
+	<pre><code>
+	global $wpdb;
+	$data = $wpdb-&gt;<strong>get_results</strong>(
+			"
+			SELECT *
+			FROM enq_test_animal
+			WHERE id = 2
+			"
+			);
+			
+	// stdClassオブジェクトから配列に変換する
+	$data2=array();
+	if(!empty($data)){
+		foreach($data as $stdClassEnt){
+			$data2[] = (array) $stdClassEnt;
+		}
+		
+	}
+	</code></pre>	
+	<br>
+	取得したデータのエンティティはstdClass型となっているので、必要に応じて配列型に変換してやる必要がある。<br>
+	<br>
+	
+	<p>get_results以外のSELECT</p>
+	<table class="tbl2">
+		<thead>
+			<tr><th>SELECT関数</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>$wpdb->get_var( "SQL文" );</td><td>値を一つ取得する</td></tr>
+			<tr><td>$wpdb->get_row( "SQL文" );</td><td>行を一つ取得する</td></tr>
+			<tr><td>$wpdb->get_col( "SQL文" );</td><td>列を一つ取得する</td></tr>
+	
+		</tbody>
+	</table>
+	<br>
+	
+	<p>外部結合</p>
+	JOINもSQL文の個所に直接記述する。<br>
+	<br>
+	
+	<br><time>2017-4-25</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-2" class="sec4" >
+	<h3>JavaScriptとCSSのインクルード | プラグイン開発</h3>
+	
+	<pre><code>
+	// 管理者メニューへ項目を追加する
+	add_action('admin_menu', function(){
+		add_menu_page('動物プラグイン', 'アンケーター管理','publish_posts','test_animal/test_animal.php','showContents');
+	});
+	
+	function showContents(){ 
+		wp_enqueue_style( 'neko', '/wp-content/plugins/test_animal/css/neko.css' ); // CSSのインクルード
+		wp_enqueue_script( 'neko', '/wp-content/plugins/test_animal/js/neko.js' ); // JSのインクルード
+	} 
+	</code></pre>
+	
+	<p>wp_enqueue_style関数およびwp_enqueue_script関数について</p>
+	<strong>第1引数</strong><br>
+	ハンドルとして使われる名称とのこと。<br>
+	一応何でもよいらしいが、他の読込と重複させないほうがよさげである。ファイルの名前部分を記述するのが無難。<br>
+	「.」ドット記号が含まれるとエラーになるようである。<br>
+	<br>
+	
+	<strong>第2引数</strong><br>
+	js,cssのファイルパスを指定する。<br>
+	<br>
+	
+	<strong>第3引数～第5引数</strong><br>
+	省略してもよい。<br>
+	<a href="https://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/wp_enqueue_script" target="blank">解説サイト</a><br>
+	<br>
+	
+	
+	
+	<strong>wp_headフック</strong><br>
+	wp_headフックを使う方法があるがプラグイン開発では無意味。<br>
+	wp_headのフック自体が動かないからである。<br>
+	<br>
+	
+	
+	<strong>問題点</strong><br>
+	上記の方法ではhead要素内にインクルードの記述ができない。<br>
+	そのため、wp_enqueue_styleとwp_enqueue_scriptを利用するメリットがあまりない。<br>
+	<br>
+	
+	結局のところ、HTMLで直接記述する方法（&lt;script ～）のほうが手っ取り早い気がする。<br>
+	<br>
+	
+	
+	<br><time>2017-4-26</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-3" class="sec4" >
+	<h3>WordPressのjQueryについて | 注意</h3>
+	
+	
+	jQueryは最初からWordPressに内蔵されている。<br>
+	ただし$ 記号は使えないため、「jQuery('#xxx')」としなければならない。<br>
+	<br>
+	
+	別バージョンのjQueryを読み込んだとしても$ 記号は利用できない。<br>
+	<br>
+	
+	<pre><code>
+	jQuery(function(){
+		console.log('HelloWorld=');
+		console.log(jQuery.fn.jquery);// jQueryのバージョンを出力
+	});
+	</code></pre>
+	
+	内臓されているjQueryのバージョンは2017年4月の時点で1.12である。<br>
+	<br>
+	
+	<br><time>2017-4-26</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-4" class="sec4">
+	<h3>WordPressの各種パスを取得する関数</h3>
+	
+	<table class = "table">
+		<thead>
+			<tr><th>関数</th><th>説明</th><th>例</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>home_url()</td><td>ホームURL</td><td>http://localhost/animals</td></tr>
+			<tr><td>site_url()</td><td>サイトパスURL</td><td>http://localhost/animals/wordpress</td></tr>
+			<tr><td>admin_url()</td><td>管理画面パスURL</td><td>http://localhost/animals/wp-admin</td></tr>
+			<tr><td>content_url()</td><td>コンテンツパスURL</td><td>http://localhost/animals/wp-content</td></tr>
+			<tr><td>includes_url() </td><td>インクルードパスURL</td><td>http://localhost/animals/wp-includes</td></tr>
+			<tr><td>plugins_url()</td><td>プラグインパスURL</td><td>http://localhost/animals/wp-content/plugins</td></tr>
+			<tr><td>wp_upload_dir()</td><td>アップロードディレクトリURL (配列)</td><td>http://localhost/animals/wp-content/uploads</td></tr>
+	
+		</tbody>
+	</table>
+	
+	<br><time>2017-4-27 | 2017-5-31</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-5" class="sec4">
+	<h3>ログイン中のユーザー情報を取得する</h3>
+	
+	wp_get_current_user関数でログイン情報を取得できる。
+
+	<pre><code>
+	$wpUser = wp_get_current_user();
+	var_dump($wpUser);
+	</code></pre><br>
+	
+	
+	ログインユーザー名を取得する
+	<pre><code>
+	$wpUser = wp_get_current_user();
+	var_dump($wpUser->data->user_login);
+	</code></pre><br>
+	
+	<br><time>2017-5-9</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-6" class="sec4" >
+	<h3>WordPressのAjax</h3>
+	
+	
+	WordPressプラグインではAjaxの使い方が特殊である。一般のWebアプリのようにはいかない。<br>
+	以下にサンプルコードを記述する。<br>
+	<br>
+	
+	<p>プラグインファイル構成</p>
+	ajax_animal.js<br>
+	ajax_animal.php<br>
+	<img src="img/note3/sec3-6.png" alt="" /><br>
+	<br>
+	
+	<p>ajax_animal.php</p>
+	<pre>
+	&lt;?php
+	/*
+	 Plugin Name: Ajaxテスト・アニマル・プラグイン
+	 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+	 Description: WordPressプラグインのAjaxテストです。
+	 Version: 1.0
+	 Author: kenji uehara
+	 Author URI: http://amaraimusi.sakura.ne.jp/
+	 License: MIT
+	 */
+	class AjaxAnimal {
+		public function __construct(){
+	 		// Ajaxで呼び出すメソッドを設定する
+			$ajax_actions = array(
+					"ajax_animal_test1" =&gt; array("action" =&gt; "<span style="color:green">ajax_animal_test1_action</span>", "function" =&gt; "<span style="color:blue">test1</span>"),
+					//"ajax_animal_test2" =&gt; array("action" =&gt; "ajax_animal_test2_action", "function" =&gt; "test2"),
+			);
+			foreach ($ajax_actions as $custom_key =&gt; $custom_action) {
+				add_action("wp_ajax_nopriv_" . $custom_action['action'], array($this, $custom_action["function"]));
+				add_action("wp_ajax_" . $custom_action['action'], array($this, $custom_action["function"]));
+			}
+			
+			// 管理者メニューへ項目を追加する
+			add_action('admin_menu', function(){
+				add_menu_page('Ajaxテスト・アニマル', 'Ajaxテスト・アニマル','publish_posts','ajax_animal',function(){
+					
+					$plugin_path = plugins_url() . '/ajax_animal/';
+					echo "&lt;script src='{$plugin_path}ajax_animal.js'&gt;&lt;/script&gt;";
+					
+					echo '&lt;p&gt;Ajaxテスト・アニマル&lt;/p&gt;';
+					$wp_ajax_url = <strong>admin_url('admin-ajax.php')</strong>;
+					echo "&lt;input id='admin-ajax-url' type='hidden' value='{$wp_ajax_url}' /&gt;";
+					$nonce = $nonce = wp_create_nonce("unique_key");
+					echo "&lt;input id='nonce' type='hidden' value='{$nonce}' /&gt;";
+					
+					echo "&lt;input type='button' value='Ajaxテスト' onclick='ajax_test1()' /&gt;";
+					echo "&lt;div id='res' style='color:green'&gt;&lt;/div&gt;";
+					echo "&lt;div id='err' style='color:red'&gt;&lt;/div&gt;";
+				});
+			});
+		}
+		
+		/**
+		 * Ajaxのサーバー側
+		 */
+		public function <span style="color:blue">test1</span>(){
+			// トークンによるアクセスの正当性を確認
+			$nonce = $_POST['nonce'];
+			if (!wp_verify_nonce($nonce, 'unique_key')){
+				die('nonce error');
+			}
+			
+			// データを受け取る
+			$json_param=$_POST['key1'];
+			$json_param = stripslashes($json_param);
+			$data = json_decode($json_param,true);//JSON文字を配列に戻す
+			
+			// 任意の処理
+			$data[1]['name1'] = 'Wild Pig';
+			$res = $data;
+				
+			// JSONレスポンスを出力
+			header("Content-Type: application/json; charset=utf-8");
+			echo json_encode($res);
+			exit;
+		}
+	
+	}
+	
+	$ajaxAnimal = new AjaxAnimal();
+	</pre><br>
+	
+	<p>ajax_animal.js</p>
+	<pre>
+	/**
+	 * Ajaxテスト・アニマル
+	 */
+	function ajax_test1(){
+		var url = jQuery('#admin-ajax-url').val();
+	
+		// フォームデータを生成
+		var fd = new FormData();
+	
+		// フォームデータに送信データをJSON変換してからセットする。
+		var data = [{'id':99,'name1':'タヌキ'},{'id':100,'name1':'イノシシ'}];
+		var json = JSON.stringify(data);
+		fd.append( "key1", json );
+		
+		// WordPressのAjaxで必要なパラメータをセットする
+		var action = '<span style="color:green">ajax_animal_test1_action</span>';
+		var nonce = jQuery('#nonce').val();
+		fd.append('action',action);
+		fd.append('nonce',nonce);
+	
+		// AJAX通信
+		jQuery.ajax({
+			type: "post",
+			url: url,
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData: false,
+			contentType : false,
+		})
+		.done(function(str_json, type) {
+			var ent;
+			try{
+				ent =jQuery.parseJSON(str_json);//パース
+	
+				jQuery("#res").html('Ajax通信成功!&lt;br&gt;');
+				jQuery("#res").html(str_json);
+			}catch(e){
+				alert('エラー');
+				jQuery("#err").html(str_json);
+			}
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			jQuery('#err').html(jqXHR.responseText);
+			alert(statusText);
+		});
+	}
+	</pre><br>
+
+
+	<p>デバッグの方法</p>
+	PHP側で致命的なエラーが発生すると、admin-ajax.phpで500番エラーになる。<br>
+	詳しいエラー内容はdebug.logに出力されるので、デバッグするときはこちらを参考にすると良い。<br>
+	debug.logの場所は"ワードプレスのホーム\wp-content\debug.log"である。<br>
+	<br>
+
+
+	<br><time>2017-5-9 | 2017-6-29</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-7" class="sec4" >
+	<h3>ショートコードの開発</h3>
+	
+	ショートコードはプラグインの一機能である。<br>
+	ショートコードの処理はプラグインPHPモジュールに記述する。<br>
+	<br>
+	
+	<p>test_animal.php プラグイン</p>
+	<img src="img/note3/sec3-7a1.png"  />
+	<pre><code>
+	&lt;?php
+	/*
+	 Plugin Name: テスト・アニマル・プラグイン
+	 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+	 Description: プラグイン開発のHello Worldです。
+	 Version: 1.0
+	 Author: kenji uehara
+	 Author URI: http://amaraimusi.sakura.ne.jp/
+	 License: MIT
+	 */
+	class TestAnimal {
+	
+		public function __construct(){
+	
+	
+			// ショートコード
+			add_shortcode('<strong>bark-dog</strong>',array($this, '<strong>barkDog</strong>'));
+		}
+		
+		public function <strong>barkDog</strong>($attr){
+			$dog_name = 'UﾟｪﾟU';
+			if(!empty($attr['dog_name'])){
+				$dog_name = $attr['dog_name'];
+			}
+			return "&lt;span style='color:#e84646'&gt;{$dog_name} ワンワン!!&lt;/span&gt;&lt;br&gt;";
+		}
+	}
+	$testAnimal = new TestAnimal();
+	</code></pre>
+	<br>
+	
+	<p>ショートコードの使い方</p>
+
+	投稿の編集を開き、文章中に下記のショートコードを入力して更新する。<br>
+	<pre><code>	[<strong>bark-dog</strong> dog_name="ポチ" ]</code></pre>
+	<img src="img/note3/sec3-7a2.png"  /><br>
+	<br>
+	
+	
+	<strong>サイト表示</strong><br>
+	フロント画面で確認すると、ショートコードが実行されているのが分かる。<br>
+	<img src="img/note3/sec3-7a3.png"  style="border:solid 4px #ba9db5" /><br>
+	<br><br>
+	
+
+	
+	<br><time>2017-5-10</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-7-2" class="sec4">
+	<h3>テーマや他のプラグインからショートコードを呼び出す</h3>
+	
+	do_shortcode関数を使えばよい。<br>
+	テーマや他プラグインのphpファイルに以下を記述する。<br>
+	<pre><code>	echo <strong>do_shortcode</strong>('[bark-dog dog_name="ポチ" ]');</code></pre>
+	<br>
+
+	<br><time>2017-5-17</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-8" class="sec4" >
+	<h3>投稿IDを取得する</h3>
+	
+	<pre><code>	&lt;?php echo get_the_ID(); ?&gt;</code></pre>
+	
+	<br><time>2017-5-16</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-9" class="sec4" >
+	<h3>例外を投げる時の注意</h3>
+	
+	<p>WordPressプラグイン開発の例外について</p>
+	メインループ中でない場合、例外をそのまま投げても画面にエラー内容が表示されない。<br>
+	なのでvar_dumpを併用せねばならない。<br>
+	<aside>
+	メインループ中に例外を投げたときには、エラーメッセージは画面表示される。
+	</aside>
+	<br>
+	
+	<pre><code>
+	// メインループ中の処理にあらず
+	try {
+	
+		
+	} catch (Exception $e) {
+		$err_msg = '$table is empty!';
+		var_dump('Erorr:'.$err_msg);
+		throw new Exception($err_msg);// ← 画面にエラーメッセージは表示されない
+	
+	}
+	</code></pre>
+	
+	<br><time>2017-5-17</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-10" class="sec4" >
+	<h3>投稿でJavaScriptを記述する</h3>
+	
+	投稿の編集からJavaScriptを入力することができる。<br>
+	scriptタグをdivタグで囲めばよい。<br>
+	入力するときはHTMLタブではなくTEXTタブに切り替えてから入力すること。<br>
+	<br>
+	
+	<strong>注意点</strong><br>
+	JavaScript内に&lt;div&gt;を書いてはいけない。
+	WordPressは&lt;div&gt;に反応してしまう。&lt;span&gt;は大丈夫。<br>
+	空行を入れないこと。空行を入れるとエラーになる。<br>
+	<br>
+	
+	<p>例</p>
+	<pre><code>
+	&lt;div&gt;
+	&lt;script type="text/javascript"&gt;
+	alert('JavaScriptを投稿します');
+	&lt;/script&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	<img src="img/note3/thum/sec3-10.png" class="img_panel_x" /><br>
+	<br>
+	
+	<a href="http://mislead.jp/4337.html" class="btn btn-link" target="blank" >参考サイト</a><br>
+	<br>
+	
+	<br><time>2017-5-17</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">WordPressの覚書</a></li>
+	<li>WordPressの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-4-21 </div>
+</body>
+</html>

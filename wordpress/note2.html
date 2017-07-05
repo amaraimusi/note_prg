@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WordPressの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WordPressの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>ページの種類</h3>
+	
+	ページの種類はあらかじめ決められており以下のものが存在する。<br>
+	<ul>
+		<li>アーカイブ</li>
+		<li>個別ページ</li>
+		<li>サイトフロント</li>
+		<li>ブログ</li>
+		<li>404エラー</li>
+		<li>検索結果</li>
+		<li>ポップアップ</li>
+	</ul>
+	<br>
+	
+	アーカイブはタクソノミーごとに分類した一覧ページが見れるようである。日付別、年別というのもある。<br>
+	サイトフロントはトップページのようなページである。<br>
+	ブログは投稿データの一覧ページである。<br>
+	<br>
+	
+	ページの種類はリクエストパラメータによって変わるようである。<br>
+	<br>
+	
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-2" class="sec4">
+	<h3>リクエストパラメータ</h3>
+	リクエストパラメータは「$wp->query_vars」にセットされている。<br>
+	<br>
+	
+	<p>リクエストパラメータに独自のフィールドを追加するには？</p>
+	ホワイトリストの概念がある。<br>
+	なので単にURLクエリにフィールドを追加しただけではデータ取得されない。明示的にフィールドを追加せねばならない。<br>
+	明示的な追加には「$wp->add_query_var($key_name)」メソッドを利用する。<br>
+	<br>
+	
+	タクソノミーや投稿タイプを登録したときには、自動的にフィールド追加される。<br>
+	<br>
+	
+	<a href="https://www.prime-strategy.co.jp/wp/2499/" target="blank">リクエストパラメータ一覧</a><br>
+	<br>
+
+
+
+	<p>$wpオブジェクト</p>
+	リクエストパラメータを単に保持するだけでなく、内部でHTTPリクエストからのデータ取り出し、プラグインとテーマのロードなど多岐に渡る処理を行っている。<br>
+	<br>
+	
+	
+	
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-3" class="sec4" >
+	<h3>プラグインのHello World!</h3>
+	
+	最低限のプラグインを作成する手順
+
+	<ol>
+		<li>
+			プラグイン名を決める。<br>
+			プラグイン名は他のプラグインとかぶらないようユニークでなければならない。<br>
+			プラグイン名の例「test_animal」<br>
+		</li>
+
+		<li>
+			「wp-content/plugins/」にプラグイン名のフォルダを作成する。<br>
+			例：wp-content/plugins/test_animalフォルダを作成<br>
+		</li>
+		
+		<li>
+			「wp-content/plugins/test_animal」に下記フォルダとファイルを作成
+			<ul>
+			<li>languages　ただのフォルダ。中身は空でよい。</li>
+			<li>readme.txt　空白でよい</li>
+			<li>test_animal.php　プラグイン名と同じ名前をつける。</li>
+			</ul>
+			<img src="img/note2/thum/sec2-3a1.png" class="img_panel_x" />
+		</li>
+		
+		<li>
+		test_animal.phpの先頭に、下記を例に記述する。
+		<pre><code>
+		&lt;?php
+		/*
+		 Plugin Name: テスト・アニマル・プラグイン
+		 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+		 Description: プラグイン開発のHello Worldです。
+		 Version: 1.0
+		 Author: kenji uehara
+		 Author URI: http://amaraimusi.sakura.ne.jp/
+		 License: MIT
+		 */	
+		</code></pre>
+
+		</li>
+		
+		<li>
+		WordPressのダッシュボードを開く
+		</li>
+		
+		<li>
+		右メニューからプラグイン→インストール済みのプラグイン と操作
+		</li>
+		
+		<li>
+		作成したプラグイン名が表示されていることを確認する。
+			<img src="img/note2/thum/sec2-3a2.png" class="img_panel_x" />
+		</li>
+		
+		<li>
+			「有効化」リンクを押してプラグイン有効にする。<br>
+			「停止」と表記された状態が有効である。まぎわらしいので注意。<br>
+			<img src="img/note2/sec2-3a3.png"  />
+		</li>
+		
+	</ol>
+
+
+
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-4" class="sec4" >
+	<h3>フックしてみる</h3>
+	
+	<ol>
+		<li>
+		プラグインのphpファイルを開く<br>
+		例：(略\wp-content\plugins\test_animal\test_animal.php)<br>		
+		</li>
+		<li>
+		test_animal.phpの適当な場所に下記を記述
+		<pre><code>
+		add_filter('the_content', function($content){
+			$content .= '五月雨をあつめて早し最上川';
+			return $content;
+		});	
+		</code></pre>
+		</li>
+		<li>
+		フロントページを開いて確認してみる。<br>
+		（フロントページ：左上の家アイコン→「サイト表示」で確認できる）<br>
+		<img src="img/note2/thum/sec2-4a1.png" class="img_panel_x" />
+		</li>
+	</ol>
+	
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-5" class="sec4" >
+	<h3>管理メニューに追加</h3>
+	
+	
+	メニューのリンク先は当プラグインの管理ページを指定する場合
+	<aside>プラグインのファイル名がtest_animal.phpである場合</aside>
+	<pre><code>
+	add_action('admin_menu', function(){
+		add_menu_page('大猫', '大猫','publish_posts','test_animal/test_animal.php');
+	});
+	</code></pre>
+	<br>
+	
+	
+	出力<br>
+	<img src="img/note2/sec2-5a1.png"  /><br>
+	<br>
+	
+	URLを指定する場合
+	<pre>	add_menu_page('大猫', '大猫','publish_posts','../wp-content/plugins/test_animal/test_page1.php');</pre>
+	
+	<p>add_menu_page関数について</p>
+	第1引数<br>
+	不明。<br>
+	<br>
+	
+	第2引数<br>
+	メニューの表示される文字列。<br>
+	<br>
+	
+	
+	第3引数<br>
+	<a href="https://wpdocs.osdn.jp/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%81%AE%E7%A8%AE%E9%A1%9E%E3%81%A8%E6%A8%A9%E9%99%90">権限</a>
+	を指定する。<br>
+	<aside>※「権限・権限グループテーブル」の項を参考</aside>
+	<br>
+	
+	第4引数<br>
+	テンプレートやプラグインの管理ページを指定できる。<br>
+	プラグインであれば、そのプラグイン用の管理ページを指定すると良い。<br>
+	<br>
+	
+	
+	<p>応用</p>
+	<pre>
+	add_menu_page('大猫', '大猫','publish_posts','example_setting_page',function(){
+		echo '&lt;p&gt;大猫プラグインの管理画面&lt;/p&gt;';
+	});
+	</pre>
+	第4引数はスラッグを指定するとのこと。<br>
+	スラッグはURLの末尾の文字列。<br>
+	ダッシュボードからスラッグを登録してから利用する。<br>
+	<br>
+	
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-6" class="sec4" >
+	<h3>「別の更新が現在進行中です。」の対処方法</h3>
+	
+	WordPress を更新するときに「別の更新が現在進行中です。」と表示された場合の対処方法。<br>
+	方法は2通りある。<br>
+	<br>
+	
+	<strong>方法1</strong><br>
+	15分待つ<br>
+	<br>
+	
+	<strong>方法2</strong><br>
+	データベースのwp_optionsテーブルから、下記条件のレコードを削除する。<br>
+	option_name = 'core_updater.lock'<br>
+	<br>
+
+	<br><time>2017-4-24</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-7" class="sec4">
+	<h3>プラグイン用のテーブルを作成</h3>
+	
+	ソースコード
+	<aside>/wp-content/plugins/test_animal/test_animal.php</aside>
+	<pre><code>
+	&lt;?php
+	/*
+	 Plugin Name: テスト・アニマル・プラグイン
+	 Plugin URI: http://amaraimusi.sakura.ne.jp/note_prg/wordpress/
+	 Description: プラグイン開発のHello Worldです。
+	 Version: 1.0
+	 Author: kenji uehara
+	 Author URI: http://amaraimusi.sakura.ne.jp/
+	 License: MIT
+	 */
+	class TestAnimal {
+	
+		public function __construct(){
+	
+			// 管理者メニューへ項目を追加する
+			add_action('admin_menu', function(){
+				add_menu_page('動物管理', '動物管理','publish_posts','example_setting_page',function(){
+					echo '&lt;p&gt;テスト動物プラグインの管理画面&lt;/p&gt;';
+					//include("../wp-content/plugins/test_animal/test_page1.php");        // PHPファイル読み込み
+			
+				});
+			});
+	
+			// テーブル群を生成する
+			<strong>register_activation_hook</strong>(__FILE__, array($this, 'createTable'));
+	
+		}
+		
+		/**
+		 * テーブルを生成する
+		 */
+		public function <strong>createTable</strong>(){
+			error_log('動物名テーブル生成テスト');
+			$cmt_db_version = '1.0';
+			
+			global $wpdb;
+			$table_name = $wpdb-&gt;prefix . 'test_animal';
+			
+			$installed_ver = get_option( 'cmt_meta_version' );//現在のDBバージョンを取得する
+			
+			// テーブル生成用のSQLを作成する。
+			if( $installed_ver != $cmt_db_version ) {
+				$sql = "CREATE TABLE " . $table_name . " (
+					id int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+					animal_name varchar(255) NOT NULL COMMENT '動物名',
+					animal_date date NOT NULL COMMENT '動物日付',
+					value1 int(11) COMMENT '値1',
+					note text COMMENT '備考',
+					ip_addr varchar(40) DEFAULT NULL COMMENT 'IPアドレス',
+					delete_flg tinyint(1) DEFAULT '0' COMMENT '無効フラグ',
+					update_user varchar(50) DEFAULT NULL COMMENT '更新ユーザー',
+					user_agent varchar(255) DEFAULT NULL COMMENT 'ユーザーエージェント',
+					created datetime DEFAULT NULL COMMENT '生成日時',
+					modified timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+					UNIQUE KEY id (id)
+					)
+					CHARACTER SET 'utf8';";
+				
+				require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+				<strong>dbDelta</strong>($sql);// テーブル生成
+				update_option('cmt_meta_version', $cmt_db_version);//オプションにDBバージョン保存
+			}
+		}
+	
+	}
+	
+	$testAnimal = new TestAnimal();
+	</code></pre>
+	
+	<hr>
+	
+	<p>dbDelta関数用のSQL文の注意点</p>
+	<ul>
+		<li>1行に一つのフィールドを記述する。</li>
+		<li>PRIMARY KEYと主キーの間に2つのスペースを入れる。</li>
+		<li>INDEXではなくKEYと記述すること。</li>
+		<li>
+			シングルクォートとバッククォートをフィールド名の前後につけないこと。<br>
+			× 'value1' int(11),<br>
+			× `value1' int(11),<br>
+			○ value1 int(11),<br>
+		</li>
+		<li>
+			フィールドの型は小文字であること。<br>
+			× value1 INT(11)<br>
+			○ value1 int(11)<br>
+		</li>
+		<li>
+			CREATE TABLE や NULL などのSQLキーワードは大文字で記述すること。<br>
+			× create table <br>
+			○ CREATE TABLE<br>
+		</li>
+		<li>
+			長さパラメータを付けること<br>
+			× value1 int<br>
+			○ value1 int(11)<br>
+		</li>
+	</ul>
+	
+	dbDelta関数用のSQL文
+	<pre><code>
+	$sql = "CREATE TABLE " . $table_name . " (
+		id int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+		animal_name varchar(255) NOT NULL COMMENT '動物名',
+		animal_date date NOT NULL COMMENT '動物日付',
+		value1 int(11) COMMENT '値1',
+		note text COMMENT '備考',
+		ip_addr varchar(40) DEFAULT NULL COMMENT 'IPアドレス',
+		delete_flg tinyint(1) DEFAULT '0' COMMENT '無効フラグ',
+		update_user varchar(50) DEFAULT NULL COMMENT '更新ユーザー',
+		user_agent varchar(255) DEFAULT NULL COMMENT 'ユーザーエージェント',
+		created datetime DEFAULT NULL COMMENT '生成日時',
+		modified timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+		UNIQUE KEY id (id)
+		)
+		CHARACTER SET 'utf8';";
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	<strong>dbDelta</strong>($sql);// テーブル生成
+	</code></pre>
+	
+	
+	<br><time>2017-4-24</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-8" class="sec4" >
+	<h3>wpdbのINSERT</h3>
+	
+	サンプル
+	<aside>test_animalテーブルへINSERTする</aside>
+	<pre><code>
+	global $wpdb;
+	$result = $wpdb-&gt;<strong>insert</strong>( 'test_animal', array(
+			'animal_name' =&gt; 'クロサイ',
+			'value1' =&gt; 1000,
+		));
+	</code></pre>
+	
+	<br><time>2017-4-24</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-9" class="sec4" >
+	<h3>wpdpのUPDATE</h3>
+	
+	サンプル
+	<aside>test_animalテーブルへUPDATEする</aside>
+	<pre><code>
+	global $wpdb;
+	$result = $wpdb-&gt;update(
+				'enq_test_animal',
+				array(
+					'animal_name' =&gt; 'アフリカゾウ',
+					'value1' =&gt; 1001
+				),
+				array( 'id' =&gt; 2 )// WHERE条件
+			);
+	</code></pre>	
+	
+	<br><time>2017-4-25</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-10" class="sec4" >
+	<h3>wpdpのDELETE</h3>
+	
+	サンプル
+	<aside>test_animalテーブルからDELETEする</aside>
+	<pre><code>
+	global $wpdb;
+	$result = $wpdb-&gt;delete( 'enq_test_animal', array( 'id' =&gt; 3 ) );
+	</code></pre>	
+	
+	削除した場合、返値（$result）は1である。<br>
+	削除対象が存在しないため削除できなかった場合、返値は0である。<br>
+	<br>
+	
+	<br><time>2017-4-25</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">WordPressの覚書</a></li>
+	<li>WordPressの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-4-21 </div>
+</body>
+</html>

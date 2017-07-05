@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+</head>
+<body>
+<h1 id="header">JavaScriptの覚書</h1>
+<div class="container" >
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-1" class="sec1">
+	<div class="title">重複チェックをfilterで行う</div>
+	フィルター関数を使えば簡単に重複削除や重複値の抽出ができる。
+	<hr>
+	<strong>主なコード</strong>
+	<pre>
+	var ary1 = [4,2,3,3,2,2,7,8,88,88];
+
+	// 重複を削除したリスト
+	var ary2 = ary1.filter(function (v, i, ary) {
+	            return ary.indexOf(v) === i;
+	        });
+
+	// 重複値（同値あり）のリストを取得
+	var ary3 = ary1.filter(function (v, i, ary) {
+	            return ary.indexOf(v) !== ary.lastIndexOf(v);
+	        });
+
+	// 重複値のリスト
+	var ary4 = ary1.filter(function (v, i, ary) {
+	            return ary.indexOf(v) === i &amp;&amp; i !== ary.lastIndexOf(v);
+	        });
+	</pre>
+	<br>
+	<strong>出力</strong>
+	<pre>
+	重複を削除したリスト
+	4,2,3,7,8,88
+
+	重複値（同値あり）のリストを取得
+	2,3,3,2,2,88,88
+
+	重複値のリスト
+	2,3,88
+
+	重複値（同値あり）と 重複要素番号
+	2,3,3,2,2,88,88
+	1,2,3,4,5,8,9
+	</pre>
+
+	<hr>
+	<strong>サンプルソース</strong>
+	<pre>
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"&gt;
+		&lt;meta name="google" content="notranslate" /&gt;
+		&lt;title&gt;重複チェックをfilterで行う&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="common1.css"  /&gt;
+		&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+		&lt;script&gt;
+
+
+			$(document).ready(function(){
+
+				var ary1 = [4,2,3,3,2,2,7,8,88,88];
+
+				// 重複を削除したリスト
+				var ary2 = ary1.filter(function (v, i, ary) {
+				            return ary.indexOf(v) === i;
+				        });
+
+				// 重複値（同値あり）のリストを取得
+				var ary3 = ary1.filter(function (v, i, ary) {
+				            return ary.indexOf(v) !== ary.lastIndexOf(v);
+				        });
+
+				// 重複値のリスト
+				var ary4 = ary1.filter(function (v, i, ary) {
+				            return ary.indexOf(v) === i &amp;&amp; i !== ary.lastIndexOf(v);
+				        });
+
+				// 重複要素番号のリスト
+				var indexs5=[];
+				var ary5 = ary1.filter(function (v, i, ary) {
+							if(ary.indexOf(v) !== ary.lastIndexOf(v)){
+								indexs5.push(i);
+								return true;
+							}else{
+								return false;
+							}
+				        });
+
+				$("#ary1").html(ary1.join(","));
+				$("#ary2").html(ary2.join(","));
+				$("#ary3").html(ary3.join(","));
+				$("#ary4").html(ary4.join(","));
+				$("#ary5").html(ary5.join(","));
+				$("#indexs5").html(indexs5.join(","));
+
+			});
+
+
+
+
+		&lt;/script&gt;
+
+		&lt;style type="text/css"&gt;
+
+		&lt;/style&gt;
+
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div id="page1"&gt;
+		&lt;h1 id="header"&gt;重複チェックをfilterで行う&lt;/h1&gt;
+		&lt;div class="container" &gt;
+
+			&lt;div class="sec1"&gt;
+
+				&lt;div&gt;フィルター前&lt;/div&gt;
+				&lt;div id="secry1"&gt;&lt;/div&gt;
+				&lt;hr&gt;
+				&lt;div&gt;重複を削除したリスト&lt;/div&gt;
+				&lt;div id="secry2"&gt;&lt;/div&gt;&lt;br&gt;
+				&lt;div&gt;重複値（同値あり）のリストを取得&lt;/div&gt;
+				&lt;div id="secry3"&gt;&lt;/div&gt;&lt;br&gt;
+				&lt;div&gt;重複値のリスト&lt;/div&gt;
+				&lt;div id="secry4"&gt;&lt;/div&gt;&lt;br&gt;
+				&lt;div&gt;重複値（同値あり）と
+				重複要素番号&lt;/div&gt;
+				&lt;div id="secry5"&gt;&lt;/div&gt;
+				&lt;div id="indexs5"&gt;&lt;/div&gt;
+
+			&lt;/div&gt;&lt;!-- sec1 --&gt;
+
+		&lt;/div&gt;&lt;!-- content --&gt;
+		&lt;div id="footer"&gt;(C) kenji uehara 2014/08/05&lt;/div&gt;
+		&lt;/div&gt;&lt;!-- page1 --&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/overlap_by_filter/overlap_by_filter.html">サンプル</a>
+	<a class="ref_link" href="http://qiita.com/cocottejs/items/7afe6d5f27ee7c36c61f">参照元サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-2" class="sec1">
+	<div class="title">JSON文字列化とパース</div>
+	配列をJSON文字列にするにはJSON.stringifyを使います。
+	<pre>
+	var data=[[1,'neko',99],[2,'nezumi',99],[3,'usi',20],[3,'usi',99],[4,'tora',20]];
+	
+	//★配列またはObjectをJSON文字列化する。
+	var json_str = <strong>JSON.stringify</strong>(data);
+	//出力例：json_str→[[1,"neko",99],[2,"nezumi",99],[3,"usi",20],[3,"usi",99],[4,"tora",20]]
+
+	//★JSON文字列をパースする。
+	var data2 = <strong>JSON.parse</strong>(json_str);//※オブジェクトに戻す場合
+	</pre>
+	<aside>
+	※配列だけでなくObjectもJSON文字列に変換できる。<br>
+	JSON.parseする際、キーで自動並べ替えが行われる。自動並べ替えをOFFにする方法はない。
+	</aside>
+	<br>
+	
+	<a href="../php/note.php#sec1-8" >参考 PHPの覚書 JSON変換</a><br>
+	<br>
+	
+	
+	
+	<p>JSON文字列をHTMLに埋め込む場合の注意点</p>
+	JSON文字列はdiv要素などではなく、input要素に埋め込んだ方がよい。<br>
+	通常のdiv要素やspan要素だと、「&lt; &gt;」記号がJSONに含まれている場合に不具合が生じるからである。<br>
+	jQueryの.html()メソッドでJSON文字列を取得する際、「&lt; &gt;」記号がJSON文字列中に存在するとバグが生じる。<br>
+	<br>
+	
+	inputにJSONを埋め込む例
+	<pre>	&lt;input id="json1" type="hidden" value=<strong style="font-style:italic">[JSON文字列]</strong> style="display:none" /&gt;</pre><br>
+	<br>
+	
+	
+	
+	
+	<br><time>2014-6-24 | 2017-2-14</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-3" class="sec1">
+	<div class="title">2次元配列の行列を入替</div>
+
+
+	<strong>2次元配列の行列を入れ替える関数</strong>
+	<pre>
+	var data=[[1,'neko',99],[2,'nezumi',99],[3,'usi',20],[3,'usi',99],[4,'tora',20],];
+
+	//★行列変換
+	var data2=transpose(data);
+
+	//★2次元配列の行列入替
+	function transpose(a) {
+	    return Object.keys(a[0]).map(function (c) {
+	        return a.map(function (r) {
+	            return r[c];
+	        });
+	    });
+	}
+	</pre>
+	<hr>
+	<strong>サンプルソース</strong>
+	<pre>
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"&gt;
+		&lt;meta name="google" content="notranslate" /&gt;
+		&lt;title&gt;2次元配列の行列を入替&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="common1.css"  /&gt;
+		&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+		&lt;script&gt;
+
+
+			$(document).ready(function(){
+
+
+
+				var data=[[1,'neko',99],[2,'nezumi',99],[3,'usi',20],[3,'usi',99],[4,'tora',20],];
+
+
+				//★行列変換
+				var data2=transpose(data);
+
+
+				//出力用
+				var json_text1 = JSON.stringify(data);
+				var json_text2 = JSON.stringify(data2);
+				$("#ary1").html(json_text1);
+				$("#ary2").html(json_text2);
+
+
+
+
+			});
+
+			//★2次元配列の行列入替(nullはエラーになるので注意)
+			function transpose(a) {
+			    return Object.keys(a[0]).map(function (c) {
+			        return a.map(function (r) {
+			            return r[c];
+			        });
+			    });
+			}
+
+
+		&lt;/script&gt;
+
+		&lt;style type="text/css"&gt;
+
+		&lt;/style&gt;
+
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div id="page1"&gt;
+		&lt;h1 id="header"&gt;2次元配列の行列を入替&lt;/h1&gt;
+		&lt;div class="container" &gt;
+
+			&lt;div class="sec1"&gt;
+
+				&lt;div&gt;変換前&lt;/div&gt;
+				&lt;div id="secry1"&gt;&lt;/div&gt;
+				&lt;hr&gt;
+				&lt;div&gt;行列入替後&lt;/div&gt;
+				&lt;div id="secry2"&gt;&lt;/div&gt;&lt;br&gt;
+
+			&lt;/div&gt;&lt;!-- sec1 --&gt;
+
+		&lt;/div&gt;&lt;!-- content --&gt;
+		&lt;div id="footer"&gt;(C) kenji uehara 2014/08/05&lt;/div&gt;
+		&lt;/div&gt;&lt;!-- page1 --&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/matrix_transpose/matrix_transpose.html">サンプル</a><br>
+	<a class="ref_link" href="http://geniuscarrier.com/transpose-in-javascript/">参照元サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-4" class="sec1">
+	<div class="title">2次元配列の重複チェック</div>
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/overlap_by_matrix/overlap_by_matrix.html">サンプルを動かす</a><br>
+	<hr>
+	<strong>サンプル</strong>
+	<pre>
+	$(document).ready(function(){
+
+		var data=[[1,'neko',99],[2,'usi',99],[3,'usi',20],[3,'usi',99],[4,'tora',20],];
+		var clm_no=2;//重複チェックする列番号
+
+		//★2次元配列の重複チェック
+		var rtns=overlapChkForMatrix(data,clm_no);
+
+		//出力値は重複行番号と重複値　→　{"0":99,"2":20}
+
+		console.dir(rtns);//デバッグ出力
+
+
+
+	});
+
+	/**
+	*重複チェック（2次元配列用）
+	* @param data 2次元配列
+	* @param clmNo チェックする列番号
+	* @param type 返値タイプ  0:重複情報オブジェクト   1:重複値配列
+	* @return 重複情報オブジェクトか重複値配列
+	*
+	*/
+	function overlapChkForMatrix(data,clmNo,type){
+		if(data =='' || data==null || !(data instanceof Array)){
+			return null;
+		}
+		if(data.length==0){
+			return null;
+		}
+
+		var data2=transpose(data);//行列変換
+		var ary1=data2[clmNo];//チェック対象列の配列を取得
+
+
+		var rtns={};//重複情報
+
+		//重複フィルター処理
+		var overlap_vals = ary1.filter(function (v, i, ary) {
+					if(ary.indexOf(v) === i &amp;&amp; i !== ary.lastIndexOf(v)){
+
+						//重複情報をセット
+						rtns[i]=v;
+
+						return true;
+					}else{
+						return false;
+					}
+
+		        });
+
+		if(type==1){
+			return overlap_vals;
+		}else{
+			return rtns;
+		}
+	}
+
+	//2次元配列の行列入替(nullはエラーになるので注意)
+	function transpose(a) {
+	    return Object.keys(a[0]).map(function (c) {
+	        return a.map(function (r) {
+	            return r[c];
+	        });
+	    });
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-5" class="sec1">
+	<div class="title">サブミットのキャンセルと注意点</div>
+
+	formタグ内に「onsubmit="return false;"」。<br><br>
+
+	<hr>
+	<strong>サンプル</strong>
+	<pre>
+
+	&lt;script&gt;
+	function check(){
+		alert('test');
+		return false;
+	}
+	&lt;/script&gt;
+	&lt;form action="/dummy" onsubmit="<span style='color:red'>return check();</span>" &gt;
+		～略～
+		&lt;input type="submit" value="送信"/&gt;
+	&lt;/form&gt;
+	</pre>
+
+	<hr>
+
+	×間違いやすいもの。returnがない。
+	<pre>
+	&lt;form action="/dummy" onsubmit="<span style='color:red'>check();</span>" &gt;
+		～略～
+		&lt;input type="submit" value="送信"/&gt;
+	&lt;/form&gt;
+	</pre>
+
+	<hr>
+
+	×間違いやすいもの。submitボタンに記述
+	<pre>
+	&lt;form action="/dummy" " &gt;
+		～略～
+		&lt;input type="submit" value="送信" onsubmit="<span style='color:red'>return check();</span>/&gt;
+	&lt;/form&gt;
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-6" class="sec1">
+	<div class="title">連想配列から最初のキーを取得</div>
+	ループを使うしかない？<br>
+	<pre>
+	/**
+	 * 連想配列から最初のキーを取得
+	 * @param obj 連想配列（オブジェクト）
+	 */
+	function getFirstKey(obj){
+	 	for(key in obj ){
+	 		return key;
+	 	}
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-7" class="sec1">
+	<div class="title">Chromeでクッキーを調べる方法</div>
+	クッキーだけでなくローカルストレージも調べられる。<br>
+	<br>
+	調べる方法は以下の通り。<br>
+	Chromeのメニュー→設定→詳細設定を表示→プライバシー：コンテンツの設定ボタン→
+	「すべてのCookieとサイトデータ」ボタン
+
+	<hr>
+	以下は詳細な手順。<br>
+	<ol>
+		<li>
+			Chromeブラウザのメニューを開く<br>
+			<img src="img/2-7-0.png" />
+		</li>
+		<li>
+			設定をクリック<br>
+			<img src="img/2-7-1.png" />
+		</li>
+		<li>
+			詳細設定を表示する<br>
+			<img src="img/2-7-2.png" />
+		</li>
+		<li>
+			プライバシーのコンテンツ設定を開く<br>
+			<img src="img/2-7-3.png" />
+		</li>
+		<li>
+			「すべてのCookieとサイトデータ」ボタン押す。<br>
+			<img src="img/2-7-4.png" />
+		</li>
+		<li>
+			サイトごとのクッキー情報一覧が表示される。調べたいサイトのクッキーをクリック。<br>
+			<img src="img/2-7-5.png" />
+		</li>
+		<li>
+			変数が陳列しているので調べたい変数をクリック。<br>
+			<img src="img/2-7-6.png" />
+		</li>
+		<li>
+			クッキーの詳細情報が表示される。削除もできる。<br>
+			<img src="img/2-7-7.png" />
+		</li>
+	</ol>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-8" class="sec1">
+	<div class="title">文字列を配列化する</div>
+
+	<pre>
+	var s="うゐのおくやま けふこえてあさきゆめみし ゑひもせす";
+	var ary=s.<span style="color:red">split('')</span> ;
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/str_to_array/str_to_array.html">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-9" class="sec1">
+	<div class="title">連想配列（オブジェクト）の要素数を取得する方法</div>
+		以下のコードで取得できる。<br>
+	var len=Object.keys(連想配列).length;<br>
+<br>
+	ちなみに連想配列とオブジェクトはJavaScriptでは同じものである。<br>
+	<br>
+	ソースコード<br>
+	<pre>
+	var data={
+		0:{aof:'success',send_dt:'2012/12/12'},
+		1:{aof:'success',send_dt:'2012/12/13'},
+		2:{aof:'fail',send_dt:'2012/12/14'},
+		3:{aof:'success',send_dt:'2012/12/15'},
+	};
+
+	//要素数
+	var len=<span class="marker">Object.keys(data).length</span>;
+
+	//※ len=4
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-10" class="sec1" >
+	<div class="title">async属性の挙動実験 &lt;script async&gt;</div>
+		<h2>実験</h2>
+
+			async属性を指定して読込順の実験。
+		<pre>
+	&lt;script src="../../style2/js/jquery-1.11.1.min.js" <strong>async</strong>&gt;&lt;/script&gt;
+	&lt;script src="../../style2/js/bootstrap.min.js" <strong>async</strong>&gt;&lt;/script&gt;
+	&lt;script src="elephant.js" <strong>async</strong>&gt;&lt;/script&gt;
+	&lt;script src="neko.js" <strong>async</strong>&gt;&lt;/script&gt;
+		</pre>
+
+		<h3>ファイル内容</h3>
+		<label>elephant.js</label>
+		<pre>
+	console.log('elephant.js');
+
+	var a=0;
+	a=a+1;
+	a=a+1;
+	a=a+1;
+	～ 略 ～
+	a=a+1;
+	a=a+1;
+	console.log('Elephant='+a);//←16388行目
+		</pre>
+		<label>elephant.js</label>
+		<pre>
+	console.log('neko.js');
+		</pre>
+
+
+		<h3>ファイルの大きさ</h3>
+		<table border="1"><thead>
+			<tr>
+				<th>JSファイル名</th>
+				<th>サイズ(Byte)</th>
+			</tr></thead>
+			<tbody>
+				<tr>
+					<td>jquery-1.11.1.min.js</td>
+					<td>95788</td>
+				</tr>
+				<tr>
+					<td>bootstrap.min.js</td>
+					<td>31819</td>
+				</tr>
+				<tr>
+					<td>elephant.js</td>
+					<td>130000</td>
+				</tr>
+				<tr>
+					<td>neko.js</td>
+					<td>100</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+	<h3>結果</h3>
+	F5キーなどでリロードを繰り返すと、コンソールで出力される値の順番が変わることがある。<br>
+	先にjqueryよりもbootstrap.min.jsが先に読み込まれエラーになることもあった。<br>
+	<br>
+	以下は出力の例。F5を何度か押すと出力パターンが変化する。<br><br>
+	出力パターン1<br>
+	<img src="img/2-10-1.png" /><br>
+
+	出力パターン2<br>
+	<img src="img/2-10-2.png" /><br>
+
+	出力パターン3<br>
+	<img src="img/2-10-3.png" /><br>
+
+
+	<br>
+	Chromeで検証<br>
+	F12 → consoleタブ<br>
+
+	<br><br>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/async_attr/async_attr.html">サンプル</a>
+	<br><br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-0" class="sec1" style="display:none">
+	<div class="title">TEST</div>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2014/06/24</div>
+		
+</body>
+</html>

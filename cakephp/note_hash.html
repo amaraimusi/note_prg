@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-1" class="sec1" >
+	<h3>Hash:get() | パスを指定して配列から1つの値を取り出す</h3>
+
+	<div>元データ配列:$ary</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=4)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'dummy'</font> <i>(length=5)</i>
+	  'yasai' <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'nasu'</font> <i>(length=4)</i>
+	      'x' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'tomato'</font> <i>(length=6)</i>
+	  'animal' <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=3)</i>
+	      'a1' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'neko'</font> <i>(length=4)</i>
+	      'a2' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'inu'</font> <i>(length=3)</i>
+	      'musi' <font color='#888a85'>=&gt;</font>
+	        <b>array</b> <i>(size=2)</i>
+	          0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'kabuto'</font> <i>(length=6)</i>
+	          1 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'kuwagata'</font> <i>(length=8)</i>
+	  1 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'dummy2'</font> <i>(length=6)</i>
+	</pre><hr>
+
+
+	<div>ソースコード</div>
+	<pre>$ary2=Hash::get($ary, 'yasai.0');</pre>
+	<hr>
+
+
+	<div>抽出後のデータ:$ary2</div>
+	<pre class='xdebug-var-dump' dir='ltr'><small>string</small> <font color='#cc0000'>'nasu'</font> <i>(length=4)</i>
+	</pre>
+	<hr>
+
+	<a class="ref_link" href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::get">ドキュメント</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_hash/test_get">サンプル</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-2" class="sec1" >
+	<h3>Hash::combine | 多重配列から構造変換した配列を取得</h3>
+	Hash::combineは配列を別の構造に変換するときに使う。<br>
+	下記の例ではよくあるパターンとして、キーを連番からIDに構造変換をする例を示す。 <br>
+	<hr>
+	<div>元データ配列:$ary</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=6)</i>
+	  0 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>101</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネコ'</font> <i>(length=6)</i>
+	  1 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>102</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネズミ'</font> <i>(length=9)</i>
+	  2 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>103</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ウシ'</font> <i>(length=6)</i>
+	  3 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>104</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'トラ'</font> <i>(length=6)</i>
+	  4 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>105</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'鵜'</font> <i>(length=3)</i>
+	  5 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>106</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'猿'</font> <i>(length=3)</i>
+	</pre><hr>
+
+
+
+	<div>ソースコード</div>
+	<pre>$ary2=Hash::combine($ary, '{n}.id','{n}');</pre>
+
+	<div>データのキーがインデックスでなく文字列である場合</div>
+	<pre>$ary2=Hash::combine($ary, '{s}.id','{s}');</pre>
+
+	<hr>
+
+
+	<div>抽出後のデータ:$ary2</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=6)</i>
+	  101 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>101</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネコ'</font> <i>(length=6)</i>
+	  102 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>102</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネズミ'</font> <i>(length=9)</i>
+	  103 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>103</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ウシ'</font> <i>(length=6)</i>
+	  104 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>104</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'トラ'</font> <i>(length=6)</i>
+	  105 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>105</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'鵜'</font> <i>(length=3)</i>
+	  106 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>106</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'猿'</font> <i>(length=3)</i>
+	</pre>
+
+
+
+
+	<br><br><hr><br><br>
+	3次元配列から取り出す例<br>
+	<pre>$categoryList=Hash::combine($categoryList, '{n}.{n}.id','{n}.{n}.name');</pre>
+	<pre>
+	array(
+		(int) 1 => 'ねずみ',
+		(int) 2 => 'うし',
+		(int) 3 => 'とら',
+		(int) 5 => '鵜',
+		(int) 6 => '猿',
+		(int) 7 => '鳥',
+		(int) 15 => 'かに'
+	)
+	</pre>
+
+	<br><br>
+
+	<a class="ref_link" href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::combine">ドキュメント</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_hash/test_combine">サンプル</a>
+
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-3" class="sec1" >
+	<h3>Hash::exitract | 多重配列から必要な情報だけを抽出</h3>
+
+	データ（エンティティのリスト）からidリストを抽出する
+	<pre>$list=Hash::extract($data, '{n}.id');</pre>
+	<br>
+	
+	条件で絞り込む
+	<pre>$list=Hash::extract($data, '{n}[id&gt;103]');</pre>
+	<br>
+	
+	複数の条件指定かつ、特定のフィールドをリストとして取得する
+	<pre>$list=Hash::extract($data, '{n}[animal_kind=1][category=1].animal_name');</pre>
+	<br>
+
+
+	<p>例</p>
+	
+	<div>元データ:$ary</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=6)</i>
+	  0 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>101</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネコ'</font> <i>(length=6)</i>
+	  1 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>102</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ネズミ'</font> <i>(length=9)</i>
+	  2 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>103</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'ウシ'</font> <i>(length=6)</i>
+	  3 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>104</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'トラ'</font> <i>(length=6)</i>
+	  4 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>105</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'鵜'</font> <i>(length=3)</i>
+	  5 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>106</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'猿'</font> <i>(length=3)</i>
+	</pre><hr>
+
+
+	<div>ソースコード
+	id>103の式で絞り込む。
+	</div>
+	<pre>$ary2=Hash::extract($ary, '{n}[id>103]');</pre>
+	<div>抽出後のデータ:$ary2</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=3)</i>
+	  0 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>104</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'トラ'</font> <i>(length=6)</i>
+	  1 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>105</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'鵜'</font> <i>(length=3)</i>
+	  2 <font color='#888a85'>=&gt;</font>
+	    <b>array</b> <i>(size=2)</i>
+	      'id' <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>106</font>
+	      'name' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'猿'</font> <i>(length=3)</i>
+	</pre><br><br><hr><br><br>
+
+
+	<div>ソースコードその２<br>
+	idのみ配列として抜き出す。
+	</div>
+	<pre>$ary3=Hash::extract($ary, '{n}.id');</pre>
+	<div>抽出後のデータ:$ary3</div>
+	<pre class='xdebug-var-dump' dir='ltr'>
+	<b>array</b> <i>(size=6)</i>
+	  0 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>101</font>
+	  1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>102</font>
+	  2 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>103</font>
+	  3 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>104</font>
+	  4 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>105</font>
+	  5 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>106</font>
+	</pre>		
+
+
+	<hr>
+	delete_flg=0且つfile_nameプロパティのみ抽出する例。
+	<pre>$delFns=Hash::extract($faData, '{n}[delete_flg=0].file_name');</pre>
+
+	<a class="ref_link" href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::extract">ドキュメント</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_hash/test_extract">サンプル</a>
+
+
+
+	<time>2013-9-3 | 2016-10-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-4" class="sec1" >
+	<h3>Hash::insert | 配列にキーやパスを指定して値を挿入する</h3>
+	<pre>Hash::insert(配列, キーまたはパス, 追加する値)</pre>
+	パスを指定すると、複数に値を挿入できる。<br>
+	<hr>
+	
+	<strong>基本</strong>
+	ソースコード
+	
+	<pre>
+	$data=array(
+			'neko'=>'ネコ',
+			'yagi'=>'山羊',
+	);
+	$data2=Hash::insert($data, 'kani', 'カニ');
+	</pre><br>
+	
+	出力
+	<pre>
+	array(
+		'neko' => 'ネコ',
+		'yagi' => '山羊'
+	)
+	
+	array(
+		'neko' => 'ネコ',
+		'yagi' => '山羊',
+		'kani' => 'kani'
+	)
+	</pre>
+	※配列も値として挿入可能
+	
+	<hr>
+	
+	<strong>{n}を使って複数のポイントに挿入する</strong><br>
+	データのすべてのエンティティにプロパティを追加することができる。<br>
+	<br>
+	
+	ソースコード<br>
+	<pre>
+	$data=array(
+			array(
+				'name'=>'虎次郎',
+				'kind'=>'ネコ',
+			),
+			array(
+				'name'=>'王大人',
+				'kind'=>'犬',
+			),
+	);
+	$data2=Hash::insert($data, '{n}.flg', 4);
+	</pre><br>
+	
+	出力
+	<pre>
+	array(
+		(int) 0 => array(
+			'name' => '虎次郎',
+			'kind' => 'ネコ'
+		),
+		(int) 1 => array(
+			'name' => '王大人',
+			'kind' => '犬'
+		)
+	)
+	
+	array(
+		(int) 0 => array(
+			'name' => '虎次郎',
+			'kind' => 'ネコ',
+			'flg' => (int) 4
+		),
+		(int) 1 => array(
+			'name' => '王大人',
+			'kind' => '犬',
+			'flg' => (int) 4
+		)
+	)
+	</pre>
+	※パスは{n}だけでなく{s}も使える。<br>
+	<br>
+	
+	
+	<a class="ref_link" href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::insert" target="brank">ドキュメント</a>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_hash/hash_insert">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-5" class="sec1">
+	<h3>Hash::remove | パスに該当する値を削除する</h3>
+	
+	<p>検証1</p>
+	<pre>
+	$data=array(
+			'neko'=>'ネコ',
+			'yagi'=>'ヤギ',
+			'sakana'=>array('same'=>'サメ','medaka'=>'メダカ',),
+	);
+	
+	$data2=Hash::remove($data, 'neko');
+	Debugger::dump($data2);	
+		
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'yagi' => 'ヤギ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+			'neko'=>'ネコ',
+			'yagi'=>'ヤギ',
+			'sakana'=>array('same'=>'サメ','medaka'=>'メダカ',),
+			'sakana2'=>array('same'=>'サメ2','medaka'=>'メダカ2',),
+	);
+	
+	$data2=Hash::remove($data, '{s}.medaka');
+	Debugger::dump($data2);
+		
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'sakana' => array(
+			'same' => 'サメ'
+		),
+		'sakana2' => array(
+			'same' => 'サメ2'
+		)
+	)
+	</pre>
+	※注意　兄弟要素neko,yagiまで削除される
+	<br><hr><br>
+	
+	
+	<p>検証3</p>
+	<pre>
+	$data=array(
+			'neko'=>'ネコ',
+			'yagi'=>'ヤギ',
+			'sakana'=>array('same'=>'サメ','medaka'=>'メダカ',),
+			'sakana2'=>array('same'=>'サメ2','medaka'=>'メダカ2',),
+	);
+	
+	$data2=Hash::remove($data, 'sakana.medaka');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'sakana' => array(
+			'same' => 'サメ'
+		),
+		'sakana2' => array(
+			'same' => 'サメ2',
+			'medaka' => 'メダカ2'
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	<p>検証4</p>
+	<pre>
+	$data=array(
+			0=>array('id'=>1,'name'=>'アリ'),
+			1=>array('id'=>2,'name'=>'ダニ'),
+			2=>array('id'=>3,'name'=>'ノミ'),
+			3=>array('id'=>4,'name'=>'シラミ'),
+	);
+	
+	$data2=Hash::remove($data, '{n}.id');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => array(
+			'name' => 'アリ'
+		),
+		(int) 1 => array(
+			'name' => 'ダニ'
+		),
+		(int) 2 => array(
+			'name' => 'ノミ'
+		),
+		(int) 3 => array(
+			'name' => 'シラミ'
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::remove" target="brank">参考</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-6" class="sec1" >
+	<h3>Hash::format | フォーマットされた文字を返す</h3>
+	
+	<pre>$data2=Hash::format($data, array('{n}.id','{n}.name','{n}.val1'),'%2$s(%3$d) id=%1$d');</pre>
+	フォーマット文字は
+	<a href="http://php.net/manual/ja/function.sprintf.php" target="brank">sprintf</a>関数と同様の仕様のようである。<br>
+	<br>
+	
+	<p>検証1</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::format($data, array('{n}.id','{n}.name','{n}.val1'),'%s-%s-%s');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => '1 ネコ 100',
+		(int) 1 => '2 ヤギ 200',
+		(int) 2 => '3 カニ 300',
+		(int) 3 => '4 サメ 400'
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	
+	
+	
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::format($data, array('{n}.name','{n}.id','{n}.val1'),'%s-%s-%s');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => 'ネコ-1-100',
+		(int) 1 => 'ヤギ-2-200',
+		(int) 2 => 'カニ-3-300',
+		(int) 3 => 'サメ-4-400'
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	
+	
+	
+	
+	
+	<p>検証3</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::format($data, array('{n}.id','{n}.name','{n}.val1'),'%3$s-%2$s-%1$s');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => '100-ネコ-1',
+		(int) 1 => '200-ヤギ-2',
+		(int) 2 => '300-カニ-3',
+		(int) 3 => '400-サメ-4'
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	
+	
+	
+	
+	
+	<p>検証4</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::format($data, array('{n}.id','{n}.name','{n}.val1'),'%2$s(%3$d) id=%1$d');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => 'ネコ(100) id=1',
+		(int) 1 => 'ヤギ(200) id=2',
+		(int) 2 => 'カニ(300) id=3',
+		(int) 3 => 'サメ(400) id=4'
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::format" target="brank">参考</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-7" class="sec1" >
+	<h3>Hash::flatten | 多次元配列を1次元配列化する</h3>
+	
+	キーを連結して1つにまとめ、多次元配列を1次元配列化する。<br>
+	1次元配列化し配列は「Hash::expand」で元の構造に戻すことができる。<br>
+	<br>
+	
+	<p>検証1</p>
+	<pre>
+	$data=array(
+			'neko'=>'ネコ',
+			'yagi'=>'ヤギ',
+			'sakana'=>array('same'=>'サメ','medaka'=>'メダカ',),
+	);
+	$data2=Hash::flatten($data);
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'sakana.same' => 'サメ',
+		'sakana.medaka' => 'メダカ'
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::flatten" target="brank">参考</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-8" class="sec1" >
+	<h3>Hash::expand | カンマ区切りのキーを分解して多次元配列化する</h3>
+	
+	<pre>Hash::expand(array $data, string $separator = '.')</pre>
+	<br>
+	
+	1次元配列のカンマ区切りキーを、カンマで分解して、多次元配列を作成する。<br>
+	カンマ以外の区切り文字である場合、第2引数にてその区切り文字を指定する。<br>
+	<br>
+	
+	<p>Hash::flattenとの連携</p>
+	「Hash::flatten」では多次元配列を1次元配列に変換するが、
+	当関数で一次元化された配列を多次元に戻すことができる。<br>
+	<br>
+	
+
+	<p>検証1</p>
+	<pre>
+	$data=array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'sakana.same' => 'サメ',
+		'sakana.medaka' => 'メダカ'
+	);
+	$data2=Hash::expand($data);
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'0:sakana:same' => 'サメ',
+		'1:sakana:medaka' => 'メダカ'
+	);
+	$data2=Hash::expand($data,':');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		(int) 0 => array(
+			'sakana' => array(
+				'same' => 'サメ'
+			)
+		),
+		(int) 1 => array(
+			'sakana' => array(
+				'medaka' => 'メダカ'
+			)
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::expand" target="brank">参考</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-9" class="sec1">
+	<h3>Hash::merge | 2つの配列をマージして1つにまとめる</h3>
+
+
+	<p>検証1</p>
+	<pre>
+	$data=	array(
+		'neko' => 'ライオン',
+		'yagi' => 'ヤギ',
+		'sakana' => array(
+			'same' => 'イルカ',
+		)
+	);
+	$data2=	array(
+		'neko' => 'ネコ',
+		'kuma' => 'クマ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	);
+	$data3=Hash::merge($data,$data2);
+	Debugger::dump($data3);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'neko' => 'ネコ',
+		'yagi' => 'ヤギ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		),
+		'kuma' => 'クマ'
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ヨコバイ','val1'=>999),
+			array('id'=>2,'name'=>'センチュウ','val1'=>998),
+			array('id'=>4,'name'=>'ゾウムシ','val1'=>997),
+	);
+	$data2=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data3=Hash::merge($data,$data2);
+	Debugger::dump($data3);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => array(
+			'id' => (int) 1,
+			'name' => 'ネコ',
+			'val1' => (int) 100
+		),
+		(int) 1 => array(
+			'id' => (int) 2,
+			'name' => 'ヤギ',
+			'val1' => (int) 200
+		),
+		(int) 2 => array(
+			'id' => (int) 3,
+			'name' => 'カニ',
+			'val1' => (int) 300
+		),
+		(int) 3 => array(
+			'id' => (int) 4,
+			'name' => 'サメ',
+			'val1' => (int) 400
+		)
+	)
+	</pre>
+	<br><hr><br>
+
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::merge" target="brank">参考</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-10" class="sec1">
+	<h3>Hash::dimensions | 先頭から次元数を取得する</h3>
+	<pre>static Hash::dimensions(array $data)</pre>
+	
+	配列の深さを調べ、次元数として取得する。<br>
+	配列の先頭値から深さを調べている。<br>
+	<br>
+	
+		<p>検証1</p>
+	<pre>
+	$data=array(
+			array('a'=>array('b'=>array('c')),'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+	);
+	$cnt=Hash::dimensions($data);
+	Debugger::dump($cnt);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	(int) 4
+	</pre>
+	<br><hr><br>
+
+	
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('a'=>array('b'=>array('c')),'name'=>'ネコ','val1'=>100),
+	);
+	$cnt=Hash::dimensions($data);
+	Debugger::dump($cnt);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	(int) 2
+	</pre>
+	<br><hr><br>
+	
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::dimensions" target="brank">参考</a>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-11" class="sec1" >
+	<h3>Hash::maxDimensions | 最大の次元数を取得する</h3>
+	<pre>static Hash::maxDimensions(array $data)</pre>
+	
+	配列から最も深い次元数を調べる。<br>
+	「Hash::dimensions 」と同様な処理ではあるが、こちらの処理速度は遅いはずである。<br>
+	<br>
+
+	<p>検証1</p>
+	<pre>
+	$data=array(
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('a'=>array('b'=>array('c')),'name'=>'ネコ','val1'=>100),
+	);
+	$cnt=Hash::maxDimensions($data);
+	Debugger::dump($cnt);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	(int) 4
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::maxDimensions" target="brank">参考</a>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-12" class="sec1">
+	<h3>Hash::sort | パスで指定した値で並べ替える</h3>
+	
+	<pre>static Hash::sort(array $data, $path, $dir, $type = 'regular')</pre>
+	
+	<p>検証1</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::sort($data,'{n}.name','asc');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => array(
+			'id' => (int) 3,
+			'name' => 'カニ',
+			'val1' => (int) 300
+		),
+		(int) 1 => array(
+			'id' => (int) 4,
+			'name' => 'サメ',
+			'val1' => (int) 400
+		),
+		(int) 2 => array(
+			'id' => (int) 1,
+			'name' => 'ネコ',
+			'val1' => (int) 100
+		),
+		(int) 3 => array(
+			'id' => (int) 2,
+			'name' => 'ヤギ',
+			'val1' => (int) 200
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=array(
+			array('id'=>1,'name'=>'ネコ','val1'=>100),
+			array('id'=>2,'name'=>'ヤギ','val1'=>200),
+			array('id'=>3,'name'=>'カニ','val1'=>300),
+			array('id'=>4,'name'=>'サメ','val1'=>400),
+	);
+	$data2=Hash::sort($data,'{n}.val1','desc');
+	Debugger::dump($data2);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		(int) 0 => array(
+			'id' => (int) 4,
+			'name' => 'サメ',
+			'val1' => (int) 400
+		),
+		(int) 1 => array(
+			'id' => (int) 3,
+			'name' => 'カニ',
+			'val1' => (int) 300
+		),
+		(int) 2 => array(
+			'id' => (int) 2,
+			'name' => 'ヤギ',
+			'val1' => (int) 200
+		),
+		(int) 3 => array(
+			'id' => (int) 1,
+			'name' => 'ネコ',
+			'val1' => (int) 100
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::sort" target="brank">参考</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-13" class="sec1" >
+	<h3>Hash::normalize::diff | 2つの配列から差分を抽出</h3>
+	値が異なっているものや、キー有無の差分だけを抽出している。<br>
+	<br>
+	
+	1次元配列のみ有効である。<br>
+	2次元目以降は配列単位で一致するかどうか見ており、配列中の値が１つでも異なれば、配列単位で不一致とみなされる。(検証2を参考）<br>
+	<br>
+	
+	
+	<p>検証1</p>
+	<pre>
+	$data=	array(
+		'neko' => 'ネコ',
+		'kani' => 'カニ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	);
+	$data2=	array(
+		'neko' => 'ネコ',
+		'kani' => 'えび',
+		'kuma' => 'クマ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	);
+	$data3=Hash::diff($data,$data2);
+	Debugger::dump($data3);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'kani' => 'カニ',
+		'kuma' => 'クマ'
+	)
+	</pre>
+	<br><hr><br>
+
+	
+	
+	
+	
+	
+	<p>検証2</p>
+	<pre>
+	$data=	array(
+		'neko' => 'ネコ',
+		'kani' => 'カニ',
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	);
+	$data2=	array(
+		'neko' => 'ネコ',
+		'kani' => 'カニ',
+		'sakana' => array(
+			'same' => 'イルカ',
+			'medaka' => 'メダカ'
+		)
+	);
+	$data3=Hash::diff($data,$data2);
+	Debugger::dump($data3);
+	$data3=Hash::mergeDiff($data,$data2);
+	Debugger::dump($data3);
+	</pre>
+	出力
+	<pre style="background-color:#e7e7e7">
+	array(
+		'sakana' => array(
+			'same' => 'サメ',
+			'medaka' => 'メダカ'
+		)
+	)
+	</pre>
+	<br><hr><br>
+	
+	<a href="http://book.cakephp.org/2.0/ja/core-utility-libraries/hash.html#Hash::diff" target="brank">参考</a>
+
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec_h-0" class="sec1" style="display:none">
+	<h3></h3>
+	テスト
+	<pre>
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

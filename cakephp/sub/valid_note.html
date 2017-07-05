@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPのバリデーションについて</title>
+		<link rel="stylesheet" type="text/css" href="../common1.css"  />
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPのバリデーションについて</h1>
+		<div id="content" >
+		Cake PHPのバリデーションはDBと入力フォームに密接に結びついています。
+		ただしDBは切り離してバリデーションを行うことが可能です。
+		しかし、入力フォームと切り離せません。
+		入力値にエラーがあった場合、入力フォームの下にエラーメッセージを自動で表示するからです。
+		<br /><br />
+		以下はDBを使わないでバリデーションを行う場合のサンプルです。
+		<br /><br />
+		<strong>ビュー（xxx.ctp)</strong>
+		<pre>
+	echo $this->Form->create('Xxx', array('url' => '#' ));
+
+	echo $this->Form->input('aaa');//入力フォーム
+
+	echo $this->Form->end()
+		</pre>
+		<br /><br />
+
+		<strong>コントローラ（XxxController.php)</strong>
+		<pre>
+	public function index() {
+
+		$this->Xxx->set($this->data);//モデルに値をセットする。
+		if ($this->Xxx->validates()){//入力チェック
+			echo 'OK';
+		} else {
+			echo '入力エラー';
+		}
+
+	}
+		</pre>
+		※DBと連動させる場合、save()実行したタイミングでバリデーションが行われます。<br />
+
+		<strong>モデル（Xxx.php)</strong>
+		<pre>
+	public $validate = array(
+			'aaa' => array(
+				'rule' => 'notEmpty'
+			)
+	);
+		</pre>
+
+
+
+
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2014/4/21</div>
+		</div><!-- page1 -->
+	</body>
+</html>

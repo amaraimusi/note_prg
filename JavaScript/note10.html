@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>	
+	
+	<!-- ソースコードをハイライト表示する -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-1" class="sec1" >
+	<h3>return function | 無名関数を返す</h3>
+
+	無名関数を返す特殊なソースコード。<br>
+	GOFのコマンドパターンで使うことがあるかもしれない。<br>
+	この記述方法は海外のJSライブラリにて見かける。<br>
+	<br>
+
+	<pre>
+	$(function(){
+		<strong>test1()();</strong>
+
+	});
+	function test1(){
+		<strong>return function</strong>(){
+			var text = "Hello World!";
+			alert(text);
+		}
+	}
+	</pre>
+
+
+	<br>
+	<time>2016-7-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-2" class="sec1" >
+	<h3>正規表現 if文の省略記法</h3>
+
+	正規表現から直接、testプロパティを呼び出してコードを短縮できる。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre>
+	$(function(){
+		var str='http://localhost/';
+		if(<strong>/:\/\//.test</strong>(str)){
+			console.log('URLです');
+		}else{
+			console.log('URLでありません');
+		}
+		
+	});
+	</pre>
+	<br>
+
+
+	<p>コンソール出力</p>
+	<pre class="output_data"><code>	URLです</code></pre>
+	<br>
+	
+	
+
+	
+	<br><time>2016-7-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-3" class="sec1" >
+	<h3>CakePHPのユーザー認証状態をAjaxで取得する</h3>
+
+	CakePHPで作られたシステムの認証状態を、Ajaxで確認するサンプル。<br>
+	認証中ならユーザー名と権限を取得する。<br>
+	<br>
+	
+	<p>クライアント側 (JavaScript)</p>
+	<pre><code>
+	
+	$.ajax({
+		type: "GET",
+		url: "/animal/auth_check/ajax_auth_check",
+		cache: false,
+		dataType: "text",
+		success: function(str_json, type) {
+
+			if(str_json == 'none'){
+				console.log('未認証です');
+			}else{
+
+				try{
+					var data=$.parseJSON(str_json);
+					console.log(data);
+
+				}catch(e){
+					alert('エラー');
+				}
+			}
+
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown){
+			console.log(xmlHttpRequest.responseText);
+			alert(textStatus);
+		}
+	});
+	
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>サーバー側（ CakePHP側)</p>
+	<pre><code>
+	&lt;?php
+	App::uses('AppController', 'Controller');
+	
+	class AuthCheckController extends AppController {
+		public $name = 'AuthCheck';
+		
+		public function beforeFilter() {
+			$this-&gt;Auth-&gt;allow(); // 認証と未認証の両方に対応したページする。
+			parent::beforeFilter();//基本クラスのメソッドを呼び出し。
+		}
+		
+		public function ajax_auth_check() {
+			$this-&gt;autoRender = false;
+			
+			if(!empty($this-&gt;Auth-&gt;user('id'))){
+				
+				$data=[
+					'username'=&gt;$this-&gt;Auth-&gt;user('username'),
+					'role'=&gt;$this-&gt;Auth-&gt;user('role'),
+					];
+				$json_str=json_encode($data);
+				echo $json_str;
+			}else{
+				echo 'none';
+			}
+		}
+	
+	}
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>コンソール出力</p>
+	<pre><code>	Object {username: "kabutomusi", role: "admin"}</code></pre>
+	<br>
+	
+	
+	
+	<br><time>2016-7-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-4" class="sec1" >
+	<h3>編集モードと一般モードの切替関数</h3>
+
+	編集モードと一般モードに関する機能である。<br>
+	この機能はedit_or_public関数として用意され、編集モードと一般モードの切替を一括管理する。<br>
+	jQueryを必要とする。<br>
+	<br>
+	
+	<a href="/sample/js/edit_or_public/edit_or_public.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	<p>挙動</p>
+	edit_or_public関数に引数を渡して呼び出すだけで、編集モードと一般モードが切り替わる。<br>
+	引数はmodeである。"0"は一般モード、"1"は編集モードである。<br>
+	<br>
+	
+	<p>実装について</p>
+	実装は、切替対象の要素のclass属性に、edit_only,public_onlyを追加するだけである。<br>
+	edit_onlyにすると編集モードのときにしか表示されない。public_onlyなら一般モードのみである。<br>
+	<br>
+	
+	
+	<p>編集モードと一般モードの切替関数</p>
+	<pre><code>
+	/**
+	 * 編集モードと一般モードの切替関数
+	 * 
+	 * @note
+	 * 編集モードと一般モードに関する機能である。
+	 * この機能はedit_or_public関数として用意され、編集モードと一般モードの切替を一括管理する。
+	 * 
+	 * @param bool flg 0:一般モード  1:編集モード
+	 * @date 2016-9-9
+	 * 
+	 */
+	function edit_or_public(flg){
+		if(flg =='' || flg==null){
+			$('.public_only').show();
+			$('.edit_only').hide();
+			
+		}else{
+			$('.public_only').hide();
+			$('.edit_only').show();
+			
+		}
+	}
+	</code></pre>
+	<br>
+	
+	<p>使用例</p>
+	<pre>
+	&lt;input type="text" class="<strong>edit_only</strong>" value="Hello world" /&gt;
+	&lt;div class="<strong>public_only</strong>" style="display:none"&gt;Hello world&lt;/div&gt;
+	&lt;hr&gt;
+	&lt;input type="button" class="btn-primary" value="Public Mode" onclick="edit_or_public(0)" /&gt;
+	&lt;input type="button" class="btn-primary" value="Edit Mode" onclick="edit_or_public(1)" /&gt;
+	</pre>
+	<br>
+	
+	<br><time>2016-9-13</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-5" class="sec1" >
+	<h3>アップロードファイル要素のクリア（リセット）</h3>
+
+	ファイルアップロード要素にセットされたファイルを取り消すことができる。<br>
+	方法はファイルアップロード要素の値に空文字をセットするだけである。<br>
+	ただし、空文字をセットした際、changeイベントが発生することがあるので注意すること。<br>
+	<br>
+	
+	IEだとエラーが起こる可能性がある。（2016/10時点ではリセット可能。ただしchangeイベントが発生。）<br>
+	<br>
+	
+	ソースコード<br>
+	<pre><code>
+	&lt;input id="file1" type="file"  multiple /&gt;
+	
+	try {
+		$('#file1').val("");// changeイベントが発生するので注意
+	} catch (e) {
+		console.log('It can not be reset in IE ');
+	}	
+	</code></pre>
+	<br>
+	
+
+	<br><time>2016-10-7</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-6" class="sec1" >
+	<h3>class属性またはname属性からフィールド名を取得する</h3>
+
+	<a href="/sample/js/a002/get_field_class_name/get_field_class_name.html" class="btn"></a><br>
+	<br>
+	
+	
+	<pre><code>
+	/**
+	* class属性またはname属性からフィールド名を取得する
+	* 
+	* @note
+	* class属性が複数である場合、先頭のclass属性を取得する
+	*
+	* @parma elm 入力要素オブジェクト
+	* @return フィールド名
+	*/
+	function getFieldByClassOrName(elm){
+		
+		var field = elm.attr('name');
+		if(!field){
+			field = elm.attr('class');
+		}
+		
+		if(!field){
+			return field;
+		}
+		
+		field = field.trim();
+		var a = field.indexOf(' ');
+		if(a != -1){
+			field = field.substr(0,field.length - a);
+		}
+	
+		return field;
+		
+	}
+	</code></pre>
+	<br>
+	
+	<input type="button" class="btn btn-primary btn-xs" value="検証ソースコード" onclick="$('#sec10-6a').toggle(300)" />
+	<div id="sec10-6a" style="display:none">
+	
+	<p>ソースコード</p>
+	<pre><code>
+	&lt;script&gt;
+	function test1(){
+		$('form input').each(function(){
+			
+			var field = getFieldByClassOrName($(this));
+			var v = $(this).val();
+			
+			$('#res').append(field + ' : ' + v + '&lt;br&gt;');
+			
+		});
+	}
+	
+	/**
+	* class属性またはname属性からフィールド名を取得する
+	* 
+	* @note
+	* class属性が複数である場合、先頭のclass属性を取得する
+	*
+	* @parma elm 入力要素オブジェクト
+	* @return フィールド名
+	*/
+	function <strong>getFieldByClassOrName</strong>(elm){
+		
+		var field = elm.attr('name');
+		if(!field){
+			field = elm.attr('class');
+		}
+		
+		if(!field){
+			return field;
+		}
+		
+		field = field.trim();
+		var a = field.indexOf(' ');
+		if(a != -1){
+			field = field.substr(0,field.length - a);
+		}
+	
+		return field;
+		
+	}
+	&lt;/script&gt;
+
+
+
+	
+	&lt;form&gt;
+		&lt;input type="text" name="neko" value='ネコ' /&gt;&lt;br&gt;
+		&lt;input type="text" name="buta xxx " value='ブタ' /&gt;&lt;br&gt;
+		&lt;input type="text" class="dog xxx" value='イヌ' /&gt;&lt;br&gt;
+		&lt;input type="text" class="tanuki" value='タヌキ' /&gt;&lt;br&gt;
+		&lt;input type="text" class="xxx" name="panda" value='パンダ' /&gt;&lt;br&gt;
+		&lt;input type="text"  value='キリン' /&gt;&lt;br&gt;
+		&lt;input type="text" class = " kaba" value='カバ' /&gt;&lt;br&gt;
+	&lt;/form&gt;
+	&lt;input type="button" class="btn btn-primary" value="test1" onclick="test1()" /&gt;
+	&lt;hr&gt;
+	出力
+	&lt;div id="res" class="output_data"&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	neko : ネコ
+	buta : ブタ
+	dog : イヌ
+	tanuki : タヌキ
+	panda : パンダ
+	undefined : キリン
+	kaba : カバ
+	</pre>
+	<br>
+	</div>
+	<br>
+	
+	<br><time>2016-10-12</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-7" class="sec1" >
+	<h3>note_prj	js	非同期で実行する | setTimeout</h3>
+
+	setTimeout関数で非同期処理を実現できる。<br>
+	マルチタスクやバックグランド処理に。<br>
+	<br>
+	
+	<pre><code>
+	window.setTimeout(function(){
+		console.log('非同期処理');
+	}, 1);
+	</code></pre>
+	<br>
+
+	
+	<br><time>2016-10-17</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-8" class="sec1" >
+	<h3>文字列を日時にパース</h3>
+
+	<a href="/sample/js/a003/date_parse/date_parse.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+
+	ソースコード<br>
+	<pre><code>
+	var str_dtm = "2016-10-18 16:28:50";
+	if(str_dtm.indexOf('-') &gt; -1){
+		str_dtm = str_dtm.replace('-','/');// IEは「-」の区分に対応していないので「/」に置換
+	}
+	console.log(typeof str_dtm);
+	
+	var d = <strong>new Date(str_dtm)</strong>;
+	console.log(typeof d);
+	console.log(d.toLocaleString());
+	</code></pre>
+	<br>
+	
+	コンソール出力<br>
+	<pre class="output_data">
+	string
+	object
+	2016/10/18 16:28:50
+	</pre>
+	<br>
+	
+	<aside>
+	※toLocaleStringメソッドはブラウザごとに表示が異なるので注意。特にIE。<br>
+	またIEのみ「-」区切りの日付に対応していないため、「/」に置換する必要がある。
+	</aside>
+	
+	<br><time>2016-10-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-9" class="sec1" >
+	<h3>スネーク記法をキャメル記法に変換する</h3>
+
+	<pre><code>
+	/**
+	 * スネーク記法をキャメル記法に変換する
+	 * (例) big_cat_test → BigCatTest
+	 */
+	function snakeToCamel(str){
+		//_+小文字を大文字にする(例:_a を A)
+		str = str.replace(/_./g,
+			function(s) {
+				return s.charAt(1).toUpperCase();
+			}
+		);
+
+		// 先頭を大文字化する
+		str = str.charAt(0).toUpperCase() + str.slice(1);
+		
+		return str;
+	};
+	</code></pre>
+	<br>
+
+	<a href="参考リンク：http://qiita.com/thelarch/items/cc4707e1c7ef0d73ba73" target="blank">参考</a><br>
+	<br>
+	
+	<br><time>2016-10-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-10" class="sec1" >
+	<h3>キャメル記法をスネーク記法に変換する</h3>
+
+	<pre><code>
+	/**
+	 * キャメル記法をスネーク記法に変換する
+	 (例) BigCatTest → big_cat_test
+	 */
+	function camelToSnake(str){
+		// 先頭を小文字かする
+		str = str.charAt(0).toLowerCase() + str.slice(1);
+		
+		//大文字を_+小文字にする(例:A を _a)
+		str = str.replace(/([A-Z])/g,
+			function(s) {
+				return '_' + s.charAt(0).toLowerCase();
+			}
+		);
+
+		return str;
+	};	
+	</code></pre>
+	<br>
+
+	
+	<br><time>2016-10-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+
+	
+	<br><time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-5-30</div>
+</body>
+</html>

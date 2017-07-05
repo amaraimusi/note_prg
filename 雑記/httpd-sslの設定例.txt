@@ -1,0 +1,58 @@
+﻿
+Listen 443
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+SSLPassPhraseDialog  builtin
+SSLSessionCache "shmcb:C:/web/pleiades/xampp/apache/logs/ssl_scache(512000)"
+SSLSessionCacheTimeout  300
+
+
+
+
+<VirtualHost localhost-okiraku-portal:443>
+
+DocumentRoot "C:/web/pleiades/xampp/htdocs/okiraku-portal"
+
+
+SSLEngine on
+SSLCertificateFile "conf/ssl.crt/okiraku.crt"
+SSLCertificateKeyFile "conf/ssl.key/okiraku.key"
+
+<FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+</FilesMatch>
+<Directory "C:/web/pleiades/xampp/apache/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+
+
+</VirtualHost>
+
+<VirtualHost localhost_diving:443>
+
+DocumentRoot "C:/web/pleiades/xampp/htdocs/diving"
+
+
+SSLEngine on
+SSLCertificateFile "conf/ssl.crt/okiraku.crt"
+SSLCertificateKeyFile "conf/ssl.key/okiraku.key"
+
+<FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+</FilesMatch>
+<Directory "C:/web/pleiades/xampp/apache/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+
+
+</VirtualHost>
+
+BrowserMatch "MSIE [2-5]" \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+
+CustomLog "C:/web/pleiades/xampp/apache/logs/ssl_request.log" \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+

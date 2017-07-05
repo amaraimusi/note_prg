@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ワクガンス　|　JavaScriptの覚書</title>
+		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">JavaScriptの覚書</h1>
+		<div class="container" >
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-1" class="sec1" >
+	<h3>JSONからHTMLテーブルを生成する | JsonToTable.js</h3>
+
+
+
+	JsonToTable.jsライブラリを利用して、JSONからHTMLテーブルを生成する。<br>
+	下記からをJsonToTable.jsをダウンロードする。<br>
+	 <a href="rs/JsonToTable.js">Download JsonToTable.js</a><br>
+
+
+	<h3>使い方サンプル</h3>
+	<pre>
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+			&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+			&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+			&lt;title&gt;サンプル | JSONからHTMLテーブルを生成する&lt;/title&gt;
+
+			&lt;script src="../../style2/js/jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+			<span class="marker">&lt;script src="JsonToTable.js"&gt;&lt;/script&gt;</span>
+
+			&lt;script&gt;
+				function test1(){
+
+					//JSON文字列を取得
+					var str_json=$("#json1").html();
+
+					//列オプションの設定
+					var clmOptions={
+						'name1':{'name':'名前１'},
+						'dummy':{'visible':false},
+						'name2':{'name':'名前２','sanitaize':true},
+						'value1':{'name':'値１','mapping':{0:'ネコ',1:'ネズミ',2:'ウシ',3:'トラ'}},
+						'value2':{'name':'金額（円）','currency':'jpy'},
+						'value3':{'name':'容量','byte_size':true},
+					};
+
+					//テーブル要素の属性オプション
+					var attributes={'id':'tbl1', 'border':1, };
+					<span class="marker">
+					var jsonToTable=new JsonToTable();// JSONからHTMLテーブル生成
+					jsonToTable.create('#res1',str_json,clmOptions,attributes);
+					</span>
+				}
+			&lt;/script&gt;
+		&lt;/head&gt;
+
+		&lt;body&gt;
+
+			&lt;h2&gt;サンプル | JSONからHTMLテーブルを生成する&lt;/h2&gt;
+
+			&lt;strong&gt;JSON文字列&lt;/strong&gt;(テーブルのデータ)
+			&lt;div id="json1"&gt;
+			[{"id":"1","name1":"テストA1","name2":"テストB1","dummy":"ダミー1","value1":"1","value2":"","value3":"","value4":"","date1":"2012/12/12","datetime1":"2012/12/12 12:12:12"},
+			{"id":"2","name1":"\u003Cspan style='color:red'\u003Eテスト\u003C/span\u003EA2","name2":"\u003Cspan style='color:red'\u003Eテスト\u003C/span\u003EB2","dummy":"ダミー2","value1":"2","value2":"1000","value3":"123456789","value4":"0","date1":"2012/12/13","datetime1":"2012/12/12 12:12:12"},
+			{"id":"3","name1":"テストA3","name2":"テストB3","dummy":"ダミー3","value1":"3","value2":"10,000.12","value3":"123456","value4":"1","date1":"dummy","datetime1":"dummy"},
+			{"id":"4","name1":"テストA4","name2":"テストB4","dummy":"ダミー4","value1":"4","value2":"1000000","value3":"99000000000","value4":"2","date1":"2012/12/15","datetime1":"2012/12/12 12:12:12"}]
+			&lt;/div&gt;
+
+			&lt;hr&gt;
+			&lt;input type="button" value="テーブル作成" onclick="test1()" class="btn btn-success" /&gt;
+
+			&lt;div id="res1" &gt;&lt;/div&gt;
+
+
+		&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+
+	<br><hr><br>
+
+	<strong>主要なメソッド</strong><br>
+
+	jsonToTable.create(要素名,JSON文字列,列オプション,属性オプション);<br>
+	<br>
+	createメソッドの引数説明<br>
+	<table class="tbl1" border="1">
+		<thead><tr><th>引数</th><th>名称</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>table_selector</td>
+				<td>要素名</td>
+				<td>
+					HTMLテーブルの出力場所をセレクタ名で指定する。<br>
+					例："#sample_tbl"<br>
+				</td>
+			</tr>
+			<tr>
+				<td>str_json</td>
+				<td>JSON文字列</td>
+				<td>テーブルのデータ元であるJSON文字列を指定する。</td>
+			</tr>
+			<tr>
+				<td>clmOptions</td>
+				<td>列オプション</td>
+				<td>
+					列に関する細かなオプションを設定する。<br>
+					詳しくは下記の「列オプションの設定」に記載。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>attributes</td>
+				<td>テーブル要素の属性オプション</td>
+				<td>生成テーブルタグの属性を指定する。<br>
+					例 attributesの値→ {'id':'test1', 'class':'style_a', };<br>
+					↓生成↓<br>
+					テーブルタグ → &lt;table id="test1" class="style_a" &gt;<br>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+
+
+	<strong>列オプションの設定</strong><br>
+	<table class="tbl1" border="1">
+		<thead><tr><th>プロパティ</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>name</td>
+				<td>
+					列名を指定する。<br>
+					省略するとキーが表示される。<br>
+					例→'名前１'<br>
+				</td>
+			</tr>
+			<tr>
+				<td>sanitaize</td>
+				<td>
+					trueにするとXSSサニタイズする。<br>
+					次の4つの記号「&lt; &gt; " '」をサニタイズする。<br>
+					省略時はfalse扱い。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>mapping</td>
+				<td>
+					値に紐づく文字を表示する。<br>
+					以下のように設定する。<br>
+					{0:'ネコ',1:'ネズミ',2:'ウシ',3:'トラ'}<br>
+					値が2である場合、表では「ウシ」と表示される。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>currency</td>
+				<td>
+					jpyを指定すると3桁区切りの金額表記になる。<br>
+					1234→&yen;1,234<br>
+					現在は日本円のみ対応<br>
+				</td>
+			</tr>
+			<tr>
+				<td>byte_size</td>
+				<td>
+					バイト容量の表示<br>
+					数値の大きさによって、次の単位「byte,KB,MB,GB」が自動的に切り替わる。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>checkbox</td>
+				<td>
+					チェックボックスで表示する。<br>
+					値には属性オブジェクトを指定する。<br>
+					例<br>
+					設定値→'checkbox':{'name':'xxx_name','class':'xxx2'}<br>
+					HTML→&lt;input type='checkbox' name='xxx_name' class='xxx2' /&gt;<br>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<br><br>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/json_to_table/json_to_table1.html">サンプル1</a><br>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/json_to_table/json_to_table2.html">サンプル2（シンプル番）</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-2" class="sec1" >
+	<h3>日付チェック | isDate()</h3>
+
+	<pre>
+	/**
+	 * 日付チェック
+	 * yyyy/mm/dd形式とyyyy-mm-dd形式に対応
+	 * 閏年に対応
+	 * @param value
+	 * @returns true:入力OK    false:入力エラー
+	 */
+	function isDate(value){
+
+		var ary=value.split("/");
+		if(ary.length != 3){
+			ary=value.split("-");
+			if(ary.length != 3){
+				return false;;
+			}
+		}
+
+		var y=parseInt(ary[0]);
+		var m=parseInt(ary[1]);
+		var d=parseInt(ary[2]);
+
+		var dt=new Date(y,m-1,d);
+		if(dt.getFullYear()!=y || dt.getMonth()!=m-1 || dt.getDate()!=d){
+			return false;
+		}
+		return true;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-2-2" class="sec1" >
+	<h3>年月チェック | isYM()</h3>
+
+	<pre>
+	/**
+	 * 年月チェック
+	 * yyyy/mm形式とyyyy-mm形式に対応
+	 * ※注意 onchangeイベントと全角入力では正しく検知できない。
+	 * @param value 年月
+	 * @returns true:入力OK    false:入力エラー
+	 */
+	function isYM(value){
+
+		var ary=value.split("/");
+		if(ary.length != 2){
+			ary=value.split("-");
+			if(ary.length != 2){
+				return false;;
+			}
+		}
+
+		var y=parseInt(ary[0]);
+		var m=parseInt(ary[1]);
+
+		var dt=new Date(y,m-1,1);
+		if(dt.getFullYear()!=y || dt.getMonth()!=m-1 ){
+			return false;
+		}
+		return true;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-3" class="sec1">
+	<h3>カラーピッカー.jsの使い方 | cpick.js</h3>
+
+	cpick.jsの使用例<br>
+	<pre>
+	&lt;html lang="ja"&gt;
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+			&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+			&lt;script src="cpick.js"&gt;&lt;/script&gt;
+		&lt;/head&gt;
+
+	&lt;body&gt;
+
+	&lt;input type="text" name="c1" value="#ff5100" size="12" id="t1" class="html5jp-cpick" /&gt;
+	&lt;input type="text" name="c2" value="#00ff1b" size="12" id="t2" class="html5jp-cpick" /&gt;
+
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+
+	<a class="ref_link" target="brank" href="http://www.html5.jp/library/cpick.html">cpick.jsのダウンロード先</a><br>
+	<a class="ref_link" target="brank" href="http://amaraimusi.sakura.ne.jp/sample/js/color_picker/cpick_js.html">サンプル</a><br>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-4" class="sec1" >
+	<h3>スレッドやタイマーのように間隔をあけて定期的に処理を行う | setInterval</h3>
+	setIntervalでスレッド（タイマー）を開始し、setTimeoutでスレッドを停止する。<br>
+	<br>
+	ソースコード<br>
+	<pre>
+	&lt;html lang="ja"&gt;
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+			&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+			&lt;script&gt;
+				var m_index=0;
+				var m_handlers=new Array();//setIntervalのハンドラリスト。スレッド停止に使用。
+				
+				//setIntervalによるスレッドを開始する。
+				function start(){
+					var h=<span class="marker" >setInterval("thread()",100)</span>;//スレッド開始。スレッドにする関数と間隔（ミリ秒）を指定する。
+					m_handlers.push(h);//ハンドラをリストに追加
+				}
+				
+				//スレッド。定期的に呼び出される関数
+				function thread(){
+					m_index++;
+					$('#res').html(m_index);
+				}
+				
+				//スレッドを停止する。
+				function stop(){
+					for(var i=0;i&lt;m_handlers.length;i++){
+						var h=m_handlers[i];//ハンドラを指定してスレッドを停止する。
+						<span class="marker" >clearInterval</span>(h);
+					}
+				}
+			&lt;/script&gt;
+		&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input type="button" value="start" onclick="start()" /&gt;
+	&lt;input type="button" value="stop" onclick="stop()" /&gt;
+	→&lt;span id="res"&gt;&lt;/span&gt;&lt;br&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/set_interval/set_interval.html">サンプル</a>
+	<br><hr><br>
+	
+	<p>他のスレッド関数について</p>
+	<aside>
+	
+	<strong>requestAnimationFrame()</strong>も同じスレッド系の関数であるが、処理間隔はブラウザまかせであり、アニメーションやゲーム用である。<br>
+	<br>
+	<strong>Web Worker API</strong>は次世代のマルチスレッドで、HTML5に属する。<br>
+	ノンブロッキングで並行処理が必要なシステムに向いているようである。<br>
+	</aside>
+
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-5" class="sec1" >
+	<h3>数値範囲入力チェックのバリデーション</h3>
+	
+	<pre>
+	function test(){
+		var v=$('#xxx').val();
+		if(isRange(v,-9,20,true)==false){
+			alert('-9～20で入力してください。必須です。');
+		}
+	}
+	
+	//数値範囲入力チェックのバリデーション
+	function isRange(v,range1,range2,req){
+
+
+		//必須入力チェック
+		if(req==true){
+			if(v == null || v === '' || v === false){
+				return false;
+			}
+		}
+
+
+		//数値チェックをする。
+		if(isNaN(v)){
+			return false;
+		}
+
+		//数値範囲チェックをする。
+		if(range1 &lt;= v &amp;&amp; range2 &gt;= v){
+			return true;
+		}else{
+			return false;
+		}
+
+
+	}
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/js_input_check/is_range.html">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-6" class="sec1" >
+	<h3>現在日時、現在日付、現在時刻を取得する</h3>
+	toLocaleString,toLocaleDateString,toLocaleTimeStringで現在日時、本日、現在時刻を取得できる。<br>
+	フォーマットは地域ごとに自動設定される。日本ではy/m/d形式。<br>
+	
+	<pre>
+	//現在日時を取得
+	var nowDt=new Date().toLocaleString();
+	
+	//本日を取得
+	var today=new Date().toLocaleDateString();
+		
+	//現在時刻を取得	
+	var nowTime=new Date().toLocaleTimeString();
+	</pre>
+	
+	<a class="ref_link" target="brank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date">参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-7" class="sec1" >
+	<h3>UNIXタイムスタンプと日時を相互変換</h3>
+	
+	<p>UNIXタイムスタンプに変換</p>
+	<pre>
+	var d = new Date();
+	var u = Math.floor(d);// UNIXタイムスタンプに変換
+	</pre>
+	<br>
+	
+	
+	<p>UNIXタイムスタンプからDateに変換</p>
+	<pre>
+	var d = new Date(u); // UNIXタイムスタンプからDateに変換
+	</pre>
+	<br>
+	
+	
+	<p>jQuery版<p>
+	<pre>
+	var u2 = Math.floor($.now() / 1000);
+	</pre>
+	<br>
+	
+
+	
+	
+	<a class="ref_link" href="/sample/js/date_ex/unixtime.html">サンプル</a><br>
+	<a class="ref_link" target="brank" href="https://syncer.jp/javascript-reverse-reference/get-unix-timestamp">参考</a><br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-8" class="sec1" >
+	<h3>置換と全置換 | replace</h3>
+	
+	<h4>最初に検索一致した文字を置換する</h4>
+	<pre>
+	var str="大きなnekoと小さなneko";
+	var s1=str.replace('neko','猫');
+	//出力→ s1=大きな猫と小さなneko
+	</pre>
+	
+	<h4>一致するすべての文字を置換する</h4>
+	<pre>
+	var str="大きなnekoと小さなneko";
+	var s2=str.replace(/neko/g,'猫');
+	//出力→ s2=大きな猫と小さな猫
+	</pre>
+	
+	<h4>変換元に変数を組み込む場合</h4>
+	<pre>
+	var str="大きなneko1と小さなneko2";
+	var i=1;
+	var regexp = new RegExp('neko' + i , 'g');
+	var s3=str.replace(regexp,'猫');
+	//出力→ s3=大きな猫とneko2
+	</pre>
+	
+	
+	<a class="ref_link" target="brank" href="https://syncer.jp/javascript-reverse-reference/how-to-replace-text">参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-9" class="sec1" >
+	<h3>cssをJavaScritで切り替える</h3>
+	
+	ソースコード
+	<pre>
+	&lt;;html lang="ja"&gt;;
+		&lt;;head&gt;;
+			&lt;;meta charset="utf-8"&gt;;
+			&lt;;link rel="stylesheet" type="text/css" href="test_a.css" id="<strong>css_x</strong>"&gt;;
+			&lt;;script&gt;;
+				function test_a(){
+					document.getElementById('css_x').href = 'test_a.css';
+				}
+				function test_b(){
+					document.getElementById('css_x').href = 'test_b.css';
+				}
+			&lt;;/script&gt;;
+		&lt;;/head&gt;;
+		&lt;;body&gt;;
+			&lt;;div id="neko"&gt;;吾輩は猫である&lt;;/div&gt;;
+			&lt;;input type="button" value="CSS A" onclick="test_a()" /&gt;;
+			&lt;;input type="button" value="CSS B" onclick="test_b()" /&gt;;
+		&lt;;/body&gt;;
+	&lt;;/html&gt;;
+	</pre>
+	<br>
+	
+	test_a.css
+	<pre>
+	#neko{
+		color:red;
+	}
+	</pre>
+	<br>
+	
+	test_b.css
+	<pre>
+	#neko{
+		color:blue;
+	}
+	</pre>
+	
+	
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/css_change/css_change.html">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-10" class="sec1" >
+	<h3>文字数チェック | isMaxLength()</h3>
+	
+	<pre>
+	/**
+	 * 文字数チェックのバリデーション
+	 * @param v			対象文字列
+	 * @param maxLen	制限文字数
+	 * @param req		trueは必須入力。0と半角SPは入力ありとみなす。引数省略時はfalse
+	 * @return true:正常  false:異常
+	 */
+	function isMaxLength(v,maxLen,req){
+
+		//必須入力チェック
+		if(req==true){
+			if(v == null || v === '' || v === false){
+				return false;
+			}
+		}
+
+		//最大文字数チェックをする。
+		var n=v.length;
+		if (n &gt; maxLen){
+			return false;
+
+		}
+
+		return true;
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-0" class="sec1" style="display:none">
+	<h3>TEST</h3>
+	テスト
+	<pre>
+	</pre>
+	<a class="ref_link" target="brank" href="xxxx">参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+			</ol>
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2015/08/07</div>
+		</div><!-- page1 -->
+	</body>
+</html>

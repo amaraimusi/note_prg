@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>Cake PHPの覚書</title>
+	<link rel="stylesheet" type="text/css" href="/note_prg/css/bootstrap.css"  />
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/note_prg/css/common2.css"  />
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<div id="header" ><h1>Cake PHPの覚書</h1></div>
+<div class="container" >
+
+
+
+<!-- 覚書の内容 -->
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-1" class="sec1" >
+	<h3>一括新規登録 | 一意フィールド指定型</h3>
+	複数行からなるデータを一括登録する。<br>
+	ただし、指定したフィールドの値で重複があれば、その行の登録はしない。<br>
+	重複とは、登録するフィールド値がDB側のフィールドに既に存在する状態のこと。<br>
+
+	<pre>
+	/**
+	 * 一括新規登録 | 一意フィールド指定型
+	 * 
+	 * 複数行からなるデータを一括登録する。
+	 * ただし、指定したフィールドの値で重複があれば、その行の登録はしない。
+	 * 重複とは、登録するフィールド値がDB側のフィールドに既に存在する状態のこと。
+	 * 
+	 * @param array $data recs用のデータ
+	 * @param string $unique_field 一意フィールド
+	 * @return レスポンス 
+	 *  - dbRes saveAllのレスポンス
+	 *  - regCnt 登録件数 ： 実際に登録したデータの行数
+	 */
+	public function regUfAtOnce($data,$unique_field){
+		// データから一意フィールドの列を、一意リストとして抜き出す。
+		$ul=Hash::extract($data, '{n}.'.$unique_field);
+		
+
+		// 一意リストから重複調査SQL文を作成および実行し、重複リストを取得する。
+		$fields=array($unique_field);
+		$conditions=array(
+				array($unique_field =&gt; $ul),
+		);
+		$option=array(
+				'fields'=&gt;$fields,
+				'conditions'=&gt;$conditions,
+		);
+		$overList=$this-&gt;find('list',$option);
+
+
+		// データから重複リストに該当する行を除去する。（重複分の除去）
+		$data2 = array();
+		$regCnt=0;//登録行数
+		if(empty($overList)){
+			$data2 = $data;
+			$regCnt=count($data);
+		}else{
+			foreach($data as $ent){
+				$uv = $ent[$unique_field];
+				$flg=in_array($uv,$overList);
+				if($flg==false){
+					$data2[] = $ent;
+					$regCnt++;
+				}
+			}
+		}
+		
+		// DBへ保存する
+		$dbRes=null;
+		if(!empty($data2)){
+			$this-&gt;begin();//トランザクション開始
+			$dbRes = $this-&gt;saveAll($data2);//複数行をまとめて削除
+			$this-&gt;commit();
+		}
+		
+		$res=array(
+				'dbRes'=&gt;$dbRes,
+				'regCnt'=&gt;$regCnt,
+		);
+		
+		return $res;
+	}
+	</pre>
+	<br>
+
+	<time>2016-6-10</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-2" class="sec1" >
+	<h3>週の集計データを取得する</h3>
+	
+	指定した日付の週の集計データを取得する。<br>
+	週始めはデフォルトで日曜日。オプションで月曜日を週始めにすることもできる。<br>
+	<br>
+	
+	<input type="button" value="source" onclick="$('#sec9-2src').toggle(500)" class="btn btn-info" /><br>
+	<br>
+	
+	<pre id="sec9-2src" style="display:none">
+	/**
+	 * 週の集計データを取得する
+	 * 
+	 * 指定した日付の週の集計データを取得する。
+	 * 週始めはデフォルトで日曜日。オプションで月曜日を週始めにすることもできる。
+	 * 
+	 * @param date or string $date1 指定日付
+	 * @param array $option オプション 省略可
+	 *  - monday_flg true:月曜日を週始めにする
+	 * 
+	 * @return array 集計データ
+	 */
+	private function <strong>aggWeek</strong>($date1,$option=array()){
+		
+		// 月曜日始めフラグを取得する
+		$monday_flg=0;
+		if(!empty($option['monday_flg'])){
+			$monday_flg=1;
+		}
+		
+		// 指定日付から週始日を取得する
+		$d1 = $this-&gt;beginWeekDate($date1,$monday_flg);
+		
+		// 週始日から週末日を取得する
+		$d2 = date('Y-m-d', strtotime("6 day", strtotime($d1)));
+		
+		// SQLクエリを作成
+		$sql="SELECT count(id) as cnt FROM animals WHERE todo_date &gt;= '{$d1}' AND todo_date &lt;= '{$d2}'";
+		$res = $this-&gt;query($sql);
+		
+		return $res;
+		
+	}
+
+	/**
+	 * 週始めの日付を取得
+	 *
+	 * 指定日付の週の週始めを取得する。
+	 * 週始めは日曜日である。ただし月曜日フラグをONにした場合、月曜日が週始めとなる。
+	 *
+	 * @param date or string $date1 指定日付
+	 * @param bool $monday_flg 月曜日フラグ  省略可  true:月曜日が週始めとなる。
+	 * @param string $format 日付フォーマット【省略可】
+	 */
+	function beginWeekDate($date1,$monday_flg=0,$format='Y-m-d') {
+		$w = date("w",strtotime($date1));
+	
+		if($w==0){
+			if(!empty($monday_flg)){
+				$bwDate = date($format, strtotime("-6 day", strtotime($date1)));
+			}else{
+				$bwDate = date($format, strtotime($date1));
+			}
+				
+		}else{
+			if(!empty($monday_flg)){
+				$w--;
+			}
+			$bwDate = date($format, strtotime("-{$w} day", strtotime($date1)));
+		}
+	
+		return $bwDate;
+	}
+	</pre>
+	<br>
+
+	<time>2016-6-15</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-3" class="sec1" >
+	<h3>CakePHPのバージョンを確認する方法</h3>
+
+	<pre><code>	&lt;?php echo Configure::version(); ?&gt;</code></pre>
+	<br>
+	
+	<br><time>2016-7-26</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-4" class="sec1" >
+	<h3>FormHelperの拡張 | オリジナルヘルパー</h3>
+
+	オリジナルヘルパーでFormオブジェクトの機能を使いたい場合、
+	FormHelperを継承してオリジナルヘルパーを作成する。<br>
+	基本的に通常オリジナルヘルパーと使い方や登録方法は同じである。<br>
+	<aside>通常オリジナルヘルパーはHelperやAppHelperを継承している。</aside>
+	<br>
+	
+
+	<p>オリジナルヘルパー</p>
+	app/View/Helper に配置する。
+	<pre><code>
+	App::uses('<strong>FormHelper</strong>', 'View/Helper');
+	
+	class HogeHelper extends <strong>FormHelper</strong> {
+	
+		private $_mdl=""; // モデル名
+		
+		public function setModelName($modelName){
+			$this-&gt;_mdl = $modelName.'.';
+		}
+	
+		public function inputKjId($fields){
+	
+			echo "&lt;div class='hoge_div'&gt;&yen;n";
+			echo $this-&gt;input($this-&gt;_mdl.'hoge_id', array(
+					'id' =&gt; 'hoge_id',
+					'value' =&gt; $fields['hoge_id'],
+					'type' =&gt; 'text',
+					'label' =&gt; false,
+					'placeholder' =&gt; '-- ID --',
+					'style'=&gt;'width:100px',
+					'title'=&gt;'IDによる検索',
+			));
+			
+			echo "&lt;/div&gt;&yen;n";
+					
+		}
+	
+	}
+	</code></pre>
+	<br>
+	
+	
+	<p>オリジナルヘルパーの使用設定</p>
+	コントローラにてオリジナルヘルパーを使用設定する。
+	<pre><code>
+	class AnimalController extends AppController {
+	
+		public $name = 'Animal';
+		public $uses = array('Animal');
+		
+		/// オリジナルヘルパーの登録
+		public $helpers = array('<strong>Hoge</strong>');
+		
+		...
+	</code></pre>
+	<br>
+	
+	
+	<p>オリジナルヘルパーの使用例</p>
+	View内のctpファイルにてオリジナルヘルパーを使用する。
+	<pre><code>
+	&lt;h2&gt;ネコ&lt;/h2&gt;
+	HelloWorld&lt;br&gt;
+	&lt;?php 
+	echo $this-&gt;Form-&gt;create('Animal', array('url' =&gt; true ));
+	$this-&gt;Hoge-&gt;<strong>setModelName</strong>('Animal');// モデル名をセット
+	
+	<strong>$this-&gt;Hoge-&gt;inputKjId</strong>($fields);// オリジナルヘルパーを使用する
+	?&gt;
+	
+	</code></pre>
+	<br>
+	
+	
+	<br><time>2016-7-29</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-5" class="sec1" >
+	<h3>データベース名を指定して、DBを動的に切り替える</h3>
+
+
+	<p>コントローラ</p>
+	<pre><code>
+	&lt;?php
+	App::uses('AppController', 'Controller');
+	
+	class Test2Controller extends AppController {
+		public $name = 'Test2';
+		public $uses=null;
+	
+		public function change_db(){
+
+			$dbName = "hoge_db"; // ← 切り替えるデータベース名
+			App::uses('DbChg','Model');
+			$dbChg=ClassRegistry::init('DbChg');
+			$dbChg-&gt;<strong>changeDbName</strong>($dbName);
+			$res = $dbChg-&gt;query("SELECT * FROM  animals");
+			debug($res);
+		}
+	}
+	</code></pre>
+	<br>
+	
+	
+	<p>モデル</p>
+	<pre><code>
+	&lt;?php
+	App::uses('Model', 'Model');
+	
+	class DbChg extends Model {
+		public $useTable = false;
+	
+		// データベース名を指定して、DB変更する。
+		public function <strong>changeDbName</strong>($dbName,$DbConfig='default') {
+			$this-&gt;setDataSource($DbConfig);
+			$db = ConnectionManager::getDataSource($this-&gt;useDbConfig);
+			$db-&gt;reconnect(array('database' =&gt; $dbName));
+		}
+		
+	}
+	</code></pre>
+	<br>
+	
+	<a href="http://seaside.livedoor.biz/archives/52026001.html" target="blank">参考サイト</a><br>
+	<br>
+	
+	
+	
+	<br><time>2016-8-3</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-6" class="sec1" >
+	<h3>各テーブルで共通するフィールドをセットする | setCommonToEntity</h3>
+
+	各テーブルで共通するフィールドである、更新ユーザー、ユーザーエージェント、IPアドレス、生成日時、更新日時をセットするサンプル。<br>
+	更新日時はDBの自動入力を前提にしているので除去している。<br>
+	<br>
+
+	<pre><code>
+	    // 更新ユーザーなど共通フィールドをセットする。
+	protected function setCommonToEntity($ent){
+		
+		// 更新ユーザーの取得とセット
+		$update_user = $this-&gt;Auth-&gt;user('username');
+		$ent['update_user'] = $update_user;
+		
+		// ユーザーエージェントの取得とセット
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		$user_agent = mb_substr($user_agent,0,255);
+		$ent['user_agent'] = $user_agent;
+		
+		// IPアドレスの取得とセット
+		$ip_addr = $_SERVER["REMOTE_ADDR"];
+		$ent['ip_addr'] = $ip_addr;
+		
+		// idが空（新規入力）なら生成日をセットし、空でないなら除去
+		if(empty($ent['id'])){
+			$ent['created'] = date('Y-m-d H:i:s');
+		}else{
+			unset($ent['created']);
+		}
+		
+		// 更新日時は除去（DB側にまかせる）
+		unset($ent['modified']);
+		
+		
+		return $ent;
+		
+	}
+	</code></pre>
+	
+	<br><time>2016-10-12</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-7" class="sec1" >
+	<h3>テーブル名からモデル名に変換</h3>
+	
+	ソースコード
+	<pre><code>
+	$table_name = "big_animals";
+	$modelName = $this-&gt;<strong>convTableToModelName</strong>($table_name);
+	debug($table_name);→'BigAnimal'
+
+	/**
+	 * テーブル名からモデル名に変換する
+	 *
+	 * @note
+	 * 例 big_animals → BigAnimal
+	 *
+	 * @param string $table_name テーブル名
+	 * @return モデル名
+	 */
+	private function <strong>convTableToModelName</strong>($table_name){
+		$str = strtr($table_name, '_', ' ');
+		$str = ucwords($str);
+		$str =  str_replace(' ', '', $str);
+		$str = mb_substr($str,0,mb_strlen($str)-1);
+		return $str;
+	}
+	</code></pre>
+
+	
+	<br><time>2017-1-25</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-8" class="sec1" >
+	<h3>モデル名からテーブル名に変換する</h3>
+	
+	ソースコード
+	<pre><code>
+	$modelName = "BigAnimal";
+	$table_name = $this-&gt;<strong>convModelToTableName</strong>($modelName);
+	debug($table_name); // → 'big_animals'
+
+	/**
+	 * モデル名からテーブル名に変換する
+	 * 
+	 * @note
+	 * 例 BigAnimal → big_animals
+	 *
+	 * @param string $modelName モデル名
+	 * @return テーブル名
+	 */
+	private function <strong>convModelToTableName</strong>($modelName){
+		$str = preg_replace('/[A-Z]/', '_&yen;0', $modelName);
+		$str = strtolower($str).'s';
+		return ltrim($str, '_');
+	}
+	</code></pre>
+
+	
+	<br><time>2017-1-25</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-9" class="sec1" >
+	<h3>favicon.icoをCakePHPで設定する方法</h3>
+
+	favicon.icoをwebrootの直下に配置する。<br>
+	defaut.ctpのhead要素内に下記コードを記述する。<br>
+	<pre>	&lt;?php echo $this-&gt;html-&gt;meta('icon'); ?&gt;</pre>
+	<br>
+	
+	favicon.icoの作成は以下のサイトがおすすめ<br>
+	<a href="http://realfavicongenerator.net/" class="btn btn-link" target="blank">Favicon Generator. For real.</a><br>
+	<br>
+	
+	
+	<br><time>2017-2-15</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec9-0" class="sec1" style="display:none">
+	<h3>xxx</h3>
+
+	
+	<br><time></time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+	
+	</body>
+</html>

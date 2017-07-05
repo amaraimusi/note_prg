@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="google" content="notranslate" />
+		
+		<title>Seleniumについて</title>
+
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="/note_prg/css/common2.css"  />
+		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+		<script src="/note_prg/js/livipage.js"></script>
+		<script src="/note_prg/js/ImgCompactK.js"></script>
+
+		<style>
+			.list_large li{
+				margin-bottom:40px;
+			}
+			.list_sm li{
+				font-size:0.9em;margin-bottom:2px;
+				list-style-type: none;
+
+			}
+			.list_iroha li{
+				font-size:0.9em;
+				margin-bottom:2px;
+				list-style-type: katakana-iroha;
+			}
+			.gakubuti{
+				border:solid 4px #d1d1d1;
+				border-radius:5px;
+			}
+		</style>
+
+	</head>
+
+<body>
+<div class="container">
+
+	<div id="header" >
+		<h1>Seleniumについて</h1>
+	</div>
+	
+
+	
+	
+	<a href="http://docs.seleniumhq.org/" target="blank" class="btn btn-link btn-sm">Seleniumの公式サイト</a><br>
+	<br>
+	
+	<h2>目次</h2>
+	ページ内の目次
+	<ol >
+		<li><a href="#s9" >Firefoxアドオンをインストール</a></li>
+		<li><a href="#s10" >Firefoxアドオンをインストール【別の方法】</a></li>
+
+		
+	</ol>
+
+
+
+
+
+
+
+
+
+<div id="s9" class = "sec4" >
+	<h4>Firefoxアドオンをインストール</h4>
+	
+	Firefox用Seleniumアドオンのインストール手順を以下に示す。<br>
+	手順は2016年6月時点の方法である。<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>Firefoxを起動する。</li>
+		
+		<li>公式サイトの<a href="http://docs.seleniumhq.org/download/" target="blank">ダウンロードページ</a>にアクセスする。</li>
+		
+		<li>
+			「Selenium IDE」項目の「from addons.mozilla.org」をクリックし、Firefoxのアドオンサイトに遷移する。<br>
+			<img src="img/s9a3.png"  class="img_compact_k" />
+		</li>
+
+		<li>
+			「＋Add to Firefox」ボタンを押して、Selenium IDEアドオンをFirefoxにインストールする。<br>
+			<img src="img/s9a4.png"  class="img_compact_k" />
+		</li>
+		
+		<li>
+			Firefox再起動後、Firefoxの右上メニューに「Se」アイコンが表示されれば成功。<br>
+			<img src="img/s10a6.png"   />
+		</li>
+	</ol>
+	<br>
+	
+	注意
+	<aside>
+		Firefoxのアドオンサイトに直接アクセスして、 Selenium IDE をインストールするとき注意が必要である。<br>
+		サイトの検索項目に「 Selenium IDE」を入力して検索すると、類似のアドオンが多数表示されるため、
+		どれをインストールすればいいのか迷うことになる。
+	</aside>
+	<br>
+	
+</div>
+	
+	
+
+	
+	
+<div id="s10" class = "sec4" >
+	<h4>Firefoxアドオンをインストール【別の方法】</h4>
+	
+	<span>注意：Firefoxのバージョンによっては、この方法でインストールできない。</span>
+	
+	SeleniumはFirefoxが使いやすい。<br>
+	以下にFirefoxにSeleniumアドオンを追加する手順を示す。【2016年5月時点】<br>
+	<br>
+
+	<p>手順</p>
+	<ol class="list_large">
+		<li>Firefoxを起動する。</li>
+		<li>公式サイトの<a href="http://docs.seleniumhq.org/download/" target="blank">ダウンロードページ</a>にアクセスする。</li>
+		<li>
+			「Selenium IDE」項目の「previous versions here」をクリックする。<br>
+			<img src="img/s10a3.png"  class="img_compact_k" />
+		</li>
+		<li>
+			バージョンを選択する。（手順では 2.9.0/ を選択）<br>
+			<img src="img/s10a4.png"  class="img_compact_k" />
+		</li>
+		<li>
+			xpiファイルをクリックし、道なり操作でアドオンをインストールする。<br>
+			<img src="img/s10a5-1.png"  class="img_compact_k" />
+			<img src="img/s10a5-2.png"  class="img_compact_k" />
+			<img src="img/s10a5-3.png"  class="img_compact_k" />
+			<img src="img/s10a5-4.png"  class="img_compact_k" />
+		</li>
+		<li>
+			Firefox再起動後、Firefoxの右上メニューに「Se」アイコンが表示されれば成功。<br>
+			<img src="img/s10a6.png"   />
+		</li>
+	</ol>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sxxx" class = "sec4" style="display:none">
+	<h4>テンプレート</h4>
+</div>
+
+
+
+
+
+	
+	
+	
+	<div style="width:auto;height:400px">
+	</div>
+
+
+
+
+
+	<ol class="breadcrumb">
+		<li><a href="/">ホーム</a></li>
+		<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+		<li><a href="/note_prg/it">情報技術</a></li>
+		<li>Seleniumについて</li>
+	</ol>
+
+	<div id="footer">(C) kenji uehara 2015-5-30</div>
+
+	
+
+		
+
+
+</div><!-- container  -->
+</body>
+</html>

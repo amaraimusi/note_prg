@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HTML5 | Canvasの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>HTML5 | Canvasの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+<div id="s1" class="sec4">
+	<h3>Canvasの基本</h3>
+	
+	<a href="/sample/canvas_html5/standard/basic.html" class="btn btn-info">デモ1</a><br>
+	<br>
+
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas1');
+		var ctx = cvs[0].getContext('2d');
+	
+		// 描画開始
+		ctx.beginPath();
+		
+		// 三角形の情報
+		ctx.moveTo(100,20);
+		ctx.lineTo(160,100);
+		ctx.lineTo(40,100);
+		ctx.closePath();
+		
+	 	// 三角形を描画する
+		ctx.stroke(); 
+		
+	});
+	&lt;/script&gt;
+	
+	
+	&lt;canvas id="canvas1"&gt;&lt;/canvas&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-12-6</time>
+</div>
+
+
+
+
+
+
+
+<div id="s2" class="sec4" >
+	<h3>文字を描画する</h3>
+
+	<a href="/sample/canvas_html5/standard/text_draw.html#demo2" class="btn btn-info">デモ2</a><br>
+	<br>
+
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	// デモ2 文字を描画する
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas2');
+		var ctx = cvs[0].getContext('2d');
+	
+		// 描画開始
+		ctx.beginPath();
+		
+		// フォントの設定（例：イタリック 太字 22px MSPゴシック)
+		ctx.font = "italic bold 22px 'ＭＳ Ｐゴシック'";
+	
+		// 文字の色を指定
+		ctx.fillStyle = '#dd4d40';
+		
+		// 文字を描画
+		ctx.<strong>fillText</strong>("hello world! こんにちは", 100, 80);
+		
+		// 輪郭型の文字描画
+		ctx.<strong>strokeText</strong>("hello world! こんにちは", 100, 120);
+		
+		ctx.stroke(); 
+		
+	});
+	&lt;/script&gt;
+	
+	
+	&lt;canvas id="canvas2" width="400" height="300"&gt;&lt;/canvas&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-12-6</time>
+</div>
+
+
+
+
+
+
+
+<div id="s3" class="sec4" >
+	<h3>背景をクリアする</h3>
+
+	<a href="/sample/canvas_html5/standard/basic.html" class="btn btn-info">デモ2</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	// デモ2
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas2');
+		var ctx = cvs[0].getContext('2d');
+	
+		// 描画1
+		ctx.beginPath();
+		ctx.moveTo(70,20);
+		ctx.lineTo(160,100);
+		ctx.lineTo(40,100);
+		ctx.lineTo(40,50);
+		ctx.closePath();
+		ctx.stroke(); 
+	 	
+		// 描画2→描画1を一度クリアしてから別の図形を描画する。
+		ctx.beginPath();
+		<strong>ctx.clearRect(0,0,300,400);// canvasの背景をクリアする</strong>
+		ctx.moveTo(70,20);
+		ctx.lineTo(160,100);
+		ctx.lineTo(40,100);
+		ctx.closePath();
+		ctx.stroke(); 
+	
+	});
+	
+	
+	&lt;canvas id="canvas2"&gt;&lt;/canvas&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-12-6</time>
+</div>
+
+
+
+
+
+
+
+<div id="s4" class="sec4" >
+	<h3>テキストの横幅を取得する</h3>
+	
+	「measureText」メソッドでテキストの横幅を取得することができる。
+	<aside>※ 文字の縦幅は取得できない。とはいえフォントサイズが縦幅に該当する。</aside>
+	<br>
+	
+	<a href="/sample/canvas_html5/standard/text_draw.html#demo3" class="btn btn-info">デモ3</a><br>
+	<br>
+
+	ソースコード
+	<pre>
+	&lt;script&gt;
+	// デモ3:テキストのサイズを取得する
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas3');
+		var ctx = cvs[0].getContext('2d');
+	
+		// 描画開始
+		ctx.beginPath();
+		
+		// フォントの設定（例：イタリック 太字 22px MSPゴシック)
+		ctx.font = "italic bold 22px 'ＭＳ Ｐゴシック'";
+	
+		// 文字の色を指定
+		ctx.fillStyle = '#dd4d40';
+		
+		var text1 = "hello world! こんにちは";
+		metrics = ctx.<strong>measureText</strong>(text1);
+		console.log('テキストの横幅＝' + <strong>metrics.width</strong>);
+		
+		// 文字を描画
+		ctx.fillText(text1, 100, 80);
+		ctx.strokeText(text1, 100, 120);
+		
+		ctx.stroke(); 
+		
+	});
+	&lt;/script&gt;
+	
+	
+	&lt;canvas id="canvas3" width="400" height="300"&gt;&lt;/canvas&gt;
+	</pre>
+	<br>
+	
+	<br><time>2016-12-6</time>
+</div>
+
+
+
+
+
+
+
+<div id="s5" class="sec4" >
+	<h3>改行を含むテキストを描画する</h3>
+	
+	改行コードを含むテキストを改行しながら描画する。<br>
+	また、有効幅の概念があり、有効幅を超えた分は自動改行される。<br>
+	<br>
+	
+	<a href="/sample/canvas_html5/standard/text_new_line.html#demo1" class="btn btn-info">デモ1</a><br>
+	<br>
+
+	
+	<input type="button" value="ソースコード" class="btn btn-primary" onclick="$('#s5a1').toggle(300);" />
+	<pre id="s5a1" style="display:none">
+	$(function(){
+		// デモ1:改行を含むテキストを描画する
+		
+		
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas1');
+		var ctx = cvs[0].getContext('2d');
+	
+		// 描画開始
+		ctx.beginPath();
+		
+		// フォントの設定（例：イタリック 太字 22px MSPゴシック)
+		ctx.font = "italic bold 22px 'ＭＳ Ｐゴシック'";
+	
+		// 文字の色を指定
+		ctx.fillStyle = '#dd4d40';
+		
+		var text1 = "こんにちは。&yen;n今日の天気はいかがでしょう。&yen;n晴れです。";
+		
+		// 改行を含むテキストを出力する
+		<strong>fillTextWithNewLine</strong>(ctx,text1,100,80,200);
+		
+		ctx.stroke(); 
+		
+	});
+	
+	/**
+	 * 改行を含むテキストを出力する
+	 * 
+	 * @param ctx Canvasコンテキスト
+	 * @param text 改行を含むテキスト
+	 * @param x 位置X
+	 * @param y 位置Y
+	 * @param width 有効幅 有効幅を超えると改行する
+	 * @param [fontSize] フォントサイズ
+	 * @param [lineSpace] 行間隔(px)
+	 * 
+	 */
+	function <strong>fillTextWithNewLine</strong>(ctx,text,x,y,width,fontSize,lineSpace){
+		
+		// フォントサイズが空なら文字「あ」の横幅をセットする。
+		if(!fontSize){
+			var metrics = ctx.measureText('あ');
+			fontSize = metrics.width;
+		}
+		
+		// 行間隔が空ならフォントサイズの50%の幅をセットする。
+		if(!lineSpace){
+			lineSpace = fontSize * 0.5;
+		}
+		
+		// 行縦幅を算出
+		var line_height = fontSize + lineSpace;
+		
+		// テキストを改行で分割する
+		var lines = splitByNewLine(ctx,text,width)
+		
+		// 分割したテキストを描画する
+		for(var i in lines){
+			var line = lines[i];
+			y2 = y + (line_height * i);
+			ctx.fillText(line,x,y2);
+		}
+	}
+	
+	
+	/**
+	 * 有効幅および改行でテキストを分割する。
+	 * @param ctx Canvasコンテキスト
+	 * @param text テキスト
+	 * @param 有効幅
+	 * @return 分割により作成されたテキストの配列
+	 */
+	function splitByNewLine(ctx,text,width){
+		if(!text){
+			return [];
+		}
+		
+		var lines = [];
+		var line = '';
+		var last_index = text.length-1;
+		
+		for (var i = 0; i &lt; text.length; i++) {
+			var char = text.charAt(i);
+	
+			if(char == "&yen;n"){
+				lines.push(line);
+				line = '';
+			}else if(ctx.measureText(line + char).width &gt; width){
+				if(i &lt; last_index){
+					lines.push(line);
+					line = char;
+				}else{
+					lines.push(line + char);
+				}
+			}else if(i == last_index){
+				lines.push(line + char);
+			}else{
+				line += char;
+			}
+		}
+		
+		return lines;
+		
+	}
+	</pre>
+	<br>
+	
+	<br><time>2016-12-6</time>
+</div>
+
+
+
+
+
+
+
+<div id="s6" class="sec4" >
+	<h3>半透明図形を描画</h3>
+	
+	<a href="/sample/canvas_html5/standard/basic.html#demo3" class="btn btn-info">デモ3</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	// デモ3
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas3');
+		var ctx = cvs[0].getContext('2d');
+	
+		ctx.beginPath(); // 描画開始
+		
+		// 半透明の円を描く
+		ctx.<strong>globalAlpha = 0.5</strong>; // 半透明を指定  0～1 :透明 ～ 不透明
+		ctx.beginPath();
+		ctx.fillStyle = 'blue';
+		ctx.arc(100, 80, 50, 0, Math.PI*2, false);
+		ctx.fill();
+	
+		ctx.stroke(); // 描画
+		
+	});
+	&lt;/script&gt;
+	
+	&lt;canvas id="canvas3"&gt;&lt;/canvas&gt;
+
+	</code></pre>
+	<br>
+	
+	<br><time>2016-12-7</time>
+</div>
+
+
+
+
+
+
+
+<div id="s7" class="sec4" >
+	<h3>矩形を描画</h3>
+
+	ソースコード
+	<pre><code>
+	ctx.globalAlpha = 0.75;
+	ctx.fillStyle = 'black';
+	ctx.<strong>fillRect(0, 550, 450, 200)</strong>; // 矩形 x,y,width,height 
+	</code></pre>
+	<br>
+	
+	輪郭のみの矩形を描画する場合
+	<pre><code>
+	ctx.strokeRect(x, y, width, height); // 輪郭のみの矩形を描画する場合
+	</code></pre>
+	<br>
+	
+	<br><time>2016-12-7</time>
+</div>
+
+
+
+
+
+
+
+<div id="s8" class="sec4">
+	<h3>画像ファイルから描画する</h3>
+	
+	画像ファイルを描画するには、まず画像を事前にプリロードする必要がある。<br>
+	画像プリロードはImageクラスのonloadメソッドによって行われる。<br>
+	<br>
+	
+	onloadメソッドは、やや時間を要する処理であるため非同期処理になっている。<br>
+	よって大量の画像を描画する場合、画像プリロードに時間がかかるので工夫が必要になる。<br>
+	なお、IMG要素で、すでに画像表示が行われている場合、既に画像プリロード済みになっている。<br>
+	<br>
+	
+	画像は半透明で描画することが可能である。<br>
+	<br>
+
+	<a href="/sample/canvas_html5/standard/draw_image_file.html#demo1" class="btn btn-info">デモ1</a><br>
+	<br>
+
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	
+	// デモ1
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas1');
+		var ctx = cvs[0].getContext('2d');
+		
+		// 画像オブジェクトを作成する。（IE対策：日時を付加することによりキャッシュからの読込を防ぐ。）
+		var img1 = new Image();
+		img1.src = 'draw_image_file/toumei1.png' + '?' + new Date().getTime();
+		
+		// 画像プリロード後に画像を描画できる。
+		img1.onload = function(){
+			ctx.beginPath();
+			ctx.<strong>drawImage</strong>(img1, 100, 80);
+			ctx.stroke();
+		}
+		
+	});
+	&lt;/script&gt;
+	
+	&lt;canvas id="canvas1" width="400" height="300"&gt;&lt;/canvas&gt;
+	</code></pre>
+	<br>
+	
+	
+	半透明の画像を描画する場合
+	<pre><code>
+	ctx.beginPath();
+	ctx.<strong>globalAlpha</strong> = 0.5; // 半透明を指定  0～1 :透明 ～ 不透明
+	ctx.drawImage(img1, 100, 80);
+	ctx.stroke();
+	</code></pre>
+	<br>
+	
+	
+	<br><time>2016-12-7</time>
+</div>
+
+
+
+
+
+
+
+<div id="s9" class="sec4" >
+	<h3>Canvasを画像ファイルとしてダウンロードする</h3>
+	
+	Canvasで描画されている内容を画像ファイルとしてダウンロードすることができる。<br>
+	ただし、<a href="https://github.com/eligrey/FileSaver.js/" target="blank">FileSaver.js</a>ライブラリを利用している。<br>
+	<br>
+	
+	<a href="/sample/canvas_html5/canvas_download/canvas_download.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;script src="FileSaver.js"&gt;&lt;/script&gt;
+	
+	---- Any code ----
+	
+	&lt;canvas id="canvas1"&gt;&lt;/canvas&gt;
+	&lt;input type="button" value="Download" onclick="test1()" /&gt;
+	</pre>
+	<br>
+
+	JavaScript
+	<pre><code>
+	&lt;script&gt;
+	
+	// デモ1
+	$(function(){
+		// キャンバスの要素オブジェクトとコンテキストを取得する。
+		var cvs = $('#canvas1');
+		var ctx = cvs[0].getContext('2d');
+
+		// 描画開始
+		ctx.beginPath();
+		
+		// 三角形の情報
+		ctx.moveTo(100,20);
+		ctx.lineTo(160,100);
+		ctx.lineTo(40,100);
+		ctx.closePath();
+		
+	 	// 三角形を描画する
+		ctx.stroke(); 
+		
+	});
+	
+	function test1(){
+		canvasDownload('#canvas1','test.png');
+	}
+	
+	/**
+	 * Canvas画像をダウンロード
+	 * @param canvas_slt キャンバス要素のセレクタ
+	 * @param fn ダウンロードファイル名
+	 */
+	function canvasDownload(canvas_slt,fn){
+		
+		var mime_type='image/png';
+		var canvas = $(canvas_slt)[0];
+		var data_url_scheme = canvas.toDataURL(mime_type);// canvasからデータURLスキームを取得する。
+		
+		// データURLスキームのデータ部分をバイナリデータとして抜き出す。
+		var bin = atob(data_url_scheme.split(',')[1]);
+		
+		// 空の Uint8Arrayビューを作る
+		var buffer = new Uint8Array(bin.length);
+		
+		// バイナリデータの値をUint8Arrayビューに 1 バイトずつ値を埋めいく。
+		for (var i = 0; i &lt; bin.length; i++) {
+		  buffer[i] = bin.charCodeAt(i);
+		}
+		
+		// Uint8Arrayビューのバッファーを抜き出し、それを元に Blob を作る
+		var blob = new Blob([buffer.buffer], {type: mime_type});
+
+		if(!fn){
+			fn = "image.png";
+		}
+		
+		// FileSaver.jsの機能を利用し、Blob化したデータをファイルダウンロードする。（ここでファイル名を指定できる）
+		saveAs(
+			  blob
+			, fn
+		);
+		
+
+	};
+	&lt;/script&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2017-2-24</time>
+</div>
+
+
+
+
+
+
+
+<div id="s0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+	ソースコード
+	<pre><code>
+	</code></pre>
+	<br>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>HTML5 | Canvasの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-12-6</div>
+</body>
+</html>

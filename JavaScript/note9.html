@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-1" class="sec1" >
+	<h3>Yahooキーフレーズ</h3>
+
+
+	文章からキーフレーズを抽出し、重要順にならべて返す。<br>
+	下記サンプルはAjaxにてキーフレーズを取得する方法である。<br>
+	<br>
+	
+	<h2>サンプル</h2>
+	<pre>
+	function test1(){
+	
+		var text1 = "人民の、人民による、人民のための政治";
+		
+		var data = {
+			"appid":アプリケーションID※,
+			<strong>"sentence":text1,</strong>
+			"output":"json",
+			"max-result":10,
+			};
+		
+		var url = "<strong>http://jlp.yahooapis.jp/KeyphraseService/V1/extract</strong>";
+	
+	
+		$.ajax({
+			url: url,
+			data: data,
+			cache: false,
+			dataType: "jsonp",
+			success: function(str_json, type) {
+				console.log(str_json);
+				
+			},
+			error: function(xmlHttpRequest, textStatus, errorThrown){
+				$('#res').html(xmlHttpRequest.responseText);
+				
+			}
+		});
+	}	
+	</pre>
+	
+	コンソール出力
+	<pre class="output_data">
+	Object
+		人民: 100
+		政治: 35
+	</pre>
+	<br>
+	
+		<aside>
+		※<a href="https://e.developer.yahoo.co.jp/register" target="brank"> アプリケーションID</a>はYahooデベロッパーネットワークのページで作成できる。
+	</aside>
+	<hr>
+	
+	<a href="/sample/js/text_apis/y_keyphrase.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	
+	<p>参考リンク</p>
+	<a href="http://developer.yahoo.co.jp/webapi/jlp/keyphrase/v1/extract.html" target="brank" class="btn btn-link btn-xs">公式ドキュメント</a><br>
+	<a href="http://blog.yuze.jp/archives/51366276.html" target="brank" class="btn btn-link btn-xs">Yahooキーフレーズ抽出APIメモ (use jQuery)</a><br>
+	<br>
+	
+	
+	<time>2016-5-30</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-2" class="sec1" >
+	<h3>WikipediaのAPIをajaxで利用する | MediaWiki API</h3>
+
+	MediaWiki APIを使えば、Wikipedia内のページ情報を取得できる。<br>
+	$.ajaxを通してWikipadiaのページ情報を取得する方法を、下記のサンプルに示す。<br>
+	なお、ページ情報はWiki記法またはマークダウン記法で記載されているので、HTML形式に変換するパース処理が必要になる。<br>
+	当サンプルでは、Wiki記法のパース処理を割愛する。<br>
+	<br>
+	
+	<p>注意</p>
+	Wikipediaサーバーに負担をかけないよう、リクエストは少なめにすること。１分に30リクエストくらいに抑える。<br>
+	<br>
+	
+	<pre>
+	function test1(){
+	
+		var text1 = '山原';
+		
+		var data = {
+				"<strong>titles</strong>":text1,
+				"format":"json",
+			};
+		
+		var url="<strong>http://ja.wikipedia.org/w/api.php?action=query&amp;export</strong>";
+	
+		// AJAX非同期通信
+		$.ajax({
+			url: url,
+			data: data,
+			cache: false,
+			dataType: "jsonp",
+			success: function(json, type) {
+				
+				// JSONレスポンスから、XML形式の文章情報を取得する。
+				var xmlDoc = json['query']['export']['*'];
+	
+				// 文章情報XMLをjQueryで扱えるようにする。
+				var xml = $(xmlDoc);
+	
+				// XMLからtextタグ内テキストをページ情報として取得する。
+				var page = xml.find('text').html();
+	
+				// ページ情報はWiki記法なる方法で記述されている。（もしくはマークダウン記法）
+				console.log(page);
+				
+				// ※ Wiki記法をHTML形式にパースする処理が必要であるが、このソースコードでは割愛する。
+	
+			},
+			error: function(xmlHttpRequest, textStatus, errorThrown){
+				$('#res').html(xmlHttpRequest.responseText);
+				
+			}
+		});
+	}
+	</pre><br><hr>
+
+	<a href="/sample/js/text_apis/mediawiki_api.html" class="btn btn-info">参考サイト</a><br>
+	
+	<p>参考リンク</p>
+	<a href="https://ja.wikipedia.org/w/api.php" target="brank" class="btn btn-link btn-xs">MediaWiki API ヘルプ</a><br>
+	<a href="https://www.mediawiki.org/wiki/API:Main_page/ja#.E5.8D.98.E7.B4.94.E3.81.AA.E4.BE.8B" target="brank" class="btn btn-link btn-xs">API:メイン ページ</a><br>
+	<br>
+	
+	<time>2016-5-31</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-3" class="sec1" >
+	<h3>変数の型を調べる | typeof</h3>
+	typeof演算子で変数の型を取得できる。<br>
+	使い方が特殊なので注意。<br>
+	<br>
+
+	<pre class="kata">var t = typeof v;</pre>
+	<br>
+	
+	各型を検証
+	<pre>
+	// 文字列
+	var v = "hello world";
+	var typ = <strong>typeof</strong> v;
+	console.log('文字列→' + typ);
+	
+	// 数値
+	var v = 123;
+	var typ = typeof v;
+	console.log('数値→'+typ);
+	
+	// BOOL
+	var v = true;
+	var typ = typeof v;
+	console.log('BOOL →'+typ);
+	
+	// 日付
+	var v = new Date().toLocaleDateString();
+	var typ = typeof v;
+	console.log('日付→'+typ);
+	
+	// 配列
+	var v = [1,2,3];
+	var typ = typeof v;
+	console.log('配列→' + typ);
+	
+	// 関数
+	var v = function(){var dummy};
+	var typ = typeof v;
+	console.log('関数→' + typ);
+	
+	// 正規表現
+	var v = /^d/;
+	var typ = typeof v;
+	console.log('正規表現→' + typ);
+	
+	// オブジェクト
+	var v = {};
+	var typ = typeof v;
+	console.log('オブジェクト→' + typ);
+	
+	// undefined
+	var v = undefined;
+	var typ = typeof v;
+	console.log('undefined→' + typ);
+	
+	// NULL
+	var v = null;
+	var typ = typeof v;
+	console.log('NULL→' + typ);
+	
+	// 未定義
+	var typ = typeof xxx;
+	console.log('未定義→' + typ);
+
+	// 例外エラー
+	try{
+		var dummy = JSON.parse("dummy");//わざとエラー
+	}catch(e){
+		var typ = typeof e;
+		console.log('例外エラー'+typ);
+	}	
+	</pre>
+	<br>
+	
+	コンソール出力
+	<pre class="output_data">
+	文字列→string
+	数値→number
+	BOOL →boolean
+	日付→string
+	配列→object
+	関数→function
+	正規表現→object
+	オブジェクト→object
+	undefined→undefined
+	NULL→object
+	未定義→undefined
+	例外エラーobject
+	</pre>
+	<br>
+	
+	<time>2016-6-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-4" class="sec1" >
+	<h3>文字列から先頭の１文字を取得する</h3>
+	
+	<pre class="kata">var s1 = str.charAt(0);</pre>
+	<br>
+	
+	<aside>strが空文字「""」でもエラーにならないが、nullやundefinedだとエラーになる。</aside>
+	<br>
+	
+	<time>2016-6-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-4-2" class="sec1" >
+	<h3>先頭の一文字を削除する</h3>
+
+	<pre><code>
+	var str = "大トカゲ";
+	var s1 = str.<strong>substr(1)</strong>;
+	console.log(s1);// → トカゲ
+	</code></pre>
+
+
+	<time>2017-3-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-5" class="sec1" >
+	<h3>文字列から末尾の１文字を取得する</h3>
+	
+	<pre class="kata">var s1 = str.slice(-1);</pre>
+	<br>
+	
+	<aside>strが空文字「""」でもエラーにならないが、nullやundefinedだとエラーになる。</aside>
+	<br>
+	
+	<time>2016-6-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-5-2" class="sec1" >
+	<h3>末尾の一文字を削除する</h3>
+
+	ソースコード
+	<pre><code>
+	var str = "カモメ群";
+	var str = <strong>str.substr(0,str.length-1)</strong>;
+	console.log(str); // → カモメ
+	</code></pre>
+
+
+	<time>2017-3-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-6" class="sec1" >
+	<h3>連想配列内のデータをまとめてXSSサニタイズ</h3>
+	
+	xssSanitaizeAll関数は、配列またはオブジェクト型のデータを、まとめてXSSサニタイズする。
+	<pre>
+	/**
+	* データをXSSサニタイズする
+	* 
+	* Objectや配列型にも対応している。
+	* @param multi サニタイズ前のデータ
+	* @return サイニタイズ後のデータ
+	* 
+	*/
+	function <strong>xssSanitaizeAll</strong>(data){
+		
+		if(typeof data == 'object'){
+			for(k in data){
+				data[k] = xssSanitaizeAll(data[k]);
+			}
+		}
+		else if (typeof data == 'string'){
+			if(data.indexOf('&lt;') != -1){
+				data = data.replace(/&lt;/g, '&amp;lt;'). replace(/&gt;/g,'&amp;gt;');
+				
+			}
+		}
+		
+		return data;
+		
+	}
+	</pre>
+	<br>
+	
+	使い方
+	<pre>
+	var data={'kani':"&lt;input value='xxx' /&gt;",'neko':'ねこ','musi':{'bata':'バッタ','kanabun':"x&lt;input type='button'&gt;x"}};
+	
+	data = <strong>xssSanitaizeAll</strong>(data);
+	console.log(data);
+	</pre>
+	<br>
+	
+	
+	<p>出力</p>
+	サニタイズ前
+	<pre class="output_data">
+	kani:<input value="xxx">
+	neko:ねこ
+		bata:バッタ
+		kanabun:x<input type="button">x
+	</pre>
+	<br>
+	
+	サニタイズ後
+	<pre class="output_data">
+	kani:&lt;input value='xxx' /&gt;
+	neko:ねこ
+		bata:バッタ
+		kanabun:x&lt;input type='button'&gt;x
+	</pre>
+	<br>
+
+	<a href="/sample/js/xss/xss_sanitaize_all.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	
+	<time>2016-7-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-7" class="sec1">
+	<h3>オブジェクト型データのダンプを取得</h3>
+
+	オブジェクト型データのダンプを取得する関数
+	<pre>
+	/*
+	* オブジェクト型データのダンプを取得する
+	*
+	* @param obj ダンプ対象オブジェクト（配列やプリミティブ型もOK）
+	* @param key 内部的に使用しているので省略する
+	* @param deep 上に同じ
+	* @return string ダンプ文字列
+	*/
+	function <strong>getObjDump</strong>(obj,key,deep){
+		
+		var str ="";
+		if(deep == undefined){
+			deep = 0;
+		}
+
+		if(typeof obj == 'object'){
+			deep++;
+			for(k in obj){
+				
+				str+= getObjDump(obj[k],k,deep);
+			}
+			
+		}else{
+			
+			// 段落用のタブスペースを作成
+			var sp ="";
+			for(var i=0 ; i &lt; deep ; i++){
+				sp += "&yen;t";
+			}
+			
+			// ダンプするデータを食い立
+			if(key==undefined){
+				str = sp + obj + '&yen;n';
+			}else{
+				str = sp + key + ':' + obj + '&yen;n';
+			}
+			
+		}
+		
+		return str;
+	}
+	</pre>
+	<br>
+	
+	<p>使用例</p>
+	<pre>
+	var data={'kani':"かに",'neko':'ねこ','musi':{'bata':'バッタ','kanabun':"カナブン"}};
+	var dump_str = <strong>getObjDump</strong>(data);
+	console.log(dump_str);
+	</pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	kani:かに
+	neko:ねこ
+		bata:バッタ
+		kanabun:カナブン
+	</pre>
+	<br>
+	
+	<time>2016-7-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-8" class="sec1" >
+	<h3>指定個数のタブスペースを作成する関数</h3>
+
+	<pre>
+	// n個だけタブを連結し、結果をタブ連結文字として返す。
+	function tabSpace(n){
+		var str ="";
+		for(var i=0 ; i &lt; n ; i++){
+			str += "\t";
+		}
+		return str;
+	}
+	</pre>
+	<br>
+
+	<time>2016-7-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-9" class="sec1" >
+	<h3>プロトコルおよびホスト名を取得 | location</h3>
+
+	JavaScript
+	<pre><code>
+	var href = location.href; // 完全なURL
+	var hash = location.hash; // ハッシュ、またはフラグメント。
+	var host = location.host; // ホスト名。ポート番号付き。
+	var hostname = location.hostname; // ホスト名
+	var pathname = location.pathname; // 相対パス
+	var port = location.port; // ポート番号
+	var protocol = location.protocol; // プロトコル
+	var search = location.search; // クエリ
+	</code></pre>
+	<br>
+	
+	<p>解説</p>
+	下記URLでアクセスしているとき、location でサーバーに関する様々なパラメータが取得できる。<br>
+	<pre>http://localhost/sample/js/location/location.html?a=1&amp;b=2#xxx</pre>
+	<table class="table">
+	<tbody><tr><th>プロパティ</th><th>説明</th><th>値</th></tr></tbody>
+	<tbody>
+	<tr><td>href</td><td>完全なURL</td><td id="href">http://localhost/sample/js/location/location.html?a=1&amp;b=2#xxx</td></tr>
+	<tr><td>hash</td><td>ハッシュ、またはフラグメント。</td><td id="hash">#xxx</td></tr>
+	<tr><td>host</td><td>ホスト名。ポート番号付き。</td><td id="host">localhost</td></tr>
+	<tr><td>hostname</td><td>ホスト名</td><td id="hostname">localhost</td></tr>
+	<tr><td>pathname</td><td>相対パス</td><td id="pathname">/sample/js/location/location.html</td></tr>
+	<tr><td>port</td><td>ポート番号</td><td id="port"></td></tr>
+	<tr><td>protocol</td><td>プロトコル</td><td id="protocol">http:</td></tr>
+	<tr><td>search</td><td>クエリ</td><td id="search">?a=1&amp;b=2</td></tr>
+	</tbody>
+	</table>
+	<aside>※ ポート番号を省略すると、自動的に80番が使われる。だがlocation.portは省略された80番を取得しない。</aside>
+	<br>
+	
+	<a href="/sample/js/location/location.html?a=1&b=2#xxx" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	<br>
+	<time>2016-7-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-10" class="sec1" >
+	<h3>まとめて変数宣言</h3>
+
+	コンマでつなげ、まとめて変数宣言をすることができる。<br>
+	<br>
+	
+	一つずつ宣言<br>
+	<pre>
+	var a=1;
+	var b=2;
+	var c=3;
+	</pre>
+	<br>
+	
+	まとめて宣言<br>
+	<pre>	<strong>var a=1,b=2,c=3;</strong></pre>
+	<br>
+	
+	<br>
+	<time>2016-7-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec9-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source6-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<time>2016-4-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-5-30</div>
+</body>
+</html>

@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ワクガンス　|　JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<h1 id="header">JavaScriptの覚書</h1>
+<div class="container" >
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-0" class="sec1" >
+	<div class="title">img要素の画像をcanvas要素にコピー</div>
+
+
+	HTMLソース
+	<pre>
+	&lt;img id="img1" src="test.jpg" /&gt;
+	&lt;canvas id="cvs1"  &gt;&lt;/canvas&gt;
+	</pre>
+	<br><br>
+
+
+	JSソース
+	<pre>
+	var cvs = $('#cvs1')[0];
+	var ctx = cvs.getContext('2d');
+	var img1=$("#img1")[0];
+
+	//座標（0,0)かつ原寸サイズでコピー
+	ctx.drawImage(img1, 0, 0);
+
+	//座標（50,80)の位置にコピー
+	ctx.drawImage(img1, 50, 80);
+
+	//画像幅を変えてコピー（100px × 100px）
+	ctx.drawImage(img1, 0, 0,100,100);
+	</pre>
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/img_join/">参考</a>
+
+
+
+</div>
+
+
+
+
+
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-2" class="sec1" >
+	<div class="title">画像ファイルを直接canvas要素へ書き出す</div>
+
+	HTMLソース
+	<pre>
+	&lt;canvas id="cvs1"  &gt;&lt;/canvas&gt;
+	</pre>
+	<br><br>
+
+	JSソース：
+	<pre>
+	var date = new Date();
+	var ms=date.getTime();
+
+	var img1=new Image();//イメージオブジェクトを生成
+	img1.src="img/temp.png?ms=" + ms;// 「?ms = ～」の役割はキャッシュから画像を表示させなくする。
+
+
+	//画像読込完了後にイメージオブジェクトをcanvas要素へ描画。
+	img1.onload=function(){
+		ctx.drawImage(img1, 0, 0);
+	}
+
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-3" class="sec1" >
+	<div class="title">ローカルストレージとセッションストレージ | localStorage,sessionStorage</div>
+
+	<strong>sessionStorage</strong><br>
+	ウィンドウやタブが開いている間有効。<br>
+	ウィンドウやタブを閉じるとデータ消去。<br>
+	<br>
+
+	<strong>localStorage</strong><br>
+	ブラウザ内に永続的に保存する。<br>
+	ドメイン:ポート番号の組み合わせでデータ保存。<br>
+	<br><br>
+
+
+
+	<h3>ローカルストレージの主なメソッド</h3>
+	<pre>localStorage.setItem("key1","Hello world");</pre>
+	ローカルストレージにデータをセットする。<br>
+	5MBくらいの文字列をセット。配列などはJSON文字列に変換してからセットするとよい。<br>
+	store.js を使うと、JSON変換の手間が省けるようである。<br>
+	<br>
+
+	<pre>var v=localStorage.getItem("key1");</pre>
+	ローカルストレージから文字列を取り出す。<br>
+	<br>
+
+	<pre>localStorage.removeItem("key1");</pre>
+	ローカルストレージから指定キーに紐づく文字列を削除。<br>
+	<br>
+
+	<pre>localStorage.clear();</pre>
+	ローカルストレージ内のデータをクリア。<br>
+	<br>
+
+	<pre>localStorage.length;</pre>
+	ローカルストレージのデータ数。<br>
+	<br>
+
+	<pre>localStorage.key(i);</pre>
+	インデックス（連番）を指定してキーを取得することができる。<br>
+	<br>
+	<br>
+	ストレージのイベント<br>
+	データセットなどを行った際にイベントを起こせるようだがIE11では不安定なので使わない方が無難。<br>
+	<br>
+	<br>
+	※注意<br>
+	開発の修正時、ローカルストレージに値が入っている状態だと、
+	キャッシュが表示されてしまい修正が反映されないことがある。<br>
+	この場合、ローカルストレージをクリアすると修正が反映されるようになる。<br>
+	Chromeでこの現象を確認中（2015年現在）。<br>
+	<br>
+	<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-4" class="sec1" >
+	<div class="title">現在のURLからドメイン部分を抜き出す</div>
+
+	<pre>
+	var domain=location.href.split('/')[2];
+	</pre>
+
+	現在ページのURLが以下の場合、<br>
+	http://localhost/sample/index.html<br>
+	<br>
+	ドメイン部分の「localhost」が取得できる。<br>
+	<br>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-5" class="sec1" >
+	<div class="title">プルダウンメニュー</div>
+	ulタグ,CSS,JQueryの組み合わせによるプルダウンメニュー。
+
+	ソースコード<br>
+	<pre>
+
+	&lt;!DOCTYPE html&gt;
+	&lt;html lang="ja"&gt;
+
+		&lt;head&gt;
+			&lt;meta charset="utf-8"&gt;
+
+			&lt;title&gt;プルダウンメニュー&lt;/title&gt;
+
+			&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+
+			&lt;style&gt;
+				.menu1 li{
+					list-style-type: none;
+
+					float:left;
+					width:50px;
+				}
+
+				.menu1 li ul li{
+					width:100px;
+					position:relative;
+					left:-40px;
+				}
+
+				<span class="marker" >
+				.pulldown_menu ul{
+					display:none;
+					position:absolute;
+					width:180px;
+					padding-bottom:10px;
+					background-color:#484848;
+					z-index:2;
+				}
+				</span>
+
+				.pulldown_menu ul a{
+
+					color:white;
+				}
+			&lt;/style&gt;
+			&lt;script&gt;
+				$( function() {
+
+					//～読込イベント処理～
+					<span class="marker" >
+					//トップメニューのプルダウン
+					$(".pulldown_menu").hover(function() {
+
+					    $(this).children('ul').show();
+
+					}, function() {
+
+					    $(this).children('ul').hide();
+
+					});
+					</span>
+				});
+			&lt;/script&gt;
+		&lt;/head&gt;
+
+	&lt;body&gt;
+
+	&lt;h1 &gt;プルダウンメニュー&lt;/h1&gt;
+
+	&lt;ul class="menu1"&gt;
+		&lt;li&gt;neko&lt;/li&gt;
+		&lt;li&gt;yagi&lt;/li&gt;
+		&lt;li&gt;kani&lt;/li&gt;
+		<span class="marker" >
+		&lt;li class="pulldown_menu"&gt;&lt;a href="#"&gt;&lt;/a&gt;same
+			&lt;ul &gt;
+				&lt;li&gt;&lt;a href=""&gt;シュモクザメ&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=""&gt;ホホジロザメ&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=""&gt;アオザメ&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=""&gt;ネコザメ&lt;/a&gt;&lt;/li&gt;
+			&lt;/ul&gt;
+		</span>
+		&lt;/li&gt;
+
+	&lt;/ul&gt;
+	&lt;div style="clear:both"&gt;&lt;/div&gt;
+
+
+
+	&lt;/div&gt;
+
+
+	&lt;/body&gt;
+	&lt;/html&gt;
+	</pre>
+
+
+	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/pulldown_menu/">サンプル</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-6" class="sec1">
+	<div class="title">URLのサニタイズ | url sanitize</div>
+
+
+
+
+	<h1>URLのサニタイズ | url sanitize</h1>
+	a要素のhrefへ、自由にURLを指定できるようなシステムの場合、XSSの危険性がある。<br>
+	また、aタグ以外でも、要素の属性を指定できる場合、XSSが起きる。<br>
+	該当する属性は、href,srcだけでなく、すべてに注意。<br>
+	<br>
+	URLのサニタイズの必要性については下記を参考。<br>
+	<a href="http://amaraimusi.sakura.ne.jp/note_prg/php/note4.php#sec4-2" target="brank">PHPのURLサニタイズ</a><br>
+	<br>
+
+	<h3>URLをサニタイズする関数</h3>
+	記号「;&lt;&gt;"'」をエンコードする。また「http:」のコロンを除く、すべてコロンをエンコードする。
+	<pre>
+	function urlSanitize(str) {
+
+
+		//記号「;&lt;&gt;"'」をサニタイズ
+		str = str.replace(/;/g, '&amp;#059;');
+	    str = str.replace(/&lt;/g, '&amp;lt;');
+	    str = str.replace(/&gt;/g, '&amp;gt;');
+	    str = str.replace(/"/g, '&amp;quot;');
+	    str = str.replace(/'/g, '&amp;#39;');
+
+	    //「http:」のコロンを除く、すべてコロンをサニタイズ
+	    str = str.replace('http:', 'http&gt;');
+	    str = str.replace('https:', 'https&gt;');
+	    str = str.replace(/:/g, '&amp;#058;');
+	    str = str.replace('http&gt;', 'http:');
+	    str = str.replace('https&gt;', 'https:');
+
+	    return str;
+	}
+	</pre>
+
+
+	<h3>使用例</h3>
+	<pre>
+	function test_run(){
+
+
+		var xssList=[
+		 		"https://example.com/?neko=1&amp;yagi=2",
+				"http://example.com/\"onmouseover=\"alert(1)\"",
+				"http://example.com/?&lt;script&gt;alert('XSSテスト');&lt;/script&gt;",
+				"javascript:alert('XSS')",
+				"jav	ascript:alert('XSS');",
+				"color:expression(alert('XSS'));",
+				"behavior:url(test.sct)",
+			];
+
+		for(var i=0;i&lt;xssList.length;i++){
+			var xss=xssList[i];
+			var url=<span class="marker">urlSanitize(xss);</span>
+
+			console.log(url);
+		}
+
+
+	}
+
+	/**
+	 * URL用のサニタイズ
+	 */
+	function urlSanitize(str) {
+
+
+		//記号「;&amp;&lt;&gt;"'」をサニタイズ
+		str = str.replace(/;/g, '&amp;#059;');
+	    str = str.replace(/&lt;/g, '&amp;lt;');
+	    str = str.replace(/&gt;/g, '&amp;gt;');
+	    str = str.replace(/"/g, '&amp;quot;');
+	    str = str.replace(/'/g, '&amp;#39;');
+
+	    //「http:」のコロンを除く、すべてコロンをサニタイズ
+	    str = str.replace('http:', 'http&gt;');
+	    str = str.replace('https:', 'https&gt;');
+	    str = str.replace(/:/g, '&amp;#058;');
+	    str = str.replace('http&gt;', 'http:');
+	    str = str.replace('https&gt;', 'https:');
+
+	    return str;
+	}
+
+
+	/**
+	 * 一般用のサニタイズ
+	 */
+	function sanitize_str(str) {
+
+
+		//記号「;&amp;&lt;&gt;",」をサニタイズ
+	    str = str.replace(/&amp;/g, '&amp;amp;');
+	    str = str.replace(/&lt;/g, '&amp;lt;');
+	    str = str.replace(/&gt;/g, '&amp;gt;');
+	    str = str.replace(/"/g, '&amp;quot;');
+	    str = str.replace(/'/g, '&amp;#39;');
+
+
+
+	    return str;
+	}
+	</pre>
+	<br><br>
+
+	<h3>URLサニタイズの例</h3>
+	<table  border="1">
+		<thead><tr><th>サニタイズ前のURL</th><th>サニタイズ後のURL</th></tr></thead>
+		<tbody>
+			<tr><td>https://example.com/?neko=1&amp;yagi=2</td><td>https://example.com/?neko=1&amp;yagi=2</td></tr>
+			<tr><td>http://example.com/"onmouseover="alert(1)"</td><td>http://example.com/&amp;quot;onmouseover=&amp;quot;alert(1)&amp;quot;</td></tr>
+			<tr><td>http://example.com/?&lt;;script&gt;;alert('XSSテスト');&lt;;/script&gt;;</td><td>http://example.com/?&amp;lt;script&amp;gt;alert(&amp;#39;XSSテスト&amp;#39;)&amp;#059;&amp;lt;/script&amp;gt;</td></tr>
+			<tr><td>javascript:alert('XSS')</td><td>javascript&amp;#058;alert(&amp;#39;XSS&amp;#39;)</td></tr>
+			<tr><td>jav	ascript:alert('XSS');</td><td>jav	ascript&amp;#058;alert(&amp;#39;XSS&amp;#39;)&amp;#059;</td></tr>
+			<tr><td>color:expression(alert('XSS'));</td><td>color&amp;#058;expression(alert(&amp;#39;XSS&amp;#39;))&amp;#059;</td></tr>
+			<tr><td>behavior:url(test.sct)</td><td>behavior&amp;#058;url(test.sct)</td></tr>
+		</tbody>
+	</table>
+
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7" class="sec1" >
+	<div class="title">連想配列（オブジェクト）から指定キーとそのデータを削除する</div>
+	delete オブジェクト[キー];<br>
+	<br>
+
+	連想配列objAからsakanaキーに紐づくデータを削除する。<br>
+	<pre><code>
+	var objA={'neko':'猫','sakana':{'guppi':'グッピー','maguro':'マグロ'}};
+	<span class="marker">delete objA.sakana;</span>
+	</code></pre>
+	
+	<p>別の記述方法</p>
+	<pre><code>	delete objA['sakana'];</code></pre>
+
+	<br><time>2014-6-24 | 2016-8-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-8" class="sec1" >
+	<div class="title">ファイル名から拡張子を取得する</div>
+	<br>
+	ソースコード：ファイル名から拡張子を取得する関数<br>
+	<pre>
+	//ファイル名から拡張子を取得する。
+	function getExtension(fn){
+		if(fn==null){
+			return '';
+		}
+
+		var ary=fn.split(".");
+		var ext=ary[ary.length-1];
+
+		ext=ext.toLowerCase();//小文字化する
+
+		return ext;
+	}
+	</pre>
+
+	<br>
+	使用例<br>
+	<pre>
+	var fn="テスト.min.pdf";
+	var ext=getExtension(fn);//→ pdf
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-1" class="sec1" >
+	<div class="title">Ajaxファイルアップロード | 基本</div>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="file1" type="file" name="file1" /&gt;
+	&lt;input type="button"  value="アップロード" onclick="upload1()" /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	&lt;div id="err"&gt;&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function upload1(){
+		var fd = new FormData();
+		fd.append( "fu_file1", $("#file1").prop("files")[0] );
+	    
+		$.ajax({
+			type: "POST",
+			url: "upload.php",
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData : false,
+			contentType : false,
+
+		})
+		.done(function(str_json, type) {
+			var data;
+			try{
+				data = JSON.parse(str_json);
+				
+			}catch(e){
+				console.log(str_json);
+				jQuery('#err').html(str_json);
+				throw e;
+			}
+			
+			console.log(data);
+			$('#res').html('success');
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			
+			var err_res = jqXHR.responseText;
+			console.log(err_res);
+			jQuery('#err').html(err_res);
+			alert(statusText);
+		});
+	}	
+	</code></pre>
+	<br>
+	
+	
+	<p>サーバー側(upload.php)</p>
+	<pre><code>
+	&lt;?php
+	if($_SERVER['SERVER_NAME']=='localhost'){
+		// 一時ファイルをコピー
+		move_uploaded_file($_FILES["fu_file1"]["tmp_name"], 'xxx/'.$_FILES["fu_file1"]["name"]);
+	}
+	echo $_FILES["fu_file1"]["name"];
+	
+	?&gt;	
+	</code></pre>
+	<br>
+	
+	
+	
+	<br><time>2016-10-31 | 2017-6-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-2" class="sec1" >
+	<div class="title">Ajaxファイルアップロード |ファイルチェンジイベント時にアップロード</div>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	</code></pre>
+	<br>
+	
+	JavaScript
+	<pre><code>
+	//ファイルアップロードイベント
+	$('#file1').change(function(e) {
+		
+		var files = e.target.files;
+		var oFile = files[0];
+		
+		// IEはファイル要素にnullが入っていてもチェンジイベントが発生するため対策する。
+		if(oFile==null){return;}
+
+		var reader = new FileReader();
+		reader.readAsDataURL(oFile);
+	
+		//ファイル読込成功イベント
+		reader.onload = function(evt) {
+			
+		    var fd = new FormData();
+		    fd.append( "upload_file", $("#file1").prop("files")[0] );
+			
+			$.ajax({
+				type: "POST",
+				url: "upload.php",
+				data: fd,
+				cache: false,
+				dataType: "text",
+				processData : false,
+				contentType : false,
+
+			})
+			.done(function(str_json, type) {
+				var data;
+				try{
+					data = JSON.parse(str_json);
+					
+				}catch(e){
+					console.log(str_json);
+					jQuery('#err').html(str_json);
+					throw e;
+				}
+				
+				console.log(data);
+				$('#res').html('success');
+				
+			})
+			.fail(function(jqXHR, statusText, errorThrown) {
+				
+				var err_res = jqXHR.responseText;
+				console.log(err_res);
+				jQuery('#err').html(err_res);
+				alert(statusText);
+			});
+
+		}
+	});
+	</code></pre>
+	<br>
+	
+	<p>PHP(upload.php)</p>
+	<pre><code>
+	&lt;?php
+	// 一時ファイルをコピー
+	move_uploaded_file($_FILES["upload_file"]["tmp_name"],$_FILES["upload_file"]["name"]);
+	
+	echo $_FILES["upload_file"]["name"];
+	?&gt;
+	</code></pre>
+	<br>
+	
+	
+	<br><time>2016-9-21 | 2017-6-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-3" class="sec1" >
+	<div class="title">Ajaxファイルアップロード | 複数のファイル要素</div>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	&lt;input id="file2" type="file" name="file2" multiple /&gt;
+	&lt;input type="button"  value="アップロード" onclick="upload1()" /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function upload1(){
+		var fd = new FormData();
+	    
+	    fd.append( "fu_file1", $("#file1").prop("files")[0] );
+	    fd.append( "fu_file2", $("#file2").prop("files")[0] );
+	    
+		$.ajax({
+			type: "POST",
+			url: "upload.php",
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData : false,
+			contentType : false,
+	
+		})
+		.done(function(str_json, type) {
+			var data;
+			try{
+				data = JSON.parse(str_json);
+				
+			}catch(e){
+				console.log(str_json);
+				jQuery('#err').html(str_json);
+				throw e;
+			}
+			
+			console.log(data);
+			$('#res').html('success');
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			
+			var err_res = jqXHR.responseText;
+			console.log(err_res);
+			jQuery('#err').html(err_res);
+			alert(statusText);
+		});
+	}	
+	</code></pre>
+	<br>
+	
+	
+	<p>サーバー側(upload.php)</p>
+	<pre><code>
+	&lt;?php
+	foreach($_FILES as $key=&gt; $fileData){
+		if($_SERVER['SERVER_NAME']=='localhost'){
+			move_uploaded_file($fileData["tmp_name"], 'xxx/'.$fileData["name"]);
+		}
+		echo $fileData["name"] .'&lt;br&gt;';
+	}
+	
+	?&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-10-31 | 2017-6-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-4" class="sec1" >
+	<div class="title">Ajaxファイルアップロード | 複数ファイル</div>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="file1" type="file" name="file1" <strong>multiple</strong> /&gt;
+	&lt;input type="button" value="アップロード" onclick="upload1()" /&gt;	
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function upload1(){
+		
+		
+		var fileElm = $("#file1");
+		var len = $("#file1").prop("files").length;
+		if(len==0){
+			return;
+		}
+		var fd = new FormData();
+		for (var i=0 ; i&lt;len ; i++){
+			var key = 'fu_' + i;
+			 fd.append( key, fileElm.prop("files")[i] );
+	
+		}
+	
+	
+		$.ajax({
+			type: "POST",
+			url: "upload.php",
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData : false,
+			contentType : false,
+	
+		})
+		.done(function(str_json, type) {
+			var data;
+			try{
+				data = JSON.parse(str_json);
+				
+			}catch(e){
+				console.log(str_json);
+				jQuery('#err').html(str_json);
+				throw e;
+			}
+			
+			console.log(data);
+			$('#res').html('success');
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			
+			var err_res = jqXHR.responseText;
+			console.log(err_res);
+			jQuery('#err').html(err_res);
+			alert(statusText);
+		});
+	}	
+	</code></pre>
+	<br>
+	
+	
+	<p>サーバー側(upload.php)</p>
+	<pre><code>
+	&lt;?php
+	foreach($_FILES as $key=&gt; $fileData){
+		if($_SERVER['SERVER_NAME']=='localhost'){
+			move_uploaded_file($fileData["tmp_name"], 'xxx/'.$fileData["name"]);
+		}
+		echo $fileData["name"] .'&lt;br&gt;';
+	}
+	
+	?&gt;	
+	</code></pre>
+	<br>
+	
+	<br><time>2016-10-31 | 2017-6-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-5" class="sec1" >
+	<div class="title">Ajaxファイルアップロード | 一般的な値データも同時に送信</div>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="file1" type="file" name="file1" multiple /&gt;
+	&lt;input type="text" id="animal_name" value="neko" /&gt;
+	&lt;input type="button" value="アップロード" onclick="upload1()" /&gt;&lt;br&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;	
+	</code></pre>
+	<br>
+	
+	
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function upload1(){
+		
+		var animal_name = $('#animal_name').val();
+		
+		var fd = new FormData();
+	    fd.append( "fu_file1", $("#file1").prop("files")[0] );
+	    fd.append( "animal_name", animal_name );
+	    
+		$.ajax({
+			type: "POST",
+			url: "upload.php",
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData : false,
+			contentType : false,
+	
+		})
+		.done(function(str_json, type) {
+			var data;
+			try{
+				data = JSON.parse(str_json);
+				
+			}catch(e){
+				console.log(str_json);
+				jQuery('#err').html(str_json);
+				throw e;
+			}
+			
+			console.log(data);
+			$('#res').html('success');
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			
+			var err_res = jqXHR.responseText;
+			console.log(err_res);
+			jQuery('#err').html(err_res);
+			alert(statusText);
+		});
+	}
+	</code></pre>
+	<br>
+	
+	
+	<p>サーバー側(upload.php)</p>
+	<pre><code>
+	&lt;?php
+	if($_SERVER['SERVER_NAME']=='localhost'){
+		move_uploaded_file($_FILES["fu_file1"]["tmp_name"], 'xxx/'.$_FILES["fu_file1"]["name"]);
+	}
+	echo $_FILES["fu_file1"]["name"].'&lt;br&gt;';
+	echo htmlspecialchars($_POST['animal_name'],ENT_QUOTES).'&lt;br&gt;';// XSSサニタイズしてから出力
+	
+	?&gt;	
+	</code></pre>
+	<br>
+	
+	<br><time>2016-10-31 | 2017-6-23</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-9" class="sec1" >
+	<div class="title">拡張子によるバリデーションでファイル情報を入力チェック(複数ファイルアップロードに対応）</div>
+
+	関数<br>
+	<pre>
+	//拡張子によるファイル名バリデーション
+	function <span class="marker">validByExt</span>(files){
+
+		//許可拡張子マップ
+		var perExtMap={'doc':1,'docx':1,'xls':1,'xlsx':1,'xlsm':1,'ppt':1,'pptx':1,'pptm':1,'mdb':1,
+				'accdb':1,'txt':1,'jpg':1,'jpeg':1,'png':1,'bmp':1,'gif':1,'pdf':1,'epub':1,'book':1,
+				'zbf':1,'azw':1,'acsm':1,'xml':1,'mp3':1,'mpg':1,'mpeg':1,'vls':1,'csv':1,'wav':1,
+				'm4a':1,'tiff':1,'tif':1,'bpg':1,};
+
+		var errFns=[];//エラーファイル名リスト
+
+		for (var i = 0; i &lt; files.length; i++) {
+
+			var file_name=files[i].name;//ファイル名を取得する
+
+			//ファイル名から拡張子を抜き出す。ついでに拡張子は小文字可する。
+			var ext=getExtension(file_name);
+
+			//許可拡張子マップに拡張子は存在しない場合
+			if(!perExtMap[ext]){
+				errFns.push(file_name);//ファイル名を不許可リストに追加する。
+			}
+		}
+
+		//retの初期化
+		var ret=null;
+
+		//不許可リストの件数が1件以上である場合。
+		if(errFns.length &gt;= 1){
+			//エラーメッセージを組み立てて、retにセット
+			var str_fns=errFns.join('\n');
+			ret="以下のファイルはアップロード禁止です。\n" + str_fns;
+		}
+
+		return ret;
+	}
+
+
+	//ファイル名から拡張子を取得する。
+	function getExtension(fn){
+		if(fn==null){
+			return '';
+		}
+
+		var ary=fn.split(".");
+		var ext=ary[ary.length-1];
+		ext=ext.toLowerCase();//小文字化する
+
+		return ext;
+	}
+	</pre>
+	<br><br><hr><br><br>
+
+
+	使用例:ファイルドラッグ＆ドロップの場合<br>
+	<pre>
+	$( function() {
+
+		$('#dad_area').bind('drop', function(e){
+
+			// デフォルトの挙動を停止
+			e.preventDefault();
+
+			// ファイル情報を取得
+			var files = e.originalEvent.dataTransfer.files;
+
+			//拡張子によるファイル名バリデーション
+			<span class="marker">
+			var err=validByExt_fudad(files);
+			if(err!=null){
+				alert(err);
+				return;
+			}
+			</span>
+
+			//ファイルアップロード
+			//uploadFiles(files);
+
+		}).bind('dragenter', function(){
+			// デフォルトの挙動を停止
+			return false;
+		}).bind('dragover', function(){
+			// デフォルトの挙動を停止
+			return false;
+		});
+
+	});
+	</pre>
+
+
+	<br><br><br>
+	使用例：ファイルアップロードボタンの場合
+	<pre>
+	$( function() {
+
+		//ファイルアップロードボタンイベント
+		$('input[type="file"]').change(function(){
+			var files = this.files;
+
+			<span class="marker">
+			//拡張子によるファイル名バリデーション
+			var err=validByExt_fudad(files);
+			if(err!=null){
+				alert(err);
+				return;
+			}
+			</span>
+
+			//uploadFiles(files);//ファイルアップロード
+		});
+
+	});
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-10" class="sec1" >
+	<h3>XSSサニタイズ</h3>
+
+	<pre><code>
+	/**
+	 * XSSサニタイズ
+	 * 
+	 * @note
+	 * 「&lt;」と「&gt;」のみサニタイズする
+	 * 
+	 * @param any data サニタイズ対象データ | 値および配列を指定
+	 * @returns サニタイズ後のデータ
+	 */
+	function _xss_sanitize(data){
+		if(typeof data == 'object'){
+			for(var i in data){
+				data[i] = _xss_sanitize(data[i]);
+			}
+			return data;
+		}
+		
+		else if(typeof data == 'string'){
+			return data.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+		}
+		
+		else{
+			return data;
+		}
+	}
+	</code></pre>
+	<br>
+
+	<pre><code>
+	/**
+	 * XSSサニタイズ・デコード
+	 * 
+	 * @note
+	 * 「&lt;」と「&gt;」のサニタイズ化を元に戻す
+	 * 
+	 * @param any data サニタイズ対象データ | 値および配列を指定
+	 * @returns サニタイズ後のデータ
+	 */
+	function _xss_sanitize_decode(data){
+		if(typeof data == 'object'){
+			for(var i in data){
+				data[i] = _xss_sanitize_decode(data[i]);
+			}
+			return data;
+		}
+		
+		else if(typeof data == 'string'){
+			return data.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '&gt;');
+		}
+		
+		else{
+			return data;
+		}
+	}
+	</code></pre>
+	<br>
+
+
+	<hr>
+	<p>旧：2017-1-5</p>
+	
+		XSSサニタイズするには、文字列中から以下のコードをサニタイズします。
+		<table border="1">
+			<thead>
+				<tr><th>サニタイズ前</th><th>サニタイズ後</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>&lt;;</td><td>&amp;lt;</td></tr>
+				<tr><td>&gt;;</td><td>&amp;gt;</td></tr>
+				<tr><td>&quot;</td><td>&amp;quot;</td></tr>
+				<tr><td>&#39;</td><td>&amp;#39;</td></tr>
+			</tbody>
+		</table>
+		<br>
+		XSSサニタイズエンコード関数と元に戻すデコード関数<br>
+		<pre>
+		//XSSサニタイズエンコード
+		function xssSanitaizeEncode(str){
+			if(typeof str == 'string'){
+				return str.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;').replace(/"/g, '&amp;quot;').replace(/'/g, '&amp;#39;');
+			}else{
+				return str;
+			}
+		}
+
+		//XSSサニタイズデコード
+		function xssSanitaizeDecode(str){
+			return str.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '&gt;').replace(/&amp;quot;/g, '"').replace(/&amp;#39;/g, '\'').replace(/&amp;#039;/g, '\'');
+		}
+		</pre>
+		<br>
+
+		使い方<br>
+		<pre>
+		//XSSインジェクションを引き起こす文字列のサンプル。マウスオーバーするだけでXSS攻撃されかねない。
+		var xss="<span class="marker">&lt;a href=\"http://example.com/\"onmouseover=\"alert('xss attack!')\"\"&gt;XSS Attack!!&lt;/a&gt;</span>";
+		$("#res1").html(xss);
+
+		<span class="marker">xss=xssSanitaizeEncode(xss);</span>//XSSサニタイズエンコード
+		$("#res2").html(xss);
+		//エンコード後→&amp;lt;a href=&amp;quot;http://example.com/&amp;quot;onmouseover=&amp;quot;alert(&amp;#39;xss attack!&amp;#39;)&amp;quot;&amp;quot;&amp;gt;XSS Attack!!&amp;lt;/a&amp;gt;
+		console.log(xss);
+
+		//XSSサニタイズデコードでサニタイズ解除
+		xss=xssSanitaizeDecode(xss);
+		$("#res3").html(xss);
+
+		</pre>
+		<pre>
+		&lt;div id="res1"&gt;&lt;/div&gt;
+		&lt;div id="res2"&gt;&lt;/div&gt;
+		&lt;div id="res3"&gt;&lt;/div&gt;
+		</pre>
+
+		<a class="ref_link" href="http://qiita.com/mas0061/items/c2e9cd0d27e09448d28e">参考</a>
+
+		<br><time>2014-6-24 | 2017-5-25</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-11" class="sec1" >
+	<div class="title">改行コードをBRタグに変換する</div>
+	
+	<p>バージョン1</p>
+	<pre>
+	// 改行をBRタグに変換
+	function nl2br(str) {
+	    return str.replace(/[&#x5c;n&#x5c;r]/g, "&lt;br&gt;");
+	}
+	</pre>
+	<aside>この関数では不十分であることが多い</aside>
+	<br>
+	
+	
+	<p>バージョン2</p>
+	<pre>
+	function nl2brEx(v){
+		v = v.replace(/[&#x5c;n&#x5c;r]/g, "&lt;br&gt;");
+		v = v.replace(/&#x5c;&#x5c;r?&#x5c;&#x5c;n/g, "&#x5c;n");
+		v = v.replace(/&#x5c;r?&#x5c;n/g, "&#x5c;n");
+		v = v.replace(/&lt;br&gt;&#x5c;n/g,"&#x5c;n");
+		v = v.replace(/&#x5c;&#x5c;n/g,'&lt;br&gt;');
+		return v;
+	}
+	</pre>
+	<aside>冗長であり無駄がありそう。まだ改善の余地あり。</aside>
+	<br>
+	
+	<p>バージョン3</p>
+	<pre>
+	function nl2brEx(v){
+		if(v == null || v == '' || v=='0'){
+			return v;
+		}
+
+		v = v.replace(/&#x5c;r&#x5c;n|&#x5c;n&#x5c;r|&#x5c;r|&#x5c;n/g,'&lt;br&gt;');
+		return v;
+	}
+	</pre>
+	<aside>※まだ改善の余地あるかもしれない。</aside>
+	<br>
+	
+	<br><time>2017-2-7</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-0" class="sec1" style="display:none">
+	<div class="title">TEST</div>
+	テスト
+	<pre>
+	</pre>
+	<a class="ref_link" href="xxxx">参照</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/JavaScript/">JavaScriptの覚書目次</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2014/06/24</div>
+</body>
+</html>

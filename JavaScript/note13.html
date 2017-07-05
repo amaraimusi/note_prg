@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | ワクガンス</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-1" class="sec4">
+	<h3>ファイル存在チェック</h3>
+
+	jQueryの$.ajaxを利用してファイル存在チェックが可能である。<br>
+	弱点としてファイルが存在しない場合、コンソールに警告やエラーが表示されてしまうことである。<br>
+	また、HTTPリクエストを介する仕様なので当然処理には時間がかかる。<br>
+	<br>
+	<a href="/sample/js/a004/is_file/is_file.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	下記にコールバック型と同期型の存在チェックを用意。<br>
+	<br>
+	
+	
+	<p>存在チェック【コールバック型】</p>
+	<pre><code>
+	&lt;input type="button" value="存在チェック【コールバック型】" onclick="test1('imori.jpg')" /&gt;
+	
+	&lt;script&gt;
+	function test1(fp){
+		is_file(fp,function(res){
+			if(res==true){
+				alert('ファイルは存在します');
+			}else{
+				alert('ファイルは存在しません');
+			}
+		});
+	}
+	
+	/**
+	 * ファイル存在チェック
+	 * @param fp ファイルパス
+	 * @param callback チェック後に呼び出されるコールバック
+	 */
+	function is_file(fp,callback){
+		$.ajax({
+			url: fp,
+			cache: false
+		}).done(function(data) {
+			callback(true);
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			callback(false);
+		});
+	}
+	&lt;/script&gt;
+	</code></pre>
+	<br>
+	
+	
+	<p>存在チェック【同期型】</p>
+	<pre><code>
+	&lt;input type="button" value="存在チェック【同期型】" onclick="test2('imori.jpg')" /&gt;
+	
+	&lt;script&gt;
+	function test2(fp){
+		var flg = is_file2(fp);
+		if(flg==true){
+			alert('ファイルは存在します');
+		}else{
+			alert('ファイルは存在しません');
+		}
+	}
+	
+	/**
+	 * ファイル存在チェック
+	 * @param fp ファイルパス
+	 */
+	function is_file2(fp){
+		var flg=null;
+		$.ajax({
+			url: fp,
+			cache: false,
+			async:false
+		}).done(function(data) {
+			flg=true;
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			flg=false;
+		});
+		return flg;
+	}
+	&lt;/script&gt;
+	</code></pre>
+
+
+	<br><time>2017-4-14</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-2" class="sec4" >
+	<h3>文字列を末尾から置換する</h3>
+	
+	<pre><code>
+	var str = "thum/x/thum/neko.png";
+	str = replace_rev(str,'thum','cat');
+	console.log(str);// → thum/x/cat/neko.png
+	
+	/**
+	* 文字列を末尾から検索して置換する
+	* @param $search  検索文字列
+	* @param $replace 置換文字列
+	* @param $subject 対象文字列
+	* @return 置換後の文字列
+	*/
+	function replace_rev(str,substr,newSubstr){
+		var lIndex  = str.lastIndexOf(substr);
+		str = str.substring(0, lIndex) + newSubstr + str.substr(lIndex + substr.length);
+		return str;
+	}
+	</code></pre>
+	
+	<br><time>2017-4-17</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-3" class="sec4" >
+	<h3>一意値（ユニーク値）を取得する</h3>
+	
+	<pre>
+	/**
+	 * 一意値（ユニーク値）を取得する
+	 * @param myStrong 乱数の桁(省略可）
+	 * @returns 一意コード
+	 */
+	function _getUniqueStr(myStrong){
+		 var strong = 1000;
+		 if (myStrong) strong = myStrong;
+		 return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
+	}
+	</pre>
+	<br>
+	
+	<a href="http://qiita.com/coa00@github/items/679b0b5c7c468698d53f" class="btn btn-info">解説サイト</a><br>
+	<br>
+	
+	<br><time>2017-5-12</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-4" class="sec4" >
+	<h3>関数の存在チェック</h3>
+	
+	
+	<pre><code>
+	&lt;script&gt;
+	if(typeof func_a == 'function') {
+	    console.log('関数は存在する');
+	} else {
+	    console.log('関数は存在しない');
+	}
+	function func_a(){
+		// ....
+	}
+	&lt;/script&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2017-5-17</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-5" class="sec4" >
+	<h3>文字列の関数名を実行する（evalを使わない）</h3>
+
+
+
+	
+	<pre><code>
+	&lt;script&gt;
+	function func_a(v1){
+		return '猫の名前は' + v1 + 'です';
+	}
+	
+	var neko = 'ビッグマン';
+	var res = window['func_a'](neko);
+	console.log(res);// → 猫の名前はビッグマンです
+	&lt;/script&gt;
+	</code></pre>
+
+
+	<aside>IE11,Chrome,FireFox,Operaで動作検証。（2017年5月）</aside>
+	<br>
+	
+	<hr>
+	
+	<p>evalを文字列の関数名を実行する</p>
+	<pre><code>
+	&lt;script&gt;
+	function func_a(v1){
+		console.log(v1);
+		return '猫の名前は' + v1 + 'です';
+	}
+	
+	var neko = 'ビッグマン';
+	//var res = eval("func_a('" + neko + "')");
+	var res = <strong>eval</strong>("func_a(neko)");
+	alert(res); // → 猫の名前はビッグマンです
+	&lt;/script&gt;
+	</code></pre>
+	
+	
+	<p>evalで実行する関数の引数がオブジェクトである場合</p>
+	<pre><code>
+	&lt;script&gt;
+	function func_a(v1){
+		console.log(v1);
+		alert(JSON.stringify(v1));
+	}
+	
+	var data1 = {'a':123,'b':4567};
+	eval("func_a(data1)");
+	
+	// 別の方法
+	// var json_str = JSON.stringify(data1);
+	// eval("func_a(" + json_str + ")");
+	&lt;/script&gt;
+	</code></pre>
+	
+	<br><time>2017-5-17</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-7" class="sec4" >
+	<h3>データのグループ化</h3>
+	
+	<pre><code>
+	/**
+	 * データのグループ化
+	 *
+	 * @note
+	 * データをグループフィールドでグループ分けする。
+	 * グループ分けすることにより最初の2次元構造から3次元構造に変換される。
+	 *
+	 * @param array data データ(2次元構造、エンティティの配列）
+	 * @param array group_field グループフィールド
+	 * @return グループ化したデータ(3次元構造）
+	 */
+	function _dataGrouping(data,group_field){
+	
+		data2 = {};
+	
+		for(var i in data){
+			
+			var ent = data[i];
+			var group_value = ent[group_field];
+			
+			if(_empty(data2[group_value])){
+				data2[group_value] = [];
+			}
+			data2[group_value].push(ent);
+		}
+	
+		return data2;
+	}
+	</code></pre>
+	
+	使い方は<a href="/note_prg/php/note12.html#sec12-6">PHP版グループ化</a>と同様である。<br>
+	<br>
+	
+	
+	<br><time>2017-5-18</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-8" class="sec4" >
+	<h3>文字列の関数名が存在するかチェックする | evalは使わない</h3>
+
+	「 window['関数名'](引数) 」で文字列の関数名を実行可能である。
+	<pre><code>
+	&lt;script&gt;
+	function func_a(v1){
+		return '猫の名前は' + v1 + 'です';
+	}
+	
+	// 関数名'func_a'が存在するかチェックする。
+	if(typeof window['func_a'] == 'function'){
+		var neko = 'ビッグマン';
+		var res = window['func_a'](neko);
+		console.log(res);// → 猫の名前はビッグマンです
+	}else{
+		console.log('存在しない関数です。');
+	}
+	&lt;/script&gt;
+	</code></pre>
+	
+	
+	<br><time>2017-5-18</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-9" class="sec4" >
+	<h3>ImportFu.js | インポートに特化したファイルアップロード</h3>
+	
+	ファイル要素のデザインと機能を拡張する。<br>
+	Ajaxによるファイル送信を行える。<br>
+	ドラッグ＆ドロップに対応している。<br>
+	<br>
+	
+	<a href="/sample/js/a005/import_fu/import_fu.html" class="btn btn-info">デモ</a>
+	<a href="/note_prg/js/ImportFu.js" class="btn btn-info">ImportFu.js</a>
+	<br>
+	
+	<h4>サンプル</h4>
+	<p>html/javascript</p>
+	<pre><code>
+	&lt;script src="jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+	&lt;script src="ImportFu.js"&gt;&lt;/script&gt;
+	&lt;script&gt;
+	$(function(){
+		var importFu = new ImportFu({
+			'fu_slt':'#file1',
+			'ajax_url':'upload.php',
+		});
+		
+	});
+	&lt;/script&gt;
+
+	&lt;!-- 略 --&gt;
+
+	&lt;input type="file" id="file1" /&gt;
+	</code></pre>
+	<br>
+	
+	<input type="button" value="upload.php" onclick="$('#sec13-9a1').toggle(100)" class="btn btn-default" />
+	<p></p>
+	<pre id="sec13-9a1" style='display:none'><code>
+	&lt;?php
+	$file1  = current($_FILES);
+	
+	$fp = $file1['tmp_name'];
+	
+	// ファイルからテキストを取得する
+	$text = file_get_contents($fp);
+	
+	// BOMを除去する
+	$text = deleteBom($text);
+	
+	// UTF8に変換する
+	$text = mb_convert_encoding($text, 'utf-8', 'utf-8,sjis,euc_jp,jis');
+	
+	// XSSサニタイズ
+	xss_escape($text);
+	
+	echo $text;
+	
+	/**
+	 * UTF8ファイルのテキストに付いているBOMを除去する
+	 * @param string $str UTF8ファイルから取得したテキストの文字列
+	 * @return string BOMを除去した文字列
+	 */
+	function deleteBom($str){
+		if (($str == NULL) || (mb_strlen($str) == 0)) {
+			return $str;
+		}
+		if (ord($str{0}) == 0xef &amp;&amp; ord($str{1}) == 0xbb &amp;&amp; ord($str{2}) == 0xbf) {
+			$str = substr($str, 3);
+		}
+		return $str;
+	}
+	
+	/**
+	 * XSSエスケープ（XSSサニタイズ）
+	 *
+	 * @note
+	 * XSSサニタイズ
+	 * 記号「&lt;&gt;」を「&amp;lt;&amp;gt;」にエスケープする。
+	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
+	 *
+	 * @param any $data 対象データ | 値および配列を指定
+	 * @return void
+	 */
+	function xss_escape(&amp;$data){
+		
+		if(is_array($data)){
+			foreach($data as &amp;$val){
+				xss_escape($val);
+			}
+			unset($val);
+		}elseif(gettype($data)=='string'){
+			$data = str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$data);
+		}else{
+			// 何もしない
+		}
+	}
+	</code></pre>
+	
+	
+	
+	<br><time>2017-6-29</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec13-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | ワクガンス</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-4-14</div>
+</body>
+</html>

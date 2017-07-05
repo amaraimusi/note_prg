@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Boostrap:ラベル</title>
+
+		<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../css/common2.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"></script>
+		<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+
+		<style>
+			.sec1{
+				border-style:solid;
+				border-width:2px;
+				border-color:#dac5fe;
+				padding:10px;
+				margin-bottom:100px;
+
+			}
+		</style>
+	</head>
+
+<body>
+<div class="container">
+
+
+
+	<div class="row">
+		<div id="header" class="col-lg-12" >
+			<h1>Boostrap:ラベル </h1>
+			
+		</div>
+	</div>
+	
+	<h3>サンプル</h3>
+	<div class="sec3">
+		<div class="label label-default">Default</div>
+		<div class="label label-primary">Primary</div>
+		<div class="label label-success">Success</div>
+		<div class="label label-warning">Warning</div>
+		<div class="label label-danger">Danger</div>
+		<div class="label label-info" style="font-size:20px">Info</div>
+	</div>
+	<br>
+	
+	<p>html</p>
+	<pre>
+	&lt;div class="sec3"&gt;
+		&lt;div class="label label-default"&gt;Default&lt;/div&gt;
+		&lt;div class="label label-primary"&gt;Primary&lt;/div&gt;
+		&lt;div class="label label-success"&gt;Success&lt;/div&gt;
+		&lt;div class="label label-warning"&gt;Warning&lt;/div&gt;
+		&lt;div class="label label-danger"&gt;Danger&lt;/div&gt;
+		&lt;div class="label label-info" style="font-size:20px"&gt;Info&lt;/div&gt;
+	&lt;/div&gt;
+	</pre>
+	<br>
+	
+	<p>説明</p>
+	<a href="bootstrap_btns.html">ボタン</a>と記述スタイルは類似しおり、「btn」が「label」に置き換わっただけである。<br>
+	ただし「btn-lg,btn-xs」などサイズを指定するセレクタはない。<br>
+	代わりにfont-sizeで文字の大きさを変更すると、それに合わせてサイズも変わる。<br>
+	<br>
+	&lt;div&gt;だけでなく&lt;li&gt;、&lt;a&gt;などいくつかのタグにも適用できる。
+	<br>
+	<hr>
+
+	<div class="row">
+		<div id="footer" class="col-md-12"  >
+			<p>(c)wacgance 2016-1-20</p>
+		</div>
+	</div>
+
+</div><!-- container  -->
+</body>
+</html>

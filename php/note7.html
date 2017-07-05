@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-1" class="sec1" >
+	<h3>あいまい一致関数 | similar_text_ex | 比較文字1と比較文字2の一致率による判定</h3>
+
+	<p>関数</p>
+	<pre>
+	/**
+	 * 比較文字1と比較文字2の一致率が許可一致率を超える場合、trueを返す。
+	 * 
+	 * 比較文字2は配列で渡すこともできる。
+	 * 配列にした場合、配列内いずれかが許可一致率を超えるとき、trueを返す。
+	 * 
+	 * @param string $tarStr 比較文字1
+	 * @param multi $comps	比較文字2、配列指定も可。
+	 * @param bool $permitPar 許可一致率
+	 */
+	function similar_text_ex($tarStr,$comps,$permitPar){
+		
+		$flg=false;
+		$percent=0;
+		if(is_array($comps)){
+			foreach($comps as $comp){
+				similar_text($tarStr,$comp,$percent);//一致率
+				if($percent &gt;=$permitPar){
+					$flg=true;
+					break;
+				}
+				
+			}
+		}else{
+			
+			similar_text($tarStr,$comps,$percent);
+			if($percent &gt;=$permitPar){
+				$flg=true;
+			}
+		}
+		
+		return $flg;
+	}
+	</pre>
+	
+	<h4>使用例1</h4>
+	<pre>
+	//70%以上一致する場合、true。
+	$res=similar_text_ex('五月雨をあつめて早し最上川','12月雨を集めて早し最上川',70);
+	echo $res;// ←true or false
+	</pre>
+	
+	<h4>使用例2</h4>
+	<pre>
+	//リストのいずれかに90%以上一致する場合、true。
+	$res=similar_text_ex('五月雨をあつめて早し最上川',
+			array('雨を集めて信濃川','五月雨をあつめて早し四万十川','十二月雨をあつめて遅し最上川'),
+			90);
+	echo $res;// ←true or false
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-2" class="sec1">
+	<h3>文字列の先頭から一文字を取得する</h3>
+
+	文字列の先頭1文字はmb_substrで簡単に取得できる。<br>
+	<br>
+
+	<p>source code</p>
+	<pre>
+	$str="いろはにほへと";
+	echo mb_substr($str ,0 ,1);// 出力 → い
+	</pre>
+	<aside>※$strがnullの場合、空文字が取得される。</aside>
+	<br>
+	
+	
+	<p>先頭から2文字取得する場合</p>
+	<pre>
+	$str="いろはにほへと";
+	echo mb_substr($str ,0 ,2);// 出力 → いろ
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-3" class="sec1">
+	<h3>文字列の末尾から一文字を取得する</h3>
+
+	文字列の末尾1文字は、mb_substr関数の第2引数に負値を指定することにより、簡単に取得できる。<br>
+	<br>
+
+	<p>source code</p>
+	<pre>
+	$str="いろはにほへと";
+	echo mb_substr($str, -1);// 出力 → と
+	</pre>
+	<aside>※$strがnullの場合、空文字が取得される。</aside>
+	<br>
+	
+	
+	<p>末尾から2文字取得する場合</p>
+	<pre>
+	$str="いろはにほへと";
+	echo mb_substr($str, -2);// 出力 → へと
+	</pre>
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-4" class="sec1">
+	<h3>日付が8桁数値表記であれば、y/m/d形式に変換する</h3>
+
+
+	<p>関数</p>
+	<pre>
+	/**
+	 *日付が8桁数値表記であればy/m/d形式に変換する
+	 * 例 20121212→ 2012/12/12
+	 * 
+	 * 1970/1/1 から 2038/1/19に対応。対応範囲外である場合は 1970/1/1 になる。
+	 * 
+	 * @param $d 8桁数値表記の日付
+	 * @return y/m/d形式の日付（8桁数値でないなら未変換）
+	 */
+	function conv8ToDate($d){
+		if(preg_match("/^[0-9]+$/", $d)){
+			$d=date("Y/m/d",strtotime($d));
+		}
+		return $d;
+	}
+	?>
+	</pre>
+	
+	<p>使用例</p>
+	<pre>
+	$test = '20380119';
+	$test2 = conv8ToDate($test);
+	
+	echo '&lt;br&gt;変換前→'.$test;
+	echo '&lt;br&gt;変換後→'.$test2;
+	
+	//出力
+	//変換前→20380119
+	//変換後→2038/01/19
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-5" class="sec1">
+	<h3>最大実行時間（タイムアウト）をphp.iniで設定する | Maximum execution time of 30 seconds exceeded</h3>
+
+	デフォルトで設定されている最大実行時間30秒を超えると以下のエラーが表示される。<br>
+	<pre>Fatal error: Maximum execution time of 30 seconds exceeded</pre>
+	php.iniで最大実行時間を増やすことができる。<br>
+	php.iniをテキストエディタで開き「max_execution_time」の数値を増やす。<br>
+	<br>
+	
+	変更前は30秒<br>
+	<pre>max_execution_time=30</pre>
+	
+	120秒に変更する<br>
+	<pre>max_execution_time=120</pre>
+	
+	変更後はApacheを再起動すること。<br>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-6" class="sec1" >
+	<h3>配列のキーと値を入れ替える | array_flip</h3>
+	array_flip関数は配列のキーと値を入れ替える。<br>
+	<br>
+	
+	使用例
+	<pre>
+	$ary=array(
+		0=&gt;'neko',
+		1=&gt;'yagi',
+		2=&gt;'kani',
+		'same'=&gt;'サメ',
+	);
+	<strong>$map=array_flip($ary);</strong>
+	Debugger::dump($map);
+	</pre>
+	
+	$mapの出力。　　キーと値が逆転している。
+	<pre>
+	array(
+		'neko' =&gt; (int) 0,
+		'yagi' =&gt; (int) 1,
+		'kani' =&gt; (int) 2,
+		'サメ' =&gt; 'same'
+	)
+	</pre>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-7" class="sec1" >
+	<h3>UNIXタイムスタンプを取得する | time</h3>
+
+	UNIXタイムスタンプは1970 年1月1 日からの通算秒である。
+
+	<pre>echo time();</pre>
+	出力例
+	<pre>1456982682</pre>
+	
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-8" class="sec1" >
+	<h3>ミリ秒 | microtime</h3>
+	microtime関数にて、UNIXタイムスタンプをミリ秒以下の単位まで取得できる。<br>
+	<br>
+
+	1970 年1月1 日からの通算秒をfloat型で取得。小数点以下はミリ秒以下の単位に相当する。
+	<pre>echo microtime(true);//出力例→ 1456983058.4316	</pre>
+	<br>
+	
+	引数を略すと、通算秒をミリ秒と自然数秒にスペースで区切って表示する。スペースより左側がミリ秒で、右側が自然数秒。
+	<pre>echo microtime();//出力例→ 0.43157200 1456983058	</pre>
+	<br>
+	
+	UNIXタイムスタンプ
+	<pre>echo time();出力例→ 1456983058</pre>
+	<br>
+	
+	
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-9" class="sec1" >
+	<h3>1行IF文</h3>
+
+	1行のIF文
+	<pre>
+	$name="wani";
+	<strong>$res = ( $name == "tokage" ) ? 1 : 0;</strong>
+	echo $res;
+	</pre>
+	上の1行IF文は以下のif文と同じ意味を持つ。
+	<pre>
+	$name="wani";
+	$res=null;
+	if($name=='tokage'){
+		$res=1;
+	}else{
+		$res=0;
+	}
+	echo $res;
+	</pre>
+	<hr>
+	
+	<p>よく使うIF文</p>
+	配列に値がセットされているなら値を取得する。
+	<pre>$xxx = (empty($ent['xxx'])) ? null : $ent['xxx'];</pre>
+	
+	
+	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-10" class="sec1" >
+	<h3>キャメルケースおよびスネークケースへの変換</h3>
+	
+	キャメルケースに変換
+	<pre>
+	/**
+	 * キャメルケースにスネークケースから変換する
+	 * 
+	 * 先頭も大文字になる。
+	 * 
+	 * @param string $str スネークケースの文字列
+	 * @return キャメルケースの文字列
+	 */
+	function camelize($str) {
+		$str = strtr($str, '_', ' ');
+		$str = ucwords($str);
+		return str_replace(' ', '', $str);
+	}
+	</pre>
+	<br><hr>
+
+	スネークケースに変換
+	<pre>
+	/**
+	 * スネークケースにキャメルケースから変換
+	 * @param string $str キャメルケース
+	 * @return string スネークケース
+	 */
+	function snakize($str) {
+		$str = preg_replace('/[A-Z]/', '_\0', $str);
+		$str = strtolower($str);
+		return ltrim($str, '_');
+	}
+	</pre>
+
+	<br>
+	
+	<a href="http://qiita.com/Hiraku/items/036080976884fad1e450" target="brank" class="btn btn-link btn-xs">参考：Qiita</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-11" class="sec1" >
+	<h3>テーブル名からモデル名に変換する</h3>
+
+	ソースコード
+	<pre><code>
+	/**
+	 * テーブル名からモデル名に変換する
+	 *
+	 * @param string $tblName テーブル名（例：big_animals)
+	 * @return モデル名（例：BigAnimal)
+	 */
+	function convModelName($tblName) {
+		$tblName = strtr($tblName, '_', ' ');
+		$tblName = ucwords($tblName);
+		
+		
+		// 末尾が"s"であるなら削る
+		if(mb_substr($tblName,-1) == 's'){
+			$tblName=mb_substr($tblName,0,mb_strlen($tblName)-1);
+		}
+		
+		
+		return str_replace(' ', '', $tblName);
+	}
+	</code></pre>
+	
+	<br><time>2016-12-13</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+	<input type="button" value="source" onclick="$('#source2-0').toggle()" class="btn btn-primary btn-xs" />
+	<pre id="source2-0" style="display:none">
+	</pre>
+	
+	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">PHPの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016/1/29</div>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WordPressの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WordPressの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>WinWordPressについての雑記</h3>
+	
+
+	WordPressの外部設計ではプラグインが主になってくる。<br>
+	公開されているプラグインで十分なこともあるので重複して作らないように注意すること。<br>
+	<br>
+	
+	WordPressにはAPIが存在する。<br>
+	<br>
+	
+	プラグインはカスタマイズしにくいため、見た目を修正しにくい。<br>
+	このことをクライアントに伝え理解を得ねばならない。<br>
+	<br>
+	
+	
+	WordPressにはCakePHPでいうctpのようなテンプレートエンジンが存在しない。<br>
+	<br>
+	
+	WordPressのコーディング規約のようなもの。→半角スペースをやたらに挿入<br>
+	<br>
+
+	MVCの概念はない。<br>
+	既存の機能に<strong>フック</strong>するという概念である。<br>
+	<br>
+	
+	WordPressのプラグインは一般的なプラグインとは意味が異なる。<br>
+	WordPressをフレームワークと見なした場合、プラグインは開発者によるソースコード記述部分に相当する。<br>
+	プラグインはWordPressの随所にフックしながら開発する。<br>
+	<br>
+
+	<br><time>2017-4-19</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>適当な導入手順</h3>
+
+	<ol>
+		<li>
+			事前にWordpressのバージョンに合わせたMySQLとPHPをインストールしておくこと。
+		</li>
+		<li>
+			日本語版のzipを以下のサイトからダウンロードする<br>
+			<a href="https://ja.wordpress.org/">https://ja.wordpress.org/</a>
+			
+		</li>
+		<li>
+			zipを解凍してhtdocsフォルダ（Apache）のは以下にファイル一式を配置する。<br>
+			例：略&yen;htdocs&yen;animalに配置
+			
+		</li>
+		<li>
+			ブラウザを開いて配置先へアクセス<br>
+			例：http://localhost/animal/wordpress
+		</li>
+		<li>
+			
+		</li>
+		<li>
+			「ようこそ」ページが表示されるので、DB設定して、サイト情報の入力して、ログインして、ダッシュボードを開く。
+		</li>
+		<li>
+			WordPressの配置先にwp-config.phpなどが新たに作成される。<br>
+			Ecliseを使っているならエクスプローラを更新してwp-config.phpを表示させる。<br>
+			また、DBにもテーブルが多数自動生成される。<br>
+		
+		</li>
+		<li>
+			wp-config.phpを開き下記をTRUEにしてデバッグモードにする<br>
+			<pre>	define('WP_DEBUG', true);</pre>
+		</li>
+	</ol>
+	
+	
+	<br><time>2017-4-19</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>ダッシュボードの適当説明</h3>
+	
+	<p>投稿</p>
+	投稿はブログ記事などユーザーによって更新されるページをさしているようだ。<br>
+	ブログに特化しているようである。<br>
+	wp_postテーブルに保存される。<br>
+	<br>
+	
+	
+	<p>メディア</p>
+	画像、音声、動画などのファイルを登録する。<br>
+	これらもwp_postテーブルに保存。バイナリ文字列に変換しているようである。<br>
+	<br>
+	
+	
+	
+	
+	<p>固定ページ</p>
+	固定ページは静的ページのこと。<br>
+	<br>
+	
+	
+
+	
+	<p>テーマ</p>
+	サイト全体の概観<br>
+	<br>
+	
+	<p>ウィジェット</p>
+	ガシェットみたなもの。プラグインで作れる。<br>
+	<br>
+
+	<br><time>2017-4-19</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>カスタムフィールド 、カスタム投稿タイプ、カスタムタクソノミー</h3>
+
+	<p>カスタムフィールド</p>
+	投稿フォームのエンティティはデフォルトで「タイトル」と「本文」の2つのフィールドがある。<br>
+	。他のフィールドを追加したい場合、カスタムフィールドとして追加できる。<br>
+	<br>
+	カスタムフィールドで並べ替えができる。<br>
+	<br>
+	ダッシュボード→投稿→→投稿の編集→右上の「表示オプション」→カスタムフィールドにチェックを入れると編集できるようになる。<br>
+	<aside>※「投稿の編集」は、一覧のタイトル名にカーソルを合わせたときに表示される「編集」からアクセスできる。</aside>
+	<br>
+	
+	<p>カスタム投稿タイプ</p>
+	通常の投稿タイプはブログであるが、商品ページ、ポートフォリオなどのタイプにすることができるようである。<br>
+	<br>
+	
+	
+	
+	<p>タクソノミーとカスタムタクソノミー</p>
+	タクソノミーとは分類のことであり「タグ」や「カテゴリー」の総称でもある。<br>
+	タグやカテゴリー以外にもカスタムタクソノミーとして独自の分類を定義することもできる。<br>
+	
+	カテゴリ、タグ、カスタムタクソノミーの子要素を<strong>ターム</strong>と呼ぶ。<br>
+	例えばカテゴリならば「農業」、「登山」、「旅行」などがタームになる。<br>
+	<br>
+
+	<p>Toolset Types プラグイン</p>
+	カスタム投稿タイプやカスタムタクソノミーの編集ができるプラグイン<br>
+	<br>
+
+	<br><time>2017-4-20</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>プラグインの探し方と代表的なプラグイン</h3>
+	プラグイン機能へのアクセスは基本的にダッシュボードの左メニューからである。<br>
+	左メニューのプラグイン名をクリックするとその機能の画面が表示される。<br>
+	<br>
+	
+	プラグインディレクトリというサイトからプラグインを見つけることができる。<br>
+	<a href="https://ja.wordpress.org/plugins/">https://ja.wordpress.org/plugins/</a><br>
+	<br>
+	
+	以下に代表的なプラグインを挙げる。<br>
+	<br>
+	
+	
+	<strong>Contact From 7 プラグイン</strong><br>
+	問合せフォームを作るなら「Contact From 7」が便利である。<br>
+	※メール送信する問合せフォーム<br>
+	<br>
+	
+	
+	<strong>BackWPupプラグイン</strong><br>
+	データベースのバックアップが行えるプラグイン<br>
+	<br>
+	
+	<strong>User Role Editor プラグイン</strong><br>
+	ユーザー権限を編集できる。<br>
+	<br>
+	
+	
+	<strong>Adminimizeプラグイン</strong><br>
+	権限ごとにダッシュボードの機能を制限できるプラグイン。<br>
+	<br>
+	
+	
+	<strong>Really Simple CSV Importerプラグイン</strong><br>
+	他のブログサイトからダウロードしたCSVをWordPressにインポートできる。<br>
+	<br>
+	
+	
+	<strong>Super Socializer プラグイン</strong><br>
+	TwitterやFacebookなどのSNSと連携できる。	<br>
+	<br>
+	
+	
+	<br><time>2017-4-20</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>おおまかなファイル/フォルダの構成</h3>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>ファイル/フォルダ</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>index.php</td><td>Wordpressのスタートポイント</td></tr>
+			<tr><td>wp-config.php</td><td>DB設定などの設定はこのファイルで。</td></tr>
+			<tr><td>wp-adminフォルダ</td><td>管理画面用の各種ファイル</td></tr>
+			<tr><td>wp-contentフォルダ</td><td>フロント画面などの各種ファイル群。プラグインもこちら。</td></tr>
+			<tr><td>wp-inludesフォルダ</td><td>WordPressのコア</td></tr>
+			<tr><td>functions.php</td><td>WordPressの改造</td></tr>
+	
+		</tbody>
+	</table>
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>WordPressの主なDBテーブル</h3>
+	
+	
+	<p>主なDBテーブル</p>
+	WordPressの主なDBテーブルはwp_post,wp_user,wp_commentsである。<br>
+	<br>
+	
+
+	<strong>wp_post</strong><br>
+	WordPressの主要なテーブル。<br>
+	文章、バイナリを問わずいろんな投稿データを保持する。<br>
+	<br>
+	
+	<strong>wp_comments</strong><br>
+	wp_postにひもづいたコメントなどを保持する。<br>
+	<br>
+	
+	<strong>wp_users</strong><br>
+	ユーザー情報を管理する<br>
+	<br>
+	
+	<p>そのほかのDBテーブルについて</p>
+	
+	wp_postmeta<br>
+	カスタムフィールドのデータを保持する<br>
+	<br>
+	
+	wp_term_taxonomy <br>
+	タクソノミーを管理している。<br>
+	<br>
+	
+	
+	wp_option<br>
+	全体的な設定データを管理している。<br>
+	<br>
+
+
+	<br><time>2017-4-20</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>wp_postの投稿タイプ</h3>
+	
+	wp_postに保存されるデータは投稿タイプで分けている。<br>
+	<br>
+
+	主な投稿タイプは以下の通り
+	<table class="tbl2">
+		<thead>
+			<tr><th>投稿タイプの属性値</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>post</td><td>通常の投稿データ</td></tr>
+			<tr><td>page</td><td>固定ページ</td></tr>
+			<tr><td>attachment</td><td>画像、音楽などのメディアファイル</td></tr>
+			<tr><td>nav_menu</td><td>カスタムメニュー</td></tr>
+		</tbody>
+	</table>
+	<br>
+	
+	<p>カスタム投稿タイプ</p>
+	投稿タイプをカスタム投稿タイプとして独自で追加することもできる。<br>
+	カスタム投稿タイプを追加するにはregister_post_type関数を使う。<br>
+	register_post_type関数はオプションも指定でき、検索機能の対象にするか、標準UIを使うかなどの設定ができる。<br>
+	<br>
+	
+	<p>投稿タイプとCRUD</p>
+	投稿タイプはDBテーブルのような性質をもつ。<br>
+	すなわち、投稿タイプをテーブルと見立てるならCRUDを実現できるということである。<br>
+	<br>
+	
+	<br><time>2017-4-20</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-9" class="sec4" >
+	<h3>メインクエリ</h3>
+	一般的なWebアプリではフォルダやファイル名でページ分けしている。<br>
+	WordPressはそうでない。URLのクエリパラメータだけでページ分けしている。<br>
+	<br>
+	
+	WordPressでのページ分けはメインクエリというものを用いている。<br>
+	メインクエリを元に自動的にデータやテンプレートを取得するようである。<br>
+	メインクエリは、取ってきたテンプレートの上に取得した各種データを流すらしい。<br>
+	<br>
+	
+	プラグイン開発においてメインクエリをよく意識する必要がある。<br>
+	メインクエリを利用して開発の影響範囲を最小限に抑えるようにせねばならない。<br>
+	<br>
+	
+	
+	<p>メインクエリの実体、$wp_the_queryと$wp_query</p>
+	クエリパラメータのうちデータ検索にかかわるデータをメインクエリと呼んでいるようである。<br>
+	「$wp_the_query」がメインクエリの実体である。<br>
+	しかし開発者が$wp_the_queryに触れることはあまりない。通常は「$wp_query」を通してメインクエリを参照する。<br>
+	<br>
+	
+	※ここでいうデータ検索はデータベースの問合せのこと。<br>
+	<br>
+	
+	$wp_queryを書き換えるスタイルも存在するが推奨されていない。<br>
+	もし書き換えた場合、後ほど「wp_reset_query()」関数で元に戻す必要がある。<br>
+	<br>
+	
+	
+	<p>データ検索のためのWP_Queryクラス</p>
+	WP_Queryクラスはデータ検索の中心的な役割を果たしているようである。<br>
+	検索条件からSQL組み立てDBへ問合せを行っているようである。<br>
+	<br>
+	
+	検索の際、クエリフラグというものが取得できる。<br>
+	メインクエリの場合、クエリフラグからどのページの問合せなのか知ることができる。<br>
+	<br>
+	
+	WP_Queryクラスは、しばしば複数のインスタンスになることがある。<br>
+	そのためループしてクエリフラグで判別することが必要になるらしい。(メインループとか呼ばれているものか？)<br>
+	<br>
+	
+	WP_QueryクラスはWordPressの内部で主に使われ、開発者がインスタンス化して利用することはあまりない。<br>
+	
+	<p>テンプレート</p>
+	リクエストパラメータからデータが取得されたあとテンプレートが取得される。<br>
+	テンプレートはページの種類に対応したものである。<br>
+	<br>
+	
+	テンプレートは独自に作成できる。<br>
+	テンプレートの名前は、テンプレート階層を意識する必要がある。<br>
+	リクエストパラメータに即した命名規則に従わねばならない。<br>
+	<br>
+	
+	
+	<br><time>2017-4-20 | 2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>フック</h3>
+	
+	
+	テンプレートにPHPコードを書くことができる。<br>
+	とはいえテンプレートにPHPコードを大量に書くのはスマートでない。<br>
+	フックを利用してスマートなソースコードにすることになる。<br>
+	<br>
+	
+	フックはCakePHPのHTMLヘルパーと似ているがちょっと違う。フックは埋込でなくイベント。<br>
+	フックできる場所はWordPress上に多数存在する。<br>
+	例えば、リクエスト処理後のフック、データ検索前のフック、ウィジェット登録後のフックなどがある。<br>
+	<br>
+	
+	WordPressのプラグイン開発においてフック探しは重要な作業になる。<br>
+	フックのコードはプラグインのPHPファイルに記述する。<br>
+	<br>
+	
+	<p>他のフレームワークとの違い</p>
+	他のフレームワークではMVCスタイルであるが、
+	WordPressでは様々な場所にフックするスタイルでコーディングする。<br>
+	また、基本関数をオーバーライドして開発するスタイルあるらしい。<br>
+	<br>
+	
+	
+	<p>フックについて</p>
+	フックはアクション（add_action）とフィルター（add_filter）に分かれている。<br>
+	アクションは処理、フィルターはデータ加工という役割であるが、実際は厳密な区別がない。<br>
+	アクションは値を返す必要はないが、フィルターは値を返さねばならない。<br>
+	<br>
+	
+	<pre>
+	&lt;?php add_action( $hook, $function_to_add, $priority, $accepted_args ); ?&gt;
+	&lt;?php add_filter( $hook, $function_to_add, $priority, $accepted_args ); ?&gt;
+	</pre><br>
+	パラメータの説明<br>
+	<strong>$hook</strong><br>
+		フック名。<br>
+		"all" を指定すると、すべてのフックで関数が呼び出されるらしい。<br>
+		<br>
+		
+	<strong>$function_to_add</strong><br>
+		フックする関数をコールバックとして指定する。<br>
+		<br>
+		
+	<strong>$priority</strong><br>
+		同じアクションに複数フックされている場合の処理優先度。<br>
+		値が小さいほど優先される。<br>
+		初期値： 10<br>
+		<br>
+		
+	<strong>$accepted_args</strong><br>
+		フック関数の引数の数<br>
+		<br>
+	
+	
+	<a href="https://wpdocs.osdn.jp/%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3_API/%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%95%E3%83%83%E3%82%AF%E4%B8%80%E8%A6%A7" class="btn btn-info" target="blank">フックの種類</a>
+	<br>
+		
+	<br><time>2017-4-21</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">WordPressの覚書</a></li>
+	<li>WordPressの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-4-10 | 2017-4-21</div>
+</body>
+</html>

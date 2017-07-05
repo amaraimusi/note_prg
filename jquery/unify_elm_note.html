@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JQueryの覚書 | 要素関連の一律化</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JQueryの覚書 | 要素関連の一律化</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>親要素からclass属性、name属性、id属性を問わずに一致する要素を探す</h3>
+	
+	<pre><code>
+	/**
+	 * 親要素からclass属性、name属性、id属性を問わずに一致する要素を探す
+	 * @param parElm 親要素
+	 * @param field フィールド
+	 * @returns 要素
+	 */
+	function _findInParentEx(parElm,field){
+		var elm = parElm.find('.' + field);
+		if(!elm[0]){
+			elm = parElm.find("[name='" + field + "']");
+		}else if(!elm[0]){
+			elm = parElm.find('#' + field);
+		}
+		return elm;
+	}
+	</code></pre>
+	
+	<br><time>2017-3-3</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>フィールドを指定してフォーム要素（親要素）から値を取得する</h3>
+	
+	<pre>
+	/**
+	 * フィールドを指定してフォーム要素から値を取得する
+	 *
+	 * @note
+	 * フィールド名に一致する要素を探し出す。（class属性、name属性、id属性のいずれかで一致）
+	 * 要素の種類を問わず値を取得する。
+	 *
+	 * @param form フォーム
+	 * @param field フィールド
+	 * @returns 値
+	 */
+	function _getValueFromForm(form,field){
+		var elm = <a href="#sec1-1" class="livipage">_findInParentEx</a>(form,field);
+		
+		if(!elm[0]){
+			throw new Error("Not '" + field + "' in form!");
+		}
+		
+		var v = <a href="/note_prg/jquery/note6.php#sec6-2" class="livipage">_getValueEx</a>(elm);
+		
+		return v;
+	}
+	</pre>
+	<br><time>2017-3-3</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>要素の種類を問わずに値をセットする | _setValueEx</h3>
+	set_value_ex関数はさまざまな要素へ、一律な方法で値をセットすることができる。<br>
+	対応している要素は、テキストボックス、チェックボックス、ラジオボタン、テキストエリア、セレクト、IMG、Audio、一般HTML要素（DIVなど）である。<br>
+	テキストエリアは\nや&lt;br&gt;などの改行に対応している。
+	一般HTML要素も同様に改行に対応しており、さらにXSSサニタイズも自動的に行われる。<br>
+	<br>
+
+	<p>ソースコード</p>
+	<pre><code>
+	/**
+	 * 要素の種類を問わずに値をセットする
+	 * @param elm 要素(jQueryオブジェクト）
+	 * @pramm v 値
+	 * @version 1.0
+	 */
+	function _setValueEx(elm,v){
+		
+		var tagName = elm.get(0).tagName; // 入力要素のタグ名を取得する
+		
+		// 値を入力フォームにセットする。
+		if(tagName == 'INPUT' || tagName == 'SELECT'){
+			
+			// type属性を取得
+			var typ = elm.attr('type');
+			
+			if(typ=='checkbox'){
+				if(v ==0 || v==null || v==''){
+					elm.prop("checked",false);
+				}else{
+					elm.prop("checked",true);
+				}
+				
+			}
+			
+			else if(typ=='radio'){
+				var f = elm.attr('name');
+				var parElm = elm.parent();
+				var opElm = parElm.find("[name='" + f + "'][value='" + v + "']");
+				if(opElm[0]){
+					opElm.prop("checked",true);
+				}
+	
+			}
+			
+			else{
+				
+				if(typeof v == 'string'){
+					v = v.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '&gt;');
+				}
+				
+				elm.val(v);
+			}
+	
+			
+		}
+		
+		// テキストエリア用のセット
+		else if(tagName == 'TEXTAREA'){
+	
+			if(v!="" &amp;&amp; v!=undefined){
+				v=v.replace(/&lt;br&gt;/g,"\r");
+				
+				if(typeof v == 'string'){
+					v = v.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '&gt;');
+				}
+			}
+	
+			elm.val(v);
+			
+		}
+		
+		// IMGタグへのセット
+		else if(tagName == 'IMG'){
+			// IMG要素用の入力フォームセッター
+			elm.attr('src',v);
+			
+		}
+		
+		// audioタグへのセット
+		else if(tagName == 'AUDIO'){
+			elm.attr('src',v);
+			
+			
+		}else{
+			if(v!="" &amp;&amp; v!=undefined){
+				v=v.replace(/&lt;br&gt;/g,"\r");
+				if(typeof v == 'string'){
+					v = v.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+				}
+				v = v.replace(/\r\n|\n\r|\r|\n/g,'&lt;br&gt;');// 改行コートをBRタグに変換する
+			}
+			
+			elm.html(v);
+		}
+	
+		
+	}
+	</code></pre>
+	<br>
+	
+	<p>使い方</p>
+	<a href="/sample/js/a004/set_value_ex/set_value_ex.html" class="btn btn-info">デモ</a><br>
+	<pre><code>
+	// テキストボックス
+	var tbElm = $('#text1');
+	_setValueEx(tbElm,'いろは')
+	
+	
+	// チェックボックス
+	var checkbox1 = $('#checkbox1');
+	_setValueEx(checkbox1,1); // 1以上の数値や、trueを指定可能
+	var checkbox2 = $('#checkbox2');
+	_setValueEx(checkbox2,0);// falseやnullでも指定可能
+	
+	// ラジオボタン
+	var radio1 = $("[name='radio1']");
+	_setValueEx(radio1,2);
+	
+	// テキストアリア
+	var textarea1 = $('#textarea1');
+	var msg = "ネコ\n&lt;input /&gt;\nヤギ\nカニ&lt;br&gt;サメ\rシカ\r\nゴリラ";
+	_setValueEx(textarea1,msg);
+	
+	// セレクトボックス
+	var select1 = $('#select1');
+	_setValueEx(select1,2);// nullや空文字をセットすると未選択になる。 
+	
+	// IMG
+	var img1 = $('#img1');
+	_setValueEx(img1,'imori.png');
+	
+	// AUDIO
+	var audio1 = $('#audio1');
+	_setValueEx(audio1,'audio1.mp3');
+	
+	// ブロック
+	var div1 = $('#div1');
+	var msg = "ネコ\n&lt;input /&gt;\nヤギ\nカニ&lt;br&gt;サメ\rシカ\r\nゴリラ";
+	_setValueEx(div1,msg);
+	</code></pre>
+	<br>
+	
+	
+	<br><time>2017-3-6</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>フィールドを指定してフォーム要素（親要素）に値をセットする | _setValueFromForm</h3>
+	
+	<pre><code>
+	/**
+	 * フィールドを指定してフォーム要素（親要素）に値をセットする
+	 * @param form フォーム
+	 * @param field フィールド
+	 * @param value 値
+	 * @returns 値
+	 */
+	function _setValueFromForm(form,field,value){
+		var elm = _findInParentEx(form,field);
+		
+		if(!elm[0]){
+			throw new Error("Not '" + field + "' in form!");
+		}
+		
+		// 要素の種類を問わずに値をセットする
+		<a href="#sec1-3" class="livipage">_setValueEx</a>(elm,value);
+		
+	}
+	</code></pre>
+	
+	
+	<br><time>2017-3-6</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>セレクタから識別子「#」「.」を取り外したコードを取得する</h3>
+
+	<pre><code>
+	var slt = "#animal";
+	var code = _sltToCode(slt);
+	console.log(code); // → animal
+	
+	/**
+	 * セレクタから識別子「#」「.」を取り外したコードを取得する
+	 * 
+	 * @note
+	 * セレクタに空文字を指定すると空を返す。ただしnullを指定した場合はエラーになる。
+	 * 
+	 * @param slt セレクタ
+	 * @returns コード
+	 */
+	function _sltToCode(slt){
+		
+		var code = slt;
+		var s1 = code.charAt(0); // 先頭の一文字を取得
+		if(s1=='#' || s1=='.'){
+			code = code.substr(1);
+		}
+		return code;
+	}
+	</code></pre>
+	
+	<br><time>2017-3-8</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JQueryの覚書 | 要素関連の一律化</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-3-3</div>
+</body>
+</html>

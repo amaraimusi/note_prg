@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>ワクガンス | PHPの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-1" class="sec1" >
+	<h3>特定のファイルをダウンロードさせる</h3>
+
+	HTML
+	<pre><code>&lt;a href="download_x.php"&gt;ファイルをダウンロード&lt;/a&gt;&lt;br&gt;</code></pre>
+	<br>
+	
+	ソースコード【download_x.php】
+	<pre><code>
+	&lt;?php 
+	$filepath = 'test/xxx2.zip'; // ダウンロードするファイルのパス
+	$filename = 'xxx3.zip'; // ダウンロード時のファイル名
+	
+	header('Content-Type: application/force-download'); // コンテンツタイプを指定する
+	header('Content-Length: '.filesize($filepath)); // 進捗を表示
+	header('Content-Disposition: attachment; filename="'.$filename.'"'); // ダウンロード時のファイル名をセット
+	readfile($filepath); // ファイル読込とダウンロードの実行
+	?&gt;
+	</code></pre>
+	<aside>※「echo」などで何らかの文字を出力すると、壊れたファイルがダウンロードされるので注意。</aside>
+	<br>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2016-11-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-2" class="sec1" >
+	<h3>submitの挙動</h3>
+
+	テキストボックスにフォーカスが当てられている時にEnterキーを押すとSubmitされる。<br>
+	ただし、form要素外のテキストボックスである場合、Enterキーを押してもSubmitは行われない。<br>
+	<br>
+
+	<a href="/sample/js/a003/enter_press_event/enter_press_event.php" class="btn btn-info">デモ：EnterキーによるSubmitの挙動</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	&lt;form action="#" method="post"&gt;
+		
+		&lt;?php 
+		if(!empty($_POST)){
+			echo 'いろは';
+		}
+		?&gt;
+		&lt;br&gt;
+		
+		&lt;input type="text" name="aaa" value="Form内のテキストボックス"/&gt;<span class="ann">← フォーカスしてEnterキーを押すとsubmitが発動する</span>
+		&lt;input type="submit" name="submit1" value="TEST1"/&gt;
+	&lt;/form&gt;
+	&lt;input type="text" name="aaa2" value="Form外のテキストボックス"/&gt;<span class="ann">← フォーカスしてEnterキーを押してもsubmitは発動しない</span>
+	&lt;br&gt;
+	</code></pre>
+	
+	
+	<aside>検証：PHP 5.6</aside>
+	<time>2016-11-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-3" class="sec1" >
+	<h3>XML用の記号エスケープ関数 | escapeMarkForXML</h3>
+	
+	
+	<p>XML用の記号エスケープ関数のソースコード</p>
+	<pre>
+	/**
+	 * XML用の記号エスケープ関数
+	 * 
+	 * @note
+	 * 記号「 &amp;&lt;&gt;"' 」をXML用にエスケープする
+	 * 
+	 * @param any $data
+	 * @return エスケープ後のデータ
+	 */
+	function <strong>escapeMarkForXML</strong>($data){
+	
+		if(is_array($data)){
+			foreach ($data as $key =&gt; $v){
+				$data[$key] = escapeMarkForXML($v);
+			}
+			return $data;
+		}else{
+			if(gettype($data) == 'string'){
+				
+				$search = array('&amp;','&lt;','&gt;','"',"'");
+				$replace = array('&amp;amp;','&amp;lt;','&amp;gt;','&amp;quot;','&amp;apos;');
+				
+				$data = str_replace($search, $replace, $data);
+			}
+			return $data;
+		}
+	}
+	</pre>
+	<hr><br><br>
+	
+	
+	<p>エスケープ前</p>
+	<pre>
+		<b>array</b> <i>(size=2)</i>
+		  'neko' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'&lt;input /&gt;'</font> <i>(length=9)</i>
+		  0 <font color='#888a85'>=&gt;</font> 
+		    <b>array</b> <i>(size=3)</i>
+		      0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'&lt;&gt;&amp;&quot;&#39;'</font> <i>(length=5)</i>
+		      1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>122</font>
+		      2 <font color='#888a85'>=&gt;</font> 
+		        <b>array</b> <i>(size=2)</i>
+		          'dog' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'犬&quot;&gt;'</font> <i>(length=5)</i>
+		          'pig' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+	</pre>
+	<br>
+	
+	<p>エスケープ後</p>
+	<pre>
+	<b>array</b> <i>(size=2)</i>
+	  'neko' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'&amp;lt;input /&amp;gt;'</font> <i>(length=15)</i>
+	  0 <font color='#888a85'>=&gt;</font> 
+	    <b>array</b> <i>(size=3)</i>
+	      0 <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'&amp;lt;&amp;gt;&amp;amp;&amp;quot;&amp;apos;'</font> <i>(length=25)</i>
+	      1 <font color='#888a85'>=&gt;</font> <small>int</small> <font color='#4e9a06'>122</font>
+	      2 <font color='#888a85'>=&gt;</font> 
+	        <b>array</b> <i>(size=2)</i>
+	          'dog' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'犬&amp;quot;&amp;gt;'</font> <i>(length=13)</i>
+	          'pig' <font color='#888a85'>=&gt;</font> <font color='#3465a4'>null</font>
+	</pre>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-2-10</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-4" class="sec1" >
+	<h3>ファイルおよびディレクトリのパーミッション(属性）を変更する</h3>
+
+	
+	ディレクトリのパーミッションを777(読込、書込、実行らをすべて許可）
+	<pre>	chmod('animal/cat',0777);</pre>
+	<br>
+
+	ファイルのパーミッションを777に変更する場合
+	<pre>	chmod('animal/cat/buti-neko.png',0777);</pre>
+	<br>
+	
+	chmodの第2引数は8進数を指定しなければならない。<br>
+	0777の頭についている0は8進数であることを表している。<br>
+	0を省略して777にすると10進数になるのでバグになる。<br>
+	<br>
+
+	<a href="http://www.tku.ac.jp/iss/guide/web/blog/tipsweb/permission.html" class="btn btn-link" target="blank">パーミッションについて</a><br>
+	<br>
+	<aside>検証：PHP 5.3.3</aside>
+	<time>2017-2-21</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-5" class="sec1" >
+	<h3>ファイル存在チェック（フォルダと日本語名も検証）| is_file,file_exists</h3>
+
+	<a href="/sample/php/a010/file_existence_check/file_existence_check.php" class="btn btn-info">検証</a><br>
+	<br>
+	
+	ファイル存在チェックはis_file関数、またはfile_exists関数で可能である。<br>
+	いずれの関数もファイルが存在するなら1を返し、存在しないなら空を返す。<br>
+	<br>
+	
+	<p>is_fileとfile_existsの違い</p>
+	file_existsはファイルだけでなくフォルダの存在チェックができる。<br>
+	is_fileはフォルダ存在チェックはできないが、処理速度はfile_existsより速い。<br>
+	<br>
+	
+	
+	<p>サンプル</p>
+	<img src="img/note12/sec12-5.png" />
+	<pre>
+	echo is_file('sample/test1.png'); // → 1
+	echo file_exists('sample/test1.png'); // → 1
+	echo is_file('sample/test2/'); // → 空
+	echo file_exists('sample/test2/'); // → 1
+	</pre>
+	<br>
+	
+	<p>日本語のファイル名への対応</p>
+	is_fileとfile_existsに、そのまま日本語ファイル名（日本語フォルダ名）を渡しても、存在チェックできない。<br>
+	しかし、mb_convert_encodingで変換すれば存在チェックが可能になる。<br>
+	<pre>
+	$fp=mb_convert_encoding('sample/日本語.png', 'sjis', 'utf-8');
+	echo is_file($fp); // → 1
+	
+	$dp=mb_convert_encoding('sample/日本語フォルダ/', 'sjis', 'utf-8');
+	echo file_exists($dp); // → 1
+	</pre>
+	
+	
+	通常は上記の方法で良いが環境によっては、以下の方法で試すことができる。
+	<pre>	$fn=mb_convert_encoding($fn, 'sjis', 'utf-8,sjis,euc_jp,jis');</pre>
+	<br>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-2-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-6" class="sec1" >
+	<h3>データのグループ化</h3>
+
+	
+	
+	<pre><code>
+	&lt;?php 
+	$data = array(
+			array('id'=&gt;1,'kind_no'=&gt;1,'name'=&gt;'シリケンイモリ'),
+			array('id'=&gt;2,'kind_no'=&gt;2,'name'=&gt;'イシカワガエル'),
+			array('id'=&gt;3,'kind_no'=&gt;3,'name'=&gt;'タイワンカブト'),
+			array('id'=&gt;4,'kind_no'=&gt;2,'name'=&gt;'フロストガエル'),
+			array('id'=&gt;5,'kind_no'=&gt;2,'name'=&gt;'リュウキュウアカガエル'),
+			array('id'=&gt;6,'kind_no'=&gt;4,'name'=&gt;'リュウキュウアオバト'),
+			array('id'=&gt;7,'kind_no'=&gt;4,'name'=&gt;'ノグチゲラ'),
+			array('id'=&gt;8,'kind_no'=&gt;3,'name'=&gt;'ヤンバルテナガコガネ'),
+	);
+	
+	// データのグループ化
+	$data = dataGrouping($data,'kind_no');
+	
+	var_dump($data);
+	
+	
+	/**
+	 * データのグループ化
+	 *
+	 * @note
+	 * データをグループフィールドでグループ分けする。
+	 * グループ分けすることにより最初の2次元構造から3次元構造に変換される。
+	 *
+	 * @param array $data データ(2次元構造、エンティティの配列）
+	 * @param array $group_field グループフィールド
+	 * @return グループ化したデータ(3次元構造）
+	 */
+	function dataGrouping($data,$group_field){
+	
+		$data2 = array();
+	
+		foreach($data as $ent){
+			$group_value = $ent[$group_field];
+			if(empty($data2[$group_value])){
+				$data2[$group_value] = array();
+			}
+			$data2[$group_value][] = $ent;
+		}
+	
+		return $data2;
+	}
+	
+	?&gt;
+	</code></pre>
+	
+	<p>ダンプ出力</p>
+	<pre class="output_data">
+	array (size=4)
+	  1 => 
+	    array (size=1)
+	      0 => 
+	        array (size=3)
+	          'id' => int 1
+	          'kind_no' => int 1
+	          'name' => string 'シリケンイモリ' (length=21)
+	  2 => 
+	    array (size=3)
+	      0 => 
+	        array (size=3)
+	          'id' => int 2
+	          'kind_no' => int 2
+	          'name' => string 'イシカワガエル' (length=21)
+	      1 => 
+	        array (size=3)
+	          'id' => int 4
+	          'kind_no' => int 2
+	          'name' => string 'フロストガエル' (length=21)
+	      2 => 
+	        array (size=3)
+	          'id' => int 5
+	          'kind_no' => int 2
+	          'name' => string 'リュウキュウアカガエル' (length=33)
+	  3 => 
+	    array (size=2)
+	      0 => 
+	        array (size=3)
+	          'id' => int 3
+	          'kind_no' => int 3
+	          'name' => string 'タイワンカブト' (length=21)
+	      1 => 
+	        array (size=3)
+	          'id' => int 8
+	          'kind_no' => int 3
+	          'name' => string 'ヤンバルテナガコガネ' (length=30)
+	  4 => 
+	    array (size=2)
+	      0 => 
+	        array (size=3)
+	          'id' => int 6
+	          'kind_no' => int 4
+	          'name' => string 'リュウキュウアオバト' (length=30)
+	      1 => 
+	        array (size=3)
+	          'id' => int 7
+	          'kind_no' => int 4
+	          'name' => string 'ノグチゲラ' (length=15)
+	</pre>
+	
+	
+	
+	
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-3-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-7" class="sec1" >
+	<h3>ループにおける関数処理を高速化する</h3>
+	
+	ループ回数が多い状態で関数を呼び出すとき、注意しないとかなり低速になる。<br>
+	高速にするには関数の引数を参照渡し（ポインタ）にし、returnしないようにしなければならない。<br>
+	<br>
+	
+	ループ回数が少ないのであれば気にすることはない。<br>
+	ループ回数が多くなるほど違いは顕著にでてくる。<br>
+	<br>
+	
+
+	<p>低速</p>
+	<pre>
+	$list = array();
+	for($i=0;$i&lt;2000;$i++){
+		$list = func1($list,$i);
+	}
+	
+	function func1($list,$n){
+		$list[] = $n;
+		return $list;
+	}
+	</pre>
+	
+	処理にかかった時間（ミリ秒）
+	<pre class='output_data'>0.11400699615479</pre>
+	<hr>
+	
+	<p>高速</p>
+	<pre>
+	$list = array();
+	for($i=0;$i&lt;2000;$i++){
+		func2($list,$i);
+	}
+	
+	function func2(<strong>&amp;$list</strong>,$n){
+		$list[] = $n;
+	}
+	</pre>
+
+	処理にかかった時間（ミリ秒）
+	<pre class='output_data'>0.007000207901001</pre>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-4-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-8" class="sec1" >
+	<h3>最大実行時間が30秒の制限を解除する</h3>
+
+	初期の設定で30秒を超える処理を実行すると以下のエラーになる。<br>
+	「Maximum execution time of 30 seconds exceeded」<br>
+	php.iniで処理制限を解除する方法があるが、PHPソースコード中で制限を解除する方法も存在する。<br>
+	解除方法は簡単で以下の命令文を実行するだけである。<br>
+	<pre>	set_time_limit(0);</pre>
+	
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-9" class="sec1" >
+	<h3>ファイルパスやディレクトリパスからパスセパレータ（パス区切り）を取得する</h3>
+	
+	<pre><code>
+	$sep = <strong>getPathSeparator</strong>("C:\xampp\htdocs\hello-world");
+	var_dump($sep);// → 「\」
+	</code></pre>
+
+	<pre><code>
+	/**
+	 * ファイルパスやディレクトリパスからパスセパレータを取得する
+	 * @param string $path パス（ファイルパス、またはディレクトリパス）
+	 * @return パスセパレータ。   「/」か「\」
+	 */
+	function getPathSeparator($path){
+		if(empty($path)){
+			return DIRECTORY_SEPARATOR;
+		}
+		if(strpos($path,"/")!==false){
+			return "/";
+		}
+		if(strpos($path,"\\")!==false){
+			return "\\";
+		}
+		return DIRECTORY_SEPARATOR;
+		
+	}
+	</code></pre>
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-4-13</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-10" class="sec1" >
+	<h3>自作テンプレートエンジン　| コンテンツを文字列として取得</h3>
+
+	ファイル構成
+	<ul>
+	<li>demo.php</li>
+	<li>template.php</li>
+	</ul>
+	
+	<p>demo.php</p>
+	<pre><code>
+	&lt;?php
+	$param['neko'] = 'cat';
+	$param['inu'] = 'dog';
+	echo render($param);
+	
+	function render($params){
+		extract($params);
+		ob_start();
+	
+		include "template.php";
+		$html = ob_get_contents();
+		ob_end_clean();
+	
+		return $html;
+	}
+	</code></pre>
+	<br>
+	
+	<p>template.php</p>
+	<pre><code>
+	&lt;h1&gt;テンプレート1&lt;/h1&gt;
+	いろはにほへとちりぬるをわかよたれそつねならむ&lt;br&gt;
+	&lt;?php echo $neko;?&gt;&lt;br&gt;
+	&lt;?php echo $inu;?&gt;&lt;br&gt;
+	&lt;br&gt;
+	
+	&lt;?php
+	echo "echo test";
+	?&gt;
+	
+	&lt;script&gt;
+	console.log('script test');//■■■□□□■■■□□□■■■□□□
+	&lt;/script&gt;	
+	</code></pre>
+	<br>
+	
+	
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-5-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec12-0" class="sec1" style="display: none">
+	<h3>xxx</h3>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time></time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+</div><!-- content -->
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php">PHPの覚書</a></li>
+</ol>
+<div id="footer">(C) kenji uehara 2016-7-11</div>
+</body>
+</html>

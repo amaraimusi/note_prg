@@ -1,0 +1,172 @@
+ローカル環境でSSLに対応させる | XAMPP
+参考資料
+	1ページ
+	http://lilium.7thheavenblue.com/web_environment/openssl/
+
+	2ページ
+	http://lilium.7thheavenblue.com/web_environment/virtualhost/
+
+開発環境でもhttps://から始まるSSLに対応したページをテストできるようにします。
+
+ローカル環境の情報
+XAMPP 1.8.2
+PHP  5.4.19
+Windows7 64bit
+
+おおまかな手順
+
+OpenSSLのインストール
+OpenSSLでテスト用のサーバー証明書（3種類のファイル）を発行します。
+XAMPP内のapacheに上記で発行した3種類のファイルを配置します。
+apacheの設定ファイルの１つであるhttpd-ssl.confを編集します。
+apacheを再起動して完了です。
+
+
+１．OpenSSLのインストール
+OpenSSLを公式サイトであるShining Light Productionsからダウンロードします。http://slproweb.com/products/Win32OpenSSL.html
+当PC環境はWindows7 64ビットオペレーションシステムですので「Win64 OpenSSL v1.0.1i Light」をダウンロードしました。
+ダウンロードしたファイルをダブルクリックでインストールします。
+インストーラー中での選択項目は特にさわる必要はありませんが、インストール先だけは確認しておきます。
+インストール先がデフォルトで「C:\OpenSSL-Win64」となっていたので、そのままそこへインストールしました。
+
+２．OpenSSLでテスト用のサーバー証明書（3種類のファイル）を発行します。
+サーバー証明書はコマンドプロンプトを使ってkey,s
+その前に、システム環境変数に変数の設定を行います。
+環境変数を設定する画面は、Windows7の場合、
+スタートメニュー　→　コンピューター　→　「システムのプロパティ」タブ　→　システムの詳細設定　→　「詳細設定」タブ　→　「環境変数」で開きます。
+下段側のシステム環境変数のリストから、Pathをダブルクリックします。
+そして、入力している文字列の末尾に「;C:\OpenSSL-Win64」を付け足します。
+次に、システム環境変数の新規ボタンから、変数名を「OPENSSL_CONF」、変数値に「C:\OpenSSL-Win64\bin\openssl.cfg」を追加します。
+OKを押して環境変数の画面を閉じます。
+
+コマンドプロンプトを起動させます。
+任意のディレクトリに移動します。今回はCドライブ直下にtanukiフォルダを作成したので、そこをカレントにします。（サーバ証明書ファイルを出力するだけの場所です。あとでコピペで移動するのでどこでもよい。）
+cd c:\test
+
+以下のコマンドプロンプトで秘密鍵を出力します。
+openssl md5 * > rand.dat
+※「Permission denied」というメッセージが出て失敗してもとりあえず以下の作業に進むことができるようである。
+
+
+サーバー証明書を構成するファイルの１つめkeyファイルを発行すため以下のコマンドを入力します。今回、keyファイルはtanuki.keyとしています。
+openssl genrsa -rand rand.dat -des3 -out tanuki.key 2048
+
+「Enter pass phrase for tanuki.key:」と出るで任意のパスワードを入力します。入力しても文字は表示されませんが入力されています。パスワードは下記のいくつかの処理で使いますので覚えていてください。
+もう一度同じパスワードを入力します。
+
+すると「C:\tanuki」フォルダの中にtanuki.keyファイルができています。
+
+
+次はcsrファイルを発行します。今回はtanuki.csrという名前にします。
+openssl req -new -key tanuki.key -out tanuki.csr
+パスワードの入力が求められるので先のパスワードを入力します。
+
+地域名など、いくつかの入力が求められます。以下のような感じで適当に入力します。
+Country Name(2 letter code)[AU]:JP
+State or Province Name (full name) [Some-State]:Okinawa
+Locality Name (eg, city) []:motobu
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:tanuki
+Organizational Unit Name (eg, section) []:tanuki
+Common Name (e.g. server FQDN or
+Email Address []:（未入力でEnter)
+
+Please enter the following 'extr
+to be sent with your certificate
+A challenge password []:（未入力でEnter)
+An optional company name []:（未入力でEnter)
+
+csrファイルができあがります。
+
+
+最後の3つ目であるcrtファイルを発行します。ファイル名はtanuki.crtとします。
+openssl x509 -req -days 3650 -sha1 -in tanuki.csr -signkey tanuki.key -out tanuki.crt
+パスワードの入力が求められるので上記と同様にパスワードを入力します。
+
+tanuki.crtファイルがC:\tanukiにできあがります。
+
+以上でサーバー証明書の発行は終わりです。続いてApacheの設定に移ります。
+
+httpd-ssl.confを開きます。
+	XAMPPをインストールしたフォルダ→xampp\apache\conf\extra\httpd-ssl.conf
+
+<VirtualHost _default_:443>となっている箇所を以下のように修正。
+<VirtualHost *:443>
+
+
+以下を修正
+DocumentRoot "C:/web/pleiades/xampp/htdocs/"
+SSLCertificateFile "conf/ssl.crt/tanuki.crt"
+SSLCertificateKeyFile "conf/ssl.key/tanuki.key"
+
+※下記の「補足資料httpd-ssl.confの設定例」を参照してください。
+
+Apache再起動
+
+
+
+
+Chromeにサーバー証明書を登録
+設定→詳細設定→証明書の管理→信頼されたルート証明機関タブ→インポート→tanuki.crtファイルを選択
+
+
+
+
+
+
+
+◇補足資料httpd-ssl.confの設定例（複数ドメインに対応）
+
+Listen 443
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+SSLPassPhraseDialog  builtin
+SSLSessionCache "shmcb:C:/web/pleiades/xampp/apache/logs/ssl_scache(512000)"
+SSLSessionCacheTimeout  300
+
+<VirtualHost localhost-okiraku-portal:443>
+
+DocumentRoot "C:/web/pleiades/xampp/htdocs/okiraku-portal"
+
+SSLEngine on
+SSLCertificateFile "conf/ssl.crt/okiraku.crt"
+SSLCertificateKeyFile "conf/ssl.key/okiraku.key"
+
+<FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+</FilesMatch>
+<Directory "C:/web/pleiades/xampp/apache/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+</VirtualHost>
+
+<VirtualHost localhost_diving:443>
+
+DocumentRoot "C:/web/pleiades/xampp/htdocs/diving"
+
+SSLEngine on
+SSLCertificateFile "conf/ssl.crt/okiraku.crt"
+SSLCertificateKeyFile "conf/ssl.key/okiraku.key"
+
+<FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
+</FilesMatch>
+<Directory "C:/web/pleiades/xampp/apache/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+</VirtualHost>
+
+BrowserMatch "MSIE [2-5]" \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+
+CustomLog "C:/web/pleiades/xampp/apache/logs/ssl_request.log" \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+
+
+
+
+
+
+

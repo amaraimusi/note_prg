@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPの覚書：文字列操作</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<!-- ソースコードをハイライト表示する -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書：文字列操作</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>文字数を取得</h3>
+
+	ソースコード
+	<pre><code>
+	$len=<strong>mb_strlen</strong>("いろはにほ");
+	var_dump($len);
+	</code></pre>
+	<br>
+	
+	var_dump出力
+	<pre class="output_data"><code>	int 5</code></pre>
+	<br>
+	
+	<br><time>2016-7-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>対象文字列に検索文字列が存在するかチェック</h3>
+	
+	strposは対象文字列の中で検索文字列が最初に現れる位置を出力する関数。<br>
+	preg_match関数とstrstr関数よりも速い。<br>
+	<br>
+	
+	<pre><code>
+	if(<strong>strpos</strong>('ヤンバルクイナX','クイナ')!==false){
+		echo '存在する';
+	}
+	</code></pre>
+	<br>
+	
+	<br><time>2016-7-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>先頭の一文字を取得 | 先頭のn文字</h3>
+
+	先頭の一文字を取得
+	<pre><code>
+	$str=mb_substr('あいうえお',<strong>0,1</strong>);
+	var_dump($str);	
+	</code></pre>
+	<br>
+	
+	var_dump出力
+	<pre class="output_data"><code>	string 'あ' (length=3)</code></pre>
+	<br><hr>
+	
+	
+	
+	
+	先頭の3文字を取得
+	<pre><code>
+	$str=mb_substr('あいうえお',<strong>0,3</strong>);
+	var_dump($str);	
+	</code></pre>
+	<br>
+	
+	var_dump出力
+	<pre class="output_data"><code>	string 'あいう' (length=9)</code></pre>
+	<br>
+	
+	
+	
+	<br><time>2016-7-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4">
+	<h3>末尾の一文字を取得 | 末尾のn文字</h3>
+
+
+	末尾の一文字を取得
+	<pre><code>
+	$str=mb_substr('あいうえお',<strong>-1</strong>);
+	var_dump($str);	
+	</code></pre>
+	<br>
+	
+	var_dump出力
+	<pre class="output_data"><code>	string 'お' (length=3)</code></pre>
+	<br><hr>
+	
+	
+	
+	
+	末尾の3文字を取得
+	<pre><code>
+	$str=mb_substr('あいうえお',<strong>-3</strong>);
+	var_dump($str);	
+	</code></pre>
+	<br>
+	
+	var_dump出力
+	<pre class="output_data"><code>	string 'うえお' (length=9)</code></pre>
+	<br>
+
+	
+	<br><time>2016-7-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-5-1" class="sec4">
+	<h3>文字列を左側から印文字を検索し、左側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	&lt;?php 
+	$str = "赤いキツネと緑のキツネはうどんではない。";
+	$str2 = stringLeft($str,'キツネ');
+	echo $str.'&lt;br&gt;';
+	echo $str2.'&lt;br&gt;';
+	
+	/**
+	 * 文字列を左側から印文字を検索し、左側の文字を切り出す。
+	 * @param $s 対象文字列
+	 * @param $mark 印文字
+	 * @return 印文字から左側の文字列
+	 */
+	function stringLeft($s,$mark){
+	
+		if ($s==null || $s==""){
+			return $s;
+		}
+		$a=strpos($s,$mark);
+		if($a==null &amp;&amp; $a!==0){
+			return "";
+		}
+		$s2=substr($s,0,$a);
+		return $s2;
+	}
+	?&gt;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	赤いキツネと緑のキツネはうどんではない
+	赤い
+	</pre>
+	<br>
+
+	<br><time>2016-7-27 | 2016-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-5-2" class="sec4">
+	<h3>文字列を左側から印文字を検索し、右側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	$str = "赤いキツネと緑のキツネはうどんではない。";
+	$str2 = stringRight($str,'キツネ');
+	echo $str.'&lt;br&gt;';
+	echo $str2.'&lt;br&gt;';
+	
+	/**
+	 * 文字列を左側から印文字を検索し、右側の文字を切り出す。
+	 * @param $s 対象文字列
+	 * @param $mark 印文字
+	 * @return 印文字から右側の文字列
+	 */
+	function stringRight($s,$mark){
+		if ($s==null || $s==""){
+			return $s;
+		}
+		
+		$a=strpos($s,$mark);
+		if($a==null &amp;&amp; $a!==0){
+			return "";
+		}
+		$s2=substr($s,$a + strlen($mark),strlen($s));
+		return $s2;
+	}
+	?&gt;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	赤いキツネと緑のキツネはうどんではない
+	と緑のキツネはうどんではない
+	</pre>
+	<br>
+	
+	<br><time>2016-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-5-3" class="sec4">
+	<h3>文字列を右側から印文字を検索し、左側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	&lt;?php 
+	$str = "赤いキツネと緑のキツネはうどんではない。";
+	$str2 = stringLeftRev($str,'キツネ');
+	echo $str.'&lt;br&gt;';
+	echo $str2.'&lt;br&gt;';
+	
+	/**
+	 * 文字列を右側から印文字を検索し、左側の文字を切り出す。
+	 * @param $s 対象文字列
+	 * @param $mark 印文字
+	 * @return 印文字から左側の文字列
+	 */
+	function stringLeftRev($s,$mark){
+
+		if ($s==null || $s==""){
+			return $s;
+		}
+		$a = strrpos($s,$mark);
+		if($a==null &amp;&amp; $a!==0){
+			return "";
+		}
+		$s2=substr($s,0,$a);
+		return $s2;
+		
+	}
+	?&gt;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	赤いキツネと緑のキツネはうどんではない。
+	赤いキツネと緑の
+	</pre>
+	<br>
+	
+
+	<br><time>2016-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-5-4" class="sec4">
+	<h3>文字列を右側から印文字を検索し、右側の文字を切り出す</h3>
+	
+	ソースコード
+	<pre><code>
+	&lt;?php 
+	$str = "赤いキツネと緑のキツネはうどんではない。";
+	$str2 = stringRightRev($str,'キツネ');
+	echo $str.'&lt;br&gt;';
+	echo $str2.'&lt;br&gt;';
+	
+	/**
+	 * 文字列を右側から印文字を検索し、右側の文字を切り出す。
+	 * @param $s 対象文字列
+	 * @param $mark 印文字
+	 * @return 印文字から右側の文字列
+	 */
+	function stringRightRev($s,$mark){
+		if ($s==null || $s==""){
+			return $s;
+		}
+	
+		$a = strrpos($s,$mark);
+		if($a==null &amp;&amp; $a!==0){
+			return "";
+		}
+		$s2=substr($s,$a + strlen($mark),strlen($s));
+
+		return $s2;
+	}
+	?&gt;
+	</code></pre>
+	<br>
+	
+	出力
+	<pre class="output_data">
+	赤いキツネと緑のキツネはうどんではない。
+	はうどんではない。
+	</pre>
+	<br>
+	
+	<br><time>2016-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-6-1" class="sec4">
+	<h3>末尾の一文字を削る</h3>
+
+	ソースコード
+	<pre><code>
+	$str_a="いろはにほ";
+	$str=mb_substr($str_a,0,mb_strlen($str_a)-1);
+	echo $str;
+	</code></pre>
+	<br>
+	
+	echo出力
+	<pre class="output_data">	いろはに</pre>
+	<br>
+	
+	<br><time>2016-7-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-6-2" class="sec4">
+	<h3>先頭の一文字を削る</h3>
+
+	ソースコード
+	<pre><code>
+	$str = mb_substr('大タヌキ',1); // 先頭の一文字を削る→タヌキ
+	</code></pre>
+	<br>
+	
+	
+	<br><time>2017-5-31</time>
+</div>
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-7" class="sec4">
+	<h3>文字幅を適当に切りそろえる(文字丸め） | mb_strimwidth</h3>
+
+	mb_strimwidth関数を使えば長い文字を切りそろえることができる。<br>
+	全角は2文字として数えられるため、見た目の長さを揃えたいときに便利。<br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	echo mb_strimwidth("いろはにほへとちりぬのをわかよたれそつねならむ", 0, 10, "...");
+	echo mb_strimwidth("Over the mountains, far to travel, people say, Happiness dwells", 0, 10, "...");
+	</code></pre>
+	<br>
+	
+	echo出力
+	<pre class="output_data">
+	いろは...
+	Over th...
+	</pre>
+	<br>
+	
+
+	
+	<br><time>2016-7-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-8" class="sec4" >
+	<h3>先頭を大文字にする</h3>
+
+	サンプル
+	<pre><code>
+	$hoge = <strong>ucfirst</strong>('neko');
+	echo $hoge; // → Neko
+	</code></pre>
+	<br>
+	
+	応用
+	<pre><code>
+	$tblName="nekos";
+	$tblName = mb_substr($tblName,0,mb_strlen($tblName)-1);
+	$tblName = ucfirst($tblName);
+	echo $tblName;// → Neko
+	</code></pre>
+	<br>
+	
+	
+	
+	<br><time>2016-7-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9" class="sec4" >
+	<h3>2つの印文字に挟まれた文字を取得する</h3>
+	
+	<p>ソースコード</p>
+	<pre><code>
+	$text = "XXテスト漢字ネコテストAAA";
+	
+	$str1 = getHasami($text,'漢字','テスト');
+	var_dump($str1);
+	
+	
+	/**
+	 * 2つの印文字に挟まれた文字を取得する
+	 * @param string $targetStr 対象文字列
+	 * @param string $mark1 印文字1
+	 * @param string $mark2 印文字2
+	 * @return 印文字1と印文字2に挟まれた文字列
+	 */
+	function getHasami($targetStr,$mark1,$mark2){
+		
+		$a1 = mb_strpos($targetStr,$mark1) + mb_strlen($mark1);
+		$a2 = mb_strpos($targetStr,$mark2,$a1);
+	
+		$hasami = mb_substr($targetStr,$a1,$a2-$a1);
+		
+		return $hasami;
+	}
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data"><code>
+	string 'ネコ' (length=6)
+	</code></pre>
+	
+	<br><time>2016-8-23</time>
+	
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-10" class="sec4" >
+	<h3>2つの印文字に挟まれた文字を置換する</h3>
+	
+	
+	<p>ソースコード</p>
+	<pre><code>
+	$text = "XXテスト漢字ネコテストAAA";
+	
+	$str2 = replaceHasami($text,'漢字','テスト','abc');
+	var_dump($str2);
+	
+	
+	/**
+	 * 2つの印文字に挟まれた文字を置換する
+	 * @param string $targetStr 対象文字
+	 * @param string $mark1 印文字1
+	 * @param string $mark2 印文字2
+	 * @param string $replaceStr 置き換え文字
+	 * @return 置換後の文字
+	 * 
+	 * @note
+	 * 印文字が対象文字に存在しない場合は、置換は行わず、対象文字をそのまま返す。
+	 */
+	function replaceHasami($targetStr,$mark1,$mark2,$replaceStr){
+		
+		if(empty($targetStr)){
+			return $targetStr;
+		}
+		
+		$a1 = mb_strpos($targetStr,$mark1);
+		if($a1===false){
+			return $targetStr;
+		}
+	
+		$markLen1 = mb_strlen($mark1);
+		$s1 = mb_substr($targetStr,0,$a1 + $markLen1);
+		
+		$targetStrLen = mb_strlen($targetStr);
+		$s2 = mb_substr($targetStr,$a1 + $markLen1);
+		
+		$a2 = mb_strpos($s2,$mark2);
+		if($a2===false){
+			return $targetStr;
+		}
+		$s2 = mb_substr($s2,$a2);
+		
+		$s3 = $s1.$replaceStr.$s2;
+	
+		return $s3;
+	}
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data"><code>
+	string 'XXテスト漢字abcテストAAA' (length=32)
+	</code></pre>
+	
+	<br><time>2016-8-23</time>
+	
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sxxx" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br>
+	
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+	<li>PHPの覚書：文字列操作</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-7-27</div>
+</body>
+</html>

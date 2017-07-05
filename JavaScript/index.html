@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>JavaScriptの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書</h1></div>
+<div class="container">
+
+		
+<h2 id="public">目次</h2>
+<ul>
+	<li><a href="#public_note">一般</a></li>
+	<li><a href="#string_note_index">文字列操作</a></li>
+	<li><a href="#array_note_index">配列</a></li>
+	<li><a href="#jquery_note">jQuery</a></li>
+	<li><a href="#unify_elm_index">要素関連の一律化</a></li>
+	<li><a href="#validation_index">バリデーション</a></li>
+	<li><a href="#original_library_index">オリジナルライブラリ</a></li>
+	<li><a href="note_openid_connect.html">OpenID Connect によるログイン認証</a></li>
+	<li><a href="#file_upload_index">ファイルアップロード</a></li>
+	<li><a href="#file_binary_index">ファイルとバイナリデータの扱い</a></li>
+	<li><a href="#canvas_index">Canvasの覚書</a></li>
+	<li><a href="#es2015_index">ES2015(ES6)の目次</a></li>
+	<li><a href="#panel_index">パネル</a></li>
+</ul>
+<hr>
+
+<h2 id="public_note">一般</h2>
+<ol>
+	<li><a href="note.html#sec1-0-1" >空判定関数</a></li>
+	<li><a href="note.html#sec1-1" >デバッグ方法</a></li>
+	<li><a href="note.html#sec1-2" >メモリ解放の方法</a></li>
+	<li><a href="note.html#sec1-3" >チェックボックスにチェックを入れる方法</a></li>
+	<li><a href="note.html#sec1-4" >数値を文字列化する</a></li>
+	<li><a href="note.html#sec1-5" >文字列を数値化する</a></li>
+	<li><a href="note.html#sec1-6" >文字列を検索し、その位置を取得</a></li>
+	<li><a href="note.html#sec1-7" >極小値と極大値（Number.MIN_VALUE、Number.MAX_VALUE）</a></li>
+	<li><a href="note.html#sec1-8" >覚書：連想配列（オブジェクト）に要素を追加</a></li>
+	<li><a href="note.html#sec1-10" >filter（フィルター）の使い方</a></li>
+	<li><a href="note.html#sec1-11" >SELECTのオプション要素にリストの値をセットする</a></li>
+	<li><a href="note2.html#sec2-1" >重複チェックをfilterで行う</a></li>
+	<li><a href="note2.html#sec2-2" >JSON文字列化とパース</a></li>
+	<li><a href="note2.html#sec2-3" >2次元配列の行列を入替</a></li>
+	<li><a href="note2.html#sec2-4" >2次元配列の重複チェック</a></li>
+	<li><a href="note2.html#sec2-5" >サブミットのキャンセルと注意点</a></li>
+	<li><a href="note2.html#sec2-6" >連想配列から最初のキーを取得</a></li>
+	<li><a href="note2.html#sec2-7" >Chromeでクッキーを確認する方法</a></li>
+	<li><a href="note2.html#sec2-8" >文字列を配列化する</a></li>
+	<li><a href="note2.html#sec2-9" >連想配列（オブジェクト）の要素数を取得する方法</a></li>
+	<li><a href="note2.html#sec2-10" >JSファイルを非同期で読み込む | async属性の挙動実験  | &lt;script async&gt;</a></li>
+	<li><a href="note3.html#sec3-1" >HTML(JS)だけでCSVファイルをダウンロード</a></li>
+	<li><a href="note3.html#sec3-2" >BPG画像ファイルを表示する | bpgdec8b.js</a></li>
+	<li><a href="note3.html#sec3-3" >JSでリロード | location.reload(true);</a></li>
+	<li><a href="note3.html#sec3-4" >メールアドレスからドメインを採取する関数</a></li>
+	<li><a href="note3.html#sec3-5" >連想配列の存在確認</a></li>
+	<li><a href="note3.html#sec3-6" >IE8で使えない関数と代替手段 |trim,indexof,onchange</a></li>
+	<li><a href="note3.html#sec3-7" >数値を2桁固定の文字列にする。(例 3→03)</a></li>
+	<li><a href="note3.html#sec3-9" >オブジェクト（連想配列）の件数を取得する</a></li>
+	<li><a href="note3.html#sec3-10" >jqPlotグラフのダウンロード</a></li>
+	<li><a href="note4.html#sec4-1" >img要素の画像をcanvas要素にコピー</a></li>
+	<li><a href="note4.html#sec4-2" >画像ファイルを直接canvas要素へ書き出す</a></li>
+	<li><a href="note4.html#sec4-3" >ローカルストレージとセッションストレージ | localStorage,sessionStorage</a></li>
+	<li><a href="note4.html#sec4-4" >現在のURLからドメイン部分を抜き出す</a></li>
+	<li><a href="note4.html#sec4-5" >プルダウンメニュー</a></li>
+	<li><a href="note4.html#sec4-6" >URLのサニタイズ | url sanitize</a></li>
+	<li><a href="note4.html#sec4-7" >連想配列（オブジェクト）から指定キーとそのデータを削除する</a></li>
+	<li><a href="note4.html#sec4-8" >ファイル名から拡張子を取得する</a></li>
+	<li><a href="note4.html#sec4-10" >XSSサニタイズ</a></li>
+	<li><a href="note4.html#sec4-11" >改行コードをBRタグに変換する</a></li>
+	<li><a href="note5.html#sec5-1" >JSONからHTMLテーブルを生成する | JsonToTable.js</a></li>
+	<li><a href="note5.html#sec5-3" >カラーピッカー.jsの使い方 | cpick.js</a></li>
+	<li><a href="note5.html#sec5-4" >スレッドやタイマーのように間隔をあけて定期的に処理を行う | setInterval</a></li>
+	<li><a href="note5.html#sec5-6" >現在日時、現在日付、現在時刻を取得する</a></li>
+	<li><a href="note5.html#sec5-7" >UNIXタイムスタンプと日時を相互変換</a></li>
+	<li><a href="note5.html#sec5-8" >置換と全置換 | replace</a></li>
+	<li><a href="note5.html#sec5-9" >cssをJavaScritで切り替える</a></li>
+	<li><a href="note6.html#sec6-1" >JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする代替案</a></li>
+	<li><a href="note6.html#sec6-2" >ワーカーログクラス | LogForWorker</a></li>
+	<li><a href="note6.html#sec6-3" >文字列から記号を取り除く</a></li>
+	<li><a href="note6.html#sec6-4" >URLからホスト・ドメインを取得する</a></li>
+	<li><a href="note6.html#sec6-5" >JavaScriptでサブミットする</a></li>
+	<li><a href="note6.html#sec6-6" >テキストエリアに貼り付けたExcelデータをJSONコード化する</a></li>
+	<li><a href="note6.html#sec6-7" >数値範囲入力のUI noUiSlider</a></li>
+	<li><a href="note6.html#sec6-8" >livipage.js | ページ内リンク先プレビュー</a></li>
+	<li><a href="note6.html#sec6-9" >URLエンコード | encodeURIComponent</a></li>
+	<li><a href="note6.html#sec6-10" >印文字から左側および右側の文字を切り出す</a></li>
+	<li><a href="note7.html#sec7-3" >選択状態のテキストを取得 | jQuery.selection</a></li>
+	<li><a href="note7.html#sec7-4" >テキストエリア内にて選択状態のテキストを取得 | jQuery.selection</a></li>
+	<li><a href="note7.html#sec7-5" >テキストエリアにアンドゥ機能とリドゥ機能を組み込むundo_a.js  | Undo,Redo</a></li>
+	<li><a href="note7.html#sec7-6" >正規表現</a></li>
+	<li><a href="note7.html#sec7-7" >JavaScriptでクラスを実現する</a></li>
+	<li><a href="note7.html#sec7-7-2" >JavaScriptのクラス | その2</a></li>
+	<li><a href="note7.html#sec7-7-3" >JavaScriptのクラス | その3</a></li>
+	<li><a href="note7.html#sec7-8" >基本クラスの継承</a></li>
+	<li><a href="note7.html#sec7-9" >HTMLファイル（自身）の更新日を取得</a></li>
+	<li><a href="note7.html#sec7-10" >テキストエリアの全選択</a></li>
+	<li><a href="note8.html#sec8-1" >テキストエリアの部分範囲選択</a></li>
+	<li><a href="note8.html#sec8-2" >要素内のコンテンツをPDF変換する | jsPDF</a></li>
+	<li><a href="note8.html#sec8-3" >テキストエリア内でタブ入力する | tab_input_k.js</a></li>
+	<li><a href="note8.html#sec8-4" >2つの日付の日数差</a></li>
+	<li><a href="note8.html#sec8-4-2" >日数差を適切な単位（年月日時分秒のいずれか）で返す</a></li>
+	<li><a href="note8.html#sec8-6" >URLクエリを取得する | GETパラメータ</a></li>
+	<li><a href="note8.html#sec8-7" >約時変換 | UNIXタイムスタンプから適切な単位（年月日時分秒のいずれか）で返す</a></li>
+	<li><a href="note8.html#sec8-8" >SimpleAjaxFormK.js | Ajax簡易入力フォーム</a></li>
+	<li><a href="note8.html#sec8-9" >SectionEditK.js | div内の節文を編集可能にし、その節文をAjaxで送受信する</a></li>
+	<li><a href="note8.html#sec8-10" >アップロードJPEGファイルからExifを取得 | jquery.exif.js</a></li>
+	<li><a href="note8.html#sec8-11" >サーバー上のjpegからExif情報を取得 | jquery.exif.js</a></li>
+	<li><a href="note9.html#sec9-1" >Yahooキーフレーズ</a></li>
+	<li><a href="note9.html#sec9-2" >WikipediaのAPIをajaxで利用する | MediaWiki API</a></li>
+	<li><a href="note9.html#sec9-3" >変数の型を調べる | typeof</a></li>
+	<li><a href="note9.html#sec9-4" >文字列から先頭の１文字を取得する</a></li>
+	<li><a href="note9.html#sec9-4-2" >先頭の一文字を削除する</a></li>
+	<li><a href="note9.html#sec9-5" >文字列から末尾の１文字を取得する</a></li>
+	<li><a href="note9.html#sec9-5-2" >末尾の一文字を削除する</a></li>
+	<li><a href="note9.html#sec9-6" >連想配列内のデータをまとめてXSSサニタイズ</a></li>
+	<li><a href="note9.html#sec9-7" >オブジェクト型データのダンプを取得</a></li>
+	<li><a href="note9.html#sec9-8" >指定個数のタブスペースを作成する関数</a></li>
+	<li><a href="note9.html#sec9-9" >プロトコルおよびホスト名を取得 | location</a></li>
+	<li><a href="note9.html#sec9-10" >まとめて変数宣言</a></li>
+	<li><a href="note10.html#sec10-1" >return function | 無名関数を返す</a></li>
+	<li><a href="note10.html#sec10-2" >正規表現 if文の省略記法</a></li>
+	<li><a href="note10.html#sec10-3" >CakePHPのユーザー認証状態をAjaxで取得する</a></li>
+	<li><a href="note10.html#sec10-4" >編集モードと一般モードの切替関数</a></li>
+	<li><a href="note10.html#sec10-7" >非同期で実行する | setTimeout</a></li>
+	<li><a href="note10.html#sec10-8" >文字列を日時にパース</a></li>
+	<li><a href="note10.html#sec10-9" >スネーク記法をキャメル記法に変換する</a></li>
+	<li><a href="note10.html#sec10-10" >キャメル記法をスネーク記法に変換する</a></li>
+	<li><a href="note11.html#sec11-1" >画像を重ねて表示</a></li>
+	<li><a href="note11.html#sec11-2" >画像を重ねて表示 | 文字も重ねる</a></li>
+	<li><a href="note11.html#sec11-3" >画像を重ねて、1枚の画像としてIMG要素に表示</a></li>
+	<li><a href="note11.html#sec11-4" >画像を重ねて、1枚の画像としてダウンロードする</a></li>
+	<li><a href="note11.html#sec11-5" >画像を重ねて、1枚の画像としてダウンロードする | ファイル名指定可能</a></li>
+	<li><a href="note11.html#sec11-6" >画像を重ねて、1枚の画像とし、Ajaxでサーバーに送信する</a></li>
+	<li><a href="note11.html#sec11-7" >TableDataK.js | テーブル要素からフィールドを指定してデータを取得する</a></li>
+	<li><a href="note11.html#sec11-8" >カテゴリ連動型SELECT | CSelectLinkage.js</a></li>
+	<li><a href="note11.html#sec11-9" >ラジオボタンのイベント挙動を調査</a></li>
+	<li><a href="note11.html#sec11-10" >ラジオボタンを扱いやすくする方法 | ラジオボタンをhidden要素と連動する</a></li>
+	<li><a href="note11.html#sec11-11" >ラジオボタンをhidden要素と連動する | リフレッシュ</a></li>
+	<li><a href="note11.html#sec11-12" >name属性名とvalueを指定してラジオボタンにチェックを入れる</a></li>
+	<li><a href="note12.html#sec12-1" >親要素からフィールドリストを指定してエンティティを取得する | GetEntityFromParent.js</a></li>
+	<li><a href="note12.html#sec12-2" >ファイルのソースコードを表示する</a></li>
+	<li><a href="note12.html#sec12-3" >onkeypress属性、onkeydown属性、onkeyup属性を組み込める要素</a></li>
+	<li><a href="note12.html#sec12-5" >データを指定キーでソートする</a></li>
+	<li><a href="note12.html#sec12-6" >エンティティリスト型のデータからHTMLテーブルを生成</a></li>
+	<li><a href="note12.html#sec12-7" >テーブルの行を入れ替えることによる並べ替え | ExchangeTr.js</a></li>
+	<li><a href="note12.html#sec12-8" >複数選択SELECTと選択順でデータ取得</a></li>
+	<li><a href="note12.html#sec12-9" >Ajax送信データの実体参照エスケープ</a></li>
+	<li><a href="note12.html#sec12-10" >要素オブジェクトから自分自身のタグを含めたHTMLコードを吐き出す</a></li>
+	<li><a href="note13.html#sec13-1" >ファイル存在チェック</a></li>
+	<li><a href="note13.html#sec13-2" >文字列を末尾から置換する</a></li>
+	<li><a href="note13.html#sec13-3" >一意値（ユニーク値）を取得する</a></li>
+	<li><a href="note13.html#sec13-4" >関数の存在チェック</a></li>
+	<li><a href="note13.html#sec13-5" >文字列の関数名を実行する（evalを使わない）</a></li>
+	<li><a href="note13.html#sec13-7" >データのグループ化</a></li>
+	<li><a href="note13.html#sec13-8" >文字列の関数名が存在するかチェックする | evalは使わない</a></li>
+	<li><a href="note13.html#sec13-9" >ImportFu.js | インポートに特化したファイルアップロード</a></li>
+
+</ol>
+<hr>
+
+
+<h2 id="string_note_index">文字列操作</h2>
+<ol>
+	<li><a href="note.html#sec1-4" >数値を文字列化する</a></li>
+	<li><a href="note.html#sec1-5" >文字列を数値化する</a></li>
+	<li><a href="note.html#sec1-6" >文字列を検索し、その位置を取得</a></li>
+	<li><a href="note2.html#sec2-8" >文字列を配列化する</a></li>
+	<li><a href="note3.html#sec3-7" >数値を2桁固定の文字列にする。(例 3→03)</a></li>
+	<li><a href="note6.html#sec6-3" >文字列から記号を取り除く</a></li>
+	<li><a href="note9.html#sec9-4" >文字列から先頭の１文字を取得する</a></li>
+	<li><a href="note9.html#sec9-4-2" >先頭の一文字を削除する</a></li>
+	<li><a href="note9.html#sec9-5" >文字列から末尾の１文字を取得する</a></li>
+	<li><a href="note9.html#sec9-5-2" >末尾の一文字を削除する</a></li>
+	<li><a href="note10.html#sec10-8" >文字列を日時にパース</a></li>
+	<li><a href="string_note.html#sec1-1" >2つの印文字に挟まれた文字列を取得する</a></li>
+	<li><a href="string_note.html#sec1-2" >文字列を左側から印文字を検索し、左側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-3" >文字列を左側から印文字を検索し、右側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-4" >文字列を右側から印文字を検索し、左側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-5" >文字列を右側から印文字を検索し、右側の文字を切り出す</a></li>
+</ol>
+<hr>
+
+
+<h2 id="array_note_index">配列</h2>
+<ol>
+	<li><a href="note.html#sec1-8" >連想配列（オブジェクト）に要素を追加</a></li>
+	<li><a href="note2.html#sec2-3" >2次元配列の行列を入替</a></li>
+	<li><a href="note2.html#sec2-4" >2次元配列の重複チェック</a></li>
+	<li><a href="note2.html#sec2-6" >連想配列から最初のキーを取得</a></li>
+	<li><a href="note2.html#sec2-8" >文字列を配列化する</a></li>
+	<li><a href="note2.html#sec2-9" >連想配列（オブジェクト）の要素数を取得する方法</a></li>
+	<li><a href="note3.html#sec3-5" >連想配列の存在確認</a></li>
+	<li><a href="note3.html#sec3-9" >オブジェクト（連想配列）の件数を取得する</a></li>
+	<li><a href="note4.html#sec4-7" >連想配列（オブジェクト）から指定キーとそのデータを削除する</a></li>
+	<li><a href="note9.html#sec9-6" >連想配列内のデータをまとめてXSSサニタイズ</a></li>
+	<li><a href="array_note.html#sec1-1" >配列から重複を除去</a></li>
+	<li><a href="array_note.html#sec1-2" >配列内を検索（存在チェック）</a></li>
+	
+</ol>
+<hr>
+
+
+<h2 id="jquery_note">JQueryの覚書</h2>
+<ol>
+	<li><a href="/note_prg/jquery/note.html#sec1-1" >読込イベント　｜　$( function() {　｜　read</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-2" >リンク遷移を無効にする方法</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-3" >ラジオボタン</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-4" >エレメント（要素）の表示切替と表示状態判定</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-5" >マルチセレクト（jQuery UI MultiSelect Widget）</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-6" >特定の属性値を持つエレメントにアクセス</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-7" >特定タグを持つ先祖をさかのぼる</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-9" >一覧のチェックボックスをまとめて、すべて選択</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-10" >テキストエリアの文字数を数える</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-11" >時刻入力 | jQuery UI Timepicker</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-12" >JQuery | セレクト要素(SELECT要素）から値を取得、またはセット</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-13" >JQuery | チェックボックスから値を取得</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-14" >JQueryの要素存在確認</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-15" >所定位置までジャンプ | ページ内遷移</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-16" >列の表示、非表示を切り替える</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-17" >テーブルの列表示切替 | clm_show_hide.js</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-18" >ループ | $(".xxx").each</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-19" >チェックボックスを配列として扱う</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-20" >連想配列（オブジェクト）のマージ | $.extend(a1, a2);</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-1" >クリックされた要素のインデックスを取得する。 | 何番目の要素であるか？</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-1-2" >対象要素のインデックス（順番）を取得する</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-2" >イベントリスナーの登録</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-3" >カラーピッカー | farbtastic</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-4" >オブジェクトのクローンコピーとマージ | jQuery.extend()</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-5" >フェードインとフェードアウト | fadeOut,fadeIn,fadeTo</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-7" >jQuery UI ダイアログ | シンプルひな形</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-8" >document.getElementByIdとの等価オブジェクトを取得する | get(0) </a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-9" >要素のサイズ変更 | jQuery UI Resizable</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-10" >jQuery UIのいくつかの機能をスマホ等に対応させる | jquery.ui.touch-punch.js</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-1" >cssへセットと除去</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-2" >要素の縦横サイズを取得 | width,height,outerWidth,outerHeight</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-3" >jquery:要素の位置を取得 | position,offset</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-4" >マウスオーバーイベント | jQuery hover</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-5" >リストの並び替え | jquery-ui-sortable</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-6" >キーボードのイベント| keydown keypress keyup</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-7" >フォーカスしたときに値を全選択する</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-8" >子要素を取得する</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-9" >タグ名を取得する</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-10" >別ページである外部HTMLからDOMを取得</a></li>
+	<li><a href="/note_prg/jquery/note3.html#sec3-11" >HTML文字列をDOM扱いで検索 | $.parseHTML</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-1" >オリジン許可を必要としないクロスドメイン | jquery.xdomainajax.js | スクレイピング</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-2" >スライドアニメーションによる画面要素の切替</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-3" >要素の存在チェック</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-4" >弟要素を追加および取得</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-5" >兄要素を追加および取得</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-5-2" >兄弟要素を取得する</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-6" >テーブルから対象要素の行番（インデックス）を取得する</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-7" >name属性で取得する</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-8" >複数要素である場合の $('#xxx').text() を検証する</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-9" >対象文字列をID属性とセレクタに分類する</a></li>
+	<li><a href="/note_prg/jquery/note4.html#sec4-10" >兄弟要素の末尾を取得 | $(xxx).eq(-1)</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-1" >プロパティ（属性）の追加および除去 | prop,removeProp</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-2" >jQuery.UI | テーブル行を並べ替え</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-3" >jQuery.UI | テーブル行を並べ替え：コールバック</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-4" >表示順の入れ替え</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-5" >要素を削除する | jquery.remove</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-6" >要素数を取得する | jQuery</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-9" >指定要素を数える | jQuery</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-10" >テーブルの行数を数える</a></li>
+	<li><a href="/note_prg/jquery/note6.html#sec6-1" >jQuery:複数の非同期通信を制御する | $.Deferred</a></li>
+	<li><a href="/note_prg/jquery/note6.html#sec6-3" >テーブル行内の任意要素から行番（行インデックス）を取得する</a></li>
+	<li><a href="/note_prg/jquery/note6.html#sec6-4" >jQueryオブジェクトであるか判別する</a></li>
+
+</ol>
+<hr>
+
+
+
+
+
+
+<h2 id="unify_elm_index">要素関連の一律化</h2>
+<ol>
+	<li><a href="note10.html#sec10-6" >class属性またはname属性からフィールド名を取得する</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-7" >親要素内からname属性またはclass属性を指定して要素を取得する</a></li>
+	<li><a href="/note_prg/jquery/note5.html#sec5-8" >親要素内からname属性またはclass属性を指定して値を取得する</a></li>
+	<li><a href="/note_prg/jquery/note6.html#sec6-2" >タグ種類を問わずに要素から値を取得する | getValueEx</a></li>
+	<li><a href="/note_prg/jquery/unify_elm_note.html#sec1-1" >親要素からclass属性、name属性、id属性を問わずに一致する要素を探す</a></li>
+	<li><a href="/note_prg/jquery/unify_elm_note.html#sec1-2" >フィールドを指定して親要素から値を取得する</a></li>
+	<li><a href="/note_prg/jquery/unify_elm_note.html#sec1-3" >要素の種類を問わずに値をセットする | _setValueEx</a></li>
+	<li><a href="/note_prg/jquery/unify_elm_note.html#sec1-4" >フィールドを指定してフォーム要素（親要素）に値をセットする | _setValueFromForm</a></li>
+	<li><a href="/note_prg/jquery/unify_elm_note.html#sec1-5" >セレクタから識別子「#」「.」を取り外したコードを取得する</a></li>
+	
+</ol>
+<hr>
+
+
+
+
+
+
+<h2 id="validation_index">バリデーション</h2>
+<ol>
+	<li><a href="note.html#sec1-9" >半角英数字チェック</a></li>
+	<li><a href="note3.html#sec3-8" >カタカナのバリデーション</a></li>
+	<li><a href="note5.html#sec5-2" >日付チェック | isDate()</a></li>
+	<li><a href="note5.html#sec5-2-2" >年月チェック | isYM()</a></li>
+	<li><a href="note5.html#sec5-5" >数値範囲入力チェックのバリデーション</a></li>
+	<li><a href="note5.html#sec5-10" >文字数チェック | isMaxLength()</a></li>
+	<li><a href="valid_note.html#s100" >自然数チェック</a></li>
+</ol>
+<hr>
+			
+			
+			
+			
+<h2 id="file_upload_index">ファイルアップロード</h2>
+<ol>
+	<li><a href="note4.html#sec4-9-1" >File upload in AJAX | Ajaxファイルアップロード | 基本</a></li>
+	<li><a href="note4.html#sec4-9-2" >File upload in AJAX | Ajaxファイルアップロード | ファイルチェンジイベント時にアップロード</a></li>
+	<li><a href="note4.html#sec4-9-3" >File upload in AJAX | Ajaxファイルアップロード | 複数のファイル要素</a></li>
+	<li><a href="note4.html#sec4-9-4" >File upload in AJAX | Ajaxファイルアップロード | 複数ファイル</a></li>
+	<li><a href="note4.html#sec4-9-5" >File upload in AJAX | Ajaxファイルアップロード | 一般的な値データも同時に送信</a></li>
+	<li><a href="file_binary.html#s10">Image file upload in BASE64 format | Base64方式の画像アップロード</a></li>
+	<li><a href="note4.html#sec4-9-9" >拡張子によるバリデーションでファイル情報を入力チェック(複数ファイルアップロードに対応）</a></li>
+	<li><a href="note7.html#sec7-1" >File API | ファイル名、サイズ、MIME、更新日時を取得</a></li>
+	<li><a href="note7.html#sec7-2" >File API | ファイルからテキストデータを取得</a></li>
+	<li><a href="note10.html#sec10-5" >アップロードファイル要素のクリア（リセット）</a></li>
+	<li><a href="note11.html#sec11-6" >画像を重ねて、1枚の画像とし、Ajaxでサーバーに送信する</a></li>
+	<li><a href="note12.html#sec12-4" >アップロードファイルのバリデーション | UploadFileValidation.js</a></li>
+	<li><a href="fu_note.html#sec1-1" >任意要素にドラッグ＆ドロップによるファイルアップロード機能を組み込む</a></li>
+	<li><a href="fu_note.html#sec1-2" >画像ファイルアップロード | 画像サイズ(width,height)を取得する</a></li>
+	<li><a href="fu_note.html#sec1-3" >画像ファイルアップロード | プレビュー,DnD</a></li>
+</ol>
+<hr>
+			
+			
+			
+			
+<h2 id="file_binary_index">ファイルとバイナリデータの扱い</h2>
+<ol>
+	<li><a href="file_binary.html#s1">JavaScriptでバイナリデータを扱う</a></li>
+	<li><a href="file_binary.html#s10">Image file upload in BASE64 format | Base64方式の画像アップロード</a></li>
+	<li><a href="file_binary.html#s90">img要素にデータURLスキームを指定して画像を表示する</a></li>
+	<li><a href="file_binary.html#s95">サーバー上のファイルからBlob,arraybufferを取得する方法</a></li>
+	<li><a href="file_binary.html#s100">FileReaderについて</a></li>
+	
+	<li><a href="file_binary.html#s110">
+		データURIスキームとは | Data URL Scheme</a>
+		<ol class="list_sm">
+			<li><a href="file_binary.html#s110-1">データURLスキームをimg要素にセットして画像表示</a></li>
+			<li><a href="file_binary.html#s110-2">データURLスキームをa要素にセットしてダウンロードリンクを作成</a></li>
+			<li><a href="file_binary.html#s110-3">データURLスキームからBASE64に変換する</a></li>
+			<li><a href="file_binary.html#s110-4">BASE64からデータURLスキームに変換する</a></li>
+		</ol>
+	</li>
+	
+	<li><a href="file_binary.html#s112">base64とは</a></li>
+	<li><a href="file_binary.html#s121">Blobとは</a></li>
+	<li><a href="file_binary.html#s122">基本的なBlobの作成</a></li>
+	<li><a href="file_binary.html#s130">Blob URL Schemeとは</a></li>
+	<li><a href="file_binary.html#s132">Blob URL SchemeとData URL Schemeの違い</a></li>
+	<li>
+		<a href="file_binary.html#s140">MIMEとコンテンツタイプ</a>
+		<ol class="list_sm">
+			<li><a href="file_binary.html#s140-1">Content-Type | コンテンツタイプ</a></li>
+			<li><a href="file_binary.html#s140-2">MIMEのContent-Transfer-Encoding</a></li>
+		</ol>
+	</li>
+	<li><a href="file_binary.html#s150">FileReaderでBlobを読み取る</a></li>
+	<li><a href="file_binary.html#s160">UTF-8文字列からbase64に変換する</a></li>
+	<li><a href="file_binary.html#s168">BASE64とMIMEコンテンツタイプからBLOBを作成する</a></li>
+	<li><a href="file_binary.html#s170">BASE64をテキストファイルとしてダウンロードする</a></li>
+	<li><a href="file_binary.html#s180">canvasからBASE64を作成する</a></li>
+</ol>
+<hr>
+			
+			
+			
+			
+<h2 id="canvas_index">Canvasの覚書</h2>
+<ol>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s1">Canvasの基本</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s2">文字を描画する</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s3">背景をクリアする</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s4">テキストの横幅を取得する</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s5">改行を含むテキストを描画する</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s6">半透明図形を描画</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s7">矩形を描画</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s8">画像ファイルから描画する</a></li>
+	<li><a href="/note_prg/canvas_html5/canvas_note.html#s9">Canvasを画像ファイルとしてダウンロードする</a></li>
+</ol>
+<hr>
+			
+			
+			
+			
+<h2 id="es2015_index">ES2015(ES6)の目次</h2>
+<ol>
+	<li><a href="es2015_note.html#sec1-1">ES2015のクラスと基本</a></li>
+</ol>
+<hr>
+<hr>
+			
+			
+			
+			
+<h2 id="panel_index">パネル</h2>
+bootstrapのパネルを活用
+<ol>
+	<li><a href="/sample/js/panel_x/panel_x.html">ドラッグとリサイズが可能なパネル</a></li>
+	<li><a href="/sample/js/panel_x/panel_x2.html">埋込と子画面を切り替えられるパネル</a></li>
+	<li><a href="/sample/js/panel_x/panel_x3.html">メニュー付パネル</a></li>
+	<li><a href="/sample/js/panel_x/panel_x4.html">テキストエリア付パネル</a></li>
+	<li><a href="/sample/js/panel_x/pulldown_panel/pulldown_panel.html">プルダウン・パネル（オリジナル）</a></li>
+	<li><a href="/sample/js/panel_x/panel_x5/panel_x5.html">移動パネル ＆ Canvas</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-6" >パネルをドラッグで動かしたりリサイズする</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-6-2" >パネルをドラッグで動かしたりリサイズする | 埋め込み切替機能付き</a></li>
+	<li><a href="note8.html#sec8-5">プルダウン・パネル</a></li>
+	<li><a href="/sample/js/panel_x/panel_x6/panel_x6.html">パネルX【プルダウン・ドラッグ・リサイズ】</a></li>
+	<li><a href="/sample/js/panel_x/panel_x7/panel_x7.html">パネルX【画像】</a></li>
+	
+</ol>
+<hr>
+			
+			
+			
+			
+			
+<h2 id="original_library_index">オリジナルライブラリ</h2>
+<table class="table">
+	<thead><tr><th>ライブラリ</th><th>説明</th></tr></thead>
+	<tbody>
+		<tr>
+			<td><a href="/sample/js/jqu_slide/jqu_slide.html">SlideK.js</a></td>
+			<td>複数要素をローテーションしながら、スライド表示する。</td>
+		</tr>
+	</tbody>
+</table>
+<hr>
+			
+
+			
+			
+			
+			
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2014/5/29</div>
+</body>
+</html>

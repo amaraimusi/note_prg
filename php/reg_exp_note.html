@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>正規表現について | PHPの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>正規表現について | PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+			
+
+
+
+
+
+
+
+
+
+<div id="s1-1" class="sec4" >
+	<h3>OR条件(または) | PHPの正規表現</h3>
+	
+	<p>基本サンプル</p>
+	正規表現でOR条件を実現にするには「|」を記述する。<br>
+	<pre class="kata">/文字1<strong>|</strong>文字2/</pre>
+	文字1または文字2に一致<br>
+	<br>
+	
+	サンプル1
+	<pre>
+	$tests[] = "大きなネコと小さなイヌがいました。";
+	$tests[] = "大きなネコがいました。";
+	$tests[] = "小さなイヌがいました。";
+	$tests[] = "普通サイズのヤギがいました。";
+	
+	foreach($tests as $test){
+		if(preg_match('<strong>/イヌ|ネコ/</strong>', $test)){
+			echo $test.'→'.'○&lt;br&gt;';
+		}else{
+			echo $test.'→'.'×&lt;br&gt;';
+		}
+	}
+	</pre>
+	
+	出力
+	<pre class="output_data">
+	大きなネコと小さなイヌがいました。→○
+	大きなネコがいました。→○
+	小さなイヌがいました。→○
+	普通サイズのヤギがいました。→×
+	</pre>
+	<br>
+	<hr>
+	
+	<p>応用サンプル</p>
+	文字列に日付が含まれているか調べる正規表現のサンプル。<br>
+	日付のセパレータは「/」、「-」、「年月日」などがある。<br>
+	OR条件を応用して、これら複数のセパレータに対応してみる。<br>
+	<br>
+	<hr>
+	
+	サンプル2
+	<pre>
+	$tests=null;
+	$tests[] = "いろは2016-6-6ネコ";
+	$tests[] = "いろは2016/6/6イヌ";
+	$tests[] = "いろは2016年6月6日ヤギ";
+	$tests[] = "いろは";
+
+	foreach($tests as $test){
+		$re = '/([1-9][0-9]{3})<strong>&yen;/|-|年</strong>([1-9]{1}|1[0-2]{1})<strong>&yen;/|-|月</strong>([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})/';
+		if(preg_match($re, $test)){
+			echo $test.'→'.'○&lt;br&gt;';
+		}else{
+			echo $test.'→'.'×&lt;br&gt;';
+		}
+	}
+	</pre>
+	<pre class="output_data">
+	いろは2016-6-6ネコ→○
+	いろは2016/6/6イヌ→○
+	いろは2016年6月6日ヤギ→○
+	いろは→×
+	</pre>
+	<br>
+
+
+	
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-2" class="sec4" >
+	<h3>正規表現で文字列から日付を抜き出す</h3>
+	日付は様々な表記方法、月により変わる日数(28日～31日)、閏年などがあり複雑である。 <br>
+	そのため、正規表現だけで完全な日付を抜き出すとなると、かなり冗長で複雑になる。<br>
+	よって正規表現の日付に関してはある程度の妥協が必要になってくる。<br>
+	<br>
+	
+	<p>サンプル1</p>
+	シンプルな正規表現。広い範囲の日付書式を取得できる。しかし、99月99日なんていうのも取れてしまう。
+	<pre class="kata">/([0-9]{4})(\/|-|年)([0-9]{1,2})(\/|-|月)([0-9]{1,2})/</pre>
+	<br>
+	
+	<input type="button" class="btn btn-info btn-sm" value="PHPソースコード" onclick="$('#sample1_source').toggle(500);" />
+	<pre id="sample1_source" style="display:none">
+		$tests=null;
+		$tests[] = "いろは2016-6-6ネコ";
+		$tests[] = "いろは2016-06-06タヌキ";
+		$tests[] = "いろは2016-12-31ロバ";
+		$tests[] = "いろは9999-99-99ブタ";
+		$tests[] = "いろは2016/6/6イヌ";
+		$tests[] = "いろは2016年6月6日ヤギ";
+		$tests[] = "いろは2016-6カニ";
+		$tests[] = "いろは2016カニ";
+		$tests[] = "いろは";
+	
+		foreach($tests as $test){
+			$re = '<strong>/([0-9]{4})(\/|-|年)([0-9]{1,2})(\/|-|月)([0-9]{1,2})/</strong>';
+			preg_match($re, $test,$match);
+			
+			$res="一致なし";
+			if(!empty($match)){
+				$res = $match[0];
+			}
+			echo $test.' → '.$res.'<br>';
+		}
+	</pre>
+	<br><br>
+	
+	
+	出力
+	<pre class="output_data">
+	いろは2016-6-6ネコ → 2016-6-6
+	いろは2016-06-06タヌキ → 2016-06-06
+	いろは2016-12-31ロバ → 2016-12-31
+	いろは9999-99-99ブタ → 9999-99-99
+	いろは2016/6/6イヌ → 2016/6/6
+	いろは2016年6月6日ヤギ → 2016年6月6
+	いろは2016-6カニ → 一致なし
+	いろは2016カニ → 一致なし
+	いろは → 一致なし
+	</pre>
+	<br>
+	<hr>
+	
+	
+	
+	
+	
+	
+	
+	
+	<p>サンプル2</p>
+	サンプル1より少し厳密に日付を取得できるが、6月31日（6月は30日まで）など存在しない日付の値まで取得できてしまう。<br>
+	どうせ完全な日付が取得できないのであれば、サンプル1で採用し、バリデーション処理を自前で書いたほうが効率がよいかもしれない。
+	<pre class="kata">/([1-9][0-9]{3})\/|-|年([1-9]{1}|1[0-2]{1})\/|-|月([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})/</pre>
+	<br>
+	
+	<input type="button" class="btn btn-info btn-sm" value="PHPソースコード" onclick="$('#sample2_source').toggle(500);" />
+	<pre id="sample2_source" style="display:none">
+	$tests=null;
+	$tests[] = "いろは2016-6-6ネコ";
+	$tests[] = "いろは2016-6-31";
+	$tests[] = "いろは2016-06-06タヌキ";
+	$tests[] = "いろは2016-12-31ロバ";
+	$tests[] = "いろは9999-99-99ブタ";
+	$tests[] = "いろは2016/6/6イヌ";
+	$tests[] = "いろは2016年6月6日ヤギ";
+	$tests[] = "いろは2016-6カニ";
+	$tests[] = "いろは2016カニ";
+	$tests[] = "いろは";
+
+	foreach($tests as $test){
+		$re = '<strong>/([1-9][0-9]{3})(\/|-|年)(0[1-9]{1}|1[0-2]{1}|[1-9]{1})(\/|-|月)(3[0-1]{1}|[1-2]{1}[0-9]{1}|0[1-9]{1}|[1-9]{1})/</strong>';
+		preg_match($re, $test,$match);
+		
+		$res="一致なし";
+		if(!empty($match)){
+			$res = $match[0];
+		}
+		echo $test.' → '.$res.'&lt;br&gt;';
+	}
+	</pre>
+	<br><br>
+	
+	出力
+	<pre class="output_data">
+	いろは2016-6-6ネコ → 2016-6-6
+	いろは2016-6-31 → 2016-6-31
+	いろは2016-06-06タヌキ → 2016-06-06
+	いろは2016-12-31ロバ → 2016-12-31
+	いろは9999-99-99ブタ → 一致なし
+	いろは2016/6/6イヌ → 2016/6/6
+	いろは2016年6月6日ヤギ → 2016年6月6
+	いろは2016-6カニ → 一致なし
+	いろは2016カニ → 一致なし
+	いろは → 一致なし
+	</pre>
+	<br>
+	
+</div>
+<hr>
+
+
+
+
+
+
+
+
+
+
+<div id="s1-3" class="sec4">
+	<h3>様々な一致条件</h3>
+
+	
+	<p>検証</p>
+	<a href="http://php.net/manual/ja/function.preg-match.php">preg_match</a>
+	関数に様々な正規表現を指定して、それぞれの一致を検証する。<br>
+	<br>
+	
+	<pre>あいうえお9aabbc123</pre>
+	
+	<table class="tbl2">
+	  <thead>
+	    <tr>
+	      <th>x:正規表現</th>
+	      <th>一致</th>
+	      <th>説明</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>/あ/</td>
+	      <td>○</td>
+	      <td>「あ」が文字列中に含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/い/</td>
+	      <td>○</td>
+	      <td>「い」が文字列中に含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/12/</td>
+	      <td>○</td>
+	      <td>「12」が文字列中に含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/^あ/</td>
+	      <td>○</td>
+	      <td>先頭は「あ」であるか</td>
+	    </tr>
+	    <tr>
+	      <td>/^い/</td>
+	      <td>×</td>
+	      <td>先頭は「い」であるか</td>
+	    </tr>
+	    <tr>
+	      <td>/3$/</td>
+	      <td>○</td>
+	      <td>末尾は「3」であるか</td>
+	    </tr>
+	    <tr>
+	      <td>/2$/</td>
+	      <td>×</td>
+	      <td>末尾は「2」であるか</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[1]$/</td>
+	      <td>×</td>
+	      <td>末尾は数値か（1連続)</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[2]$/</td>
+	      <td>×</td>
+	      <td>末尾は2連続の数値か</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[3]$/</td>
+	      <td>○</td>
+	      <td>末尾は3連続の数値か</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[4]$/</td>
+	      <td>×</td>
+	      <td>末尾は4連続の数値か</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[1,2]$/</td>
+	      <td>×</td>
+	      <td>末尾の1-2番目に数値が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[1,3]$/</td>
+	      <td>○</td>
+	      <td>末尾の1-3番目に数値が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/\d[1,4]$/</td>
+	      <td>×</td>
+	      <td>末尾の1-4番目に数値が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/^\d[1,4]/</td>
+	      <td>×</td>
+	      <td>先頭の1-4番目に数値が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/a[2]/</td>
+	      <td>×</td>
+	      <td>「aa」が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/a[3]/</td>
+	      <td>×</td>
+	      <td>「aaa」が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/\w/</td>
+	      <td>○</td>
+	      <td>「A-Za-z0-9_」が含まれているか</td>
+	    </tr>
+	    <tr>
+	      <td>/^\d+$/</td>
+	      <td>×</td>
+	      <td>すべて数値か</td>
+	    </tr>
+	    <tr>
+	      <td>/^\w+$/</td>
+	      <td>×</td>
+	      <td>すべて半角英数字か</td>
+	    </tr>
+	    <tr>
+	      <td>/^[ぁ-んァ-ン]+\w+$/</td>
+	      <td>○</td>
+	      <td>前半はかな（カタカナも含む）で後半は半角英数字であるか</td>
+	    </tr>
+	    <tr>
+	      <td>/(^あい)(.*)(23$)/</td>
+	      <td>○</td>
+	      <td>「あい」と「23」で挟まれているか？</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	
+
+	<hr>
+
+	<div class="sec3">
+		<h4>検証2</h4>
+
+
+		<table class="tbl2">
+		  <thead>
+		    <tr>
+		      <th>文字列</th>
+		      <th>/^insert\s/i</th>
+		      <th>/;$/</th>
+		      <th>/(^INSERT\s)(.*)(;$)/i</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>INSERT id,name,val (111,'test',9);</td>
+		      <td>○</td>
+		      <td>○</td>
+		      <td>○</td>
+		    </tr>
+		    <tr>
+		      <td>INSERT id,name,val (111,'test',9)</td>
+		      <td>○</td>
+		      <td>×</td>
+		      <td>×</td>
+		    </tr>
+		    <tr>
+		      <td>(222,'test',9);</td>
+		      <td>×</td>
+		      <td>○</td>
+		      <td>×</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	<hr>
+	<a href="/sample/php/reg_exp/reg_exp.php"  class="btn btn-link btn-xs">検証</a>
+	
+	
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-4" class="sec4" >
+	<h3>' ( ) ' で挟まれた文字を取得する</h3>
+
+	ソースコード
+	<pre>
+	&lt;?php 
+	$str ="ヒージャー(やぎ)を散歩する";
+	$re = '/(\()(.*)(\))/';
+	preg_match($re, $str,$match);
+	$str2=null;
+	if(!empty($match[2])){
+		$str2 = $match[2];
+	}
+	echo $str2;
+	?&gt;
+	</pre>
+	<br>
+	
+	echo出力
+	<pre class="output_data"><code>やぎ</code></pre>
+	<br>
+
+	<br><time>2016-7-27</time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-5" class="sec4" >
+	<h3>ファイル名のバリデーション</h3>
+	
+	ファイル名に含まれてはならない記号をいくつかバリデーションではじく正規表現。<br>
+	<br>
+	
+	ソースコード
+	<pre>
+	if(preg_match('<strong>/;|&lt;|&gt;|%|\$|\.\/|\\\\/</strong>', 'xxx.png')){
+		echo 'err&lt;br&gt;';
+	}else{
+		echo 'ok&lt;br&gt;';
+	}
+	</pre>
+	
+	出力
+	<pre class="output_data">	ok</pre>
+	<br>
+
+	<br><time>2016-12-20</time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-6" class="sec4" >
+	<h3>ワイルドカード検索</h3>
+	
+	<p>例1</p>
+	正規表現：赤い.*エサ
+	<pre>
+		大きな<span class='text-danger'>赤い猫にエサ</span>を与える
+		小さな<span class='text-danger'>赤い犬にエサ</span>を与えてみた。
+	</pre>
+	<br>
+	
+	<p>例2:「 ( 」が含まれる場合</p>
+	正規表現：&yen;(length=.*)
+	<pre>
+		var str1 = '123' <span class='text-danger'>(length=3)</span> // test
+		test_data <span class='text-danger'>(length=10)</span> // test
+	</pre>
+	<br>
+	
+	<br><time>2017-6-14</time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-7" class="sec4" >
+	<h3>XMLタグから不要な空白を除去</h3>
+	
+	<pre><code>
+	$xml_str= "&lt; animal  &gt;&lt; cat  &gt;赤い猫&lt;cat  &gt;&lt; dog&gt;灰色の犬&lt;/ dog&gt;&lt; /  animal &gt;";
+	$xml_str = preg_replace('/&lt;&yen;s+/','&lt;',$xml_str);
+	$xml_str = preg_replace('/&lt;&yen;/&yen;s+/','&lt;/',$xml_str);
+	$xml_str = preg_replace('/&yen;s+&gt;/','&gt;',$xml_str);
+	var_dump($xml_str);// → '&lt;animal&gt;&lt;cat&gt;赤い猫&lt;cat&gt;&lt;dog&gt;灰色の犬&lt;/dog&gt;&lt;/animal&gt;'
+	</code></pre>
+	
+	<br><time>2017-6-30</time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+<div id="s1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/php/index.php#reg_exp_index">PHPの覚書目次</a></li>
+	<li>正規表現について | PHPの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-6-7</div>	
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>Cake PHPの覚書</title>
+		
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
+		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
+
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Cake PHPの覚書</h1>
+		<div id="content" >
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0-5" class="sec1">
+	<h3>CakePHPを導入直後にやるべきこと</h3>
+
+	Cake2.4.x以降の場合、以下の設定を行っておく必要がある。
+	<ol>
+		<li><a href="note7.php#sec7-9">タイムゾーンの変更</a></li>
+		<li><a href="note8.php#sec8-4">ランダム用のシード値を変更</a></li>
+	</ol>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-1" class="sec1">
+	<h3>ビュー(ctp)を使わず直接コントローラから値を出力する方法。</h3>
+
+	<pre>
+
+	function index() {
+
+		$this->autoRender = false;//ビューを使わない。
+		ob_start();
+		$html='hello world日本語';
+		ob_end_clean();
+		return $html;//ブラウザに出力するHTML
+
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-2" class="sec1">
+	<h3>モデルでデータベースのテーブルと関連付けないようにする。</h3>
+	モデルに下記のメンバを追加する。
+	<pre>
+
+	public $useTable = false; /* データベースのテーブルを使用しない */
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-2" class="sec1">
+	<h3>コントローラ、ビュー、モデルをフォルダで階層化する方法。</h3>
+	Modelフォルダ内にUtilというフォルダで階層化する場合、Config/bootstrap.phpに下のようなコードを追加すればよい。
+	<pre>
+	App::build(array(
+		'Model'=>array(
+			ROOT.DS.APP_DIR.DS.'Model'.DS.'Util'.DS,
+			ROOT.DS.APP_DIR.DS.'Model'.DS,
+		)
+	));
+
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-4" class="sec1">
+	<h3>外部クラスを使う方法。</h3>
+		CsvIo.phpという外部クラスを利用する場合の例。<br />
+		CsvIo.phpをVendorフォルダに追加。<br />
+		コントローラやモデルで以下のようにして使う。<br />
+	<pre>
+	//CsvIo.phpをインポート
+	App::uses('CsvIo','Vendor');
+
+	//後は通常のPHPと同様にクラスを使う。
+	$cio=new CsvIo();
+	$data=$cio->load('tmp/dummy.csv');
+	</pre>
+	<br />
+	※Vendor内でもフォルダ分けして階層化することが可能。<br />
+	VendorにAnimalフォルダを作成し、その中にNeko.phpクラスを追加した場合、以下のようにして宣言する。<br />
+	<pre>App::uses('CsvIo','Vendor/Neko');</pre><br />
+	※２	クラス名とファイル名は同じにせねばならない。
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-5" class="sec1">
+	<h3>関数ファイルを使う場合。（クラスでない関数集ファイル）</h3>
+	ADebug.phpという外部クラスを利用する場合の例。<br />
+	Vendorフォルダ内に、ADebug.phpを追加。<br />
+	コントローラやモデルで以下のようにインポートすれば利用できるようになる。<br />
+	<pre>
+	//関数集ファイルを宣言。
+	App::import('Vendor','ADebug');
+
+	//通常のPHPのように関数を利用できる。
+	a_debug('hello world');
+	</pre>
+	<br />
+	※require_onceを使うこともできる。
+	<pre>require_once '../Vendor/ADebug.php';</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-6" class="sec1">
+	<h3>POSTからデータを取得する方法</h3>
+	<pre>
+	$token=$this->request->data['token'];
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-7" class="sec1">
+	<h3>コントローラで対応していないモデルを使う方法</h3>
+	たとえばTestAContollerでTestBモデルを使う場合。
+	<pre>
+	function test(){
+		App::uses('TestB','Model');
+		$this->TestB=new TestB();
+		$this->TestB->find1();
+	}
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-8" class="sec1">
+	<h3>SQLインジェクションとXSS（クロスサイトスクリプティング）のサニタイズ</h3>
+
+
+	<div style="margin-top:30px">
+	<strong>配列内の文字列をまとめてSQLインジェクション・サニタイズ</strong><br>
+	　SQL用の重要記号である「'」や「"」の前に&yen;(バックスラッシュ)を付ける。
+	<pre>
+	$ary=Sanitize::clean($ary, array('encode' => false));
+	</pre>
+	サニタイズの詳細(HTMLのソースを確認）<br>
+	<table border="1">
+		<thead><tr><th>サニタイズ前</th><th>サニタイズ後</th></tr></thead>
+		<tbody>
+			<tr><td>'</td><td>&yen;'</td></tr>
+			<tr><td>:</td><td>:</td></tr>
+			<tr><td>/</td><td>/</td></tr>
+			<tr><td>&lt;</td><td>&lt;</td></tr>
+			<tr><td>&yen;</td><td>&yen;&yen;</td></tr>
+			<tr><td>&yen;n</td><td>&yen;&yen;n</td></tr>
+			<tr><td>&amp;</td><td>&amp;</td></tr>
+			<tr><td>||</td><td>||</td></tr>
+			<tr><td>"</td><td>&yen;"</td></tr>
+			<tr><td>;</td><td>;</td></tr>
+			<tr><td>,</td><td>,</td></tr>
+		</tbody>
+	</table>
+	※XSS・サニタイズは行わないので注意。<br>
+	「&yen;」は2重になる。<br>
+	</div>
+
+
+	<div style="margin-top:60px">
+	<strong>配列内の文字列をまとめXSS・サニタイズ</strong><br>
+	　SQL用の重要記号である「&lt;」や「&gt;」などを「&amp;lt」、「&amp;gt」に変換する。<br>
+	<pre>
+	$ary=Sanitize::clean($ary, array('encode' => true));
+	</pre>
+	サニタイズの詳細(HTMLのソースを確認）<br>
+	<table border="1">
+		<thead><tr><th>サニタイズ前</th><th>サニタイズ後</th></tr></thead>
+		<tbody>
+			<tr><td>'</td><td>&amp;#039;</td></tr>
+			<tr><td>:</td><td>:</td></tr>
+			<tr><td>/</td><td>/</td></tr>
+			<tr><td>&lt;</td><td>&amp;lt;</td></tr>
+			<tr><td>&yen;</td><td>&yen;&yen;</td></tr>
+			<tr><td>&yen;n</td><td>&yen;&yen;n</td></tr>
+			<tr><td>&amp;</td><td>&amp;</td></tr>
+			<tr><td>||</td><td>||</td></tr>
+			<tr><td>"</td><td>&amp;quot;</td></tr>
+			<tr><td>;</td><td>;</td></tr>
+			<tr><td>,</td><td>,</td></tr>
+		</tbody>
+	</table>
+	※SQLインジェクション・サニタイズは行わないので注意。<br>
+	こちらも「&yen;」は2重になる。<br>
+	</div>
+
+
+	<div style="margin-top:60px">
+	<strong>文字列に対してSQLインジェクション対策</strong><br>
+	　SQL用の重要記号である「'」や「"」の前にバックスラッシュを付ける。
+	<pre>
+
+	$str=Sanitize::escape($str);//例、「'」→「&yen;'」
+	</pre>
+	</div>
+
+	<div style="margin-top:40px">
+	<strong>SQLインジェクション・サニタイズの解除</strong><br>
+	　Sanitize::escape関数でサニタイズされた文字列を元に戻す関数。<br>
+	　「&yen;'」→「'」　　　　「&yen;"」→「"」<br>
+	<pre>
+	function release_sql_sanitaize($v){
+		$v= str_replace("\\'", "'", $v);
+		$v= str_replace("\\\"", "\"", $v);
+		return $v;
+	}
+	</pre>
+	</div>
+
+
+	<div style="margin-top:40px">
+	<strong>文字列に対してXSS対策</strong>
+	<pre>
+	$str=Sanitize::html($str);
+	// 「&lt;」→「&amp;lt」
+	</pre>
+	※Sanitize::html()省略したh()関数が便利。
+	<pre>
+	echo h($str);// 「&lt;」→「&amp;lt」
+	</pre>
+	</div>
+
+	<div style="margin-top:40px">
+	<strong>インクルードについて</strong><br>
+	　Sanitizeクラスは標準でインクルードされているとのことだが、インクルードされていないこともあるので、その場合は以下のコードを記述する。<br>
+	<pre>
+	App::uses('Sanitize', 'Utility');
+	</pre>
+	</div>
+
+	<div style="margin-top:40px">
+	<strong>半角英数字以外を除去</strong>
+	<pre>
+	$str=Sanitize::paranoid($str);
+	</pre>
+	<br>
+	一部の記号は残す場合。例：「@」
+	<pre>
+	$str=Sanitize::paranoid($str, array(' ', '@'));
+	</pre>
+
+	</div>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-10" class="sec1">
+	<h3>Noticeエラーを表示させない</h3>
+	ファイルの上部に宣言。class名よりも上に。
+	<pre>
+	error_reporting(E_ALL ^ E_NOTICE);
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-11" class="sec1">
+	<h3>セッション(session)へのデータ保存と読取</h3>
+	テスト
+	<pre>
+	$this->Session->write('tora',$tora);//セッションへの書き込み
+	$tora2=$this->Session->read('tora');//セッションから読取
+	$this->Session->delete('tora');//セッションから削除
+	$this->Session->destroy();//セッションを全てクリアし新鮮なセッションを作り直す。
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-12" class="sec1">
+	<h3>モデル名と異なるテーブルと関連付ける</h3>
+	モデルにモデル名とは異なるテーブルに関連付けることができる。<br />
+	ただし、リテラル名（ AS ○○)はモデル名になる。例では「 test_bs AS TestJoin 」。
+	<pre>
+	class TestJoin extends Model {
+
+		var $name='TestJoin';
+
+		var $useTable='test_bs';//test_bsテーブルと関連付ける。
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-13" class="sec1">
+	<h3>発行したSQLのログを画面に表示する</h3>
+	app/config/core.phpを開く。<br />
+	以下のコードを'2'に設定する。<br />
+<pre>	Configure::write('debug', 2);</pre><br />
+<br />
+	'1'にするとSQLのログが表示されない。<br />
+	'2'にするとSQLのログが表示される。<br />
+<br />
+
+<div class="hosoku">以下のコードをいれると指定場所にSQLログをはくことができる</div>
+<pre>	echo $this->element('sql_dump'); </pre><br />
+
+<br />
+<a class="ref_link" href="http://www40.atwiki.jp/spellbound/pages/1936.html">参考元</a>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-14" class="sec1">
+	<h3>コンフィグ(Config)のデータを取得</h3>
+	CakePHPでは共通データなどを設定として定義できる。以下に設定方法と使用例を示す。<br />
+
+	<br /><br />
+	コンフィグデータの設定場所と記述例<br />
+	設定場所→ app/Config/datas/yagi_list.php<br />
+	記述例<br />
+	<pre>
+	Configure::write('yagiLists', array(
+		1 => 'white',
+		2 => 'black',
+		3 => 'okinawa',
+		3 => 'brown',
+	));
+	</pre>
+
+	app/Config/bootstrap.phpに以下のコードを追加する。<br />
+	<pre>
+config('datas/yagi_list.php');
+	</pre>
+
+
+	<br /><br />
+	コンフィグからデータを利用する例<br />
+	<pre>
+	$yagis=Configure::read('yagiLists');
+	</pre>
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-17" class="sec1">
+	<h3>複数行のPOST</h3>
+	一覧表の各行にテキストボックスを作成している場合など、inputタグを配列として定義したい場合がある。<br>
+	このような場合、モデル名とフィールド名の間に要素番号を挟む。<br>
+	「モデル名.要素番号.フィールド名」
+	<pre>
+	  echo $form->input('ModelA.0.animal_name');
+	  echo $form->input('ModelA.1.animal_name');
+	  echo $form->input('ModelA.2.animal_name');
+	  echo $form->input('ModelA.3.animal_name');
+	</pre>
+
+	<br><br>
+
+	ビューへの記述例（モデル名がTbl、フィールド名がtest_nameの場合）<br />
+
+	<pre>
+	echo $this->Form->create('Tbl', array('url' => '#'));
+	foreach ($data as $i => $ent) {
+	    echo $this->Form->input($i . '.test_name', array(
+	        'value' => $ent['Tbl']['test_name']
+	    ));
+	}
+	</pre>
+
+
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-18" class="sec1">
+	<h3>Cake PHPのコアライブラリを別のディレクトリに配置する場合の設定方法</h3>
+
+		コアライブラリは普通、appが配置してあるディレクトリと同じ場所にあるlibフォルダ内にあります。<br />
+		libフォルダ内にあるCakeフォルダがコアライブラリです。<br />
+
+		コアライブラリCakeは別のディレクトリに移動させることが可能です。<br />
+		<br />
+		コアライブラリを以下の場所に移す場合で設定の手順を示します。<br />
+		ローカル環境→ C:\web\pleiades\xampp\htdocs\CakeZss2014/Cake<br />
+		サーバー環境→ www/CakeZss2014<br />
+
+<br /><br /><strong>手順</strong><br />
+<dl>
+	<dt>① webroot/index.phpを開く。</dt>
+
+	<dt>② 下記のコード（コメントアウトされている）あたりを探す。</dt>
+		<dd>//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');</dd>
+
+
+	<dt>③ 以下のコードを記述する。</dt>
+	<dd>
+	<pre>
+	switch($_SERVER['SERVER_NAME']) {
+		case 'localhost':
+			define('CAKE_CORE_INCLUDE_PATH', 'C:\web\pleiades\xampp\htdocs\CakeZss2014');
+
+			break;
+		default:
+			define('CAKE_CORE_INCLUDE_PATH', '/CakeZss2014');
+			break;
+	}
+	</pre>
+	以上でOK.
+	</dd>
+
+
+</dl>
+
+
+
+<br /><br />
+<div class="hosoku">※単体テストを利用する場合、webroot/test.phpも同様に編集します。</div>
+
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-19" class="sec1">
+	<h3>ローカル環境およびLAN環境でのDB設定</h3>
+
+	ローカル環境とLAN環境(社内環境やオフィス内環境）の接続設定は同じ。<br />
+
+	<br />
+	app/Config/database.php<br />
+	<pre>
+	class DATABASE_CONFIG {
+
+		public $default = array(
+			'datasource' => 'Database/Mysql',
+			'persistent' => false,
+			'host' => 'localhost',
+			'login' => 'root',
+			'password' => 'xxx',
+			'database' => 'tanuki_db',
+			'prefix' => '',
+			'encoding' => 'utf8',
+		);
+
+
+	}
+	</pre>
+
+	<br />
+
+
+	LAN環境内の他のPCが見る場合、以下へアクセス。自PCからも可能。<br />
+	http://192.168.xxx.xxx/<br />
+	「192.168.xxx.xxx」はPHPソースが置いてあるPCに割り当てられたプライベートIPアドレス。<br />
+	プライベートIPアドレスはコマンドプロンプトでipconfigとやると見れる。<br />
+	MySQLはmy.iniファイルのbind-addressがコメントアウトになっていれば良い。デフォルトでは多分この設定。<br />
+	# bind-address="127.0.0.1" <br />
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-20" class="sec1">
+	<h3>ページネーション</h3>
+		<strong>最低限の設定方法</strong>
+
+		nekosテーブルと画面を関連付けている場合、メインのモデル（Neko)を一番左側に持っていく。
+		<pre>$public $uses = array('Neko','SubModel');</pre>
+		<br />
+
+		悪例（メインのモデルが左側でない）：
+		<pre>×$public $uses = array('SubModel','Neko');</pre>
+
+		コントロールのアクションメソッドで以下のような一覧データのset方法を変更する。
+
+		変更前<br />
+		<pre>$this->set('data',$data);</pre>
+
+		変更後（ページネーション対応）<br />
+		<pre>$this->set('data',$this->paginate());</pre>
+
+		<br />
+		以上で最低限の設定はOK。デフォルトでは20件のレコードが表示される。
+		<br /><br /><br />
+
+
+		<strong>ビュー側の様々な表示</strong><br />
+		「前へ」などのページネーション用のリンクを作る。<br />
+		<pre>
+		&lt; ?php
+		echo $this->Paginator->prev('&lt; 前へ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next('次へ >', array(), null, array('class' => 'next disabled'));
+		?>
+		</pre><br />
+
+		データ数を表示する<br />
+		<pre>&lt; ?php echo $this->Paginator->counter(array('format' => 'データ数：%count%' ));?></pre><br />
+
+		現在ページと全ページ数を表示する<br />
+		<pre>&lt; ?php echo $this->Paginator->counter(array('format' => 'ページ：{:page}/{:pages}')); ?></pre><br />
+
+		ソート用のリンク<br />
+		HTMLテーブルのフィールド名をソートリンクにすることができる。<br />
+		<pre>&lt; ?php echo $this->Paginator->sort('title','タイトル'); ?></pre><br />
+		<br /><br />
+
+		<strong>詳細な設定</strong><br />
+		コントローラの$paginatorメンバに詳細な設定を入れることができる。<br />
+		<pre>
+		public $paginator = array(
+		 'Neko' => array(
+			 'fields' => array('id,rec_date,title,note'),
+			 'conditions' => array('フィールド[演算子] => 値),
+			 'limit' =>10,
+			 'order' => array('rec_date' => 'desc'),
+		 ));
+		</pre>
+		モデル名はNeko<br />
+		フィールドはid,rec_date,title,note<br />
+		制限数：10件<br />
+		ソートはrec_dateの降順<br />
+
+		<br /><br /><br />
+
+		<strong>サンプル</strong><br />
+		DBテーブル名はrecs。rec_dateフィールドに検索条件を指定、また降順でソート指定も行っている。表示件数は30件を指定。
+		<pre>
+	public function index() {
+
+
+
+    	//ページネーションへセット
+    	$this->paginate = array(
+    			'Rec' => array(
+
+    					'conditions' => "rec_date &lt; '2014/4/1'",
+    					'limit' =>30,
+    					'order' => array('rec_date' => 'desc'),
+    			));
+
+    	$this->set(array(
+    			'data'=> $this->paginate(),
+
+    	));
+
+
+    }
+		</pre>
+		<span class="hosoku">※「$this->find();」は必要としない。</span>
+
+		<br /><br /><br />
+		<a class="ref_link" href="http://www.tailtension.com/cakephp/675/">参考元</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0" class="sec1" style="display:none">
+	<div class="title"></div>
+	テスト
+	<pre>
+	</pre>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+
+
+			<ol class="breadcrumb">
+				<li><a href="/">ホーム</a></li>
+				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+			</ol>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/09/03</div>
+		</div><!-- page1 -->
+	</body>
+</html>

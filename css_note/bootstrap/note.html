@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="google" content="notranslate" />
+		<title>ワクガンス　|　Boostrapの覚書</title>
+		<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../../common1.css"  />
+
+
+		<script src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"></script>
+		<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+		
+		<script>
+
+
+
+		</script>
+
+		<style type="text/css">
+			.list1 li{
+				margin-left:30px;
+				margin-bottom:30px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div id="page1">
+		<h1 id="header">Boostrapの覚書</h1>
+		<div id="content" >
+
+
+
+			<h2>概要</h2>
+			CSSフレームワークの１つで、精錬されたデザインを簡単に利用できます。<br>
+			以前は「Twitter Bootstrap」と呼ばれていました。<br>
+			メニューやボタン、アンカーに対するCSSスタイルが用意されています。<br>
+			デザインは以下のデモから確認できます。<br>
+			<a class="ref_link" href="http://bootswatch.com/">デモ</a><br>
+			<br>
+			<a class="ref_link" href="http://getbootstrap.com/">公式サイト/ダウンロード</a><br>
+			<br><br>
+
+
+			<div>
+				<h3>展開の流れ</h3>
+				<p>（確認バージョン Currently v3.3.5）</p>
+				<ol class="list1">
+					<li>
+						公式サイト<a class="ref_link" href="http://getbootstrap.com/" >"http://getbootstrap.com/</a>から、ファイルbootstrap-3.3.5-dist.zipをダウンロードする。
+					</li>
+
+					<li>
+						bootstrap-3.3.5-dist.zipを解凍し、次のフォルダ3点、css,fonts,jsを確認する。
+					</li>
+
+					<li>
+						開発環境のcssファイルやjsファイルを置いてあるディレクトリに、フォルダ3点（css,fonts,js）をそのまま配置する。<br>
+						　例：cakephpならapp/webroot配下にそのままフォルダ3点を配置するだけ。
+					</li>
+
+					<li>
+						bootstrap.min.css(bootstrap.cssでも良い)をインクルードする。<br>
+						　&ltlink href="css/bootstrap.min.css" rel="stylesheet"&gt<br>
+					</li>
+
+					<li>
+						jquery.jsのインクルードコードの下に、bootstrap.min.js(bootstrap.js)のインクルードコードを追加する。<br>
+						　&ltscript src="js/jquery-1.11.1.min.js"&gt&lt/script&gt<br>
+						　&ltscript src="js/bootstrap.min.js"&gt&lt/script&gt<br>
+					</li>
+
+					<li>以上で終わり。</li>
+				</ol>
+				<br><br>
+			</div>
+
+
+
+			<h3>2014年10月時点の対応状況</h3>
+			IE7,Firefox3.6以下はサポート外です。<br>
+			またIE9以下はRespond.jsが必要になります。（CSS3はIE8以下で未対応のため）<br>
+			<br><br>
+
+
+			<h3>基本HTMLのソースコード</h3>
+			<pre>
+	&lt!DOCTYPE html&gt
+	&lthtml lang="ja"&gt
+	  &lthead&gt
+	    &ltmeta charset="utf-8"&gt
+	    &ltmeta http-equiv="X-UA-Compatible" content="IE=edge"&gt
+	    &ltmeta name="viewport" content="width=device-width, initial-scale=1"&gt
+	    &lttitle&gtBoostrapのサンプル1&lt/title&gt
+
+	    &ltlink href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"&gt
+	    &lt!--[if lt IE 9]&gt
+	      &ltscript src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"&gt&lt/script&gt
+	      &ltscript src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"&gt&lt/script&gt
+	    &lt![endif]--&gt
+
+	    &ltscript src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"&gt&lt/script&gt
+	    &ltscript src="bootstrap-3.2.0-dist/js/bootstrap.min.js"&gt&lt/script&gt
+
+	  &lt/head&gt
+	  &ltbody&gt
+	    &lth1&gtHello world!&lt/h1&gt
+
+
+	    &ltbutton type="button" class="btn btn-primary btn-lg"&gtテストボタン&lt/button&gt
+	  &lt/body&gt
+
+	&lt/html&gt
+			</pre>
+
+			<a class="ref_link" href="sample1.html">サンプル1</a><br>
+
+			<br><br>
+			<h4>他の要素へのスタイル</h4>
+			他にもナビケーション、ラベル、リスト、テーブルなど多数のスタイルが用意されています。
+			詳しくは公式サイトのデモを参考にしてください。<br>
+			<a class="ref_link" href="http://getbootstrap.com/examples/theme/">公式のデモ</a><br>
+
+
+		</div><!-- content -->
+		<div id="footer">(C) kenji uehara 2013/10/22</div>
+		</div><!-- page1 -->
+	</body>
+</html>

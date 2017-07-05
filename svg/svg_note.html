@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SVGの覚書</title>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<style>
+
+	</style>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>SVGの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>SVGの概要</h3>
+
+	<p>SVGサンプル</p>
+	<img src="img/svg_note/sec1-1.svg" alt="SVGサンプル" /><br>
+	<br>
+	
+	SVGはxml形式の画像である。<br>
+	ライン（線）を基本とした画像であり、ドット（点）を基本とした一般画像(bmp,jpg,pngなど）とは異なる。<br>
+	ドット画像は拡大縮小するとぼやけるが、SVGは拡大縮小時してもぼやけることがない。<br>
+	<br>
+	
+	SVGは図形やシンプルイラストなど、ライン（線）を主体にした画像に向いている。<br>
+	xmlなのでJavaScriptなどプログラムで制御するのが容易である。<br>
+	画像データはsvgファイルとするほか、HTMLに直接埋め込むことも可能である。<br>
+	<br>
+	
+	SVGはphotoshopなどいくつかのグラフィックソフトでもサポートされている。<br>
+	他にもSVGに変換するWebツールも多数ある。<br>
+	<br>
+	
+	SVGには文字列やリンクを埋め込むことが可能である。<br>
+	これにより、クリカッブルマップを実現することも可能。<br>
+	<aside>※ リンクはHTMLにSVGを埋め込む場合のみ</aside>
+	<br>
+	
+	
+	<p>デメリット</p>
+	写真や複雑なイラストなどドットを主体にしている画像には向かない。<br>
+	<br>
+	
+	
+	<p>canvasとの違い</p>
+	svgはxmlで記述する静的画像である。<br>
+	canvasはJavaScriptで動的に画像を描画する。<br>
+	そのため、canvasは、毎回ページを呼び出すたびに描画することになるので、静的画像には向かない。<br>
+	canvasはアニメーションやゲームなどには向いている。<br>
+	<br>
+	
+	
+	<p>参考リンク</p>
+	<ul>
+	<li><a href="https://triple-underscore.github.io/SVG11/" target="blank">W3C</a></li>
+	<li><a href="https://triple-underscore.github.io/SVG11/struct.html" target="blank">文書構造</a></li>
+	<li><a href="https://triple-underscore.github.io/SVG11/shapes.html" target="blank">W3C基本図形</a></li>
+	<li><a href="http://www.h2.dion.ne.jp/~defghi/img2svg/potraceHtml.htm" target="blank">WEBツール：ラスタ画像svg化スクリプト「potrace.js」</a></li>
+	</ul>
+	<br>
+	
+	
+	<br><time>2016-7-29</time>
+
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>SVGの基本</h3>
+	
+	SVGはXML形式のデータである。<br>
+	htmlに表示させる方法は2通りある。<br>
+	svgファイルを読み込む方法と、直接HTMLに埋め込む方法である。<br>
+	<br>
+	
+	<p>svgファイルを読み込む方法</p>
+	
+	sample1.svg
+	<pre><code>
+	&lt;?xml version="1.0" standalone="no"?&gt;
+	&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+	  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+	&lt;svg width="200" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+		&lt;rect x="10" y="20" width="100" height="120" fill="#00599b" /&gt;
+	&lt;/svg&gt;
+	</code></pre>
+	<br>
+	
+	html側<br>
+	img要素にsample1.svgを指定して画像表示する
+	<pre><code>	&lt;img src="img/svg_note/sample1.svg" /&gt;</code></pre>
+	<br>
+	
+	svgプレビュー（四角形）<br>
+	<img src="img/svg_note/sample1.svg" /><br>
+	<br>
+	
+	
+	
+	<p>直接HTMLに埋め込む方法</p>
+	下記をhtmlに直接記述する。
+	<pre><code>
+	&lt;svg width="200" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+		&lt;rect x="10" y="20" width="100" height="120" fill="#00599b" /&gt;
+	&lt;/svg&gt;
+	</code></pre>
+	<br>
+	
+	svgプレビュー<br>
+	<svg width="200" height="200" version="1.1"
+	     xmlns="http://www.w3.org/2000/svg">
+	
+		<rect x="10" y="20" width="100" height="120" fill="#00599b" />
+	</svg>
+	<br>
+	
+	<br><time>2016-7-29</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>角が円い枠線を描画する</h3>
+	
+	SVGソースコード
+	<pre><code>
+	&lt;svg width="200" height="200" version="1.1"
+	     xmlns="http://www.w3.org/2000/svg"&gt;
+		&lt;rect x="20" y="20" width="100" height="50" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+	&lt;/svg&gt;
+	</code></pre>
+	<br>
+	角が円い枠線は以下のようにして実現している。
+	<ul>
+		<li>rx="5" で角を丸くする</li>
+		<li>fill="none" で塗りつぶしなしにする</li>
+		<li>stroke="#8ca934" で枠線の色を指定する</li>
+		<li>stroke-width="4"で枠の太さを指定する</li>
+	</ul>
+	<br>
+
+	SVGのプレビュー<br>
+	<svg width="200" height="200" version="1.1"
+	     xmlns="http://www.w3.org/2000/svg">
+		<rect x="20" y="20" width="100" height="50" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" />
+	</svg>
+	<br>
+	
+	<br><time>2016-7-29</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>文字とリンクを埋め込む</h3>
+	
+	SVGに文字を埋め込むことができる。<br>
+	<br>
+
+	htmlに直接記述する場合、文字選択やリンクを埋め込むことも可能である。<br>
+	<aside>svgファイルにしている場合は、選択とリンクは不可</aside>
+	<br>
+	
+	
+	SVGソースコード<br>
+	<pre><code>
+	&lt;svg width="200" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+		&lt;rect x="4" y="4" width="150" height="80" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+	
+			&lt;text x="20" y="30" fill="red" &gt;
+				いろはにほへと
+			&lt;/text&gt;
+	
+			&lt;text x="25" y="50" &gt;
+				&lt;a <strong>xlink:href</strong>="http://www.yahoo.co.jp/"  fill="green"&gt;Yahoo&lt;/a&gt;
+			&lt;/text&gt;
+			
+	&lt;/svg&gt;
+	</code></pre>
+	<aside>※ SVG内でもHTMLのルールが通用しそうに見えるがそうではない。一部が共通しているだけである。</aside>
+	<br>
+	
+	
+	SVGプレビュー<br>
+	<svg width="200" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<rect x="4" y="4" width="150" height="80" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" />
+	
+			<text x="20" y="30" fill="red" >
+				いろはにほへと
+			</text>
+	
+			<text x="25" y="50" >
+				<a xlink:href="http://www.yahoo.co.jp/"  fill="green">Yahoo</a>
+			</text>
+			
+	</svg>
+	<br>
+	
+	<br><time>2016-7-29</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>SVGをjQueryで位置移動させてみる</h3>
+	
+	SVGはDOMなのでjQueryでいろいろ操作できる。<br>
+	<a href="/sample/svg/jq_svg/jq_svg.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	&lt;script&gt;
+	function test4(){
+		
+		var rect = $('#rect4');
+		console.log(rect.attr('x') + ',' + rect.attr('y'));
+		
+		// 位置を取得  (1乗算は暗黙の数値変換)
+		var x = rect.attr('x') * 1;
+		var y = rect.attr('y') * 1;
+
+		// 位置を変えてみる。
+		rect.attr('y',y+10);
+	
+		// アニメーションさせて動かかしてみる。
+		rect.animate({"x": "+=10"}, "slow");
+
+		console.log(rect.attr('x') + ',' + rect.attr('y'));
+	}
+	&lt;/script&gt;
+	
+	～省略～
+	
+	&lt;svg width="200" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+	
+	
+		&lt;rect id="rect4" x="20" y="20" width="100" height="50" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+	
+		&lt;text x="0" y="30" fill="blue" &gt;
+			&lt;a href="http://www.yahoo.co.jp/"&gt;Yahoo&lt;/a&gt;
+		&lt;/text&gt;
+	
+	&lt;/svg&gt;
+	&lt;br&gt;
+	
+	&lt;input type="button" value="TEST4" class="btn btn-primary" onclick="test4()" /&gt;
+	</code></pre>
+	
+	
+	
+	<br><time>2016-9-6</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>SVGのクリック位置を取得</h3>
+	
+	SVG要素のクリック位置を取得することができる。<br>
+	<br>
+	
+	下記サンプルは、SVG要素内をクリックした時、クリック位置を取得し、矩形へセットする。<br>
+	<a href="/sample/svg/svg_click_position/svg_click_position.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	ソースコード<br>
+	<pre><code>
+	&lt;script&gt;
+	$(function(){
+		
+		$('#svg1').click(function(e){
+
+			// 絶対座標系のSVG要素位置
+			var offset =$(this).offset();
+
+			// 相対位置 = 絶対座標系のクリック位置 - 絶対座標系のSVG要素位置
+			var x = e.pageX - offset.left;
+			var y = e.pageY - offset.top;
+			console.log(x);
+			console.log(y);
+			
+			// 矩形へ相対位置をセット
+			var rect = $('#rect4');
+			rect.attr('x',x);
+			rect.attr('y',y);
+			
+		});
+	});
+	&lt;/script&gt;
+	
+	～ 省略 ～
+	
+	&lt;svg id="svg1" width="200" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+		&lt;rect id="rect4" x="20" y="20" width="100" height="50" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+	&lt;/svg&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-9-6</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>SVGの再読み込み</h3>
+	
+	jQueryでSVGを操作するとき、SVG画像が更新されないことがある。<br>
+	以下の方法で、SVGの再読み込みと更新ができる。<br>
+	<br>
+	
+	JavaScript/jQuery
+	<pre><code>
+	$('#svg_rap').html($('#svg_rap').html(););
+	</code></pre>
+	<br>
+	
+	HTML/SVG
+	<div id="svg_rap">
+	</div>
+	<pre><code>
+	&lt;div id="<strong>svg_rap</strong>"&gt;
+		&lt;svg width="200" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+			&lt;rect id="rect4" x="20" y="20" width="100" height="50" rx="5"
+				 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+		&lt;/svg&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-9-13</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>外部SVGファイルをjQueryで扱う</h3>
+	
+	外部SVGファイルをjQueryで扱う方法はいくつかある。<br>
+	下記の方法は、外部SVGのソースを指定要素内に埋め込むという方法である。<br>
+	SVGソースを一度埋め込んでしまえば、jQueryで自在に操作できるようになる。<br>
+	<br>
+	
+	<a href="/sample/svg/jq_outside_svg/jq_outside_svg.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	JavaScript
+	<pre><code>
+	$("#sample3").load("sample3.svg", function(){
+
+	});
+	</code></pre>
+	<br>
+	
+	HTML<br>
+	<pre><code>
+	&lt;div id="sample3"&gt;
+		&lt;img src="sample3.svg"  /&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-9-14</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-9" class="sec4" >
+	<h3>Raster image in SVG | SVGにjpgなどのラスターイメージを埋め込む</h3>
+	
+	<a href="/sample/svg/raster_in_svg/raster_in_svg.html" class="btn btn-info">サンプル</a><br>
+	<br>
+	
+	ソースコード
+	<pre>
+	&lt;svg width="640" height="480" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+		<strong>&lt;image width="320" height="200" xlink:href="imori_md.jpg" &gt;&lt;/image&gt;</strong>
+		&lt;rect id="rect4" x="20" y="20" width="100" height="50" rx="5"
+			 fill="none" stroke="#8ca934" stroke-width="4" /&gt;
+	
+		&lt;text x="0" y="30" fill="blue" &gt;
+			&lt;a href="http://www.yahoo.co.jp/"&gt;Yahoo&lt;/a&gt;
+		&lt;/text&gt;
+	&lt;/svg&gt;
+	</pre>
+	<br>
+	
+	<p>注意</p>
+	外部SVGファイルにラスタイメージを埋め込んでいる場合、img要素では表示できなくなる。
+	<aside>以下のようにしてもSVG画像が表示されなくなってしまう。</aside>
+	<pre>
+	&lt;div id="svg2"&gt;
+		&lt;img src="sample2.svg"  /&gt;
+	&lt;/div&gt;
+	</pre>
+	<br>
+	
+	この場合、以下のSVGを読み込むコードを実行すると、SVGがラスタイメージ付で表示されるようになる。
+	<pre><code>
+	&lt;script&gt;
+	function test2(){
+		
+		// 外部SVGを読み込み
+		$("#svg2").load("sample2.svg", function(){});
+		
+	}
+	&lt;/script&gt;
+	</code></pre>
+	<br>
+	
+	<br><time>2016-9-16</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/html/">HTMLの覚書</a></li>
+	<li>SVGの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-7-29</div>
+</body>
+</html>

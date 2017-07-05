@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cake PHPの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="/note_prg/js/open_src.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Cake PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+<!-- 覚書の内容 -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-1" class="sec1" >
+	<h3>Ajaxの雛型 | CakePHP,JSON,JQuery</h3>
+
+	CakePHP環境でAjaxを利用する雛型。<br>
+	$.ajaxを用いて、JSONデータを送受信する。<br>
+	<br>
+	実行URLの例<br>
+	http://localhost/animal/devloper/ajax_sample<br>
+	<br>
+
+	<strong>CakePHP:コントローラ:DevloperController.php</strong>
+	<pre><code>
+	class DevloperController extends AppController {
+		public $name = 'Devloper';
+		public $uses = array ('Devloper');
+
+		function index() {
+
+		}
+
+
+		/**
+		 * サンプル開始
+		 */
+		function ajax_sample() {
+
+		}
+
+		/**
+		 * Ajax | 非同期通信
+		 * @return string
+		 */
+		public function ajax(){
+
+			App::uses('Sanitize', 'Utility');
+
+			$this->autoRender = false;//ビュー(ctp)を使わない。
+
+			$json_param=$_POST['key1'];
+
+			$param=json_decode($json_param,true);//JSON文字を配列に戻す
+
+			//データ加工や取得
+			$data=array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
+
+			//サニタイズ（XSS対策）
+			$data=Sanitize::clean($data, array('encode' => true));
+
+			$json_data=json_encode($data);//JSONに変換
+
+			return $json_data;
+		}
+
+	}
+	</code></pre>
+	<hr>
+
+	<strong>CakePHP:ビュー:ajax_sample.ctp</strong>
+	<pre>
+	&lt;?php
+		$this-&gt;assign('script', $this-&gt;Html-&gt;script(array('Devloper/ajax_sample',)));
+		//※jqueryはdefalut.ctpにてインクルード済み
+	?&gt;
+
+	&lt;div id="err"&gt;&lt;/div&gt;
+	</pre>
+	<hr>
+
+	<strong>JS:ajax_sample.js</strong>
+	<pre><code>
+	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'xxx':111};
+
+	data = _escapeForAjax(data); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
+
+	var json_str = JSON.stringify(data);//データをJSON文字列にする。
+
+	// AJAX
+	$.ajax({
+		type: "POST",
+		url: "/animal/devloper/ajax",
+		data: "key1="+json_str,
+		cache: false,
+		dataType: "text",
+		success: function(str_json, type) {
+			var data;
+			try{
+				data=$.parseJSON(str_json);//パース
+			}catch(e){
+				alert('エラー');
+				$("#err").html(str_json);
+			}
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown){
+			$('#err').html(xmlHttpRequest.responseText);//詳細エラーの出力
+			alert(textStatus);
+		}
+	});
+	
+	
+	
+	
+	/**
+	 * Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
+	 * 
+	 * @param any data エスケープ対象 :文字列、オブジェクト、配列を指定可
+	 * @returns エスケープ後
+	 */
+	function _escapeForAjax(data){
+		if (typeof data == 'string'){
+			if ( data.indexOf('&amp;') != -1) {
+				data = data.replace(/&amp;lt;/g,'&lt;').replace(/&amp;gt;/g,'&gt;').replace(/&amp;amp;/g,'&amp;');
+				return encodeURIComponent(data);
+			}else{
+				return data;
+			}
+		}else if (typeof data == 'object'){
+			for(var i in data){
+				data[i] = _escapeForAjax(data[i]);
+			}
+			return data;
+		}else{
+			return data;
+		}
+	}
+	</code></pre>
+	<hr>
+
+
+
+	<time>2013-9-3 | 2017-4-10</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-1-1" class="sec1" >
+	<h3>Ajaxの雛型その２</h3>
+	CakePHPとJSクラスを組み合わせたAjaxのひな形。<br>
+	サーバー側（CakePHP）でエラーがあった場合、ダンプ出力するようにしている。<br>
+	クライアント側とサーバー側のデータやりとりはJSONで統一。<br>
+	<img src="img/sec7-1-1.png" class="img-responsive" />
+	
+	<div class="sec3">
+	TestController（例：YagiController）<br>
+	<button type="button" onclick="$('#sec7-1-1a').toggle()" class="btn btn-primary btn-xs">ソースコード</button>
+	<pre id="sec7-1-1a" style="display:none">
+	/**
+	 * ヤギAJAXサンプル
+	 * ★履歴
+	 * 2015/11/12	新規作成
+	 * @author k-uehara
+	 */
+	class YagiController extends AppController {
+	
+		//▽設定 Cake PHP
+		public $name = 'Yagi';
+	
+		public function index() {
+		
+		}
+	
+	    /**
+	     * ヤギAjax   | Ajax
+	     * @return string jsonレスポンス
+	     */
+	    public function yagi_action(){
+	    	
+	    	App::uses('Sanitize', 'Utility');
+	    	
+	    	$this->autoRender = false;//ビュー(ctp)を使わない。
+	    	
+	    	$json_param=$_POST['key1'];
+	    	
+	    	$json_param=str_replace('\\','',$json_param);//PHPバージョンによってはバックスラッシュを除去しないとJSONエンコードできない。
+	    	$param=json_decode($json_param,true);//JSON文字を配列に戻す
+	    	 
+	    	//窓口IDの数値バリデーション
+	    	if(empty($param['yagi_id']) || !is_numeric($param['yagi_id'])){
+	    		return false;
+	    	}
+	
+	    	$data=array(
+	    		array('id'=>4,'yagi_name'=>'ヒージャー','yagi_date'=>'2015-11-1'),
+	    		array('id'=>5,'yagi_name'=>'カシミア','yagi_date'=>'2015-11-2'),
+	    		array('id'=>6,'yagi_name'=>'トカラ山羊','yagi_date'=>'2015-11-3'),
+	    		array('id'=>7,'yagi_name'=>'&lt;span>アンゴラヤギ&lt;/span>','yagi_date'=>'2015-11-4'),
+	    	);
+	    	
+	    	//サニタイズ（XSS対策）
+	    	$data=Sanitize::clean($data, array('encode' => true));
+	    	
+	    	$res_flg='success';
+	    	
+	    	$res=array(
+	    		'data'=>$data,
+	    		'res_flg'=>$res_flg,
+	    		);
+	    	
+	    	
+	    	$json=json_encode($res);//JSONに変換
+	    	
+	    	return $json;
+	    }
+	
+	}	
+	</pre>
+	</div>
+	
+	
+	
+	
+	
+	<div class="sec3">
+	index.ctp<br>
+	<button type="button" onclick="$('#sec7-1-1b').toggle()" class="btn btn-primary btn-xs">ソースコード</button>
+	<pre id="sec7-1-1b" style="display:none">
+	&lt;?php
+		$this-&gt;assign('script', $this-&gt;Html-&gt;script(array(
+				'Yagi/yagi_action',			//管制チャット画面
+				'Yagi/index'				//当画面専属JSファイル
+			)));
+	?&gt;
+	
+	&lt;h1&gt;ヤギAjaxサンプル&lt;/h1&gt;
+	
+	&lt;button type="button" class="btn btn-danger" onclick="yagiActionExecution()"&gt;AJAX通信テスト&lt;/button&gt;
+	
+	&lt;div id="ajax_res"&gt;&lt;/div&gt;
+	&lt;input type="hidden" id="webroot" value="&lt;?php echo $this-&gt;html-&gt;webroot; ?&gt;" /&gt;
+	&lt;hr&gt;
+	&lt;div id="ajax_debug"&gt;&lt;/div&gt;
+	</pre>
+	</div>
+	
+	
+	
+	
+	
+	<div class="sec3">
+	index.js<br>
+	<button type="button" onclick="$('#sec7-1-1c').toggle()" class="btn btn-primary btn-xs">ソースコード</button>
+	<pre id="sec7-1-1c" style="display:none">
+	/**
+	 * ヤギAjaxサンプルindexのJS
+	 * 2015-11-12	新規作成
+	 */
+	var yagiAction=new YagiAction();
+	
+	$( function() {
+		
+		var debug_slc="#ajax_debug";
+		var webroot=$('#webroot').val();
+		
+		yagiAction.init(webroot,debug_slc);
+		
+	});
+	
+	function yagiActionExecution(){
+		yagiAction.execution(yagiAction);
+	}
+		</pre>
+	</div>
+	
+	
+	
+	
+	
+	<div class="sec3">
+	ajax_action.js（例：YagiAction）<br>
+	<button type="button" onclick="$('#sec7-1-1d').toggle()" class="btn btn-primary btn-xs">ソースコード</button>
+	<pre id="sec7-1-1d" style="display:none">
+	/**
+	 * 山羊アクションクラス
+	 * 2015-11-12	新規作成
+	 * 
+	 */
+	var YagiAction =function(){
+		
+		this.datas=null;//窓口締切情報群
+		
+		this.web_root='';		//Ajax通信先へのルート
+		this.debug_slc='';	//デバッグ要素のセレクタ名
+		
+		/**
+		 * 初期化。
+		 * 表示切替を行う。
+		 */
+		this.init=function(web_root,debug_slc){
+			
+			//引数をメンバにセット
+			this.web_root=web_root;
+			this.debug_slc=debug_slc;
+			
+	
+		};
+		
+		/**
+		 * 窓口締切データと締切日時を表示する。
+		 * 「確認する」ボタンを押した時、窓口締切データパネルを表示する。
+		 */
+		this.preview=function(){
+			
+			//プレビューが表示中であれば、隠す。
+			if(this.previewShowFlg==1){
+				this.previewShowFlg=0;//非表示にする
+				$('#tw_closing_preview').hide();
+				return;
+			}
+	
+			var data=this.datas.data;//窓口締切情報群から窓口締切データを取得する。
+			
+			//窓口締切データからHTMLテーブルコードを作成する。
+			var h='';
+			for(var key in data){
+				var ent=data[key];
+				var tr= "&lt;tr&gt;" +
+					"&lt;td&gt;" + ent.id + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.modified + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.first_chat_msg + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.lg_name + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.lg_ip_addr + "&lt;/td&gt;" + 
+					"&lt;/tr&gt;";
+				h += tr;
+			}
+			
+			//HTMLテーブルコードを要素にセットして表示する。
+			$('#tw_closing_preview table tbody').html(h);
+			$('#tw_closing_preview').show();
+			
+	
+			this.previewShowFlg=1;//表示中にする
+			
+			
+			
+		};
+	
+		//窓口締切データパネルをto閉じる
+		this.previewClose=function(){
+			$('#tw_closing_preview').hide();
+			this.previewShowFlg=0;
+		};
+		
+		
+		/**
+		 * ★締切実行
+		 */
+		this.execution=function(myself){
+	
+			var data={
+					'yagi_id':99,
+					'name':'赤山羊',
+					};
+			
+			var json_str = JSON.stringify(data);//データをJSON文字列にする。
+			
+			var url =this.web_root + "yagi/yagi_action";//Ajax通信先URL
+			
+			//☆AJAX非同期通信
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: "key1="+json_str,
+				cache: false,
+				dataType: "text",
+				success: function(str_json, type) {
+	
+					try{
+						var res=$.parseJSON(str_json);//パース
+						if(res.res_flg=='success'){
+							
+							myself.showTable(res.data);//テーブルデータを作成して表示
+							
+						}else{
+							myself.error('エラー:none res',str_json);
+						}
+						
+	
+					}catch(e){
+						myself.error('エラー:try',str_json);
+					}
+					
+	
+				},
+				error: function(xmlHttpRequest, textStatus, errorThrown){
+					myself.error(textStatus,xmlHttpRequest.responseText);
+				}
+			});
+		};
+		
+		/**
+		 * データからHTMLテーブルを組み立て表示する。
+		 * @param data 2次元データ
+		 */
+		this.showTable=function(data){
+			
+			var thead="&lt;thead&gt;&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;日付&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;";
+			var trs='';
+			for(var key in data){
+				var ent=data[key];
+				var tr= "&lt;tr&gt;" +
+					"&lt;td&gt;" + ent.id + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.yagi_name + "&lt;/td&gt;" + 
+					"&lt;td&gt;" + ent.yagi_date + "&lt;/td&gt;" + 
+					"&lt;/tr&gt;";
+				trs += tr;
+			}
+			
+			var h_tbl="&lt;table&gt;" + thead + "&lt;tbody&gt;" + trs + "&lt;/tbody&gt;&lt;/table&gt;";
+			
+			$('#ajax_res').html(h_tbl);
+		};
+		
+		/**
+		 * エラー出力
+		 * @param alert_msg アラートメッセージ
+		 * @param dump AJAXレスポンスなどダンプコード
+		 */
+		this.error=function(alert_msg,dump){
+			console.log(this.web_root + ':' + alert_msg);
+			alert(alert_msg);
+			$(this.debug_slc).html(dump);
+		};
+	
+	};
+
+	</pre>
+	</div>
+	
+
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-2" class="sec1" >
+	<h3>ビューに共通用のビューを埋め込む | echo $this->element('test');</h3>
+
+	ビューであるctpファイル中に、別のctpファイルを埋め込むことができる。<br>
+	ただし埋め込む別のctpファイルは、ディレクトリの指定位置に配置せねばならない。<br>
+	配置場所はapp/View/Elements。<br>
+	<br>
+	sample.ctpに、app/View/Elements内にあるxxx.ctpを埋め込む場合、以下のように記述する。<br>
+	<pre>
+	&lt;?php echo $this->element('xxx');?&gt;
+	</pre>
+	
+	<h4>埋込ctpファイルに引数を渡す</h4>
+	＜例＞index.ctpにanimal.ctpを埋込と同時に引数を渡す場合
+	<p>index.ctp</p>
+	<pre>
+	&lt;?php echo $this-&gt;element('animal',array(
+		'animal_name'=&gt;'ラクダ'
+	)); ?&gt;	
+	</pre>
+	
+	<p>animal.ctp</p>
+	<pre>
+	&lt;div&gt;
+		動物の名前は&lt;strong&gt;&lt;?php echo $animal_name;?&gt;&lt;/strong&gt;です。
+	&lt;/div&gt;
+	</pre>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-3" class="sec1" >
+	<h3>クロスドメインによるAjax</h3>
+	クロスドメイン技術を使うとAjaxでjs側からドメインが異なるサーバサイドを呼び出すことができる。<br>
+	cakephpでクロスドメインを行う場合、コントローラの認証をOFF設定にすること。はじめから認証がないページの場合は問題ない。<br>
+	異なるドメイン間だけでなく、ローカル環境のjs側からサーバー環境のサーバーサイドを呼び出すことができる。<br>
+	<br>
+	クロスドメインは、名前からしてドメインが異なるサーバー同士のやりとりのように見えるが、実際はオリジン（Origin）の異なる同士のやりとりのようである。<br>
+	オリジンは、プロトコル、ドメイン、ポートの３つの組み合わせた情報の呼称である。<br>
+	<br><br>
+	コントローラのソースコード（サーバーサイド）<br>
+	<pre>
+	class DemoController extends AppController {
+		public $name = 'Demo';
+		<span class="marker">public $components=null;</span>//ログイン認証不要
+	
+		public function test_c(){
+	 		$this->autoRender = false;//ビュー(ctp)を使わない。
+			<span class="marker">
+	 		$this->header('Access-Control-Allow-Origin: *');
+	 		$this->header('Access-Control-Allow-Methods: POST');
+	 		</span>
+	 		$referer=$_SERVER['HTTP_REFERER'];//リファラ取得
+	 		$json_param=$_POST['key1'];
+			return 'hello world  '.$json_param;
+		}
+	}
+	</pre>
+	※クロスドメインでも遷移元URLであるリファラを取得できる。
+	
+	<br><br>
+	動かない場合、「$this->header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');」を追加する手もある。
+	<pre>
+	$this->header('Access-Control-Allow-Origin: *');
+	$this->header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+	$this->header('Access-Control-Allow-Methods: POST');
+	</pre>
+	
+	
+	
+	<br><br>
+	js側のajaxからの呼出し例<br>
+	<pre>
+	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'xxx':111};
+	var json_str = JSON.stringify(data);//データをJSON文字列にする。
+	var url="http://example.org/cake_demo/demo/test_c";
+
+	//☆AJAX非同期通信
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: "key1="+json_str,
+		cache: false,
+		dataType: "text",
+		success: function(str_json, type) {
+			alert(str_json);
+		},
+		error: function(xmlHttpRequest, textStatus, errorThrown){
+			$('#xxx').html(xmlHttpRequest.responseText);//詳細エラーの出力
+			alert(textStatus);
+		}
+	});
+	</pre>
+	
+	<br><br>
+	
+	通常のphpの場合(cakephp未使用）
+	<pre>
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: POST');
+	$json_param=$_POST['key1'];
+	echo 'hello world2  '.$json_param;
+	</pre>
+	
+	<br><br>
+	<aside>
+		※補足 <br>
+		GETも許可する場合<br>
+		header('Access-Control-Allow-Methods: GET, POST');<br>
+	</aside>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-5" class="sec1" >
+	<h3>リダイレクトでパラメータを送る</h3>
+	
+	redirect_with_param2にリダイレクトする際、$text1と$text2をパラメータとして送る。
+	<pre>
+    public function redirect_with_param(){
+    	$text1='やぎ';
+    	$text2='yagi';
+    	$this->redirect(array(
+    			'controller' => 'test1',
+    			'action' => 'redirect_with_param2',
+    			<strong>$text1,
+    			$text2,</strong>
+    	));
+    }
+    </pre>
+    <br>
+    
+	 リダイレクト先。<br>
+	受取パラメータはメソッドの引数に記述する。引数の名称は何でもよい。<br>
+    <pre>
+    public function redirect_with_param2(<strong>$t1=null,$t2=null</strong>){
+    	Debugger::dump($t1);
+    	Debugger::dump($t2);
+    }
+	</pre>
+	
+	出力
+	<pre>
+	'やぎ'
+	'yagi'</pre>
+	
+	
+	リダイレクト先のURLは以下のようになっている。
+	<pre>
+	http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test1/redirect_with_param2/%E3%82%84%E3%81%8E/yagi
+	</pre>
+	<a class="ref_link"  href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test1/redirect_with_param/">サンプル</a>
+	<a class="ref_link" target="brank" href="http://no1-support.co.jp/blog/archives/117">参考1</a>
+	<a class="ref_link" target="brank" href="http://learnphp.seesaa.net/article/392628631.html">参考2</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-6" class="sec1" >
+	<h3>リンク、アンカーボタン、サブミットボタンのHTMLヘルパー | link,button,submit</h3>
+	
+	リンク
+	<pre>
+	echo $this->Html->link(
+			'TOPへ',
+			'/pages/index',
+			array('class' => 'btn btn-primary', 'target' => '_blank')
+	);
+	</pre>
+	HTMLソース
+	<pre>&lt;a href="/shch/pages/index" class="btn btn-primary" target="_blank"&gt;TOPへ&lt;/a&gt;</pre>
+	<hr>
+	
+	アンカーボタン
+	<pre>
+	echo $this->Form->button('ボタン１', 
+		array(
+				'type' => 'button',
+				'class' => 'btn btn-primary',
+				'onclick'=>"alert('Hello world!')",
+				
+		));
+	</pre>
+	HTMLソース
+	<pre>&lt;button type="button" class="btn btn-primary" onclick="alert('Hello world!')"&gt;ボタン１&lt;/button&gt;</pre>
+	<hr>
+	
+	サブミットボタン
+	<pre>
+	echo $this->Form->submit('検索', array(
+			'name' => 'search',
+			'class'=>'btn btn-success',
+	));
+	</pre>
+	HTMLソース
+	<pre>&lt;input name="search" class="btn btn-success" type="submit" value="検索"&gt;</pre>
+	<hr>
+	
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-7" class="sec1" >
+	<h3>SQLをダンプしてデバッグする</h3>
+		SQLをダンプする場合は下記のメソッドを使う。<br>
+		<pre>echo $this->element('sql_dump');</pre>
+		本来ctpファイル内で使うものであるが、コントローラやモデルでも使える。<br>
+		モデルのfindメソッドやsaveメソッドの後に記述する良い。<br>
+		<br>
+		
+		上記の方法でダンプできない場合の別の方法
+		<pre><code>
+		$sqlLog = $this-&gt;モデル名-&gt;getDataSource()-&gt;getLog();
+		debug($sqlLog);
+		</code></pre>
+		<br>
+	
+		<br><time>2013-9-3 | 2016-11-29</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-8" class="sec1" >
+	<h3>CakePHPで静的htmlを組み込む方法</h3>
+	webroot配下に配置するだけです。<br>
+	<br>
+	
+	webrootにanimalフォルダを作り、その中にneko.htmlを配置した場合、以下のURLでアクセスできます。<br>
+	<pre>http://localhost/cake_demo/app/webroot/animal/neko.html</pre>
+
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-9" class="sec1" >
+	<h3>CakePHPエラー:システムのタイムゾーンの設定に依存することは安全ではありません</h3>
+
+	<p>バグ</p>
+	<pre>...Cake/Cache/CacheEngine.php on line 60</pre>
+	<br>
+	
+	<p>発生原因</p>
+	 PHP5.2系からPHP5.3,PHP5.4,PHP5.6に変更すると発生。<br>
+	タイムゾーン未設定によるエラー。<br>
+	<br>
+	
+	<p>修正方法</p>
+	app/Config/core.phpを開き、タイムゾーンの設定をする。
+	<pre>
+	//date_default_timezone_set('UTC');
+	↓
+	date_default_timezone_set( 'Asia/Tokyo');
+	</pre>
+	<br>
+
+	<a class="ref_link" target="brank" href="http://kwski.net/cakephp-2-x/1009/">参考</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-10" class="sec1">
+	<h3>メール送信 | CakeEmail</h3>
+		gmailを例に手順を示しているが、gmail側でブロックされてしまう。<br>
+		よって以下の手順はメール送信できるサーバーが用意されていることを前提とする。<br>
+		<br>
+		
+		<h4>手順</h4>
+		<div class="sec3">① app/Configを開き、「email.php.defult」を「email.php」に名前変更</div>
+		
+		<div class="sec3">
+			② email.phpに以下の設定を記述する。
+			<pre>
+			class EmailConfig {
+			
+				// Gmailによる送信例
+				public $gmail = array(
+						'host' => 'ssl://smtp.gmail.com',
+						'port' => 465,
+						'username' => '○○○○@gmail.com', //送信元メールアドレス
+						'password' => '○○○○',           // パスワード
+						'transport' => 'Smtp',
+						'tls' => true
+				);
+			}
+			</pre>
+		</div>
+		
+		<div class="sec3">
+			③ 以下のコードでメール送信する。
+			
+			<pre>
+			App::uses( 'CakeEmail', 'Network/Email');
+			$email = new CakeEmail( 'gmail');
+			$email->from( array( '○○○○@gmail.com' => 'Sender'));	// 送信元メールアドレス
+			$email->to( '○○○○@gmail.com');	// 送信先
+			$email->subject( 'テストの件です');	// タイトル
+			$email->send( 'メール内容です。いろはにほへとちりぬるをわかよたれそつねならむ');
+			</pre>
+		</div>
+		
+	<a class="ref_link" target="brank" href="http://kwski.net/cakephp-2-x/1017/">参考サイト</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
+<div id="sec7-0" class="sec1" style="display:none">
+	<h3>xxx</h3>
+	テスト
+	<pre>
+
+	</pre>
+	<a class="ref_link" target="brank" href="xxxx">参照</a>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+<!-- ここまで、覚書の内容 -->
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/cakephp">CakePHPの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013/09/03</div>
+</body>
+</html>

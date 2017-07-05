@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<title>PHPの覚書</title>
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<style type="text/css">
+		h2{
+			margin-top:70px;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書</h1></div>
+<div class="container" >
+		
+<h2 id="public">目次</h2>
+<ol>
+	<li><a href="../cakephp3">CakePHP3</a></li>
+	<li><a href="#public_note">一般</a></li>
+	<li><a href="#string_index">文字列操作</a></li>
+	<li><a href="#date_index" >日付と時刻</a></li>
+	<li><a href="#array_index" >配列</a></li>
+	<li><a href="note_composer.html" >Composerの覚書</a></li>
+	<li><a href="#curl_index" >cURLの覚書</a></li>
+	<li><a href="#reg_exp_index" >正規表現</a></li>
+	<li><a href="#gd_index" >画像処理 GD</a></li>
+	<li><a href="#guzzle_index" >Guzzleの覚書</a></li>
+	<li><a href="#word_press_index" >WordPressの覚書</a></li>
+</ol>
+
+
+<h2 id="public_note">一般</h2>
+<ol style="margin-bottom:100px">
+
+
+	<li><a href="note.html#sec1-8" >JSON変換</a></li>
+	<li><a href="note.html#sec1-9" >テキストファイルから文字列を読み取る</a></li>
+	<li><a href="note.html#sec1-9-2" >文字列をテキストファイルに書き出す</a></li>
+	<li><a href="note.html#sec1-9-3" >ファイルのソースコードを取得する</a></li>
+	<li><a href="note.html#sec1-10" >文字列を指定文字で分割(split,preg_split,explode)</a></li>
+	<li><a href="note.html#sec1-11" >空判定について</a></li>
+	<li><a href="note.html#sec1-17" >改行コードを&lt;br&gt;タグに変換    nl2br()</a></li>
+	<li><a href="note.html#sec1-20" >小数点の四捨五入、切上げ、切捨て</a></li>
+	<li><a href="note2.html#sec2-3" >web上の画像をコピーする</a></li>
+	<li><a href="note2.html#sec2-8" >金額など数値の3ケタ区切り  | number_format</a></li>
+	<li><a href="note3.html#sec3-1" >時分チェック関数</a></li>
+	<li><a href="note3.html#sec3-3-1" >XSSサニタイズ</a></li>
+	<li><a href="note3.html#sec3-3-2" >SQLインジェクション用のサニタイズ</a></li>
+	<li><a href="note3.html#sec3-3-3" >XML出力用のエスケープ</a></li>
+	<li><a href="note4.html#sec4-2" >URLをサニタイズ | 要素属性へのXSS攻撃</a></li>
+	<li><a href="note3.html#sec3-4" >PHPの注意：PHPの関数と同じ名前でオリジナル関数を作ってはいけない。</a></li>
+	<li><a href="note3.html#sec3-7" >数値を2桁表記にする（例 2→02) | sprintf</a></li>
+	<li><a href="note3.html#sec3-8" >科学記法を10進数表記にする(例 1.23E+14 → 123000000000000)</a></li>
+	<li><a href="note4.html#sec4-3" >文字化け対策した日本語ファイル名のファイルコピー |  move_uploaded_file </a></li>
+	<li><a href="note4.html#sec4-4" >日本語ディレクトリの存在チェック | 日本語フォルダに対応したis_dir </a></li>
+	<li><a href="note4.html#sec4-5" >ディレクトリを作成しながらファイルコピー（日本語名ファイル対応）</a></li>
+	<li><a href="note4.html#sec4-6" >ディレクトリ内のファイルを列挙</a></li>
+	<li><a href="note4.html#sec4-6-2" >ディレクトリ階層化の全ファイルを列挙</a></li>
+	<li><a href="note11.html#sec11-1" >指定ディレクトリ内のファイル詳細情報を取得する</a></li>
+	<li><a href="note4.html#sec4-7" >ディレクトリ内のファイルをまとめて削除</a></li>
+	<li><a href="note4.html#sec4-7-2" >ディレクトリごとファイルを削除する</a></li>
+	<li><a href="note4.html#sec4-8" >ファイル名からディレクトリ、ファイル名、拡張子を取得する | pathinfo()</a></li>
+	<li><a href="note4.html#sec4-8-2" >ディレクトリが存在しないならディレクトリを作成する</a></li>
+	<li><a href="note4.html#sec4-9" >ファイル削除を日本語名ファイルで行う方法 | unlink</a></li>
+	<li><a href="note4.html#sec4-10" >IPアドレスを取得する　| $_SERVER["REMOTE_ADDR"]</a></li>
+	<li><a href="note5.html#sec5-1" >暗号化関数の拡張版 md5Ex</a></li>
+	<li><a href="note5.html#sec5-2" >日時入力チェックのバリデーション</a></li>
+	<li><a href="note5.html#sec5-6" >遷移元URLであるリファラを取得する | $_SERVER['HTTP_REFERER']</a></li>
+	<li><a href="note5.html#sec5-7" >URLからドメイン、パス、クエリ、ポート番号などを取得する | parse_url</a></li>
+	<li><a href="note5.html#sec5-8" >英数字のランダム文字列を生成する</a></li>
+	<li><a href="note5.html#sec5-9" >ホスト（ドメイン）からハッシュを作成する</a></li>
+	<li><a href="note6.html#sec6-1" >文字化け対策をとして、PHP.iniの設定をutf8にする</a></li>
+	<li><a href="note6.html#sec6-3" >PHPのエラー</a></li>
+	<li><a href="note6.html#sec6-4" >一意なハッシュコードを生成 | 照合用のハッシュに・・・</a></li>
+	<li><a href="note6.html#sec6-5" >サーバー名またはホスト名を取得 | $_SERVER['SERVER_NAME']</a></li>
+	<li><a href="note6.html#sec6-6" > Proxyサーバー経由のアクセス元IPアドレスを取得する</a></li>
+	<li><a href="note6.html#sec6-7" > プロキシサーバーが設定している値を取得する</a></li>
+	<li><a href="note6.html#sec6-8" > ユーザーエージェントの取得</a></li>
+	<li><a href="note6.html#sec6-9" > ob_startとob_end_cleanによる出力バッファのクリア</a></li>
+	<li><a href="note6.html#sec6-10" >文字の一致率 | レーベンシュタイン距離 | similar_text</a></li>
+	<li><a href="note7.html#sec7-1" >あいまい一致関数 | similar_text_ex | 比較文字1と比較文字2の一致率による判定</a></li>
+	<li><a href="note7.html#sec7-2" >文字列の先頭から一文字を取得する</a></li>
+	<li><a href="note7.html#sec7-3" >文字列の末尾から一文字を取得する</a></li>
+	<li><a href="note7.html#sec7-5" >最大実行時間（タイムアウト）をphp.iniで設定する | Maximum execution time of 30 seconds exceeded</a></li>
+	<li><a href="note7.html#sec7-9" >1行IF文</a></li>
+	<li><a href="note7.html#sec7-10" >キャメルケースおよびスネークケースへの変換</a></li>
+	<li><a href="note7.html#sec7-11" >テーブル名からモデル名に変換する</a></li>
+	<li><a href="note8.html#sec8-1" >テキストファイルを途中から読み込む</a></li>
+	<li><a href="note8.html#sec8-2" >POSTデータの容量を増やす | Warning: POST Content-Length of ...</a></li>
+	<li><a href="note8.html#sec8-3" >テキストファイルからオフセットで指定した1行を読み込む</a></li>
+	<li><a href="note8.html#sec8-4" >波ダッシュを全角チルダに変換する</a></li>
+	<li><a href="note8.html#sec8-7" >アップロード容量を増やすphp.iniの設定</a></li>
+	<li><a href="note8.html#sec8-8" >複数の改行コードに対応した改行分割 | preg_split</a></li>
+	<li><a href="note8.html#sec8-10" >緯度経度を度分秒表記（60進数）から10進数に変換</a></li>
+	<li><a href="note9.html#sec9-2" >複数の区切りで文字列を分割</a></li>
+	<li><a href="note9.html#sec9-3" >先頭の一文字を取得する</a></li>
+	<li><a href="note9.html#sec9-4" >先頭の一文字をカットする</a></li>
+	<li><a href="note9.html#sec9-5" >分数表記の文字列を浮動小数に変換する</a></li>
+	<li><a href="note9.html#sec9-6" >Exifを取得</a></li>
+	<li><a href="note9.html#sec9-7" >文字列から日付の部分を別の日付に置換</a></li>
+	<li><a href="note9.html#sec9-9" >PHPのコールバック</a></li>
+	<li><a href="note9.html#sec9-10" >PHPのコールバック | 関数名を文字列として指定する</a></li>
+	<li><a href="note10.html#sec10-1" >cURLでクロスドメイン</a></li>
+	<li><a href="note10.html#sec10-2" >POSTとPUTの違い</a></li>
+	<li><a href="note10.html#sec10-3" >ヘッダー情報を取得 | getallheaders</a></li>
+	<li><a href="note10.html#sec10-4" >cURLによるクロスドメイン：認証キー付き</a></li>
+	<li><a href="note10.html#sec10-5" >file_get_contents関数でスクレイピング</a></li>
+	<li><a href="note10.html#sec10-6" >file_get_contentsによるクロスドメイン</a></li>
+	<li><a href="note10.html#sec10-7" >２次元配列データからHTMLテーブルを作成</a></li>
+	<li><a href="note10.html#sec10-8" >フルパスを取得 (Windows環境でのパス）</a></li>
+	<li><a href="note10.html#sec10-9" >フルパスのディレクトリセパレータ定数 DIRECTORY_SEPARATOR</a></li>
+	<li><a href="note10.html#sec10-10" >ファイルの更新日時を取得する</a></li>
+	<li><a href="note11.html#sec11-2" >テキストファイルのダウンロード(Shift-JISおよびUTF-8に対応)</a></li>
+	<li><a href="note11.html#sec11-3" >zipの解凍 | ZipArchive</a></li>
+	<li><a href="note11.html#sec11-3-2" >zipの圧縮 | ZipArchive</a></li>
+	<li><a href="note11.html#sec11-8" >SELECTフォームを作成する</a></li>
+	<li><a href="note11.html#sec11-9" >型をセットする | settype</a></li>
+	<li><a href="note11.html#sec11-10" >型をセットする | 配列へ個別で型指定</a></li>
+	<li><a href="note12.html#sec12-1" >特定のファイルをダウンロードさせる</a></li>
+	<li><a href="note12.html#sec12-2" >submitの挙動</a></li>
+	<li><a href="note12.html#sec12-3" >XML用の記号エスケープ関数 | escapeMarkForXML</a></li>
+	<li><a href="note12.html#sec12-4" >ファイルおよびディレクトリのパーミッション(属性）を変更する</a></li>
+	<li><a href="note12.html#sec12-5" >ファイル存在チェック（フォルダと日本語名も検証）| is_file,file_exists</a></li>
+	<li><a href="note12.html#sec12-6" >データのグループ化</a></li>
+	<li><a href="note12.html#sec12-7" >ループにおける関数処理を高速化する</a></li>
+	<li><a href="note12.html#sec12-8" >最大実行時間が30秒の制限を解除する</a></li>
+	<li><a href="note12.html#sec12-9" >ファイルパスやディレクトリパスからパスセパレータ（パス区切り）を取得する</a></li>
+	<li><a href="note12.html#sec12-10" >自作テンプレートエンジン　| コンテンツを文字列として取得</a></li>
+	<li><a href="note13.html#sec13-1" >連続するスペースを一つにする</a></li>
+	<li><a href="note13.html#sec13-2" >文字列で指定した関数を呼び出す</a></li>
+	<li><a href="note13.html#sec13-3" >文字列のクラス名とメソッド名を指定して実行する</a></li>
+	<li><a href="note13.html#sec13-4" >拡張URLエンコード</a></li>
+	<li><a href="note13.html#sec13-5" >CSV用データに変換</a></li>
+	<li><a href="note13.html#sec13-5-2" >CSVファイルを読み込み配列データに格納する</a></li>
+	<li><a href="note13.html#sec13-6" >evalの使い方</a></li>
+	<li><a href="note13.html#sec13-7" >globalの検証</a></li>
+	<li><a href="note13.html#sec13-8" >パスの末尾にスラッシュがなければ追加（削除）</a></li>
+	<li><a href="note13.html#sec13-9" >XMLファイルを読み込んでパースする | simplexml_load_file</a></li>
+	<li><a href="note13.html#sec13-10" >JAX.phpでXMLと配列データを相互変換する</a></li>
+	<li><a href="note14.html#sec14-1" >ファイルからテキストを取得する | file_get_contents</a></li>
+	<li><a href="note14.html#sec14-2" >XMLテキストを読み込んでデータ配列を取得 | SimpleXMLElement</a></li>
+
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="string_index">文字列操作</h2>
+<ol>
+	<li><a href="string_note.html#sec1-1" >文字数を取得</a></li>
+	<li><a href="string_note.html#sec1-2" >対象文字列に検索文字列が存在するかチェック</a></li>
+	<li><a href="string_note.html#sec1-3" >先頭の一文字を取得 | 先頭のn文字</a></li>
+	<li><a href="string_note.html#sec1-4" >末尾の一文字を取得 | 末尾のn文字</a></li>
+	<li><a href="string_note.html#sec1-5-1" >文字列を左側から印文字を検索し、左側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-5-2" >文字列を左側から印文字を検索し、右側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-5-3" >文字列を右側から印文字を検索し、左側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-5-4" >文字列を右側から印文字を検索し、右側の文字を切り出す</a></li>
+	<li><a href="string_note.html#sec1-6-1" >末尾の一文字を削る</a></li>
+	<li><a href="string_note.html#sec1-6-2" >先頭の一文字を削る</a></li>
+	<li><a href="string_note.html#sec1-7" >文字幅を適当に切りそろえる(文字丸め） | mb_strimwidth</a></li>
+	<li><a href="string_note.html#sec1-8" >先頭を大文字にする</a></li>
+	<li><a href="string_note.html#sec1-9" >2つの印文字に挟まれた文字を取得する</a></li>
+	<li><a href="string_note.html#sec1-10" >2つの印文字に挟まれた文字を置換する</a></li>
+	<li><a href="string_note2.html#sec2-1" >文字列を配列化する</a></li>
+	<li><a href="string_note2.html#sec2-2" >日本語文字列を配列化する</a></li>
+	<li><a href="string_note2.html#sec2-3" >文字列中で仕様している文字を重複なしで列挙する</a></li>
+	<li><a href="string_note2.html#sec2-4" >文字列を小文字化する | strtolower,mb_strtolower</a></li>
+	<li><a href="string_note2.html#sec2-5" >文字列を大文字化する | strtoupper,mb_strtoupper</a></li>
+	<li><a href="string_note2.html#sec2-6" >文字列の両端からダブルクォートなどを除去する</a></li>
+	<li><a href="string_note2.html#sec2-7" >文字列の先頭または末尾から指定文字を除去する</a></li>
+	<li><a href="string_note2.html#sec2-8" >文字列をShift-JISからUTF8に変換する | mb_convert_encoding</a></li>
+	<li><a href="string_note2.html#sec2-9" >データ配列内の値をまとめてShift-JISからUTF8に変換する | mb_convert_variables</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="date_index">日付と時刻</h2>
+<ol>
+	<li><a href="note.html#sec1-1" >日付の基本</a></li>
+	<li><a href="note7.html#sec7-7" >UNIXタイムスタンプを取得する | time</a></li>
+	<li><a href="note5.html#sec5-3" >現在のUNIXタイムスタンプを取得 | time()</a></li>
+	<li><a href="note.html#sec1-1-0" >日付フォーマット変換（日時にも）</a></li>
+	<li><a href="note.html#sec1-1-1" >週始めの日付を取得</a></li>
+	<li><a href="note.html#sec1-1-2" >月初めの日付を取得する</a></li>
+	<li><a href="note.html#sec1-1-3" >元旦日を取得する</a></li>
+	<li><a href="note.html#sec1-2" >日付の加算と減算</a></li>
+	<li><a href="note.html#sec1-3" >日付比較</a></li>
+	<li><a href="note.html#sec1-4" >年月日フォーマットから日付型データとして取得</a></li>
+	<li><a href="note.html#sec1-5" >日付のループ</a></li>
+	<li><a href="note.html#sec1-6" >DateTime型日付と unix timestampの相互変換</a></li>
+	<li><a href="note.html#sec1-7" >日付ループ（DateIntervalを使わない）</a></li>
+	<li><a href="note.html#sec1-16" >日付フォーマット変換</a></li>
+	<li><a href="note2.html#sec2-1" >2つの日付の日数差を算出する</a></li>
+	<li><a href="note2.html#sec2-4" >変数や配列を１つの文字列にする | serialize</a></li>
+	<li><a href="note2.html#sec2-7" >日付の月末日を取得する方法 | Y-m-t</a></li>
+	<li><a href="note3.html#sec3-2" >期間月分割 | 開始日から終了日までの期間を月ごとに分割する関数</a></li>
+	<li><a href="note7.html#sec7-4" >日付が8桁数値表記であれば、y/m/d形式に変換する</a></li>
+	<li><a href="note.html#sec1-18" >時刻フォーマット変換</a></li>
+	<li><a href="note5.html#sec5-2" >日時入力チェックのバリデーション</a></li>
+	<li><a href="note5.html#sec5-4" >数日後、数年前、数秒後などの日付を取得する</a></li>
+	<li><a href="note5.html#sec5-5" >chaekdate関数の要注意バグ</a></li>
+	<li><a href="note7.html#sec7-8" >ミリ秒 | microtime</a></li>
+	<li><a href="note8.html#sec8-6" >期間を指定月間で分割</a></li>
+	<li><a href="reg_exp_note.html#s51">正規表現で文字列から日付を抜き出す</a></li>
+	<li><a href="note9.html#sec9-7" >文字列から日付の部分を別の日付に置換</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="array_index">配列</h2>
+<ol>
+	<li><a href="note.html#sec1-12" >配列から重複を削除</a></li>
+	<li><a href="note.html#sec1-13" >配列のソート</a></li>
+	<li><a href="note.html#sec1-14" >2次元配列のソート</a></li>
+	<li><a href="note.html#sec1-14-2" >2次元配列のソート：特定のフィールドでデータを並べ替える関数</a></li>
+	<li><a href="note.html#sec1-15" >多次元配列のマージ</a></li>
+	<li><a href="note.html#sec1-19" >配列の先頭と最後を取得する</a></li>
+	<li><a href="note2.html#sec2-5" >配列をデバッグ | var_export</a></li>
+	<li><a href="note2.html#sec2-6" >配列からURLのクエリを作成 | http_build_query</a></li>
+	<li><a href="note2.html#sec2-10" >配列を等分割する | array_chunk</a></li>
+	<li><a href="note3.html#sec3-5" >2次元配列から列を抜き出す</a></li>
+	<li><a href="note3.html#sec3-9" >配列からキーをリストで取り出す | array_keys</a></li>
+	<li><a href="note4.html#sec4-1" >配列をカンマ区切り連結文字に変換(IN句,CSV用に) | implode</a></li>
+	<li><a href="note3.html#sec3-10" >文字列を指定文字数ごとに区切って配列にする | str_split</a></li>
+	<li><a href="note5.html#sec5-10" >連想配列をインデック型である普通の配列に変換する | array_values</a></li>
+	<li><a href="note6.html#sec6-2" >配列の先頭と最後を取得 | end,reset</a></li>
+	<li><a href="note7.html#sec7-6" >配列のキーと値を入れ替える | array_flip</a></li>
+	<li><a href="note8.html#sec8-9" >配列から空白を除去</a></li>
+	<li><a href="note9.html#sec9-1" >配列判定 | is_array</a></li>
+	<li><a href="note9.html#sec9-8" >array_splice | 配列要素の挿入、変更、削除</a></li>
+	<li><a href="php_array_note.html#s1-1" >配列内に指定する値が存在するかチェックする | in_array</a></li>
+	<li><a href="php_array_note.html#s1-2" >配列のポインタ移動を検証 | end,reset,current,each,next,prev</a></li>
+	<li><a href="php_array_note.html#s1-3" >配列の末尾を取得</a></li>
+	<li><a href="php_array_note.html#s1-4" >キー用の配列と値用の配列を合成し、キー付きのデータ配列を作成する</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="curl_index">cURL</h2>
+<ol>
+	<li><a href="curl_note.html#s1">cUrlの概要</a></li>
+	<li><a href="curl_note.html#s100">プロトコルとスキームの違い</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="reg_exp_index">正規表現</h2>
+<ol>
+	<li><a href="reg_exp_note.html#s1-1">OR条件(または) | PHPの正規表現</a></li>
+	<li><a href="reg_exp_note.html#s1-2">正規表現で文字列から日付を抜き出す</a></li>
+	<li><a href="reg_exp_note.html#s1-3">様々な一致条件</a></li>
+	<li><a href="reg_exp_note.html#s1-4">' ( ) 'で挟まれた文字を取得する</a></li>
+	<li><a href="reg_exp_note.html#s1-5">ファイル名のバリデーション</a></li>
+	<li><a href="reg_exp_note.html#s1-6">ワイルドカード検索</a></li>
+	<li><a href="reg_exp_note.html#s1-7">XMLタグから不要な空白を除去</a></li>
+</ol>
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="gd_index">画像処理 GD</h2>
+<ol>
+	<li><a href="gd_note.html#sec1-1">画像を取り込む</a></li>
+	<li><a href="gd_note.html#sec1-2">取り込んだ画像からサイズを取得する</a></li>
+	<li><a href="gd_note.html#sec1-3">別名で保存する</a></li>
+	<li><a href="gd_note.html#sec1-4">空画像を作成してファイル保存する</a></li>
+	<li><a href="gd_note.html#sec1-5">アルファチャネルによる透明</a></li>
+	<li><a href="gd_note.html#sec1-6">複数の画像を合成し、一枚の画像を作成する</a></li>
+	<li><a href="gd_note.html#sec1-7">画像に別画像を拡大縮小しながらコピーする</a></li>
+	<li><a href="note2.html#sec2-2">画像を回転させて保存</a></li>
+	<li><a href="note11.html#sec11-4">サムネイル画像作成：PNG</a></li>
+	<li><a href="note11.html#sec11-5">サムネイル画像作成：JPEG</a></li>
+	<li><a href="note11.html#sec11-6">サムネイル画像作成：GIF</a></li>
+	<li><a href="note11.html#sec11-7">サムネイル画像作成：クラス化</a></li>
+
+</ol>
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="guzzle_index">Guzzleの覚書</h2>
+<ol>
+	<li><a href="guzzle_note.html#s10">PHPだけでクロスドメイン</a></li>
+	<li><a href="guzzle_note.html#s300">Guzzle3によるクロスドメイン</a></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="word_press_index">WordPressの覚書</h2>
+<ol>
+	<li><a href="word_press_note.html">ワードプレスの概要</a></li>
+	<li><a href="word_press_note.html#s10">管理画面へのURL</a></li>
+</ol>
+			
+			
+
+
+			
+
+			
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2014/5/9</div>
+</body>
+</html>

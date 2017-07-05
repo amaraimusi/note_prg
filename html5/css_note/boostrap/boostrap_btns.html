@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Boostrapでボタンやアンカーを装飾する</title>
+
+		<link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+		<script src="bootstrap-3.2.0-dist/js/jquery-1.11.1.min.js"></script>
+		<script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+
+		<style>
+			.sec1{
+				border-style:solid;
+				border-width:2px;
+				border-color:#dac5fe;
+				padding:10px;
+				margin-bottom:50px;
+
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Boostrapでボタンやアンカーを装飾する</h1>
+
+		<div class="sec1">
+			button,input,a要素に同じようにスタイルを指定できる。<br>
+			下記の例ではbutton,input,a要素のclass属性に、同じ設定値である「"btn btn-primary btn-lg"」をセットしている。
+			<pre>
+	&ltbutton type="button" class="btn btn-primary btn-lg"&gtbutton タグ&lt/button&gt
+	&ltinput type="button" class="btn btn-primary btn-lg" value="input タグ" /&gt
+	&lta href="#" class="btn btn-primary btn-lg"&gta タグ&lt/a&gt
+			</pre>
+
+			<button type="button" class="btn btn-primary btn-lg">button タグ</button>
+			<input type="button" class="btn btn-primary btn-lg" value="input タグ" />
+			<a href="#" class="btn btn-primary btn-lg">a タグ</a>
+		</div>
+
+
+
+
+		<div class="sec1">
+			ボタンにはいくつかのスタイルがある。
+			スタイルにはdefault,primary,success,info,warning,danger,linkがある。<br>
+<pre>
+	&ltinput type="button" class="btn btn-default" value="default" /&gt
+	&ltinput type="button" class="btn btn-primary" value="primary" /&gt
+	&ltinput type="button" class="btn btn-success" value="success" /&gt
+	&ltinput type="button" class="btn btn-info" value="info" /&gt
+	&ltinput type="button" class="btn btn-warning" value="warning" /&gt
+	&ltinput type="button" class="btn btn-danger" value="danger" /&gt
+	&ltinput type="button" class="btn btn-link" value="link" /&gt
+</pre>
+			<input type="button" class="btn btn-default" value="default" />
+			<input type="button" class="btn btn-primary" value="primary" />
+			<input type="button" class="btn btn-success" value="success" />
+			<input type="button" class="btn btn-info" value="info" />
+			<input type="button" class="btn btn-warning" value="warning" />
+			<input type="button" class="btn btn-danger" value="danger" />
+			<input type="button" class="btn btn-link" value="link" />
+		</div>
+
+
+
+
+		<div class="sec1">
+			ボタンのサイズは4種類あり、大きい、ふつう、小さい、極小から選んで指定できる。<br>
+			lg,sm,xsを指定すると大きい、小さい、極小となる。省略した場合はふつうサイズとなる。<br>
+<pre>
+	&ltinput type="button" class="btn btn-primary btn-lg" value="大きい" /&gt
+	&ltinput type="button" class="btn btn-primary " value="ふつう" /&gt
+	&ltinput type="button" class="btn btn-primary btn-sm" value="小さい" /&gt
+	&ltinput type="button" class="btn btn-primary btn-xs" value="極小" /&gt
+</pre>
+
+			<input type="button" class="btn btn-primary btn-lg" value="大きい" />
+			<input type="button" class="btn btn-primary " value="ふつう" />
+			<input type="button" class="btn btn-primary btn-sm" value="小さい" />
+			<input type="button" class="btn btn-primary btn-xs" value="極小" />
+
+		</div>
+
+
+		<div class="sec1">
+			ボタンを連結する場合。
+<pre>
+	&ltdiv class="btn-group"&gt
+		&lta class="btn btn-success" href="#"&gt見出しタイプ&lt/a&gt
+		&lta class="btn  btn-primary" href="#"&gtプランタイプ&lt/a&gt
+		&ltbutton class="btn btn btn-danger"&gtテストタイプ&lt/button&gt
+	&lt/div&gt
+</pre>
+			<div class="btn-group">
+				<a class="btn btn-success" href="#">見出しタイプ</a>
+				<a class="btn btn-primary" href="#">プランタイプ</a>
+				<button class="btn btn btn-danger">テストタイプ</button>
+			</div>
+		</div>
+	</body>
+
+	<a href="http://www.atmarkit.co.jp/ait/articles/1403/19/news034_2.html" class="btn btn-link btn-xs">参考サイト</a>
+</html>
