@@ -150,6 +150,38 @@
 
 
 
+<div id="sec14-3" class="sec4" >
+	<h3>PHPの罠：文字列と0を比較するときは注意</h3>
+	
+	文字列と0を比較するときは注意しなければならない。<br>
+	int型の0と文字列を比較すると真になってしまうからである。<br>
+	<br>
+
+	<pre><code>
+	if(<strong>0 == 'test'</strong>){
+		var_dump('真'); // 真となってしまう。
+	}else{
+		var_dump('偽');
+	}
+	</code></pre>
+	
+	<strong>理由</strong><br>
+	PHPは型が異なる値を比較するとき一方を暗黙的にキャストするが、文字列をキャストすると0になってしまうからである。<br>
+	そのため数値の0と一致というおかしなことが起こる。<br>
+	<br>
+	
+	<br><time>2017-7-7</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
