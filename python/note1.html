@@ -181,6 +181,45 @@
 
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>配列とスライシングの検証</h3>
+	Pythonには配列中から特定の要素をまとめて取得するスライシングというのが存在する。<br>
+	スライシングで取得する配列は参照ではなく複製である。<br>
+	<br>
+
+	<pre><code>
+	arr1 = [3,4,5,6,7]
+	print (arr1)
+	
+	# スライシングの検証。参照ではなく複製である。
+	arr2 = arr1[2:4] 
+	print (arr2)
+	
+	arr2[1] = 99
+	print (arr2)
+	print (arr1)
+	</code></pre><br>
+	
+	出力
+	<pre class="output_data">
+	[3, 4, 5, 6, 7]
+	[5, 6]
+	[5, 99]
+	[3, 4, 5, 6, 7]
+	</pre>
+	
+	
+	<br><time>2017-7-7</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
