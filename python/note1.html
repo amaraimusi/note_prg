@@ -313,6 +313,39 @@
 
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>シグモイド関数</h3>
+	
+	<pre><code>
+	import numpy as np
+	import matplotlib.pyplot as plt #グラフ描画ライブラリ
+	
+	def sigmoid(x):
+	    return 1 / (1 + np.exp(-x))
+	
+	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
+	y = sigmoid(x)
+	
+	print(x)
+	print(y)
+	
+	# グラフ描画
+	plt.plot(x,y)
+	plt.show()
+	</code></pre>
+	<img src="img/note1/thum/sec1-8.png" class="img_panel_x" /><br>
+	
+	<br><time>2017-7-13</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
