@@ -346,10 +346,29 @@
 
 
 
-<div id="sec1-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec1-9" class="sec4" >
+	<h3>ReLU関数</h3>
 	
-	<br><time></time>
+	<pre><code>
+	import numpy as np
+	import matplotlib.pyplot as plt #グラフ描画ライブラリ
+	
+	# ReLU関数    整流された線形ユニット
+	def relu(x):
+	    return np.maximum(0,x);
+	    
+	
+	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
+	y = relu(x)
+	
+	# グラフ描画
+	plt.plot(x,y)
+	plt.show()
+	</code></pre>
+	
+	<img src="img/note1/thum/sec1-9.png" class="img_panel_x" /><br>
+	
+	<br><time>2017-7-14</time>
 </div>
 
 
