@@ -379,6 +379,38 @@
 
 
 
+<div id="sec1-10" class="sec4" >
+	<h3>内積</h3>
+	
+	<pre><code>
+	import numpy as np
+	import matplotlib.pyplot as plt #グラフ描画ライブラリ
+	
+	a = np.array([[1,2,3],[4,5,6]])
+	print(a.shape)
+	b = np.array([[1,2],[3,4],[3,4]])
+	print(b.shape)
+	c = <strong>np.dot</strong>(a,b) # 内積計算
+	print(c.shape) # 内積の要素は（配列Aの一次要素数、配列Bの二次要素数である）
+	
+	print(c)
+	# グラフ描画
+	plt.plot(c)
+	plt.show()
+	</code></pre>
+	
+
+	<br><time>2017-7-18</time>
+</div>
+
+
+
+
+
+
+
+
+
 
 <div class="yohaku"></div>
 <ol class="breadcrumb">
