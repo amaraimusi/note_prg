@@ -410,6 +410,62 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec13-6-2" class="sec1" >
+	<h3>Eval実行する際、外部エラーが表示されることがあるので注意</h3>
+
+
+	<pre><code>
+	$outErr = error_get_last(); // 外部エラーをあらかじめ取得しておく
+	$str4 = "
+	&lt;?php
+	\$a='大きな';
+	\$b='ゾウは';
+	\$c= 10 / 0; // ワザとエラーにする。
+	\$d='m あります。';
+	echo \$a . \$b . \$c . \$d;
+	?&gt;
+	";
+	echo $str4;
+	$response = @eval(' ?&gt;'.$str4.'&lt;?php ');
+	
+	$err = error_get_last();
+	if ($err){
+		if(empty($outErr)){
+			
+			echo '&lt;div style="color:red"&gt;eval内のエラーです&lt;br&gt;';
+			print_r(error_get_last());
+			echo '&lt;/div&gt;';
+			
+		}else{
+			//　外部エラーと現在のエラーが一致する場合、現在のエラーは外部エラーである。そのためエラー出力は行わない。
+			if($outErr['type'] == $err['type'] && $outErr['line'] == $err['line']){
+
+			}else{
+				echo '&lt;div style="color:red"&gt;eval内のエラーです&lt;br&gt;';
+				print_r(error_get_last());
+				echo '&lt;/div&gt;';
+			}
+		}
+	}
+	</code></pre>
+
+
+	<br>
+	<aside>検証：PHP 5.6</aside>
+	<time>2017-7-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec13-7" class="sec1" >
 	<h3>globalの検証</h3>
 
