@@ -256,6 +256,60 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec6-5" class="sec1" >
+	<h3>jQuery.uiが読み込まれていなければ読む込む</h3>
+
+	<pre><code>
+	$(function(){
+		// jQuery.uiが読み込まれていなければ読む込む
+		if(typeof jQuery.ui == 'undefined'){
+			
+			// jQuery.ui.cssを読み込む
+			var css_link = document.createElement('link');
+			css_link.rel = 'stylesheet';
+			css_link.href = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css'
+			document.body.appendChild(css_link);
+			css_link.onload = function() {
+				console.log('load jquery.ui.css');
+				
+				// jQuery.ui.jsを読み込む
+				var js_scr = document.createElement('script');
+				js_scr.type = "text/javascript";
+				js_scr.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js';
+				document.body.appendChild(js_scr);
+				js_scr.onload = function() {
+		
+					console.log('load jquery.ui.js');
+
+					init(); // 初期化を行う
+				}
+			}
+			
+
+		}else{
+			
+			init();  // 初期化を行う
+		}
+	});
+
+	function init(){
+		console.log('ここで任意の初期化を行う');
+	}
+	</code></pre>
+
+	<br><time>2017-7-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec6-0" class="sec1" style="display:none">
 	<h3>TEST</h3>
 
