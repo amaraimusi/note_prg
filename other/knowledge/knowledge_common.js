@@ -47,6 +47,7 @@ function createKakusiMenu(){
 		"<a href='kl_osie.html?a=1' class='btn btn-info btn-sm'>教え</a>" +
 		"<a href='kl_osie2.html?a=1' class='btn btn-info btn-sm'>教え2</a>" +
 		"<a href='kl_osie3.html?a=1' class='btn btn-info btn-sm'>教え3</a>" +
+		"<a href='kl_osie4.html?a=1' class='btn btn-info btn-sm'>教え4</a>" +
 		"<a href='kl_ministry.html?a=1' class='btn btn-info btn-sm'>宣教</a>" +
 		"<a href='clean_room.html?a=1' class='btn btn-info btn-sm'>片付</a>" +
 		"<a href='../wariate' class='btn btn-info btn-sm'>割当</a>" +
