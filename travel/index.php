@@ -33,6 +33,8 @@
 	<div class="sec3">
 		<h2>目次</h2>
 		<ul>
+		
+		<li><a href="motobuhuji2017/motobuhuji2017.html" >本部富士の登山 2017夏</a></li>
 		<li><a href="day_thunder_mui_2017/day_thunder_mui_2017.html" >デーサンダームイへ登山 2017春</a></li>
 		<li><a href="uhugusimui2017/uhugusimui2017.html" >ウフグシムイへ登山 2017冬</a></li>
 		<li style="display:none"><a href="mt_awa2017.html" >安和岳 2017</a></li>
