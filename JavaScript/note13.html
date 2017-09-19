@@ -524,6 +524,97 @@
 
 
 
+<div id="sec13-10" class="sec4" >
+	<h3>SELECTにサイズ(size属性)をセットしたとき、スクロールを選択中の位置へ</h3>
+	
+	セレクト要素のsize属性を変更したとき、スクロール位置が先頭に移動してしまう。<br>
+	下側あたりを選択している場合、スクロールアウトが起きてしまい不便である。<br>
+	下記関数である程度改善できるが、スクロールの細かな調整はできていない。<br>
+	<br>
+	
+	<a href="/sample/js/a005/set_size_to_select/set_size_to_select.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	JS
+	<pre><code>
+	
+	var select1 = $('#select1');
+	_setSizeToSelect(select1,5);
+	
+	
+	/**
+	 * セレクトボックスにサイズをセット
+	 * 
+	 * @note
+	 * スクロールの位置調整も行う
+	 * 
+	 * @param selElm セレクトボックス
+	 * @param select_size セレクトのサイズ
+	 */
+	function _setSizeToSelect(selElm,select_size){
+		selElm.attr('size',select_size);
+	
+		// 現在の選択位置へスクロールする
+		selElm.each(function(){
+			var elm = jQuery(this);
+			elm[0].selectedIndex = elm[0].selectedIndex;// 裏ワザ的なスクロール移動。良い方法とは言えないので別の方法を検討したい。
+
+		});
+
+	}
+	</code></pre>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;select  id="select1" &gt;
+		&lt;option value="1"&gt;ニッポンマイマイ&lt;/option&gt;
+		&lt;option value="2"&gt;カワザンショウガイ&lt;/option&gt;
+		&lt;option value="3"&gt;バカガイ&lt;/option&gt;
+		&lt;option value="4"&gt;トウガタカワニナ&lt;/option&gt;
+		&lt;option value="5"&gt;サワガニ&lt;/option&gt;
+		&lt;option value="6"&gt;キヌタアゲマキ&lt;/option&gt;
+		&lt;option value="7"&gt;ニッコウガイ&lt;/option&gt;
+		&lt;option value="8"&gt;ムシオイガイ&lt;/option&gt;
+		&lt;option value="9"&gt;オオノガイ&lt;/option&gt;
+		&lt;option value="10"&gt;カワザンショウガイ&lt;/option&gt;
+		&lt;option value="11"&gt;オキナガイ&lt;/option&gt;
+		&lt;option value="12"&gt;スナガニ&lt;/option&gt;
+		&lt;option value="13"&gt;サワガニ&lt;/option&gt;
+		&lt;option value="14" selected&gt;マテガイ&lt;/option&gt;
+		&lt;option value="15"&gt;チトセノハナガイ&lt;/option&gt;
+		&lt;option value="16"&gt;マルスダレガイ&lt;/option&gt;
+		&lt;option value="17"&gt;カワザンショウガイ&lt;/option&gt;
+		&lt;option value="18"&gt;オカミミガイ&lt;/option&gt;
+		&lt;option value="19"&gt;アサジガイ&lt;/option&gt;
+		&lt;option value="20"&gt;トウガタガイ&lt;/option&gt;
+		&lt;option value="21"&gt;イタヤガイ&lt;/option&gt;
+		&lt;option value="22"&gt;サワガニ&lt;/option&gt;
+		&lt;option value="23"&gt;ベッコウマイマイ&lt;/option&gt;
+		&lt;option value="24"&gt;サワガニ&lt;/option&gt;
+		&lt;option value="25"&gt;ニッコウガイ&lt;/option&gt;
+		&lt;option value="26"&gt;ゴマガイ&lt;/option&gt;
+		&lt;option value="27"&gt;シオサザナミ&lt;/option&gt;
+		&lt;option value="28"&gt;ヌマエビ&lt;/option&gt;
+	&lt;/select&gt;
+	</pre>
+	
+	
+	
+	<br><time>2017-7-27</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div id="sec13-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

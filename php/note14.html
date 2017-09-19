@@ -182,6 +182,42 @@
 
 
 
+<div id="sec14-4" class="sec4" >
+	<h3>配列内の値存在チェック | in_arrayの高速版</h3>
+	
+	in_arrayは遅いと言われいるので高速版を。<br>
+	ただ検証していないので、実際に速いかどうかはわからず。<br>
+	<br>
+	
+	<pre><code>
+	$ary1 = array('neko','犬','ブタ','KANI');
+	$checks = array('犬','KANI');
+	
+	$checks= array_flip($checks);
+	foreach ($ary1 as $str1)
+		if (isset($checks[$str1])) {
+		echo $str1 . '&lt;br&gt;';
+	}
+	</code></pre><br>
+	
+	出力
+	<pre class="output_data">
+	犬
+	KANI
+	</pre>
+	
+	<br><time>2017-9-13</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
