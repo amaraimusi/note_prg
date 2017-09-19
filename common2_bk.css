@@ -1,0 +1,125 @@
+/* boostrap—p
+*var 2014/10/23
+*/
+@CHARSET "utf-8";
+
+body{
+	line-height:1.2em;
+}
+#header{
+	background-color:#3e445b;
+	color:white;
+	padding-bottom:4px;
+}
+
+
+
+#footer{
+	padding-top:10px;
+	background-color:#3e445b;
+	color:white;
+	text-align:center;
+}
+
+h2{
+	color:#ee3322;
+}
+
+table{
+	border-collapse:collapse;
+	border-color:#b7badb;
+
+}
+table thead{
+	background-color:#cccee6;
+}
+table tbody{
+	background-color:#f5f9fe;
+}
+
+pre{
+	background-color:#fdeae8;
+}
+
+ol li{
+	margin-bottom:10px;
+}
+
+dt{
+	padding-top:20px;
+	padding-bottom:4px;
+	font-weight:bold;
+}
+dd{
+	font-size:0.9em;
+	color:#223938;
+	padding-bottom:5px;
+	letter-spacing: 0.2em;
+}
+
+.sec1{
+	background-color:#ffebe8;
+	border-style:solid;
+	border-width:2px;
+	border-color:#db2617;
+	padding:10px;
+	margin-bottom:50px;
+}
+.sec2{
+	padding:5px;
+	background-color:#ffded9;
+}
+.sec3{
+	padding-top:20px;
+}
+
+.console{
+	background-color:#000000;
+	color:#ffffff;
+	padding:2px;
+}
+
+.title{
+	font-size:1.2em;
+	padding-bottom:4px;
+	padding-left:4px;
+	margin-bottom:8px;
+	font-weight:bold;
+	border-left-style:double;
+	border-left-color:#ff9900;
+	border-left-width:5px;
+	border-bottom-style:solid;
+	border-bottom-color:#ff9900;
+	border-bottom-width:2px;
+	color:#393957;
+
+}
+
+.hosoku{
+	font-size:0.8em;
+	color:#5d5d5d;
+}
+
+.ref_link{
+	font-size:0.7em;
+	color:#488fdf;
+}
+
+.marker{
+	color:red;
+}
+
+.list1{
+	padding-bottom:40px;
+	padding-left:20px;
+}
+
+
+.list1  li a{
+	color:#18548d;
+	text-decoration: none;
+}
+
+.list1  li a:hover{
+	color:#de5925;
+}

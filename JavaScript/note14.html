@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | ワクガンス</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec14-1" class="sec4">
+	<h3>SELECTのOPTION要素部分を再作成する</h3>
+
+	<pre><code>
+	/**
+	 * SELECTのOPTION要素部分を再作成する
+	 * @param &lt;jquery-object&gt; selElm SELECT要素
+	 * @param &lt;object&gt; list OPTIONリスト: リストのキーはOPTIONのvalue属性、リストの値はOPTIONのテキスト（inner)にセットされる
+	 * @param selected_value 選択値: 作成時にデフォルト選択にする値
+	 */
+	function _recreateSelect(selElm,list,selected_value){
+		
+		// OPTION要素群をクリアする
+		selElm.html(''); 
+		
+		var opts_str = '';
+		for(var value in list){
+			var text = list[value];
+			
+			var selected = '';
+			if(value == selected_value){
+				selected = 'selected';
+			}
+			
+			opts_str += "&lt;option value='" + value + "' " + selected + "&gt;" + text + "&lt;/option&gt;&yen;n";
+			
+		}
+		
+		selElm.html(opts_str);
+	}
+	</code></pre>
+
+	<br><time>2017-8-4</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec14-2" class="sec4">
+	<h3>ツリーデータの各ノードへ、それぞれの子孫数を数えてセットする</h3>
+	
+	<a href="/sample/js/a005/count_descendants_in_tree/count_descendants_in_tree.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	
+	ツリーデータの各ノードごとに子孫数を数えてセットする。
+	<pre><code>
+	$(function(){
+		var tree = 
+			{'x':1,'y':1,'childs':[
+				{'x':2,'y':1,'childs':[
+					{'x':3,'y':1,'childs':[]},
+				]},
+				{'x':2,'y':2,'childs':[
+					{'x':3,'y':1,'childs':[]},
+					{'x':3,'y':2,'childs':[]},
+					{'x':3,'y':3,'childs':[
+						{'x':4,'y':1,'childs':[]},
+					]},
+				]},
+			]};
+		
+		// ツリーデータの各ノードの子孫数を数えて、ツリーデータにセットする。
+		<strong>_countDescendantsOfEachNode</strong>(tree);
+		
+		$('#res1').html(JSON.stringify(tree));// ダンプ出力
+	
+	});
+	
+	/**
+	 * ツリーデータの各ノードの子孫数を数えて、ツリーデータにセットする。
+	 * 
+	 * @param ツリーデータ（ノード） 参照型引数であり返り値も兼ねる。
+	 * @returns 内部で使うので実装側は仕様禁止
+	 */
+	function <strong>_countDescendantsOfEachNode</strong>(node){
+		var childs = node['childs'];
+		
+		if (childs.length == 0){
+			node['descend'] = 0;
+			return 1;
+		}else{
+			var descend = 1;
+			for (var i in childs){
+				var cNode = childs[i];
+				var c_descend = _countDescendantsOfEachNode(cNode);
+				descend += c_descend;
+				
+			}
+			node['descend'] = descend - 1;
+			return descend;
+		}
+	}
+	</code></pre>
+	<br>
+	
+	<p>出力</p>
+	<pre class="output_data">
+	{
+	    "childs": [
+	        {
+	            "childs": [
+	                {
+	                    "childs": [], 
+	                    "descend": 0, 
+	                    "x": 3, 
+	                    "y": 1
+	                }
+	            ], 
+	            "descend": 1, 
+	            "x": 2, 
+	            "y": 1
+	        }, 
+	        {
+	            "childs": [
+	                {
+	                    "childs": [], 
+	                    "descend": 0, 
+	                    "x": 3, 
+	                    "y": 1
+	                }, 
+	                {
+	                    "childs": [], 
+	                    "descend": 0, 
+	                    "x": 3, 
+	                    "y": 2
+	                }, 
+	                {
+	                    "childs": [
+	                        {
+	                            "childs": [], 
+	                            "descend": 0, 
+	                            "x": 4, 
+	                            "y": 1
+	                        }
+	                    ], 
+	                    "descend": 1, 
+	                    "x": 3, 
+	                    "y": 3
+	                }
+	            ], 
+	            <strong>"descend": 4</strong>, 
+	            "x": 2, 
+	            "y": 2
+	        }
+	    ], 
+	    <strong>"descend": 7</strong>, 
+	    "x": 1, 
+	    "y": 1
+	}
+	</pre>
+
+
+	
+	
+	<br><time>2017-8-10</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec14-3" class="sec4" >
+	<h3>配列の重複を連番化しつつ昇順になるようシフトする</h3>
+	
+	<a href="/sample/js/a005/array_serialize_and_shift/array_serialize_and_shift.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	ソースコード
+	<pre><code>
+	$(function(){
+		
+		var ary = [1,2,3,3,3,4,8,8,9];
+		$('#res1').html(JSON.stringify(ary));
+		
+		ary = _serializeAndShift(ary);
+		
+		$('#res2').html(JSON.stringify(ary));
+		
+	});
+	
+	/**
+	 * 配列の重複を連番化しつつ昇順になるようシフトする
+	 * 
+	 * @note
+	 * あらかじめ配列は昇順でソートしておくこと。
+	 * また配列の値は数値型にすること。（文字列型だとバグになる）
+	 * 
+	 * @param ary 配列
+	 * @returns 配列
+	 */
+	function _serializeAndShift(ary){
+		
+		var last_index = ary.length - 1;
+		var loop_out = true; // ループアウトフラグ 	true:ループ抜け , false:ループ継続
+		var shift_diff; // シフト比較値
+		
+		for(var n=0 ; n &lt; 1000000 ; n++){
+			
+			shift_diff = null; // シフト比較値をリセット
+			loop_out = true;
+			
+			for(var i = last_index ; i &gt;= 0 ; i--){
+				
+				// 配列の値とシフト比較値が一致する場合
+				if(ary[i] === shift_diff){
+					ary[i+1] ++;
+					loop_out = false;
+					break;
+				}else{
+					shift_diff = ary[i];
+				}
+
+			}
+
+			if(loop_out == true){
+				break;
+				
+			}
+			
+		}
+		
+		return ary;
+	}
+	</code></pre>
+	
+	変更前
+	<pre class="output_data">	[1,2,3,3,3,4,8,8,9]</pre><br>
+	
+	変更後
+	<pre class="output_data">	[1,2,3,4,5,6,8,9,10]</pre><br>
+	
+	<br><time>2017-8-17</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec14-4" class="sec4" >
+	<h3>スクロールの位置</h3>
+	
+	<pre><code>
+	var scroll_offset_x = window.pageXOffset; // 横スクロールの位置
+	var scroll_offset_y = window.pageYOffset; // 縦スクロールの位置
+	</code></pre>
+	
+	<br><time>2017-8-23</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec14-5" class="sec4" >
+	<h3>新しいタブ（またはウィンドウ）でページ遷移する | window.open(url, '_blank');</h3>
+	
+	<pre><code>	window.open(遷移先url, '_blank');</code></pre>
+	Chromeだと新しいタブでページが表示される。<br>
+	<br>
+	
+	
+	<br><time>2017-8-29</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec14-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | ワクガンス</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-8-4</div>
+</body>
+</html>

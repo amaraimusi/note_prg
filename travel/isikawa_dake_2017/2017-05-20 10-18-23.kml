@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name><![CDATA[2017-05-20 10:18:23]]></name>
+<description><![CDATA[山旅ロガー：2017-05-20 10:18～2017-05-20 11:15]]></description>
+<Placemark>
+ <name>1</name>
+ <description>2017-05-20 10:18:23</description>
+ <TimeStamp><when>2017-05-20T01:18:23.000Z</when></TimeStamp>
+ <Point><coordinates>127.83219,26.447977,127</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>2</name>
+ <description>2017-05-20 10:18:30</description>
+ <TimeStamp><when>2017-05-20T01:18:30.000Z</when></TimeStamp>
+ <Point><coordinates>127.832214,26.448011,125</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>3</name>
+ <description>2017-05-20 10:19:11</description>
+ <TimeStamp><when>2017-05-20T01:19:11.000Z</when></TimeStamp>
+ <Point><coordinates>127.83216,26.448244,119</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>4</name>
+ <description>2017-05-20 10:19:19</description>
+ <TimeStamp><when>2017-05-20T01:19:19.000Z</when></TimeStamp>
+ <Point><coordinates>127.832115,26.44833,121</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>5</name>
+ <description>2017-05-20 10:20:36</description>
+ <TimeStamp><when>2017-05-20T01:20:36.000Z</when></TimeStamp>
+ <Point><coordinates>127.83302,26.440964,135</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>6</name>
+ <description>2017-05-20 10:21:21</description>
+ <TimeStamp><when>2017-05-20T01:21:21.000Z</when></TimeStamp>
+ <Point><coordinates>127.832405,26.449118,155</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>7</name>
+ <description>2017-05-20 10:22:59</description>
+ <TimeStamp><when>2017-05-20T01:22:59.000Z</when></TimeStamp>
+ <Point><coordinates>127.832634,26.449593,143</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>8</name>
+ <description>2017-05-20 10:23:14</description>
+ <TimeStamp><when>2017-05-20T01:23:14.000Z</when></TimeStamp>
+ <Point><coordinates>127.83266,26.449762,139</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>9</name>
+ <description>2017-05-20 10:23:28</description>
+ <TimeStamp><when>2017-05-20T01:23:28.000Z</when></TimeStamp>
+ <Point><coordinates>127.83271,26.449795,143</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>10</name>
+ <description>2017-05-20 10:23:55</description>
+ <TimeStamp><when>2017-05-20T01:23:55.000Z</when></TimeStamp>
+ <Point><coordinates>127.832726,26.449797,150</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>11</name>
+ <description>2017-05-20 10:24:12</description>
+ <TimeStamp><when>2017-05-20T01:24:12.000Z</when></TimeStamp>
+ <Point><coordinates>127.83273,26.449814,150</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>12</name>
+ <description>2017-05-20 10:25:44</description>
+ <TimeStamp><when>2017-05-20T01:25:44.000Z</when></TimeStamp>
+ <Point><coordinates>127.83273,26.44983,151</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>13</name>
+ <description>2017-05-20 10:33:18</description>
+ <TimeStamp><when>2017-05-20T01:33:18.000Z</when></TimeStamp>
+ <Point><coordinates>127.833824,26.44933,196</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>14</name>
+ <description>2017-05-20 10:33:25</description>
+ <TimeStamp><when>2017-05-20T01:33:25.000Z</when></TimeStamp>
+ <Point><coordinates>127.83388,26.449318,196</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>15</name>
+ <description>2017-05-20 10:33:36</description>
+ <TimeStamp><when>2017-05-20T01:33:36.000Z</when></TimeStamp>
+ <Point><coordinates>127.83393,26.449306,195</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>16</name>
+ <description>2017-05-20 10:33:56</description>
+ <TimeStamp><when>2017-05-20T01:33:56.000Z</when></TimeStamp>
+ <Point><coordinates>127.83409,26.44927,200</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>17</name>
+ <description>2017-05-20 10:34:08</description>
+ <TimeStamp><when>2017-05-20T01:34:08.000Z</when></TimeStamp>
+ <Point><coordinates>127.83413,26.449299,199</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>18</name>
+ <description>2017-05-20 10:34:21</description>
+ <TimeStamp><when>2017-05-20T01:34:21.000Z</when></TimeStamp>
+ <Point><coordinates>127.83415,26.449293,199</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>19</name>
+ <description>2017-05-20 10:34:47</description>
+ <TimeStamp><when>2017-05-20T01:34:47.000Z</when></TimeStamp>
+ <Point><coordinates>127.83417,26.449291,200</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>20</name>
+ <description>2017-05-20 10:37:05</description>
+ <TimeStamp><when>2017-05-20T01:37:05.000Z</when></TimeStamp>
+ <Point><coordinates>127.834694,26.449362,201</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>21</name>
+ <description>2017-05-20 10:37:25</description>
+ <TimeStamp><when>2017-05-20T01:37:25.000Z</when></TimeStamp>
+ <Point><coordinates>127.83471,26.449364,197</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>22</name>
+ <description>2017-05-20 10:37:51</description>
+ <TimeStamp><when>2017-05-20T01:37:51.000Z</when></TimeStamp>
+ <Point><coordinates>127.83475,26.449408,200</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>23</name>
+ <description>2017-05-20 10:39:20</description>
+ <TimeStamp><when>2017-05-20T01:39:20.000Z</when></TimeStamp>
+ <Point><coordinates>127.834755,26.44943,199</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>24</name>
+ <description>2017-05-20 10:39:59</description>
+ <TimeStamp><when>2017-05-20T01:39:59.000Z</when></TimeStamp>
+ <Point><coordinates>127.834785,26.449478,206</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>25</name>
+ <description>2017-05-20 10:42:22</description>
+ <TimeStamp><when>2017-05-20T01:42:22.000Z</when></TimeStamp>
+ <Point><coordinates>127.834816,26.449484,205</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>26</name>
+ <description>2017-05-20 10:43:11</description>
+ <TimeStamp><when>2017-05-20T01:43:11.000Z</when></TimeStamp>
+ <Point><coordinates>127.83482,26.449478,205</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>27</name>
+ <description>2017-05-20 10:45:54</description>
+ <TimeStamp><when>2017-05-20T01:45:54.000Z</when></TimeStamp>
+ <Point><coordinates>127.83488,26.449482,205</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>28</name>
+ <description>2017-05-20 10:46:56</description>
+ <TimeStamp><when>2017-05-20T01:46:56.000Z</when></TimeStamp>
+ <Point><coordinates>127.83556,26.449442,205</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>29</name>
+ <description>2017-05-20 10:47:55</description>
+ <TimeStamp><when>2017-05-20T01:47:55.000Z</when></TimeStamp>
+ <Point><coordinates>127.83558,26.449417,200</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>30</name>
+ <description>2017-05-20 10:48:43</description>
+ <TimeStamp><when>2017-05-20T01:48:43.000Z</when></TimeStamp>
+ <Point><coordinates>127.83571,26.449244,191</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>31</name>
+ <description>2017-05-20 10:51:49</description>
+ <TimeStamp><when>2017-05-20T01:51:49.000Z</when></TimeStamp>
+ <Point><coordinates>127.83585,26.448654,175</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>32</name>
+ <description>2017-05-20 10:53:03</description>
+ <TimeStamp><when>2017-05-20T01:53:03.000Z</when></TimeStamp>
+ <Point><coordinates>127.83572,26.44853,170</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>33</name>
+ <description>2017-05-20 10:54:27</description>
+ <TimeStamp><when>2017-05-20T01:54:27.000Z</when></TimeStamp>
+ <Point><coordinates>127.83558,26.448305,181</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>34</name>
+ <description>2017-05-20 10:54:58</description>
+ <TimeStamp><when>2017-05-20T01:54:58.000Z</when></TimeStamp>
+ <Point><coordinates>127.83557,26.448313,180</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>35</name>
+ <description>2017-05-20 10:55:55</description>
+ <TimeStamp><when>2017-05-20T01:55:55.000Z</when></TimeStamp>
+ <Point><coordinates>127.83556,26.448309,181</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>36</name>
+ <description>2017-05-20 10:56:42</description>
+ <TimeStamp><when>2017-05-20T01:56:42.000Z</when></TimeStamp>
+ <Point><coordinates>127.835434,26.448296,165</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>37</name>
+ <description>2017-05-20 10:57:18</description>
+ <TimeStamp><when>2017-05-20T01:57:18.000Z</when></TimeStamp>
+ <Point><coordinates>127.83537,26.448305,166</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>38</name>
+ <description>2017-05-20 10:58:07</description>
+ <TimeStamp><when>2017-05-20T01:58:07.000Z</when></TimeStamp>
+ <Point><coordinates>127.835266,26.448193,160</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>39</name>
+ <description>2017-05-20 10:58:46</description>
+ <TimeStamp><when>2017-05-20T01:58:46.000Z</when></TimeStamp>
+ <Point><coordinates>127.83526,26.448195,152</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>40</name>
+ <description>2017-05-20 10:59:28</description>
+ <TimeStamp><when>2017-05-20T01:59:28.000Z</when></TimeStamp>
+ <Point><coordinates>127.83518,26.448154,147</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>41</name>
+ <description>2017-05-20 11:00:23</description>
+ <TimeStamp><when>2017-05-20T02:00:23.000Z</when></TimeStamp>
+ <Point><coordinates>127.835,26.448162,146</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>42</name>
+ <description>2017-05-20 11:03:06</description>
+ <TimeStamp><when>2017-05-20T02:03:06.000Z</when></TimeStamp>
+ <Point><coordinates>127.83519,26.44839,58</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>43</name>
+ <description>2017-05-20 11:04:48</description>
+ <TimeStamp><when>2017-05-20T02:04:48.000Z</when></TimeStamp>
+ <Point><coordinates>127.834656,26.447771,133</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>44</name>
+ <description>2017-05-20 11:04:57</description>
+ <TimeStamp><when>2017-05-20T02:04:57.000Z</when></TimeStamp>
+ <Point><coordinates>127.834625,26.44775,133</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>45</name>
+ <description>2017-05-20 11:05:16</description>
+ <TimeStamp><when>2017-05-20T02:05:16.000Z</when></TimeStamp>
+ <Point><coordinates>127.83461,26.447744,131</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>46</name>
+ <description>2017-05-20 11:05:37</description>
+ <TimeStamp><when>2017-05-20T02:05:37.000Z</when></TimeStamp>
+ <Point><coordinates>127.834465,26.447664,126</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>47</name>
+ <description>2017-05-20 11:05:58</description>
+ <TimeStamp><when>2017-05-20T02:05:58.000Z</when></TimeStamp>
+ <Point><coordinates>127.834465,26.447659,126</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>48</name>
+ <description>2017-05-20 11:06:29</description>
+ <TimeStamp><when>2017-05-20T02:06:29.000Z</when></TimeStamp>
+ <Point><coordinates>127.83434,26.44756,121</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>49</name>
+ <description>2017-05-20 11:06:48</description>
+ <TimeStamp><when>2017-05-20T02:06:48.000Z</when></TimeStamp>
+ <Point><coordinates>127.83432,26.447569,117</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>50</name>
+ <description>2017-05-20 11:07:49</description>
+ <TimeStamp><when>2017-05-20T02:07:49.000Z</when></TimeStamp>
+ <Point><coordinates>127.83421,26.447418,133</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>51</name>
+ <description>2017-05-20 11:09:38</description>
+ <TimeStamp><when>2017-05-20T02:09:38.000Z</when></TimeStamp>
+ <Point><coordinates>127.83462,26.447247,111</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>52</name>
+ <description>2017-05-20 11:09:48</description>
+ <TimeStamp><when>2017-05-20T02:09:48.000Z</when></TimeStamp>
+ <Point><coordinates>127.83468,26.447262,106</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>53</name>
+ <description>2017-05-20 11:10:16</description>
+ <TimeStamp><when>2017-05-20T02:10:16.000Z</when></TimeStamp>
+ <Point><coordinates>127.83484,26.447298,100</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>54</name>
+ <description>2017-05-20 11:10:44</description>
+ <TimeStamp><when>2017-05-20T02:10:44.000Z</when></TimeStamp>
+ <Point><coordinates>127.83504,26.44719,112</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>55</name>
+ <description>2017-05-20 11:11:00</description>
+ <TimeStamp><when>2017-05-20T02:11:00.000Z</when></TimeStamp>
+ <Point><coordinates>127.83516,26.447174,105</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>56</name>
+ <description>2017-05-20 11:12:51</description>
+ <TimeStamp><when>2017-05-20T02:12:51.000Z</when></TimeStamp>
+ <Point><coordinates>127.83534,26.44684,101</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>57</name>
+ <description>2017-05-20 11:13:17</description>
+ <TimeStamp><when>2017-05-20T02:13:17.000Z</when></TimeStamp>
+ <Point><coordinates>127.83544,26.446764,96</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>58</name>
+ <description>2017-05-20 11:13:37</description>
+ <TimeStamp><when>2017-05-20T02:13:37.000Z</when></TimeStamp>
+ <Point><coordinates>127.83546,26.446735,96</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>59</name>
+ <description>2017-05-20 11:14:10</description>
+ <TimeStamp><when>2017-05-20T02:14:10.000Z</when></TimeStamp>
+ <Point><coordinates>127.83549,26.44647,103</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>60</name>
+ <description>2017-05-20 11:14:38</description>
+ <TimeStamp><when>2017-05-20T02:14:38.000Z</when></TimeStamp>
+ <Point><coordinates>127.83547,26.446344,96</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>61</name>
+ <description>2017-05-20 11:15:05</description>
+ <TimeStamp><when>2017-05-20T02:15:05.000Z</when></TimeStamp>
+ <Point><coordinates>127.83549,26.446268,88</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>62</name>
+ <description>2017-05-20 11:15:30</description>
+ <TimeStamp><when>2017-05-20T02:15:30.000Z</when></TimeStamp>
+ <Point><coordinates>127.83554,26.446098,88</coordinates></Point>
+</Placemark>
+</Document>
+</kml>

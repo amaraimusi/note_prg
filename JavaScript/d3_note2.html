@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>D3.jsの覚書</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>D3.jsの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>d3.jsのSVGダウンロード</h3>
+
+
+	<pre><code>
+	/**
+	 * d3.jsで描画したチャートをSVG形式でダウンロードします。
+	 * 
+	 * @note
+	 * ダウンロードにFileSaver.js（saveAs関数)を利用しています。
+	 * 
+	 * @param wrap_slt SVGタグのラッパーのセレクタ
+	 * @param filename ダウンロードファイル名
+	 */
+	function downloadSVG(wrap_slt,filename) {
+		
+		if(filename == null){
+			filename = "chart.svg";
+		}
+	
+		var html = d3.select(wrap_slt).select("svg")
+			.attr("version", 1.1)
+			.attr("xmlns", "http://www.w3.org/2000/svg")
+			.node().parentNode.innerHTML;
+	
+		var blob = new Blob([html], {type: "image/svg+xml"});
+	
+		// FileSaver.jsでダウンロードする。
+		saveAs(
+				blob,
+				filename
+			);
+		
+	}
+	</code></pre><br>
+	
+	
+	<p>シンプル版</p>
+	<pre><code>
+	/**
+	 * d3.jsで描画したチャートをSVG形式でダウンロードします。
+	 * 
+	 * @note
+	 * ダウンロードにFileSaver.js（saveAs関数)を利用しています。
+	 * htmlファイル中にsvgタグが一件だけの場合にのみ対応しています。
+	 * 
+	 * @param filename ダウンロードファイル名
+	 */
+	function downloadSVG_simple(filename) {
+		
+		if(filename == null){
+			filename = "chart.svg";
+		}
+	
+		var html = d3.select("svg")
+			.attr("version", 1.1)
+			.attr("xmlns", "http://www.w3.org/2000/svg")
+			.node().parentNode.innerHTML;
+	
+		var blob = new Blob([html], {type: "image/svg+xml"});
+	
+		// FileSaver.jsでダウンロードする。
+		saveAs(
+				blob,
+				filename
+			);
+		
+	}
+	</code></pre>
+	
+
+	
+	<br><time>2017-8-24</time>
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo0.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	
+	
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-0.png" /><br>
+	<br>
+	
+
+	
+	<br><time></time>
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>D3.jsの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-8-24</div>
+</body>
+</html>
