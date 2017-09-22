@@ -218,6 +218,37 @@
 
 
 
+<div id="sec14-5" class="sec4" >
+	<h3>ファイル名の拡張を小文字化する</h3>
+	
+	<pre><code>
+	/**
+	 * ファイル名の拡張を小文字化する
+	 * @param ファイル名	（パスは不可）
+	 * @return string 拡張を小文字化したファイル名
+	 */
+	private function extLower($fn){
+		$path_param = pathinfo($fn);
+		$extension = mb_strtolower($path_param['extension']);
+		$fn= $path_param['filename'] . '.' . $extension;
+
+		return $fn;
+		
+	}
+	</code></pre>
+	
+	<br><time>2017-9-20</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

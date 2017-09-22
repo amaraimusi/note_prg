@@ -28,14 +28,14 @@ function imgCompactK(){
 		
 		$(this).attr('class','');
 		
-		$(this).css ({'width':'80px',
-			'height':'80px'
+		$(this).css ({'width':'160px',
+			'height':'160px'
 		});
 		
 		$(this).click(function() {
 			
 			var w = $(this).css('width');
-			if(w=='80px'){
+			if(w=='160px'){
 				$(this).attr('class','img-responsive');
 				
 				$(this).css ({
@@ -45,8 +45,8 @@ function imgCompactK(){
 			}else{
 				$(this).attr('class','');
 				
-				$(this).css ({'width':'80px',
-					'height':'80px'
+				$(this).css ({'width':'160px',
+					'height':'160px'
 				});
 			}
 		});

@@ -588,6 +588,167 @@
 
 
 
+<div id="s15" class="sec4" >
+	<h4>ファイルまたはフォルダをGit管理外にする | Ignore</h4>
+	
+	
+	ファイルまたはフォルダをGitの管理外にすることができる。<br>
+	<br>
+
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			Eclipse上で対象フォルダやファイルを右クリック
+		</li>
+	
+		<li>
+			Team → Ignore
+		</li>
+	
+		<li>
+			以上でGit管理外になる。<br>
+			Eclipse上のPHPエクスプローラでは見えないが、.gitignoreファイルが作成されている。<br>
+			Windowsなどのエクスプローラで.gitignoreファイルを確認できる。<br>
+			.gitignoreにはGit管理外のファイル名またはフォルダ名が記述されている。<br>
+		</li>
+		
+	</ol>
+	<br>
+
+	
+
+	<br>
+	
+	<p>管理外状態を解除するには？（管理状態に戻す）</p>
+	.gitignore内の情報を書き換えるか、.gitignoreファイルそのものを削除すればよい。<br>
+	<br>
+
+	
+	<br><time>2017-9-11</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s16" class="sec4" >
+	<h4>Eclipse側で不要になったブランチをローカルリポジトリから削除する</h4>
+	
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>PHPエクスプローラのプロジェクト名を右クリック　→　Team → Switch To → Other...</li>
+
+		<li>Branches画面を開く。</li>
+		
+		<li>
+			Localから不要なブランチを選択して、Deleteボタンを押す。<br>
+			<img src="/photos/note_prj/git/github_note10/s16a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>以上で不要になったブランチをローカルリポジトリから削除できる。</li>
+		
+	</ol>
+	
+	<br><time>2017-9-21</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="s17" class="sec4" >
+	<h4>non-fast-forward | ブランチでコミットに失敗したら・・・</h4>
+	
+	ブランチへコミット＆プッシュをしたがnon-fast-forwardが表示され、リモートリポジトリに反映されないことがある。<br>
+	原因はmasterでpullを行っていないのが原因かもしれない。<br>
+	<br>
+	
+	<p>対処手順の例</p>
+	<aside>競合が発生していない場合</aside>
+	<ol class="list_lg">
+	
+		<li>とあるブランチへコミット＆プッシュをしたがnon-fast-forwardが表示される状態を確認する。</li>
+		<li>Eclipse側でブランチをいったんmasterに切り替える。（プロジェクトを右クリック → Team → Switch To → masterを選択）</li>
+		<li>pullを実行（プロジェクトを右クリック→Team→pull）</li>
+		<li>Eclipse側のブランチを元のブランチに戻す。</li>
+		<li>pullを実行</li>
+		<li>マージを実行（プロジェクトを右クリック → Team → Marge)</li>
+		<li>プッシュを実行（プロジェクトを右クリック → Team → Push to Upstream)</li>
+		<li>以上でリモートリポジトリに反映されていると思う。</li>
+		
+	</ol>
+	
+	<br>
+	あとがき：一人で開発しているとしてもコミット＆プッシュの前にpullを行ったほうがいいのかもしれない。<br>
+	<br>
+	
+	<a href="https://www.d-wood.com/blog/2014/04/08_5998.html" target="brank" class="btn btn-link btn-xs">参考:[Git] git push が non-fast-forward で reject された場合の対処</a><br>
+	<br>
+	
+	<br><time>2017-9-22</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="s0" class="sec4" style="display:none">
 	<h4>XXX</h4>
 	
@@ -599,7 +760,7 @@
 			
 			<br>
 		
-			<img src="/photos/note_prj/git/github_note/%0" class="img_compact_k" />
+			<img src="/photos/note_prj/git/github_note10/%0" class="img_compact_k" />
 		</li>
 		
 	</ol>

@@ -84,6 +84,15 @@
 			$json_param=$_POST['key1'];
 
 			$param=json_decode($json_param,true);//JSON文字を配列に戻す
+			
+			/*	
+			// 不正アクセスチェック：パラメータ内の指定したフィールドが数値であるかチェックする
+			if($this->checkNumberParam($param,array('xxx_id')) == false){
+				 // 不正アクセスエラー処理
+				 $res = array('err' => '不正アクセスエラー');
+				return json_encode($res);
+			}
+			*/
 
 			//データ加工や取得
 			$data=array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
@@ -172,7 +181,7 @@
 
 
 
-	<time>2013-9-3 | 2017-4-10</time>
+	<time>2013-9-3 | 2017-9-22</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->

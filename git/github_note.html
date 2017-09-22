@@ -55,7 +55,8 @@
 	<li><a href="github_note10.html#s12">Revert | プッシュの取り消し</a></li>
 	<li><a href="github_note10.html#s13">競合の修正方法</a></li>
 	<li><a href="github_note10.html#s14">SSHを設定する</a></li>
-	
+	<li><a href="github_note10.html#s15">ファイルまたはフォルダをGit管理外にする | Ignore</a></li>
+	<li><a href="bitbucket_note.html" >Gitとbitbucketの覚書</a></li>
 </ol>
 <br><br>
 
@@ -73,13 +74,16 @@
 	<li><a href="#s111" class="livipage">masterブランチとは</a></li>
 	<li><a href="#s112" class="livipage">GitHubでブランチをブランチを切る（ブランチ作成）</a></li>
 	<li><a href="#s113" class="livipage">GitHubでブランチを切り替える</a></li>
+	<li><a href="#s113-2" class="livipage">Eclipse側にもブランチを作成する</a></li>
 	<li><a href="#s114" class="livipage">GitHubでブランチを統合する</a></li>
+	<li><a href="github_note10.html#s16" class="livipage">Eclipse側で不要になったブランチをローカルリポジトリから削除する</a></li>
 	<li><a href="#s120" class="livipage">Gitのコミット</a></li>
 	<li><a href="#s121" class="livipage">プルとは | pull</a></li>
 	<li><a href="#s122" class="livipage">フェッチとは | feche</a></li>
 	<li><a href="#s123" class="livipage">マージとは | merge</a></li>
 	<li><a href="#s126" class="livipage">プッシュとは | push</a></li>
 	<li><a href="#s124" class="livipage">競合発生のタイミング</a></li>
+	<li><a href="github_note10.html#s17" class="livipage">non-fast-forward | ブランチでコミットに失敗したら・・・</a></li>
 	<li><a href="#s127" class="livipage">インデックスへ追加 | add</a></li>
 	<li><a href="#s128" class="livipage">Eclipseで add 操作</a></li>
 	<li><a href="#s129" class="livipage">インデックスの省略</a></li>
@@ -957,6 +961,36 @@
 	<img src="/photos/note_prj/git/github_note/s113a1.png" class="img_compact_k" />
 	
 	<br><time>2016-9-5</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="s113-2" class="sec4" >
+	<h4>Eclipse側にもブランチを作成する</h4>
+	
+	<ol>
+		<li>あらかじめGithub側でブランチを作成しておく （<a href="s112" class="livipage">参考：GitHubでブランチをブランチを切る</a>）</li>
+		<li>PHPエクスプローラのプロジェクト名を右クリック　→　Team → Switch To → New Branche...</li>
+		<li>Create Branch画面が開く</li>
+		<li>
+			Branche name でGithubで作成したブランチ名を入力し、Finishボタンを押す。<br>
+			<img src="/photos/note_prj/git/github_note/s113-2a1.png" class="img_compact_k" />
+			<aside>Github側に存在しないブランチ名を入力した場合は、ローカルリポジトリだけにブランチが作成されるようである。リモートリポジトリ（GitHub側）には作成されないと思われる。</aside>
+		</li>
+		<li>以上でブランチが作成できる。</li>
+	</ol>
+	
+	
+	
+	
+	<br><time>2017-9-21</time>
 	
 </div>
 

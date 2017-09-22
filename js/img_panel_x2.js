@@ -61,6 +61,7 @@ $(function(){
 			
 			//origFp = origFp + 'mid/';
 
+			console.log('origFp=' + origFp);//■■■□□□■■■□□□■■■□□□)
 			
 			$('#img_ipx').attr('src',origFp); // 画像要素へ原寸画像ファイルをセット
 			img_panel_x.showPanel(imgElm);// パネルを表示
