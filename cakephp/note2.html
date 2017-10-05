@@ -569,9 +569,11 @@
 	
 	<h4>オプションの説明</h4>
 	<table class="table">
-		<tr><td>atomic</td><td>true:トランザクション自動化 , false:トランザクション手動（begin～commitではさむ）</td></tr>
-		<tr><td>validate</td><td>true:バリデーション有効 , false:バリデーション無効</td></tr>
+		<tr><td>atomic</td><td>true:トランザクション自動化（trueがデフォルト） , false:トランザクション手動（begin～commitではさむ）</td></tr>
+		<tr><td>validate</td><td>true:バリデーション有効 , false:バリデーション無効,first:データの保存前に 全て のレコードのバリデーションを行う(firstがデフォルト)</td></tr>
 	</table>
+	<br>
+	<a href="https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-savemany-array-data-null-array-options-array" target="blank">オプションの参考</a><br>
 	<br>
 	
 	
@@ -591,7 +593,7 @@
 	<br>
 	<br>
 
-	<time>2013-9-3 | 2017-4-4</time>
+	<time>2013-9-3 | 2017-9-25</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

@@ -337,6 +337,33 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec6-7" class="sec1" >
+	<h3>オリジナル属性を選択する</h3>
+
+	<pre><code>
+	&lt;div data-xxx="a"&gt;AAA&lt;/div&gt;
+	
+	&lt;script&gt;
+	$(function(){
+		<strong>var elm = $('[data-xxx]');</strong>
+		console.log(elm.html());// 出力→ AAA
+	});
+	&lt;/script&gt;
+	</code></pre>
+
+	<br><time>2017-9-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec6-0" class="sec1" style="display:none">
 	<h3>TEST</h3>
 

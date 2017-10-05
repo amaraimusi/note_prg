@@ -7,21 +7,17 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>ワクガンス　|　JavaScriptの覚書</title>
 		<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
 		<link href="/note_prg/css/common2.css" rel="stylesheet">
-
+	
 		<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
 		<script src="/note_prg/js/bootstrap.min.js"></script>
+		<script src="/note_prg/js/highlight.pack.js"></script>
 		<script src="/note_prg/js/livipage.js"></script>
 		<script src="/note_prg/js/ImgCompactK.js"></script>
-		<script>
-
-
-
-		</script>
-
-		<style type="text/css">
-
-		</style>
+	
+	
+		<script>hljs.initHighlightingOnLoad();</script>
 
 	</head>
 	<body>
@@ -43,7 +39,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-1" class="sec1" >
-	<div class="title">HTMLだけでCSVファイルをダウンロード</div>
+	<h3>HTMLだけでCSVファイルをダウンロード</h3>
 	hrefにCSVデータを埋め込み、download属性でデフォルトファイル名を指定する。
 
 
@@ -67,9 +63,50 @@
 
 
 
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-1-2" class="sec1" >
+	<h3>複数ファイルダウンロード | HTML5版</h3>
+	
+	<a href="/sample/js/a005/multiple_file_download/multiple_file_download.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;a id="link1" href="sample/smp1.zip" download="smp1.zip"&gt;smp1.zip&lt;/a&gt;
+	&lt;a id="link2" href="sample/smp2.zip" download="smp2.zip"&gt;smp2.zip&lt;/a&gt;
+	&lt;a id="link3" href="sample/smp3.png" download="smp3.png"&gt;smp3.png&lt;/a&gt;
+	&lt;a id="link4" href="sample/smp4.txt" download="smp4.txt"&gt;smp4.txt&lt;/a&gt;
+	
+	&lt;input type="button" value="複数ファイルダウンロード" onclick="test1()" class="btn btn-success btn-sm" /&gt;
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function test1(){
+		$('#link1')[0].click();
+		$('#link2')[0].click();
+		$('#link3')[0].click();
+		$('#link4')[0].click();
+	}
+	</code></pre>
+
+
+	<aside>
+		ブラウザによって複数ダウンロードの挙動に差異がある。大抵は複数ダウンロードを許可を求める挙動となっている。<br>
+	</aside>
+	<time>2017-10-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-2" class="sec1" >
-	<div class="title">BPG画像ファイルを表示する</div>
+	<h3>BPG画像ファイルを表示する</h3>
 	「bpgdec8b.js」を読込むだけで良い。<br>
 	あとは通常の画像表示のように、imgタグにbpg画像ファイルを指定するだけ。<br>
 	ブラウザはChrome,FireFox,IE,Operaで動作確認済み。（2015年1月 時点での最新バージョン）
@@ -139,7 +176,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-3" class="sec1" >
-	<div class="title">JSでリロード</div>
+	<h3>JSでリロード</h3>
 	ブラウザをリロード<br>
 	<pre>location.reload(true);</pre>
 	<br>
@@ -158,7 +195,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-4" class="sec1" >
-	<div class="title">メールアドレスからドメインを採取する関数</div>
+	<h3>メールアドレスからドメインを採取する関数</h3>
 
 	<pre>
 	/**
@@ -194,7 +231,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-5" class="sec1">
-	<div class="title">連想配列の存在確認</div>
+	<h3>連想配列の存在確認</h3>
 
 	連想配列(オブジェクト）にキーに紐づく値が存在するかチェックする場合、以下のようにする。
 	<br>
@@ -219,7 +256,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-6" class="sec1" >
-	<div class="title">IE8で使えない関数と代替手段</div>
+	<h3>IE8で使えない関数と代替手段</h3>
 		<strong>IE8ではtrim()関数が使えない。</strong><br>
 		<pre>str.trim();//IE8は未対応</pre>
 		JQueryによる代替<br>
@@ -263,7 +300,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-7" class="sec1">
-	<div class="title">数値を2桁固定の文字列にする。(例 3→03)</div>
+	<h3>数値を2桁固定の文字列にする。(例 3→03)</h3>
 
 	<pre>var x = ("0"+num_a).slice(-2);</pre>
 	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/js/digit_fixed/digit_fixed.html">サンプル</a>
@@ -278,7 +315,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-8" class="sec1" >
-	<div class="title">カタカナのバリデーション</div>
+	<h3>カタカナのバリデーション</h3>
 
 
 	<pre>
@@ -312,7 +349,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-9" class="sec1" >
-	<div class="title">オブジェクト（連想配列）の件数を取得する</div>
+	<h3>オブジェクト（連想配列）の件数を取得する</h3>
 
 	<pre>	var data_count = Object.keys(data).length;</pre>
 	<br>
@@ -342,7 +379,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-10" class="sec1">
-	<div class="title">jqPlotグラフのダウンロード</div>
+	<h3>jqPlotグラフのダウンロード</h3>
 	jpPlotのグラフを右クリックして画像ダウンロードをしても、空の画像になってしまう。<br>
 	DIV要素にグラフを書き出しているのが原因と思われる。<br>
 	html2canvas.jsを使ってDIV要素をCanvasデータに変換すればダウンロードできるようになる。<br>
@@ -532,7 +569,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-0" class="sec1" style="display:none">
-	<div class="title">TEST</div>
+	<h3>TEST</h3>
 	テスト
 	<pre>
 	</pre>

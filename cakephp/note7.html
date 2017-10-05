@@ -135,19 +135,21 @@
 		data: "key1="+json_str,
 		cache: false,
 		dataType: "text",
-		success: function(str_json, type) {
-			var data;
-			try{
-				data=$.parseJSON(str_json);//パース
-			}catch(e){
-				alert('エラー');
-				$("#err").html(str_json);
-			}
-		},
-		error: function(xmlHttpRequest, textStatus, errorThrown){
-			$('#err').html(xmlHttpRequest.responseText);//詳細エラーの出力
-			alert(textStatus);
+	})
+	.done(function(str_json, type) {
+		var ent;
+		try{
+			ent =jQuery.parseJSON(str_json);//パース
+			jQuery("#res").html(str_json);
+		}catch(e){
+			alert('エラー');
+			jQuery("#err").html(str_json);
+			return;
 		}
+	})
+	.fail(function(jqXHR, statusText, errorThrown) {
+		jQuery('#err').html(jqXHR.responseText);
+		alert(statusText);
 	});
 	
 	
@@ -181,7 +183,7 @@
 
 
 
-	<time>2013-9-3 | 2017-9-22</time>
+	<time>2013-9-3 | 2017-10-3</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->
