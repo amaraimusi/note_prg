@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cake PHPの覚書</title>
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Cake PHPの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+<div id="sec10-1" class="sec4" >
+	<h3>モデル名およびテーブル名のキャメル記法とスネーク記法の変換 | 英語の特殊複数化ルールにも対応</h3>
+	
+	<pre><code>
+	// スネーク記法のテーブル名をキャメル記法のモデル名に変更する
+	$tbl_name = 'neko_mutexes'; // テーブル名：英語の特殊複数形(sでなくesになっている）
+	$model_name = Inflector::singularize($tbl_name); // キャメル記法に変換する
+	$model_name= Inflector::camelize($model_name); // 英語の単数形に変換する。例：NekoMutexes → NekoMutex
+	var_dump($model_name); // → NekoMutex
+	
+	// キャメル記法のモデル名をスネーク記法のテーブル名に変換する
+	$tbl_name2 = Inflector::pluralize($model_name); // 英語の複数形にする。 例：NekoMutex → NekoMutexes
+	$tbl_name2 = Inflector::underscore($tbl_name2); // スネーク記法に変換する
+	var_dump($tbl_name2); // → neko_mutexes
+	</code></pre><br>
+	
+	<a href="http://ivystar.jp/programming/php/cakephp-php-programming/inflector-of-cakephp/" target="blank">参考</a><br>
+	
+	<br><time>2017-11-2</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec10-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<pre><code>
+	</code></pre><br>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/cakephp/">CakePHPの覚書</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-11-2</div>
+</body>
+</html>

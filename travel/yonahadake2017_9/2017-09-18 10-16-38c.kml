@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name><![CDATA[2017-09-18 10:16:38]]></name>
+<description><![CDATA[山旅ロガー：2017-09-18 10:16～2017-09-18 13:10]]></description>
+<Placemark>
+ <name>1</name>
+ <description>2017-09-18 10:16:38</description>
+ <TimeStamp><when>2017-09-18T01:16:38.000Z</when></TimeStamp>
+ <Point><coordinates>128.20856,26.732042,342</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>2</name>
+ <description>2017-09-18 10:17:24</description>
+ <TimeStamp><when>2017-09-18T01:17:24.000Z</when></TimeStamp>
+ <Point><coordinates>128.20856,26.732067,339</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>3</name>
+ <description>2017-09-18 10:18:03</description>
+ <TimeStamp><when>2017-09-18T01:18:03.000Z</when></TimeStamp>
+ <Point><coordinates>128.20853,26.732164,322</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>4</name>
+ <description>2017-09-18 10:18:50</description>
+ <TimeStamp><when>2017-09-18T01:18:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.20854,26.73213,320</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>5</name>
+ <description>2017-09-18 10:19:18</description>
+ <TimeStamp><when>2017-09-18T01:19:18.000Z</when></TimeStamp>
+ <Point><coordinates>128.20872,26.732067,324</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>6</name>
+ <description>2017-09-18 10:19:51</description>
+ <TimeStamp><when>2017-09-18T01:19:51.000Z</when></TimeStamp>
+ <Point><coordinates>128.20894,26.731998,324</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>7</name>
+ <description>2017-09-18 10:20:24</description>
+ <TimeStamp><when>2017-09-18T01:20:24.000Z</when></TimeStamp>
+ <Point><coordinates>128.20912,26.7319,333</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>8</name>
+ <description>2017-09-18 10:20:56</description>
+ <TimeStamp><when>2017-09-18T01:20:56.000Z</when></TimeStamp>
+ <Point><coordinates>128.20921,26.731861,334</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>9</name>
+ <description>2017-09-18 10:22:03</description>
+ <TimeStamp><when>2017-09-18T01:22:03.000Z</when></TimeStamp>
+ <Point><coordinates>128.20941,26.731867,335</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>10</name>
+ <description>2017-09-18 10:22:35</description>
+ <TimeStamp><when>2017-09-18T01:22:35.000Z</when></TimeStamp>
+ <Point><coordinates>128.20943,26.731606,329</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>11</name>
+ <description>2017-09-18 10:23:17</description>
+ <TimeStamp><when>2017-09-18T01:23:17.000Z</when></TimeStamp>
+ <Point><coordinates>128.20949,26.73137,332</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>12</name>
+ <description>2017-09-18 10:23:52</description>
+ <TimeStamp><when>2017-09-18T01:23:52.000Z</when></TimeStamp>
+ <Point><coordinates>128.20963,26.73128,331</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>13</name>
+ <description>2017-09-18 10:24:32</description>
+ <TimeStamp><when>2017-09-18T01:24:32.000Z</when></TimeStamp>
+ <Point><coordinates>128.20975,26.731218,335</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>14</name>
+ <description>2017-09-18 10:25:10</description>
+ <TimeStamp><when>2017-09-18T01:25:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.20993,26.731167,339</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>15</name>
+ <description>2017-09-18 10:25:51</description>
+ <TimeStamp><when>2017-09-18T01:25:51.000Z</when></TimeStamp>
+ <Point><coordinates>128.21007,26.731106,343</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>16</name>
+ <description>2017-09-18 10:26:32</description>
+ <TimeStamp><when>2017-09-18T01:26:32.000Z</when></TimeStamp>
+ <Point><coordinates>128.2101,26.73109,344</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>17</name>
+ <description>2017-09-18 10:27:12</description>
+ <TimeStamp><when>2017-09-18T01:27:12.000Z</when></TimeStamp>
+ <Point><coordinates>128.21027,26.731054,345</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>18</name>
+ <description>2017-09-18 10:27:58</description>
+ <TimeStamp><when>2017-09-18T01:27:58.000Z</when></TimeStamp>
+ <Point><coordinates>128.21053,26.731083,351</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>19</name>
+ <description>2017-09-18 10:28:41</description>
+ <TimeStamp><when>2017-09-18T01:28:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.21082,26.73116,354</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>20</name>
+ <description>2017-09-18 10:29:24</description>
+ <TimeStamp><when>2017-09-18T01:29:24.000Z</when></TimeStamp>
+ <Point><coordinates>128.21083,26.731142,355</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>21</name>
+ <description>2017-09-18 10:30:09</description>
+ <TimeStamp><when>2017-09-18T01:30:09.000Z</when></TimeStamp>
+ <Point><coordinates>128.21095,26.730839,360</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>22</name>
+ <description>2017-09-18 10:30:54</description>
+ <TimeStamp><when>2017-09-18T01:30:54.000Z</when></TimeStamp>
+ <Point><coordinates>128.21118,26.73064,349</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>23</name>
+ <description>2017-09-18 10:31:36</description>
+ <TimeStamp><when>2017-09-18T01:31:36.000Z</when></TimeStamp>
+ <Point><coordinates>128.21132,26.7305,346</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>24</name>
+ <description>2017-09-18 10:32:10</description>
+ <TimeStamp><when>2017-09-18T01:32:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.21144,26.730465,342</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>25</name>
+ <description>2017-09-18 10:32:44</description>
+ <TimeStamp><when>2017-09-18T01:32:44.000Z</when></TimeStamp>
+ <Point><coordinates>128.2116,26.730412,350</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>26</name>
+ <description>2017-09-18 10:33:19</description>
+ <TimeStamp><when>2017-09-18T01:33:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.21179,26.730392,353</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>27</name>
+ <description>2017-09-18 10:33:58</description>
+ <TimeStamp><when>2017-09-18T01:33:58.000Z</when></TimeStamp>
+ <Point><coordinates>128.2119,26.730333,358</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>28</name>
+ <description>2017-09-18 10:34:35</description>
+ <TimeStamp><when>2017-09-18T01:34:35.000Z</when></TimeStamp>
+ <Point><coordinates>128.212,26.730284,356</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>29</name>
+ <description>2017-09-18 10:35:15</description>
+ <TimeStamp><when>2017-09-18T01:35:15.000Z</when></TimeStamp>
+ <Point><coordinates>128.21213,26.73029,356</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>30</name>
+ <description>2017-09-18 10:35:55</description>
+ <TimeStamp><when>2017-09-18T01:35:55.000Z</when></TimeStamp>
+ <Point><coordinates>128.21222,26.730228,351</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>31</name>
+ <description>2017-09-18 10:36:42</description>
+ <TimeStamp><when>2017-09-18T01:36:42.000Z</when></TimeStamp>
+ <Point><coordinates>128.21236,26.730125,348</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>32</name>
+ <description>2017-09-18 10:37:38</description>
+ <TimeStamp><when>2017-09-18T01:37:38.000Z</when></TimeStamp>
+ <Point><coordinates>128.21239,26.730064,346</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>33</name>
+ <description>2017-09-18 10:38:34</description>
+ <TimeStamp><when>2017-09-18T01:38:34.000Z</when></TimeStamp>
+ <Point><coordinates>128.21288,26.729551,342</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>34</name>
+ <description>2017-09-18 10:39:22</description>
+ <TimeStamp><when>2017-09-18T01:39:22.000Z</when></TimeStamp>
+ <Point><coordinates>128.2129,26.729433,336</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>35</name>
+ <description>2017-09-18 10:39:59</description>
+ <TimeStamp><when>2017-09-18T01:39:59.000Z</when></TimeStamp>
+ <Point><coordinates>128.21292,26.729404,333</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>36</name>
+ <description>2017-09-18 10:40:44</description>
+ <TimeStamp><when>2017-09-18T01:40:44.000Z</when></TimeStamp>
+ <Point><coordinates>128.21306,26.72931,339</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>37</name>
+ <description>2017-09-18 10:42:44</description>
+ <TimeStamp><when>2017-09-18T01:42:44.000Z</when></TimeStamp>
+ <Point><coordinates>128.21327,26.729084,346</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>38</name>
+ <description>2017-09-18 10:43:25</description>
+ <TimeStamp><when>2017-09-18T01:43:25.000Z</when></TimeStamp>
+ <Point><coordinates>128.21332,26.728989,342</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>39</name>
+ <description>2017-09-18 10:44:10</description>
+ <TimeStamp><when>2017-09-18T01:44:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.21318,26.728859,329</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>40</name>
+ <description>2017-09-18 10:44:53</description>
+ <TimeStamp><when>2017-09-18T01:44:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21318,26.728804,333</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>41</name>
+ <description>2017-09-18 10:45:45</description>
+ <TimeStamp><when>2017-09-18T01:45:45.000Z</when></TimeStamp>
+ <Point><coordinates>128.21327,26.72841,338</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>42</name>
+ <description>2017-09-18 10:47:11</description>
+ <TimeStamp><when>2017-09-18T01:47:11.000Z</when></TimeStamp>
+ <Point><coordinates>128.2133,26.728254,340</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>43</name>
+ <description>2017-09-18 10:47:57</description>
+ <TimeStamp><when>2017-09-18T01:47:57.000Z</when></TimeStamp>
+ <Point><coordinates>128.21315,26.728104,335</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>44</name>
+ <description>2017-09-18 10:48:39</description>
+ <TimeStamp><when>2017-09-18T01:48:39.000Z</when></TimeStamp>
+ <Point><coordinates>128.21318,26.728016,331</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>45</name>
+ <description>2017-09-18 10:49:25</description>
+ <TimeStamp><when>2017-09-18T01:49:25.000Z</when></TimeStamp>
+ <Point><coordinates>128.21307,26.727943,342</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>46</name>
+ <description>2017-09-18 10:52:45</description>
+ <TimeStamp><when>2017-09-18T01:52:45.000Z</when></TimeStamp>
+ <Point><coordinates>128.21304,26.72794,352</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>47</name>
+ <description>2017-09-18 10:53:48</description>
+ <TimeStamp><when>2017-09-18T01:53:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.2132,26.727709,334</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>48</name>
+ <description>2017-09-18 10:54:53</description>
+ <TimeStamp><when>2017-09-18T01:54:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21315,26.727415,343</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>49</name>
+ <description>2017-09-18 10:55:50</description>
+ <TimeStamp><when>2017-09-18T01:55:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.21318,26.727306,357</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>50</name>
+ <description>2017-09-18 10:56:48</description>
+ <TimeStamp><when>2017-09-18T01:56:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21324,26.7272,356</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>51</name>
+ <description>2017-09-18 10:57:41</description>
+ <TimeStamp><when>2017-09-18T01:57:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.21335,26.72716,348</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>52</name>
+ <description>2017-09-18 10:58:46</description>
+ <TimeStamp><when>2017-09-18T01:58:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21346,26.727064,350</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>53</name>
+ <description>2017-09-18 10:59:41</description>
+ <TimeStamp><when>2017-09-18T01:59:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.2135,26.727037,347</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>54</name>
+ <description>2017-09-18 11:00:43</description>
+ <TimeStamp><when>2017-09-18T02:00:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21352,26.72692,360</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>55</name>
+ <description>2017-09-18 11:01:43</description>
+ <TimeStamp><when>2017-09-18T02:01:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21367,26.726866,363</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>56</name>
+ <description>2017-09-18 11:02:46</description>
+ <TimeStamp><when>2017-09-18T02:02:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21387,26.726658,373</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>57</name>
+ <description>2017-09-18 11:03:48</description>
+ <TimeStamp><when>2017-09-18T02:03:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21405,26.72652,360</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>58</name>
+ <description>2017-09-18 11:04:42</description>
+ <TimeStamp><when>2017-09-18T02:04:42.000Z</when></TimeStamp>
+ <Point><coordinates>128.21425,26.726439,369</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>59</name>
+ <description>2017-09-18 11:05:47</description>
+ <TimeStamp><when>2017-09-18T02:05:47.000Z</when></TimeStamp>
+ <Point><coordinates>128.2144,26.726334,373</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>60</name>
+ <description>2017-09-18 11:06:45</description>
+ <TimeStamp><when>2017-09-18T02:06:45.000Z</when></TimeStamp>
+ <Point><coordinates>128.21457,26.726358,372</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>61</name>
+ <description>2017-09-18 11:07:43</description>
+ <TimeStamp><when>2017-09-18T02:07:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21466,26.726341,372</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>62</name>
+ <description>2017-09-18 11:08:43</description>
+ <TimeStamp><when>2017-09-18T02:08:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21472,26.726355,381</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>63</name>
+ <description>2017-09-18 11:09:50</description>
+ <TimeStamp><when>2017-09-18T02:09:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.21497,26.726458,373</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>64</name>
+ <description>2017-09-18 11:10:50</description>
+ <TimeStamp><when>2017-09-18T02:10:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.21501,26.726522,379</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>65</name>
+ <description>2017-09-18 11:11:46</description>
+ <TimeStamp><when>2017-09-18T02:11:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21515,26.726683,377</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>66</name>
+ <description>2017-09-18 11:12:46</description>
+ <TimeStamp><when>2017-09-18T02:12:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21518,26.726776,381</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>67</name>
+ <description>2017-09-18 11:14:52</description>
+ <TimeStamp><when>2017-09-18T02:14:52.000Z</when></TimeStamp>
+ <Point><coordinates>128.21541,26.726767,380</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>68</name>
+ <description>2017-09-18 11:16:53</description>
+ <TimeStamp><when>2017-09-18T02:16:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21545,26.726713,379</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>69</name>
+ <description>2017-09-18 11:17:40</description>
+ <TimeStamp><when>2017-09-18T02:17:40.000Z</when></TimeStamp>
+ <Point><coordinates>128.21545,26.726715,380</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>70</name>
+ <description>2017-09-18 11:21:53</description>
+ <TimeStamp><when>2017-09-18T02:21:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21559,26.726633,387</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>71</name>
+ <description>2017-09-18 11:22:43</description>
+ <TimeStamp><when>2017-09-18T02:22:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21559,26.726625,391</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>72</name>
+ <description>2017-09-18 11:23:46</description>
+ <TimeStamp><when>2017-09-18T02:23:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21577,26.726522,382</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>73</name>
+ <description>2017-09-18 11:24:49</description>
+ <TimeStamp><when>2017-09-18T02:24:49.000Z</when></TimeStamp>
+ <Point><coordinates>128.21613,26.726221,385</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>74</name>
+ <description>2017-09-18 11:25:55</description>
+ <TimeStamp><when>2017-09-18T02:25:55.000Z</when></TimeStamp>
+ <Point><coordinates>128.21634,26.72614,416</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>75</name>
+ <description>2017-09-18 11:26:43</description>
+ <TimeStamp><when>2017-09-18T02:26:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21646,26.726154,412</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>76</name>
+ <description>2017-09-18 11:27:38</description>
+ <TimeStamp><when>2017-09-18T02:27:38.000Z</when></TimeStamp>
+ <Point><coordinates>128.21657,26.726036,382</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>77</name>
+ <description>2017-09-18 11:28:31</description>
+ <TimeStamp><when>2017-09-18T02:28:31.000Z</when></TimeStamp>
+ <Point><coordinates>128.21657,26.725996,383</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>78</name>
+ <description>2017-09-18 11:29:19</description>
+ <TimeStamp><when>2017-09-18T02:29:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.21657,26.725992,382</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>79</name>
+ <description>2017-09-18 11:30:31</description>
+ <TimeStamp><when>2017-09-18T02:30:31.000Z</when></TimeStamp>
+ <Point><coordinates>128.21657,26.725988,382</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>80</name>
+ <description>2017-09-18 11:31:17</description>
+ <TimeStamp><when>2017-09-18T02:31:17.000Z</when></TimeStamp>
+ <Point><coordinates>128.21657,26.72598,383</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>81</name>
+ <description>2017-09-18 11:32:19</description>
+ <TimeStamp><when>2017-09-18T02:32:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.2166,26.725964,387</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>82</name>
+ <description>2017-09-18 11:33:23</description>
+ <TimeStamp><when>2017-09-18T02:33:23.000Z</when></TimeStamp>
+ <Point><coordinates>128.21664,26.725868,389</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>83</name>
+ <description>2017-09-18 11:34:19</description>
+ <TimeStamp><when>2017-09-18T02:34:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.21661,26.725817,392</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>84</name>
+ <description>2017-09-18 11:37:19</description>
+ <TimeStamp><when>2017-09-18T02:37:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.21661,26.725813,388</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>85</name>
+ <description>2017-09-18 11:39:24</description>
+ <TimeStamp><when>2017-09-18T02:39:24.000Z</when></TimeStamp>
+ <Point><coordinates>128.21663,26.72581,387</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>86</name>
+ <description>2017-09-18 11:41:20</description>
+ <TimeStamp><when>2017-09-18T02:41:20.000Z</when></TimeStamp>
+ <Point><coordinates>128.21664,26.725792,396</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>87</name>
+ <description>2017-09-18 11:42:28</description>
+ <TimeStamp><when>2017-09-18T02:42:28.000Z</when></TimeStamp>
+ <Point><coordinates>128.21695,26.725403,387</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>88</name>
+ <description>2017-09-18 11:43:29</description>
+ <TimeStamp><when>2017-09-18T02:43:29.000Z</when></TimeStamp>
+ <Point><coordinates>128.21698,26.72535,388</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>89</name>
+ <description>2017-09-18 11:44:19</description>
+ <TimeStamp><when>2017-09-18T02:44:19.000Z</when></TimeStamp>
+ <Point><coordinates>128.21698,26.72501,407</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>90</name>
+ <description>2017-09-18 11:45:07</description>
+ <TimeStamp><when>2017-09-18T02:45:07.000Z</when></TimeStamp>
+ <Point><coordinates>128.21698,26.724953,408</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>91</name>
+ <description>2017-09-18 11:45:50</description>
+ <TimeStamp><when>2017-09-18T02:45:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.21698,26.72493,407</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>92</name>
+ <description>2017-09-18 11:46:41</description>
+ <TimeStamp><when>2017-09-18T02:46:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.217,26.724888,410</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>93</name>
+ <description>2017-09-18 11:47:31</description>
+ <TimeStamp><when>2017-09-18T02:47:31.000Z</when></TimeStamp>
+ <Point><coordinates>128.217,26.724848,412</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>94</name>
+ <description>2017-09-18 11:48:29</description>
+ <TimeStamp><when>2017-09-18T02:48:29.000Z</when></TimeStamp>
+ <Point><coordinates>128.217,26.724428,417</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>95</name>
+ <description>2017-09-18 11:49:27</description>
+ <TimeStamp><when>2017-09-18T02:49:27.000Z</when></TimeStamp>
+ <Point><coordinates>128.21696,26.723797,404</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>96</name>
+ <description>2017-09-18 11:50:56</description>
+ <TimeStamp><when>2017-09-18T02:50:56.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723684,401</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>97</name>
+ <description>2017-09-18 11:51:29</description>
+ <TimeStamp><when>2017-09-18T02:51:29.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723673,400</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>98</name>
+ <description>2017-09-18 11:52:07</description>
+ <TimeStamp><when>2017-09-18T02:52:07.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723665,402</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>99</name>
+ <description>2017-09-18 11:52:55</description>
+ <TimeStamp><when>2017-09-18T02:52:55.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723663,402</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>100</name>
+ <description>2017-09-18 11:53:41</description>
+ <TimeStamp><when>2017-09-18T02:53:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.72366,402</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>101</name>
+ <description>2017-09-18 11:54:22</description>
+ <TimeStamp><when>2017-09-18T02:54:22.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723656,403</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>102</name>
+ <description>2017-09-18 11:55:12</description>
+ <TimeStamp><when>2017-09-18T02:55:12.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723648,403</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>103</name>
+ <description>2017-09-18 11:56:05</description>
+ <TimeStamp><when>2017-09-18T02:56:05.000Z</when></TimeStamp>
+ <Point><coordinates>128.21686,26.723644,402</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>104</name>
+ <description>2017-09-18 11:57:06</description>
+ <TimeStamp><when>2017-09-18T02:57:06.000Z</when></TimeStamp>
+ <Point><coordinates>128.21689,26.723623,397</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>105</name>
+ <description>2017-09-18 11:58:05</description>
+ <TimeStamp><when>2017-09-18T02:58:05.000Z</when></TimeStamp>
+ <Point><coordinates>128.21689,26.723585,396</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>106</name>
+ <description>2017-09-18 11:59:04</description>
+ <TimeStamp><when>2017-09-18T02:59:04.000Z</when></TimeStamp>
+ <Point><coordinates>128.2169,26.72352,397</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>107</name>
+ <description>2017-09-18 12:00:07</description>
+ <TimeStamp><when>2017-09-18T03:00:07.000Z</when></TimeStamp>
+ <Point><coordinates>128.21692,26.723486,399</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>108</name>
+ <description>2017-09-18 12:01:10</description>
+ <TimeStamp><when>2017-09-18T03:01:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.21704,26.723312,415</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>109</name>
+ <description>2017-09-18 12:02:06</description>
+ <TimeStamp><when>2017-09-18T03:02:06.000Z</when></TimeStamp>
+ <Point><coordinates>128.21716,26.723219,418</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>110</name>
+ <description>2017-09-18 12:03:03</description>
+ <TimeStamp><when>2017-09-18T03:03:03.000Z</when></TimeStamp>
+ <Point><coordinates>128.21716,26.723188,417</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>111</name>
+ <description>2017-09-18 12:04:08</description>
+ <TimeStamp><when>2017-09-18T03:04:08.000Z</when></TimeStamp>
+ <Point><coordinates>128.2172,26.72315,417</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>112</name>
+ <description>2017-09-18 12:05:04</description>
+ <TimeStamp><when>2017-09-18T03:05:04.000Z</when></TimeStamp>
+ <Point><coordinates>128.21722,26.723085,420</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>113</name>
+ <description>2017-09-18 12:06:03</description>
+ <TimeStamp><when>2017-09-18T03:06:03.000Z</when></TimeStamp>
+ <Point><coordinates>128.21724,26.723032,418</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>114</name>
+ <description>2017-09-18 12:07:10</description>
+ <TimeStamp><when>2017-09-18T03:07:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.21725,26.722832,429</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>115</name>
+ <description>2017-09-18 12:08:09</description>
+ <TimeStamp><when>2017-09-18T03:08:09.000Z</when></TimeStamp>
+ <Point><coordinates>128.21729,26.72274,429</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>116</name>
+ <description>2017-09-18 12:09:08</description>
+ <TimeStamp><when>2017-09-18T03:09:08.000Z</when></TimeStamp>
+ <Point><coordinates>128.2173,26.722696,430</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>117</name>
+ <description>2017-09-18 12:10:07</description>
+ <TimeStamp><when>2017-09-18T03:10:07.000Z</when></TimeStamp>
+ <Point><coordinates>128.21732,26.72266,427</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>118</name>
+ <description>2017-09-18 12:11:06</description>
+ <TimeStamp><when>2017-09-18T03:11:06.000Z</when></TimeStamp>
+ <Point><coordinates>128.21733,26.72264,427</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>119</name>
+ <description>2017-09-18 12:12:08</description>
+ <TimeStamp><when>2017-09-18T03:12:08.000Z</when></TimeStamp>
+ <Point><coordinates>128.21738,26.72235,433</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>120</name>
+ <description>2017-09-18 12:13:08</description>
+ <TimeStamp><when>2017-09-18T03:13:08.000Z</when></TimeStamp>
+ <Point><coordinates>128.21747,26.722174,433</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>121</name>
+ <description>2017-09-18 12:14:02</description>
+ <TimeStamp><when>2017-09-18T03:14:02.000Z</when></TimeStamp>
+ <Point><coordinates>128.21751,26.722069,433</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>122</name>
+ <description>2017-09-18 12:15:01</description>
+ <TimeStamp><when>2017-09-18T03:15:01.000Z</when></TimeStamp>
+ <Point><coordinates>128.21756,26.721819,429</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>123</name>
+ <description>2017-09-18 12:15:53</description>
+ <TimeStamp><when>2017-09-18T03:15:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21759,26.721748,431</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>124</name>
+ <description>2017-09-18 12:16:53</description>
+ <TimeStamp><when>2017-09-18T03:16:53.000Z</when></TimeStamp>
+ <Point><coordinates>128.21764,26.72162,437</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>125</name>
+ <description>2017-09-18 12:17:48</description>
+ <TimeStamp><when>2017-09-18T03:17:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21777,26.721344,457</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>126</name>
+ <description>2017-09-18 12:18:42</description>
+ <TimeStamp><when>2017-09-18T03:18:42.000Z</when></TimeStamp>
+ <Point><coordinates>128.21779,26.721287,449</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>127</name>
+ <description>2017-09-18 12:19:39</description>
+ <TimeStamp><when>2017-09-18T03:19:39.000Z</when></TimeStamp>
+ <Point><coordinates>128.2178,26.721224,448</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>128</name>
+ <description>2017-09-18 12:20:37</description>
+ <TimeStamp><when>2017-09-18T03:20:37.000Z</when></TimeStamp>
+ <Point><coordinates>128.21785,26.72115,451</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>129</name>
+ <description>2017-09-18 12:21:43</description>
+ <TimeStamp><when>2017-09-18T03:21:43.000Z</when></TimeStamp>
+ <Point><coordinates>128.21808,26.721025,465</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>130</name>
+ <description>2017-09-18 12:22:48</description>
+ <TimeStamp><when>2017-09-18T03:22:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21811,26.721003,447</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>131</name>
+ <description>2017-09-18 12:23:46</description>
+ <TimeStamp><when>2017-09-18T03:23:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21823,26.72091,452</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>132</name>
+ <description>2017-09-18 12:24:45</description>
+ <TimeStamp><when>2017-09-18T03:24:45.000Z</when></TimeStamp>
+ <Point><coordinates>128.21826,26.72086,453</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>133</name>
+ <description>2017-09-18 12:24:46</description>
+ <TimeStamp><when>2017-09-18T03:24:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21826,26.720856,453</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>134</name>
+ <description>2017-09-18 12:25:48</description>
+ <TimeStamp><when>2017-09-18T03:25:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21832,26.720755,468</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>135</name>
+ <description>2017-09-18 12:26:39</description>
+ <TimeStamp><when>2017-09-18T03:26:39.000Z</when></TimeStamp>
+ <Point><coordinates>128.21835,26.720718,464</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>136</name>
+ <description>2017-09-18 12:27:45</description>
+ <TimeStamp><when>2017-09-18T03:27:45.000Z</when></TimeStamp>
+ <Point><coordinates>128.21838,26.720676,464</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>137</name>
+ <description>2017-09-18 12:28:46</description>
+ <TimeStamp><when>2017-09-18T03:28:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21849,26.720425,477</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>138</name>
+ <description>2017-09-18 12:29:46</description>
+ <TimeStamp><when>2017-09-18T03:29:46.000Z</when></TimeStamp>
+ <Point><coordinates>128.21855,26.72035,482</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>139</name>
+ <description>2017-09-18 12:30:49</description>
+ <TimeStamp><when>2017-09-18T03:30:49.000Z</when></TimeStamp>
+ <Point><coordinates>128.21864,26.720104,481</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>140</name>
+ <description>2017-09-18 12:31:48</description>
+ <TimeStamp><when>2017-09-18T03:31:48.000Z</when></TimeStamp>
+ <Point><coordinates>128.21873,26.719986,470</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>141</name>
+ <description>2017-09-18 12:32:44</description>
+ <TimeStamp><when>2017-09-18T03:32:44.000Z</when></TimeStamp>
+ <Point><coordinates>128.21878,26.719954,482</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>142</name>
+ <description>2017-09-18 12:33:49</description>
+ <TimeStamp><when>2017-09-18T03:33:49.000Z</when></TimeStamp>
+ <Point><coordinates>128.21884,26.719513,459</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>143</name>
+ <description>2017-09-18 12:35:41</description>
+ <TimeStamp><when>2017-09-18T03:35:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.21896,26.719406,470</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>144</name>
+ <description>2017-09-18 12:36:28</description>
+ <TimeStamp><when>2017-09-18T03:36:28.000Z</when></TimeStamp>
+ <Point><coordinates>128.21895,26.719366,471</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>145</name>
+ <description>2017-09-18 12:37:25</description>
+ <TimeStamp><when>2017-09-18T03:37:25.000Z</when></TimeStamp>
+ <Point><coordinates>128.219,26.719194,464</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>146</name>
+ <description>2017-09-18 12:38:20</description>
+ <TimeStamp><when>2017-09-18T03:38:20.000Z</when></TimeStamp>
+ <Point><coordinates>128.21893,26.718922,487</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>147</name>
+ <description>2017-09-18 12:39:26</description>
+ <TimeStamp><when>2017-09-18T03:39:26.000Z</when></TimeStamp>
+ <Point><coordinates>128.21893,26.718779,484</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>148</name>
+ <description>2017-09-18 12:40:11</description>
+ <TimeStamp><when>2017-09-18T03:40:11.000Z</when></TimeStamp>
+ <Point><coordinates>128.21889,26.718727,488</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>149</name>
+ <description>2017-09-18 12:44:58</description>
+ <TimeStamp><when>2017-09-18T03:44:58.000Z</when></TimeStamp>
+ <Point><coordinates>128.2188,26.718393,491</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>150</name>
+ <description>2017-09-18 12:45:50</description>
+ <TimeStamp><when>2017-09-18T03:45:50.000Z</when></TimeStamp>
+ <Point><coordinates>128.21881,26.718332,484</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>151</name>
+ <description>2017-09-18 12:47:00</description>
+ <TimeStamp><when>2017-09-18T03:47:00.000Z</when></TimeStamp>
+ <Point><coordinates>128.21877,26.718252,485</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>152</name>
+ <description>2017-09-18 12:47:52</description>
+ <TimeStamp><when>2017-09-18T03:47:52.000Z</when></TimeStamp>
+ <Point><coordinates>128.21873,26.718218,487</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>153</name>
+ <description>2017-09-18 12:48:54</description>
+ <TimeStamp><when>2017-09-18T03:48:54.000Z</when></TimeStamp>
+ <Point><coordinates>128.21867,26.717813,498</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>154</name>
+ <description>2017-09-18 12:49:59</description>
+ <TimeStamp><when>2017-09-18T03:49:59.000Z</when></TimeStamp>
+ <Point><coordinates>128.2188,26.71767,498</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>155</name>
+ <description>2017-09-18 12:51:38</description>
+ <TimeStamp><when>2017-09-18T03:51:38.000Z</when></TimeStamp>
+ <Point><coordinates>128.21881,26.71765,498</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>156</name>
+ <description>2017-09-18 12:52:37</description>
+ <TimeStamp><when>2017-09-18T03:52:37.000Z</when></TimeStamp>
+ <Point><coordinates>128.21877,26.71749,494</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>157</name>
+ <description>2017-09-18 12:55:18</description>
+ <TimeStamp><when>2017-09-18T03:55:18.000Z</when></TimeStamp>
+ <Point><coordinates>128.21869,26.71699,492</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>158</name>
+ <description>2017-09-18 12:56:01</description>
+ <TimeStamp><when>2017-09-18T03:56:01.000Z</when></TimeStamp>
+ <Point><coordinates>128.21869,26.716919,495</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>159</name>
+ <description>2017-09-18 12:57:41</description>
+ <TimeStamp><when>2017-09-18T03:57:41.000Z</when></TimeStamp>
+ <Point><coordinates>128.21857,26.71663,492</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>160</name>
+ <description>2017-09-18 12:58:22</description>
+ <TimeStamp><when>2017-09-18T03:58:22.000Z</when></TimeStamp>
+ <Point><coordinates>128.21857,26.716602,493</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>161</name>
+ <description>2017-09-18 13:01:10</description>
+ <TimeStamp><when>2017-09-18T04:01:10.000Z</when></TimeStamp>
+ <Point><coordinates>128.21841,26.716534,490</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>162</name>
+ <description>2017-09-18 13:03:24</description>
+ <TimeStamp><when>2017-09-18T04:03:24.000Z</when></TimeStamp>
+ <Point><coordinates>128.21823,26.716389,495</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>163</name>
+ <description>2017-09-18 13:04:16</description>
+ <TimeStamp><when>2017-09-18T04:04:16.000Z</when></TimeStamp>
+ <Point><coordinates>128.21814,26.71626,496</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>164</name>
+ <description>2017-09-18 13:06:03</description>
+ <TimeStamp><when>2017-09-18T04:06:03.000Z</when></TimeStamp>
+ <Point><coordinates>128.21803,26.716125,488</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>165</name>
+ <description>2017-09-18 13:06:58</description>
+ <TimeStamp><when>2017-09-18T04:06:58.000Z</when></TimeStamp>
+ <Point><coordinates>128.21803,26.716146,491</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>166</name>
+ <description>2017-09-18 13:07:55</description>
+ <TimeStamp><when>2017-09-18T04:07:55.000Z</when></TimeStamp>
+ <Point><coordinates>128.21805,26.716156,492</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>167</name>
+ <description>2017-09-18 13:09:54</description>
+ <TimeStamp><when>2017-09-18T04:09:54.000Z</when></TimeStamp>
+ <Point><coordinates>128.21805,26.71616,491</coordinates></Point>
+</Placemark>
+<Placemark>
+ <name>168</name>
+ <description>2017-09-18 13:10:54</description>
+ <TimeStamp><when>2017-09-18T04:10:54.000Z</when></TimeStamp>
+ <Point><coordinates>128.21805,26.716148,490</coordinates></Point>
+</Placemark>
+</Document>
+</kml>
