@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+<Document>
+<Style id="ytlog_t_20171124215314"><LineStyle>
+<color>ffff0000</color><width>4</width>
+</LineStyle></Style>
+<Placemark>
+<name><![CDATA[2017-11-24 15:12:26]]></name>
+<description><![CDATA[山旅ロガー：2017-11-24 15:12～2017-11-24 15:23]]></description>
+<styleUrl>#ytlog_t_20171124215314</styleUrl>
+<LineString>
+<altitudeMode>absolute</altitudeMode>
+<coordinates>
+127.973526,26.659985,88
+127.97348,26.659983,90
+127.97348,26.66004,91
+127.9735,26.660149,92
+127.97353,26.660269,92
+127.97361,26.660475,96
+127.973724,26.660648,92
+127.97383,26.660631,92
+127.973976,26.66053,87
+127.97412,26.660477,88
+127.97417,26.660463,89
+127.974236,26.660353,86
+127.97414,26.660244,84
+127.974106,26.660168,89
+127.97403,26.66007,92
+127.97377,26.65995,86
+127.97368,26.65969,82
+</coordinates>
+</LineString>
+</Placemark>
+</Document>
+</kml>

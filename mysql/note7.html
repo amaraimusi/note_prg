@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MySQLの覚書</title>
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>MySQLの覚書</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+<div id="sec7-1" class="sec4">
+	<h3>条件が異なる複数の集計</h3>
+	
+	test_asテーブル
+	<table class="tbl2">
+		<thead>
+			<tr><th>id</th><th>test1</th><th>val1</th><th>text1</th><th>test_date</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>1</td><td>-1</td><td>1</td><td>neko</td><td>2014/4/1</td></tr>
+			<tr><td>2</td><td>101</td><td>2</td><td>kani</td><td>2014/4/2</td></tr>
+			<tr><td>4</td><td>-1</td><td>4</td><td>buta</td><td>2014/4/4</td></tr>
+			<tr><td>5</td><td>100</td><td>3</td><td>yagi</td><td>2014/4/3</td></tr>
+			<tr><td>6</td><td>100</td><td>3</td><td>ari</td><td>2014/4/3</td></tr>
+			<tr><td>7</td><td>100</td><td>3</td><td>tori</td><td>2014/4/3</td></tr>
+			<tr><td>8</td><td>100</td><td>3</td><td>kame</td><td>2014/4/3</td></tr>
+		</tbody>
+	</table><br>
+	
+	<p>条件が異なる複数の集計</p>
+	全レコード数と、val1が3のレコード数を取得する。
+	<pre><code>
+	SELECT COUNT(id), COUNT(<strong>val1 = 3 or null</strong>) FROM test_as
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>COUNT(id)</th><th>COUNT(val1 = 3 or null)</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>7</td><td>4</td></tr>
+		</tbody>
+	</table>
+	
+	<br><time>2017-12-20</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec7-2" class="sec4">
+	<h3>条件が異なる複数の集計</h3>
+	
+	test_asテーブル
+	<table class="tbl2">
+		<thead>
+			<tr><th>id</th><th>test1</th><th>val1</th><th>text1</th><th>test_date</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>1</td><td>-1</td><td>1</td><td>neko</td><td>2014/4/1</td></tr>
+			<tr><td>2</td><td>101</td><td>2</td><td>kani</td><td>2014/4/2</td></tr>
+			<tr><td>4</td><td>-1</td><td>4</td><td>buta</td><td>2014/4/4</td></tr>
+			<tr><td>5</td><td>100</td><td>3</td><td>yagi</td><td>2014/4/3</td></tr>
+			<tr><td>6</td><td>100</td><td>3</td><td>ari</td><td>2014/4/3</td></tr>
+			<tr><td>7</td><td>100</td><td>3</td><td>tori</td><td>2014/4/3</td></tr>
+			<tr><td>8</td><td>100</td><td>3</td><td>kame</td><td>2014/4/3</td></tr>
+		</tbody>
+	</table><br>
+	
+	<p>条件が異なる複数の集計</p>
+	全レコードの最小値と、日付が2014-04-03より後のval1最小値を取得する。
+	<pre><code>
+	SELECT
+		MIN(`val1`) AS `min_a`,
+		<strong>MIN(CASE WHEN `test_date` > '2014-04-03' THEN `val1` ELSE null END)</strong> AS `min_b`
+	FROM `test_as`
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>min_a</th><th>min_b</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>1</td><td>4</td></tr>
+		</tbody>
+	</table>
+	
+	<br><time>2017-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec7-3" class="sec4" >
+	<h3>CASE WHEN ～ THEN | AND条件</h3>
+	
+	test_asテーブル
+	<table class="tbl2">
+		<thead>
+			<tr><th>id</th><th>val1</th><th>text1</th><th>test_date</th><th>test_dt</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>1</td><td>1</td><td>neko</td><td>2014/4/1</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>2</td><td>2</td><td>kani</td><td>2014/4/2</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>4</td><td>4</td><td>buta</td><td>2014/4/4</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>5</td><td>3</td><td>yagi</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>6</td><td>3</td><td>ari</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>7</td><td>3</td><td>tori</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>8</td><td>4</td><td>kame</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>9</td><td>-1</td><td>unagi</td><td>NULL</td><td>NULL</td></tr>
+		</tbody>
+	</table><br>
+
+	<p>ANDの記述例</p>
+	<pre><code>
+	SELECT 
+		MIN(CASE WHEN test_date &gt;= '2014-4-2' <strong>AND</strong> test_date &lt; '2014-4-4' THEN val1 ELSE null END) as min_val1 
+	FROM test_as;
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>min_val1</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>2</td></tr>
+		</tbody>
+	</table>
+	
+	<br><time>2017-12-21</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec7-4" class="sec4" >
+	<h3>CASE WHEN ～ THEN | 入れ子</h3>
+	
+	test_asテーブル
+	<table class="tbl2">
+		<thead>
+			<tr><th>id</th><th>val1</th><th>text1</th><th>test_date</th><th>test_dt</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>1</td><td>1</td><td>neko</td><td>2014/4/1</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>2</td><td>2</td><td>kani</td><td>2014/4/2</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>4</td><td>4</td><td>buta</td><td>2014/4/4</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>5</td><td>3</td><td>yagi</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>6</td><td>3</td><td>ari</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>7</td><td>3</td><td>tori</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>8</td><td>4</td><td>kame</td><td>2014/4/3</td><td>2014/12/12 0:00</td></tr>
+			<tr><td>9</td><td>-1</td><td>unagi</td><td>NULL</td><td>NULL</td></tr>
+		</tbody>
+	</table><br>
+
+	<p>分岐の入れ子：例1</p>
+	<pre><code>
+	SELECT 
+		MIN(
+			CASE WHEN ISNULL(test_date) THEN
+				-999 
+			ELSE 
+				CASE WHEN test_date &gt;= '2014-4-2' AND test_date &lt; '2014-4-4' THEN val1 ELSE null END 
+			END
+		) AS min_val1
+	FROM test_as;
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>min_val1</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>-999</td></tr>
+		</tbody>
+	</table>
+	<hr>
+
+	<p>分岐の入れ子：例2</p>
+	<pre><code>
+	SELECT 
+		MIN(
+			CASE WHEN ISNULL(test_date) THEN
+				999 
+			ELSE 
+				CASE WHEN test_date &gt;= '2014-4-2' AND test_date &lt; '2014-4-4' THEN val1 ELSE null END 
+			END
+		) AS min_val1
+	FROM test_as;
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>min_val1</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>2</td></tr>
+		</tbody>
+	</table>
+	<hr>
+	
+	
+	
+	<br><time>2017-12-21</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec7-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/mysql/">MySQLの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-12-20</div>
+</body>
+</html>
