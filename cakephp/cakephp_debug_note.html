@@ -33,11 +33,43 @@
 	<h3>ログ出力</h3>
 	
 	<pre><code>
-	$this->log('test'); // 出力先ファイル→　/app/tmp/logs/error.log
+	$this->log('test'); // 出力先ファイル→ /app/tmp/logs/error.log
 	$this->log('test',LOG_DEBUG); // 出力先ファイル→ /app/tmp/logs/debug.log
 	</code></pre><br>
 	
 	<br><time>2017-11-6</time>
+	
+</div>
+
+
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>独自のlogファイルへログ出力する</h3>
+	
+	適当な箇所で下記を記述する。
+	<pre><code>
+	define('BIG_CAT', 'big_cat');
+	CakeLog::config('big_cat', array(
+			'engine' => 'FileLog',
+			'types' => array('big_cat'),
+			'file' => 'big_cat',
+	));
+	</code></pre><br>
+	
+	ログ出力
+	<pre><code>
+	$this->log('test=neko',BIG_CAT);
+	</code></pre><br>
+	
+	<p>自動生成された独自のlogファイル</p>
+	<img src="img/cakephp_debug_note/sec1-2.png" /><br>
+	<br>
+	
+	
+	<br><time>2018-1-9</time>
 	
 </div>
 

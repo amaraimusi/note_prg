@@ -37,8 +37,8 @@
 	<pre><code>
 	// スネーク記法のテーブル名をキャメル記法のモデル名に変更する
 	$tbl_name = 'neko_mutexes'; // テーブル名：英語の特殊複数形(sでなくesになっている）
-	$model_name = Inflector::singularize($tbl_name); // キャメル記法に変換する
-	$model_name= Inflector::camelize($model_name); // 英語の単数形に変換する。例：NekoMutexes → NekoMutex
+	$model_name = Inflector::singularize($tbl_name); // 英語の単数形に変換する。例：NekoMutexes → NekoMutex
+	$model_name= Inflector::camelize($model_name); // キャメル記法に変換する
 	var_dump($model_name); // → NekoMutex
 	
 	// キャメル記法のモデル名をスネーク記法のテーブル名に変換する
@@ -49,8 +49,82 @@
 	
 	<a href="http://ivystar.jp/programming/php/cakephp-php-programming/inflector-of-cakephp/" target="blank">参考</a><br>
 	
-	<br><time>2017-11-2</time>
+	<br><time>2017-11-2 | 2017-11-20</time>
 	
+</div>
+
+
+
+
+
+
+
+<div id="sec10-2" class="sec4">
+	<h3>レンダリングするビュー（ctp）を指定する | $this->render('xxx');</h3>
+
+	レンダリングするビュー（ctp）を指定できる。<br>
+	AJAX用のJSON文字列をレスポンスするビューを指定する場合、下記のように記述できる。<br>
+	<br>
+	
+	<p>コントローラのメソッド（アクション）でビューを指定する</p>
+	<pre><code>
+	public function test_action(){
+		$data = array('id'=>999,'name'=>'ヤンバルクイナ');
+		$this->set('jsonData',$data);
+		$this->render('/Elements/json_ajax',false);
+	}
+	</code></pre><br>
+	
+	<p>/app/View/Elements/json_ajax.ctp</p>
+	<pre><code>
+	&lt;?php 
+	$json_str = json_encode($jsonData,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+	echo $json_str;
+	?&gt;
+	</code></pre><br>
+	
+	<br><time>2017-11-10</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec10-3" class="sec4" >
+	<h3>自動採番が連番になるようauto_incrementをリセットする</h3>
+	
+	<pre><code>
+	/**
+	 * 自動採番が連番になるようauto_incrementをリセットする。
+	 * 
+	 * @param $tbl_name テーブル名
+	 */
+	private function resetAutoIncrement($tbl_name){
+		
+		// 最大IDを取得する
+		$max_id_sql = "SELECT MAX(id) AS max_id FROM {$tbl_name}";
+		$res = $this->query($max_id_sql);
+		$max_id = 0;
+		if(!empty($res)){
+			$max_id = $res[0][0]['max_id'];
+			if(empty($max_id)){
+				$max_id = 0;
+			}
+		}
+		
+		$next_id = $max_id + 1;// 次ID
+		
+		// 順位・日集計テーブルの自動採番（auto_increment）をリセットする
+		$reset_sql = "ALTER TABLE {$tbl_name} AUTO_INCREMENT = {$next_id}";
+		$this->query($reset_sql);
+		
+	}
+	</code></pre><br>
+	
+	<br><time>2018-1-10</time>
 </div>
 
 

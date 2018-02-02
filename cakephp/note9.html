@@ -512,6 +512,57 @@
 
 
 <!-- ----------------------------------------------------------------->
+<div id="sec9-10" class="sec1" >
+	<h3>ログファイルの容量制限とローテーションを設定する</h3>
+
+	ログが容量制限(size)に達した場合、ログファイル名はタイムスタンプをつけた名前に変更され、新しいログファイルが作成される。<br>
+	この一連の処理はログファイルのローテーションと呼ばれる。<br>
+	ローテーションに回数制限（rotate）をかけることができる。<br>
+	回数制限を超えると古いログファイルは削除される。<br>
+	bootstrap.phpからsizeとrotateを設定できる。<br>
+	<br>
+	
+
+	
+	<p>bootstrap.php</p>
+	<pre><code>
+	CakeLog::config('debug', array(
+		'engine' =&gt; 'FileLog',
+		'types' =&gt; array('notice', 'info', 'debug'),
+		'file' =&gt; 'debug',
+		'<strong>size</strong>' =&gt; '16MB', // デフォルトは10MB
+		'<strong>rotate</strong>' =&gt; 10, // デフォルトは10（回）
+	));
+	CakeLog::config('error', array(
+		'engine' =&gt; 'FileLog',
+		'types' =&gt; array('warning', 'error', 'critical', 'alert', 'emergency'),
+		'file' =&gt; 'error',
+		'<strong>size</strong>' =&gt; '16MB',
+		'<strong>rotate</strong>' =&gt; 10,
+	));
+	</code></pre>
+	
+	ログファイル
+	<aside>
+	app/tmp/logs/debug.log<br>
+	app/tmp/logs/error.log
+	</aside><br>
+	
+	
+	<a href="https://book.cakephp.org/2.0/ja/core-libraries/logging.html#id2" target="blank">参考</a><br>
+	<br>
+	
+	<br><time>2017-10-20</time>
+</div>
+<hr />
+<!-- ----------------------------------------------------------------->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------->
 <div id="sec9-0" class="sec1" style="display:none">
 	<h3>xxx</h3>
 

@@ -37,6 +37,7 @@
 		<li><a href="note2.php#sec2-4" >SOAP通信について（2016年の状況）</a></li>
 		<li><a href="../git/github_note.html" >GitとGithubの覚書</a></li>
 		<li><a href="../git/bitbucket_note.html" >Gitとbitbucketの覚書</a></li>
+		<li><a href="note2.php#sec2-5" >リアクティブプログラミングとは</a></li>
 
 	</ol>
 </div>

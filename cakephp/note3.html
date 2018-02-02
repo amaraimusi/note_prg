@@ -7,14 +7,11 @@
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
 		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
 
-		<script>
-
-
-
-		</script>
-
 		<style type="text/css">
-
+			.box_a{
+				float:left;
+				margin-left:10px
+			}
 		</style>
 
 	</head>
@@ -314,19 +311,227 @@
 
 
 
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-2" class="sec1" >
+	<h3>アソシエーションの考え方 | hasOne,belongsTo,hasMany,hasAndBelongsToMany</h3>
+	
+	<table class="table">
+		<thead>
+			<tr><th>関係</th><th>対</th><th>英語</th><th>和訳</th><th>説明</th><th>外部キー</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>hasOne</td><td>1 対 1</td><td>A has one Bの</td><td>Aは1つのBを有する</td><td>Aは１つ、Bも１つ</td><td>BにAへの外部キーあり</td><td></td></tr>
+			<tr><td>belongsTo</td><td>多 対 1</td><td>B belongs to A</td><td>B（当モデル）はAに属します</td><td>Bを主観。１つのAに複数のBが結びつく。Bから見てAは親のようなものである。</td><td>B（当モデル）に外部キーあり</td><td></td></tr>
+			<tr><td>hasMany</td><td>1 対 多</td><td>A has many B</td><td>Aは多くのBを有してます</td><td>Aは１つ、Bは複数である。Aから見てBは子のようなものである。</td><td>BにAへの外部キーあり</td></tr>
+			<tr><td>hasAndBelongsToMany</td><td>多 対 多</td><td>A has and belongs to many B</td><td>Aは多くのBに属します</td><td>AとBを連結した第３のテーブルあり</td><td>Aは外部キーなし、Bも外部キーなし</td></tr>
+	
+		</tbody>
+	</table>
+	
+	<hr>
+	
+	<h4>A hasOne B</h4>
+	<div class="box_a">
+		A
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>a_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>2</td><td>那覇市</td></tr>
+				<tr><td>3</td><td>国頭村</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div class="box_a">
+		B
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>a_id</th><th>b_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>10</td><td>2</td><td>カニ</td></tr>
+		
+			</tbody>
+		</table>
+		<br>
+	</div>
+
+	<div style="clear:both"></div>
+	那覇市は１つのカニを有してます。<br>
+	国頭村は有してません。<br>
+	<br>
+	
+	A LEFT JOIN B<br>
+	<br><hr>
+	
+	
+	<h4>B belongsTo A</h4>
+	<div class="box_a">
+		A
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>b_id</th><th>a_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>2</td><td>10</td><td>那覇市</td></tr>
+				<tr><td>3</td><td>10</td><td>国頭村</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div class="box_a">
+		B
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>b_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>10</td><td>カニ</td></tr>
+				<tr><td>11</td><td>ハゼ</td></tr>
+			</tbody>
+		</table><br>
+	</div>
+	<div style="clear:both"></div>
+	
+	カニは那覇市と国頭村に属する<br>
+	ハゼはどこにも属さない<br>
+	<br>
+	
+	A LEFT JOIN B<br>
+	<br><hr>	
+	
+	
+	
+	
+	<h4>A hasMany B</h4>
+	<div class="box_a">
+		A
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>a_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>2</td><td>那覇市</td></tr>
+				<tr><td>3</td><td>国頭村</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div class="box_a">
+		B
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>a_id</th><th>b_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>10</td><td>2</td><td>カニ</td></tr>
+				<tr><td>11</td><td>2</td><td>ハゼ</td></tr>
+				<tr><td>12</td><td>3</td><td>イカ</td></tr>
+				<tr><td>13</td><td>3</td><td>エイ</td></tr>
+		
+			</tbody>
+		</table>
+	</div>
+	<div style="clear:both"></div>
+	
+	那覇市はカニとハゼを持っている<br>
+	国頭村はイカとエイを持っている<br>
+	<br>
+	
+	※ 重複で有することはできない。つまりカニは那覇市と国頭村の両方で持たせることはできない。多 対　多という関係になるため。<br>
+	<br>	
+	
+	B LEFT JOIN A<br>
+	<br><hr>
+	
+	
+	
+	
+	<h4>A hasAndBelongsToMany B</h4>
+	<div class="box_a">
+		A
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>a_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>2</td><td>那覇市</td></tr>
+				<tr><td>3</td><td>国頭村</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div class="box_a">
+		B
+		<table class="tbl2">
+			<thead>
+				<tr><th>id</th><th>b_name</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>10</td><td>カニ</td></tr>
+				<tr><td>11</td><td>ハゼ</td></tr>
+				<tr><td>12</td><td>イカ</td></tr>
+				<tr><td>13</td><td>エイ</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div class="box_a">
+		AB
+		<table class="tbl2">
+			<thead>
+				<tr><th>a_id</th><th>b_id</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>2</td><td>10</td></tr>
+				<tr><td>2</td><td>11</td></tr>
+				<tr><td>3</td><td>10</td></tr>
+				<tr><td>3</td><td>12</td></tr>
+		
+			</tbody>
+		</table><br>
+	</div>
+	<div style="clear:both"></div>
+	
+	那覇市はカニとハゼを持っている<br>
+	国頭村はカニとイカを持っている<br>
+	カニは那覇市と国頭村に属する<br>
+	ハゼは那覇に属する<br>
+	イカは国頭村に属する<br>
+	エイはどこにも属さない<br>
+	<br>
+	
+	AB LEFT JOIN A<br>
+	AB LEFT JOIN B<br>
+	<br>
+
+	<time>2017-12-4</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
 <!-- ここまで、覚書の内容 -->
 
 
 
-			<ol class="breadcrumb">
-				<li><a href="/">ホーム</a></li>
-				<li><a href="/note_prg">プログラミングの覚書目次</a></li>
-				<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
-			</ol>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書目次</a></li>
+	<li><a href="/note_prg/cakephp">CakePHPの覚書目次</a></li>
+</ol>
 
 
-		</div><!-- content -->
-		<div id="footer">(C) kenji uehara 2013/09/03</div>
-		</div><!-- page1 -->
-	</body>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013/09/03</div>
+</div><!-- page1 -->
+</body>
 </html>

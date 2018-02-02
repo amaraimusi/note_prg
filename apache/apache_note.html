@@ -246,6 +246,40 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="s105" class="sec4" >
+	<h3>指定したIPアドレスのみ許可する.htaccessの設定</h3>
+	
+	
+	指定したIPアドレスのみ許可する「.htaccess」の設定
+	<pre><code>
+	Order deny,allow
+	Deny from all
+	Allow from XXX.XXX.XXX.XXX
+	</code></pre><br>
+	
+	ローカルのみ許可する
+	<pre><code>
+	Order deny,allow
+	Deny from all
+	Allow from 127.0.0.1
+	</code></pre><br>
+
+	<a href="http://koseki.hatenablog.com/entry/20100913/ApacheAccessControl" target="blank">参考サイト</a><br>
+	<br>
+	
+
+	<br>
+	<time>2017-9-13</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sxxx" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

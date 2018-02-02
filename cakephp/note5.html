@@ -546,6 +546,37 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec5-8-2" class="sec1">
+	<h3>SQLを直接実行する | テーブルを紐づけない汎用型のモデルクラスにおいて</h3>
+
+	<pre><code>
+	class Okinawa extends AppModel {
+	
+		public <strong>$useTable = false;</strong>
+		
+		public function test(){
+			
+			$data = $this-&gt;<strong>query</strong>(
+					"SELECT * FROM animals WHERE id = 99"
+					,false);
+			
+			var_dump($data);
+		}
+	}
+	</code></pre>
+
+	<time>2017-10-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec5-9" class="sec1">
 	<h3>いろんなバリデーション</h3>
 

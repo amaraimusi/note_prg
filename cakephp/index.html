@@ -30,6 +30,7 @@
 			<ol>
 				<li><a href="#attention_index">注目</a></li>
 				<li><a href="#public_note">一般</a></li>
+				<li><a href="#cakephp_debug_index">ログ、エラー、デバッグ関連</a></li>
 				<li><a href="#hash_index">Hash</a></li>
 				<li><a href="phpunit/note_phpunit.html">CakePHPのPHPUnit</a></li>
 
@@ -58,10 +59,8 @@
 				<li><a href="note.html#sec1-6" >コントローラ側でPOSTからデータを取得する方法</a></li>
 				<li><a href="note.html#sec1-7" >コントローラで対応していないモデルを使う方法</a></li>
 				<li><a href="note.html#sec1-8" >SQLインジェクションとXSS（クロスサイトスクリプティング）のサニタイズ | Sanitize::clean(),Sanitize::html(),Sanitize::escape()</a></li>
-				<li><a href="note.html#sec1-10" >Noticeエラーを表示させない</a></li>
 				<li><a href="note.html#sec1-11" >セッション(session)へのデータ保存と読取</a></li>
 				<li><a href="note.html#sec1-12" >モデル名と異なるテーブルと関連付ける</a></li>
-				<li><a href="note.html#sec1-13" >デバッグのため、発行したSQLのログを画面に表示する</a></li>
 				<li><a href="note.html#sec1-14" >コンフィグ(Config)のデータを取得</a></li>
 				<li><a href="note.html#sec1-17" >複数行のPOST</a></li>
 				<li><a href="note.html#sec1-18" >Cake PHPのコアライブラリを別のディレクトリに配置する場合の設定方法</a></li>
@@ -77,17 +76,19 @@
 				<li><a href="note2.html#sec2-8" >ログイン認証するとき、パスワードを暗号化する</a></li>
 				<li><a href="note2.html#sec2-9" >ルートパスの取得方法（絶対パスの取得）</a></li>
 				<li><a href="note2.html#sec2-10" >SQLをそのまま実行する</a></li>
-				<li><a href="note2.html#sec2-11" >デバッグ：トレース</a></li>
 				<li><a href="note2.html#sec2-12" >コントローラでモデルを使わない設定</a></li>
 				<li><a href="note2.html#sec2-13" >Cakeのマルチセレクト（select 複数選択）</a></li>
 				<li><a href="note2.html#sec2-14" >ログインできない場合(Cake2.4)</a></li>
 				<li><a href="note2.html#sec2-15" >シェルを動かす</a></li>
+				<li><a href="note2.html#sec2-15-2" >WindowsのコマンドプロンプトでCakeのシェルを実行する | AppShell,Console</a></li>
+				<li><a href="note2.html#sec2-15-3" >Cakeシェルに引数を渡す</a></li>
 				<li><a href="note2.html#sec2-16" >特定の画面をホーム（トップ）にする方法</a></li>
 				<li><a href="note2.html#sec2-17" >パンくずリストの記述法</a></li>
 				<li><a href="note2.html#sec2-18" >saveとsaveAllの違い</a></li>
 				<li><a href="note2.html#sec2-19" >Cakephpのファイルアップロード</a></li>
 				<li><a href="note2.html#sec2-20" >トランザクション | begin,rollback,commit</a></li>
 				<li><a href="note3.html#sec3-1" >アソシエーション | 結合モデルのデータ表示と更新 | hasMany</a></li>
+				<li><a href="note3.html#sec3-2" >アソシエーションの考え方 | hasOne,belongsTo,hasMany,hasAndBelongsToMany</a></li>
 				<li><a href="note4.html#sec4-1" >コントローラでバリデーション情報（入力エラー情報）を取得する方法</a></li>
 				<li><a href="note4.html#sec4-2" >DBからデータを取得するコード</a></li>
 				<li><a href="note4.html#sec4-2-2" >DBからデータを取得するコード(JOIN)</a></li>
@@ -113,6 +114,7 @@
 				<li><a href="note5.html#sec5-6" >コントローラでバリデーション（2次元データ版）</a></li>
 				<li><a href="note5.html#sec5-7" >現在のURLを取得する</a></li>
 				<li><a href="note5.html#sec5-8" >SQLを直接実行する</a></li>
+				<li><a href="note5.html#sec5-8-2" >SQLを直接実行する | テーブルを紐づけない汎用型のモデルクラスにおいて</a></li>
 				<li><a href="note5.html#sec5-9" >いろんなバリデーション</a></li>
 				<li><a href="note6.html#sec6-1" >リダイレクト | $this->redirect()</a></li>
 				<li><a href="note6.html#sec6-2" >CakePHP1.3とCakePHP2系のリクエストデータの違いを検証 | $this->data,$this->request->data</a></li>
@@ -129,13 +131,11 @@
 				<li><a href="note7.html#sec7-3" >クロスドメインによるAjax</a></li>
 				<li><a href="note7.html#sec7-5" >リダイレクトでパラメータを送る</a></li>
 				<li><a href="note7.html#sec7-6" >リンク、アンカーボタン、サブミットボタンのHTMLヘルパー | link,button,submit</a></li>
-				<li><a href="note7.html#sec7-7" >SQLをダンプしてデバッグする</a></li>
 				<li><a href="note7.html#sec7-8" >CakePHPで静的htmlを組み込む方法</a></li>
 				<li><a href="note7.html#sec7-9" >CakePHPエラー:システムのタイムゾーンの設定に依存することは安全ではありません</a></li>
 				<li><a href="note7.html#sec7-10" >メール送信 | CakeEmail</a></li>
 				<li><a href="note8.html#sec8-1" >セッションの保存先をDBへ</a></li>
 				<li><a href="note8.html#sec8-2" >キャッシュクリア</a></li>
-				<li><a href="note8.html#sec8-3" >デバッグモードの取得 | Configure::read('debug');</a></li>
 				<li><a href="note8.html#sec8-4" >セキュリティシードの変更 | Security.salt | Security.cipherSeed</a></li>
 				<li><a href="note8.html#sec8-5" >定数の使い方</a></li>
 				<li><a href="note8.html#sec8-6" >関数の入れ子をするとバグ：Class declarations may not be nested in ...</a></li>
@@ -152,8 +152,26 @@
 				<li><a href="note9.html#sec9-7" >テーブル名からモデル名に変換</a></li>
 				<li><a href="note9.html#sec9-8" >モデル名からテーブル名に変換する</a></li>
 				<li><a href="note9.html#sec9-9" >favicon.icoをCakePHPで設定する方法</a></li>
+				<li><a href="note10.html#sec10-1" >モデル名およびテーブル名のキャメル記法とスネーク記法の変換 | 英語の特殊複数化ルールにも対応</a></li>
+				<li><a href="note10.html#sec10-2" >レンダリングするビュー（ctp）を指定する | $this->render('xxx');</a></li>
+				<li><a href="note10.html#sec10-3" >自動採番が連番になるようauto_incrementをリセットする</a></li>
 
-			</ol>
+			</ol><hr>
+			
+			
+		
+			
+			<h2 id="cakephp_debug_index">ログ、エラー、デバッグ関連</h2>
+			<ol>
+				<li><a href="cakephp_debug_note.html#sec1-1" >ログ出力</a></li>
+				<li><a href="note9.html#sec9-10" >ログファイルの容量制限とローテーションを設定する</a></li>
+				<li><a href="note.html#sec1-10" >Noticeエラーを表示させない</a></li>
+				<li><a href="note.html#sec1-13" >デバッグのため、発行したSQLのログを画面に表示する</a></li>
+				<li><a href="note7.html#sec7-7" >SQLをダンプしてデバッグする</a></li>
+				<li><a href="note8.html#sec8-3" >デバッグモードの取得 | Configure::read('debug');</a></li>
+				<li><a href="note2.html#sec2-11" >デバッグ：トレース</a></li>
+				<li><a href="cakephp_debug_note.html#sec1-2" >独自のlogファイルへログ出力する</a></li>
+			</ol><hr>
 			
 			
 		

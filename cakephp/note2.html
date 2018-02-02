@@ -279,11 +279,22 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec2-10" class="sec1">
-	<h3>SQLをそのまま実行する</h3>
+	<h3>SQLをそのまま実行する | $this->query</h3>
 	SQL文を直接実行する方法は以下の通り。<br>SELECTだけでなく、UPDATE,INSERT,DELETEも可能。<br>
 	<pre>
 	$data=$this->Xxx->query("SELECT * FROM  `tests` WHERE test_name LIKE  'テスト%'");
+	</pre><br>
+	
+	<p>メモリを節約する場合</p>
+	queryは内部でキャッシュ機能を備えている。
+	そのため、バッチ処理などで繰り返し、queryメソッドを呼び出すとキャッシュのためメモリがどんどん食いつぶされていく。（メモリオーバーフロー）<br>
+	$cachequeriesにfalseをセットすることにより、キャッシュ機能をOFFにできる。これにより、メモリオーバーフローを防ぐことができる。<br>
+	<pre>
+	$data=$this->Xxx->query("SELECT * FROM  `tests` WHERE test_name LIKE  'テスト%'",<strong>$cachequeries = false</strong>);
 	</pre>
+	
+	
+	<time>2013-9-3 | 2018-1-15</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
@@ -473,6 +484,105 @@
 }
 	</pre>
 	<a class="ref_link" href="http://amaraimusi.sakura.ne.jp/sample/cake_smp/cakephp/test_shell">テスト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-15-2" class="sec1">
+	<h3>WindowsのコマンドプロンプトでCakeのシェルを実行する | AppShell,Console</h3>
+
+	
+	<p>Cakeのシェルを作成</p>
+	「app/Console/Command」フォルダに下記のようなAppShellを継承したShellクラスを作成します。
+	<pre><code>
+	class HelloShell extends AppShell {
+		public function main() {
+			$this->out('Hello world.');
+		}
+	}
+	</code></pre>
+	<img src="img/note2/sec2-15-2a1.png"  /><br>
+	<br>
+	
+	<p>コマンドプロンプトでCakeのシェルを実行する</p>
+	※環境変数を指定していない場合
+	<pre><code>
+	cd C:\xampp\htdocs\cake_demo\app\Console
+	php cake.php hello
+	</code></pre>
+	<img src="img/note2/sec2-15-2a2.png"  /><br>
+	<br>
+	
+	
+	<p>appディレクトリが別名である場合（app_xxxである場合）</p>
+	<pre><code>
+	cd C:\xampp\htdocs\cake_demo\app\Console
+	php cake.php <strong>-app</strong> C:\xampp\htdocs\cake_demo\<strong>app_xxx</strong> hello
+	</code></pre>
+	<br>
+	
+	<p>さくらサーバー上でCakeシェルを動かす</p>
+	SSHで実行、もしくはCRONに設定して実行することができる。<br>
+	<pre><code>
+	cd /home/アカウント名/www/プロジェクト名/app/ ; /usr/local/bin/php /home/アカウント名/www/プロジェクト名/app/Console/cake.php hello
+	</code></pre>
+	<aside>
+		※さくらサーバーのスタンダードプランで検証。<br>
+		HelloShell.phpのパーミッション属性は変更不要である。デフォルトの属性604で問題なく動作した。<br>
+	</aside>
+
+
+	<time>2017-12-29 | 2018-1-9</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-15-3" class="sec1">
+	<h3>Cakeシェルに引数を渡す</h3>
+
+	<p>app/Console/Command/HelloShell.php</p>
+	<pre><code>
+	&lt;?php
+	class HelloShell extends AppShell {
+		public function main() {
+			
+			$p0 = $this-&gt;args[0];
+			$p1 = $this-&gt;args[1];
+			
+			$this-&gt;log($p1 . ' ' .$p1);
+			$this-&gt;out($p1 . ' ' .$p1);
+		}
+	}
+	</code></pre><br>
+	
+	<p>コマンドプロンプト</p>
+	<pre class="console">
+	cd C:\xampp\htdocs\cake_demo\app\Console
+	php cake.php hello cat dog
+	</pre><br>
+	
+	<p>出力</p>
+	<pre class="console">
+	cat dog
+	</pre><br>
+
+
+
+	<time>2018-1-15</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

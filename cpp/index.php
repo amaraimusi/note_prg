@@ -26,7 +26,7 @@
 
 
 			<div class="list1">
-				<h2>一覧</h2>
+				<h2>W一覧</h2>
 				<ol>
 					<li><a href="note.php#sec1-1" >雑記メモ</a></li>
 
