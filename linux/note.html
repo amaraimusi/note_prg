@@ -169,6 +169,57 @@
 
 
 
+<div id="sec1-5" class="sec4">
+	<h3>VSFTPDのインストールとコマンド</h3>
+	CentOS7で検証<br>
+	<br>
+	
+	<p>インストール</p>
+	<ol>
+		<li>
+			VSFTPDインストール
+			<pre class="console"># yum install -y vsftpd</pre>
+		</li>
+		<li>
+			FTPコマンドをインストール
+			<pre class="console"># yum install -y ftp</pre>
+		</li>
+		<li>
+			サービスをスタート
+			<pre class="console"># service vsftpd start</pre>
+		</li>
+	</ol>
+	
+	<p>コマンド</p>
+	VSFTPDがインストールされているか確認する<br>
+	<pre class="console">#rpm -qa | grep vsftpd</pre><br>
+
+	サービスの状態を確認<br>
+	<pre class="console">#systemctl status vsftpd.service</pre><br>
+
+	サービスを止める<br>
+	<pre class="console"># service vsftpd stop</pre><br>
+
+	サービス再起動<br>
+	<pre class="console"># service vsftpd restart</pre><br>
+
+	自動起動設定<br>
+	<pre class="console"># systemctl enable vsftpd.service</pre><br>
+
+	権限を与える<br>
+	<pre class="console"># sed -i 's/root/#root/g' /etc/vsftpd/user_list /etc/vsftpd/ftpusers</pre><br>
+	
+	<br><time>2018-2-2</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
