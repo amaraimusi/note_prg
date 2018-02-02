@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dockerの覚書 | ワクガンス</title>
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Dockerの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>Dockerとは</h3>
+	
+	<ul>
+		<li>システムを動かす環境を容易に構築できる。（各種アプリを迅速に配備できる）</li>
+		<li>Linuxのコンテナ型仮想機能を利用している。つまり１つのサーバーに複数の環境を構築できる。</li>
+		<li>2013年に発表されLinuxで利用されている。</li>
+		<li>軽量である。（Windowsやmacは間に仮想環境が入ってくるので若干重い）</li>
+		<li>AWS、Google、AzureなどもDockerに対応している。</li>
+	</ul>
+
+	<br><time>2017-11-21</time>
+	
+</div>
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>Docker CE for Windowsをインストール</h3>
+	
+	PC環境はWindows10,64bit。
+	
+	<p>Docker CE for Windowsのインストール手順</p>
+	<ol>
+		<li>
+			DockerのWindows用インストーラを入手するため、
+			<a href="https://docs.docker.com/docker-for-windows/install/#download-docker-for-windows" target="blank">公式サイト
+				</a>にアクセスする。
+		</li>
+		<li>
+			インストーラは2種類あるが、「Stable channel（安定板）」側からインストーラ「Docker for Windows Installer.exe」をダウンロードする。<br>
+			<img src="img/docker_note/sec1-2a1.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			Docker for Windows Installer.exeを実行する。オプションの指定などはない。<br>
+			<img src="img/docker_note/sec1-2a2.png" class="img_compact_k" /><br>
+		</li>
+			
+		<li>
+			Hyper-V機能が無効になっている場合、Hyper-V機能を有効にするようエラーメッセージが表示される。OKボタンを押してPCを再起動する。<br>
+			<img src="img/docker_note/sec1-2a3.png"  /><br>
+			
+			エラーメッセージの和訳<br>
+			<aside style="border:solid 2px #d1d1d1;display:inline-block;padding:5px;border-radius:5px">
+				Hyper-V機能が有効になっていません。<br>
+				Dockerを正しく動作させるために有効にしますか？<br>
+				コンピュータが自動的に再起動します。<br>
+			</aside>
+			<br><br>
+			補足：下図の方法で、Hyper-V機能を有効化することもできる。<br>
+			<img src="img/docker_note/sec1-2a5.png" class="img_compact_k" /><br><br>
+		</li>
+		<li>
+			PCを再起動直後にDockerからBIOS設定が必要とのエラーメッセージが表示されることがある。この場合、BIOSで仮想化を有効にする作業が必要になる。<br>
+			<img src="img/docker_note/sec1-2a4.png" /><br>
+			
+			エラーメッセージの和訳<br>
+			<aside style="border:solid 2px #d1d1d1;display:inline-block;padding:5px;border-radius:5px">
+				BIOSでハードウェア支援仮想化とデータ実行保護を有効にする必要があります。 <br>
+				<a href="https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled" target="blank">
+					https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled</a><br>
+				を参照してください。
+			</aside><br>
+			<br>
+			
+			
+			仮想の有効化する手順は、BIOSの種類によって異なるが概ね下記の通りである。
+			<ol style="font-size:0.9em">
+				<li>PC起動直後にF2を連打しBIOSを起動</li>
+				<li>CPU関係の設定を開く</li>
+				<li>「Intel VT～」もしくは「Intel(R) Virtualization Technology」などと表記されている項目を有効に切り替える。</li>
+			</ol><br>
+	
+			補足1：ASUSである場合、下記のサイトが参考になる。<br>
+			<a href="https://amaotolog.com/amalog/38" target="blank">https://amaotolog.com/amalog/38</a><br>
+			<br>
+			補足2：BIOSの仮想化が有効/無効になっているかはタスクマネージャーで確認できる。<br>
+			<img src="img/docker_note/sec1-2a6.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			再起動で、Dockerのエラーが表示されなければ、インストール成功である。
+		</li>
+		<li>
+			Docker for Windowsアイコンをクリックして実行する。<br>
+			<img src="img/docker_note/sec1-2a7.png" /><br>
+			何も起こらないが、しばらく待つと右下にDockerが使えるようになった旨のメッセージが表示される。<br>
+			
+		</li>
+		<li>
+			コマンドプロンプトを開き「docker info」とコマンドを入力する。エラーがでなければ成功である。PowerShell や Git Bash でもdockerを動かすことができる。<br>
+			<img src="img/docker_note/sec1-2a8.png" class="img_compact_k" /><br>
+			「プログラム 'docker' はまだインストールされていません。」と出たら失敗。<br>
+			<br>
+			補足：環境パスにdockerパスが記述されている。<br>
+			<img src="img/docker_note/sec1-2a9.png" class="img_compact_k" /><br>
+			
+		</li>
+	</ol>
+	
+	
+	
+	<br><time>2017-11-21</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>イメージについて</h3>
+	
+	
+	イメージはコンテナを生成する元である。<br>
+	オブジェクト指向であれば、イメージはクラス、コンテナはインスタンスという感じの関係かと思われる。<br>
+	<br>
+	
+	<p>イメージの置き場所</p>
+	複数のイメージをDockerに保持することができる。<br>
+	「<strong>docker images</strong>」コマンドでDockerで保持しているイメージを確認できる。<br>
+	<pre>$ docker images</pre>
+	<img src="img/docker_note/sec1-4a1.png" /><br>
+	<br>
+	
+	<p>どこからイメージを取ってくるか？</p>
+	<a href="https://hub.docker.com/" target="blank">Docker Hub</a>
+	という他の人が作成したイメージをまとめたWebサイトが存在する。
+	Docker Hubから「<strong>docker search</strong>」コマンドを使い、イメージを検索することができる。<br>
+	例「php」を検索する
+	<pre>$ docker search php</pre>
+	<img src="img/docker_note/sec1-4a2.png"  /><br>
+	<aside>※ Dockerfileをビルドしてイメージを作成する方法もある。詳しくは後述。</aside><br>
+	<br>
+	
+	<p>イメージをどうやって取ってくるか？</p>
+	「docker pull」コマンドでDocker Hub からイメージを引っ張ってきて取得できる。<br>
+	<br>
+	
+	例：phpmyadminのイメージを取得する
+	<pre>$docker pull phpmyadmin/phpmyadmin</pre>
+	<img src="img/docker_note/sec1-4a3.png"/><br>
+	<br>
+	
+	例2:centosのイメージを取得する<br>
+	<img src="img/docker_note/sec1-4a4.png"/><br>
+	<br>
+	
+	取得したイメージを一覧表示してみる。<br>
+	<img src="img/docker_note/sec1-4a4.png"/><br>
+	<br>
+
+	
+	<br><time>2017-11-22</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4">
+	<h3>イメージからコンテナを生成および実行状態する</h3>
+	
+	「<strong>docker run</strong>」コマンドでイメージからコンテナを生成および実行状態にすることができる。
+	<pre>$ docker run -t -i phpmyadmin/phpmyadmin</pre>
+	<img src="img/docker_note/sec1-5a1.png"/><br><br>
+	<table class="table">
+		<thead>
+			<tr><th>docker runのオプション</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>-t</td><td>疑似TTY※1を割り当てる。</td></tr>
+			<tr><td>-i</td><td>起動時に STDOUT を開きっぱなしにする。<br>STDOUTとは標準出力のこと。（コマンドプロントでは指定しなくても変化がみられず）</td></tr>
+		</tbody>
+	</table>
+	<aside>
+		※1
+		ttyとは、どうやら、標準出力の接続先デバイスの事らしい。
+		ttyはLinuxコマンドでもあり、「$ tty」と入力すると「/dev/pty0」が返ってくる。
+		昔はコンソール入力装置なるものを指していたようだが、現在は端末のデバイス名として用いられているようである。<br>
+	</aside><br>
+	「docker run」コマンドを実行するとコンテナが起動し、実行直後はログイン状態になる。この状態でexitコマンドで抜けようとすると、コンテナも停止する。
+	コンテナを停止せずにログイン状態から抜ける、つまり通常のLinuxコマンド入力の状態に戻るには、デタッチ（<strong>dettach</strong>）という操作を行う必要がある。<br>
+	デタッチ操作は<strong>Ctrlキーを押しながらPキー、Qキー</strong>を順番に押すだけである。この操作でコンテナを停止せずにログイン状態から抜けることができる。<br>
+	<br>
+	
+	再びログイン状態にするにはアタッチを行う。<br>
+	アタッチは「docker attach コンテナID（またはNAME)」コマンドを実行する。<br>
+	<pre>$ docker attach 8881e83a6e66</pre>
+	<img src="img/docker_note/sec1-5a2.png"/><br>
+	<br>
+	
+	<p>稼働中のコンテナ一覧を確認する方法</p>
+	「<strong>docker ps</strong>」コマンドで稼働中のコンテナを確認できる。<br>
+	<img src="img/docker_note/sec1-5a3.png"/><br>
+	※停止中のコンテナは一覧に表示されない。
+	<br>
+	
+	<p>コンテナを停止する</p>
+	「docker stop コンテナID」コマンドで稼働中のコンテナを停止することができる。
+	なお、コンテナを停止しても削除されているわけではない。あくまで停止中であり、再スタートすることができる。（後述）
+	<pre>$ docker stop 8881e83a6e66</pre>
+	<img src="img/docker_note/sec1-5a4.png"/><br>
+	<br>
+	
+	<p>停止中のコンテナを一覧表示する。</p>
+	「docker ps -a」コマンドで停止中のコンテナを一覧表示させることができる。
+	<pre>$ docker ps -a</pre>
+	<img src="img/docker_note/sec1-5a5.png"/><br>
+	<br>
+	
+	<p>停止中のコンテナを動かす</p>
+	「docker start コンテナID」コマンドで停止中のコンテナを再稼働させることができる。<br>
+	<pre>$ docker start 8881e83a6e66</pre>
+	<img src="img/docker_note/sec1-5a6.png"/><br>
+	<br>
+	
+	<br><time>2017-11-22</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4">
+	<h3>Dockerのにおける統合開発環境、Eclipse Cheのインストール</h3>
+	
+	「Eclipse Che」はChromeなどのブラウザで動作するEclipseである。<br>
+	従来のEclipseとは異なる点も多い。<br>
+	Dockerを通してインストールすることができる。以下にその手順を示す。<br>
+	<br>
+	
+	
+	<p>DockerでEclipse Cheインストールする手順</p>
+	<ol>
+		<li>
+			<a href="#sec1-2" class="livipage">Docker CE for Windowsをインストール</a>
+			しておくこと。
+		</li>
+		<li>
+			PC起動直後である場合は「Docker for Windows」アイコンをクリックして実行してDockerを使えるようにしておくこと。<br>
+			<img src="img/docker_note/sec1-2a7.png"  />
+		</li>
+		<li>
+			Windowsの「隠れているインジケーター」からDockerアイコンを右クリックし、ポップメニューから「Setting」を選択してDocker for Windowsの設定画面を開く。<br>
+			<img src="img/docker_note/sec1-6a1.png"/>
+			<img src="img/docker_note/sec1-6a2.png"/>
+			<br>
+		</li>
+		<li>
+			左メニューの「Shared Drives」からShared Drives画面を開き、
+			Cドライブ（または別ドライブ）にチェックを入れ、Appylyボタンを押す。<br>
+			「docker run --rm -v <strong>c:/Users</strong>:/data alpine ls /data」となっている箇所の
+			-vから続く部分である「c:/Users」がマウント先のディレクトリパスとなっているので、コピーして書き留めておく。<br>
+			<img src="img/docker_note/sec1-6a3.png" class="img_compact_k"><br>
+		</li>
+		<li>
+			コマンドプロント（またはPower Shell）を立ち上げる。
+		</li>
+		<li>
+			「docker run -it eclipse/che start」コマンドを実行する。
+			特にエラーがでなければ、この手順は成功<br>
+			<img src="img/docker_note/sec1-6a4.png" class="img_compact_k"><br>
+		</li>
+		<li>
+			次に下記のコマンドを実行するが、その前に&lt;path&gt;となっている箇所をマウント先のディレクトリパスに書き換え、コマンド実行する。
+			<pre>docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v <strong>&lt;path&gt;</strong>:/data eclipse/che start</pre>
+			<br>
+			例
+			<pre>docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v <strong>c:/Users</strong>:/data eclipse/che start</pre><br>
+			<br>
+		
+			しばらくダウンロードが続く。「http://localhost:8080」が表示されれば成功である。
+			<img src="img/docker_note/sec1-6a5.png" ><br>
+			<aside>いろいろ試行錯誤したため、コマンドプロントではなくPower Shellでコマンド実行しているが、コマンドプロンプトでも動くはずである。</aside>
+		</li>
+		<li>
+			URL「http://localhost:8080」をChromeなどのブラウザへ入力し、
+			統合開発環境「Eclipse Che」が立ち上がれば成功である。<br>
+			<img src="img/docker_note/sec1-6a6.png" class="img_compact_k"><br>
+		</li>
+
+	</ol><br>
+	
+	
+	<a href="https://www.eclipse.org/che/docs/setup/getting-started/">Eclipse Che公式ページ：インストール手順</a><br>
+	<br>
+	
+	<br><time>2017-11-27</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4">
+	<h3>コンテナの作成 | docker run</h3>
+	
+	
+	<pre>	docker run -it --name test_name -p 8080:80 -v c:/Users/user_xxx/git:/var/www/html test_image:5.6</pre>
+	
+	<table class="table">
+		<thead><tr><th>引数</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr><td>--name test_name</td>
+				<td>コンテナ名を指定する。コンテナ名は任意で名前をつけることができる。
+					省略可能だが名前を付けたほうがコンテナ操作するときに便利。
+					省略した場合はコンテナIDを指定してコンテナ操作をしなければならない。
+				</td></tr>
+			<tr><td>「-p 8080:80」</td>
+				<td>
+					Docker環境にアクセスするときに指定するポート番号である。<br>
+					ブラウザに「http://localhost:8080」を入力することによりローカルのDocker環境にアクセスすることができる。
+				</td></tr>
+			<tr><td>v c:/Users/k-uehara/git:/var/www/html</td>
+				<td>
+					Windowsのディレクトリ（c:/Users/user_xxx/git）と Docker上のディレクトリ（/var/www/html）を関連づける。
+					Windowsのディレクトリは、Windows for Dockerでマウントしている「c:/Users」から下のディレクトリのみ指定可である。
+				</td></tr>
+			<tr><td>test_image:5.6</td><td>イメージ名：バージョン。イメージIDを指定することもできる。</td></tr>
+		</tbody>
+	</table>
+	
+	<br><time>2017-12-4</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">Dockerの覚書 | ワクガンス</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2017-11-21</div>
+</body>
+</html>
