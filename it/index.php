@@ -38,6 +38,7 @@
 		<li><a href="../git/github_note.html" >GitとGithubの覚書</a></li>
 		<li><a href="../git/bitbucket_note.html" >Gitとbitbucketの覚書</a></li>
 		<li><a href="note2.php#sec2-5" >リアクティブプログラミングとは</a></li>
+		<li><a href="note2.php#sec2-6" >タッチパッドの操作方法</a></li>
 
 	</ol>
 </div>
