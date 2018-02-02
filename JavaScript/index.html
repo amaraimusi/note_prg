@@ -27,7 +27,9 @@
 	<li><a href="#public_note">一般</a></li>
 	<li><a href="#string_note_index">文字列操作</a></li>
 	<li><a href="#array_note_index">配列</a></li>
+	<li><a href="#array_date_index">日付</a></li>
 	<li><a href="#jquery_note">jQuery</a></li>
+	<li><a href="#vue_js_index">vue.jsの覚書</a></li>
 	<li><a href="#d3_js_index">D3.jsの覚書(v4)</a></li>
 	<li><a href="#unify_elm_index">要素関連の一律化</a></li>
 	<li><a href="#validation_index">バリデーション</a></li>
@@ -37,6 +39,7 @@
 	<li><a href="#file_binary_index">ファイルとバイナリデータの扱い</a></li>
 	<li><a href="#canvas_index">Canvasの覚書</a></li>
 	<li><a href="#es2015_index">ES2015(ES6)の目次</a></li>
+	<li><a href="#axios_index">Axiosの目次</a></li>
 	<li><a href="#panel_index">パネル</a></li>
 </ul>
 <hr>
@@ -87,8 +90,6 @@
 	<li><a href="note5.html#sec5-1" >JSONからHTMLテーブルを生成する | JsonToTable.js</a></li>
 	<li><a href="note5.html#sec5-3" >カラーピッカー.jsの使い方 | cpick.js</a></li>
 	<li><a href="note5.html#sec5-4" >スレッドやタイマーのように間隔をあけて定期的に処理を行う | setInterval</a></li>
-	<li><a href="note5.html#sec5-6" >現在日時、現在日付、現在時刻を取得する</a></li>
-	<li><a href="note5.html#sec5-7" >UNIXタイムスタンプと日時を相互変換</a></li>
 	<li><a href="note5.html#sec5-8" >置換と全置換 | replace</a></li>
 	<li><a href="note5.html#sec5-9" >cssをJavaScritで切り替える</a></li>
 	<li><a href="note6.html#sec6-1" >JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする代替案</a></li>
@@ -105,19 +106,18 @@
 	<li><a href="note7.html#sec7-4" >テキストエリア内にて選択状態のテキストを取得 | jQuery.selection</a></li>
 	<li><a href="note7.html#sec7-5" >テキストエリアにアンドゥ機能とリドゥ機能を組み込むundo_a.js  | Undo,Redo</a></li>
 	<li><a href="note7.html#sec7-6" >正規表現</a></li>
-	<li><a href="note7.html#sec7-7" >JavaScriptでクラスを実現する</a></li>
-	<li><a href="note7.html#sec7-7-2" >JavaScriptのクラス | その2</a></li>
-	<li><a href="note7.html#sec7-7-3" >JavaScriptのクラス | その3</a></li>
-	<li><a href="note7.html#sec7-8" >基本クラスの継承</a></li>
+	<li><a href="note7.html#sec7-7" >JavaScriptのクラスその1</a></li>
+	<li><a href="note7.html#sec7-7-2" >JavaScriptのクラスその2</a></li>
+	<li><a href="note7.html#sec7-7-3" >JavaScriptのクラスその3</a></li>
+	<li><a href="note7.html#sec7-8" >JavaScriptのクラスその4 | 基本クラスの継承</a></li>
+	<li><a href="note7.html#sec7-8-2" >JavaScriptのクラスその5 | ES6版</a></li>
 	<li><a href="note7.html#sec7-9" >HTMLファイル（自身）の更新日を取得</a></li>
 	<li><a href="note7.html#sec7-10" >テキストエリアの全選択</a></li>
 	<li><a href="note8.html#sec8-1" >テキストエリアの部分範囲選択</a></li>
 	<li><a href="note8.html#sec8-2" >要素内のコンテンツをPDF変換する | jsPDF</a></li>
 	<li><a href="note8.html#sec8-3" >テキストエリア内でタブ入力する | tab_input_k.js</a></li>
-	<li><a href="note8.html#sec8-4" >2つの日付の日数差</a></li>
-	<li><a href="note8.html#sec8-4-2" >日数差を適切な単位（年月日時分秒のいずれか）で返す</a></li>
 	<li><a href="note8.html#sec8-6" >URLクエリを取得する | GETパラメータ</a></li>
-	<li><a href="note8.html#sec8-7" >約時変換 | UNIXタイムスタンプから適切な単位（年月日時分秒のいずれか）で返す</a></li>
+	<li><a href="note8.html#sec8-7" >約時変換 | UNIXタイムスタンプから適切な単位（年月分秒のいずれか）で返す</a></li>
 	<li><a href="note8.html#sec8-8" >SimpleAjaxFormK.js | Ajax簡易入力フォーム</a></li>
 	<li><a href="note8.html#sec8-9" >SectionEditK.js | div内の節文を編集可能にし、その節文をAjaxで送受信する</a></li>
 	<li><a href="note8.html#sec8-10" >アップロードJPEGファイルからExifを取得 | jquery.exif.js</a></li>
@@ -139,7 +139,7 @@
 	<li><a href="note10.html#sec10-3" >CakePHPのユーザー認証状態をAjaxで取得する</a></li>
 	<li><a href="note10.html#sec10-4" >編集モードと一般モードの切替関数</a></li>
 	<li><a href="note10.html#sec10-7" >非同期で実行する | setTimeout</a></li>
-	<li><a href="note10.html#sec10-8" >文字列を日時にパース</a></li>
+	<li><a href="note10.html#sec10-8" >文字列をにパース</a></li>
 	<li><a href="note10.html#sec10-9" >スネーク記法をキャメル記法に変換する</a></li>
 	<li><a href="note10.html#sec10-10" >キャメル記法をスネーク記法に変換する</a></li>
 	<li><a href="note11.html#sec11-1" >画像を重ねて表示</a></li>
@@ -172,13 +172,16 @@
 	<li><a href="note13.html#sec13-8" >文字列の関数名が存在するかチェックする | evalは使わない</a></li>
 	<li><a href="note13.html#sec13-9" >ImportFu.js | インポートに特化したファイルアップロード</a></li>
 	<li><a href="note13.html#sec13-10" >SELECTにサイズ(size属性)をセットしたとき、スクロールを選択中の位置へ</a></li>
+	<li><a href="note14.html#sec14-4" >スクロールの位置</a></li>
+	<li><a href="note14.html#sec14-4-2" >スクロールを相対的に移動させる | scrollBy</a></li>
 	<li><a href="note14.html#sec14-1" >SELECTのOPTION要素部分を再作成する </a></li>
 	<li><a href="note14.html#sec14-2" >ツリーデータの各ノードへ、それぞれの子孫数を数えてセットする </a></li>
 	<li><a href="note14.html#sec14-3" >配列の重複を連番化しつつ昇順になるようシフトする</a></li>
-	<li><a href="note14.html#sec14-4" >スクロールの位置</a></li>
 	<li><a href="note14.html#sec14-5" >新しいタブ（またはウィンドウ）でページ遷移する | window.open(url, '_blank');</a></li>
 	<li><a href="note14.html#sec14-6" >スマホ（端末）とPCを判別</a></li>
-
+	<li><a href="note14.html#sec14-7" >HTML5の進捗バー | progress</a></li>
+	<li><a href="note14.html#sec14-8" >undfinedを暗黙数値変換するとnull判定ではじかれる</a></li>
+	<li><a href="note14.html#sec14-9" >要素の縦幅と横幅の取得検証</a></li>
 </ol>
 <hr>
 
@@ -195,7 +198,7 @@
 	<li><a href="note9.html#sec9-4-2" >先頭の一文字を削除する</a></li>
 	<li><a href="note9.html#sec9-5" >文字列から末尾の１文字を取得する</a></li>
 	<li><a href="note9.html#sec9-5-2" >末尾の一文字を削除する</a></li>
-	<li><a href="note10.html#sec10-8" >文字列を日時にパース</a></li>
+	<li><a href="note10.html#sec10-8" >文字列をにパース</a></li>
 	<li><a href="string_note.html#sec1-1" >2つの印文字に挟まれた文字列を取得する</a></li>
 	<li><a href="string_note.html#sec1-2" >文字列を左側から印文字を検索し、左側の文字を切り出す</a></li>
 	<li><a href="string_note.html#sec1-3" >文字列を左側から印文字を検索し、右側の文字を切り出す</a></li>
@@ -226,6 +229,23 @@
 <hr>
 
 
+
+
+<h2 id="array_date_index">日付</h2>
+<ol>
+	<li><a href="note5.html#sec5-6" >現在日時、現在日付、現在時刻を取得する</a></li>
+	<li><a href="note5.html#sec5-7" >UNIXタイムスタンプと日時を相互変換</a></li>
+	<li><a href="note8.html#sec8-4" >2つの日付の日数差</a></li>
+	<li><a href="note8.html#sec8-4-2" >日数差を適切な単位（年月日時分秒のいずれか）で返す</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-11" >時刻入力のタイムピッカー | jQuery UI Timepicker</a></li>
+	<li><a href="/note_prg/jquery/note.html#sec1-11-2" >時刻入力のタイムピッカー(時のみ)</a></li>
+	<li><a href="date_note.html#sec1-1" >日時のn秒後であるかチェックする</a></li>
+</ol>
+<hr>
+
+
+
+
 <h2 id="jquery_note">JQueryの覚書</h2>
 <ol>
 	<li><a href="/note_prg/jquery/note.html#sec1-1" >読込イベント　｜　$( function() {　｜　read</a></li>
@@ -237,7 +257,6 @@
 	<li><a href="/note_prg/jquery/note.html#sec1-7" >特定タグを持つ先祖をさかのぼる</a></li>
 	<li><a href="/note_prg/jquery/note.html#sec1-9" >一覧のチェックボックスをまとめて、すべて選択</a></li>
 	<li><a href="/note_prg/jquery/note.html#sec1-10" >テキストエリアの文字数を数える</a></li>
-	<li><a href="/note_prg/jquery/note.html#sec1-11" >時刻入力 | jQuery UI Timepicker</a></li>
 	<li><a href="/note_prg/jquery/note.html#sec1-12" >JQuery | セレクト要素(SELECT要素）から値を取得、またはセット</a></li>
 	<li><a href="/note_prg/jquery/note.html#sec1-13" >JQuery | チェックボックスから値を取得</a></li>
 	<li><a href="/note_prg/jquery/note.html#sec1-14" >JQueryの要素存在確認</a></li>
@@ -254,6 +273,7 @@
 	<li><a href="/note_prg/jquery/note2.html#sec2-4" >オブジェクトのクローンコピーとマージ | jQuery.extend()</a></li>
 	<li><a href="/note_prg/jquery/note2.html#sec2-5" >フェードインとフェードアウト | fadeOut,fadeIn,fadeTo</a></li>
 	<li><a href="/note_prg/jquery/note2.html#sec2-7" >jQuery UI ダイアログ | シンプルひな形</a></li>
+	<li><a href="/note_prg/jquery/note2.html#sec2-7-2" >JQuery UIによる確認ダイアログ</a></li>
 	<li><a href="/note_prg/jquery/note2.html#sec2-8" >document.getElementByIdとの等価オブジェクトを取得する | get(0) </a></li>
 	<li><a href="/note_prg/jquery/note2.html#sec2-9" >要素のサイズ変更 | jQuery UI Resizable</a></li>
 	<li><a href="/note_prg/jquery/note2.html#sec2-10" >jQuery UIのいくつかの機能をスマホ等に対応させる | jquery.ui.touch-punch.js</a></li>
@@ -293,6 +313,17 @@
 	<li><a href="/note_prg/jquery/note6.html#sec6-5" >jQuery.uiが読み込まれていなければ読む込む</a></li>
 	<li><a href="/note_prg/jquery/note6.html#sec6-6" >jQueryとjQuery UIのバージョンを調べる</a></li>
 	<li><a href="/note_prg/jquery/note6.html#sec6-7" >オリジナル属性を選択する</a></li>
+
+</ol>
+<hr>
+
+
+<h2 id="vue_js_index">Vue.jsの覚書</h2>
+<ol>
+	<li><a href="vue_note.html#sec1-1" >Vue.jsの一覧表示、簡易検索、ソート</a></li>
+	<li><a href="vue_note.html#sec1-2" >CRUD</a></li>
+
+	
 
 </ol>
 <hr>
@@ -367,7 +398,7 @@
 	<li><a href="note4.html#sec4-9-5" >File upload in AJAX | Ajaxファイルアップロード | 一般的な値データも同時に送信</a></li>
 	<li><a href="file_binary.html#s10">Image file upload in BASE64 format | Base64方式の画像アップロード</a></li>
 	<li><a href="note4.html#sec4-9-9" >拡張子によるバリデーションでファイル情報を入力チェック(複数ファイルアップロードに対応）</a></li>
-	<li><a href="note7.html#sec7-1" >File API | ファイル名、サイズ、MIME、更新日時を取得</a></li>
+	<li><a href="note7.html#sec7-1" >File API | ファイル名、サイズ、MIME、更新を取得</a></li>
 	<li><a href="note7.html#sec7-2" >File API | ファイルからテキストデータを取得</a></li>
 	<li><a href="note10.html#sec10-5" >アップロードファイル要素のクリア（リセット）</a></li>
 	<li><a href="note11.html#sec11-6" >画像を重ねて、1枚の画像とし、Ajaxでサーバーに送信する</a></li>
@@ -375,6 +406,8 @@
 	<li><a href="fu_note.html#sec1-1" >任意要素にドラッグ＆ドロップによるファイルアップロード機能を組み込む</a></li>
 	<li><a href="fu_note.html#sec1-2" >画像ファイルアップロード | 画像サイズ(width,height)を取得する</a></li>
 	<li><a href="fu_note.html#sec1-3" >画像ファイルアップロード | プレビュー,DnD</a></li>
+	<li><a href="fu_note.html#sec1-4" >ファイルアップロードを拡張し、進捗バー、DnD、複数ファイルに対応させる</a></li>
+	<li><a href="fu_note.html#sec1-5" >ファイルアップロード拡張クラス | FileuploadsX.js</a></li>
 </ol>
 <hr>
 			
@@ -442,8 +475,25 @@
 <h2 id="es2015_index">ES2015(ES6)の目次</h2>
 <ol>
 	<li><a href="es2015_note.html#sec1-1">ES2015のクラスと基本</a></li>
+	<li><a href="es2015_note.html#sec1-2">コールバック地獄対策 | Promise</a></li>
+	<li><a href="es2015_note.html#sec1-3">クラス版のPromiseの使い方</a></li>
+	<li><a href="es2015_note.html#sec1-4">Promiseのエラーキャッチ | rejected</a></li>
+	<li><a href="es2015_note.html#sec1-5">仮想DOMとは | Virtual DOM</a></li>
+	<li><a href="es2015_note.html#sec1-6">ES6のthisとjQuery.eachのthisが競合してしまう問題</a></li>
+	<li><a href="es2015_note.html#sec1-7">ES6のthisとjQuery.clickのthisが競合してしまう問題</a></li>
+	<li><a href="es2015_note.html#sec1-8">ES6のヒアドキュメント</a></li>
+	
 </ol>
 <hr>
+<hr>
+			
+			
+			
+			
+<h2 id="axios_index">Axiosの目次</h2>
+<ol>
+	<li><a href="axios_note.html#sec1-1">基本</a></li>
+</ol>
 <hr>
 			
 			

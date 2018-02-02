@@ -61,7 +61,7 @@
 		var dataset = [ 30, 60, 90, 120 ];
 		
 		// SVGタグを作成する
-		var svg = d3.select("#demo1").append("svg");
+		var svg = d3.select("#demo").append("svg");
 		
 		// SVGの幅を設定する
 		svg.attr("width", 500)
@@ -91,7 +91,7 @@
 	
 	～
 	
-	&lt;div id="demo1"&gt;&lt;/div&gt;	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
 	</code></pre>
 	<aside>※主要部分のみ抜粋</aside>
 	<br>
@@ -114,10 +114,1033 @@
 
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>矩形シェイプを描く</h3>
+	
+	D3.jsで矩形を描画してみる。<br>
+	<a href="/sample/js/a005/d3_js/d3_demo2.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// データ
+	var dataset = [ 100, 200, 300, 400 ];
+	
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 500)
+		.attr("height", 450);
+	
+	// 矩形の基礎(rect)とデータをSVGにセットする。
+	var rect = svg.selectAll(".rect1")
+		.data(dataset)
+		.enter()
+		.append("rect");
+
+	// 矩形へデータの値を元に位置および半径を設定していく。
+	rect
+		.attr('class','rect1')
+		.attr("x", function(d, i) {
+			return d;
+		})
+		.attr("y", 90)
+		.attr("width", 80)
+		.attr("height", 60)
+		.attr("rx", 5)
+		.attr("fill", 'none')
+		.attr("stroke", '#8ca934')
+		.attr("stroke-width", 4)
+		;
+	</code></pre><br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-2.png" /><br>
+	<br>
+	
+	
+	<br><time>2017-7-20</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>シェイプをグループでまとめる</h3>
+	
+	SVGには子要素の概念がないように思えるが、
+	代わりにグループという概念が存在する。<br>
+	SVGではグループを&lt;g&gt;として表されている。
+	D3.jsでグループを取り扱う場合、データのひもづけ（バインディング）は”グループ”に対して行う。<br>
+	<aside>（グループ内の要素に対してデータひもづけは不要）</aside>
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo3.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// エンティティ配列のデータ
+	var dataset = [
+		{'x':100 , 'name':'ネコ'},
+		{'x':200 , 'name':'ヤギ'},
+		{'x':300 , 'name':'カニ'},
+		{'x':400 , 'name':'サメ'},
+	];
+	
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 500)
+		.attr("height", 450);
+	
+	// グループ要素を作成し、データをひもづける。
+	var group1 = svg.selectAll(".group1")
+		.data(dataset)
+		.enter()
+		.append("g");
+	
+	// グループに矩形を追加する。
+	var rect = group1.append("rect");
+	
+	// 矩形を設定、およびデータを適用する。
+	rect
+		.attr('class','rect1')
+		.attr("x", function(d, i) {
+			return d.x;
+		})
+		.attr("y", 90)
+		.attr("width", 80)
+		.attr("height", 60)
+		.attr("rx", 5)
+		.attr("fill", 'none')
+		.attr("stroke", '#8ca934')
+		.attr("stroke-width", 4)
+		;
+	
+	// グループにテキストを追加する。
+	var text1 = group1.append("text");
+	
+	// テキストの設定、およびデータを適用する。
+	text1
+		.attr('class','text1')
+		.attr("x", function(d, i) {
+			return d.x + 20;
+		})
+		.attr("y", 110)
+		.attr("fill", 'red')
+		.text(function(d, i) {
+			return d.name;
+		})
+		;
+	</code></pre><br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-3.png" /><br>
+	<br>
+	
+	
+	
+	<br><time>2017-7-20</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>文字列をリンク化してみる</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo4.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(function(){
+		
+		// エンティティ配列のデータ
+		var dataset = [
+			{'x':100 , 'name':'google' , 'url':'https://www.google.co.jp/'},
+			{'x':200 , 'name':'yahoo' , 'url':'https://www.yahoo.co.jp/'},
+			{'x':300 , 'name':'天気' , 'url':'http://www.jma.go.jp/jp/g3/'},
+			{'x':400 , 'name':'自身' , 'url':'http://www.jma.go.jp/jp/quake/'},
+		];
+		
+		// SVGタグを作成する
+		var svg = d3.select("#demo").append("svg");
+		
+		// SVGの幅を設定する
+		svg.attr("width", 500)
+			.attr("height", 450);
+		
+		// グループ要素を作成し、データをひもづける。
+		var group1 = svg.selectAll(".group1")
+			.data(dataset)
+			.enter()
+			.append("g");
+		
+		// グループに矩形を追加する。
+		var rect = group1.append("rect");
+		
+		// 矩形を設定、およびデータを適用する。
+		rect
+			.attr('class','rect1')
+			.attr("x", function(d, i) {
+				return d.x;
+			})
+			.attr("y", 90)
+			.attr("width", 80)
+			.attr("height", 60)
+			.attr("rx", 5)
+			.attr("fill", 'none')
+			.attr("stroke", '#8ca934')
+			.attr("stroke-width", 4)
+			;
+
+		
+		// グループにテキストを追加する。
+		var text1 = group1.append("text")
+			.attr('class','text1')
+			.attr("x", function(d, i) {
+				return d.x + 20;
+			})
+			.attr("y", 110)
+			;
+		
+		// テキスト要素内にアンカータグを追加し、それにURLを設定する
+		<strong>var a1 = text1.append("a")
+			.attr('xlink:href', function(d, i) {
+				return d.url;
+			})
+			.attr("fill", 'green')
+			.text(function(d, i) {
+				return d.name;
+			})
+			;</strong>
+			
+			
+	});
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-4.png" /><br>
+	<br>
+	
+	
+	
+	<br><time>2017-7-21</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>リンクをBootstrapでボタン化してみる</h3>
+
+	ボタン化できない。SVGにはBootstrapは適応できない？<br>
+	しかし、通常のリンクと同様、ページ遷移キャンセルしてonclickイベントを組み込むことは可能である。<br>
+	<br>
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo5.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(function(){
+	
+		// エンティティ配列のデータ
+		var dataset = [
+			{'x':100 , 'name':'ネコ'},
+			{'x':200 , 'name':'ヤギ'},
+			{'x':300 , 'name':'カニ'},
+			{'x':400 , 'name':'サメ'},
+		];
+		
+		// SVGタグを作成する
+		var svg = d3.select("#demo").append("svg");
+		
+		// SVGの幅を設定する
+		svg.attr("width", 500)
+			.attr("height", 450);
+		
+		// グループ要素を作成し、データをひもづける。
+		var group1 = svg.selectAll(".group1")
+			.data(dataset)
+			.enter()
+			.append("g");
+		
+		// グループに矩形を追加する。
+		var rect = group1.append("rect");
+		
+		// 矩形を設定、およびデータを適用する。
+		rect
+			.attr('class','rect1')
+			.attr("x", function(d, i) {
+				return d.x;
+			})
+			.attr("y", 90)
+			.attr("width", 80)
+			.attr("height", 60)
+			.attr("rx", 5)
+			.attr("fill", 'none')
+			.attr("stroke", '#8ca934')
+			.attr("stroke-width", 4)
+			;
+
+		// グループにテキストを追加する。
+		var text1 = group1.append("text")
+			.attr('class','text1')
+			.attr("x", function(d, i) {
+				return d.x + 20;
+			})
+			.attr("y", 110)
+			;
+		
+		// テキスト要素内にアンカータグを追加し、それにURLを設定する
+		var a1 = text1.append("a")
+			<strong>.attr('xlink:href', function(d, i) {
+					return 'javascript:void(0)';
+				})
+				.attr("onclick", "alert('test=');")
+				.attr("class", "btn btn-info")</strong>
+			.attr("fill", 'green')
+			.text(function(d, i) {
+				return d.name;
+			})
+			;
+			
+			
+	});
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-5.png" /><br>
+	<br>
+	
+	
+	
+	<br><time>2017-7-21</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>ラインを描画する</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo6.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(function(){
+	
+		// エンティティ配列のデータ
+		var dataset = [
+			{'lineData':[[100,100],[200,100]] ,'color':'red'},
+			{'lineData':[[100,120],[200,120]] ,'color':'green'},
+			{'lineData':[[100,140],[200,140]] ,'color':'yellow'},
+			{'lineData':[[100,160],[200,160]] ,'color':'blue'},
+		];
+		
+	
+		// SVGタグを作成する
+		var svg = d3.select("#demo").append("svg");
+		
+		// SVGの幅を設定する
+		svg.attr("width", 640)
+			.attr("height", 480);
+	
+		// line変換関数： 線の配列をpathのd属性形式に変換する
+		var lineArrToD = d3.line()
+			.x(function(d) {return d[0];})
+			.y(function(d) {return d[1];});
+		
+		// 線（path)を追加する
+		var line1 = svg.selectAll(".path1")
+			.data(dataset)
+			.enter()
+			.append("path");
+		
+		// 線にデータを適用する
+		line1
+			.attr('d',function(d, i) {
+				d = lineArrToD(d.lineData);
+				return d;
+			})
+			.attr('stroke',function(d, i) {
+				return d.color;
+			})
+			.attr('stroke-width',4)
+		;
+			
+			
+	});
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-6.png" /><br>
+	<br>
+	
+	
+	
+	<br><time>2017-7-21</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>半透明のラインを描画</h3>
+
+	色コードにα値を追加することで半透明を実現できる。
+	<pre>rgba(0,0,255,<strong>0.5</strong>)</pre>
+	α値は0～1の範囲で指定する。<br>
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo7.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// エンティティ配列のデータ
+	var dataset = [
+		{'lineData':[[100,100],[200,100]] ,'color':'red'},
+		{'lineData':[[100,120],[200,120]] ,'color':'green'},
+		{'lineData':[[100,140],[200,140]] ,'color':'yellow'},
+		{'lineData':[[100,160],[200,50]] ,'color':<strong>'rgba(0,0,255,0.5)'</strong>},
+	];
+	
+
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 640)
+		.attr("height", 480);
+
+	// line変換関数： 線の配列をpathのd属性形式に変換する
+	var lineArrToD = d3.line()
+		.x(function(d) {return d[0];})
+		.y(function(d) {return d[1];});
+	
+	// 線（path)を追加する
+	var line1 = svg.selectAll(".path1")
+		.data(dataset)
+		.enter()
+		.append("path");
+	
+	// 線にデータを適用する
+	line1
+		.attr('d',function(d, i) {
+			d = lineArrToD(d.lineData);
+			return d;
+		})
+		.attr('stroke',function(d, i) {
+			return d.color;
+		})
+		.attr('stroke-width',10)
+	;
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-7.png" /><br>
+	<br>
+	
+	
+	
+	<br><time>2017-7-25</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>ベジエ曲線</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo8.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// エンティティ配列のデータ
+	var dataset = [
+		{'lineData':[[100,100],[200,100],[300,150]] ,'color':'red'},
+		{'lineData':[[100,120],[200,120],[300,170]] ,'color':'green'},
+		{'lineData':[[100,140],[200,140],[300,190]] ,'color':'yellow'},
+		{'lineData':[[100,160],[200,50],[300,150]] ,'color':'rgba(0,0,255,0.5)'},
+	];
+	
+
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 640)
+		.attr("height", 280);
+
+
+	// line変換関数： 線の配列をpathのd属性形式に変換する
+	var lineArrToD = d3.line()
+		.<strong>curve(d3.curveBasis)</strong>
+		.x(function(d) {return d[0];})
+		.y(function(d) {return d[1];});
+	
+	// 線（path)を追加する
+	var line1 = svg.selectAll(".path1")
+		.data(dataset)
+		.enter()
+		.append("path");
+	
+	// 線にデータを適用する
+	line1
+		.attr('d',function(d, i) {
+			d = lineArrToD(d.lineData);
+			return d;
+		})
+		.attr('stroke',function(d, i) {
+			return d.color;
+		})
+		.attr('stroke-width',10)
+		.attr('fill','none')
+	;
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	
+	
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-8.png" /><br>
+	<br>
+	
+	<hr>
+	d3.line()のcurveで指定できる曲線の種類
+	<table class="tbl2">
+		<thead>
+			<tr><th>d3.line().curve(〇〇〇)</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>d3.curveLinear</td><td>デフォルト（ただの直線の組み合わせ）</td></tr>
+			<tr><td>d3.curveStep</td><td>ステップ関数（垂直の線）</td></tr>
+			<tr><td>d3.curveStepBefore</td><td>ステップ関数（曲がり箇所がそろっている）</td></tr>
+			<tr><td>d3.curveStepAfter</td><td>ステップ関数（d3.curveStepBeforeの逆曲がり）</td></tr>
+			<tr><td>d3.curveBasis</td><td>ベジエ曲線</td></tr>
+			<tr><td>d3.curveCardinal</td><td>なめらかな急カーブ</td></tr>
+			<tr><td>d3.curveMonotoneX</td><td>ベジエより山なりのカーブになる(d3.curveCardinalよりは緩やか)</td></tr>
+			<tr><td>d3.curveCatmullRom</td><td>d3.curveCardinalとよく似ているが、検証不足のため違いは分からず。</td></tr>
+	
+		</tbody>
+	</table>
+	
+	
+	<br><time>2017-7-25</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-9" class="sec4" >
+	<h3>文字列の幅取得</h3>
+
+
+	<br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// エンティティ配列のデータ
+	var dataset = [
+		{'x':100 , 'name':'ネコ'},
+		{'x':200 , 'name':'山羊'},
+		{'x':300 , 'name':'ケガニ'},
+		{'x':400 , 'name':'ホホジロザメ'},
+	];
+	
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 500)
+		.attr("height", 450);
+	
+
+	// テキストメジャー： テキストの幅を取得するためのテキスト要素
+	var text_measure = svg.append("text")
+		.attr("id", 'text_measure');
+	
+	
+	for(var i in dataset){
+		var d = dataset[i];
+
+		text_measure.text(d.name);
+		var textSizeInfo = text_measure.<strong>node().getBBox()</strong>;
+		console.log(textSizeInfo);
+		
+	}
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+
+	<p>コンソール出力</p>
+	<img src="img/d3_note/sec1-9.png" /><br>
+	<br>
+	
+	
+	<br><time>2017-7-25</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>多次元配列のデータセットを出力</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo10.html" class="btn btn-info" >デモ</a><br>
+	<br>
+	
+	2次元以降のsubDataを出力してみる。<br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	// エンティティ配列のデータ
+	var dataset = [
+		{'x':100 , 'kind':'哺乳類',
+			'subData':[
+				{'index1':0 , 'animal_name':'マヤー'},
+				{'index1':0 , 'animal_name':'アグー'},
+				{'index1':0 , 'animal_name':'マングース'},
+			],
+		},
+		{'x':200 , 'kind':'魚類',
+			'subData':[
+				{'index1':1 , 'animal_name':'グルクン'},
+				{'index1':1 , 'animal_name':'アカジン'},
+			],
+		},
+		{'x':300 , 'kind':'両生類',
+			'subData':[
+				{'index1':2 , 'animal_name':'イボイモリ'},
+				{'index1':2 , 'animal_name':'ハナサキガエル'},
+				{'index1':2 , 'animal_name':'イシカワガエル'},
+				{'index1':2 , 'animal_name':'シリケンイモリ'},
+			],
+		},
+	];
+	
+	// SVGタグを作成する
+	var svg = d3.select("#demo").append("svg");
+	
+	// SVGの幅を設定する
+	svg.attr("width", 500)
+		.attr("height", 600);
+	
+	// グループ要素を作成し、データをひもづける。
+	var group1 = svg.selectAll(".group1")
+		.data(dataset)
+		.enter()
+		.append("g");
+	
+	// グループに矩形を追加する。
+	var rect = group1.append("rect");
+	
+	// 矩形を設定、およびデータを適用する。
+	rect
+		.attr('class','rect1')
+		.attr("x", function(d, i) {
+			return d.x;
+		})
+		.attr("y", 90)
+		.attr("width", 90)
+		.attr("height", 120)
+		.attr("rx", 5)
+		.attr("fill", 'none')
+		.attr("stroke", '#8ca934')
+		.attr("stroke-width", 4)
+		;
+	
+	// グループにテキストを追加する。
+	var text1 = group1.append("text");
+	
+	// テキストの設定、およびデータを適用する。
+	text1
+		.attr('class','text1')
+		.attr("x", function(d, i) {
+
+			return d.x + 20;
+		})
+		.attr("y", 110)
+		.attr("fill", 'red')
+		.text(function(d, i) {
+			return d.kind;
+		})
+		;
+	
+	
+	// 2次元要素であるsubDataの出力
+	var sub_text = group1.selectAll(".animal_name")
+		<strong>.data(function(d) {return d.subData})</strong> 
+		.enter()
+		.append('text');
+	
+	sub_text
+		.attr("fill", 'blue')
+		.attr("font-size", 11)
+		.attr("x", function(d, i) {
+			
+			var row = dataset[d.index1];
+			
+			return row.x + 20;
+		})
+		.attr("y", function(d, i) {
+
+			return (i * 20) + 140;
+			
+		})
+		.text(function(d, i) {
+			return d.animal_name;
+		})
+		;
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	
+	
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-10.png" /><br>
+	<br>
+	
+
+	
+	<br><time>2017-7-25</time>
+	
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-11" class="sec4" >
+	<h3>スケール</h3>
+
+
+	<br>
+	
+
+	<p>JavaScript</p>
+
+	<pre><code>
+	var xScale = d3.scaleLinear()
+		.domain([0, 640])
+		.range([0, 320]);
+	
+	console.log(xScale(12)); // → 6
+	</code></pre><br>
+	
+	応用は下記のデモを参考<br>
+	<a href="/sample/js/a005/d3_js/d3_demo11.html" class="btn btn-info" >デモ</a><br>
+	<br>
+
+	
+	<br><time>2017-7-28</time>
+	
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec1-12" class="sec4" >
+	<h3>矢印</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo12.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(function(){
+		createSvg(1);
+	});
+	
+	function createSvg(scale_rate){
+	
+		var xScale = d3.scaleLinear()
+			.domain([0, 640])
+			.range([0, 640 * scale_rate]);
+		
+		var yScale = d3.scaleLinear()
+		.domain([0, 280])
+		.range([0, 280 * scale_rate]);
+	
+		// エンティティ配列のデータ
+		var dataset = [
+			{'lineData':[[100,100],[200,100],[300,150]] ,'color':'green'},
+			{'lineData':[[100,120],[200,120],[300,170]] ,'color':'green'},
+			{'lineData':[[100,140],[200,140],[300,190]] ,'color':'green'},
+			{'lineData':[[100,160],[200,50],[300,150]] ,'color':'rgba(0,0,255,0.5)'},
+		];
+		
+	
+		// SVGタグを作成する
+		var svg = d3.select("#demo").append("svg");
+		
+		
+		<strong>// 矢印を作成
+		var marker = svg.append("defs").append("marker")
+			.attr('id','arrowhead1')
+			.attr('refX',1.5)
+			.attr('refY',1.5)
+			.attr('markerWidth',3)
+			.attr('markerHeight',3)
+			.attr('orient','auto')
+			.append("path")
+			.attr("d", "M 0 0 L 0 3 L 3 1.5 z")
+			.attr("fill", "green")
+			;</strong>
+		
+		
+		  
+		// SVGの幅を設定する
+		svg.attr("width", xScale(640))
+			.attr("height", yScale(280));
+	
+	
+		// line変換関数： 線の配列をpathのd属性形式に変換する
+		var lineArrToD = d3.line()
+			.curve(d3.curveBasis)
+			.x(function(d) {return xScale(d[0]);})
+			.y(function(d) {return yScale(d[1]);});
+		
+		// 線（path)を追加する
+		var line1 = svg.selectAll(".path1")
+			.data(dataset)
+			.enter()
+			.append("path");
+		
+		// 線にデータを適用する
+		line1
+			.attr('d',function(d, i) {
+				d = lineArrToD(d.lineData);
+				return d;
+			})
+			.attr('stroke',function(d, i) {
+				return d.color;
+			})
+			.attr('stroke-width',xScale(4))
+			.attr('fill','none')
+			<strong>.attr('marker-end',"url(#arrowhead1)")</strong>//線に矢印を付加
+		;
+			
+			
+	}
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	
+	
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-12.png" /><br>
+	<br>
+	
+
+	
+	<br><time>2017-7-28</time>
+	
+	
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
-	<h3>XXX</h3>
+	<h3>xxx</h3>
+
+
+	<br>
+	
+	<a href="/sample/js/a005/d3_js/d3_demo0.html" class="btn btn-info" >デモ</a><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+
+	</code></pre><br>
+	
+	
+	
+	<p>html</p>
+	<pre><code>
+	&lt;script src="d3/d3.min.js"&gt;&lt;/script&gt;
+	
+	～
+	
+	&lt;div id="demo"&gt;&lt;/div&gt;	
+	</code></pre>
+	<aside>※主要部分のみ抜粋</aside>
+	<br>
+	
+	
+	
+	
+	<p>SVGの出力</p>
+	<img src="img/d3_note/sec1-0.png" /><br>
+	<br>
+	
+
 	
 	<br><time></time>
+	
 	
 </div>
 

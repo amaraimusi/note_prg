@@ -123,6 +123,271 @@
 
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>コールバック地獄対策 | Promise</h3>
+
+	<a href="/sample/js/a006/promise_test/promise_test.html" class="btn btn-info" >デモ</a><br>
+	<br>
+	
+	<pre><code>
+	Promise.resolve()
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res').append('コールバック1&lt;br&gt;');
+				fulfilled(); // →達成：コールバック2へ
+			},1000);
+		})
+	})
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res').append('コールバック2&lt;br&gt;');
+				fulfilled(); // →達成：コールバック3へ
+			},1000);
+		})
+	})
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res').append('コールバック3&lt;br&gt;');
+				fulfilled();
+			},1000);
+		})
+	});
+	</code></pre>
+
+	<br><time>2017-10-17</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>クラス版のPromiseの使い方</h3>
+
+	<a href="/sample/js/a006/promise_test/promise_test.html" class="btn btn-info">デモ</a><br>
+	<br>
+
+	<pre><code>
+	function test2(){
+		var promiseTest = new PromiseTest();
+		promiseTest.func1();
+	}
+	
+	class PromiseTest{
+		
+		constructor(){
+			this.test_a = 999;
+		}
+		
+		func1(){
+			Promise.resolve()
+			.then(() =&gt; {
+				return new Promise((fulfilled, rejected) =&gt; {
+					window.setTimeout(() =&gt; {
+						$('#res').append(this.test_a + ' コールバック1&lt;br&gt;');
+						this.test_a ++;
+						fulfilled();
+					},1000);
+				})
+			})
+			.then(() =&gt; {
+				return new Promise((fulfilled, rejected) =&gt; {
+					window.setTimeout(() =&gt; {
+						$('#res').append(this.test_a + ' コールバック2&lt;br&gt;');
+						this.test_a ++;
+						fulfilled();
+					},1000);
+				})
+			})
+			.then(() =&gt; {
+				return new Promise((fulfilled, rejected) =&gt; {
+					window.setTimeout(() =&gt; {
+						$('#res').append(this.test_a + ' コールバック3&lt;br&gt;');
+						this.test_a ++;
+						fulfilled();
+					},1000);
+				})
+			})
+			;
+			
+		}
+	}
+	</code></pre>
+
+	<br><time>2017-10-17</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>Promiseのエラーキャッチ | rejected</h3>
+	
+	<a href="/sample/js/a006/promise_test/promise_test.html" class="btn btn-info">デモ</a><br>
+	<br>
+
+	<pre><code>
+	Promise.resolve()
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res3').append('コールバック1X&lt;br&gt;');
+				fulfilled();
+			},1000);
+		})
+	})
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res3').append('コールバック2&lt;br&gt;');
+
+				<strong>rejected</strong>('リジェクト:エラーキャッチのテストです。');
+
+			},1000);
+		})
+	})
+	.then(function(){
+		return new Promise(function(fulfilled, rejected){
+			window.setTimeout(function(){
+				$('#res3').append('コールバック3&lt;br&gt;');
+				fulfilled();
+			},1000);
+		})
+	}).<strong>catch</strong>(function(e) {
+		console.log(e);
+		alert(e);
+		
+    })
+	;
+	</code></pre>
+
+	<br><time>2017-10-20</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-5" class="sec4">
+	<h3>仮想DOMとは | Virtual DOM</h3>
+
+	仮想DOMはVirtual DOMのことである。<br>
+	Virtual DOMはJavaScriptのデータと連動しているHTMLのDOMのこと。<br>
+	JavaScript側でデータを変更すると連動してDOM側の表示も変わる。この部分のコーディングは不要である。<br>
+	逆にDOM側（テキストボックスなど）に一般ユーザーが入力を行うと、何もせずともJavaScript側のデータにも反映される。<br>
+	<br>
+	
+	もちろん最初に、通常のDOMとデータを連携（データバインド）設定は必要になる。<br>
+	Virtual DOMは、Vue.jsやReact.jsなどが実装している。<br>
+	<br>
+
+	<br><time>2017-12-27</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>ES6のthisとjQuery.eachのthisが競合してしまう問題</h3>
+	
+	<pre><code>
+	function main(){
+		var obj = new Animal();
+		obj.funcA();
+	}
+	
+	class Animal{
+	
+		funcA(){
+			$('ul li').each((<strong>i,elm</strong>) <strong>=></strong> {
+				var animal_name = $(elm).html();
+				this._funcB(animal_name);
+			});
+		}
+		
+		_funcB(animal_name){
+			console.log(animal_name);
+		}
+	}
+	</code></pre>
+
+
+	<br><time>2018-1-10</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4">
+	<h3>ES6のthisとjQuery.clickのthisが競合してしまう問題</h3>
+
+	<pre><code>
+	$('#btn1').<strong>click</strong>(<strong>evt</strong>=>{
+		var btnElm = $(evt.<strong>currentTarget</strong>);
+		alert(btnElm.val());
+	});
+	</code></pre>
+	
+	<br><time>2018-1-11</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-8" class="sec4">
+	<h3>ES6のヒアドキュメント</h3>
+	
+	ソースコード中の改行がそのまま\nと認識される。<br>
+	${}で文字列に埋め込むこともできる。<br>
+	<br>
+	
+	<pre><code>
+	var str1 = '苦しんでいる者たちを地から';
+	var str2 = `歯が剣，
+		そのあご骨が屠殺用の刀となっており，${str1}，
+		貧しい者たちを人の中から食い尽くそうとする世代がある`;
+	
+	console.log(str2);
+	</code></pre>
+
+	コンソール出力
+	<pre>
+歯が剣，
+		そのあご骨が屠殺用の刀となっており，苦しんでいる者たちを地から，
+		貧しい者たちを人の中から食い尽くそうとする世代がある
+	</pre>
+
+	<br>
+	<a href="https://qiita.com/kura07/items/c9fa858870ad56dfec12" target="blank">参考</a><br>
+	
+	<br><time>2018-1-26</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

@@ -311,6 +311,60 @@
 
 
 
+<div id="sec14-4-2" class="sec4" >
+	<h3>スクロールを相対的に移動させる | scrollBy</h3>
+	
+	SELECT要素やDIV要素のスクロールバーをscrollBy関数で移動させることができる。<br>
+	※ Edgeは2017-10時点で未対応。<br>
+	<br>
+	
+	<a href="/sample/js/a006/scroll_by/scroll_by.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;select  id="test1" size="5"&gt;
+		&lt;option value="1"&gt;ゴリラ&lt;/option&gt;
+		&lt;option value="2"&gt;チンパンジー&lt;/option&gt;
+		&lt;option value="3"&gt;オランウータン&lt;/option&gt;
+		&lt;option value="4"&gt;スローロリス&lt;/option&gt;
+		&lt;option value="5"&gt;ワタボウシタマリン&lt;/option&gt;
+		&lt;option value="6"&gt;アジアゾウ&lt;/option&gt;
+		&lt;option value="7"&gt;アフリカゾウ&lt;/option&gt;
+		&lt;option value="8"&gt;インドゾウ&lt;/option&gt;
+		&lt;option value="9"&gt;マルミミゾウ&lt;/option&gt;
+		&lt;option value="10"&gt;モンゴルマーモット&lt;/option&gt;
+		&lt;option value="11"&gt;フサオネズミカンガルー&lt;/option&gt;
+		&lt;option value="12"&gt;フサオ&lt;/option&gt;
+		&lt;option value="13"&gt;ネズミカンガルー&lt;/option&gt;
+	&lt;/select&gt;&lt;br&gt;
+	&lt;input type="button" value="上スクロール" onclick="test1('#test1',-30)" /&gt;
+	&lt;input type="button" value="下スクロール" onclick="test1('#test1',30)" /&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function test1(slt,scroll_value){
+		var elm = $(slt);
+		if(typeof elm[0].scrollBy == 'function'){
+			elm[0].<strong>scrollBy</strong>( 0, scroll_value ) ;
+		}else{
+			console.log('スクロールはサポート外です');
+		}
+	}
+	</code></pre>
+	
+	
+	<br><time>2017-10-24</time>
+	
+</div>
+
+
+
+
+
+
+
 <div id="sec14-5" class="sec4" >
 	<h3>新しいタブ（またはウィンドウ）でページ遷移する | window.open(url, '_blank');</h3>
 	
@@ -367,11 +421,284 @@
 
 
 
+<div id="sec14-7" class="sec4" >
+	<h3>HTML5の進捗バー | progress</h3>
+	
+	<a href="/sample/js/a005/progress_html5/progress_html5.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;progress id="prog1"  max="100"&gt;progress要素非対応への代替表示&lt;/progress&gt;
+	&lt;button onclick="test1()" &gt;TEST1&lt;/button&gt;
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function test1(){
+		var prog1 = $('#prog1');
+		var v = prog1.val();
+		if(v==null){
+			v=0;
+		}else{
+			v += 10;
+		}
+		prog1.val(v);
+	}
+	</code></pre><br>
+	
+	<br><time>2017-10-10</time>
+	
+</div>
+
+
+
+
+
+
+
+<div id="sec14-8" class="sec4">
+	<h3>undfinedを暗黙数値変換するとnull判定ではじかれる</h3>
+	
+	undfinedを暗黙数値変換するとNaNになり、nullで判定することができなくなる。<br>
+	<br>
+	
+	<pre><code>
+	var a = undefined;
+	a = a + 0; // 暗黙的な数値変換
+	if(a==null){
+		alert('nullである');
+	}else{
+		alert('nullでない'); // ←ここに来る。nullとして扱われない。NaNとなっているため。
+		
+	}
+	</code></pre>
+	
+	<br><time>2018-1-29</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec14-9" class="sec4">
+	<h3>要素の縦幅と横幅の取得検証</h3>
+	
+	<a href="/sample/js/a006/get_width_and_height/get_width_and_height.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<style>
+		#rect1 {
+			width:100px;
+			height:100px;
+			margin:5px;
+			border: solid 1px Crimson;
+			padding:5px;
+			overflow:auto;
+			background-color:LightCoral;
+		}
+		#rect2 {
+			width:160px;
+			height:160px;
+			padding:4px;
+			margin-left:3px;
+			margin-right:4px;
+			margin-top:6px;
+			margin-bottome:7px;
+			border: solid 1px LimeGreen;
+			overflow:auto;
+			background-color:LightGreen;
+		}
+	</style>
+	
+	<div id="rect1">
+		<div id="rect2"></div>
+	</div>
+	
+	
+	<p>HTML</p>
+	<pre><code>
+		&lt;div id="rect1"&gt;
+			&lt;div id="rect2"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	</code></pre>
+	
+	<p>CSS</p>
+	<pre><code>
+	&lt;style&gt;
+		#rect1 {
+			width:100px;
+			height:100px;
+			margin:5px;
+			border: solid 1px Crimson;
+			padding:5px;
+			overflow:auto;
+			background-color:LightCoral;
+		}
+		#rect2 {
+			width:160px;
+			height:160px;
+			padding:4px;
+			margin-left:3px;
+			margin-right:4px;
+			margin-top:6px;
+			margin-bottome:7px;
+			border: solid 1px LimeGreen;
+			overflow:auto;
+			background-color:LightGreen;
+		}
+	&lt;/style&gt;
+	</code></pre>
+	
+	<p>rect1</p>
+	<table class="table">
+		<thead><tr><th>メソッド</th><th>記述例</th><th>値</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>width()</td>
+				<td>$('#rect1').width();</td>
+				<td id='res1-1'>88</td>
+				<td>
+					jQueryの関数。paddingとborderの幅を除外した幅を取得する。<br>
+					<pre>幅＝width(100px) - padding(5px × 2) - border(1px × 2)</pre>
+				</td>
+			</tr>
+			<tr>
+				<td>height()</td>
+				<td>$('#rect1').height();</td>
+				<td id='res1-2'>88</td>
+				<td>
+					上記と同様<br>
+					<pre>幅＝height(100px) - padding(5px × 2) - border(1px × 2)</pre>
+				</td>
+			</tr>
+			<tr>
+				<td>outerWidth()</td>
+				<td>$('#rect1').outerWidth();</td>
+				<td id='res1-3'>100</td>
+				<td>jQueryの関数。paddingとborderを含めた横幅を取得。marginは無視。位置や幅の計算処理を行いたい場合、この関数を使うことが多い。</td>
+			</tr>
+			<tr>
+				<td>outerHeight()</td>
+				<td>$('#rect1').outerHeight();</td>
+				<td id='res1-4'>100</td>
+				<td>上記と同様</td>
+			</tr>
+			<tr>
+				<td>clientWidth</td>
+				<td>$('#rect1')[0].clientWidth;</td>
+				<td id='res1-5'>81</td>
+				<td>
+					標準関数。スクロールバーの太さを含めた幅を取得する。スクロールバーの太さはブラウザごとに異なるので注意する。<br>
+					<br>
+					<pre>幅 = width(100px) - スクロールバーの太さ（<strong>17</strong>px※)  - border(1px × 2)</pre>
+					※スクロールバーの太さはChrome,FireFoxの場合17px、Operaは15px,Edgeは16pxである。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>clientHeight</td>
+				<td>$('#rect1')[0].clientHeight;</td>
+				<td id='res1-6'>81</td>
+				<td>上記と同様</td>
+			</tr>
+			<tr>
+				<td>scrollWidth</td>
+				<td>$('#rect1')[0].scrollWidth;</td>
+				<td id='res1-7'>168</td>
+				<td>
+					標準関数。基本的に子要素の幅を取得する。スクロール制御を行いたいときに利用する関数。<br>
+					<pre>幅 ＝ rect2のouterWidth(160px) + rect2のmargin-left(3px) + padding(5px) </pre>
+				</td>
+			</tr>
+			<tr>
+				<td>scrollHeight</td>
+				<td>$('#rect1')[0].scrollHeight;</td>
+				<td id='res1-8'>176</td>
+				<td>
+					標準関数。基本的に子要素の幅を取得する。ブラウザごとに異なるので注意。<br>
+					<br>
+					
+					ChromeとOperaの場合
+					<pre>幅＝rect2のouterWidth(160px) + rect2のmargin-top(6px) + padding(5px × <strong>2</strong>) </pre>
+					<br>
+					
+					FireFoxとEdgeの場合
+					<pre>幅＝rect2のouterWidth(160px) + rect2のmargin-top(6px) + padding(5px) </pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p>rect2</p>
+	<table class="table">
+		<thead><tr><th>メソッド</th><th>記述例</th><th>値</th><th>検証</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>width()</td>
+				<td>$('#rect2').width();</td>
+				<td id='res2-1'>150</td>
+				<td>width(160x) - padding(4px × 2) - border(1px × 2)</td>
+			</tr>
+			<tr>
+				<td>height()</td>
+				<td>$('#rect2').height();</td>
+				<td id='res2-2'>150</td>
+				<td>height(160px) - padding(4px × 2) - border(1px × 2)</td>
+			</tr>
+			<tr>
+				<td>outerWidth()</td>
+				<td>$('#rect2').outerWidth();</td>
+				<td id='res2-3'>160</td>
+				<td>width(160px)</td>
+			</tr>
+			<tr>
+				<td>outerHeight()</td>
+				<td>$('#rect2').outerHeight();</td>
+				<td id='res2-4'>160</td>
+				<td>height(160px)</td>
+			</tr>
+			<tr>
+				<td>clientWidth</td>
+				<td>$('#rect2')[0].clientWidth;</td>
+				<td id='res2-5'>158</td>
+				<td>width(160x) - border(1px × 2)</td>
+			</tr>
+			<tr>
+				<td>clientHeight</td>
+				<td>$('#rect2')[0].clientHeight;</td>
+				<td id='res2-6'>158</td>
+				<td>width(160x) - border(1px × 2)</td>
+			</tr>
+			<tr>
+				<td>scrollWidth</td>
+				<td>$('#rect2')[0].scrollWidth;</td>
+				<td id='res2-7'>158</td>
+				<td>width(160x) - border(1px × 2) </td>
+			</tr>
+			<tr>
+				<td>scrollHeight</td>
+				<td>$('#rect2')[0].scrollHeight;</td>
+				<td id='res2-8'>158</td>
+				<td>width(160x) - border(1px × 2) </td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<br><time>2018-1-30</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
 	<br><time></time>
-	
 </div>
 
 
