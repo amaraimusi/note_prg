@@ -398,6 +398,49 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec6-9" class="sec1">
+	<h3>jQueryオブジェクトに紐づいている要素が変更されたとき、jQueryオブジェクトにも変更が反映されているか？</h3>
+	
+	jQueryオブジェクトに紐づいている要素が変更されたとき、jQueryオブジェクトにも変更が反映されている。<br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;div id="test1"&gt;ティラノサイウルス&lt;/div&gt;
+	&lt;input type="button" value="検証" onclick="test1()" class="btn btn-primary" /&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var m_obj;
+	
+	// 初期化
+	$(() => {
+		m_obj = $("#test1");
+	})
+	
+	function test1(){
+		$("#test1").html('キノボリトカゲ');
+		alert(m_obj.html());// →キノボリトカゲ
+	}
+	</pre>
+
+	<a href="/sample/js/a006/jq_object_verif/jq_object_verif.html" class="btn btn-info">検証</a><br>
+	<br>
+
+	<br><time>2018-2-11</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec6-0" class="sec1" style="display:none">
 	<h3>TEST</h3>
 
