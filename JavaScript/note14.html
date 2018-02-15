@@ -695,6 +695,93 @@
 
 
 
+<div id="sec14-10" class="sec4">
+	<h3>HTMLテーブルに行を追加（挿入）</h3>
+	
+	<a href="/sample/js/a006/tr_add_insert/tr_add_insert.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;table id="tbl1" class="table"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;山羊&lt;/td&gt;&lt;td&gt;草食&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	function test1(){
+		
+		var tbl_slt = "#tbl1";
+		var row_index = $("#row_index").val();
+		var new_tr_html = '&lt;tr&gt;&lt;td&gt;999&lt;/td&gt;&lt;td&gt;kamakiri&lt;/td&gt;&lt;td&gt;カマキリ&lt;/td&gt;&lt;/tr&gt;';
+		
+		// TR要素をテーブルの指定行に挿入する
+		insertTr(tbl_slt,row_index,new_tr_html)
+	}
+	
+	/**
+	 * TR要素をテーブルの指定行に挿入する
+	 * @note
+	 * tbodyは必須
+	 * 
+	 * @param string tbl_slt テーブル要素のセレクタ
+	 * @param int row_index 挿入行インデックス (1行目に挿入する場合は0を指定する。末尾に追加する場合は行数以上の数字を指定）
+	 * @param string tr_html 挿入TR要素
+	 * @returns
+	 */
+	function insertTr(tbl_slt,row_index,tr_html){
+		
+		var tbody = $(tbl_slt + " tbody");
+		var trs = tbody.find("tr");
+		var tr_len = trs.length;
+		
+	
+		// 行数が1件以上である場合
+		if(tr_len &gt; 0){
+			
+			// 追加行番が行数未満である場合
+			if(row_index &lt; tr_len){
+				// 行番にひもづくTR要素を取得
+				var tr = trs[row_index];
+				
+				// TR要素の上に新TR要素を追加
+				$(tr).before(tr_html);// × → tr.before(tr_html);
+			}
+			// 追加行番が行数以上である場合
+			else{
+				// 最後のTR要素を取得
+				var tr = trs[tr_len-1];
+				
+				// TR要素の下に新TR要素を追加する
+				$(tr).after(tr_html);
+			}
+		}
+		// 行数が0件である場合,tbody要素にtr要素を追加する。
+		else{
+			tbody.append(tr_html);
+		}
+	}
+	</code></pre>
+	
+	<br><time>2018-2-15</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

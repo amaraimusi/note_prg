@@ -82,6 +82,8 @@ p{
 
 pre{
 	background-color:#fef2f1;
+	-moz-tab-size: 2 ;	/* Firefox—p */
+	tab-size: 2 ;
 }
 
 pre strong{
