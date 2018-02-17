@@ -719,14 +719,19 @@
 	
 	JavaScript
 	<pre><code>
+	var m_id = 1000;
+	
 	function test1(){
 		
 		var tbl_slt = "#tbl1";
 		var row_index = $("#row_index").val();
-		var new_tr_html = '&lt;tr&gt;&lt;td&gt;999&lt;/td&gt;&lt;td&gt;kamakiri&lt;/td&gt;&lt;td&gt;カマキリ&lt;/td&gt;&lt;/tr&gt;';
+		var new_tr_html = '&lt;tr&gt;&lt;td&gt;' + m_id + '&lt;/td&gt;&lt;td&gt;kamakiri&lt;/td&gt;&lt;td&gt;カマキリ&lt;/td&gt;&lt;/tr&gt;';
+		m_id ++;
 		
 		// TR要素をテーブルの指定行に挿入する
-		insertTr(tbl_slt,row_index,new_tr_html)
+		var newTr = insertTr(tbl_slt,row_index,new_tr_html);
+		
+		console.log(newTr.html());
 	}
 	
 	/**
@@ -737,14 +742,14 @@
 	 * @param string tbl_slt テーブル要素のセレクタ
 	 * @param int row_index 挿入行インデックス (1行目に挿入する場合は0を指定する。末尾に追加する場合は行数以上の数字を指定）
 	 * @param string tr_html 挿入TR要素
-	 * @returns
+	 * @returns 新規追加TR要素
 	 */
 	function insertTr(tbl_slt,row_index,tr_html){
 		
 		var tbody = $(tbl_slt + " tbody");
 		var trs = tbody.find("tr");
 		var tr_len = trs.length;
-		
+		var new_index = null;
 	
 		// 行数が1件以上である場合
 		if(tr_len &gt; 0){
@@ -756,6 +761,7 @@
 				
 				// TR要素の上に新TR要素を追加
 				$(tr).before(tr_html);// × → tr.before(tr_html);
+				new_index = row_index;
 			}
 			// 追加行番が行数以上である場合
 			else{
@@ -764,12 +770,19 @@
 				
 				// TR要素の下に新TR要素を追加する
 				$(tr).after(tr_html);
+				new_index = tr_len;
 			}
 		}
 		// 行数が0件である場合,tbody要素にtr要素を追加する。
 		else{
 			tbody.append(tr_html);
+			new_index = 0;
 		}
+		
+		trs = tbody.find("tr");
+		var newTr = trs[new_index];
+		
+		return $(newTr); 
 	}
 	</code></pre>
 	
