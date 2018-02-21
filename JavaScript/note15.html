@@ -70,6 +70,40 @@
 
 
 
+<div id="sec15-3" class="sec4" >
+	<h3>オブジェクトにキーが存在するか判定する | in,hasOwnProperty</h3>
+	
+	オブジェクトに指定したキーが存在するかどうか判定する方法には「in」または「hasOwnProperty」を用いる。<br>
+	２階層以降の深い場所にあるフィールドは判定できないようである。<br>
+	<br>
+	
+	<pre><code>
+	var animal = {'neko':'ネコ','yagi':null,'kani':undefined,
+			'musi':{'kuwagata':'クワガタ'}};
+	
+	animal.prototype = {'wasi':'ワシ'};
+
+	console.log(animal.hasOwnProperty('neko')); // → true
+	console.log(animal.hasOwnProperty('yagi')); // → true
+	console.log(animal.hasOwnProperty('kani')); // → true
+	console.log(animal.hasOwnProperty('tanuki')); // → false
+	console.log(animal.hasOwnProperty('kuwagata')); // → false
+	console.log(animal.hasOwnProperty('wasi')); // → false
+
+	console.log('neko' in animal);// → true
+	console.log('yagi' in animal);// → true
+	console.log('kani' in animal);// → true
+	console.log('tanuki' in animal);// → false
+	console.log('kuwagata' in animal);// → false
+	console.log('wasi' in animal);// → false
+	</code></pre>
+	
+	<br><time>2018-2-21</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
