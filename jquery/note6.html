@@ -441,6 +441,59 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec6-10" class="sec1">
+	<h3>複数要素からインデックスを指定して各要素にアクセス、および複数要素の要素数の取得</h3>
+
+	HTML
+	<pre><code>
+	&lt;div id="animal"&gt;
+		&lt;div class="neko"&gt;白ネコ&lt;/div&gt;
+		&lt;div class="inu"&gt;黒犬&lt;/div&gt;
+		&lt;div class="neko"&gt;赤ネコ&lt;/div&gt;
+		&lt;div class="neko"&gt;巨大ネコ&lt;/div&gt;
+		&lt;div data-test="yagi"&gt;やぎ&lt;/div&gt;
+		&lt;div data-test="yagi"&gt;ゴート&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var animal = $("#animal");
+	var nekos = animal.find('.neko');
+
+	console.log(nekos.eq(0).html());// → 白ネコ
+	console.log(nekos.eq(1).html());// → 赤ネコ
+	console.log(nekos.eq(2).html());// → 巨大ネコ
+	console.log(nekos.length);// → 3
+	
+	var inu = animal.find('.inu');
+	console.log(inu.eq(0).html());// → 黒犬
+	console.log(inu.length);// → 1
+	
+	var tanuki = animal.find('.tanuki');
+	console.log(tanuki.eq(0).html());// → undefined
+	console.log(tanuki.length);// → 0
+	
+	var yagi = animal.find("[data-test='yagi']");
+	console.log(yagi.eq(0).html());// → やぎ
+	console.log(yagi.eq(1).html());// → ゴート
+	console.log(yagi.length);// → 2		
+	</code></pre>
+
+
+	<br><time>2018-2-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec6-0" class="sec1" style="display:none">
 	<h3>TEST</h3>
 
