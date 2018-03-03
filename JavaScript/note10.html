@@ -457,7 +457,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec10-7" class="sec1" >
-	<h3>note_prj	js	非同期で実行する | setTimeout</h3>
+	<h3>非同期で実行する | setTimeout</h3>
 
 	setTimeout関数で非同期処理を実現できる。<br>
 	マルチタスクやバックグランド処理に。<br>
@@ -472,6 +472,51 @@
 
 	
 	<br><time>2016-10-17</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-7-2" class="sec1" >
+	<h3>setTimeoutをキャンセルする | clearTimeout</h3>
+	
+	<a href="/sample/js/a007/clear_timeout/clear_timeout.html" class="btn btn-info">DEMO</a><br>
+	<br>
+
+
+	HTML
+	<pre><code>
+	&lt;input type="button" value="setTimeout 開始" class="btn btn-primary" onclick="start()" /&gt;&lt;br&gt;
+	&lt;input type="button" value="setTimeout キャンセル" class="btn btn-danger" onclick="cancel()" /&gt;&lt;br&gt;
+	&lt;div id="res1"&gt;&lt;/div&gt;
+	</code></pre>
+	<br>
+
+	JavaScript
+	<pre><code>
+		var handle;
+		function start(){
+			handle = setTimeout(()=&gt;{
+				$("#res1").append('setTimeout実行&lt;br&gt;');
+			}, 2000);
+		}
+		function cancel(){
+			$("#res1").append('キャンセル&lt;br&gt;');
+			<strong>clearTimeout</strong>(handle);
+		}
+	</code></pre>
+	<br>
+	
+	<br><time>2018-3-3</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
