@@ -238,7 +238,37 @@
 	</code></pre>
 	
 	<br><time>2017-9-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec14-6" class="sec4" >
+	<h3>関数に配列を参照渡ししたときの検証</h3>
 	
+	<pre><code>
+	&lt;?php 
+	$data = array('neko'=&gt;'ネコ');
+	
+	$dataB = funcA($data);
+	var_dump($data);　//　array(1) { ["neko"]=&gt; string(15) "大きなネコ" } 
+	var_dump($dataB);　//　array(1) { ["neko"]=&gt; string(15) "大きなネコ" } 
+	
+	function funcA(&amp;$data){
+	    
+	    $data['neko']='大きなネコ';
+	    return $data;
+	}
+	
+	?&gt;
+	</code></pre>
+	
+	<br><time>2018-3-10</time>
 </div>
 
 
@@ -253,7 +283,6 @@
 	<h3>XXX</h3>
 	
 	<br><time></time>
-	
 </div>
 
 
