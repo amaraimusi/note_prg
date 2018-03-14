@@ -279,6 +279,48 @@
 
 
 
+<div id="sec14-7" class="sec4">
+	<h3>配列の参照実験</h3>
+	
+	<pre><code>
+	$data = ['animal'=&gt;['neko'=&gt;'ネコ','tanuki'=&gt;'狸']]; // 実験する配列
+	var_dump($data);echo '&lt;br&gt;';
+	
+	// 実験1:
+	$tanuki = <strong>&amp;</strong>$data['animal']['tanuki']; // 実験配列からプリミティブであるtanukiを参照取得する。
+	$tanuki = '讃岐うどん'; // 参照取得した値に変更を加えてみる
+	unset($tanuki); // 変数を開放する
+	var_dump($data);echo '&lt;br&gt;'; // 実験配列に変更が反映されている！
+	// 出力→array(1) { ["animal"]=&gt; array(2) { ["neko"]=&gt; string(6) "ネコ" ["tanuki"]=&gt; string(15) "<strong>讃岐うどん</strong>" } } 
+	
+	
+	// 実験2：
+	$animal = <strong>&amp;</strong>$data['animal']; // 実験配列から配列であるanimalを参照取得する
+	$animal['neko'] = '小さい猫'; // animal配列の要素に変更を加える
+	unset($animal); // 変数を開放する
+	var_dump($data);echo '&lt;br&gt;'; // 実験配列に変更が反映されている！
+	// 出力→array(1) { ["animal"]=&gt; array(2) { ["neko"]=&gt; string(12) "<strong>小さい猫</strong>" ["tanuki"]=&gt; string(15) "讃岐うどん" } } 
+	
+	
+	// 実験3：
+	$animal = <strong>&amp;</strong>$data['animal']; // 実験配列から配列であるanimalを参照取得する
+	$animal = ['buta'=&gt;'きれい好きなブタ']; // animalに別の配列をセットする。
+	unset($animal); // 変数を開放する
+	var_dump($data);echo '&lt;br&gt;'; // 実験配列に変更が反映されている！
+	// 出力→array(1) { ["animal"]=&gt; array(1) { ["buta"]=&gt; string(24) "<strong>きれい好きなブタ</strong>" } } 
+	</code></pre>
+	
+	<br><time>2018-3-14</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
