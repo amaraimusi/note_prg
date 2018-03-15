@@ -321,6 +321,227 @@
 
 
 
+<div id="sec14-8" class="sec4">
+	<h3>特殊比較：ゼロ比較</h3>
+	
+	_compare0関数はある程度の違いを吸収した実用的比較関数。<br>
+	
+	<input type="button" value="サンプルソース" class="btn btn-info" onclick="jQuery('#sec14-8a1').toggle();"/>
+	<pre id="sec14-8a1" style="display:none"><code>
+	&lt;?php 
+	
+	$keys = ['neko','yagi','inu','kani','sake','nomi','toki','usi','hituji','abu','ari'];
+	$aryA = ['neko'=&gt;'0','inu'=&gt;'','yagi'=&gt;0,'kani'=&gt;null,'sake'=&gt;false,'nomi'=&gt;'ノミ','usi'=&gt;1,'hituji'=&gt;'1','abu'=&gt;'1.0','ari'=&gt;true,'toki'=&gt;''];
+	$aryB = ['neko'=&gt;'0','inu'=&gt;'','yagi'=&gt;0,'kani'=&gt;null,'sake'=&gt;false,'nomi'=&gt;'ノミ','usi'=&gt;1,'hituji'=&gt;'1','abu'=&gt;'1.0','ari'=&gt;true];
+	
+	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;A&lt;/th&gt;&lt;th&gt;B&lt;/th&gt;&lt;th&gt;一致&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	
+	$output = array();
+	foreach($keys as $key){
+	    
+	    $a_value = null;
+	    if(isset($aryA[$key])) $a_value = $aryA[$key];
+	    
+	    foreach($keys as $key_b){
+	        $b_value = null;
+	        if(isset($aryB[$key_b])) $b_value = $aryB[$key_b];
+	        
+	        $res = _compare0($a_value,$b_value);
+	        output($key,$a_value,$key_b,$b_value,$res);
+	    }
+	
+	}
+	
+	echo "&lt;/tbody&gt;&lt;/table&gt;";
+	
+	
+	echo '&lt;br&gt;----&lt;br&gt;';
+	if('ノミ'==0){
+	    echo '一致';
+	}else{
+	    echo '不一致';
+	}
+	
+	
+	/**
+	 *	ゼロ比較
+	 *
+	 * @note
+	 * 比較用のカスタマイズ関数。
+	 * ただし、空の値の比較は0とそれ以外の空値（null,"",falseなど）で仕様が異なる。
+	 * 0とそれ以外の空値（null,"",falseなど）は不一致のみなす。
+	 * 0と'0'は一致と判定する。
+	 * null,'',falseのそれぞれの組み合わせは一致である。
+	 * bool型のtrueは数字の1と同じ扱い。（※通常、2や3でもtrueとするが、この関数では1だけがtrue扱い）
+	 * 1.0 , 1 , '1' など型が異なる数値を一致と判定する。
+	 *
+	 * @param $a_value
+	 * @param $b_value
+	 * @return bool false:不一致 , true:一致
+	 */
+	function _compare0($a_value,$b_value){
+	    if(empty($a_value) &amp;&amp; empty($b_value)){
+	        if($a_value === 0 || $a_value === '0'){
+	            if($b_value === 0 || $b_value === '0'){
+	                return true;
+	            }else{
+	                return false;
+	            }
+	            
+	        }else{
+	            if($b_value === 0 || $b_value === '0'){
+	                return false;
+	            }else{
+	                return true;
+	            }
+	            
+	        }
+	        
+	    }else{
+	        
+	        if(gettype($a_value) == 'boolean'){
+	            if($a_value){
+	                $a_value = 1;
+	            }else{
+	                $a_value = 0;
+	            }
+	        }
+	        if(gettype($b_value) == 'boolean'){
+	            if($b_value){
+	                $b_value = 1;
+	            }else{
+	                $b_value = 0;
+	            }
+	        }
+	        
+	        
+	        if(is_numeric($a_value) &amp;&amp; is_numeric($b_value)){
+	            if($a_value == $b_value) return true;
+	        }else{
+	            if($a_value === $b_value) return true;
+	            
+	        }
+	    }
+	    
+	    return false;
+	    
+	}
+	
+	
+	
+	function output($key,$a_value,$key_b,$b_value,$res){
+	    
+	    if(gettype($a_value) == 'string') $a_value = "'" . $a_value . "'";
+	    if(gettype($b_value) == 'string') $b_value = "'" . $b_value . "'";
+	    
+	    if(gettype($a_value) == 'boolean'){
+	        if($a_value){
+	            $a_value = 'true';
+	        }else{
+	            $a_value = 'false';
+	        }
+	    }
+	    
+	    if(gettype($b_value) == 'boolean'){
+	        if($b_value){
+	            $b_value = 'true';
+	        }else{
+	            $b_value = 'false';
+	        }
+	    }
+	    
+	    
+	    $a_str = "{$key}=&gt;{$a_value}";
+	    $b_str = "{$key_b}=&gt;{$b_value}";
+	    
+	    $res_str = "&lt;span class='text-success'&gt;〇&lt;/span&gt;";
+	    if(empty($res)) $res_str = "&lt;span class='text-danger'&gt;×&lt;/span&gt;";
+	    
+	    echo "&lt;tr&gt;&lt;td&gt;{$a_str}&lt;/td&gt;&lt;td&gt;{$b_str}&lt;/td&gt;&lt;td&gt;{$res_str}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	
+	
+	?&gt;
+	</code></pre>
+	<a href="/sample/php/a020/compare0/compare0.php" class="btn btn-info">検証</a><br>
+	<br>
+	
+	<pre><code>
+	/**
+	 *	ゼロ比較
+	 *
+	 * @note
+	 * 比較用のカスタマイズ関数。
+	 * ただし、空の値の比較は0とそれ以外の空値（null,"",falseなど）で仕様が異なる。
+	 * 0とそれ以外の空値（null,"",falseなど）は不一致のみなす。
+	 * 0と'0'は一致と判定する。
+	 * null,'',falseのそれぞれの組み合わせは一致である。
+	 * bool型のtrueは数字の1と同じ扱い。（※通常、2や3でもtrueとするが、この関数では1だけがtrue扱い）
+	 * 1.0 , 1 , '1' など型が異なる数値を一致と判定する。
+	 *
+	 * @param $a_value
+	 * @param $b_value
+	 * @return bool false:不一致 , true:一致
+	 */
+	function _compare0($a_value,$b_value){
+	    if(empty($a_value) && empty($b_value)){
+	        if($a_value === 0 || $a_value === '0'){
+	            if($b_value === 0 || $b_value === '0'){
+	                return true;
+	            }else{
+	                return false;
+	            }
+	            
+	        }else{
+	            if($b_value === 0 || $b_value === '0'){
+	                return false;
+	            }else{
+	                return true;
+	            }
+	            
+	        }
+	        
+	    }else{
+	        
+	        if(gettype($a_value) == 'boolean'){
+	            if($a_value){
+	                $a_value = 1;
+	            }else{
+	                $a_value = 0;
+	            }
+	        }
+	        if(gettype($b_value) == 'boolean'){
+	            if($b_value){
+	                $b_value = 1;
+	            }else{
+	                $b_value = 0;
+	            }
+	        }
+	        
+	        
+	        if(is_numeric($a_value) && is_numeric($b_value)){
+	            if($a_value == $b_value) return true;
+	        }else{
+	            if($a_value === $b_value) return true;
+	            
+	        }
+	    }
+	    
+	    return false;
+	    
+	}
+	</code></pre>
+	
+	<br><time>2018-3-15</time>
+</div>
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
