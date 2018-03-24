@@ -104,6 +104,41 @@
 
 
 
+<div id="sec15-4" class="sec4">
+	<h3>DateTimePicker.jsの使い方</h3>
+	
+	<a href="https://xdsoft.net/jqplugins/datetimepicker/" target="brank">公式</a><br>
+	<a href="https://github.com/xdan/datetimepicker" target="brank">公式GitHub</a><br>
+	
+	<a href="/sample/js/a007/datetimepicker/datetimepicker.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;link href="jquery.datetimepicker.min.css" rel="stylesheet"&gt;
+	&lt;script src="/note_prg/js/jquery.js"&gt;&lt;/script&gt;
+	&lt;script src="jquery.datetimepicker.full.min.js"&gt;&lt;/script&gt;
+	～略～
+	&lt;input id="test_date" type="text" value="2012-12-12 12:12" /&gt;
+	</code></pre><br>
+	
+	<p>javascript</p>
+	<pre><code>
+	$(()=>{
+		$.datetimepicker.setLocale('ja');// 日本語化
+		$('#test_date').<strong>datetimepicker</strong>({
+			format:'Y-m-d H:i',
+		});
+	});
+	</code></pre><br>
+	
+	
+	<br><time>2018-3-24</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
