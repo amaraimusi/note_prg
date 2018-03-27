@@ -547,114 +547,146 @@
 	
 	<input type="button" value="ソースコード" class="btn btn-info" onclick="$('#sec14-11a1').toggle(300)"/>
 	<pre id="sec14-11a1" style="display:none"><code>
-	&lt;?php 
-	$data = [
-	    '2012-12-12 12:12:12',
-	    '2012/12/12 12:12:12',
-	    '20121212121212',
-	    '2012-3-10 1:15:1',
-	    '2012-1-1 1:1:1',
-	    '2012-1-1 1:1',
-	    '2012-1-1 1',
-	    '2012-1-1',
-	    '2012-1',
-	    '2012',
-	    '1-1',
-	    '12-12',
-	    '1:1:1',
-	    '12:12:12',
-	    '12:12',
-	    '12',
-	    '2012-32-12 12:12:12',
-	];
-	
-	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;文字列&lt;/th&gt;&lt;th&gt;抽出フォーマット&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
-	
-	foreach($data as $str){
-	    
-	    $format = getDateFormatFromString($str);
-	    echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$format}&lt;/td&gt;&lt;/tr&gt;";
-	}
-	
-	echo "&lt;/tbody&gt;&lt;/table&gt;";
-	
-	/**
-	 * 文字列から適切な日時のフォーマットを取得する
-	 * 
-	 * @param string $str 日付文字列
-	 * @return string フォーマット
-	 */
-	function <strong>getDateFormatFromString</strong>($str,$time＿priority=0){
-	
-	    if(preg_match('/^&yen;d+$/', $str)){
-	        
-	        $len = strlen($str);
-	        if($len == 14){
-	            return 'Y-m-d H:i:s';
-	        }else if($len == 8){
-	            return 'Y-m-d';
-	        }else if($len == 6){
-	            if($time＿priority == 0){
-	                return 'Y-m-d';
-	            }else{
-	                return 'H:i:s';
-	            }
-	            
-	        }else if($len == 4){
-	            if($time＿priority == 0){
-	                if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})/', $str)){
-	                    return 'Y';
-	                }else{
-	                    return 'm-d';
-	                }
-	            }else{
-	                return 'H:i';
-	            }
-	        }else if($len == 1 || $len == 2){
-	            if($time＿priority == 0){
-	                return 'd';
-	            }else{
-	                return 'h';
-	            }
-	        }
-	    }
-	    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $str)){
-	        return 'Y-m-d H:i:s';
-	    }
-	    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/', $str)){
-	        return 'Y-m-d H:i';
-	    }
-	    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2})/', $str)){
-	        return 'Y-m-d H';
-	    }
-	    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2})/', $str)){
-	        return 'Y-m-d';
-	    }
-	    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})/', $str)){
-	        return 'Y-m';
-	    }
-	    else if(preg_match('/^20&yen;d[2]/', $str)){
-	        return 'Y';
-	    }
-	    else if(preg_match('/([0-9]{1,2})(&yen;/|-)([0-9]{1,2})/', $str)){
-	        return 'm-d';
-	    }
-	    else if(preg_match('/([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $str)){
-	        return 'H:i:s';
-	    }
-	    else if(preg_match('/([0-9]{1,2}):([0-9]{1,2})/', $str)){
-	        return 'H:i';
-	    }
-	    return null;
-	}
-	
-	?&gt;
+&lt;?php 
+
+$data = [
+    '2012-12-12 12:12:12',
+    '2012/12/12 12:12:12',
+    '20121212121212',
+    '2012-3-10 1:15:1',
+    '2012-1-1 1:1:1',
+    '2012-1-1 1:1',
+    '2012-1-1 1',
+    '2012-1-1',
+    '2012-1',
+    '2012',
+    '1-1',
+    '12-12',
+    '1:1:1',
+    '12:12:12',
+    '12:12',
+    '12',
+    '2012-32-12 12:12:12',
+];
+
+echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;文字列&lt;/th&gt;&lt;th&gt;フォーマット&lt;/th&gt;&gt;&lt;th&gt;フォーマット（MySQL型）&lt;/th&gt;&gt;&lt;th&gt;フォーマット（時刻優先）&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+
+foreach($data as $str){
+    
+    $format = getDateFormatFromString($str);
+    $format2 = getDateFormatFromString($str,['mysql_format_flg'=&gt;1]);
+    $format3 = getDateFormatFromString($str,['time＿priority'=&gt;1]);
+    echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$format}&lt;/td&gt;&lt;td&gt;{$format2}&lt;/td&gt;&lt;td&gt;{$format3}&lt;/td&gt;&lt;/tr&gt;";
+}
+
+echo "&lt;/tbody&gt;&lt;/table&gt;";
+
+/**
+ * 文字列から適切な日時のフォーマットを取得する
+ * 
+ * @param string $str 日付文字列
+ * @param $format =  string フォーマット
+ * @param $option
+ *  - time＿priority 時刻優先フラグ    0:日付フォーマットを優先取得 , 1:時刻フォーマットを優先取得
+ *  - mysql_format_flg MySQLフォーマットフラグ 0:PHP型の日時フォーマット , 1:MySQL型の日時フォーマット
+ */
+function <strong>getDateFormatFromString</strong>($str,$option=array()){
+    
+    
+    $time＿priority = 0;
+    if(!empty($option['time＿priority'])) $time＿priority = $option['time＿priority'];
+    
+    $mysql_format_flg = 0;
+    if(!empty($option['mysql_format_flg'])) $mysql_format_flg = $option['mysql_format_flg'];
+    
+
+    $format = '';
+    
+    if(preg_match('/^&yen;d+$/', $str)){
+        
+        $len = strlen($str);
+        if($len == 14){
+            $format =  'Y-m-d H:i:s';
+        }else if($len == 8){
+            $format =  'Y-m-d';
+        }else if($len == 6){
+            if($time＿priority == 0){
+                $format =  'Y-m-d';
+            }else{
+                $format =  'H:i:s';
+            }
+            
+        }else if($len == 4){
+            if($time＿priority == 0){
+                if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})/', $str)){
+                    $format =  'Y';
+                }else{
+                    $format =  'm-d';
+                }
+            }else{
+                $format =  'H:i';
+            }
+        }else if($len == 1 || $len == 2){
+            if($time＿priority == 0){
+                $format =  'd';
+            }else{
+                $format =  'h';
+            }
+        }
+    }
+    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $str)){
+        $format =  'Y-m-d H:i:s';
+    }
+    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/', $str)){
+        $format =  'Y-m-d H:i';
+    }
+    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2}) ([0-9]{1,2})/', $str)){
+        $format =  'Y-m-d H';
+    }
+    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})(&yen;/|-)([0-9]{1,2})/', $str)){
+        $format =  'Y-m-d';
+    }
+    else if(preg_match('/^20&yen;d[2](&yen;/|-)([0-9]{1,2})/', $str)){
+        $format =  'Y-m';
+    }
+    else if(preg_match('/^20&yen;d[2]/', $str)){
+        $format =  'Y';
+    }
+    else if(preg_match('/([0-9]{1,2})(&yen;/|-)([0-9]{1,2})/', $str)){
+        $format =  'm-d';
+    }
+    else if(preg_match('/([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $str)){
+        $format =  'H:i:s';
+    }
+    else if(preg_match('/([0-9]{1,2}):([0-9]{1,2})/', $str)){
+        $format =  'H:i';
+    }
+    
+    
+    if(!empty($mysql_format_flg)){
+        $format2='';
+        $ary = str_split($format);
+        for($i=0;$i&lt;count($ary);$i++){
+            if($i % 2==0){
+                $format2 .= '%' . $ary[$i];
+            }else{
+                $format2 .= $ary[$i];
+            }
+        }
+        $format = $format2;
+    }
+    
+    return $format;
+    
+}
+
+?&gt;
 
 	</code></pre>
 	
 	<p>出力結果</p>
-	<table class='tbl2'><thead><tr><th>文字列</th><th>抽出フォーマット</th></tr></thead><tbody><tr><td>2012-12-12 12:12:12</td><td>Y-m-d H:i:s</td></tr><tr><td>2012/12/12 12:12:12</td><td>Y-m-d H:i:s</td></tr><tr><td>20121212121212</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-3-10 1:15:1</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-1-1 1:1:1</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-1-1 1:1</td><td>Y-m-d H:i</td></tr><tr><td>2012-1-1 1</td><td>Y-m-d H</td></tr><tr><td>2012-1-1</td><td>Y-m-d</td></tr><tr><td>2012-1</td><td>Y-m</td></tr><tr><td>2012</td><td>m-d</td></tr><tr><td>1-1</td><td>m-d</td></tr><tr><td>12-12</td><td>m-d</td></tr><tr><td>1:1:1</td><td>H:i:s</td></tr><tr><td>12:12:12</td><td>H:i:s</td></tr><tr><td>12:12</td><td>H:i</td></tr><tr><td>12</td><td>d</td></tr><tr><td>2012-32-12 12:12:12</td><td>Y-m-d H:i:s</td></tr></tbody></table>
-	
+	<table class='tbl2'><thead><tr><th>文字列</th><th>フォーマット</th>><th>フォーマット（MySQL型）</th>><th>フォーマット（時刻優先）</th></tr></thead><tbody><tr><td>2012-12-12 12:12:12</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr><tr><td>2012/12/12 12:12:12</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr><tr><td>20121212121212</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-3-10 1:15:1</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-1-1 1:1:1</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr><tr><td>2012-1-1 1:1</td><td>Y-m-d H:i</td><td>%Y-%m-%d %H:%i</td><td>Y-m-d H:i</td></tr><tr><td>2012-1-1 1</td><td>Y-m-d H</td><td>%Y-%m-%d %H</td><td>Y-m-d H</td></tr><tr><td>2012-1-1</td><td>Y-m-d</td><td>%Y-%m-%d</td><td>Y-m-d</td></tr><tr><td>2012-1</td><td>Y-m</td><td>%Y-%m</td><td>Y-m</td></tr><tr><td>2012</td><td>m-d</td><td>%m-%d</td><td>H:i</td></tr><tr><td>1-1</td><td>m-d</td><td>%m-%d</td><td>m-d</td></tr><tr><td>12-12</td><td>m-d</td><td>%m-%d</td><td>m-d</td></tr><tr><td>1:1:1</td><td>H:i:s</td><td>%H:%i:%s</td><td>H:i:s</td></tr><tr><td>12:12:12</td><td>H:i:s</td><td>%H:%i:%s</td><td>H:i:s</td></tr><tr><td>12:12</td><td>H:i</td><td>%H:%i</td><td>H:i</td></tr><tr><td>12</td><td>d</td><td>%d</td><td>h</td></tr><tr><td>2012-32-12 12:12:12</td><td>Y-m-d H:i:s</td><td>%Y-%m-%d %H:%i:%s</td><td>Y-m-d H:i:s</td></tr></tbody></table>
+
 	
 	<br><time>2018-3-25</time>
 </div>
