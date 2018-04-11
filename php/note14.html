@@ -543,6 +543,132 @@
 
 
 
+<div id="sec14-9" class="sec4">
+	<h3>パスやURLのセパレータをそろえる</h3>
+	
+	<input type="button" value="サンプルソース" class="btn btn-info" onclick="jQuery('#sec14-9a1').toggle();"/>
+	<div id="sec14-9a1" style="display:none">
+	<pre><code>
+	&lt;?php 
+	
+	$data = array(
+			'animals/cat/kuro-neko.html',
+			'animals/cat/kuro-neko/',
+			'animals/cat/kuro-neko',
+			'/animals/cat\kuro-neko',
+			'animals\cat\kuro-neko.html',
+			'animals\cat\kuro-neko/',
+			'animals\cat\kuro-neko',
+			'\animals\cat/kuro-neko',
+			'tanuki',
+			'',
+	);
+	
+	
+	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;元文字列&lt;/th&gt;&lt;th&gt;標準&lt;/th&gt;&lt;th&gt;スラッシュ&lt;/th&gt;&lt;th&gt;前後&lt;/th&gt;&lt;th&gt;前後無視&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	
+	foreach($data as $str){
+		
+		$str1 = separateAlign($str);
+		$str2 = separateAlign($str,'/');
+		$str3 = separateAlign($str,null,1,1);
+		$str4 = separateAlign($str,null,-1,-1);
+		echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$str1}&lt;/td&gt;&lt;td&gt;{$str2}&lt;/td&gt;&lt;td&gt;{$str3}&lt;/td&gt;&lt;td&gt;{$str4}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	echo "&lt;/tbody&gt;&lt;/table&gt;";
+	
+	/**
+	 * パスやURLのセパレータをそろえる
+	 * @param string $path パス文字列    パスやURLなどの文字列
+	 * @param string $separator セパレータ文字     未設定である場合は、自動
+	 * @param int $head_sep 先頭セパレータフラグ    0(デフォ):そのまま , -1:先頭セパレータを除去 , 1:先頭セパレータを付加
+	 * @param int $end_sep 末尾セパレータフラグ    0(デフォ):そのまま , -1:末尾セパレータを除去 , 1:末尾セパレータを付加
+	 * @return string セパレータをそろえた文字列
+	 */
+	function separateAlign($path,$separator=null,$head_sep=0,$end_sep=0){
+		
+		if(empty($path)) return $path;
+		
+		// セパレータが未設定である場合、パス文字列から自動判定する。
+		if(empty($separator)){
+			$a = strpos($path,'/');
+			$b = strpos($path,"\\");
+			if($a !==false && $b === false){
+				$separator = '/';
+			}elseif($a === false && $b !== false){
+				$separator = "\\";
+			}elseif($a === false &&  $a === false){
+				$separator = DIRECTORY_SEPARATOR;
+			}else{
+				if($a &lt; $b){
+					$separator = '/';
+				}else{
+					$separator = "\\";
+				}
+			}
+		}
+		
+		// セパレータをそろえる
+		if($separator == '/'){
+			$path = str_replace("\\", $separator, $path);
+		}else{
+			$path = str_replace('/', $separator, $path);
+		}
+	
+		// 先頭セパレータフラグが1である場合、パス文字列の先頭にセパレータがなければ付加する
+		if($head_sep == 1){
+			$head_str = substr($path,0,1);// 先頭の一文字を取得
+			if($head_str != $separator){
+				$path = $separator . $path;
+			}
+		}
+		
+		// 先頭セパレータフラグが-1である場合、パス文字列の先頭にセパレータであれば除去する
+		if($head_sep == -1){
+			$head_str = substr($path,0,1);// 先頭の一文字を取得
+			if($head_str == $separator){
+				$path = substr($path,1); // 先頭の一文字を削る
+			}
+		}
+		
+		// 末尾セパレータフラグが1である場合、パス文字列の末尾にセパレータがなければ付加する
+		if($end_sep == 1){
+			$end_str = substr($path,-1); // 末尾の一文字を取得
+			if($end_str != $separator){
+				$path = $path . $separator;
+			}
+		}
+		
+		// 末尾セパレータフラグが-1である場合、パス文字列の末尾にセパレータであれば除去する
+		if($end_sep == -1){
+			$end_str = substr($path,-1); // 末尾の一文字を取得
+			if($end_str == $separator){
+				$path = substr($path,0,strlen($path) - 1);// 末尾の一文字を削る
+			}
+		}
+		
+		return $path;
+		
+	}
+	?&gt;
+	</code></pre>
+	<p>出力</p>
+	<table class='tbl2'><thead><tr><th>元文字列</th><th>標準</th><th>スラッシュ</th><th>前後</th><th>前後無視</th></tr></thead><tbody><tr><td>animals/cat/kuro-neko.html</td><td>animals/cat/kuro-neko.html</td><td>animals/cat/kuro-neko.html</td><td>/animals/cat/kuro-neko.html/</td><td>animals/cat/kuro-neko.html</td></tr><tr><td>animals/cat/kuro-neko/</td><td>animals/cat/kuro-neko/</td><td>animals/cat/kuro-neko/</td><td>/animals/cat/kuro-neko/</td><td>animals/cat/kuro-neko</td></tr><tr><td>animals/cat/kuro-neko</td><td>animals/cat/kuro-neko</td><td>animals/cat/kuro-neko</td><td>/animals/cat/kuro-neko/</td><td>animals/cat/kuro-neko</td></tr><tr><td>/animals/cat\kuro-neko</td><td>/animals/cat/kuro-neko</td><td>/animals/cat/kuro-neko</td><td>/animals/cat/kuro-neko/</td><td>animals/cat/kuro-neko</td></tr><tr><td>animals\cat\kuro-neko.html</td><td>animals\cat\kuro-neko.html</td><td>animals/cat/kuro-neko.html</td><td>\animals\cat\kuro-neko.html\</td><td>animals\cat\kuro-neko.html</td></tr><tr><td>animals\cat\kuro-neko/</td><td>animals\cat\kuro-neko\</td><td>animals/cat/kuro-neko/</td><td>\animals\cat\kuro-neko\</td><td>animals\cat\kuro-neko</td></tr><tr><td>animals\cat\kuro-neko</td><td>animals\cat\kuro-neko</td><td>animals/cat/kuro-neko</td><td>\animals\cat\kuro-neko\</td><td>animals\cat\kuro-neko</td></tr><tr><td>\animals\cat/kuro-neko</td><td>\animals\cat\kuro-neko</td><td>/animals/cat/kuro-neko</td><td>\animals\cat\kuro-neko\</td><td>animals\cat\kuro-neko</td></tr><tr><td>tanuki</td><td>tanuki</td><td>tanuki</td><td>\tanuki\</td><td>tanuki</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+	</div>
+	
+	<a href="/sample/php/a030/separate_align/separate_align.php" class="btn btn-info">デモ</a><br>
+	
+	<br><time>2018-4-11</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
