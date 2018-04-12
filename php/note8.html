@@ -399,6 +399,51 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec8-8-2" class="sec1" >
+	<h3>改行コードを統一する</h3>
+
+	<pre><code>
+	&lt;?php 
+	$str = "い\nろ \r\nは\rにほ\r\n";
+	
+	echo json_encode($str) . '&lt;br&gt;';
+	$str1 = alignLineFeedCodes($str);
+	$str2 = alignLineFeedCodes($str,"\r\n");
+	$str3 = alignLineFeedCodes($str,"\r");
+	
+	echo json_encode($str1) . '&lt;br&gt;';
+	echo json_encode($str2) . '&lt;br&gt;';
+	echo json_encode($str3) . '&lt;br&gt;';
+	
+	/**
+	 * 改行コードを統一する
+	 * @param string $str 改行コードを含む文字列
+	 * @param string $code 統一する改行コード
+	 * @return string 改行コードを統一した文字列
+	 */
+	function <strong>alignLineFeedCodes</strong>($str,$code="\n"){
+		return preg_replace("/\r\n|\r|\n/", $code, $str);
+	}
+	
+	?&gt;
+	</code></pre>
+
+	
+	<time>2018-4-12</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec8-9" class="sec1" >
 	<h3>配列から空白を除去</h3>
 	
