@@ -419,6 +419,85 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec2-10" class="sec4">
+	<h3>検索する文字を含む行を取得する</h3>
+	
+	<pre><code>
+	&lt;?php 
+	$text = "猫いろはにほへと\nちりノライヌぬるを\n馬わかよたれそつねならむ馬\nうゐのおく馬やまけふこえて\nあさきゆめみしゑひもせすん牛";
+	
+	$data = array('猫','ノライヌ','馬','牛','UMA');
+	
+	echo '&lt;pre&gt;' . $text . '&lt;/pre&gt;';
+	echo '&lt;p&gt;出力&lt;/p&gt;';
+	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;検索文字&lt;/th&gt;&lt;th&gt;offset(先頭)&lt;/th&gt;&lt;th&gt;offset(末尾)&lt;/th&gt;&lt;th&gt;取得行&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	
+	foreach($data as $str){
+		$info = getRowContainSearchStr($str,$text);
+		$offset1 = $info['offset1'];
+		$offset2 = $info['offset2'];
+		$row_str = $info['row_str'];
+		echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$offset1}&lt;/td&gt;&lt;td&gt;{$offset2}&lt;/td&gt;&lt;td&gt;{$row_str}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	
+	echo "&lt;/tbody&gt;&lt;/table&gt;";
+	
+	/**
+	 * 検索する文字を含む行を取得する
+	 * 
+	 * @note
+	 * 検索する文字を含む改行コードにはさまれた文字列を取得する
+	 * 
+	 * @param string $search 検索文字
+	 * @param string $subject 対象文字列
+	 * @param int $offset 検索開始位置
+	 * @param int $mode モード  0:行文字列のみ取得 , 1:行文字列や位置情報も取得する
+	 * @param string $nl_code 改行コード
+	 * @return string 検索文字を含む行
+	 */
+	function <strong>getRowContainSearchStr</strong>($search,$subject,$offset=0,$mode=0,$nl_code="\n"){
+		$len = mb_strlen($subject);
+		$a1 = mb_strpos($subject,$search,$offset);
+		if($a1 === false){
+			return array(
+					'offset1' =&gt; null,
+					'offset2' =&gt; null,
+					'row_str' =&gt; null,
+			);
+		}
+		$offset2 = mb_strpos($subject,$nl_code,$a1);
+		if($offset2 === false) $offset2 = $len;
+		$a2 = $offset2 - $len -1;
+		$offset1 = mb_strripos($subject,$nl_code,$a2);
+		if($offset1 === false) $offset1 = 0;
+		$row_str = mb_substr($subject,$offset1,$offset2 - $offset1);
+		
+		return array(
+				'offset1' =&gt; $offset1,
+				'offset2' =&gt; $offset2,
+				'row_str' =&gt; $row_str,
+		);
+	}
+	
+	?&gt;
+	</code></pre>
+	<p>出力</p>
+	<table class='tbl2'><thead><tr><th>検索文字</th><th>offset(先頭)</th><th>offset(末尾)</th><th>取得行</th></tr></thead><tbody><tr><td>猫</td><td>0</td><td>8</td><td>猫いろはにほへと</td></tr><tr><td>ノライヌ</td><td>8</td><td>18</td><td>
+ちりノライヌぬるを</td></tr><tr><td>馬</td><td>18</td><td>32</td><td>
+馬わかよたれそつねならむ馬</td></tr><tr><td>牛</td><td>46</td><td>61</td><td>
+あさきゆめみしゑひもせすん牛</td></tr><tr><td>UMA</td><td></td><td></td><td></td></tr></tbody></table>
+	
+	<br><time>2018-4-13</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
