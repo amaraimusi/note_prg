@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPの覚書：文字列操作</title>
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/PanelX.js"></script>
+	<script src="/note_prg/js/img_panel_x.js"></script>
+
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書：文字列操作</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec3-1" class="sec4">
+	<h3>文字列から連続する数値部分を抽出する（複数一致に対応）</h3>
+	
+	<pre><code>
+	&lt;?php 
+	$data = array(
+			'abcde',
+			'abc1',
+			'abc12',
+			'abc1234',
+			'あいう1234',
+			'あいう8765neko5678x',
+			'abc1234def',
+			'1234def',
+			'abc123456789',
+			'',
+	);
+	
+	echo '&lt;p&gt;出力&lt;/p&gt;';
+	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;対象文字列&lt;/th&gt;&lt;th&gt;抽出した数字列&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	
+	foreach($data as $str){
+		$nums = extractNumber($str);
+		$num_str='';
+		foreach($nums as $num) $num_str .= $num . '&lt;br&gt;';
+		echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$num_str}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	
+	echo "&lt;/tbody&gt;&lt;/table&gt;";
+	
+	/**
+	 * 文字列から連続する数字列を抽出する
+	 * 
+	 * @note
+	 * マッチする数字列すべてを数字列リスト（配列）で返す。
+	 * マッチする数字列が存在しない場合、空配列を返す。
+	 * 
+	 * @param string $str 対象文字列
+	 * @param number $min_digit 最小桁数
+	 * @param number $max_digit 最大桁数
+	 * @return array 数字列リスト    
+	 */
+	function <strong>extractNumber</strong>($subject,$min_digit=2,$max_digit=8){
+	
+	 	$pattern = '/\d{' . $min_digit . ',' . $max_digit . '}/';
+		preg_match_all ($pattern, $subject, $matches);
+		if(!empty($matches)){
+			return $matches[0];
+		}else{
+			return array();
+		}
+	
+	}
+	?&gt;
+	</code></pre>
+	
+	<p>出力</p>
+	<table class='tbl2'><thead><tr><th>対象文字列</th><th>抽出した数字列</th></tr></thead><tbody><tr><td>abcde</td><td></td></tr><tr><td>abc1</td><td></td></tr><tr><td>abc12</td><td>12<br></td></tr><tr><td>abc1234</td><td>1234<br></td></tr><tr><td>あいう1234</td><td>1234<br></td></tr><tr><td>あいう8765neko5678x</td><td>8765<br>5678<br></td></tr><tr><td>abc1234def</td><td>1234<br></td></tr><tr><td>1234def</td><td>1234<br></td></tr><tr><td>abc123456789</td><td>12345678<br></td></tr><tr><td></td><td></td></tr></tbody></table>
+
+
+	
+
+
+	<br><time>2018-4-13</time>
+</div>
+
+
+
+
+
+<div id="sec3-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+	<li>PHPの覚書：文字列操作</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-4-13</div>
+</body>
+</html>
