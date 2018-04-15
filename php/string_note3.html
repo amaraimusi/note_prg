@@ -89,11 +89,76 @@
 	<p>出力</p>
 	<table class='tbl2'><thead><tr><th>対象文字列</th><th>抽出した数字列</th></tr></thead><tbody><tr><td>abcde</td><td></td></tr><tr><td>abc1</td><td></td></tr><tr><td>abc12</td><td>12<br></td></tr><tr><td>abc1234</td><td>1234<br></td></tr><tr><td>あいう1234</td><td>1234<br></td></tr><tr><td>あいう8765neko5678x</td><td>8765<br>5678<br></td></tr><tr><td>abc1234def</td><td>1234<br></td></tr><tr><td>1234def</td><td>1234<br></td></tr><tr><td>abc123456789</td><td>12345678<br></td></tr><tr><td></td><td></td></tr></tbody></table>
 
-
-	
-
-
 	<br><time>2018-4-13</time>
+</div>
+
+
+
+
+
+<div id="sec3-2" class="sec4">
+	<h3>位置指定して文字列の一部を置換する（マルチバイトに対応 mb_substr_replace）</h3>
+	
+	<a href="https://gist.github.com/JBlond/942f17f629f22e810fe3" target="blank">公式 Github</a><br>
+	<br>
+	
+	<pre><code>
+	&lt;?php 
+	$str = "赤いたぬきです。";
+	$str1 = mb_substr_replace($str, 'ネコ', 2,3);
+	
+	echo $str . '&lt;br&gt;';
+	echo $str1 . '&lt;br&gt;';
+	
+	
+	
+	/**
+	 * @param mixed $string The input string.
+	 * @param mixed $replacement The replacement string.
+	 * @param mixed $start If start is positive, the replacing will begin at the start'th offset into string.  If start is negative, the replacing will begin at the start'th character from the end of string.
+	 * @param mixed $length If given and is positive, it represents the length of the portion of string which is to be replaced. If it is negative, it represents the number of characters from the end of string at which to stop replacing. If it is not given, then it will default to strlen( string ); i.e. end the replacing at the end of string. Of course, if length is zero then this function will have the effect of inserting replacement into string at the given start offset.
+	 * @return string The result string is returned. If string is an array then array is returned.
+	 */
+	function mb_substr_replace($string, $replacement, $start, $length=NULL) {
+		if (is_array($string)) {
+			$num = count($string);
+			// $replacement
+			$replacement = is_array($replacement) ? array_slice($replacement, 0, $num) : array_pad(array($replacement), $num, $replacement);
+			// $start
+			if (is_array($start)) {
+				$start = array_slice($start, 0, $num);
+				foreach ($start as $key =&gt; $value)
+					$start[$key] = is_int($value) ? $value : 0;
+			}
+			else {
+				$start = array_pad(array($start), $num, $start);
+			}
+			// $length
+			if (!isset($length)) {
+				$length = array_fill(0, $num, 0);
+			}
+			elseif (is_array($length)) {
+				$length = array_slice($length, 0, $num);
+				foreach ($length as $key =&gt; $value)
+					$length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
+			}
+			else {
+				$length = array_pad(array($length), $num, $length);
+			}
+			// Recursive call
+			return array_map(__FUNCTION__, $string, $replacement, $start, $length);
+		}
+		preg_match_all('/./us', (string)$string, $smatches);
+		preg_match_all('/./us', (string)$replacement, $rmatches);
+		if ($length === NULL) $length = mb_strlen($string);
+		array_splice($smatches[0], $start, $length, $rmatches[0]);
+		return join($smatches[0]);
+	}
+	?&gt;
+	</code></pre>
+
+
+	<br><time>2018-4-15</time>
 </div>
 
 
