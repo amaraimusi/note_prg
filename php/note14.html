@@ -669,6 +669,585 @@
 
 
 
+<div id="sec14-10" class="sec4">
+	<h3>ツリー構造データ関連クラス</h3>
+	
+	サンプル
+	<pre><code>
+	&lt;?php 
+	$data = [
+			['id'=&gt;1,'name'=&gt;'ネコ','par_id'=&gt;6],
+			['id'=&gt;2,'name'=&gt;'生物','par_id'=&gt;0],
+			['id'=&gt;3,'name'=&gt;'動物','par_id'=&gt;2],
+			['id'=&gt;4,'name'=&gt;'脊椎動物','par_id'=&gt;3],
+			['id'=&gt;5,'name'=&gt;'無脊椎動物','par_id'=&gt;3],
+			['id'=&gt;6,'name'=&gt;'哺乳類','par_id'=&gt;4],
+			['id'=&gt;7,'name'=&gt;'爬虫類','par_id'=&gt;4],
+			['id'=&gt;8,'name'=&gt;'魚類','par_id'=&gt;4],
+			['id'=&gt;9,'name'=&gt;'昆虫','par_id'=&gt;4],
+			['id'=&gt;10,'name'=&gt;'ムカデ','par_id'=&gt;5],
+			['id'=&gt;11,'name'=&gt;'カマキリ','par_id'=&gt;9],
+			['id'=&gt;12,'name'=&gt;'UMA','par_id'=&gt;2],
+			['id'=&gt;13,'name'=&gt;'カッパ','par_id'=&gt;12],
+			['id'=&gt;14,'name'=&gt;'ライオン','par_id'=&gt;6],
+			['id'=&gt;15,'name'=&gt;'イグアナ','par_id'=&gt;7],
+			['id'=&gt;16,'name'=&gt;'植物','par_id'=&gt;2],
+			['id'=&gt;17,'name'=&gt;'ダイコン','par_id'=&gt;16],
+			['id'=&gt;18,'name'=&gt;'キャベツ','par_id'=&gt;16],
+			['id'=&gt;19,'name'=&gt;'テラピア','par_id'=&gt;8],
+			['id'=&gt;20,'name'=&gt;'ガーラ','par_id'=&gt;8],
+			['id'=&gt;21,'name'=&gt;'カブトムシ','par_id'=&gt;9],
+			['id'=&gt;22,'name'=&gt;'タイワンカブト','par_id'=&gt;21],
+			['id'=&gt;23,'name'=&gt;'ヘラクレス','par_id'=&gt;21],
+			['id'=&gt;24,'name'=&gt;'ブタ','par_id'=&gt;6],
+	];
+	
+	require_once 'TreeStructureData.php';
+	$treeStructureData = new TreeStructureData();
+	
+	$option = array(
+			'res_structure'=&gt;4,
+			'sort_field'=&gt;'name',
+			'html_tbl_class' =&gt; 'tbl2',
+			'html_tbl_fields' =&gt; array('id','name'),
+	);
+	// 子ノードリストをセットする
+	$data = $treeStructureData-&gt;tree($data,$option);
+	
+	if(is_array($data)){
+		debug($data);
+	}else{
+		echo $data;
+		
+	}
+
+	</code></pre><br><br>
+	
+	<input type="button" value="TreeStructureData.php" onclick="jQuery('#sec14-10a1').toggle(300)" class="btn btn-info" /> ツリー構造データ関連クラス<br>
+	
+	<pre id="sec14-10a1" style="display:none"><code>
+&lt;?php
+
+/**
+ * ツリー構造データ関連クラス
+ * 
+ * @note
+ * 2次元型のツリー構造データに対応。
+ * 2次元型のツリー構造データは親ID型を持つエンティティの配列である。
+ * 
+ * @author kenji uehara
+ * @date 2018-4-17
+ * @version 1.0
+ *
+ */
+class TreeStructureData{
+	
+	
+	/**
+	 * ツリー変換
+	 * 
+	 * @note
+	 * 2次元ツリー構造データにツリー構造に関連したプロパティである子ノードリスト、世代（オフセットX）、オフセットY,兄弟番号
+	 * などをセットする。オプションのレスポンスデータタイプにレスポンスのデータ構造を選べる。
+	 * 
+	 * @param array $data 2次元ツリー構造データ	親IDを含むデータ
+	 * @param array $option オプション
+	 *  - res_structure    レスポンスデータタイプ     デフォ→0   
+	 *     0:（エンティティ配列型 デフォ） , 
+	 *     1:キーがidの構造 , 
+	 *     2:ツリー構造 ,
+	 *     3:2次元マップ構造
+	 *  - sort_field    子ノードソートフィールド     デフォ→空   子ノードをソートするフィールド。    空ならソートしない。（デフォ）
+	 *  - sort_order    子ノードソート向き     デフォ→0   0:昇順 （デフォ）, 1:降順
+	 *  - id_field    IDのフィールド名     デフォ→id   
+	 *  - par_id_field    親IDのフィールド名     デフォ→par_id   
+	 *  - child_ids_field    子ノードIDリストのフィールド名     デフォ→child_ids   
+	 *  - child_nodes_field    子ノードリストのフィールド名     デフォ→child_nodes   
+	 *  - bros_no_field    兄弟番号のフィールド名     デフォ→bros_no   
+	 *  - gene_no_field    世代のフィールド名     デフォ→gene_no   
+	 *  - offset_x_field    オフセットXのフィールド名     デフォ→offset_x   
+	 *  - offset_y_field    オフセットYのフィールド名     デフォ→offset_y  
+	 *  - html_tbl_class    htmlテーブルのclass属性     デフォ→空
+	 *  - html_tbl_fields    htmlテーブルの表示フィールド(配列指定可能）     デフォ→id
+	 */
+	public function tree(&$data,$option = array()){
+
+		if(empty($data)) return $data;
+		
+		// オプションの初期化
+		$option = $this-&gt;initOption($option);
+		$res_structure = $option['res_structure']; // レスポンスデータタイプ
+		
+		// 子ノードリストをセットする
+		$data = $this-&gt;setChilds($data,$option);
+		
+		// キーid構造に変換する
+		$datax = $this-&gt;convStructKeyId($data,$option);
+		
+		// 世代（オフセットX）、オフセットY、兄弟番号をセットする。
+		$datax = $this-&gt;setOffsetsX($datax,$option);
+
+		switch ($res_structure){
+			case 0:
+				// キーID構造からエンティティ配列構造に戻す
+				$data = $this-&gt;convToStructNormal($datax);
+				return $data;
+				
+			case 1:
+				return $datax;
+			case 2:
+				$treeData = $this-&gt;convToStructTreeX($datax,$option); // ツリー構造データに変換する
+				return $treeData;
+			case 3:
+				
+				$map = $this-&gt;convToMap($datax,$option);// 2次元マップに変換する
+				return $map;
+			case 4:
+
+				$map = $this-&gt;convToMap($datax,$option);// 2次元マップに変換する
+				$html = $this-&gt;createHtmlTbl($map,$option); // 2次元マップからHTMLテーブルのソースコードを作成
+				return $html;
+		}
+		
+		return $datax;
+	}
+	
+	
+	/**
+	 * オプションの初期化
+	 * @param array $option オプション
+	 * @return array 初期化後のオプション
+	 */
+	private function initOption($option){
+		if(empty($option)) $option =array();
+		
+		if(empty($option['res_structure'])) $option['res_structure'] = 0;  // レスポンスデータタイプ
+		if(empty($option['sort_field'])) $option['sort_field'] = '';  // 子ノードソートフィールド
+		if(empty($option['sort_order'])) $option['sort_order'] = 0;  // 子ノードソート向き
+		if(empty($option['id_field'])) $option['id_field'] = 'id';  // IDのフィールド名
+		if(empty($option['par_id_field'])) $option['par_id_field'] = 'par_id';  // 親IDのフィールド名
+		if(empty($option['child_ids_field'])) $option['child_ids_field'] = 'childIds';  // 子ノードIDリストのフィールド名
+		if(empty($option['child_nodes_field'])) $option['child_nodes_field'] = 'childNodes';  // 子ノードリストのフィールド名
+		if(empty($option['bros_no_field'])) $option['bros_no_field'] = 'bros_no';  // 兄弟番号のフィールド名
+		if(empty($option['gene_no_field'])) $option['gene_no_field'] = 'gene_no';  // 世代のフィールド名
+		if(empty($option['offset_x_field'])) $option['offset_x_field'] = 'offset_x';  // オフセットXのフィールド名
+		if(empty($option['offset_y_field'])) $option['offset_y_field'] = 'offset_y';  // オフセットYのフィールド名
+		if(empty($option['html_tbl_class'])) $option['html_tbl_class'] = '';  // htmlテーブルのclass属性
+		if(empty($option['html_tbl_fields'])) $option['html_tbl_fields'] = 'id';  // htmlテーブルの表示フィールド
+		
+		
+		return $option;
+	}
+	
+	
+	/**
+	 * 子ノードリストをセットする
+	 *
+	 * @note
+	 * 2次元型のツリー構造データに対応。（親ID型）
+	 *
+	 * @param array $data 2次元ツリー構造データ	親IDを含むデータ
+	 * @param array $option オプション
+	 *  - sort_field 子ノードをソートするフィールド。    空ならソートしない。（デフォ）
+	 *  - sort_order 子ノードのソート方向   0:昇順 （デフォ）, 1:降順
+	 *  - id_field IDフィールド名
+	 *  - par_id_field 親IDフィールド名
+	 *  - child_ids_field 子ノードフィールド名
+	 * @return array 子ノードリストをセットした2次元ツリー構造データ
+	 */
+	private function setChilds(&$data,$option=array('sort_field'=&gt;'name')){
+
+		$sort_field = $option['sort_field']; // 子ノードソートフィールド
+		$sort_order = $option['sort_order']; // 子ノードソート向き
+		$id_field = $option['id_field']; // IDのフィールド名
+		$par_id_field = $option['par_id_field']; // 親IDのフィールド名
+		$child_ids_field = $option['child_ids_field']; // 子ノードIDリストのフィールド名
+
+		
+		// ソートフラグ
+		$sort_flg = 0;
+		if(!empty($sort_field)) $sort_flg=1;
+		
+		// 各ノードごとに子ノードのIDを検索し、子ノートリストとしてセットする。
+		$tmps=array();
+		foreach($data as &$ent){
+			$childs = array();
+			$par_id1 = $ent[$id_field];
+			foreach($data as &$ent2){
+				
+				// 子ノードである場合
+				if($par_id1 == $ent2[$par_id_field]){
+					// ソートフラグがOFFなら、そのまま子ノードのIDを子ノードリストに追加する。
+					if($sort_flg==0){
+						$childs[] = $ent2[$id_field];
+					}
+					
+					// ソートフラグがONなら、一時的データに格納する。
+					else{
+						$tmps[] = array(
+								$id_field =&gt; $ent2[$id_field],
+								$sort_field =&gt; $ent2[$sort_field],
+						);
+					}
+				}
+			}
+			unset($ent2);
+			
+			// ソートフラグがONなら、一時的データをソートフィールドで並べ替えてからIDを子ノードリストにセットする。
+			if($sort_flg == 1){
+				$tmps = $this-&gt;sortData($tmps,$sort_field,$sort_order);
+				foreach($tmps as $tmpEnt){
+					$childs[] = $tmpEnt[$id_field];
+				}
+				$tmps=array(); // 一時的データをクリア
+			}
+			
+			$ent[$child_ids_field] = $childs;
+			
+		}
+		unset($ent);
+		
+		return $data;
+	}
+	
+	
+	/**
+	 * 特定のフィールドでデータを並べ替える
+	 * @param array $data データ（2次元配列）
+	 * @param string $sortField 並べ替えフィールド名
+	 * @param int $orderFlg 0:昇順  , 1:降順
+	 */
+	private function sortData($data,$sortField,$orderFlg){
+		$sfList=array();// ソートフィールドリスト
+		foreach($data as $key=&gt; $ent){
+			$sfList[$key]=$ent[$sortField];
+		}
+		
+		$sortFlg = SORT_ASC;
+		if(!empty($orderFlg)){
+			$sortFlg = SORT_DESC;
+		}
+		
+		array_multisort($sfList,$sortFlg,$data);
+		
+		return $data;
+	}
+	
+	
+	
+	/**
+	 * キーid構造に変換する
+	 * 
+	 * @param array $data エンティティ配列構造のデータ
+	 * @param array $option 
+	 *  - id_field IDフィールド名
+	 * @return array キーid構造に変換したデータ 
+	 */
+	private function convStructKeyId(&$data,$option){
+		
+		$id_field = $option['id_field'];
+
+		$datax = array();
+		foreach($data as $ent){
+			$id = $ent[$id_field];
+			$datax[$id] = $ent;
+		}
+		
+		return $datax;
+	}
+	
+	
+	/**
+	 * 世代（オフセットX）、オフセットY、兄弟番号をセットする。
+	 * 
+	 * @note
+	 * 先にsetChilds関数で子ノードリストをデータにセットしておくこと。
+	 * 
+	 * @param array $datax キーid構造データ
+	 * @param array $option オプション
+	 * @return array セット後のキーid構造データ
+	 */
+	private function setOffsetsX(&$datax,&$option){
+		
+		$par_id_field = $option['par_id_field']; // 親IDフィールド
+
+		$id_field = $option['id_field']; // IDのフィールド名
+
+		// 創始ノードを探す
+		$start_id = -1;
+		foreach($datax as &$node){
+			if($node[$par_id_field] == 0){
+				$start_id = $node[$id_field];
+				break;
+			}
+		}
+		unset($node);
+
+		if($start_id == -1) return $datax;
+
+		// 再起呼び出し型関数：  世代番号付与関数（データ、id、世代番号、兄弟通番、&オフセットY,オプション）
+		$option['offset_y'] = 1;
+		$this-&gt;setOffsets($datax,$start_id,1,1,$option);
+		
+		return $datax;
+	}
+	
+	
+	
+	/**
+	 * 世代番号付与関数
+	 * @param array $datax キーid構造データ
+	 * @param int $id 
+	 * @param int $gene_no 世代（オフセットX)
+	 * @param int $bros_no 兄弟番号
+	 * @param int $offset_y オフセットY
+	 * @param array $option オプション
+	 */
+	private function setOffsets(&$datax,$id,$gene_no,$bros_no,&$option){
+		
+		$id_field = $option['id_field']; // IDのフィールド名
+		$par_id_field = $option['par_id_field']; // 親IDのフィールド名
+		$child_ids_field = $option['child_ids_field']; // 子ノードIDリストのフィールド名
+		$child_nodes_field = $option['child_nodes_field']; // 子ノードリストのフィールド名
+		$bros_no_field = $option['bros_no_field']; // 兄弟番号のフィールド名
+		$gene_no_field = $option['gene_no_field']; // 世代のフィールド名
+		$offset_x_field = $option['offset_x_field']; // オフセットXのフィールド名
+		$offset_y_field = $option['offset_y_field']; // オフセットYのフィールド名
+		$offset_y = $option['offset_y']; // オフセットY
+		
+		$node = &$datax[$id];
+		$node[$gene_no_field] = $gene_no; // 引数ノードに世代番号を付与する
+		$node[$bros_no_field] = $bros_no; // 引数ノードに兄弟通番を付与する
+		$node[$offset_x_field] = $gene_no; // 引数ノードにオフセットXを付与する
+		$node[$offset_y_field] = $offset_y; // 引数ノードにオフセットYを付与する
+		$childIds = $node[$child_ids_field]; // 引数ノードから子ノードリストを取得する
+		
+		$option['prev_gene_no'] = $gene_no; // オフセットYの調整用
+		
+		$gene_no ++;
+		$bros_no = 1;
+		
+		foreach($childIds as $c_id){
+			
+			if(!empty($datax[$c_id][$gene_no_field])) continue;
+			
+			// 再起呼び出し　要素ノード、世代番号、兄弟通番、従妹通番、家系連番
+			$this-&gt;setOffsets($datax,$c_id,$gene_no,$bros_no,$option);
+			
+			if($option['prev_gene_no'] == $gene_no){
+				$option['offset_y'] ++; // オフセットYをインプリメント
+			}
+	
+			$bros_no++; // 兄弟通番をインプリメント
+			
+		}
+		
+	}
+	
+	
+	/**
+	 *  ツリー構造データに変換する
+	 * @param array $datax キーID構造データ
+	 * @param array $option オプション
+	 * @return array ツリー構造データ
+	 */
+	private function convToStructTreeX($datax,$option){
+
+		$tree = array(); // ツリー構造データ
+		$par_id_field = $option['par_id_field']; // 親IDフィールド
+		$id_field = $option['id_field']; // IDのフィールド名
+		
+		// 創始ノードを探す
+		$start_id = -1;
+		foreach($datax as $node){
+			if($node[$par_id_field] == 0){
+				$start_id = $node[$id_field];
+				break;
+			}
+		}
+		if($start_id == -1) return $datax;
+		
+		$tree = $datax[$start_id]; // 創始ノードをツリー構造データの先頭にセット
+		$datax[$start_id]['set_flg'] = 1; // セットフラグ。無限ループ回避用
+		$option['counter'] = 0; // 無限ループ防止用のカウンター
+		
+		// 再起呼び出し型関数：  ツリー構造データに変換
+		$this-&gt;convToStructTree($tree,$datax,$start_id,$option);
+
+		return $tree;
+	}
+	
+	
+	/**
+	 * 世代番号付与関数
+	 * @param array tree ツリー構造データ
+	 * @param array $datax キーid構造データ
+	 * @param array $id
+	 * @param array $option オプション
+	 */
+	private function convToStructTree(&$node,&$datax,$id,&$option){
+		
+		// 無限ループ防止
+		$option['counter'] ++;
+		if($option['counter'] &gt; 10000) return;
+		
+		$child_ids_field = $option['child_ids_field']; // 子ノードIDリストのフィールド名
+		$child_nodes_field = $option['child_nodes_field']; // 子ノードリストのフィールド名
+ 		$childIds = $node[$child_ids_field]; // 引数ノードから子ノードリストを取得する
+
+		foreach($childIds as $c_id){
+			
+			$cNode = $datax[$c_id];
+			if(empty($cNode['set_flg'])){
+				$datax[$c_id]['set_flg'] = 1;
+				unset($cNode['set_flg']);
+
+				// 再起呼び出し
+				$this-&gt;convToStructTree($cNode,$datax,$c_id,$option);
+				
+				// 子ノードリストに追加
+				$node[$child_nodes_field][$c_id] = $cNode;
+		
+			}
+			
+
+		}
+		
+	}
+	
+	
+	/**
+	 * キーID構造からエンティティ配列構造に戻す
+	 * @param array $datax キーID構造
+	 * @return array エンティティ配列構造のデータ
+	 */
+	private function convToStructNormal(&$datax){
+		$data = array();
+		
+		foreach($datax as $ent){
+			$data[] = $ent;
+		}
+		
+		return $data;
+	}
+	
+	
+	
+	
+	/**
+	 * 2次元マップに変換する
+	 * @param array $datax
+	 * @return array 2次元マップ
+	 */
+	private function convToMap(&$datax,$option){
+		
+		if(empty($datax)) return array();
+
+		$offset_x_field = $option['offset_x_field']; // オフセットXのフィールド名
+		$offset_y_field = $option['offset_y_field']; // オフセットYのフィールド名
+		
+		$cnt_x = 0;
+		$cnt_y = 0;
+		foreach($datax as &$ent){
+			if(isset($ent[$offset_x_field])){
+				$offset_x = $ent[$offset_x_field];
+				if($cnt_x &lt; $offset_x) $cnt_x = $offset_x;
+			}
+			if(isset($ent[$offset_y_field])){
+				$offset_y = $ent[$offset_y_field];
+				if($cnt_y &lt; $offset_y) $cnt_y = $offset_y;
+			}
+		}
+		unset($ent);
+		
+		$map = array();
+		for($y=0;$y&lt;$cnt_y;$y++){
+			$map[$y] = null;
+			for($x=0;$x&lt;$cnt_x;$x++){
+				$map[$y][$x] = null;
+			}
+		}
+
+		foreach($datax as &$ent){
+			if(isset($ent[$offset_x_field]) && isset($ent[$offset_y_field])){
+				$x = $ent[$offset_x_field] - 1;
+				$y = $ent[$offset_y_field] - 1;
+				$map[$y][$x] = $ent;
+			}
+		}
+		
+		return $map;
+
+	}
+	
+	/**
+	 * 2次元マップからHTMLテーブルのソースコードを作成
+	 * @param array $map 2次元マップ
+	 * @param array $option オプション
+	 *  - html_tbl_class    htmlテーブルのclass属性     デフォ→空
+	 *  - html_tbl_fields    htmlテーブルの表示フィールド(配列指定可能）     デフォ→id
+	 * @return string　HTMLテーブルのソースコード
+	 */
+	private function createHtmlTbl(&$map,&$option){
+		
+		$html_tbl_class = $option['html_tbl_class']; // HTMLテーブルのclass属性
+		$html_tbl_fields = $option['html_tbl_fields']; // htmlテーブルの表示フィールド
+
+		// htmlテーブルの表示フィールドが文字列なら配列化する
+		if(!is_array($html_tbl_fields)){
+			$html_tbl_fields = array($html_tbl_fields);
+		}
+		
+		if(empty($map)) return '';
+		$cnt_y = count($map);
+		$cnt_x = count($map[0]);
+		
+		$html = "&lt;table class='tbl2'&gt;&lt;tbody&gt;";
+		for($y=0;$y&lt;$cnt_y;$y++){
+			$html .= '&lt;tr&gt;';
+			for($x=0;$x&lt;$cnt_x;$x++){
+				$td = "";
+				if(!empty($map[$y][$x])){
+					$ent = $map[$y][$x];
+					$td = '';
+					foreach($html_tbl_fields as $field){
+						$td .= $ent[$field] . '&lt;br&gt;';
+					}
+				}
+				$html .= "&lt;td&gt;{$td}&lt;/td&gt;";
+			}
+			$html .= '&lt;/tr&gt;';
+		}
+		$html .= '&lt;/tbody&gt;&lt;/table&gt;';
+		
+		return $html;
+		
+	}
+
+}
+	</code></pre>
+	
+	
+	<p>出力</p>
+	<table class='tbl2'><tbody><tr><td>2<br>生物<br></td><td>12<br>UMA<br></td><td>13<br>カッパ<br></td><td></td><td></td><td></td></tr><tr><td></td><td>3<br>動物<br></td><td>5<br>無脊椎動物<br></td><td>10<br>ムカデ<br></td><td></td><td></td></tr><tr><td></td><td></td><td>4<br>脊椎動物<br></td><td>6<br>哺乳類<br></td><td>1<br>ネコ<br></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td>24<br>ブタ<br></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td>14<br>ライオン<br></td><td></td></tr><tr><td></td><td></td><td></td><td>9<br>昆虫<br></td><td>21<br>カブトムシ<br></td><td>22<br>タイワンカブト<br></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td>23<br>ヘラクレス<br></td></tr><tr><td></td><td></td><td></td><td></td><td>11<br>カマキリ<br></td><td></td></tr><tr><td></td><td></td><td></td><td>7<br>爬虫類<br></td><td>15<br>イグアナ<br></td><td></td></tr><tr><td></td><td></td><td></td><td>8<br>魚類<br></td><td>20<br>ガーラ<br></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td>19<br>テラピア<br></td><td></td></tr><tr><td></td><td>16<br>植物<br></td><td>18<br>キャベツ<br></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td>17<br>ダイコン<br></td><td></td><td></td><td></td></tr></tbody></table>
+
+
+	
+	
+	<hr>
+	<a href="/sample/php/a030/tree_structure_data/tree_structure_data.php" class="btn btn-info btn-xs">検証</a><br>
+	
+	<br><time>2018-4-18</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec14-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
