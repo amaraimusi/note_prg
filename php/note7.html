@@ -442,6 +442,86 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec7-10-2" class="sec1">
+	<h3>ローワーキャメルケースへの変換</h3>
+	
+	<pre><code>
+	&lt;?php 
+	
+	$data = array(
+			'neko',
+			'big_dog',
+			'RedFox',
+			'greenTanuki',
+			'big_last_pig_master',
+			'SmallFirstPigMaster',
+			'smallFirstPigMaster',
+			'',
+			'あいう',
+			'123'
+			
+	);
+	
+	echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;元文字&lt;/th&gt;&lt;th&gt;ローワーキャメルケース&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+	foreach($data as $str){
+		$lc_str = lowerCamelize($str);
+		echo "&lt;tr&gt;&lt;td&gt;{$str}&lt;/td&gt;&lt;td&gt;{$lc_str}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	echo "&lt;/tbody&gt;&lt;/table&gt;";
+	
+	
+	/**
+	 * ローワーキャメルケースに変換する
+	 *
+	 * @note
+	 * ローワーキャメルケースは先頭の一文字が小文字のキャメルケース。
+	 *
+	 * @param string $str スネーク記法、またはキャメル記法の文字列
+	 * @return string ローワーキャメルケースの文字列
+	 */
+	function <strong>lowerCamelize</strong>($str){
+		
+		if(empty($str)) return $str;
+		
+		// 先頭の一文字が小文字である場合、一旦キャメルケースに変換する。
+		$h_str = substr($str,0,1);
+		if(ctype_lower($h_str)){
+			// キャメルケースに変換する
+			$str = strtr($str, '_', ' ');
+			$str = ucwords($str);
+			$str = str_replace(' ', '', $str);
+		}
+		
+		// 先頭の一文字を小文字に変換する。
+		$str = lcfirst($str);
+		
+		return $str;
+	
+	}
+	
+	?&gt;
+	</code></pre>
+	
+	<p>出力</p>
+	<table class='tbl2'><thead><tr><th>元文字</th><th>ローワーキャメルケース</th></tr></thead><tbody><tr><td>neko</td><td>neko</td></tr><tr><td>big_dog</td><td>bigDog</td></tr><tr><td>RedFox</td><td>redFox</td></tr><tr><td>greenTanuki</td><td>greenTanuki</td></tr><tr><td>big_last_pig_master</td><td>bigLastPigMaster</td></tr><tr><td>SmallFirstPigMaster</td><td>smallFirstPigMaster</td></tr><tr><td>smallFirstPigMaster</td><td>smallFirstPigMaster</td></tr><tr><td></td><td></td></tr><tr><td>あいう</td><td>あいう</td></tr><tr><td>123</td><td>123</td></tr></tbody></table>
+	
+
+	<time>2018-4-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec7-11" class="sec1" >
 	<h3>テーブル名からモデル名に変換する</h3>
 
