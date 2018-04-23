@@ -412,15 +412,15 @@
 	 * SELECTのオプション要素にリストの値をセットする
 	 * @param selElm SELECT要素
 	 * @param list  リスト。 リストの構造→ [キー] = テキスト
-	 * @parma value 始めの選択値【省略可】
-	 * @parma empty_text 空選択肢のテキスト【省略可】
+	 * @param value 始めの選択値【省略可】
+	 * @param empty_text 空選択肢のテキスト【省略可】
 	 */
-	function _setSelectOption(selElm,list,value,empty_text){
+	function setSelectOption(selElm,list,value,empty_text){
 		
 		var ops_str='';
 		
 		if(!_empty(empty_text)){
-			ops_str = "&lt;option value=''&gt;" + empty_text + "&lt;/option&gt;&yen;n"
+			ops_str = "&lt;option value=''&gt;" + empty_text + "&lt;/option&gt;"
 		}
 		
 		for(var i in list){
@@ -431,7 +431,7 @@
 				selected = 'selected';
 			}
 			ops_str += "&lt;option value='" + i + "' " + selected + "&gt;" + 
-				text + "&lt;/option&gt;&yen;n";
+				text + "&lt;/option&gt;";
 		}
 		
 		selElm.html(ops_str);
@@ -439,7 +439,7 @@
 	}
 	</code></pre>
 	
-	<time>2017-4-4</time>
+	<time>2017-4-4 | 2018-4-23</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
