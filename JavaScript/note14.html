@@ -421,6 +421,87 @@
 
 
 
+<div id="sec14-6-2" class="sec4" >
+	<h3>デバイスによるテーブル型入力フォームの切替 | PC版とスマホ版（SP版)の切替</h3>
+	
+	<a href="/sample/js/a007/change_style_by_device/change_style_by_device.html" class="btn btn-info">デモ</a><br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;input type="button" value="SP化" class="btn btn-success" onclick="changeStyleByDevice('.test_tbl1','sp')" /&gt;
+	&lt;input type="button" value="PC化" class="btn btn-success" onclick="changeStyleByDevice('.test_tbl1','pc')" /&gt;
+	&lt;table class="tbl2 test_tbl1"&gt;
+		&lt;thead&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;ネコ&lt;/td&gt;&lt;td&gt;&lt;input type="text" /&gt;&lt;/td&gt;&lt;td&gt;100&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;カニ&lt;/td&gt;&lt;td&gt;&lt;input type="text" /&gt;&lt;/td&gt;&lt;td&gt;200&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;サメ&lt;/td&gt;&lt;td&gt;&lt;input type="checkbox" /&gt;チェックボックス&lt;/td&gt;&lt;td&gt;300&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;シカ&lt;/td&gt;&lt;td&gt;&lt;textarea name="" id="" cols="30" rows="10"&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;td&gt;400&lt;/td&gt;&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;	
+	</code></pre><br>
+	
+	<p>CSS</p>
+	<pre><code>
+	.tbl_sp{
+		display:block;
+		width:100%;
+	}
+	.tbl_sp thead{
+		display:none;
+	}
+	.tbl_sp tbody{
+		display:block;
+		width:100%;
+	}
+	.tbl_sp tr{
+		display:block;
+		width:100%;
+	}
+	.tbl_sp td{
+		display:block;
+		width:100%;
+	}
+	.tbl_sp  td:last-child{
+		padding-bottom:16px;
+	}
+	.tbl_sp input[type="text"]{
+		width:100%;
+	}
+	.tbl_sp textarea{
+		width:100%;
+	}	
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	/**
+	 * デバイスタイプの切替
+	 * @param tbl_slt テーブルセレクタ
+	 * @param device_type デバイスタイプ pc / sp
+	 */
+	function changeStyleByDevice(tbl_slt,device_type){
+		var tblElm = jQuery(tbl_slt);
+		if(device_type == 'pc'){
+			tblElm.removeClass('tbl_sp');
+			tblElm.addClass('tbl2');
+		}else if(device_type == 'sp'){
+			tblElm.removeClass('tbl2');
+			tblElm.addClass('tbl_sp');
+		}
+	}
+	</code></pre><br>
+	
+	<br><time>2018-4-25</time>
+</div>
+
+
+
+
+
+
+
+
 <div id="sec14-7" class="sec4" >
 	<h3>HTML5の進捗バー | progress</h3>
 	
