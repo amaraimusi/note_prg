@@ -20,8 +20,16 @@
 <div id="header" ><h1>MySQLの覚書</h1></div>
 <div class="container">
 
+<h2 id="public">目次</h2>
+<ul>
+	<li><a href="#public_note">一般</a></li>
+	<li><a href="#cmd_note_index">MySQLコマンド</a></li>
+</ul>
+<hr>
 
 
+
+<h2 id="public_note">一般</h2>
 <ol>
 	<li><a href="note.php#sec1-1" >phpMyAdminで日本語をINSERTすると文字化け</a></li>
 	<li><a href="note.php#sec1-2" >MySQLにフィールドを追加する方法</a></li>
@@ -76,9 +84,15 @@
 
 
 </ol>
-			
+<hr><br><br><br>	
 			
 
+
+<h2 id="cmd_note_index">MySQLコマンド</h2>
+<ol>
+	<li><a href="cmd_note.html#sec1-1" >MySQLのコマンドを動かす | ローカル</a></li>
+	<li><a href="cmd_note.html#sec1-2" >MySQLをコマンドで動かす | サーバー（さくらサーバー）</a></li>
+</ol>
 			
 			
 			
