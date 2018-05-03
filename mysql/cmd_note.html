@@ -90,6 +90,53 @@
 
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>DBをバックアップ（エクスポート）する | mysqldump</h3>
+
+	ローカル環境のMySQLからanimal_parkデータベースをバックアップする。<br>
+	<br>
+	
+	<pre class="console">
+	# mysqldump -u root -p animal_park > C:\rab\dump.sql
+	Enter password: ****
+	</pre>
+
+	<br><time>2018-5-3</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-4" class="sec4">
+	<h3>リモートでバックアップする（さくらサーバー・スタンダードプラン） | DBのエクスポート</h3>
+
+	<pre class="console">
+	$ mysqldump --default-character-set=utf8 -h mysqlXXX.db.sakura.ne.jp -u 【ユーザー名】 -p 【ユーザー名】_animal_park > www/rab/sql_dump.sql
+	Enter password: 【DBサーバーのパスワード】
+	</pre>
+	<aside>Git for windowsのGit bashツールにて確認</aside>
+	
+	<br><time>2018-5-3</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
