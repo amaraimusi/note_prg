@@ -97,11 +97,18 @@
 	<br>
 	
 	<pre class="console">
-	# mysqldump -u root -p animal_park > C:\rab\dump.sql
+	# mysqldump -u root -p animal_park > C:\rab\animal_park.sql
 	Enter password: ****
-	</pre>
+	</pre><br>
+	<br>
+	
+	パスワードを含めたワンライナーの記述方法(パスワードは「hoge」としたとき)
+	<pre class="console">	# mysqldump -u root -phoge animal_park > C:\rab\animal_park.sql</pre>
+	「p」とパスワードの間にスペースを空けないこと。<br>
+	<br>
+	
 
-	<br><time>2018-5-3</time>
+	<br><time>2018-5-3 | 2018-5-4</time>
 </div>
 
 
