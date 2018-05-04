@@ -153,6 +153,38 @@
 
 
 
+<div id="sec1-6" class="sec4">
+	<h3>DBのリストア【リモート】</h3>
+	
+	さくらサーバー（スタンダードプラン）、ターミナルはGit for windowsのGit bashで検証を行った。<br>
+	<br>
+	
+	最初にサーバーへログインする
+	<pre class="console">
+	$ ssh -l 【ユーザー名】 【ユーザー名】.sakura.ne.jp
+	Enter password:【パスワード】
+	</pre><br>
+	<br>
+
+	sqlファイルをサーバーにアップする。アップはFTPでもよい。<br>
+	アップ先のパスはどこでもよい。下記の例では「www/rab」にsqlファイルを配置している。<br>
+	<br>
+	サーバー側にデータベースを作成する。例→【ユーザー名】_animal_park<br>
+	<br>
+
+	リストアを実行する
+	<pre class="console">
+	% mysql -h mysqXXX.db.sakura.ne.jp -u 【ユーザー名】 -p -B 【ユーザー名】_animal_park &lt; www/rab/animal_park.sql
+	Enter password:【DBのパスワード】
+	</pre>
+	
+	<br><time>2018-5-4</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
