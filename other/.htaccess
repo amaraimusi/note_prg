@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_URI} /note_prg/other/diagram.php
+RewriteRule ^(.*)$ /note_prg/other/diagram/diagram.html [R=301,L]
+</IfModule>
+
