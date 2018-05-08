@@ -153,6 +153,39 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="s102-2" class="sec4">
+	<h3>同一ドメイン内でページの引っ越し</h3>
+	
+	「/note_prg/other/diagram.php」<br>
+	↓ 引っ越し<br>
+	「/note_prg/other/diagram/diagram.html」<br>
+	<br>
+	
+	<p>.htaccess</p>
+	<pre>
+	&lt;IfModule mod_rewrite.c&gt;
+	RewriteEngine on
+	RewriteBase /
+	RewriteCond %{REQUEST_URI} /note_prg/other/diagram.php
+	RewriteRule ^(.*)$ /note_prg/other/diagram/diagram.html [R=301,L]
+	&lt;/IfModule&gt;
+	</pre>
+	
+	.htaccessの場所<br>
+	/note_prg/other/.htaccess<br>
+	<br>
+
+	<time>2018-5-9</time>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="s103" class="sec4" >
 	<h3>複数URLのリダイレクト</h3>
 	
