@@ -736,6 +736,94 @@ $( function() {
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec1-17-2" class="sec1">
+	<h3>テーブルの列表示を切り替える</h3>
+	
+	<a href="/sample/js/a007/clm_show/clm_show.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;table id="samp_tbl" class="tbl2"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;山羊&lt;/td&gt;&lt;td&gt;草食&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;/tr&gt;
+	
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	
+	&lt;br&gt;&lt;br&gt;
+	列インデックス：&lt;input type="text" id="clm_index" value="2" style="width:40px" /&gt;&lt;br&gt;
+	&lt;input type="button" value="列表示" onclick="clmShow()" class="btn btn-success" /&gt;
+	&lt;input type="button" value="列非表示" onclick="clmHide()" class="btn btn-success" /&gt;
+	</code></pre><br>
+	
+	javaScript
+	<pre><code>
+	function clmShow(){
+		var tbl = jQuery('#samp_tbl');
+		var clm_index = jQuery('#clm_index').val();
+		tblClmShow(tbl,clm_index);
+	}
+	
+	function clmHide(){
+		var tbl = jQuery('#samp_tbl');
+		var clm_index = jQuery('#clm_index').val();
+		tblClmShow(tbl,clm_index,0);
+	}
+	
+	/**
+	 * テーブルの列表示を切り替える
+	 * @param object tbl テーブル要素（セレクタ）
+	 * @param int 列インデックス（一番左は0)
+	 * @param int show_flg 表示フラグ 0:非表示 , 1:表示（デフォルト）
+	 */
+	function <strong>tblClmShow</strong>(tbl,clm_index,show_flg){
+		
+		if(show_flg == null ) show_flg = 1;
+		if(!(tbl instanceof jQuery)) tbl = jQuery(tbl);
+		if(!tbl[0]) return;
+		if(isNaN(clm_index)) return;
+		
+	
+		var th = tbl.find("thead tr th").eq(clm_index);
+		if(show_flg == 1){
+			th.show();
+		}else{
+			th.hide();
+		}
+		
+		jQuery.each(tbl.find("tbody tr"), (i,elm) => {
+	
+			var td=$(elm).children();
+			if(show_flg == 1){
+				td.eq(clm_index).show();
+			}else{
+				td.eq(clm_index).hide();
+			}
+		});
+	
+	}
+	</code></pre>
+	
+	
+	<time>2018-5-16</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec1-18" class="sec1" >
 	<h3>ループ | $(".xxx").each</h3>
 

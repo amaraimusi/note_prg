@@ -41,18 +41,15 @@ var AjaxLoginWithCake = function(){
 			cache: false,
 			dataType: "text",
 			success: function(str_json, type) {
-
 				
 				try{
 					var res=$.parseJSON(str_json);//パース
 					formShowCb(res,option);//フォームにログインボタンやメッセージを表示する
-					callBack(res.auth_flg);// クライアントからのコールバック関数をっ実行する
+					callBack(res.auth_flg);// クライアントからのコールバック関数を実行する
 				}catch(e){
 					throw new Error(str_json);
 					alert('エラー');
 				}
-				
-
 
 			},
 			error: function(xmlHttpRequest, textStatus, errorThrown){
