@@ -669,9 +669,7 @@ var LearnCounterK =function(option){
 		}else{
 			alert(res.err_msg);
 		}
-		
 
-		
 	};
 	
 	/**
