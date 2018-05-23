@@ -11,7 +11,7 @@
  * @version 1.0
  * @date 2016-1-14 ver 1.0
  * @date 2016-1-4 新規作成
- * @author wacgance 
+ * @author wakgance 
  * 
  */
 $( function() {

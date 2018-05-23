@@ -67,7 +67,7 @@
 
 	<div class="row">
 		<div id="footer" class="col-md-12"  >
-			<p>(c)wacgance 2016-5-4</p>
+			<p>(c)wakgance 2016-5-4</p>
 		</div>
 	</div>
 
