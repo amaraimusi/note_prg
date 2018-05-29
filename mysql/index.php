@@ -83,8 +83,10 @@
 	<li><a href="note6.php#sec6-8" >タブ、改行、ダブルクォート、シングルクォート、コンマ、改行を含む文字列の扱い | 「&yen;t」「&yen;n」「"」「'」「,」</a></li>
 	<li><a href="note6.php#sec6-9" >FOR UPDATEによる排他制御 | LOCKの一種</a></li>
 	<li><a href="note6.php#sec6-10" >テーブル名を変更する</a></li>
-
-
+	<li><a href="note7.html#sec7-1" >条件が異なる複数の集計</a></li>
+	<li><a href="note7.html#sec7-2" >分岐： CASE WHEN ～ THEN | AND条件</a></li>
+	<li><a href="note7.html#sec7-4" >分岐： CASE WHEN ～ THEN | 入れ子</a></li>
+	<li><a href="note7.html#sec7-5" >SQL文（クエリ）の最大長さは？</a></li>
 </ol>
 <hr><br><br><br>	
 			

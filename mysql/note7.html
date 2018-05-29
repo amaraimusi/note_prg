@@ -73,54 +73,8 @@
 
 
 
-<div id="sec7-2" class="sec4">
-	<h3>条件が異なる複数の集計</h3>
-	
-	test_asテーブル
-	<table class="tbl2">
-		<thead>
-			<tr><th>id</th><th>test1</th><th>val1</th><th>text1</th><th>test_date</th></tr>
-		</thead>
-		<tbody>
-			<tr><td>1</td><td>-1</td><td>1</td><td>neko</td><td>2014/4/1</td></tr>
-			<tr><td>2</td><td>101</td><td>2</td><td>kani</td><td>2014/4/2</td></tr>
-			<tr><td>4</td><td>-1</td><td>4</td><td>buta</td><td>2014/4/4</td></tr>
-			<tr><td>5</td><td>100</td><td>3</td><td>yagi</td><td>2014/4/3</td></tr>
-			<tr><td>6</td><td>100</td><td>3</td><td>ari</td><td>2014/4/3</td></tr>
-			<tr><td>7</td><td>100</td><td>3</td><td>tori</td><td>2014/4/3</td></tr>
-			<tr><td>8</td><td>100</td><td>3</td><td>kame</td><td>2014/4/3</td></tr>
-		</tbody>
-	</table><br>
-	
-	<p>条件が異なる複数の集計</p>
-	全レコードの最小値と、日付が2014-04-03より後のval1最小値を取得する。
-	<pre><code>
-	SELECT
-		MIN(`val1`) AS `min_a`,
-		<strong>MIN(CASE WHEN `test_date` > '2014-04-03' THEN `val1` ELSE null END)</strong> AS `min_b`
-	FROM `test_as`
-	</code></pre>
-	
-	<table class="tbl2">
-		<thead>
-			<tr><th>min_a</th><th>min_b</th></tr>
-		</thead>
-		<tbody>
-			<tr><td>1</td><td>4</td></tr>
-		</tbody>
-	</table>
-	
-	<br><time>2017-12-20</time>
-</div>
 
-
-
-
-
-
-
-
-<div id="sec7-3" class="sec4" >
+<div id="sec7-2" class="sec4" >
 	<h3>CASE WHEN ～ THEN | AND条件</h3>
 	
 	test_asテーブル
@@ -166,7 +120,7 @@
 
 
 
-<div id="sec7-4" class="sec4" >
+<div id="sec7-3" class="sec4" >
 	<h3>CASE WHEN ～ THEN | 入れ子</h3>
 	
 	test_asテーブル
@@ -235,6 +189,28 @@
 	
 	
 	<br><time>2017-12-21</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec7-5" class="sec4" >
+	<h3>SQL文（クエリ）の最大長さは？</h3>
+	
+	下記のSQLを実行することによりSQL文の最大長さが分かる。
+	<pre>	show variables like 'max_allowed_packet'</pre>
+	デフォルトでは1Mとなっているようである。<br>
+	<br>
+	
+	最大長さはMySQLの設定(my.ini)で変更できる。<br>
+	変更する場合、my.iniに下記のような設定があるので書き換えて、mysqlを再起動すればよい。<br>
+	<pre>	max_allowed_packet = 1M</pre>
+	
+	<br><time>2018-5-29</time>
 </div>
 
 
