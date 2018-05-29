@@ -66,7 +66,8 @@
 	<li><a href="note5.php#sec5-2" >テーブルのサイズを大きくする</a></li>
 	<li><a href="note5.php#sec5-3" >パーティション</a></li>
 	<li><a href="note5.php#sec5-4" >重複レコードを無視 | INSERT IGNORE</a></li>
-	<li><a href="note5.php#sec5-5" >テーブルサイズ取得 | テーブルデータ量情報を取得するSQL</a></li>
+	<li><a href="note5.php#sec5-5" >テーブルの容量サイズを取得 （ついでに行数や平均行容量も）</a></li>
+	<li><a href="note5.php#sec5-5-2" >DBのサイズ（容量）を取得する</a></li>
 	<li><a href="note5.php#sec5-6" >レコードのコピー</a></li>
 	<li><a href="note5.php#sec5-7" >SQLに変数名を組み込む | 動的SQL</a></li>
 	<li><a href="note5.php#sec5-8" >phpMyAdminで大容量ファイルをインポートできるようにする</a></li>

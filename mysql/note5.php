@@ -341,21 +341,22 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec5-5" class="sec1" >
-	<h3>テーブルサイズ取得 | テーブルデータ量情報を取得するSQL</h3>
+	<h3>テーブルの容量サイズを取得 （ついでに行数や平均行容量も）</h3>
 
 	<p>テーブルデータ量を取得するSQL</p>
 	<pre>
 	SELECT
 		table_name,
 		engine,
-		table_rows,
-		avg_row_length,
-		(data_length + index_length) AS all_length,
+		table_rows, # テーブルの行数
+		avg_row_length, # 平均行容量（１レコードあたりの平均容量）
+		(data_length + index_length) AS all_length, # テーブルの容量サイズ(byte)
 		data_length,
 		index_length
 	FROM
-	    information_schema.tables 
-	where table_schema = 'データベース名'
+		information_schema.tables 
+	WHERE
+		table_schema = 'animal_park' # DB名
 	</pre>
 	<br>
 	
@@ -393,10 +394,43 @@
 		</tbody>
 	</table>
 	<br>
-	
-	
 
 	<a href="http://www.rexent.co.jp/blog/mysql-%E5%90%84%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E6%AF%8E%E3%81%AB%E5%AE%B9%E9%87%8F%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B" class="ref_link" target="brank">参考:Rexent Blog</a>
+
+	<time>2015-12-28 | 2018-5-29</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec5-5-2" class="sec1">
+	<h3>DBのサイズ（容量）を取得する</h3>
+	
+	<pre>
+	SELECT 
+		table_schema, sum(data_length) AS db_length # DB容量
+	FROM 
+		information_schema.tables
+	WHERE
+		table_schema = 'animal_park' # DB名
+	</pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>table_schema</th><th>db_length</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>animal_park</td><td>65536</td></tr>
+		</tbody>
+	</table>
+
+	<time>2018-5-29</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
