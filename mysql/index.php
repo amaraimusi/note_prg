@@ -82,6 +82,7 @@
 	<li><a href="note6.php#sec6-7" >SQL_CALC_FOUND_ROWSとFOUND_ROWSを用いてLIMITがかかっていないデータ件数を取得する</a></li>
 	<li><a href="note6.php#sec6-8" >タブ、改行、ダブルクォート、シングルクォート、コンマ、改行を含む文字列の扱い | 「&yen;t」「&yen;n」「"」「'」「,」</a></li>
 	<li><a href="note6.php#sec6-9" >FOR UPDATEによる排他制御 | LOCKの一種</a></li>
+	<li><a href="note6.php#sec6-10" >テーブル名を変更する</a></li>
 
 
 </ol>
