@@ -165,6 +165,35 @@
 
 
 
+<div id="sec3-3" class="sec4" >
+	<h3>文字列のバイト数を取得 | UTF-8</h3>
+	
+	<pre>
+	&lt;table class="tbl2"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;検証文字&lt;/th&gt;&lt;th&gt;バイト数&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+	&lt;?php 
+	
+	$data = array(1,'a','+','あ','漢','123','漢字','大猫12','Σ','ব','বিড়াল');
+	foreach($data as $str1){
+		$byte = <strong>strlen</strong>($str1);
+		echo "&lt;tr&gt;&lt;td&gt;{$str1}&lt;/td&gt;&lt;td&gt;{$byte}&lt;/td&gt;&lt;/tr&gt;";
+	}
+	
+	?&gt;
+	&lt;/tbody&gt;&lt;/table&gt;
+	</pre>
+	
+	<table class="tbl2"><thead><tr><th>検証文字</th><th>バイト数</th></tr></thead><tbody>
+	<tr><td>1</td><td>1</td></tr><tr><td>a</td><td>1</td></tr><tr><td>+</td><td>1</td></tr><tr><td>あ</td><td>3</td></tr><tr><td>漢</td><td>3</td></tr><tr><td>123</td><td>3</td></tr><tr><td>漢字</td><td>6</td></tr><tr><td>大猫12</td><td>8</td></tr><tr><td>Σ</td><td>2</td></tr><tr><td>ব</td><td>3</td></tr><tr><td>বিড়াল</td><td>18</td></tr></tbody></table>
+	
+
+
+	<br><time>2018-5-29</time>
+</div>
+
+
+
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

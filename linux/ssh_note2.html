@@ -101,6 +101,140 @@
 
 
 
+<div id="sec2-2" class="sec4">
+	<h3>ホスト認証：公開鍵と秘密鍵</h3>
+
+	SSHにログインする時、ホスト認証とユーザ認証を行う。
+	ユーザー認証はユーザー名とパスワードで行うログインのこと。
+	ホスト認証は接続先ホストがなりすましでない正しいものであるかを確認する処理である。<br>
+	ホスト認証は公開鍵と秘密鍵からなる暗号化技術が使われている。
+	暗号の種類にはいくつか存在するが、2017年時点では
+	<a href="/note_prg/linux/ssh_note.html#sec1-8" class="livipage">RSA</a>が主流である。<br>
+	<br>
+	
+	<a href="/note_prg/git/github_note10.html#s14" class="livipage">参考：Eclipseによる公開キーと秘密キーの手順</a><br>
+	<br>
+	
+	
+	<p>公開鍵と秘密鍵の作成手順（自分のPCからさくらサーバーに接続する場合）</p>
+	<ol class="list_large">
+		<li>
+			自分のPCにてターミナルを開き、下記のコマンドを実行する。
+			<pre>	$ <strong>ssh-keygen</strong> -t rsa</pre>
+			<aside>※ ターミナルはGit for windowsのGit Bashを利用。</aside>
+		</li>
+		<li>
+			いくつか質問を聞かれるので適当な値を入力してEnter。（未入力のままEnterしてもよい）
+
+			<pre class="console" >
+	$ ssh-keygen -t rsa
+	Generating public/private rsa key pair.
+	Enter file in which to save the key (/c/Users/user/.ssh/id_rsa):
+	Enter passphrase (empty for no passphrase):
+	Enter same passphrase again:
+	Your identification has been saved in /c/Users/user/.ssh/id_rsa.
+	Your public key has been saved in /c/Users/user/.ssh/id_rsa.pub.
+	The key fingerprint is:
+	SHA256:c5pFZLih+CUhsIdUd2DsMg4ObPTYiNV+7T02moHcmIY user@user-PC
+	The key's randomart image is:
+	+---[RSA 2048]----+
+	|  o+..+...o      |
+	| o.oooo.oo       |
+	|+.B..+ + o.      |
+	|o=.+= = +.       |
+	|.o o B OS.o      |
+	|  . E X +*=      |
+	|     .  o= o     |
+	|        o        |
+	|                 |
+	+----[SHA256]-----+
+			</pre>
+		</li>
+		
+		<li>
+			自PCのカレントディレクトリに「.ssh」ディレクトリが作成される。
+			.sshディレクトリの中には<strong>id_rsa</strong>ファイルとと<strong>id_rsa.pub</strong>ファイルが作成されている。
+			id_rsaファイルは秘密鍵であり、id_rsa.pubは公開鍵である。
+			秘密鍵であるid_rsaファイルは教えてはいけない。自PCだけで管理するように。
+		</li>
+
+		<li>
+			自PC環境からさくらサーバーに公開鍵ファイル（id_rsa.pub）を転送する。<br>
+			<pre>	$ scp .ssh/id_rsa.pub ユーザー@ユーザー.sakura.ne.jp:/home/ユーザー/.ssh/id_rsa.pub</pre>
+		</li>
+	
+		<li>
+			authorized_keysファイルにid_rsa.pubの内容を統合する。<br>
+			
+			<p>はじめて</p>
+			はじめてid_rsa.pubをアップする場合、id_rsa.pubの名前をauthorized_keysにファイル名変更する。
+			
+			<ol style="list-style-type:lower-greek">
+				<li>
+					sshコマンドでさくらサーバーにログインする。
+					<pre>	ssh -l ユーザー ユーザー.sakura.ne.jp</pre>
+				</li>
+				<li>
+					.sshディレクトリに移動。
+					<pre>	% cd .ssh</pre>
+					<aside>さくらサーバーである場合、.sshディレクトリの場所は「/home/ユーザー/.ssh」である。</aside>
+				</li>
+				<li>
+					先ほどアップしたid_rsa.pubファイルの名前をauthorized_keysに変更する。
+					<pre>	mv id_rsa.pub authorized_keys</pre>
+				</li>
+			</ol>
+			
+			<p>2回目以降</p>
+			2回目のid_rsa.pubのアップ、つまり別PCのid_rsa.pubを追加する場合。
+			<ol style="list-style-type:lower-greek">
+				<li>別PCでid_rsa.pubを作成する。</li>
+				<li>FTPでもよいのでサーバー側の.sshディレクトリにid_rsa.pubを配置する。</li>
+				<li>
+					sshコマンドでさくらサーバーにログインする。
+					<pre>	ssh -l ユーザー ユーザー.sakura.ne.jp</pre>
+				</li>
+				<li>
+					.sshディレクトリに移動。
+					<pre>	% cd .ssh</pre>
+				</li>
+				<li>
+					catコマンドでid_rsa.pubの内容をauthorized_keysファイルの末尾に追加する。
+					<pre>	% cat id_rsa.pub >> authorized_keys</pre>
+				</li>
+				<li>
+					内容を統合したら、id_rsa.pubは用済みなので削除する。
+					<pre>	% rm id_rsa.pub</pre>
+				</li>
+
+			</ol>
+		</li>
+	
+		<li>
+			一旦ログアウトして、もういちどsshコマンドでログインしてみると、パスワードの入力せずログインできるようになっている。
+			<pre>	ssh -l ユーザー ユーザー.sakura.ne.jp</pre>
+		</li>
+	
+	</ol>
+	
+	<p>公開鍵をアップした後のさくらサーバーの挙動</p>
+	公開鍵の登録をしたPCからSSHログインするとき、パスワード入力は不要になっている。<br>
+	公開鍵を登録していない別ＰＣからも引き続き、パスワードによる接続ができるようである。<br>
+	<br>
+
+	
+	<p>FTPへの影響</p>
+	上記の検証中にFFFTPでログインができなくなるという問題が発生した。<br>
+	「新規ホスト」から再設定すると再びログインできるようになった。<br>
+	暗号化の部分で干渉している箇所があるのかもしれないが詳細な原因は不明。<br>
+	<br>
+
+
+	<br><time>2018-5-30</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
