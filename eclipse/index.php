@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="google" content="notranslate" />
-	<title>ワクガンス | Eclipseの覚書一覧</title>
+	<title>ワクガンス | Eclipseの覚書一覧</title><link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link rel="stylesheet" type="text/css" href="/note_prg/css/bootstrap.css"  />
 	<link rel="stylesheet" type="text/css" href="/note_prg/css/common2.css"  />

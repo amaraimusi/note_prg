@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="google" content="notranslate" />
-		<title>ワクガンス　|　C++の覚書</title>
+		<title>ワクガンス　|　C++の覚書</title><link rel='shortcut icon' href='/home/images/favicon.ico' />
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
 		<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
 		<script>

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="google" content="notranslate" />
 	
-	<title>CakePHP3のチュートリアル</title>
+	<title>CakePHP3のチュートリアル</title><link rel='shortcut icon' href='/home/images/favicon.ico' />
 
 	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/note_prg/css/common2.css" rel="stylesheet">
