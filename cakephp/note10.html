@@ -133,6 +133,54 @@
 
 
 
+<div id="sec10-4" class="sec4">
+	<h3>CakePHPのDaoをインタフェース化する</h3>
+	
+	<pre><code>
+	App::uses('DaoForCake','Model');
+	$dao = new DaoForCake();
+	</code></pre><br>
+	
+	DaoForCake.php
+	<pre><code>
+	App::uses('Model', 'Model');
+	App::uses('IDao', 'Vendor/Wacg');
+	
+	/**
+	 * CakePHP用のDao
+	 *
+	 * @date 2018-5-31
+	 * @version 1.0
+	 *
+	 */
+	class DaoForCake extends AppModel implements IDao{
+		
+		public $useTable = false; // 特定のテーブルと関連づけない。
+		
+		public function sqlExe($sql){
+			return $this->query($sql);
+		}
+	}
+	</code></pre><br>
+	
+	IDao.php
+	<pre><code>
+	interface IDao{
+		public function sqlExe($sql);
+	}
+	</code></pre><br>
+	
+	<br><time>2018-6-1</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
