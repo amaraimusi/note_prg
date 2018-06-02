@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VPSの覚書</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>VPSの覚書</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>さくらVPS:OSのインストールからターミナルによるSSHログインまで</h3>
+
+	さくらVPSの契約後、OSのインストールからターミナルログインまでの手順を示す。<br>
+	<br>
+	
+	<ol class="list_large">
+		<li>
+			基本となるOSをインストールするため
+			<a href="https://secure.sakura.ad.jp/vps/" target="blank">さくらVPSの管理ページ</a>にアクセスする。
+		</li>
+		<li>
+			一覧から対象のサーバーをクリック選択する。<br>
+			<img src="img/vps_note/sec1-1a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			右上の「各種設定」から「OSのインストール」を選択。<br>
+			<img src="img/vps_note/sec1-1a2.png" class="img_compact_k" />
+		</li>
+		<li>
+			OSを選択とパスワードの入力等を行い、インストールを実行する。<br>
+			<img src="img/vps_note/sec1-1a3.png" class="img_compact_k" />
+			<aside>2018年6月時点ではCentOS7が主流？</aside>
+		</li>
+		<li>
+			以上でOSのインストールが完了。
+		</li>
+		<li>
+			次にターミナルから対象サーバーにログインしてみる。
+			<pre>	$ ssh -l root 153.126.XXX.XXX</pre>
+			パスワードは、上記で設定したパスワードを入力。
+		</li>
+		<li>
+			無事アクセスできれば成功。<br>
+			この後、セキュリティ関連の設定を施していけばよい。
+		</li>
+	</ol>
+
+	<br><time>2018-6-2</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/linux/">Linuxの覚書</a></li>
+	<li>VPSの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-6-2</div>
+</body>
+</html>
