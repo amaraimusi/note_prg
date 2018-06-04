@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>デザインパターンの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<div id="header" ><h1>デザインパターンの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>コマンドパターン</h3>
+	
+	<p>どのようなときにコマンドパターンを活用するか</p>
+	<ol>
+		<li>コマンド（命令）をパラメータ化したいとき。</li>
+		<li>非同期でコマンドを実行したいとき。</li>
+	</ol><br>
+	
+	<p>コマンドパターンの解説</p>
+	コマンドパターンは、コマンド（命令）実行のタイミングをずらしたいときや（非同期処理）、コマンドを単純な文字列からなるパラメータ（エンティティ）として管理したいときに活用できる。
+	ペイントツールや図形ツールなど、取り消し機能と多数コマンドからなるシステムを開発するときに取り入れるとよい。<br>
+	<br>
+	利点としては、一つのコマンドに一つのクラスが割り当てられているのでソースコードの解読が容易になり、修正や拡張がしやすい。つまり保守性の高いプログラムになる。<br>
+	システムが複雑になりそうだと判断したときにコマンドパターンを適用すること。シンプルなシステムにコマンドパターンを適用するとかえって冗長になるだけである。<br>
+	<br>
+	コマンドパターンを構成するクラスは、制御クラス、Commandインターフェース、各種Commandクラス、Invoker(起動者)クラス、Receiver（受信機）クラスである。<br>
+	<br>
+
+	<p>コマンドパターンのクラス図</p>
+	<img src="img/note/CmmandPattern.svg" />
+	<br><br>
+
+
+
+
+	<strong>クライアント（Client）</strong><br>
+	クライアント(依頼者)はコマンドパターンを利用する側のモジュールやオブジェクト。
+	「依頼者」という意味がある通り、実行する命令（コマンド）をパラメータ形式で制御クラスに渡し依頼する。<br>
+	パラメータはエンティティ形式であり、コマンドを表す文字列やそれに付随する数値や日付といった属性値で構成されている。
+	コマンドパターンでは命令をこのようなパラメータとして管理するのが肝である。
+	<br><br>
+
+
+	<strong>制御クラス(Animal)</strong><br>
+	このクラスはInvoker,Reciver,各コマンドクラスを束ねており、クライアントが依頼する窓口でもある。<br>
+	クライアントからコマンドのパラメータを受け取り、そのパラメータをInvokerに渡し、Invokerは適切なタイミングでコマンドを実行する。
+	コマンドのレスポンス（実行結果）はReceiverクラスで管理している。<br>
+	制御クラスがInvokerとReceiverの役割を兼ねることがよくある。<br>
+	<br><br>
+
+	
+	<strong>Commandインターフェース</strong><br>
+	各コマンドクラスのインターフェース。<br>
+	コマンドパターンでは原則として、このインターフェースを定義し、各コマンドクラスに実装しなければならない（保守性の向上のため）。<br>
+	基本的にコマンド実行である一つの抽象メソッド「execute」を定義する。
+	場合によってはundo（取り消し機能）などの抽象メソッドを追加定義してもいいが、やたらと追加定義すべきではない。<br>
+	<br><br>
+
+
+	<strong>各コマンドクラス（〇〇Command)</strong><br>
+	コマンドの実行処理が記述されているクラス。<br>
+	一つのコマンド（命令）に一つのコマンドクラスというのが原則である。
+	このような原則にしている理由は、修正しやすくするためである。疎結合になり修正に強くなる。<br>
+	インターフェースで定義されているメソッド(execute)を実装し、コマンドの内容であるロジックを記述する。<br>
+	引数はパラメータ(param)から受け取るようにするとよい。<br>
+	返り値はレシーバ（Receiver）に渡すような仕組みにするとよい。この部分は制御クラス（Animal)やInvokerに記述してもよい。<br>
+	<br><br>
+
+	
+	<strong>起動者(Invoker)</strong><br>
+	Invokerは「起動者」という意味がある。
+	その名前の通り、各種コマンド（〇〇Command）を実行（起動）する役割がある。<br>
+	どのコマンドを実行するかはパラメータ(param)で指定する。(invokeメソッド）
+	パラメータは命令を意味する文字列と補足数値などから構成されるエンティティである。
+	また、パラメータを渡されたらすぐにコマンドを実行するのでなく、一旦、キュー(que)に保存される。
+	その後、適切なタイミングでキューからパラメータを取り出し、コマンドを実行する。
+	どのようなタイミングにするかは、当クラス内で記述されたロジックにより決まる。<br>
+	Invokerの処理がシンプルになるようであれば、制御クラス（Animalクラス）に統合してもよい。<br>
+	<br><br>
+
+
+	<strong>受信機(Receiver)</strong><br>
+	Receiverには「受信機」という意味がある。
+	この名前の通り、コマンドの実行結果を受信する役割がある。<br>
+	実行結果をタイミングずらしてクライアントに通知したいときなどに利用する。
+	また、実行結果をログ出力したり、テキストファイル出力したりする処理も受信機の役割とすることができる。<br>
+	Invokerの処理がシンプルになるようであれば、制御クラス（Animalクラス）に統合してもよい。<br>
+	<br><br>
+
+
+
+	<br><time>2018-6-4</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/design_pattern/">デザインパターンの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-6-4</div>
+</body>
+</html>
