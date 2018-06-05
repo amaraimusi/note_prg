@@ -218,7 +218,102 @@
 	</code></pre>
 
 
-	<br><time>2018-6-4</time>
+	<br><time>2018-6-5</time>
+</div>
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>オブザーバーパターン(Observer)</h3>
+	
+	<p>どんなときにオブザーバーパターンを活用するか？</p>
+	サブジェクト（主体クラス）からの更新通知を受け取って処理を行いたいとき。<br>
+	<br><br>
+	
+	
+	<p>解説</p>
+	オブザーバーには「観察者」という意味がある。
+	その名前の通り、オブザーバークラスはサブジェクトクラス（主体クラス）からの更新通知を観察し、通知を確認したら何らかの処理を行う。<br>
+	例えばサブジェクトが何らかの更新を行ったら、ログ出力、DBに保存、メール送信、twitterに投稿などといった機能を開発するときオブザーバーパターンは活躍する。<br>
+	<br><br>
+	
+	<p>オブザーバーパターンのクラス図</p>
+	<img src="img/note/observer.svg" />
+	<br><br>
+	
+	<p>オブザーバーパターンのサンプルソースコード</p>
+	<pre><code>
+	interface IObserver{
+		public function update($data);
+	}
+	
+	class LogObserver implements IObserver{
+		
+		public function update($data){
+			echo 'ログ出力を行いました。（ダミー）'.$data['date1'].'&lt;br&gt;';
+		}
+	}
+	
+	class MailObserver implements IObserver{
+		
+		public function update($data){
+			echo 'メール送信を行いました。（ダミー）'.$data['date1'].'&lt;br&gt;';
+		}
+	}
+	
+	class TwitterObserver implements IObserver{
+		
+		public function update($data){
+			echo 'Twitterへ投稿しました。（ダミー）'.$data['date1'].'&lt;br&gt;';
+		}
+	}
+	
+	class SubjectBase{
+		
+		public $observers = array();
+		
+		public function addObserver(IObserver $observer){
+			$this-&gt;observers[] = $observer;
+		}
+		
+		public function notifyObservers($data){
+			for($i=0; $i&lt;count($this-&gt;observers); $i++){
+				$observer = $this-&gt;observers[$i];
+				$observer-&gt;update($data);
+			}
+		}
+	}
+	
+	class AnimalSubject extends SubjectBase{
+		
+		public function __construct(){
+			$this-&gt;addObserver(new LogObserver());
+			$this-&gt;addObserver(new MailObserver());
+			$this-&gt;addObserver(new TwitterObserver());
+		}
+		
+		public function action(){
+			
+			$data = array('date1' =&gt; date('Y-m-d H:i:s'));
+			
+			$this-&gt;notifyObservers($data);
+		}
+	}
+	
+	
+	// 検証
+	$animal = new AnimalSubject();
+	$animal-&gt;action();
+	</code></pre>
+	<strong>出力</strong><br>
+	<pre>
+	ログ出力を行いました。（ダミー）2018-06-05 11:02:45
+	メール送信を行いました。（ダミー）2018-06-05 11:02:45
+	Twitterへ投稿しました。（ダミー）2018-06-05 11:02:45
+	</pre>
+
+	<br><time>2018-6-5</time>
 </div>
 
 
