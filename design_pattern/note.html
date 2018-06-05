@@ -118,6 +118,112 @@
 
 
 
+<div id="sec1-2" class="sec4">
+	<h3>ストラテジーパターン</h3>
+	<p>どのようなときにストラテジーパターン(Strategy パターン)を適用するか？</p>
+	メソッドの振る舞い（ロジック部分）を状況によって変更切替ができるようにしたいとき。<br>
+	<br>
+	
+	<p>解説</p>
+	ストラテジーパターンを適用すると環境やステータスによってメソッドの振る舞いを切り替えることができる。<br>
+	ストラテジーパターンには「戦略」という意味がある。
+	実際の戦略にはプランA、プランBとなどといった状況により戦略を変更することがあるが、
+	ストラテジーパターンも同じで状況によりメソッドを処理A,処理Bというふうに振る舞いを変更できる。<br>
+	<br>
+	
+	<p>IF文との比較</p>
+	ストラテジーパターンを乱用してはならない。
+	振る舞いの変更はif文でもできるので普段はこちらを使うべき。<br>
+	ストラテジーパターンは基礎的な部分の振る舞い変更に適用すべきである。
+	PC版とスマホ版でメソッドの振る舞いを変更する場合や、
+	DBの種類を問わずに動作するライブラリ的なクラスを作成するときにストラテジーパターンは役に立つ。<br>
+	<br>
+	
+	よく１つの画面に複数のモードが存在していることがある。
+	このようなケースの場合、モードごとに振る舞いを変更するという場面は多い。
+	こんなときこそストラテジーパターンの出番である。<br>
+	<br>
+
+	<p>ストラテジーパターンのクラス図</p>
+	<img src="img/note/strategy.svg" />
+	<br><br>
+	
+	<p>ソースコード(PHP)</p>
+	<pre><code>
+	&lt;?php
+	class Animal{
+		
+		private $barkStrategy;
+		
+		public function __construct($mode='neko'){
+			
+			// 下記のストラテジー変更は一例に過ぎない。ストラテジーを変更する方法はいろいろある。
+			$barkStrategy = new CatStrategy();
+			if($mode == 'inu'){
+				$this-&gt;setStrategy(new DogStrategy());
+			}else if($mode=='buta'){
+				$this-&gt;setStrategy(new PigStrategy());
+			}else{
+				$this-&gt;setStrategy(new CatStrategy());
+			}
+			
+		}
+		
+		public function setStrategy(IBarkStrategy $barkStrategy){
+			$this-&gt;barkStrategy = $barkStrategy;
+		}
+		
+		public function bark(){
+			$this-&gt;barkStrategy-&gt;bark();
+		}
+	}
+	
+	interface IBarkStrategy{
+		public function bark();
+	}
+	
+	// ストラテジーインターフェース
+	class CatStrategy implements IBarkStrategy{
+		public function bark(){
+			echo 'ニャオーン';
+		}
+	}
+	
+	class DogStrategy implements IBarkStrategy{
+		public function bark(){
+			echo 'ワン ワン';
+		}
+	}
+	
+	class PigStrategy implements IBarkStrategy{
+		public function bark(){
+			echo 'キーキー';
+		}
+	}
+	
+	// 検証
+	
+	$animal = new Animal('inu');
+	$animal-&gt;bark(); // → ワン ワン
+	echo '&lt;br&gt;';
+	
+	$animal-&gt;setStrategy(new PigStrategy());
+	$animal-&gt;bark(); // → キーキー
+	echo '&lt;br&gt;';
+	
+	$animal-&gt;setStrategy(new CatStrategy());
+	$animal-&gt;bark(); // → ニャオーン
+	echo '&lt;br&gt;';
+	?&gt;
+	</code></pre>
+
+
+	<br><time>2018-6-4</time>
+</div>
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
