@@ -496,6 +496,178 @@
 
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>デコレーターパターン | DECORATORパターン</h3>
+
+	<p>どんなときにデコレーターパターンを使うか？</p>
+	<ol>
+		<li>既存のクラスに手を加えずに拡張するとき。</li>
+		<li>装飾するようにクラスを自在にカスタマイズするとき。</li>
+	</ol>
+	<br>
+	
+	
+	<p>デコレーターパターンの解説</p>
+	オブジェクト指向には、「修正ではなく拡張をする」という原則がある。
+	既存のソースコードは時間をかけてテストをした品質が高いものである。
+	そのためできるだけ既存のソースコードに手を入れず、拡張するようにしたほうが良い。
+	デコレーターパターンは、この原則を当てはめるときに役に立つ。<br>
+	また、デコレーターは「装飾」という意味があるように、クラスを自在に装飾することができる。
+	例えとして、猫クラスに「黒」のデコレータで装飾すると黒猫クラスになる。
+	さらに「大型」デコレータで装飾すると「大型黒猫クラス」になる。
+	装飾は１つだけとはかぎらずいくつでも装飾できる。<br>
+	<br>
+
+	<p>デコレーターパターンのクラス図</p>
+	<img src="img/note/decorator.svg" /><br>
+	<br>
+	
+	<p>デコレーターパターンのサンプルソースコード</p>
+	<pre><code>
+	class Pet{
+		public $name = 'none';
+		
+		public function getName(){
+			return $this-&gt;name;
+		}
+		public function bark(){
+			return '吠える';
+		}
+		public function price(){
+			return 0;
+		}
+	}
+	
+	class Cat extends Pet{
+		
+		public function __construct(){
+			$this-&gt;name = 'ネコ';
+		}
+		public function bark(){
+			return  'ニャゴー';
+		}
+		public function price(){
+			return 10000;
+		}
+	}
+	
+	class Dog extends Pet{
+		
+		public function __construct(){
+			$this-&gt;name = '犬';
+		}
+		public function bark(){
+			return  'ワンワン';
+		}
+		public function price(){
+			return 10;
+		}
+	}
+	
+	// デコレータークラス
+	class Decorator extends Pet{
+		protected $pet;
+		
+		public function __construct(Pet $pet){
+			$this-&gt;pet = $pet;
+		}
+		
+		public function getName(){
+			return $this-&gt;pet-&gt;getName();
+		}
+		
+		public function bark(){
+			return $this-&gt;pet-&gt;bark();
+		}
+		
+		public function price(){
+			return $this-&gt;pet-&gt;price();
+		}
+	}
+	
+	class Big extends Decorator{
+	
+		public function getName(){
+			return '大きい' . $this-&gt;pet-&gt;getName();
+		}
+		
+		public function price(){
+			return $this-&gt;pet-&gt;price() + 500;
+		}
+		
+	}
+	
+	class Small extends Decorator{
+	
+		public function getName(){
+			return '小さい' . $this-&gt;pet-&gt;getName();
+		}
+		public function price(){
+			return $this-&gt;pet-&gt;price() + 200;
+		}
+		
+	}
+	
+	class Black extends Decorator{
+	
+		public function getName(){
+			return '黒い' . $this-&gt;pet-&gt;getName();
+		}
+		
+		public function price(){
+			return $this-&gt;pet-&gt;price() + 50;
+		}
+		
+	}
+	
+	class Bowlingual extends Decorator{
+	
+		public function bark(){
+			return $this-&gt;pet-&gt;bark() . '(今日の天気はいかがですか)';
+		}
+		
+	}
+	
+	// 検証
+	
+	$cat = new Cat();
+	output($cat);
+	
+	$bigCat = new Big($cat);
+	output($bigCat);
+	
+	$smallCat = new Small($cat);
+	output($smallCat);
+	
+	$blackCat = new Bowlingual($smallCat);
+	output($blackCat);
+	
+	$blackCat = new Black($smallCat);
+	
+	$dog = new Dog();
+	$dog = new Black($dog);
+	$dog = new Big($dog);
+	output($dog);
+	
+	function output(Pet $pet){
+		echo $pet-&gt;getName() . ' → ' . $pet-&gt;bark() . ' → ' .  $pet-&gt;price() . '円&lt;br&gt;';
+	}
+	</code></pre>
+	
+	出力
+	<pre>
+	予約して、予約状態になりました。
+	チェックインし、滞在状態になりました。
+	チェックイン済みです。
+	チェックアウトして、未予約状態になりました。
+	</pre>
+	
+	<br><time>2018-6-10</time>
+</div>
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
