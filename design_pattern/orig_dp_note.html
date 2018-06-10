@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>デザインパターンの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+<div id="header" ><h1>デザインパターンの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>Digパターン</h3>
+	毎フレームごとに処理を少しずつ進めていくデザインパターン。<br />
+	処理を毎フレームごとに、少しずつ掘り進めて行くように実行されることからDigパターンと呼んでいる。
+	Stateパターンの亜種であるが、上から下に処理が流れるイメージを重要視している。<br />
+	ゲーム開発における短いアニメーションなどに使える。<br />
+	<hr />
+	
+	<p>クラス図</p>
+	<img src="img/note/dp_dig.png" /><br/>
+	<a href="img/note/dp_dig.asta">クラス図ダウンロード(asta)</a>
+	<hr />
+	
+	<strong>サンプルソースコード(Java)</strong><br />
+	<pre><code>		
+	package test_a;
+	
+	import com.amaraimusi.zss_lib.CalcUtil;
+	
+	
+	public class Test013Dig  {
+	
+	
+	    private static int m_nekoDigStt=0;
+	    private static NekoDig m_nekoDig;
+	     
+	
+	    public static void main(String[] args) {
+	        
+	        CalcUtil.init();
+	        
+	        System.out.println("テスト開始");
+	        
+	        //Digクラス
+	        m_nekoDig=new NekoDig();
+	        
+	        //擬似スレッド
+	        for(int i=0;i&lt;100;i++){
+	            m_nekoDigStt=m_nekoDig.Dig(m_nekoDigStt);
+	            if(m_nekoDigStt==-1){
+	                
+	                System.out.println("別の処理");
+	                
+	                System.out.println("Digクラスの処理が終了しました。");
+	                break;
+	            }
+	            
+	            
+	        }
+	        
+	        
+	        
+	        System.out.println("テスト終了");
+	        
+	        
+	
+	    }
+	    
+	}
+	//Digインターフェース
+	interface IDig{
+	    abstract int Dig(int digState);
+	}
+	
+	//★Digクラス。　毎フレーム、少しずつ処理を進めていく仕組みを実装。
+	class NekoDig implements IDig{
+	    
+	    
+	    @Override
+	    public int Dig(int digState) {
+	
+	        if(digState==0){
+	            System.out.println("処理その１");
+	            digState=1;//dig状態を1にする。
+	            return digState;
+	        }
+	        if(digState==1){
+	            //10分の１の確率で状態１を抜ける。
+	            System.out.println("処理その２");
+	            int r=CalcUtil.rnd(10);
+	            if(r==1){
+	                digState=2;//dig状態2
+	            }
+	            
+	            return digState;
+	        }
+	        if(digState==2){
+	            System.out.println("処理その３");
+	            digState=-1;//dig状態を-1にしてdig処理終了
+	            return digState;
+	        }
+	        
+	        
+	        
+	        return -1;
+	    }
+	    
+	
+	}
+	
+	
+	</code></pre><br />
+	
+	<a href="img/note/Test013Dig.java">サンプルダウンロード</a>（Test013Dig.java）<br />
+	<hr />
+
+	<br><time>2013-3-20</time>
+</div>
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>Modeパターン</h3>
+	マルチスレッドに対応した、Stateパターン<br />
+	ゲーム開発における各画面を表現するのに最適である。<br />
+	別のModeに切り替わる時、requestでデータを渡すことが可能。またsessionとして共有することもできる。<br />
+	毎フレーム実行する処理はUpdateメソッド内で行う。<br />
+	<hr />
+	
+	<p>Modeパターンのクラス図</p>
+	<img src="img/note/dp_mode.png" /><br/>
+	<a href="img/note/dp_mode.asta">クラス図ダウンロード(asta)</a>
+	<hr />
+	
+	<strong>ModeパターンのModeパターンのサンプルソースコード(Java)</strong><br />
+
+	<pre><code>
+	package test_a;
+	
+	import java.util.ArrayList;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.Map;
+	
+	import com.amaraimusi.zss_lib.CalcUtil;
+	
+	
+	public class Test014Mode  {
+	
+	
+	     
+	
+	    public static void main(String[] args) {
+	        
+	        CalcUtil.init();//汎用計算クラス
+	        
+	        
+	        System.out.println("テスト開始");
+	        
+	        ModeBase nekoMode=new NekoMode();
+	        ModeBase yagiMode=new YagiMode();
+	        ModeBase butaMode=new ButaMode();
+	
+	        List&lt;ModeBase&gt; modeList=new ArrayList&lt;ModeBase&gt;();
+	        modeList.add(nekoMode);
+	        modeList.add(yagiMode);
+	        modeList.add(butaMode);
+	        
+	        ModeControl modeCon=new ModeControl();
+	        modeCon.Init(modeList, 0);
+	        
+	        //擬似スレッド
+	        for(int i=0;i&lt;10;i++){
+	            modeCon.Update();
+	        }
+	        
+	        
+	        System.out.println("テスト終了");
+	        
+	        
+	
+	    }
+	    
+	}
+	
+	class ModeControl{
+	    
+	    private ModeBase m_actMode;//現在モードクラス。
+	    
+	    private List&lt;ModeBase&gt; m_modeList;//モードリスト
+	    
+	    public void Init(List&lt;ModeBase&gt; modeList,int iniModeIndex){
+	        
+	        for(ModeBase mode:modeList){
+	            mode.setModeControl(this);
+	        }
+	        
+	        //m_actModeIndex=iniModeIndex;
+	        m_modeList=modeList;
+	        this.changeMode(iniModeIndex, null);
+	        
+	    }
+	    
+	    public void Update(){
+	        
+	        m_actMode.Update();
+	    }
+	    
+	    public void changeMode(int modeIndex,Map&lt;Object,Object&gt; request){
+	        m_actMode=m_modeList.get(modeIndex);
+	        m_actMode.OnChange(request);
+	    }
+	    
+	}
+	//Digインターフェース
+	abstract class ModeBase{
+	    
+	
+	    private ModeContainer m_dataCon;
+	    private Map&lt;Object,Object&gt; m_sesMap;
+	    public ModeControl m_modeCon;
+	    
+	    public ModeBase(){
+	        
+	        m_dataCon=ModeContainer.getInstance();
+	        m_sesMap=m_dataCon.sessionMap;
+	        
+	    }
+	    
+	    //毎フレーム呼び出される。
+	    abstract public void Update();
+	    
+	    //モード変更直後に呼び出される。
+	    abstract public void OnChange(Map&lt;Object,Object&gt; request);
+	    
+	
+	    
+	    protected void changeMode(int modeIndex,Map&lt;Object,Object&gt; request){
+	        m_modeCon.changeMode(modeIndex,request);
+	    }
+	    
+	    protected void changeMode(int modeIndex){
+	        m_modeCon.changeMode(modeIndex,null);
+	    }
+	    
+	
+	    
+	    protected void setSession(Object key,Object obj){
+	        m_sesMap.put(key, obj);
+	    }
+	    
+	    protected Object getSession(Object key){
+	        return m_sesMap.get(key);
+	    }
+	    
+	    public void setModeControl(ModeControl modCon){
+	        this.m_modeCon=modCon;
+	    }
+	
+	}
+	
+	/**
+	 * モードクラス用のコンテナ。データ保持用
+	 * @author Administrator
+	 *
+	 */
+	class ModeContainer{
+	    
+	
+	    public Map&lt;Object,Object&gt; sessionMap;//セッションコンテナ
+	    
+	    private static ModeContainer mySelf;
+	    
+	    private ModeContainer(){
+	    
+	        sessionMap=new HashMap&lt;Object,Object&gt;();
+	        
+	    }
+	    
+	    public static ModeContainer getInstance(){
+	        if(mySelf==null){
+	            mySelf=new ModeContainer();
+	        }
+	        return mySelf;
+	    }
+	}
+	
+	class NekoMode extends ModeBase{
+	    
+	    public NekoMode(){
+	        super();
+	        
+	    }
+	
+	    @Override
+	    public void Update() {
+	        
+	        System.out.println("猫モードのUpdate");
+	        
+	        // 1/4の確率でモード変更
+	        int r=CalcUtil.rnd(4);
+	        if(r==1){
+	            System.out.println("山羊モードに変更します。");
+	            this.changeMode(ModeConst.YAGI_MODE);//山羊モードに変更
+	        }
+	    }
+	
+	    @Override
+	    public void OnChange(Map&lt;Object, Object&gt; request) {
+	
+	        System.out.println("猫モードのOnChange");
+	    
+	    }
+	    
+	}
+	
+	class YagiMode extends ModeBase{
+	
+	    public YagiMode(){
+	        super();
+	        
+	    }
+	
+	    
+	    @Override
+	    public void Update() {
+	        System.out.println("山羊モードのUpdate");
+	        
+	        // 1/4の確率でモード変更
+	        int r=CalcUtil.rnd(4);
+	        if(r==1){
+	            System.out.println("豚モードに変更します。");
+	            Map&lt;Object,Object&gt; request=new HashMap&lt;Object,Object&gt;();
+	            request.put("yagi","山羊からのお手紙");
+	            
+	            this.changeMode(ModeConst.BUTA_MODE,request);//豚モードに変更
+	        }
+	    }
+	
+	
+	    @Override
+	    public void OnChange(Map&lt;Object, Object&gt; request) {
+	        
+	        System.out.println("山羊モードのOnChange");
+	        
+	    }
+	    
+	}
+	
+	class ButaMode extends ModeBase{
+	
+	    public ButaMode(){
+	        super();
+	        
+	    }
+	
+	    
+	    @Override
+	    public void Update() {
+	
+	        // 1/4の確率でモード変更
+	        System.out.println("豚モードのUpdate");
+	        int r=CalcUtil.rnd(4);
+	        if(r==1){
+	            System.out.println("山羊モードに変更します。");
+	            this.changeMode(ModeConst.NEKO_MODE);//山羊モードに変更
+	        }
+	    }
+	
+	
+	    @Override
+	    public void OnChange(Map&lt;Object, Object&gt; request) {
+	        
+	        System.out.println("豚モードのOnChange");
+	        
+	
+	        if(request!=null){
+	            System.out.println("豚がリクエストから受け取った情報:"+request.get("yagi"));
+	        }
+	        
+	    }
+	    
+	}
+	
+	//各モードクラスを表す定数
+	class ModeConst{
+	    public static int NEKO_MODE=0;
+	    public static int YAGI_MODE=1;
+	    public static int BUTA_MODE=2;
+	}
+	
+	</code></pre><br />
+
+
+	<br><time>2013-3-20</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/design_pattern/">デザインパターンの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-6-10</div>
+</body>
+</html>
