@@ -668,6 +668,109 @@
 
 
 
+<div id="sec1-6" class="sec4" >
+	<h3>ファクトリーパターンについて</h3>
+	
+	オブジェクト指向には「<strong>変化する部分と変化しない部分を分離する</strong>」という原則がある。
+	変化とは仕様変更のこと。
+	インスタンス生成する部分が変化する可能性がある場合、この部分を別クラスとして分離すべきである。
+	その分離したインスタンス生成を行うクラスを<strong>ファクトリー</strong>と呼ぶ。
+	逆にインスタンス生成する部分が変化することがないのであればファクトリーを使う必要はない。<br>
+	ファクトリーパターンを適用すると、インスタンス生成する箇所が一ヵ所に集まるので管理しやすい。
+	またインスタンス生成部分をパラメータ化することもできる。<br>
+	<br>
+	
+	ファクトリーパターンは3種類存在する。
+	<ol>
+		<li><a href="#sec1-6-1" class="livipage">シンプルファクトリー | Simple Facroty</a></li>
+		<li><a href="#sec1-6-2" class="livipage">ファクトリーメソッド | Factory Method</a></li>
+		<li><a href="#sec1-6-3" class="livipage">アブストラクトファクトリー | Abstract Factory</a></li>
+	</ol>
+	<br><time>2018-6-11</time>
+</div>
+
+
+
+
+
+<div id="sec1-6-1" class="sec4">
+	<h3>シンプルファクトリー | Simple Facroty</h3>
+	シンプルファクトリはシンプルにインスタンス生成部分をクラスとして分離したものである。<br>
+	また、正確にはデザインパターンでなくプログラミングのイディオム（慣用）である。<br>
+	<aside>オブジェクト指向の原則：<strong>変化する部分と変化しない部分を分離する</strong></aside>
+	<br>
+	
+	<p>シンプルファクトリーのクラス図</p>
+	<img src="img/note/simple_factory.svg" /><br>
+	<br>
+	
+	<p>シンプルファクトリーのサンプルソースコード(PHP)</p>
+	<pre><code>
+	class Park{
+		
+		public function action(){
+			
+			// ファクトリー
+			$factory = new SimpleFactory();
+			
+			$animal = $factory-&gt;createAnimal('cat');
+			$animal-&gt;bark();
+			
+			$animal = $factory-&gt;createAnimal('dog');
+			$animal-&gt;bark();
+	
+		}
+	}
+	
+	class SimpleFactory{
+		
+		public function createAnimal($code){
+			$animal = null;
+			if($code=='cat'){
+				$animal = new Cat();
+			}else if($code=='dog'){
+				$animal = new dog();
+			}
+			return $animal;
+		}
+	}
+	
+	interface IAnimal{
+		public function bark();
+	}
+	
+	class Cat implements IAnimal{
+		
+		public function bark(){
+			echo 'ゴロニャゴ&lt;br&gt;';
+		}
+	}
+	
+	class Dog implements IAnimal{
+		
+		public function bark(){
+			echo 'ワオーム&lt;br&gt;';
+		}
+	}
+	
+	// 検証
+	$park = new Park();
+	$park-&gt;action();
+	</code></pre>
+	
+	出力
+	<pre>
+	ゴロニャゴ
+	ワオーム
+	</pre>
+	
+	<br><time>2018-6-12</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	<br><time></time>
