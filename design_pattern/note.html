@@ -771,6 +771,119 @@
 
 
 
+<div id="sec1-6-2" class="sec4">
+	<h3>ファクトリーメソッド | Factory Method</h3>
+	
+	<p>どんなときにFactory Methodを用いるか？</p>
+	主体クラスが複数のサブクラスに分かれており、そしてサブクラスごとにファクトリーで生成するProductクラス（製品クラス）が異なる場合に利用する。<br>
+	<br>
+	
+	<p>Factory MethodとAbstract Factoryの比較</p>
+	Factory Methodは<strong>継承</strong>を使っているのに対し、Abstract Factoryは<strong>コンポジション</strong>を使っている。<br>
+	サブクラスごとに異なるファクトリーという構造ならFactory Methodを採用すべき。<br>
+	生成すべきProductクラスが多数存在し、グループとしてまとめたいならAbstract Factoryを採用する。<br>
+	なお、生成すべきProductクラスが少ないのであればSimple Factoryで十分である。<br>
+	<br>
+	
+	<p>ファクトリーメソッドのクラス図</p>
+	<img src="img/note/factory_method.svg" alt="ファクトリーメソッドのクラス図" /><br>
+	<br>
+	
+	<p>ファクトリーメソッドのサンプルソースコード(PHP)</p>
+	<pre><code>
+	abstract class Park{
+		
+		public $factory;
+		
+		public function action($code){
+			
+			$animal = $this-&gt;createAnimal($code);
+			$animal-&gt;bark();
+			
+		}
+		
+		abstract public function createAnimal($code);
+	}
+	
+	class UsPark extends Park{
+		
+		public function createAnimal($code){
+			$animal = null;
+			if($code == 'cat'){
+				$animal = new AmericanShortHair();
+			}else if($code='dog'){
+				$animal = new AmericanTerrier();
+			}
+			return $animal;
+		}
+	}
+	
+	class JapanPark extends Park{
+		
+		public function createAnimal($code){
+			$animal = null;
+			if($code == 'cat'){
+				$animal = new MikeNeko();
+			}else if($code='dog'){
+				$animal = new SibaInu();
+			}
+			return $animal;
+		}
+	}
+	
+	interface IAnimal{
+		public function bark();
+	}
+	
+	class MikeNeko implements IAnimal{
+		public function bark(){
+			echo 'ミケー&lt;br&gt;';
+		}
+	}
+	
+	class SibaInu implements IAnimal{
+		public function bark(){
+			echo 'ワン ワン&lt;br&gt;';
+		}
+	}
+	
+	class AmericanShortHair implements  IAnimal{
+		public function bark(){
+			echo 'meow&lt;br&gt;';
+		}
+	}
+	
+	class AmericanTerrier implements  IAnimal{
+		public function bark(){
+			echo 'bow bow&lt;br&gt;';
+		}
+	}
+	
+	
+	// 検証
+	$usPark = new UsPark();
+	$usPark-&gt;action('cat');
+	$usPark-&gt;action('dog');
+	
+	$jpPark = new JapanPark();
+	$jpPark-&gt;action('cat');
+	$jpPark-&gt;action('dog');
+	</code></pre><br>
+	<strong>出力</strong><br>
+	<pre>
+	meow
+	bow bow
+	ミケー
+	ワン ワン
+	</pre>
+	
+	<br><time>2018-6-13</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	<br><time></time>
