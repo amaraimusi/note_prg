@@ -793,8 +793,6 @@
 	<pre><code>
 	abstract class Park{
 		
-		public $factory;
-		
 		public function action($code){
 			
 			$animal = $this-&gt;createAnimal($code);
@@ -876,6 +874,115 @@
 	ミケー
 	ワン ワン
 	</pre>
+	
+	<br><time>2018-6-13</time>
+</div>
+
+
+
+
+
+<div id="sec1-6-3" class="sec4">
+	<h3>アブストラクトファクトリー | Abstract Factory</h3>
+	
+	<p>どんなときにAbstractファクトリーを使うか？</p>
+	ファクトリーで生成するProductクラス(製品クラス）が多数存在するとき、
+	大量のProductクラスをグループとして仕分けしたほうが良い。<br>
+	一つのグループを一つのファクトリーとして割り当てる方法がAbstractファクトリーである。<br>
+	<br>
+	
+	<p>アブストラクトファクトリーのクラス図</p>
+	<img src="img/note/abstract_factory.svg" alt="アブストラクトファクトリーのクラス図" /><br>
+	<br>
+	
+	<p>アブストラクトファクトリーのサンプルコード</p>
+	<pre><code>
+	class ParkA{
+		
+		public $factory;
+		
+		public function setFactory(IFactory $factory){
+			$this-&gt;factory = $factory;
+		}
+		
+		public function action(){
+			$cat = $this-&gt;factory-&gt;createCat();
+			$cat-&gt;crow_talk();
+			
+			$dog = $this-&gt;factory-&gt;createDog();
+			$dog-&gt;bark();
+	
+		}
+		
+	}
+	
+	interface IFactory{
+		public function createCat();
+		public function createDog();
+	}
+	
+	class AmericanFactory implements IFactory{
+		public function createCat(){
+			return new AmericanShortHair();
+		}
+		
+		public function createDog(){
+			return new AmericanTerrier();
+		}
+	}
+	
+	class JapanFactory implements IFactory{
+		public function createCat(){
+			return new MikeNeko();
+		}
+		
+		public function createDog(){
+			return new SibaInu();
+		}
+	}
+	
+	interface ICat{
+		public function crow_talk();
+	}
+	
+	interface IDog{
+		public function bark();
+	}
+	
+	class MikeNeko implements ICat{
+		public function crow_talk(){
+			echo '三毛猫→ ニャー ニャー&lt;br&gt;';
+		}
+	}
+	
+	class SibaInu implements IDog{
+		public function bark(){
+			echo '柴犬→ ワン ワン&lt;br&gt;';
+		}
+	}
+	
+	class AmericanShortHair implements ICat{
+		public function crow_talk(){
+			echo 'アメショ→ mew mew&lt;br&gt;';
+		}
+	}
+	
+	class AmericanTerrier implements IDog{
+		public function bark(){
+			echo 'テリア→ bow bow&lt;br&gt;';
+		}
+	}
+	
+	
+	// 検証
+	$park = new ParkA();
+	$park-&gt;setFactory(new AmericanFactory());
+	$park-&gt;action();
+	
+	$park-&gt;setFactory(new JapanFactory());
+	$park-&gt;action();
+	</code></pre>
+	<br>
 	
 	<br><time>2018-6-13</time>
 </div>
