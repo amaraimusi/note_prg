@@ -5,3 +5,9 @@ RewriteCond %{REQUEST_URI} /note_prg/other/diagram.php
 RewriteRule ^(.*)$ /note_prg/other/diagram/diagram.html [R=301,L]
 </IfModule>
 
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_URI} /note_prg/other/text_and_narrative.html
+RewriteRule ^(.*)$ /note_prg/sentence/index.html [R=301,L]
+</IfModule>
