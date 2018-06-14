@@ -187,6 +187,12 @@ aside{
 	color:#40640b; 
 }
 
+.sec_sm{
+	padding:10px;
+	font-size:0.9em;
+	color:#414141;
+}
+
 
 /* 紹介ソースコード */
 .intro_source_code{
