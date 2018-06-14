@@ -1038,6 +1038,63 @@
 
 
 
+<div id="sec1-7" class="sec4">
+	<h3>シングルトンパターン | Singleton Pattern</h3>
+	
+	唯一無二のインスタンスを作成する。<br>
+	DICON(DIコンテナ)を作成するときなどにシングルトンパターンを利用できる。<br>
+	インスタンスが常に一つなのでメモリを節約できる利点もある。<br>
+	<br>
+	
+	<p>シングルトンパターンクラスの特徴</p>
+	コンストラクタをPrivateにすることにより new を禁止する。インスタンス取得はgetInstance()を使う。<br>
+	<br>
+	
+	<p>シングルトンパターンのクラス図</p>
+	<img src="img/note/singleton.svg" alt="シングルトンパターンのクラス図" /><br>
+	<br>
+	
+	<p>シングルトンパターンのサンプルソースコード(PHP)</p>
+	<pre><code>
+	class Singleton{
+		private static $instance; // 自分自身のインスタンス
+		
+		private $test=0;
+		
+		private function __construct(){
+	
+		}
+		
+		public static function getInstance(){
+			if(self::$instance == null){
+				self::$instance = new Singleton();
+			}
+			return self::$instance;
+		}
+		
+		public function testMethod(){
+			$this-&gt;test ++;
+			echo $this-&gt;test.'&lt;br&gt;';
+		}
+	}
+	
+	$singlton1 = Singleton::getInstance();
+	$singlton1-&gt;testMethod();
+	
+	$singlton2 = Singleton::getInstance();
+	$singlton2-&gt;testMethod();
+	
+	$singlton3 = Singleton::getInstance();
+	$singlton3-&gt;testMethod();	
+	</code></pre>
+	
+	<br><time>2018-6-14</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	<br><time></time>
