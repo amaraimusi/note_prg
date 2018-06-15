@@ -1095,6 +1095,84 @@
 
 
 
+<div id="sec1-8" class="sec4">
+	<h3>アダプターパターン | Adapter Pattern</h3>
+	
+	アダプターパターンは既存のクラスを修正せずにインターフェースを適合する形にすることができる。<br>
+	煩雑になったインターフェースを一つにまとめたいときにも利用できる。<br>
+	<br>
+	
+	<p>デコレーターパターンとの違い</p>
+	アダプターパターンは既存のクラスを変更せずラップするという点でデコレーターパターンをよく似ている。
+	しかし役割が異なる。デコレーターパターンは仕様拡張に用いられるが、アダプターパターンは仕様を適合させるのに用いられる。<br>
+	<br>
+	
+	<p>アダプターパターンのクラス図</p>
+	<img src="img/note/adapter.svg" alt="アダプターパターンのクラス図" /><br>
+	<br>
+	
+	<p>アダプターパターンのサンプルソースコード(PHP)</p>
+	<pre><code>
+	interface ICat{
+		public function crow();
+	}
+	
+	class KuroNeko implements ICat{
+		public function crow(){
+			echo 'ニャオー&lt;br&gt;';
+		}
+	}
+	
+	class BigCat implements ICat{
+		public function crow(){
+			echo 'マーオ&lt;br&gt;';
+		}
+	}
+	
+	class Lion{
+		public function bark(){
+			echo 'ガオオォ&lt;br&gt;';
+		}
+	}
+	
+	class <strong>LionAdapter</strong> implements ICat{
+		
+		private $lion;
+		
+		public function __construct(){
+			$this-&gt;lion = new Lion();
+		}
+		public function crow(){
+			echo $this-&gt;lion-&gt;bark();
+		}
+	}
+	
+	// 検証
+	$cats = [];
+	$cats[] = new KuroNeko();
+	$cats[] = new BigCat();
+	$cats[] = new LionAdapter();
+	
+	foreach($cats as $cat){
+		$cat-&gt;crow();
+	}
+	</code></pre>
+	
+	出力
+	<pre>
+	ニャオー
+	マーオ
+	ガオオォ
+	</pre>
+	
+	
+	<br><time>2018-6-15</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	<br><time></time>
