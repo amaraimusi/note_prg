@@ -139,6 +139,53 @@
 
 
 
+<div id="sec15-5" class="sec4">
+	<h3>要素を別の処理で書き換えたら、参照先の要素オブジェクトにも反映されるか？</h3>
+	
+	要素から要素オブジェクトを生成した後、別の処理にて要素の中身を書き換える。<br>
+	書き換えは要素オブジェクトにも反映されているか？<br>
+	<strong>答え：反映されている。</strong><br>
+	<br>
+	
+	<a href="/sample/js/a007/ref_test_of_elm_obj/ref_test_of_elm_obj.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	<p>検証</p>
+	HTML
+	<pre><code>
+	&lt;div id="test1"&gt;
+		&lt;div&gt;猫の要素&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;input type="button" value="追加" onclick="addTest()" /&gt;
+	&lt;input type="button" value="出力" onclick="output()" /&gt;
+	
+	&lt;p&gt;出力&lt;/p&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var elmObj1;
+	
+	$(()=&gt;{
+		elmObj = jQuery("#test1");
+	})
+	
+	function addTest(){
+		jQuery("#test1").append('&lt;div&gt;犬&lt;/div&gt;');
+	}
+	
+	function output(){
+		jQuery("#res").html(elmObj.html());
+	}
+	</code></pre>
+	
+	<br><time>2018-6-18</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
