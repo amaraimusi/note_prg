@@ -186,6 +186,137 @@
 
 
 
+<div id="sec15-6" class="sec4">
+	<h3>スリープ関数</h3>
+	
+	<pre><code>
+	/**
+	 * スリープ
+	 * @param interval スリープ時間(ミリ秒）
+	 * 
+	 */
+	function sleep(interval){
+		var start_u = Math.floor(new Date());
+		
+		var flg = true;
+		while(flg){
+			var now_u = Math.floor(new Date());
+			if(now_u - start_u &gt; interval){
+				flg = false;
+			}
+		}
+	}
+	</code></pre>
+	
+	<br><time>2018-6-23</time>
+</div>
+
+
+
+
+<div id="sec15-7" class="sec4">
+	<h3>バックグランドの並列処理 | WebWorkerの使い方</h3>
+	
+	JavaScriptにはsetTimeout関数,setInterval関数,XMLHttpRequest(Ajax)などの非同期処理が存在する。<br>
+	しかし、JavaScriptの<strong>非同期処理</strong>は<strong>並列処理</strong>は同じものとは言えない。<br>
+	JavaScriptの非同期処理は、サーバー側に仕事をさせる場合、並列処理となるが、
+	自スクリプト中の他の処理を非同期処理させようとしても並列処理にはならない。<br>
+	つまり同期処理では、JavaScriptで書かれた重たい処理を並列実行することができない。<br>
+	<br>
+	だが <strong>Web Worker</strong>を使えば、JavaScriptで書かれた重たい処理を並列実行させることができる。<br>
+	しかし、Web WorkerはDOM操作やjQueryが使えないという弱点が存在する。<br>
+	また、メイン処理とWeb Workerの並列処理の間でデータをやり取りする場合、文字列か連想配列(Object)でなければならない。
+	クラスのインスタンスや、jQueryオブジェクトのデータやり取りはできない。<br>
+	<br>
+	並列処理の記述場所は別のJSファイルである。特定の関数を並列処理にすることはできないようである。<br>
+	<br>
+	
+	<a href="/sample/js/a007/web_worker/web_worker.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;input type="button" value="テスト2" onclick="test2()" /&gt;
+	&lt;input type="button" value="並列処理テスト" onclick="parallelCheck1()" /&gt;&lt;br&gt;
+	&lt;div id="res1"&gt;&lt;/div&gt;
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	function test2(){
+		
+			output('Web Workerを使って　重たい初期化を実行中です。(約3秒)');
+		
+			// キャッシュ読み込み回避ようのUNIXタイムスタンプを取得
+			var u = Math.floor(new Date());
+			
+			//workerオブジェクト
+			var worker = new <strong>Worker</strong>('sub_work.js?u=' + u);
+	
+			// 並列処理に送信するデータ
+			var obj = {'inu':'イヌ'};
+	
+			// 並列処理にデータを渡す
+			worker.postMessage(obj);
+			
+			// 受信イベント：並列処理が終わったときに受信が行われる。
+			worker.addEventListener('message', function(e) {
+				output(e.data.bark);
+				output('並列処理を終了しました。');
+			}, false);
+	}
+	
+	function parallelCheck1(){
+		output('別の並列処理を実行しました。');
+	}
+	
+	function output(msg){
+		jQuery('#res1').append(msg + '&lt;br&gt;');
+		console.log(msg);
+	}
+	</code></pre>
+	
+	<p>sub_work.js（並列処理）</p>
+	<pre><code>
+	//web worker
+	self.addEventListener('message', function(e) {
+	
+		var obj = e.data;
+		
+		obj['bark'] = obj.inu + 'がワインワインとせがむ';
+		console.log(obj);
+		
+		sleep(3000);
+	
+		//処理結果を送信
+		self.postMessage(obj);
+	}, false);
+	
+	
+	/**
+	 * スリープ
+	 * @param interval スリープ時間(ミリ秒）
+	 * 
+	 */
+	function sleep(interval){
+		var start_u = Math.floor(new Date());
+		
+		var flg = true;
+		while(flg){
+			var now_u = Math.floor(new Date());
+			if(now_u - start_u &gt; interval){
+				flg = false;
+			}
+		}
+	}
+	</code></pre>
+	
+	<br><time>2018-6-23</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
