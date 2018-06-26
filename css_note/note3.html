@@ -347,6 +347,122 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec3-9" class="sec1">
+	<h3>インデックス（番号）を指定してスタイルを適用する</h3>
+	
+	先頭から数える<strong>nth-child</strong>と、
+	末尾から数える<strong>nth-last-child</strong>の2種類が存在する。<br>
+	<br>
+	
+	<style>
+		/* 先頭から2番目に適用 */
+		#imori3-9 li:nth-child(2){
+			color:green;
+		}
+		
+		/* 末尾から2番目に適用 */
+		#imori3-9 li:nth-last-child(2){
+			color:Crimson;
+		}
+	</style>
+	<ol id="imori3-9">
+		<li>トウホクサンショウウオ</li>
+		<li>イボイモリ</li>
+		<li>アカハライモリ</li>
+		<li>シリケンイモリ</li>
+		<li>エゾサンショウウオ</li>
+	</ol>
+	
+	<hr />
+	<p>CSSコード</p>
+	<pre>
+	&lt;style&gt;
+		/* 先頭から2番目に適用 */
+		#imori3-9 li:<strong>strongnth-child(2)</strong>{
+			color:green;
+		}
+		
+		/* 末尾から2番目に適用 */
+		#imori3-9 li:<strong>nth-last-child(2)</strong>{
+			color:Crimson;
+		}
+	&lt;/style&gt;
+	&lt;ol id="imori3-9"&gt;
+		&lt;li&gt;トウホクサンショウウオ&lt;/li&gt;
+		&lt;li&gt;イボイモリ&lt;/li&gt;
+		&lt;li&gt;アカハライモリ&lt;/li&gt;
+		&lt;li&gt;シリケンイモリ&lt;/li&gt;
+		&lt;li&gt;エゾサンショウウオ&lt;/li&gt;
+	&lt;/ol&gt;
+	</pre>
+
+	<br><time>2018-6-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-10" class="sec1">
+	<h3>先頭または末尾の要素にスタイルを適用する</h3>
+	
+	<style>
+		/* 先頭要素に適用する */
+		#akagaeru3-10 li:first-child{
+			color:red;
+		}
+		
+		/* 末尾要素に適用する */
+		#akagaeru3-10 li:last-child{
+			color:blue;
+		}
+	</style>
+	<ol id="akagaeru3-10">
+		<li>チョウセンヤマアカガエル</li>
+		<li>ツシマアカガエル</li>
+		<li>トノサマガエル</li>
+		<li>リュウキュウアカガエル</li>
+	</ol>
+
+	<p>CSSコード</p>
+	<pre>
+	&lt;style&gt;
+		/* 先頭要素に適用する */
+		#akagaeru3-10 li:<strong>first-child</strong>{
+			color:red;
+		}
+		
+		/* 末尾要素に適用する */
+		#akagaeru3-10 li:<strong>last-child</strong>{
+			color:blue;
+		}
+	&lt;/style&gt;
+	&lt;ol id="akagaeru3-10"&gt;
+		&lt;li&gt;チョウセンヤマアカガエル&lt;/li&gt;
+		&lt;li&gt;ツシマアカガエル&lt;/li&gt;
+		&lt;li&gt;トノサマガエル&lt;/li&gt;
+		&lt;li&gt;リュウキュウアカガエル&lt;/li&gt;
+	&lt;/ol&gt;
+	</pre>
+
+
+	<br><time>2018-6-26</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec3-0" class="sec1" style="display: none">
 	<h3>xxx</h3>
 
