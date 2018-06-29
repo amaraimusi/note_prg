@@ -266,6 +266,107 @@
 
 
 
+<div id="sec1-3-2" class="sec4" >
+	<h3>画像プレビューの表示 | ES6対応</h3>
+	
+	<a href="/sample/js/a007/img_preview_es6/img_preview_es6.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	ES6クラスの「this」とchangeイベント「this」が競合する問題が起きる。<br>
+	下記のサンプルではそれを回避している。<br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="img_fn" type="file" name="img_fn" accept="image/*" /&gt;&lt;br&gt;
+	&lt;img id="img1" src="" alt="" style="width:200px;height:200px" /&gt;
+	&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(() =&gt; {
+		
+		var fileuploadImg = new FileuploadImg();
+	
+	});
+	
+	/**
+	 * ES6のクラス
+	 */
+	class FileuploadImg{
+	
+		constructor(param){
+			
+			jQuery("#img_fn").change(<strong>e =&gt;</strong> {
+	
+				this.test(); // thisは当クラスを指しているならメソッドを呼び出せる。
+				
+				this.imgPreview(e);// 画像プレビューを表示
+	
+			});
+		}
+		
+		test(){
+			this.output('thisによるメソッドの呼び出しテスト。');
+		}
+		
+		output(msg){
+			console.log(msg);
+			jQuery("#res").append(msg + '&lt;br&gt;');
+		}
+	
+		/**
+		 * 画像プレビューを表示
+		 * @param e ファイルアプロードのイベントオブジェクト
+		 */
+		imgPreview(e){
+			// ファイルアップロードの要素を取得するテスト
+			var fuElm = jQuery(e.currentTarget);
+			var id = fuElm.attr('id');
+			this.output('id = ' + id);
+			
+			var files = e.target.files;
+			var oFile = files[0];
+			
+			// Converting from a file object to a data url scheme.Conversion process by the asynchronous.
+			var reader = new FileReader();
+			reader.readAsDataURL(oFile);
+	
+			// After conversion of the event.
+			reader.onload = (evt) =&gt; {
+	
+				// accept属性を取得する
+				var accept = fuElm.attr('accept');
+	
+				// accept属性が空もしくは画像系であるかチェックする
+				if (accept == '' || accept.indexOf('image') &gt;= 0){
+	
+					// IMG要素に画像を表示する
+					var imgElm = jQuery("#img1");
+					imgElm.attr('src',reader.result);
+	
+				} 
+			}
+		}
+		
+		
+	}
+	</code></pre>
+
+
+	<br><time>2018-6-29</time>
+</div>
+
+
+
+
+
+
+
+
+
+
 <div id="sec1-4" class="sec4" >
 	<h3>ファイルアップロードを拡張し、進捗バー、DnD、複数ファイルに対応させる</h3>
 

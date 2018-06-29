@@ -447,6 +447,71 @@
 
 
 
+
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>ES6クラス内のファイルアップロードイベントで「this」が重複して使えなる問題</h3>
+	
+	<a href="/sample/js/a007/img_preview_es6/img_preview_es6.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	ES6クラスの「this」とchangeイベント「this」が競合する問題が起きる。<br>
+	下記のサンプルではアロー演算子を使って問題を回避している。<br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;input id="img_fn" type="file" name="img_fn" accept="image/*" /&gt;&lt;br&gt;
+	&lt;img id="img1" src="" alt="" style="width:200px;height:200px" /&gt;
+	&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(() =&gt; {
+		
+		var fileuploadImg = new FileuploadImg();
+	
+	});
+	
+	/**
+	 * ES6のクラス
+	 */
+	class FileuploadImg{
+	
+		constructor(param){
+			
+			jQuery("#img_fn").change(<strong>e =&gt;</strong> {
+	
+				<strong>this</strong>.test(); // thisは当クラスを指しているならメソッドを呼び出せる。
+	
+			});
+		}
+		
+		test(){
+			this.output('thisによるメソッドの呼び出しテスト。');
+		}
+		
+		output(msg){
+			console.log(msg);
+			jQuery("#res").append(msg + '&lt;br&gt;');
+		}
+
+		
+	}
+	</code></pre>
+
+
+	<br><time>2018-6-29</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
