@@ -194,6 +194,64 @@
 
 
 
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec3-4" class="sec1">
+	<h3>文字列の複数置換 | 配列を指定すると一括で複数の文字置換ができる</h3>
+
+	サンプル
+	<pre><code>
+	&lt;?php 
+	$subject = "ネコが家でカツオブシを食べる";
+	echo $subject . '&lt;br&gt;';
+	$search = ['ネコ','家','カツオブシ'];
+	$replace = ['イヌ','庭','残飯'];
+	
+	$subject = str_replace($search, $replace, $subject);
+	echo $subject . '&lt;br&gt;';
+	?&gt;
+	</code></pre>
+	出力
+	<pre>
+	ネコが家でカツオブシを食べる
+	イヌが庭で残飯を食べる
+	</pre>
+	
+	
+	<hr>
+	検索文字の配列に一致しない値が存在する場合
+	<pre>
+	&lt;?php 
+	$subject = "ネコが家でカツオブシを食べる";
+	echo $subject . '&lt;br&gt;';
+	$search = ['ネコ','<strong>XXX</strong>','カツオブシ'];
+	$replace = ['イヌ','庭','残飯'];
+	
+	$subject = str_replace($search, $replace, $subject);
+	echo $subject . '&lt;br&gt;';
+	?&gt;	
+	</pre>
+	出力
+	<pre>
+	ネコが<strong>家</strong>でカツオブシを食べる
+	イヌが<strong>家</strong>で残飯を食べる
+	</pre>
+	対象の要素だけ置換されない。<br>
+	<br>
+	
+	<time>2018-6-30</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
