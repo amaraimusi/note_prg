@@ -152,6 +152,58 @@
 
 
 
+<div id="sec1-5" class="sec4">
+	<h3>オブジェクトのマージ | jQuery.extend()メソッドの代わりにES2015のObject.assign()メソッド</h3>
+	
+	<a href="/sample/js/a007/object_assign/object_assign.html" class="btn btn-info">検証</a><br>
+	<br>
+
+	<pre><code>
+	jQuery(()=>{
+		
+		var obj1 = {'cat':100,'dog':200};
+		output(obj1,'#res1');
+		
+		var obj2 = {'dog':1000,'kani':300};
+		output(obj2,'#res2');
+		
+		var obj3 = <strong>Object.assign({}, obj1, obj2);</strong>
+		output(obj3,'#res3');
+		
+	});
+	
+	function output(obj,slt){
+		console.log(obj);
+		var json = JSON.stringify(obj);
+		jQuery(slt).html(json);
+		
+	}
+	</code></pre>
+	<br>
+	
+	出力1
+	<pre>	{"cat":100,"dog":200}</pre><br>
+	
+	出力2
+	<pre>	{"dog":1000,"kani":300}</pre><br>
+	
+	出力3
+	<pre>	{"cat":100,"dog":1000,"kani":300}</pre><br>
+	
+	<hr />
+	<aside>※ obj1とobj2はnullであってもエラーにならない。nullで上書きということもない。</aside>
+
+	<br><time>2018-7-3</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
