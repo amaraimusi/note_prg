@@ -272,16 +272,16 @@
 	<br>
 
 	<pre><code>
-	arr1 = [3,4,5,6,7]
-	print (arr1)
-	
-	# スライシングの検証。参照ではなく複製である。
-	arr2 = arr1[2:4] 
-	print (arr2)
-	
-	arr2[1] = 99
-	print (arr2)
-	print (arr1)
+arr1 = [3,4,5,6,7]
+print (arr1)
+
+# スライシングの検証。参照ではなく複製である。
+arr2 = arr1[2:4] 
+print (arr2)
+
+arr2[1] = 99
+print (arr2)
+print (arr1)
 	</code></pre><br>
 	
 	出力
@@ -308,16 +308,16 @@
 	<h3>Pythonの連想配列、ディクショナリ</h3>
 	
 	<pre><code>
-	# ディクショナリの検証
-	dic = {'neko':'猫'}
-	dic['neko'] = 'ネコ'
-	dic['dog'] = 'イヌ'
-	print(dic)
-	# print(dic['kani']) # エラーになる KeyError
-	
-	# ディクショナリのループ
-	for i in dic:
-		print(dic[i])
+# ディクショナリの検証
+dic = {'neko':'猫'}
+dic['neko'] = 'ネコ'
+dic['dog'] = 'イヌ'
+print(dic)
+# print(dic['kani']) # エラーになる KeyError
+
+# ディクショナリのループ
+for i in dic:
+	print(dic[i])
 	</code></pre><br>
 	
 	出力
@@ -346,12 +346,12 @@
 	<aside>※WinPython-64bit-3.6.0.1Qt5</aside>
 	
 	<pre><code>
-	import numpy as np
+import numpy as np
 
-	x = np.array([1.0,2.0,3.0])
-	y = np.array([2.0,4.0,6.0])
-	z = x + y
-	print(z)
+x = np.array([1.0,2.0,3.0])
+y = np.array([2.0,4.0,6.0])
+z = x + y
+print(z)
 	</code></pre><br>
 	
 	出力
@@ -375,15 +375,15 @@
 	<h3>配列をグラフ描画する</h3>
 	
 	<pre><code>
-	import numpy as np
-	import matplotlib.pyplot as plt #グラフ描画ライブラリ
-	
-	x = np.arange(0,10,0.1); #0から10まで0.1刻みの配列を作成する
-	y = np.sin(x)
-	
-	# グラフ描画
-	plt.plot(x,y)
-	plt.show()
+import numpy as np
+import matplotlib.pyplot as plt #グラフ描画ライブラリ
+
+x = np.arange(0,10,0.1); #0から10まで0.1刻みの配列を作成する
+y = np.sin(x)
+
+# グラフ描画
+plt.plot(x,y)
+plt.show()
 	</code></pre>
 	
 	<br><time>2017-7-13</time>
@@ -401,21 +401,21 @@
 	<h3>シグモイド関数</h3>
 	
 	<pre><code>
-	import numpy as np
-	import matplotlib.pyplot as plt #グラフ描画ライブラリ
-	
-	def sigmoid(x):
-		return 1 / (1 + np.exp(-x))
-	
-	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
-	y = sigmoid(x)
-	
-	print(x)
-	print(y)
-	
-	# グラフ描画
-	plt.plot(x,y)
-	plt.show()
+import numpy as np
+import matplotlib.pyplot as plt #グラフ描画ライブラリ
+
+def sigmoid(x):
+	return 1 / (1 + np.exp(-x))
+
+x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
+y = sigmoid(x)
+
+print(x)
+print(y)
+
+# グラフ描画
+plt.plot(x,y)
+plt.show()
 	</code></pre>
 	<img src="img/note1/thum/sec1-8.png" class="img_panel_x" /><br>
 	
@@ -434,20 +434,20 @@
 	<h3>ReLU関数</h3>
 	
 	<pre><code>
-	import numpy as np
-	import matplotlib.pyplot as plt #グラフ描画ライブラリ
+import numpy as np
+import matplotlib.pyplot as plt #グラフ描画ライブラリ
+
+# ReLU関数	整流された線形ユニット
+def relu(x):
+	return np.maximum(0,x);
 	
-	# ReLU関数	整流された線形ユニット
-	def relu(x):
-		return np.maximum(0,x);
-		
-	
-	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
-	y = relu(x)
-	
-	# グラフ描画
-	plt.plot(x,y)
-	plt.show()
+
+x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
+y = relu(x)
+
+# グラフ描画
+plt.plot(x,y)
+plt.show()
 	</code></pre>
 	
 	<img src="img/note1/thum/sec1-9.png" class="img_panel_x" /><br>
@@ -467,20 +467,20 @@
 	<h3>内積</h3>
 	
 	<pre><code>
-	import numpy as np
-	import matplotlib.pyplot as plt #グラフ描画ライブラリ
-	
-	a = np.array([[1,2,3],[4,5,6]])
-	print(a.shape)
-	b = np.array([[1,2],[3,4],[3,4]])
-	print(b.shape)
-	c = <strong>np.dot</strong>(a,b) # 内積計算
-	print(c.shape) # 内積の要素は（配列Aの一次要素数、配列Bの二次要素数である）
-	
-	print(c)
-	# グラフ描画
-	plt.plot(c)
-	plt.show()
+import numpy as np
+import matplotlib.pyplot as plt #グラフ描画ライブラリ
+
+a = np.array([[1,2,3],[4,5,6]])
+print(a.shape)
+b = np.array([[1,2],[3,4],[3,4]])
+print(b.shape)
+c = <strong>np.dot</strong>(a,b) # 内積計算
+print(c.shape) # 内積の要素は（配列Aの一次要素数、配列Bの二次要素数である）
+
+print(c)
+# グラフ描画
+plt.plot(c)
+plt.show()
 	</code></pre>
 	
 

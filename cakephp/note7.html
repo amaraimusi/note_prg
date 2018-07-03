@@ -120,7 +120,7 @@
 	</pre>
 	<hr>
 
-	<strong>JS:ajax_sample.js</strong>
+	<strong>JS:ajax_sample.js</strong>　ES6版
 	<pre><code>
 	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'xxx':111};
 
@@ -136,7 +136,7 @@
 		cache: false,
 		dataType: "text",
 	})
-	.done(function(str_json, type) {
+	.done((str_json, type) => {
 		var ent;
 		try{
 			ent =jQuery.parseJSON(str_json);//パース
@@ -147,7 +147,7 @@
 			return;
 		}
 	})
-	.fail(function(jqXHR, statusText, errorThrown) {
+	.fail((jqXHR, statusText, errorThrown) => {
 		jQuery('#err').html(jqXHR.responseText);
 		alert(statusText);
 	});
@@ -183,7 +183,7 @@
 
 
 
-	<time>2013-9-3 | 2017-10-3</time>
+	<time>2013-9-3 | 2018-7-4</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->

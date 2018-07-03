@@ -45,28 +45,28 @@
 	<br>
 
 	<pre><code>
-	import numpy as np
-	import matplotlib.pyplot as plt #グラフ描画ライブラリ
-	
-	def softmax(x):
-	    c = np.max(x)
-	    exp_x = np.exp(x - c)
-	    sum_exp_x = np.sum(exp_x)
-	    y = exp_x / sum_exp_x
-	    return y
-	
-	x = np.arange(-10,10,2); #-10から10まで2刻みの配列を作成する
-	y = softmax(x)
-	
-	print(x)
-	
-	#ｙの総和は1になる
-	print(y)
-	print(np.sum(y))
-	
-	# グラフ描画
-	plt.plot(x,y)
-	plt.show()
+import numpy as np
+import matplotlib.pyplot as plt #グラフ描画ライブラリ
+
+def softmax(x):
+	c = np.max(x)
+	exp_x = np.exp(x - c)
+	sum_exp_x = np.sum(exp_x)
+	y = exp_x / sum_exp_x
+	return y
+
+x = np.arange(-10,10,2); #-10から10まで2刻みの配列を作成する
+y = softmax(x)
+
+print(x)
+
+#ｙの総和は1になる
+print(y)
+print(np.sum(y))
+
+# グラフ描画
+plt.plot(x,y)
+plt.show()
 	</code></pre><br>
 	
 	出力
