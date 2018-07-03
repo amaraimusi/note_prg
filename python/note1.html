@@ -130,8 +130,15 @@
 	</ol>
 	<br>
 	
+	<p>インデントの設定</p>
+	<a href="#sec1-2-2" class="livipage">PyDevのインデントを4スペースからタブに設定変更する</a><br>
+	<br>
 	
-	<br><time>2017-4-12 | 2017-4-17</time>
+	<p>ライブラリ(Lib)のパスを通す</p>
+	<a href="#sec1-2-3" class="livipage">PyDevにWinPythonライブラリ(LIB)のパスを通す設定 | LD_LIBRARY_PATH</a><br>
+	<br>
+	
+	<br><time>2017-4-12 | 2018-7-4</time>
 </div>
 
 
@@ -165,6 +172,49 @@
 	</ol>
 
 	<br><time>2018-7-3</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-2-3" class="sec4" >
+	<h3>PyDevにWinPythonライブラリ(LIB)のパスを通す設定 | LD_LIBRARY_PATH</h3>
+	
+	エディタのコードチェックが働いてしまう。（赤の波線）<br>
+	これを解消にはライブラリのパスを通す必要がある。<br>
+	WinPythonを使っている場合、以下の手順でライブラリへのパスを通すことができる。<br>
+	<br>
+	
+	<p>手順</p>
+	<ol>
+		<li>Window > preferences > PyDev > Interpreters > Python interpreter</li>
+		<li>下段の「Environment」タブを選択</li>
+		<li>右側のNewボタンを押して入力フォームを開く。</li>
+		<li>
+			Nameに「LD_LIBRARY_PATH」を入力、ValueにLibフォルダのパスを入力してＯＫを押す。<br>
+			例<br>
+			Name → LD_LIBRARY_PATH<br>
+			Value → C:\python\WinPython\python-3.7.0b3.amd64\Lib<br>
+			<img src="img/note1/sec1-2-3a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			Applyボタンを押して適用する。以上で完了。
+			<aside>設定前にpyファイルを開いている場合は、一度閉じて再び開く。</aside>
+		</li>
+	</ol>
+	
+
+	
+	<br><time>2018-7-4</time>
 </div>
 
 
