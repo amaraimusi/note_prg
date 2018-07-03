@@ -20,6 +20,7 @@
 	<script src="/note_prg/js/open_src.js"></script>
 	<script src="/note_prg/js/PanelX.js"></script>
 	<script src="/note_prg/js/img_panel_x.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
 
 
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -117,13 +118,13 @@
 	<ol>
 		<li>
 			File→New→Other→PyDev→PyDev Project と操作しプロジェクト名を入力すると新プロジェクトが作成される。<br>
-			<img src="img/note1/thum/sec1-2a3-1.png" class="img_panel_x" />
+			<img src="img/note1/sec1-2a3-1.png" class="img_compact_k" />
 		</li>
 		<li>新プロジェクトを右クリック→New→Other→PyDev→PyDev &amp;Moduleと操作し、ファイル名を入力するとpyファイルが作成される。(pyファイル名を入力する際、拡張子のpyを入力する必要はない）</li>
 		<li>pyファイルを開き、「print("Hello World!")」を入力する。</li>
 		<li>
 			上段の実行ボタン（緑右矢印ボタン）を押すと実行される。<br>
-			<img src="img/note1/thum/sec1-2a3-2.png" class="img_panel_x" />
+			<img src="img/note1/sec1-2a3-2.png" class="img_compact_k" />
 		</li>
 		<li>コンソールにHello World!と表示されたら成功。</li>
 	</ol>
@@ -131,6 +132,39 @@
 	
 	
 	<br><time>2017-4-12 | 2017-4-17</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+	
+
+<div id="sec1-2-2" class="sec4">
+	<h3>PyDevのインデントを4スペースからタブに設定変更する</h3>
+	
+	設定手順
+	<ol>
+		<li>
+			Window > preferences > PyDev > Editor
+		</li>
+		<li>
+			画面下部の「Tabs:tab preferences for PyDev ...」となっている箇所の「Tabs」をクリックする。<br>
+			<img src="img/note1/sec1-2-2a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			「Replace tabs with spaces when typing?」のチェックをはずしてApplyボタンを押す。<br>
+			<img src="img/note1/sec1-2-2a2.png" class="img_compact_k" />
+		</li>
+	</ol>
+
+	<br><time>2018-7-3</time>
 </div>
 
 
@@ -233,7 +267,7 @@
 	
 	# ディクショナリのループ
 	for i in dic:
-	    print(dic[i])
+		print(dic[i])
 	</code></pre><br>
 	
 	出力
@@ -321,7 +355,7 @@
 	import matplotlib.pyplot as plt #グラフ描画ライブラリ
 	
 	def sigmoid(x):
-	    return 1 / (1 + np.exp(-x))
+		return 1 / (1 + np.exp(-x))
 	
 	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
 	y = sigmoid(x)
@@ -353,10 +387,10 @@
 	import numpy as np
 	import matplotlib.pyplot as plt #グラフ描画ライブラリ
 	
-	# ReLU関数    整流された線形ユニット
+	# ReLU関数	整流された線形ユニット
 	def relu(x):
-	    return np.maximum(0,x);
-	    
+		return np.maximum(0,x);
+		
 	
 	x = np.arange(-10,10,0.1); #-10から10まで0.1刻みの配列を作成する
 	y = relu(x)
@@ -401,6 +435,28 @@
 	
 
 	<br><time>2017-7-18</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+
+	<pre><code>
+	</code></pre>
+
+	<br><time></time>
 </div>
 
 
