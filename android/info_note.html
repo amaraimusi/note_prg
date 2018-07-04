@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Androidの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Androidの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>Android開発について</h3>
+	
+	<p>Androidの正体</p>
+	AndroidはLinuxベースのプログラムである。<br>
+	AndroidはJavaで開発されているが、動作環境はVMではなくDalvik仮想マシンである。
+	DalvikはAndroid専用の仮想マシンであり、より少ないメモリを使用するよう設計されている。<br>
+	<br>
+	
+	<p>開発環境</p>
+	一昔前の開発環境はEclipseを使用していた。Eclipseに専用プラグインやエミュレーターをインストールすることにより開発環境を構築することができた。<br>
+	現在()2018年)は Android Studio という便利なものが用意されている。
+	インストールはより簡易になっており、ウィザードに従うだけで開発環境が整う。<br>
+	
+	<a href="https://developer.android.com/studio/?hl=ja" target="blank">Android Studioのダウンロード先</a><br>
+	<br>
+
+	<p>開発スタイル</p>
+	フレームワーク（Framework）が用意されているので、それに沿った開発をしなければならない。<br>
+	とはいえ開発の方法はVBやVisual C#と似ている。<br>
+	VBの場合、ビジュアルエディタでフォームにボタンやラベルなどを配置し、
+	コントロールモジュールにメソッド（関数）を記述、
+	そしてボタンやラベルのアクションにメソッドを関連づける、という開発スタイルである。<br>
+	Android開発も同じで、activity_main.xmlにボタンやラベルなどを配置し、
+	MainActivityクラスにメソッドを記述、
+	そしてボタンやラベルのアクションにメソッドを関連づけを行う。<br>
+	activity_main.xmlはVisual Studioで用意されているビジュアルエディタを通して編集することができる。
+	ビジュアルエディタを使えば、直接XMLをいじらなくても、ドラッグ操作でボタンやラベルを配置しながらXML編集が可能である。<br>
+	<br>
+	VBやC#と同様にAndroidでも多くのAPIやライブラリが用意されており活用できる。<br>
+	<br>
+	
+	<p>コンパイル後のファイル | dex</p>
+	Javaクラスはdexフォーマットに変換される。
+	クラスをコンパイルするとdex (Dalvik Executable)ファイルとなり、.apkファイルにzipされる。
+	Javaのバイトコードには変換しないとのこと。
+	<br>
+	
+	<p>Androidバージョンの違い</p>
+	Androidを搭載した端末は多様であり、動作するしないの問題はつきものである。
+	Androidバージョンと動作保証する端末をあらかじめ決めておいたほうが良い。<br>
+	各Androidバージョンと連動したAPIレベルというものが存在する。
+	プロジェクトを新規作成するときにAPIレベルを選択することになるので、あらかじめよく吟味しておくことが必要である。<br>
+	<a href="#sec1-2" class="livipage">AndroidバージョンとAPIレベルの対応表</a><br>
+	<br>
+	
+	
+	<p>その他の特徴</p>
+	<ul>
+		<li>WebkitはApple製のHMTLレンダリングエンジンを使用</li>
+		<li>HTMLをアプリに表示できる。</li>
+		<li>OpenGLを搭載</li>
+		<li>データベースはSQLite。mdbと同様な単一ファイル型。メモリ上に一時的に生成することもできる。</li>
+		<li>データベースで使用できるデータ型はINTEGER,REAL（浮動小数点）,TEXT,BLOB(バイナリ）,NULL</li>
+		<li>使用できる画像フォーマット（Jpeg,gif,png,bmp,webp(ver4.0)</li>
+		<li>使用できる動画フォーマット（mpeg系のいくつか、3gpp,flac,mp3,ogg,wav)</li>
+		<li>Ver4.0からスマートフォンとタブレットのユーザーインターフェースが結合された。</li>
+		<li>アプリの拡張子は「apk」</li>
+		<li>SDKとNDKがある。NDKはランタイムやライブラリを開発するC/C++用。</li>
+		<li>ADTはEclipse用のプラグイン</li>
+		<li>バージョンは「1.0,1.6,2.3」といった表記のほかにAPI LEVELによる表記方法もある。2012年現在はAPI LEVEL 15。</li>
+		<li>Androidは他のアプリの機能を利用できるのが特徴（許可されている場合）</li>
+		<li>外部アプリケーションや、下部プラットフォームへのアクセスは制限されている。</li>
+		<li>代表的なコンポーネントは、<a href="#sec1-3" class="livipage">アクティビティ</a>、サービス、コンテンツプロバイダ、インテントの４つである。</li>
+	</ul>
+	
+	
+
+	<br><time>2013-1-1 | 2018-7-4</time>
+</div>
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>AndroidバージョンとAPIレベルの対応表</h3>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>Android version</th><th>API Level</th><th>Code name</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>Android 1.0</td><td>1</td><td>BASE</td></tr>
+			<tr><td>Android 1.1</td><td>2</td><td>BASE_1_1</td></tr>
+			<tr><td>Android 1.5</td><td>3</td><td>CUPCAKE</td></tr>
+			<tr><td>Android 1.6</td><td>4</td><td>DOUNUT</td></tr>
+			<tr><td>Android 2.0</td><td>5</td><td>ECLAIR</td></tr>
+			<tr><td>Android 2.0.1</td><td>6</td><td>ECLAIR_0_1</td></tr>
+			<tr><td>Android 2.1.x</td><td>7</td><td>ECLAIR_MR1</td></tr>
+			<tr><td>Android 2.2.x</td><td>8</td><td>FROYO</td></tr>
+			<tr><td>Android 2.3</td><td>9</td><td>GINGERBREAD</td></tr>
+			<tr><td>Android 2.3.1</td><td>9</td><td>GINGERBREAD</td></tr>
+			<tr><td>Android 2.3.2</td><td>9</td><td>GINGERBREAD</td></tr>
+			<tr><td>Android 2.3.3</td><td>10</td><td>GINGERBREAD_MR1</td></tr>
+			<tr><td>Android 2.3.4</td><td>10</td><td>GINGERBREAD_MR1</td></tr>
+			<tr><td>Android 3.0.x</td><td>11</td><td>HONEYCOMB</td></tr>
+			<tr><td>Android 3.1.x</td><td>12</td><td>HONEYCOMB_MR1</td></tr>
+			<tr><td>Android 3.2</td><td>13</td><td>HONEYCOMB_MR2</td></tr>
+			<tr><td>Android 4.0</td><td>14</td><td>ICE_CREAM_SANDWICH</td></tr>
+			<tr><td>Android 4.0.1</td><td>14</td><td>ICE_CREAM_SANDWICH</td></tr>
+			<tr><td>Android 4.0.2</td><td>14</td><td>ICE_CREAM_SANDWICH</td></tr>
+			<tr><td>Android 4.0.3</td><td>15</td><td>ICE_CREAM_SANDWICH_MR1</td></tr>
+			<tr><td>Android 4.1.2</td><td>16</td><td>JELLY_BEAN</td></tr>
+			<tr><td>Android 4.2.2</td><td>17</td><td>JELLY_BEAN_MR1</td></tr>
+			<tr><td>Android 4.3.1</td><td>18</td><td>JELLY_BEAN_MR2</td></tr>
+			<tr><td>Android 4.4.2</td><td>19</td><td>KITKAT</td></tr>
+			<tr><td>Android 4.4W.2</td><td>20</td><td>[Android Wear]</td></tr>
+			<tr><td>Android 5.0.1</td><td>21</td><td>Lollipop</td></tr>
+			<tr><td>Android 5.1.1</td><td>22</td><td>Lollipop</td></tr>
+			<tr><td>Android 6.0</td><td>23</td><td>Marshmallow</td></tr>
+			<tr><td>Android 6.0.1</td><td>23</td><td>Marshmallow</td></tr>
+			<tr><td>Android 7.0</td><td>24</td><td>Nougat</td></tr>
+			<tr><td>Android 7.1.x</td><td>25</td><td>Nougat</td></tr>
+			<tr><td>Android 8.0.0</td><td>26</td><td>Oreo</td></tr>
+			<tr><td>Android 8.1.0</td><td>27</td><td>Oreo</td></tr>
+	
+		</tbody>
+	</table>
+
+
+	<br><time>2018-7-4</time>
+</div>
+
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>アクティビティについて</h3>
+	
+	アクティビティはユーザーインターフェースのこと。
+	画面ごとに独立したアクティビティが存在する。VBでいうフォームモジュールの概念に近い。<br>
+	Activityのサブクラスとすることで、モーダルダイアログして表示させることも可能である。<br>
+	<br>
+	
+	<p>アクティビティのビュー</p>
+	テキストボックスやチェックボックスはアクティビティにビューを設置するより実現できる。<br>
+	ビューはテキストボックスやチェックボックスなどのコンポーネントを指している。<br>
+	ビューはグループ化することができ、ビュー同士で親子関係を持たせることができる。<br>
+	<br>
+	
+	<p>アクティビティの状態</p>
+	アクティビティには状態の概念が存在する。以下に代表的な状態を示す。
+	<table class="tbl2">
+		<thead>
+			<tr><th>アクティビティの状態</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>アクティブ状態</td><td>アクティビティスタックで最上位の位置にあるアクティビティ。または、現在操作中の状態である。</td></tr>
+			<tr><td>一時停止状態</td><td>他のアクティビティに隠れた状態にあるが、完全動作中。</td></tr>
+			<tr><td>停止状態</td><td>メンバの値は保持されている。ただしメモリ不足になれば強制的にメモリは開放される。</td></tr>
+	
+		</tbody>
+	</table><br>
+	
+	<p>アクティビティのイベント</p>
+	<table class="tbl2">
+		<thead>
+			<tr><th>アクティビティのイベント</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>onCerate</td><td>onCerateは最初に実行されるイベント。このイベント後、onStartが実行される。</td></tr>
+			<tr><td>onStart,onStop</td><td>onStartとonStopは、アクティビティが見え隠れするたびに実行される。</td></tr>
+			<tr><td>onPause,onResume</td><td>onPause,onResumeは、一時スリープ状態や、他のアクティビティが表示されるときに実行される。OnStartやOnStopよりも、ひんぱんに実行されるため、軽めの処理を記述する必要がある。</td></tr>
+			<tr><td>onRestart</td><td>onRestartは停止状態にあるアクティビティが、再度起動すると実行される。このイベント後、onStartが実行される。</td></tr>
+			<tr><td>onSaveInstanceState</td><td>onSaveInstanceStateメソッドは強制終了されても、メモリ情報等を保護できる。ただし毎回呼び出されるとはかぎらないため、永続保存に用いるべきではない。</td></tr>
+			<tr><td>onDestroy</td><td>バックグランド型アプリでは、onCreateで実行され、onDestroyで停止する。</td></tr>
+	
+		</tbody>
+	</table>
+	<br>
+	
+	<a href="https://www.javadrive.jp/android/activity/index2.html" class="btn btn-link btn-xs" target="blank">JavaDrive アクティビティのライフサイクル</a><br>
+	<br>
+	
+	<br><time>2013-1-1 | 2018-7-4</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/android">Androidの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-1-1 | 2018-7-4</div>
+</body>
+</html>
