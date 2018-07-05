@@ -302,6 +302,92 @@
 
 
 
+<div id="s1-7" class="sec4" >
+	<h3>データ構造タイプを取得(0:空 , 1:プリミティブ型 ,2:エンティティ型 , 3:データ型)</h3>
+	
+<pre><code>
+&lt;?php 
+$data1 = null;
+$data2 = 'cat';
+$data3 = ['cat','dog'];
+$data4 = [
+		['name'=&gt;'cat','wamei'=&gt;'ネコ'],
+		['name'=&gt;'dog','wamei'=&gt;'イヌ'],
+		];
+$data5 = array();
+$data6 = 0;
+
+$d_struct_type = getDataStructureType($data1);
+echo '$data1 → ' . $d_struct_type . '&lt;br&gt;';
+
+$d_struct_type = getDataStructureType($data2);
+echo '$data2 → ' . $d_struct_type . '&lt;br&gt;';
+
+$d_struct_type = getDataStructureType($data3);
+echo '$data3 → ' . $d_struct_type . '&lt;br&gt;';
+
+$d_struct_type = getDataStructureType($data4);
+echo '$data4 → ' . $d_struct_type . '&lt;br&gt;';
+
+$d_struct_type = getDataStructureType($data5);
+echo '$data5 → ' . $d_struct_type . '&lt;br&gt;';
+
+$d_struct_type = getDataStructureType($data6);
+echo '$data6 → ' . $d_struct_type . '&lt;br&gt;';
+
+
+/**
+ * データ構造タイプを取得する。
+ * 
+ * @note
+ * データ構造タイプは4種類(0:空 , 1:プリミティブ型 ,2:エンティティ型 , 3:データ型)
+ * 
+ * @param $value
+ * @return int データ構造タイプ
+ */
+function getDataStructureType($data){
+	if($data === null) return 0; // 空
+	
+	if(is_array($data)){
+		if(count($data) == 0){
+			return 2; // エンティティ型
+		}else{
+			$first = reset($data); // $first→猫
+			if(is_array($first)){
+				return 3; // データ型
+			}else{
+				return 2; // エンティティ型
+			}
+		}
+	}
+	return 1; // プリミティブ型
+	
+}
+?&gt;
+</code></pre>
+<p>出力</p>
+<pre>
+$data1 → 0
+$data2 → 1
+$data3 → 2
+$data4 → 3
+$data5 → 2
+$data6 → 1
+</pre>	
+	
+	<br><time>2018-7-5</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div id="s1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
