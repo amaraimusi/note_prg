@@ -15,39 +15,6 @@ time{
 	font-size:0.9em;
 	color:#6c6c6c;
 }
-#header{
-	background-color:#3e445b;
-	color:white;
-	padding-bottom:4px;
-	
-
-	text-align: center;
-	padding-top:7px;
-	padding-bottom:7px;
-	margin-bottom:20px;
-	
-
-}
-
-.container{
-	font-size:16px;
-}
-
-
-#footer{
-	margin-top:20px;
-	padding:8px;
-	background-color:#3e445b;
-	color:white;
-	text-align:center;
-}
-#footer a{
-	color:white;
-}
-
-#footer p{
-	color:white;
-}
 
 h2{
 	color:#ee3322;
@@ -108,6 +75,41 @@ dd{
 aside{
 	font-size:0.8em;
 	color:#646f6d;
+}
+
+#header{
+	background-color:#3e445b;
+	color:white;
+	padding-bottom:4px;
+	text-align: center;
+	padding-top:7px;
+	padding-bottom:7px;
+	margin-bottom:20px;
+	
+
+}
+#header p{
+	color:white;
+}
+
+.container{
+	font-size:16px;
+}
+
+
+#footer{
+	margin-top:20px;
+	padding:8px;
+	background-color:#3e445b;
+	color:white;
+	text-align:center;
+}
+#footer a{
+	color:white;
+}
+
+#footer p{
+	color:white;
 }
 
 .sec1{
