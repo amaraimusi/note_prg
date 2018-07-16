@@ -90,6 +90,120 @@
 
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>Electronのインストール</h3>
+	npmを使ってElectronをインストールできる。
+	<pre>	$ npm -g install electron-prebuilt</pre>
+	<br>
+	
+	<aside>
+		npmはNode.jsをインストールすると使えるようになる。<br>
+		<a href="https://nodejs.jp/" target="blank">Node.jsのダウンロード</a><br>
+	</aside>
+
+	<br><time>2018-7-16</time>
+</div>
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>ElectronのHello World</h3>
+	
+	<ol class="list_lg">
+		<li>
+			プロジェクトのディレクトリに移動する
+			<pre>	$ cd hello_world</pre>
+		</li>
+		<li>
+			package.jsonを作成する
+			<pre>	$ npm init -y</pre>
+			<img src="img/note/sec1-3a1.png" alt="Electronのpackage.jsonを作成する" class="img_compact_k" />
+		</li>
+		<li>
+			hello_worldディレクトリ内にindex.jsとindex.htmlを作成
+			<pre>
+	hello_world
+	  ├── package.json
+	  ├── index.js
+	  └── index.html
+			</pre>
+			
+			<input type="button" value="index.js" onclick="$('#sec1-3b1').toggle(300)" class="btn btn-info" />(メインプロセス)
+			<pre id="sec1-3b1" style="display:none"><code>
+'use strict';
+
+var electron = require('electron'); // Electronの使用
+var app = electron.app;
+var BrowserWindow = electron.BrowserWindow;
+
+let mainWindow; // メイン画面オブジェクト
+
+// 全ての画面が閉じられたときのイベント。
+app.on('window-all-closed', function() {
+	if (process.platform != 'darwin') {
+		app.quit();
+	}
+});
+
+// Electronの初期化完了後に実行
+app.on('ready', function() {
+	
+	// メイン画面のサイズを指定して表示
+	mainWindow = new BrowserWindow({
+		width: 640,
+		height: 480
+	});
+	
+	// レンダラープロセスの呼び出し
+	mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+	// 画面が閉じられたらメイン画面オブジェクトも開放。
+	mainWindow.on('closed', function() {
+		mainWindow = null;
+	});
+});
+			</code></pre><br>
+
+			<input type="button" value="index.html" onclick="$('#sec1-3b2').toggle(300)" class="btn btn-info" />(レンダラープロセス)
+			<pre id="sec1-3b2" style="display:none"><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Sample&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+			</code></pre>
+		</li>
+		
+		<li>
+			実行する
+			<pre>	$ electron .</pre>
+			<aside> 
+				$ electron （ディレクトリパス）<br>
+				「.」は現在のカレントディレクトリ、すなわちhello_worldディレクトリを示している。<br>
+			</aside><br>
+			<img src="img/note/sec1-3a2.png" alt="Electronの実行" />
+			<br><br>
+			<aside>
+				Windows環境なら、helle_worldディレクトリの直下にrun.batファイルを作成するとよい。<br>
+				run.batの中身
+				<pre>	electron .</pre>
+				実行するときはrun.batを実行するだけで済む。
+			</aside>
+		</li>
+
+	</ol>
+	<br>
+
+	<br><time>2018-7-16</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
