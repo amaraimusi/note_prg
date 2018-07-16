@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Electronの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Electronの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Electronについて</h3>
+
+	ElectronはWEBシステムの開発技術を用いてデストップアプリを作成する技術である。<br>
+	ChromiumとNode.jsを一つのランタイムとすることにより動いている。<br>
+	GUIはChromium、プログラム部分はNode.jsという感じ。<br>
+	Node.jsとChromiumで使用しているV8エンジンを使用している。（V8エンジンのインスタンスは共有している）<br>
+	GitHubチームと有志により開発されている。<br>
+	<br>
+
+	<p>Electronのアーキテクチャ</p>
+
+	Electronにはメインプロセスとレンダラープロセスという2つのプロセスタイプが存在する。<br>
+	package.json の main で指定されたスクリプト(index.js)を実行するプロセスを メインプロセスという。<br>
+	レンダラープロセスはChromium のマルチプロセスアーキテクチャを利用したプロセスとのこと。<br>
+	WEBシステムで例えるとサーバーサイドに相当するものがメインプロセス、フロントサイドに相当するものがレンダラープロセスと思われる。<br>
+	メインプロセスとレンダラープロセスの間で通信を行う必要がある。<br>
+	通信方法にはipcRendere,ipMain,RPCスタイルremoteモジュールなるものがある。<br>
+	<br>
+	
+	<p>Electron API</p>
+	Electron APIというものが用意されている。<br>
+	Electron APIはメインプロセスからだけ使用できるもの、レンダラープロセスだけ使用できるもの、両方から使用できるものが存在する。<br>
+	<br>
+	
+	<p>Node.js API</p>
+	Node.js で利用できるすべての API は Electron で利用できる。<br>
+	npmでAWS-SDKをインストールして使用するといったことも可能。<br>
+	<br>
+	
+	<p>デバッグ</p>
+	WEBシステムでサーバーサイドとフロントサイドでデバッグ方法が違うのと同様、メインプロセスとレンダラープロセスでデバッグ方法はことなる。<br>
+	レンダラープロセスをデバッグするときは、Chromium Developer Toolsetなるツールを利用できる。<br>
+	メインプロセス中のJavaScriptをデバッグするときは、Electronを--inspectまたは、--inspect-brkフラグ付きで起動し、外部デバッガを使用する必要がる。
+	また、<a href="https://nodejs.org/en/docs/inspector/" target="blank">Chromium デベロッパーツール</a>なるツールを使うようである。<br>
+	<br>
+	
+	<p>アプリケーションの配布</p>
+	実行ファイルであるElectron.app (Linuxではelectron、Windowsではelectron.exe) が作成でき、一般配布することが可能。<br>
+	プレビルドバイナリなるものをダウンロードする必要がある。<br>
+	また、ファイル構成を下記のように変更する必要がある。<br>
+	<pre>
+	electron/resources/app
+	  ├── package.json
+	  ├── main.js
+	  └── index.html
+	</pre>
+	<aside>※ Windows,Linuxの場合のファイル構成。macの場合、ファイル構成は異なる。</aside><br>
+	<br>
+	
+	ファイル群をパッケージ化するasarアーカイブなるものも存在する。（dllと似たようなものか？）<br>
+	<br>
+	
+	electron.exe のファイル名を変更したり、アイコンやその他の情報を rcedit などのツールで編集可能。<br>
+	<br>
+
+	<br><time>2018-7-16</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/electron/">Electronの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-7-16</div>
+</body>
+</html>
