@@ -51,6 +51,70 @@
 
 
 
+<div id="sec7-2" class="sec4">
+	<h3>CSSをグループ化し一括でCSS適用する</h3>
+
+	<pre><code>
+	&lt;style&gt;
+	.animal .neko{
+		color:red;
+	}
+	.animal .inu{
+		color:blue;
+	}
+	&lt;/style&gt;
+	
+	&lt;script&gt;
+	function onCssStyle(){
+		$('#test').addClass('animal');
+	}
+	function offCssStyle(){
+		$('#test').removeClass('animal');
+	}
+	&lt;/script&gt;
+	
+	&lt;div id="test"  &gt;
+		&lt;div class="neko"&gt;赤ネコ&lt;/div&gt;
+		&lt;div class="inu"&gt;青犬&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;input type="button" value="スタイルON" onclick="onCssStyle()" /&gt;
+	&lt;input type="button" value="スタイルOFF" onclick="offCssStyle()" /&gt;
+	</code></pre>
+	
+	<hr />
+	
+	<style>
+	.animal .neko{
+		color:red;
+	}
+	.animal .inu{
+		color:blue;
+	}
+	</style>
+	
+	<script>
+	function onCssStyle(){
+		$('#test').addClass('animal');
+	}
+	function offCssStyle(){
+		$('#test').removeClass('animal');
+	}
+	</script>
+	
+	<div id="test"  >
+		<div class="neko">赤ネコ</div>
+		<div class="inu">青犬</div>
+	</div>
+	<input type="button" value="スタイルON" onclick="onCssStyle()" />
+	<input type="button" value="スタイルOFF" onclick="offCssStyle()" />
+
+	<br><time>2018-7-27</time>
+</div>
+
+
+
+
+
 <div id="sec7-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
