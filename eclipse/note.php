@@ -3,23 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="google" content="notranslate" />
-	<title>ワクガンス　|　Eclipseの覚書</title><link rel='shortcut icon' href='/home/images/favicon.ico' />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Eclipseの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  />
-	<link rel="stylesheet" type="text/css" href="../css/common2.css"  />
-	<script>
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
 
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
 
-
-	</script>
-
-	<style type="text/css">
-
-	</style>
-
+	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-<div id="header" ><h1>Eclipseの覚書</h1></div>
+<div id="header" ><h1>Eclipseの覚書 | ワクガンス</h1></div>
 <div class="container">
 
 
@@ -304,6 +308,37 @@
 	<img src="img/note/sec1-8.png" class="img-responsive" ><br>
 	<br>
 	
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-9" class="sec1">
+	<h3>.htaccessファイルなどのドットファイルを表示する</h3>
+	
+	<p>「.」から始まるファイルをExploereに表示する手順</p>
+	<ol>
+		<li>Exploereの右上付近にある「▽」をクリック</li>
+		<li>
+			「Filters and Customization」を選択。<br>
+			<img src="img/note/sec1-9a1.png" class="img_compact_k" alt=".htaccessファイルなどのドットファイルを表示する" />
+		</li>
+		<li>
+			「.* resources」のチェックをはずす。<br>
+			<img src="img/note/sec1-9a2.png" class="img_compact_k" alt=".htaccessファイルなどのドットファイルを表示する" />
+		</li>
+		<li>以上で「.」から始まるファイルもExploereに表示されるようになる。</li>
+	</ol>
+	
+	
+	
+	
+
+	<time>2018-7-30</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
