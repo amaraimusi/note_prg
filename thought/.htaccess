@@ -1,0 +1,14 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_URI} /note_prg/thought/note.html
+RewriteRule ^(.*)$ /note_prg/mgt/thought_note.html [R=301,L]
+</IfModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_URI} /note_prg/thought
+RewriteRule ^(.*)$ /note_prg/mgt [R=301,L]
+</IfModule>

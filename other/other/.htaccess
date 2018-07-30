@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_URI} /note_prg/other/other/remote_work.html
+RewriteRule ^(.*)$ /note_prg/mgt/remote_work.html [R=301,L]
+</IfModule>
