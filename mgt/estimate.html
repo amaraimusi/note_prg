@@ -16,6 +16,17 @@
 	<script src="/note_prg/js/livipage.js"></script>
 	<script src="/note_prg/js/ImgCompactK.js"></script>
 	
+	<style>
+	.sub_sec1{
+		margin-top:25px;
+		padding-bottom:15px;
+		border-bottom:solid 1px #888888;
+	}
+	.sub_sec1 p{
+		color:#6b732b;
+		font-size:1.1em;
+	}
+	</style>
 </head>
 <body>
 <div id="header" ><h1>見積もりの覚書 | ワクガンス</h1></div>
@@ -32,8 +43,11 @@
 	<br>
 	
 	見積もりは提案依頼書（RFP）の確認から始まり、クライアントに見積もり提案するところで終わり。
-	クライアントが見積もりに合意した段階でプロジェクトスタートなる。
+	クライアントが見積もりに合意した段階でプロジェクトスタートなる。<br>
+	<br>
 	
+	RFPの文面の各所に返答する形で提案するという簡略方法もある。<br>
+	<br>
 	
 	<p>RFPの確認から見積もり提案までの手順</p>
 	<ol>
@@ -41,11 +55,10 @@
 		<li><a href="#sec1-3" class="livipage">RFPを分析</a></li>
 		<li><a href="#sec1-4" class="livipage">ヒアリング資料の作成</a></li>
 		<li><a href="#sec1-5" class="livipage">ヒアリング</a></li>
-		<li><a href="#sec1-6" class="livipage">要件定義</a></li>
-		<li><a href="#sec1-7" class="livipage">見積もりの提示</a></li>
+		<li><a href="#sec1-6" class="livipage">見積もり</a></li>
 	</ol><br>
 	<br>
-	
+	<a href="#sec1-10">見積もりのドキュメントについて</a>
 	
 	
 	<br><time>2018-7-31</time>
@@ -113,7 +126,8 @@
 		<li>補足資料はあるか？</li>
 		<li>どんな機能が必要になりそうか？</li>
 		<li>プロジェクトの規模はどのくらいになりそうか？</li>
-		<li>システムを利用するユーザーの種類は？</li>
+		<li>システムを利用する<a href="estimate2.html#sec2-2" class="livipage">ユーザーの種類</a>は？</li>
+		<li>想定しているユーザーの人数は？（ユーザーの種類毎）</li>
 		<li>DBは？</li>
 		<li>プログラミング言語は？</li>
 		<li>フレームワークは？</li>
@@ -127,6 +141,7 @@
 		<li>納品物については？</li>
 		<li>大きな不明点、疑問点</li>
 		<li>検討すべきリスク</li>
+		<li>実現できるか不明な箇所を検証もしくは調査する</li>
 		<li>実績の提示</li>
 		<li>契約条件はどうなっている？</li>
 		<li>依頼者の信頼度は？</li>
@@ -141,10 +156,13 @@
 		<li>簡易な画面設計:どの画面でどの処理を行うのか?</li>
 		<li>自動バックアップシステムは必要か？</li>
 		<li>カットーオーバー後の運用者は？</li>
+		<li>カットーオーバー後の保証期間？</li>
 		<li>データ量は？</li>
 		<li>負荷がかかる箇所は？</li>
 		<li>時間のかかる業務はどこか？(システム化したい箇所)</li>
 		<li>アクセス集中が起きそうなところはあるか？</li>
+		<li>提案業務の一般的仕様は？（Facebook,レコメンド機能など）</li>
+		<li>クライアントは提案を希望しているか？</li>
 	</ul><br>
 	<br>
 
@@ -172,7 +190,8 @@
 		<li>アジェンダ</li>
 	</ul><br>
 	
-	<p id="sec1-4b1">ヒアリングシート</p>
+	<div id="sec1-4b1">
+	<p>ヒアリングシート</p>
 	ヒアリングシートの内容の例。
 	<ol>
 		<li><a href="#sec1-5b1" class="livipage">プロジェクトの本質</a></li>
@@ -192,23 +211,31 @@
 	<aside>
 		ヒアリングシートの書式にマインドマップを用いることができる。
 	</aside><br>
-
+	</div>
+	
 	
 	<p>提案書</p>
 	クライアントが提案を求めているようであれば、実現方法を考え提案できる。<br>
 	システムに詳しい立場からのビジネスを中心に提案する。ビジネスを中心にした場合、電子化しないほうが良い場合もある。<br>
 	ただ、あれこれと提案候補を考えると時間がなくなるので注意。<br>
 	<br>
+	実績あるアーキテクチャに基づいたメンテナンスしやすいシステムを提案する<br>
+	<br>
 	
+	<div id="sec1-4b2">
 	<p>運用フロー図</p>
 	運用を図で表したもの。
 	運用フロー図をもとにヒアリングを行うと以下の利点がある。<br>
 	<ol>
+		<li>クライアントに説明するとき便利。</li>
 		<li>クライアントが思い描いているフローを聞き出せる。</li>
 		<li>運用にかかわる人を聞き出せる。</li>
 		<li>データの流れ、状態、アクションが分かりやすくなる。</li>
-	</ol><br>
-	
+		<li>システム化するものとしないものを見分けられる。</li>
+	</ol>
+	運用フロー図にUMLのコミュニケーション図を用いるのもいい。<br>
+	<br>
+	</div>
 	
 	<p>アジェンダ</p>
 	アジェンダとは会議で論ずる事項が書かれた予定表のような書類。<br>
@@ -277,20 +304,180 @@
 
 
 <div id="sec1-6" class="sec4">
-	<h3>要件定義</h3>
-＞強いシステム
-	セキュリティ攻撃に強い
-	アクセス集中に強い
-	機能変更に強い　
+	<h3>見積もり</h3>
+	
+	<p>見積もり手順の作成</p>
+	<ol>
+		<li>運用フロー図をヒアリング結果を元に更新する</li>
+		<li><a href="#sec1-6a2" class="livipage">機能一覧を作成する</a></li>
+		<li><a href="#sec1-6a3" class="livipage">PERT法で工数算出</a></li>
+		<li><a href="#sec1-6a4" class="livipage">作業一覧</a></li>
+		<li><a href="#sec1-6a5" class="livipage">開発計画</a></li>
+		<li><a href="#sec1-6a6" class="livipage">スケジュールを作成</a></li>
+		<li><a href="#sec1-6a7" class="livipage">見積書を作成</a></li>
+		<li>見積書をクライアントに提示する</li>
+	</ol><br>
+	<hr>
+	
+	<div id="sec1-6a2" class="sub_sec1">
+		<p>機能一覧を作成</p>
+		<ul>
+			<li><a href="estimate2.html#sec2-8" class="livipage">使いやすいユーザーインターフェース</a>にする。</li>
+			<li>要件を分析しながら開発する画面、機能を洗い出し、機能一覧を抽出。</li>
+			<li>複雑な機能の実現方法を検討する。</li>
+			<li>簡易的なDB設計も行う。（ER図）</li>
+			<li>各機能ごとにリスクを記入する。</li>
+			<li>
+				経験を頼りに工数を入力する。
+				3種類の工数である最速工数、標準工数、最遅工数を入力するとPERT法で工数を算出できる。<br>
+				最遅工数はリスクが高い機能ほど多めに設定すること。（できればリスクが小さくなるよう事前に検証したほうがよい）<br>
+				工数の単位は「人月」、日数、時間などがある。<br>
+			</li>
+			<li><a href="/note_prg/mgt/thought_note.html#sec1-2" class="livipage">ブレーンストリーミング</a>で要望実現に関するアイデアを出すこともできる。</li>
+			<li>優先して開発する機能と後で開発する機能を分類する。</li>
+			<li><a href="estimate2.html#sec2-10" class="livipage">あいまいになっている箇所の機能提案</a></li>
+		</ul><br>
 
-お客にとって使いやすいシステム
+		
+		機能一覧の例
+		<table class="tbl2">
+			<thead><tr><th>作業名</th><th>リスク</th><th>最速工数</th><th>標準工数</th><th>最遅工数</th><th>説明</th></tr></thead>
+			<tbody>
+				<tr><td>テストA画面</td><td>低</td><td>0.5</td><td>1.5</td><td>2.5</td><td>マスター系画面</td></tr>
+				<tr><td>テストB画面</td><td>低</td><td>0.5</td><td>1.0</td><td>2.0</td><td>通常のCRUD画面</td></tr>
+				<tr><td>テストC機能</td><td>高</td><td>1.0</td><td>3.0</td><td>10.0</td><td>調査が必要な機能</td></tr>
+			</tbody>
+		</table>
+		<aside>※工数は日数</aside>
+	</div>
+	
+	<div id="sec1-6a3" class="sub_sec1">
+		<p>PERT法で工数算出</p>
+		
+		工数やスケジュールの算出は難しいものである。実際、やってみないとわからないからである。<br>
+		工数を見積もる方法は非常に多数存在する。その中の一つにPERT法というものがある。<br>
+		<br>
+		
+		<strong>PERT法</strong><br>
+		機能一覧で入力した最速工数、標準工数、最遅工数を元に工数を算出する。
+		算出にはPERT法を用いる。
+		<pre>見積もり工数 = （最速工数　＋　４　×　標準工数　＋　最遅工数）　÷　６</pre>
+		工数をPERT法で算出
+		<table class="tbl2">
+			<thead><tr><th>作業名</th><th>リスク</th><th>PERT法・工数</th><th>最速工数</th><th>標準工数</th><th>最遅工数</th><th>説明</th></tr></thead>
+			<tbody>
+				<tr><td>テストA画面</td><td>低</td><td><span class="text-danger">1.75</span></td><td>0.5</td><td>1.5</td><td>2.5</td><td>マスター系画面</td></tr>
+				<tr><td>テストB画面</td><td>低</td><td><span class="text-danger">0.6</span></td><td>0.2</td><td>0.5</td><td>1.5</td><td>通常のCRUD画面</td></tr>
+				<tr><td>テストC機能</td><td>高</td><td><span class="text-danger">4.3</span></td><td>1.0</td><td>3.0</td><td>10.0</td><td>調査が必要な機能</td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div id="sec1-6a4" class="sub_sec1">
+		<p>作業一覧</p>
+
+		機能一覧から作業一覧を作成。<br>
+		作業一覧には作業範囲と見積もり額を入れる。<br>
+		<strong style="color:red">作業範囲を明確にする</strong>という大きな役割があるのでクライアントにしっかり確認してもらうようにする。<br>
+		<br>
+		
+		作業範囲を決める
+		<ul>
+			<li>やりたいことはどんどん膨らんでいくため、絞り込みの作業も必要になる。</li>
+			<li>優先すべきことと後回しでよいもの分ける。</li>
+			<li>予算内でできる機能だけを提案する。</li>
+			<li>力のかけどころを見極める。</li>
+			<li>コストや納期と相談しながら作業を<a href="estimate3.html#sec3-1" class="livipage">フェーズ分け</a>する。</li>
+		</ul><br>
+
+		作業一覧に含めることができる作業（タスク）の例
+		<ul>
+			<li>画面開発</li>
+			<li>機能開発</li>
+			<li><a href="estimate2.html#sec2-9" class="livipage">業務改善の検討作業</a></li>
+			<li>問題の調査作業</li>
+			<li>バッチ処理の開発</li>
+			<li>運用しやすい体制構築</li>
+			<li>「〇〇の見直し」というタスク</li>
+		</ul>
+
+	</div>
+	
+	<div id="sec1-6a5" class="sub_sec1">
+		<p>開発計画</p>
+		ヒアリングシートを元に開発計画書を作成する。<br>
+		開発計画書は規模が大きいので見積もりの段階では小さめに作る。<br>
+		<br>
+		
+		開発計画に盛り込む内容
+		<ol>
+
+			<li><a href="estimate2.html#sec2-3" class="livipage">開発アーキテクチャ（パッケージ開発、フルスクラッチ開発など）</a></li>
+			<li>ウォータフォール or アジャイル</li>
+			<li>チーム体制(組織図)</li>
+			<li><a href="estimate2.html#sec2-4" class="livipage">セキュリティ</a></li>
+			<li><a href="estimate2.html#sec2-5" class="livipage">強いシステム</a></li>
+			<li><a href="estimate2.html#sec2-6" class="livipage">共有体制(情報共有ツール)</a></li>
+			<li>メンバー構成</li>
+			<li><a href="estimate2.html#sec2-7" class="livipage">設計思想</a></li>
+			<li>用語集</li>
+		</ol>
+	
+	</div>
+	
+	
+	<div id="sec1-6a6" class="sub_sec1">
+		<p>スケジュールの作成</p>
+		<a href="#sec1-6a3" class="livipage">PERT法</a>で工数を算出しているので後はこの工数にそってスケジュールを作成するだけ。<br>
+		予備日も入れる。<br>
+	</div>
+	
+	
+	<div id="sec1-6a7" class="sub_sec1">
+		<p>見積書の作成</p>
+
+		IT以外の業種が使用している一般的な見積書でよい。<br>
+		項目は<a href="#sec1-6a4" class="livipage">作業一覧</a>を参考に作成する。<br>
+		<br>
+		
+	</div>
+
+	
+	<br><time>2018-8-3</time>
+</div>
 
 
-システムを利用するユーザーの種類
 
-ユーザーの人数を確認する
-	社内で利用する人の数
-	エンドユーザーの想定人数
+
+<div id="sec1-10" class="sec4">
+	<h3>見積もりのドキュメントについて</h3>
+
+	見積もりに関するドキュメントの例
+	<ol>
+		<li><a href="#sec1-2" class="livipage">RFP(提案依頼書)</a></li>
+		<li><a href="#sec1-4b2" class="livipage">運用フロー図</a></li>
+		<li>ER図</li>
+		<li><a href="#sec1-4b1" class="livipage">ヒアリングシート</a></li>
+		<li>
+			<a href="#sec1-6a5" class="livipage">開発計画書</a>
+			<ul>
+				<li>作業一覧</li>
+				<li>機能一覧</li>
+				<li>スケジュール</li>
+				<li>その他・・・</li>
+			</ul>
+		</li>
+		<li>見積もり書</li>
+	</ol><br>
+	
+	ドキュメントの注意点<br>
+	<ol>
+		<li><a href="estimate3.html#sec3-2" class="livipage">ドキュメントの多すぎに注意。</a></li>
+		<li>文書はテンプレートを用意しておくと、すばやく作成できる。</li>
+		<li>設計図は顧客が見てもある程度理解できるようにする。</li>
+		<li>UMLも使えるがクライアントにも理解ができるようにすべき。</li>
+	</ol>
+	
 	<br><time>2018-8-1</time>
 </div>
 
