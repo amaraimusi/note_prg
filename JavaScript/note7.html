@@ -1088,6 +1088,45 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec7-8-3" class="sec1">
+	<h3>クラス存在チェック</h3>
+	
+	「type of」でクラスの存在確認ができる。<br>
+	存在しているなら「function]、存在しないなら「undefined」になる。<br>
+	<br>
+	
+<pre>
+$(() =&gt; {
+	
+	console.log(<strong>typeof Neko</strong>); // → function
+	console.log(<strong>typeof Inu</strong>); // → undefined
+	
+	var neko = new Neko();
+	neko.bark();
+});
+
+
+class Neko{
+	bark(){
+		console.log('ナゴー');
+	}
+}
+</pre>
+
+	<time>2018-8-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec7-9" class="sec1" >
 	<h3>HTMLファイル（自身）の更新日を取得</h3>
 
