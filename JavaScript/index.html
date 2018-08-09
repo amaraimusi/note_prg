@@ -29,6 +29,7 @@
 	<li><a href="#array_note_index">配列とObject</a></li>
 	<li><a href="#date_index">日付</a></li>
 	<li><a href="#jquery_note">jQuery</a></li>
+	<li><a href="#asyn_index">非同期処理</a></li>
 	<li><a href="#vue_js_index">vue.jsの覚書</a></li>
 	<li><a href="#d3_js_index">D3.jsの覚書(v4)</a></li>
 	<li><a href="#unify_elm_index">要素関連の一律化</a></li>
@@ -65,7 +66,6 @@
 	<li><a href="note2.html#sec2-7" >Chromeでクッキーを確認する方法</a></li>
 	<li><a href="note2.html#sec2-8" >文字列を配列化する</a></li>
 	<li><a href="note2.html#sec2-9" >連想配列（オブジェクト）の要素数を取得する方法</a></li>
-	<li><a href="note2.html#sec2-10" >JSファイルを非同期で読み込む | async属性の挙動実験  | &lt;script async&gt;</a></li>
 	<li><a href="note3.html#sec3-1" >HTML(JS)だけでCSVファイルをダウンロード</a></li>
 	<li><a href="note3.html#sec3-1-2" >複数ファイルダウンロード | HTML5版</a></li>
 	<li><a href="note3.html#sec3-2" >BPG画像ファイルを表示する | bpgdec8b.js</a></li>
@@ -88,7 +88,6 @@
 	<li><a href="note4.html#sec4-11" >改行コードをBRタグに変換する</a></li>
 	<li><a href="note5.html#sec5-1" >JSONからHTMLテーブルを生成する | JsonToTable.js</a></li>
 	<li><a href="note5.html#sec5-3" >カラーピッカー.jsの使い方 | cpick.js</a></li>
-	<li><a href="note5.html#sec5-4" >スレッドやタイマーのように間隔をあけて定期的に処理を行う | setInterval</a></li>
 	<li><a href="note5.html#sec5-8" >置換と全置換 | replace</a></li>
 	<li><a href="note5.html#sec5-9" >cssをJavaScritで切り替える</a></li>
 	<li><a href="note6.html#sec6-1" >JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする代替案</a></li>
@@ -138,8 +137,6 @@
 	<li><a href="note10.html#sec10-2" >正規表現 if文の省略記法</a></li>
 	<li><a href="note10.html#sec10-3" >CakePHPのユーザー認証状態をAjaxで取得する</a></li>
 	<li><a href="note10.html#sec10-4" >編集モードと一般モードの切替関数</a></li>
-	<li><a href="note10.html#sec10-7" >非同期で実行する | setTimeout</a></li>
-	<li><a href="note10.html#sec10-7-2" >setTimeoutをキャンセルする | clearTimeout</a></li>
 	<li><a href="note10.html#sec10-8" >文字列をにパース</a></li>
 	<li><a href="note10.html#sec10-9" >スネーク記法をキャメル記法に変換する</a></li>
 	<li><a href="note10.html#sec10-10" >キャメル記法をスネーク記法に変換する</a></li>
@@ -323,7 +320,6 @@
 	<li><a href="/note_prg/jquery/note5.html#sec5-6" >要素数を取得する | jQuery</a></li>
 	<li><a href="/note_prg/jquery/note5.html#sec5-9" >指定要素を数える | jQuery</a></li>
 	<li><a href="/note_prg/jquery/note5.html#sec5-10" >テーブルの行数を数える</a></li>
-	<li><a href="/note_prg/jquery/note6.html#sec6-1" >jQuery:複数の非同期通信を制御する | $.Deferred</a></li>
 	<li><a href="/note_prg/jquery/note6.html#sec6-3" >テーブル行内の任意要素から行番（行インデックス）を取得する</a></li>
 	<li><a href="/note_prg/jquery/note6.html#sec6-3-2" >テーブルから最初の行要素（インデックス=0）を取得する</a></li>
 	<li><a href="/note_prg/jquery/note6.html#sec6-4" >jQueryオブジェクトであるか判別する</a></li>
@@ -335,6 +331,23 @@
 	<li><a href="/note_prg/jquery/note6.html#sec6-10" >複数要素からインデックスを指定して各要素にアクセス、および複数要素の要素数の取得</a></li>
 	<li><a href="/note_prg/jquery/note7.html#sec7-1" >class属性の追加および削除</a></li>
 	<li><a href="/note_prg/jquery/note7.html#sec7-2" >CSSをグループ化し一括でCSS適用する</a></li>
+</ol>
+<hr>
+
+
+<h2 id="asyn_index">非同期処理</h2>
+<ol>
+
+	<li><a href="note10.html#sec10-7" >非同期で実行する | setTimeout</a></li>
+	<li><a href="note10.html#sec10-7-2" >setTimeoutをキャンセルする | clearTimeout</a></li>
+	<li><a href="note5.html#sec5-4" >スレッドやタイマーのように間隔をあけて定期的に処理を行う | setInterval</a></li>
+	<li><a href="/note_prg/jquery/note6.html#sec6-1" >jQuery:複数の非同期通信を制御する | $.Deferred</a></li>
+	<li><a href="note2.html#sec2-10" >JSファイルを非同期で読み込む | async属性の挙動実験  | &lt;script async&gt;</a></li>
+	<li><a href="es2015_note.html#sec1-2">コールバック地獄対策 | Promise</a></li>
+	<li><a href="es2015_note.html#sec1-3">クラス版のPromiseの使い方</a></li>
+	<li><a href="es2015_note.html#sec1-4">Promiseのエラーキャッチ | rejected</a></li>
+	<li><a href="asyn_note.html#sec1-1">ループ型非同期処理を同期的に処理する</a></li>
+	<li><a href="asyn_note.html#sec1-2">複数の非同期処理がすべて終わったらコールバックを実行</a></li>
 </ol>
 <hr>
 
@@ -492,9 +505,6 @@
 <h2 id="es2015_index">ES2015(ES6)の目次</h2>
 <ol>
 	<li><a href="es2015_note.html#sec1-1">ES2015のクラスと基本</a></li>
-	<li><a href="es2015_note.html#sec1-2">コールバック地獄対策 | Promise</a></li>
-	<li><a href="es2015_note.html#sec1-3">クラス版のPromiseの使い方</a></li>
-	<li><a href="es2015_note.html#sec1-4">Promiseのエラーキャッチ | rejected</a></li>
 	<li><a href="es2015_note.html#sec1-5">仮想DOMとは | Virtual DOM</a></li>
 	<li><a href="es2015_note.html#sec1-6">ES6のthisとjQuery.eachのthisが競合してしまう問題</a></li>
 	<li><a href="es2015_note.html#sec1-7">ES6のthisとjQuery.clickのthisが競合してしまう問題</a></li>
