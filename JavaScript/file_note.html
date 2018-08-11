@@ -538,52 +538,36 @@
 <div id="sec1-5" class="sec4">
 	<h3>ファイルアップロード拡張クラス | FileuploadsX.js</h3>
 	
-	<a href="/sample/js/a006/fu_progress/demo3.html" class="btn btn-info">デモ</a>
-	<a href="/sample/js/a006/fu_progress/FileuploadsX.js" download class="btn btn-success" title="FileuploadsX.jsファイルのダウンロード" >FileuploadsX.js</a><br>
+	ファイルアップロードの拡張クラス
+	<ul>
+		<li>DnD（ドラッグ＆ドロップに対応。</li>
+		<li>アップロード区分のドレスアップ。</li>
+		<li>エンティティなどのデータも一緒に送信。</li>
+		<li>複数のファイルをアップロードできる。</li>
+		<li>複数のファイルアップロード要素に対応。</li>
+		<li>進捗バーの表示</li>
+	</ul><br>
+	
+	<a href="/FileUploadK/example.html" class="btn btn-info">デモ</a>
+	<a href="https://github.com/amaraimusi/FileUploadK" class="btn btn-info" target="blank">GitHub</a><br>
 	<br>
 	
+	<h5>最低限な使い方</h5>
 	HTML
 	<pre><code>
-	&lt;label id="file1_wrap" for="file1" style="display:'inline-block';width:320px;height:240px;background-color:#cce0f0;"&gt;
-		ファイルをドラッグ＆ドロップしてください。
-		（複数ファイルも可）&lt;br&gt;
-		&lt;input type="file" id="file1" multiple /&gt;
-	&lt;/label&gt;&lt;br&gt;
-	&lt;progress id="prog1" value="0" max="100"&gt;&lt;/progress&gt;
-	&lt;div id="res1" class="text-success"&gt;&lt;/div&gt;
-	&lt;div id="err" class="text-danger" &gt;&lt;/div&gt;
+	&lt;label for="file1" class="fuk_label" style="width:240px;height:160px;float:left"&gt;
+		&lt;input type="file" id="file1" multiple  accept="image/*" title="画像ファイルをドラッグ＆ドロップ(複数可)" /&gt;
+	&lt;/label&gt;
 	</code></pre><br>
 	
 	JavaScript
 	<pre><code>
-	$(function(){
-		var fileuploadsX = new <strong>FileuploadsX</strong>({
-			'wrap_slt':'#file1_wrap',
-			'fu_slt':'#file1',
-			'prog_slt':'#prog1',
-			'ajax_url':'upload_demo2.php',
-			'fu_show_flg':1,
-			'callback':(res) =&gt; {
-						$('#res1').html(res);
-					}
-		});
-	});
-	</code></pre><br>
-	
-	PHP | upload_demo2.php
-	<pre><code>
-	&lt;?php
-	foreach($_FILES as $key=&gt; $fileData){
-		if($_SERVER['SERVER_NAME']=='localhost'){
-			move_uploaded_file($fileData["tmp_name"], 'xxx/'.$fileData["name"]);
-		}
-		echo 'success';
-	}
-	?&gt;
+	fileUploadK = new FileUploadK();
+	fileUploadK.addEvent('file1');
 	</code></pre><br>
 
 
-	<br><time>2017-10-30</time>
+	<br><time>2017-10-30 | 2018-8-11</time>
 </div>
 
 
