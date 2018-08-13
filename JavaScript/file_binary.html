@@ -356,7 +356,7 @@
 
 
 <div id="s97" class="sec4" >
-	<h3>XMLHttpRequestでファイルを読み込みMIME,サイズ,更新日を取得する</h3>
+	<h3>XMLHttpRequestでファイルを読み込みMIME,サイズ,更新日,ファイル名を取得する</h3>
 	
 	<pre>
 	var fp = "upload_files/imori.jpg";
@@ -369,15 +369,17 @@
 		// Blobを取得する
 		var blob = e.target.response;
 
-		  var mime_type = <strong>getResponseHeader</strong>("Content-Type");
-		  var size = xhr.getResponseHeader("Content-Length");
-		  var server = xhr.getResponseHeader("server");
-		  var modified = xhr.getResponseHeader("Last-Modified");
+		var mime_type = <strong>getResponseHeader</strong>("Content-Type");
+		var size = xhr.getResponseHeader("Content-Length");
+		var server = xhr.getResponseHeader("server");
+		var modified = xhr.getResponseHeader("Last-Modified");
+		var r_url = e.target.responseURL;
 		  
-		  console.log(mime_type); // MIME
-		  console.log(size); // サイズ（容量）
-		  console.log(server); // サーバー情報
-		  console.log(modified); // 更新日
+		console.log(mime_type); // MIME
+		console.log(size); // サイズ（容量）
+		console.log(server); // サーバー情報
+		console.log(modified); // 更新日
+		console.log(r_url); // ファイル名を含むURL
 		
 		// BlobをBlobURLスキームに変換して、img要素にセットする。
 		var blob_url = window.URL.createObjectURL(blob);
