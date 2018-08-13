@@ -321,6 +321,127 @@
 
 
 
+<div id="s96" class="sec4" >
+	<h3>サーバー上のファイルからBlobを取得する</h3>
+	
+	HTML
+	<pre>	&lt;img id="img1" src="" /&gt;</pre>
+	
+	JavaScript
+	<pre><code>
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', fp, true);
+	xhr.responseType = 'blob';
+	xhr.onload = (e) =&gt; {
+		
+		// Blobを取得する
+		var blob = e.target.response;
+
+		// BlobをBlobURLスキームに変換して、img要素にセットする。
+		var blob_url = window.URL.createObjectURL(blob);
+		$('#img1').attr('src',blob_url);
+
+	};
+	xhr.send();
+	</code></pre>
+	
+	<time>2018-8-13</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="s97" class="sec4" >
+	<h3>XMLHttpRequestでファイルを読み込みMIME,サイズ,更新日を取得する</h3>
+	
+	<pre>
+	var fp = "upload_files/imori.jpg";
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', fp, true);
+	xhr.responseType = 'blob';
+	xhr.onload = (e) =&gt; {
+		
+		// Blobを取得する
+		var blob = e.target.response;
+
+		  var mime_type = <strong>getResponseHeader</strong>("Content-Type");
+		  var size = xhr.getResponseHeader("Content-Length");
+		  var server = xhr.getResponseHeader("server");
+		  var modified = xhr.getResponseHeader("Last-Modified");
+		  
+		  console.log(mime_type); // MIME
+		  console.log(size); // サイズ（容量）
+		  console.log(server); // サーバー情報
+		  console.log(modified); // 更新日
+		
+		// BlobをBlobURLスキームに変換して、img要素にセットする。
+		var blob_url = window.URL.createObjectURL(blob);
+		$('#img1').attr('src',blob_url);
+
+	};
+	xhr.send();
+	</pre>
+	<time>2018-8-13</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="s98" class="sec4" >
+	<h3>XMLHttpRequestでファイルを読み込みヘッダー情報を出力する</h3>
+	
+	JavaScript
+	<pre>
+	var fp = "upload_files/imori.jpg";
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', fp, true);
+	xhr.responseType = 'blob';
+	xhr.onload = (e) =&gt; {
+		
+		// Blobを取得する
+		var blob = e.target.response;
+		  
+		  // ヘッダー情報を出力
+		  console.log(xhr.<strong>getAllResponseHeaders()</strong>);
+		
+		// BlobをBlobURLスキームに変換して、img要素にセットする。
+		var blob_url = window.URL.createObjectURL(blob);
+		$('#img1').attr('src',blob_url);
+
+	};
+	xhr.send();	
+	</pre><br>
+	
+	コンソール出力
+	<pre>
+	date: Mon, 13 Aug 2018 01:06:23 GMT
+	last-modified: Sat, 11 Aug 2018 14:02:29 GMT
+	server: Apache/2.4.29 (Win32) OpenSSL/1.0.2n PHP/7.1.14
+	accept-ranges: bytes
+	etag: "20e55-573294f9aa9f8"
+	content-length: 134741
+	content-type: image/jpeg
+	</pre><br>
+	<time>2018-8-13</time>
+</div>
+
+
+
+
+
+
+
+
 
 <div id="s100" class="sec4" >
 	<h3>FileReaderについて</h3>
