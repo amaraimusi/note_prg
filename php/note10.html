@@ -557,6 +557,59 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec10-8-2" class="sec1">
+	<h3>ディレクトリパスの種類ごとのmkdirを検証</h3>
+
+<table class = "table">
+	<thead><tr><th>検証</th><th>結果</th></tr></thead>
+	<tbody>
+		<tr>
+			<td><pre><code>	mkdir('test1');</code></pre></td>
+			<td>当phpファイルと同じディレクトリにtest1ディレクトリが作成される。</td>
+		</tr>
+		<tr>
+			<td><pre><code>	mkdir('/test2');</code></pre></td>
+			<td>ローカル環境(Windows)である場合、Cドライブにtest2ディレクトリが作成される。</td>
+		</tr>
+		<tr>
+			<td><pre><code>
+	$doc_root = $_SERVER['DOCUMENT_ROOT'];
+	mkdir($doc_root.'/test3');
+			</code></pre></td>
+			<td>
+			htdocsディレクトリにtest3ディレクトリが作成される。<br>
+			「C:\xampp\htdocs\test3」 (ローカル環境）<br>
+			</td>
+		</tr>
+		<tr>
+			<td><pre><code>	
+	$dp = dirname(__FILE__);;
+	mkdir($dp.'/test4');</code></pre></td>
+			<td>
+				当phpファイルと同じディレクトリにtest1ディレクトリが作成される。<br>
+				「mkdir('test4');」と同じ
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
+
+
+	<br><time>2018-8-18</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec10-9" class="sec1" >
 	<h3>フルパスのディレクトリセパレータ定数 DIRECTORY_SEPARATOR</h3>
 
