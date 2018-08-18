@@ -611,22 +611,29 @@
 	<pre><code>
 	/**
 	 * ディレクトリを作成する
-	 * 
+	 *
 	 * @note
 	 * ディレクトリが既に存在しているならディレクトリを作成しない。
 	 * パスに新しく作成せねばならないディレクトリ情報が複数含まれている場合でも、順次ディレクトリを作成する。
 	 * 日本語ディレクトリ名にも対応。
-	 * パスセパレータは「/」と「&yen;」に対応。
+	 * パスセパレータは「/」と「¥」に対応。
 	 * ディレクトリのパーミッションの変更をを行う。(既にディレクトリが存在する場合も）
-	 * 
-	 * @version 1.2
-	 * @date 2016-8-24 | 2014-4-13
-	 * 
+	 * セパレータから始まるディレクトリはホームルートパスからの始まりとみなす。
+	 *
+	 * @version 1.3
+	 * @date 2014-4-13 | 2018-8-18
+	 *
 	 * @param string $dir_path ディレクトリパス
 	 */
-	public function makeDirEx($dir_path,$permission = 0705){
-		
-		if(empty($dir_path)){return;}
+	private function makeDirEx($dir_path,$permission = 0705){
+
+ 		if(empty($dir_path)){return;}
+
+ 		$home_flg = false; // ホームディレクトリパス  1:ホーム(htdocsより以降）からのパス
+ 		$s1 = mb_substr($dir_path,0,1);
+ 		if($s1 == '/' || $s1 == DIRECTORY_SEPARATOR){
+ 			$home_flg = 1;
+ 		}
 		
 		// 日本語名を含むパスに対応する
 		$dir_path=mb_convert_encoding($dir_path,'SJIS','UTF-8');
@@ -652,10 +659,13 @@
 			
 			if($i==0){
 				$dd=$val;
+				if($home_flg == 1){
+					$dd = $_SERVER['DOCUMENT_ROOT'] . $sep . $dd;
+				}
 			}else{
-				$dd.=$sep.$val;
+				$dd .= $sep.$val;
 			}
-		
+			
 			//作成したディレクトリが存在しない場合、ディレクトリを作成
 			if (!is_dir($dd)){
 				mkdir($dd,$permission);//ディレクトリを作成
@@ -667,7 +677,7 @@
 	<br>
 	
 
-	<br><time>2016-8-24 | 2017-4-13</time>
+	<br><time>2016-8-24 | 2018-8-18</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
