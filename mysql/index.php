@@ -48,6 +48,7 @@
 	<li><a href="note3.php#sec3-5" >1つのテーブルでツリー構造データを扱う</a></li>
 	<li><a href="note3.php#sec3-6" >新規追加と更新を自動判別 | ON DUPLICATE KEY UPDATE</a></li>
 	<li><a href="note3.php#sec3-7" >複数行のデータをコンマで連結して1行にまとめる | GROUP_CONCAT</a></li>
+	<li><a href="note3.php#sec3-7-2" >フィールドを連結して検索 | CONCAT</a></li>
 	<li><a href="note3.php#sec3-8" >行の作成日時と更新日時を自動化する | DEFAULT CURRENT_TIMESTAMP</a></li>
 	<li><a href="note3.php#sec3-9" >他のテーブルのSELECT結果をUPDATEする</a></li>
 	<li><a href="note3.php#sec3-10" >月別で集計するSQL</a></li>
