@@ -598,9 +598,16 @@ GROUP BY val1
 	</pre>
 	
 	３つのフィールドであるneko_val,neko_name,neko_dateを連結して一つの文字列にし、その文字列に対してLIKE条件を指定している。<br>
+	ただこの方法は問題もあり、neko_val,neko_name,neko_dateのいずれかひとつだけでもNULLがあると、連結文字列もNULLとなってしまい検索できなくなる。<br>
+	この場合、IFNULLを用いることで対処できる。
 	<br>
+
+	<pre>
+	SELECT * FROM nekos WHERE CONCAT( <strong>IFNULL</strong>(neko_val, ''), IFNULL(neko_name, '') ,IFNULL(neko_date), '') LIKE '%2014%'
+	</pre>
 	
-	<time>2018-8-29</time>
+	<p></p>
+	<time>2018-8-29 | 2018-8-30</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
