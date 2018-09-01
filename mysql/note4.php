@@ -346,6 +346,31 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec4-8-3" class="sec1">
+	<h3>別データベースのテーブルをコピーする</h3>
+	
+	<pre><code>
+	# 構造コピー
+	# parkデータベース・animalsテーブルの構造をpark2データベースへコピーする。
+	CREATE table park2.animals LIKE park.animals;
+	
+	# データコピー
+	# parkデータベース・animalsテーブルのデータをpark2のanimalsテーブルへコピーする。
+	INSERT into park2.animals SELECT * from park.animals;
+	</code></pre>
+
+	<time>2018-9-1</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec4-9" class="sec1" >
 	<h3>MySQL:テーブル一覧を表示</h3>
 	SQL「SHOW TABLES FROM DB名」を実行するとテーブル一覧を表示できる。

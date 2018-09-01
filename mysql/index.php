@@ -61,6 +61,7 @@
 	<li><a href="note4.php#sec4-7" >浮動小数floatのフィールドをWHERE検索する方法</a></li>
 	<li><a href="note4.php#sec4-8" >テーブルコピー</a></li>
 	<li><a href="note4.php#sec4-8-2" >カラムを指定してテーブルコピー</a></li>
+	<li><a href="note4.php#sec4-8-3" >別データベースのテーブルをコピーする</a></li>
 	<li><a href="note4.php#sec4-9" >テーブル一覧を表示</a></li>
 	<li><a href="note4.php#sec4-10" >フィールド一覧を表示</a></li>
 	<li><a href="note5.php#sec5-1" >データを倍にする</a></li>
