@@ -47,6 +47,7 @@
 	
 	shファイルをテキストエディタなどで作成する。<br>
 	作成したshファイルのディレクトリに移動し、shコマンドでshファイルを実行する。<br>
+	日本語文字化けするので shファイルは<strong class="text-danger">utf8</strong>で保存すること。<br>
 	<br>
 	
 	shファイル(hello.sh)
@@ -60,8 +61,47 @@
 	<pre class="console" >
 	$ sh hello.sh
 	Hello, World!
-	</pre>
+	</pre><br>
+	<br>
 	
+	<p>Windows上でshファイルをダブルクリックで実行したとき、すぐにターミナルを閉じないようにする</p>
+	shファイルの末尾に「cmd /k」を記述する。
+	<pre>
+	#!/bin/sh
+	
+	echo "Hello World!"
+	<strong>cmd /k</strong>
+	</pre><br>
+	
+	<br><time>2018-9-3</time>
+</div>
+
+
+
+
+<div id="sec2-3" class="sec4" >
+	<h3>ローカルのシェルファイルでsshログイン後、サーバー環境のコマンドを実行する</h3>
+	
+	<pre>
+#!/bin/sh
+
+echo 'SSHでログインしてサーバー上のコマンドを実行します。'
+ssh -l 【ユーザー名】 【ユーザー名】.sakura.ne.jp <strong>"
+	cd www;
+	pwd;
+	exit;
+	"</strong>
+
+echo "------------ 完了"
+cmd /k
+	</pre><br>
+
+出力例
+<pre class="console">
+SSHでログインしてサーバー上のコマンドを実行します。
+/home/【ユーザー名】 /www
+------------ 完了
+</pre>
 	<br><time>2018-9-3</time>
 </div>
 
