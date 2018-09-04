@@ -46,9 +46,62 @@
 	MariaDB [(none)]> use animal_db
 	Database changed
 	MariaDB [animal_db]> select * from animals
+	</pre><br>
+	
+	<p>ワンライナーでログインすることもできる</p>
+	<pre class="console">
+	# mysql -uユーザー名 -pパスワード
 	</pre>
+	-uとユーザー名の間にスペースを空けないこと。-pも同様。<br>
+	<br>
 
-	<br><time>2018-5-2</time>
+	<br><time>2018-5-2 | 2018-9-4</time>
+</div>
+
+
+
+
+
+<div id="sec1-1-2" class="sec4" >
+	<h3>MySQLのコマンドを動かす | Git Bash</h3>
+	
+	Git Bashからmysqlコマンドを使うには環境変数の設定と「winpty」コマンドを使わねばならない。<br>
+	<br>
+	
+	<p>環境変数の設定</p>
+	<ol>
+		<li>
+			環境変数の設定画面を開く。<br>
+			<aside>Windows10なら左下の検索ボックスに「環境変数」と入力すると容易に環境変数の設定画面にたどり着ける。<br></aside>
+		</li>
+		<li>
+			上段項目であるユーザー環境変数からPathを選択して編集ボタンを押す。<br>
+			<img src="img/cmd_note/sec1-1-2a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			新規ボタンを押し、mysql.exeが存在するディレクトリパスを入力してOKボタンを押す。<br>
+			<aside>xamppである場合、ディレクトリパスは「xampp\mysql\bin」になる。</aside>
+			<img src="img/cmd_note/sec1-1-2a2.png" class="img_compact_k" />
+		</li>
+		<li>
+			以上で環境変数の設定はおわり。<br>
+			すでにGitBashが立ち上がっているなら、一旦閉じて再度開く。<br>
+		</li>
+	</ol><br>
+	<br>
+
+	<p>Git Bashからmysqlコマンドを使う</p>
+	mysqlコマンドの前にwinptyを付け足す。
+	<pre class="console">
+	$ <strong>winpty</strong> mysql -v
+	</pre>
+	<br>
+	補足：<br>
+	winptyはmysqlに限らずwindowsではよくお目にかかるコマンドである。<br>
+	<br>
+	
+
+	<br><time>2018-9-4</time>
 </div>
 
 
