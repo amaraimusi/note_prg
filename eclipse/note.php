@@ -348,6 +348,38 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec1-10" class="sec1" >
+	<h3>Shell Scriptエディタをインストール | シェルファイルのエディタ</h3>
+
+	<ol>
+		<li>
+			「Help → new install softwere」から「http://sourceforge.net/projects/shelled/files/shelled/update/」
+			を入力して検索し、「Shell Script」にチェックしてインストールを開始する。<br>
+			<img src="img/note/sec1-10.png" class="img_compact_k" />
+		</li>
+		<li>
+			インストールが終わるまで待つ。<br>
+			途中で「Warning:You are installing software that contains unsigned contents...」の警告が出るが問題なら承諾する。<br>
+		</li>
+		<li>
+			インストールが終わるとEclipse再起動のダイアログが現れるので再起動する。
+		</li>
+		<li>
+			以上でshファイルを「Shell Script」で編集できるようになる。
+		</li>
+	</ol>
+	<br>
+
+	<time>2018-9-6</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec1-0" class="sec1" style="display: none">
 	<h3>xxx</h3>
 
