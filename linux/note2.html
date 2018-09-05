@@ -108,6 +108,36 @@ SSHでログインしてサーバー上のコマンドを実行します。
 
 
 
+<div id="sec2-4" class="sec4" >
+	<h3>ローカルからサーバー上のshファイルを実行する</h3>
+
+<pre><code>
+ssh -l ユーザー名 ユーザー名.sakura.ne.jp "
+	sh www/rab/hello.sh;
+	"
+</code></pre>
+<aside>※ 公開鍵と秘密鍵は設定済みなのでssh接続のパスワードは省略している。</aside>
+<br>
+
+シェル版（ test.sh）
+<pre><code>
+#!/bin/sh
+
+echo 'SSHでログインしてサーバー上のshファイルを実行します。'
+ssh -l ユーザー名 ユーザー名.sakura.ne.jp "
+	sh www/rab/hello.sh;
+	"
+
+echo "------------ 終わり"
+cmd /k
+</code></pre>
+
+	<br><time>2018-9-5</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
