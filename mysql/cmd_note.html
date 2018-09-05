@@ -134,6 +134,33 @@ cmd /k
 	SQL部分は「"」で囲む。<br>
 	<br>
 	
+	<p>パスワードを対話式にする</p>
+	パスワードを省略すると、シェル実行の際パスワードの入力が促される。
+	<pre><code>
+#!/bin/sh
+mysql -uユーザー名 <strong>-p</strong> -e "
+	use animal_park;
+	show tables;
+	"
+cmd /k
+	</code></pre>
+	
+	出力
+	<pre class='console'>
+Enter password: ****
++-----------------------+
+| Tables_in_animal_park |
++-----------------------+
+| nekos                 |
+| users                 |
+| yagi_groups           |
+| yagis                 |
++-----------------------+
+Microsoft Windows [Version 10.0.17134.228]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+	</pre>
+	
 
 	<br><time>2018-9-5</time>
 </div>
