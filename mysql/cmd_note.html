@@ -114,6 +114,33 @@
 
 
 
+
+<div id="sec1-1-3" class="sec4" >
+	<h3>MySQLのコマンドを動かす | SHELL</h3>
+
+
+	test.sh
+	<pre><code>
+#!/bin/sh
+echo 'テスト開始'
+mysql -uユーザー名 -pパスワード -e "
+	use animal_park;
+	show tables;
+	"
+echo 'テスト完了'
+cmd /k
+	</code></pre>
+	
+	SQL部分は「"」で囲む。<br>
+	<br>
+	
+
+	<br><time>2018-9-5</time>
+</div>
+
+
+
+
 <div id="sec1-2" class="sec4">
 	<h3>MySQLをコマンドで動かす | サーバー（さくらサーバー）</h3>
 

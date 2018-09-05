@@ -98,6 +98,7 @@
 <ol>
 	<li><a href="cmd_note.html#sec1-1" >MySQLのコマンドを動かす | ローカル</a></li>
 	<li><a href="cmd_note.html#sec1-1-2" >MySQLのコマンドを動かす | Git Bash</a></li>
+	<li><a href="cmd_note.html#sec1-1-3" >MySQLのコマンドを動かす | SHELL</a></li>
 	<li><a href="cmd_note.html#sec1-2" >MySQLをコマンドで動かす | サーバー（さくらサーバー）</a></li>
 	<li><a href="cmd_note.html#sec1-3" >DBをバックアップ（エクスポート）する | mysqldump </a></li>
 	<li><a href="cmd_note.html#sec1-4" >リモートでバックアップする（さくらサーバー） </a></li>
