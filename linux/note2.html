@@ -138,6 +138,33 @@ cmd /k
 
 
 
+<div id="sec2-5" class="sec4" >
+	<h3>シェルの対話式 | キーボード入力の受付</h3>
+
+test.sh
+<pre>
+#!/bin/sh
+
+echo "あなたの猫の名前は何ですか？"
+<strong>read neko_name</strong>
+echo "あなたの$neko_nameはいい猫ですね"
+
+cmd /k
+</pre><br>
+
+出力
+<pre class="console">
+あなたの猫の名前は何ですか？
+ニャーニャー
+あなたのニャーニャーはいい猫ですね
+</pre>
+
+	<br><time>2018-9-5</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
