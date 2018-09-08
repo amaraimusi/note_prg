@@ -247,6 +247,39 @@ Microsoft Windows [Version 10.0.17134.228]
 
 
 
+<div id="sec1-4-2" class="sec4">
+	<h3>リモートでバックアップする | SHELL</h3>
+	
+	下記のシェル（test.sh)をFTPなどでサーバーにアップしてから実行する。<br>
+	実行方法は「
+	<a href="/note_prg/linux/note2.html#sec2-4" class="livipage">ローカルからサーバー上のshファイルを実行する</a>
+	」を参考。<br>
+	<br>
+
+	test.sh
+	<pre><code>
+#!/bin/bash
+
+mysqldump -Q -h mysql716.db.sakura.ne.jp -u ユーザー名 -pパスワード ユーザー名_animal_park > www/animal_park/backup/dump.sql 2> www/animal_park/backup/dump.error.txt
+
+echo "出力完了"
+	</code></pre>
+	<aside>さくらサーバー　スタンダードプランで確認</aside>
+	
+	<p style="color:red">注意</p>
+	改行は「\r\n」でなく「<strong>\n」</strong>とすること。<br>
+	「\r\n」だとdumpファイルが「cb_red_book.sql?」などと末尾に?がついてしまう。<br>
+	このファイルはFTPでダウンロードしたり削除したりすることはできない。ターミナルから「rm」コマンドで消すしかない。<br>
+	<br>
+
+	<br><time>2018-9-8</time>
+</div>
+
+
+
+
+
+
 <div id="sec1-5" class="sec4">
 	<h3>DBのリストア【ローカル】</h3>
 	

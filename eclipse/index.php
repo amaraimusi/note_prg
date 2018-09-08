@@ -47,6 +47,7 @@
 				<li><a href="note.php#sec1-8" >Compare Withによるファイル比較で、空白と改行を無視する設定</a></li>
 				<li><a href="note.php#sec1-9" >.htaccessファイルなどのドットファイルを表示する</a></li>
 				<li><a href="note.php#sec1-10" >Shell Scriptエディタをインストール | シェルファイルのエディタ</a></li>
+				<li><a href="note2.html#sec2-1" >デフォルトの改行を[\n]にする</a></li>
 			</ol>
 			</div>
 

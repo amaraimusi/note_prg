@@ -70,6 +70,7 @@
 
 		<li>全角スペースを表示する。<a href="#sec1-6">参照</a></li>
 	
+		<li>デフォルトの改行を[\n]にする。<a href="/note_prg/eclipse/note2.html#sec2-1" class="livipage">参照</a></li>
 	</ol>
 	
 </div>
