@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Excel VBAの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Excel VBAの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>パフォーマンス向上</h3>
+	
+	<pre class="console">
+	■描画モードをOFFにしてからONにする。
+	Application.ScreenUpdating = False
+	～セルへの書き込み処理～
+	Application.ScreenUpdating = True
+	
+	■高速処理となる方法。列にデータを格納する
+	　　Range(Cells(Row, 1), Cells(Row, MAXCOL)).Select
+	　　Selection.Value = aryVal
+	</pre>
+
+	<a href="http://como-esta-senorita.cocolog-nifty.com/como_esta_senorita/2005/11/excel_vba__c0a7.html" target="blank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<br>
+	
+	<br><time>2007-3-13</time>
+</div>
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>シートのロックと解除</h3>
+	
+	<pre class="console">
+	ActiveSheet.Unprotect 'シートロック解除
+
+	ActiveSheet.Protect DrawingObjects:=False, Contents:=True, Scenarios:=False 'シートをロックする。
+	</pre>
+
+	<br><time>2011-3-29</time>
+</div>
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>セルとRangeについて</h3>
+	
+	<pre class="console">
+	Dim rng As Range
+	Set rng = Range(Cells(1, 2), Cells(2, 2))
+
+	'異なるシートの場合
+	With Worksheets("Sheet1")
+	  .Range(.Cells(GYO1, COL1), .Cells(GYO2, COL2)).Value = 1
+	End With
+	</pre>
+
+	<br><time>2011-2-22</time>
+</div>
+
+
+
+
+<div id="sec1-4" class="sec4">
+	<h3>Excel2010で保存するときにいちいちでるメッセージを出ないようにする。</h3>
+	
+	エクセル「ファイル」タブ＞「オプション」＞「セキュリティーセンター」＞「保存時にファイルのプロパティから個人情報を削除する」
+	<br>
+	
+	Excel2007の場合<br>
+	エクセルの「ツール」＞「オプション」＞「セキュリティ」タブ「保存時にファイルのプロパティから個人情報を削除する」<br>
+	<br>
+
+	<br><time>2011-3-18</time>
+</div>
+
+
+
+
+<div id="sec1-5" class="sec4">
+	<h3>フィールド名などが付属した多機能なリスト</h3>
+	
+	フィールド名などが付属した多機能なリストはListViewコントロールを用いる。<br>
+	<br>
+
+	<br><time>2011-3-18</time>
+</div>
+
+
+
+
+<div id="sec1-6" class="sec4">
+	<h3>全角を半角に変換する</h3>
+	
+	<pre class="console">	StrConv("１２３４ＡＢＣ", vbNarrow)</pre>
+	<br>
+
+	<br><time>2011-3-18</time>
+</div>
+
+
+
+
+<div id="sec1-7" class="sec4">
+	<h3>正規表現の使い方</h3>
+	
+	参照設定（R）を選択<br>
+	「Microsoft VBScript Regular Expressions 5.5」にチェックを付ける（下図参照）<br>
+
+	<pre class="console">
+	Dim re As RegExp
+	Set re = New RegExp
+	re.Pattern = "[A-Za-z]+" 'アルファベットの連続を表す正規表現
+	MsgBox re.Replace("私はMikeです。", "マイク") '私はマイクです。
+
+	Executeメソッドの使用例（その1）
+	Dim re As RegExp
+	Dim mc As MatchCollection
+	Dim m As Match
+	Dim i As Integer
+	
+	Set re = New RegExp
+	re.Pattern = "[A-Z]+" 'アルファベット（大文字）の連続を表す正規表現
+	re.Global = True	  '複数マッチを有効にする
+	Set mc = re.Execute("ABC DEFG HIJKL MNOPQR STUVWXY")
+	MsgBox "mc.Count = " & mc.Count 'mc.Count = 5
+	For i = 0 To mc.Count - 1
+		Set m = mc.Item(i)
+		MsgBox "FirstIndex = " & m.FirstIndex & " Length = " _
+							   & m.Length & " Value = " & m.Value
+	Next i
+	</pre>
+	
+	<a href="http://codezine.jp/article/detail/1655" target="blank" class="btn btn-link btn-xs">参考</a><br>
+	<br>
+
+	<br><time>2010-12-24</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/vb/">Excel VBAの覚書</a></li>
+	<li>Excel VBAの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2005-11-2 | 2011-11-15</div>
+</body>
+</html>

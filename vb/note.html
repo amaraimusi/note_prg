@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VBの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>VBの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>カレントパスを取得する</h3>
+	
+	<pre class="console">
+	txtPath = Workbooks.Application.ActiveWorkbook.Path
+
+	以下の方法をお勧め
+	txtPath = ActiveWorkbook.Path
+	</pre>
+
+	<br><time>2005-11-15</time>
+</div>
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>ファイル名を変更する方法</h3>
+	
+	<pre class="console">
+	Private Sub Command1_Click()
+		Dim strFileOld   As String   ' 変更前のファイル名
+		Dim strFileNew   As String   ' 変更後のファイル名
+		
+		' ファイル名を代入する
+		strFileOld = "sample.txt"
+		strFileNew = "sample.tmp"
+		
+		' ファイル名を変更する
+		Name strFileOld As strFileNew
+	End Sub
+	</pre>
+
+	<br><time>2005-11-2</time>
+</div>
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>Labelコントロールの型</h3>
+	
+	<pre class="console">
+	'MsForms内のコントロール
+	dim lbl as MsForms.Label
+	
+	dim chk as MsForms.CheckBox
+	</pre>
+
+	<br><time>2011-3-30</time>
+</div>
+
+
+
+
+<div id="sec1-4" class="sec4">
+	<h3>Left、Right、Mid関数のエラー対策</h3>
+	
+	<pre class="console">
+	以下のように「Strings」を使う。
+	Strings.Left(
+	</pre>
+
+	<br><time>2009-10-3</time>
+</div>
+
+
+
+
+<div id="sec1-5" class="sec4">
+	<h3>キーボード自動操作</h3>
+	
+	<pre class="console">
+	Sub test()
+		Dim objWshShell
+		
+		Set objWshShell = CreateObject("WScript.Shell")
+		'objWshShell.AppActivate "無題"
+		objWshShell.SendKeys "abc~def"
+	
+	End Sub
+	</pre>
+
+	<br><time>2011-11-15</time>
+</div>
+
+
+
+
+<div id="sec1-6" class="sec4">
+	<h3>ツールバー生成と自作ボタンイメージ</h3>
+	
+	過去ログ
+	<pre class="console">
+	ユーザーフォームにイメージコントロール（image1)を配置し、16サイズの画像を張り付ける。
+	ThiwWorkbookモジュールに以下のコードを記述
+	
+	Option Explicit
+	
+	'ブック起動イベント
+	Private Sub Workbook_Open()
+		Debug.Print "ブック起動イベント実行開始"
+		Call MakeToolBar
+	End Sub
+	
+	'ブック閉じるイベント
+	Private Sub Workbook_BeforeClose(Cancel As Boolean)
+	 
+		Debug.Print "ブック閉じるイベント実行"
+		Call RemoveToolBar
+	End Sub
+	Sub AddMenu()
+		Dim NewM As CommandBar, NewC As CommandBarControl
+		''新しいメニューを追加する
+	'	Set NewM = Application.CommandBars("Worksheet Menu Bar").Controls.Add(Type:=msoControlPopup)
+			Set NewM = Application.CommandBars.Add( _
+			Name:="文字修飾", Position:=msoBarLeft)
+		NewM.Caption = "新しいメニュー(&C)"
+		''オリジナルコマンドを追加する(1)
+		Set NewC = NewM.Controls.Add
+		With NewC
+			.Caption = "保護解除(&U)"
+			.OnAction = "UnProtectSheet"
+			.BeginGroup = False
+			.FaceId = 277
+		End With
+		''オリジナルコマンドを追加する(2)
+		Set NewC = NewM.Controls.Add
+		With NewC
+			.Caption = "参照元/先のトレース(&P)"
+			.OnAction = "Precedents"
+			.BeginGroup = True
+			.FaceId = 450
+		End With
+		''オリジナル サブメニューを追加する
+		Set NewC = NewM.Controls.Add(Type:=msoControlPopup)
+		With NewC
+			.Caption = "標準に戻す"
+			.BeginGroup = True
+			With NewC.Controls.Add()
+				.Caption = "シートの外観(&S)"
+				.OnAction = "SheetStyle"
+				.FaceId = 8
+			End With
+		''オリジナル サブメニューのコマンドを追加する
+			With NewC.Controls.Add()
+				.Caption = "文字色(&T)"
+				.OnAction = "DefaultFontColor"
+				.FaceId = 476
+			End With
+		End With
+	End Sub
+	'ツールバーを作成する。
+	Private Sub MakeToolBar()
+		Dim myBar As CommandBar
+		Dim myButton As CommandBarControl
+	
+		Set myBar = Application.CommandBars.Add( _
+			Name:="SspSetFilesEdit", Position:=msoBarLeft)
+		myBar.Visible = True
+		
+	
+		Set myButton = myBar.Controls.Add( _
+			Type:=msoControlButton, ID:=1)
+		
+		With myButton
+			.OnAction = "Moji1"
+			.FaceId = 230
+			.BeginGroup = True
+			.Caption = "レポート作成"
+			.Picture = UserForm1.Image1.Picture’ユーザーフォーム Image1の画像を貼り付け
+			.Mask = UserForm1.Image1.Picture’ユーザーフォーム Image1の画像を貼り付け（白が透明になる）
+			
+	'		.TooltipText = "AAA"
+	'		.DescriptionText = "VVV"
+			.Width = 200
+		End With
+	End Sub
+	
+	'ツールバーを削除する
+	Private Sub RemoveToolBar()
+		On Error Resume Next
+	'		Application.CommandBars("文字修飾").Delete
+			Application.CommandBars("SspSetFilesEdit").Delete
+		On Error GoTo 0
+	End Sub
+	</pre>
+
+	<br><time>2011-5-13</time>
+</div>
+
+
+
+
+<div id="sec1-8" class="sec4">
+	<h3>テキストファイル出力</h3>
+	
+	<pre class="console">
+	'テキストファイルに出力する。SJIS保存
+	Private Sub outputTextFile(byref OutPutCll as collectio,ByRef filename As String)
+		Dim i As Integer
+		If filename <> "" Then
+			Open filename For Output As #1
+				For i = 1 To OutPutCll.Count
+					Print #1, OutPutCll(i)
+				Next i
+			Close #1
+		End If
+		
+	End Sub
+	</pre>
+	UTFで出力する場合は別の方法を使う必要がある。
+
+	<br><time>2010-9-29</time>
+</div>
+
+
+
+
+<div id="sec1-9" class="sec4">
+	<h3>文字列操作関数表</h3>
+	
+	<pre class="console">
+	●Asc	文字を文字コードへ変換
+	●Chr	文字コードを文字へ変換
+	●CStr	値を文字列型(String)へ変換
+	●Format	指定した書式に変換
+	●InStr	文字列の前方検索
+	●InstrRev	文字列の後方検索
+	●Len、LenB	文字列の文字数、バイト数を取得
+	●Like	文字列のパターンマッチング
+	●Mid、Left、Right	文字列の切り取り
+	●Replace	文字列の置換
+	●Split	文字列のセパレータ分解
+	●StrConv	文字列の変換
+	●Trim、LTrim、RTrim	文字列の先頭、末尾のスペースを削除
+	●UCase、LCase	アルファベットの大文字、小文字変換
+	</pre>
+
+	<br><time>2010-12-12-24</time>
+</div>
+
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/vb/">VBの覚書</a></li>
+	<li>VBの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2005-11-2 | 2011-11-15</div>
+</body>
+</html>
