@@ -145,11 +145,11 @@
 	'	Set NewM = Application.CommandBars("Worksheet Menu Bar").Controls.Add(Type:=msoControlPopup)
 			Set NewM = Application.CommandBars.Add( _
 			Name:="文字修飾", Position:=msoBarLeft)
-		NewM.Caption = "新しいメニュー(&C)"
+		NewM.Caption = "新しいメニュー(&amp;C)"
 		''オリジナルコマンドを追加する(1)
 		Set NewC = NewM.Controls.Add
 		With NewC
-			.Caption = "保護解除(&U)"
+			.Caption = "保護解除(&amp;U)"
 			.OnAction = "UnProtectSheet"
 			.BeginGroup = False
 			.FaceId = 277
@@ -157,7 +157,7 @@
 		''オリジナルコマンドを追加する(2)
 		Set NewC = NewM.Controls.Add
 		With NewC
-			.Caption = "参照元/先のトレース(&P)"
+			.Caption = "参照元/先のトレース(&amp;P)"
 			.OnAction = "Precedents"
 			.BeginGroup = True
 			.FaceId = 450
@@ -168,13 +168,13 @@
 			.Caption = "標準に戻す"
 			.BeginGroup = True
 			With NewC.Controls.Add()
-				.Caption = "シートの外観(&S)"
+				.Caption = "シートの外観(&amp;S)"
 				.OnAction = "SheetStyle"
 				.FaceId = 8
 			End With
 		''オリジナル サブメニューのコマンドを追加する
 			With NewC.Controls.Add()
-				.Caption = "文字色(&T)"
+				.Caption = "文字色(&amp;T)"
 				.OnAction = "DefaultFontColor"
 				.FaceId = 476
 			End With
@@ -229,7 +229,7 @@
 	'テキストファイルに出力する。SJIS保存
 	Private Sub outputTextFile(byref OutPutCll as collectio,ByRef filename As String)
 		Dim i As Integer
-		If filename <> "" Then
+		If filename &lt;&gt; "" Then
 			Open filename For Output As #1
 				For i = 1 To OutPutCll.Count
 					Print #1, OutPutCll(i)

@@ -147,11 +147,11 @@
 	re.Pattern = "[A-Z]+" 'アルファベット（大文字）の連続を表す正規表現
 	re.Global = True	  '複数マッチを有効にする
 	Set mc = re.Execute("ABC DEFG HIJKL MNOPQR STUVWXY")
-	MsgBox "mc.Count = " & mc.Count 'mc.Count = 5
+	MsgBox "mc.Count = " &amp; mc.Count 'mc.Count = 5
 	For i = 0 To mc.Count - 1
 		Set m = mc.Item(i)
-		MsgBox "FirstIndex = " & m.FirstIndex & " Length = " _
-							   & m.Length & " Value = " & m.Value
+		MsgBox "FirstIndex = " &amp; m.FirstIndex &amp; " Length = " _
+							   &amp; m.Length &amp; " Value = " &amp; m.Value
 	Next i
 	</pre>
 	
