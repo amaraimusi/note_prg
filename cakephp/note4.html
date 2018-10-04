@@ -693,7 +693,7 @@
 	CakePHPでは自作のヘルパーであるオリジナルヘルパーを作ることができる。<br>
 	以下に2通りの方法を示す。<br>
 	<br>
-	<h3>①プロジェクトで共通して使う汎用的なオリジナルヘルパーの場合</h3>
+	<h4>①プロジェクトで共通して使う汎用的なオリジナルヘルパーの場合</h4>
 
 	CakePHPに標準で用意されているAppHelper.phpにオリジナルヘルパーのメソッドを追加するだけである。<br>
 	使用方法はctpファイル内で以下のように記述するだけ。<br>
@@ -725,7 +725,7 @@
 	<br><br><hr><br><br>
 
 
-	<h3>②限られた範囲でのみ利用するオリジナルヘルパーの場合</h3>
+	<h4>②限られた範囲でのみ利用するオリジナルヘルパーの場合</h4>
 	限定した画面でしか使用しないオリジナルヘルパーは、AppHelperに記述すると無駄が生じます。<br>
 	この場合、AppHelper.phpを継承して自作ヘルパークラスを作成することにより、限定的なオリジナルヘルパーを実現できます。<br>
 
@@ -757,6 +757,43 @@
 
 	<br>
 	<a class="ref_link" href="http://yakinikunotare.boo.jp/orebase/index.php?PHP%2FCakePHP%2Fhelper%2F%A5%AA%A5%EA%A5%B8%A5%CA%A5%EBhelper%A4%F2%BA%EE%A4%EB">参考サイト</a>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7-2" class="sec1" >
+	<h3>オリジナルヘルパーの動的な登録</h3>
+	
+	ビュー（ctp）内で動的にヘルパーを登録することができる。<br>
+	<br>
+	
+	test.ctp<br>
+	<pre><code>	
+	$this->FrontA = $this->Helpers->load('FrontA');
+	$this->FrontA->test();
+	</code></pre><br>
+	
+	<strong>ヘルパークラス</strong><br>
+	app/View/Helper/FrontAHelper.php
+	<pre><code>
+	App::uses('Helper', 'View/Helper');
+	class FrontAHelper extends Helper {
+		public function test(){
+			echo 'テストでござい';
+		}
+		
+	}
+	</code></pre>
+
+	<time>2018-10-4</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
