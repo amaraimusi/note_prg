@@ -181,6 +181,54 @@
 
 
 
+<div id="sec10-5" class="sec4">
+	<h3>コンポーネントを使う</h3>
+	
+	コンポーネントはオブジェクト指向の概念の一つ。<br>
+	複雑になったソースコードから特定の処理だけ切り出してまとめたクラスがコンポーネント。<br>
+	<br>
+	
+	「app/Controller/Component」ディレクトリにコンポーネントクラスファイルを作成する。<br>
+	クラスへComponentを継承させるだけでコンポーネントクラスになる。<br>
+	<pre><code>
+	class LionComponent extends Component{
+		
+		public function __construct($collection){
+			parent::__construct($collection);
+		}
+		
+		public function bark(){
+			debug('ガオーと吠える');
+		}
+	}
+	</code></pre><br>
+	
+	コントローラにコンポーネントを登録する。
+	<pre><code>
+	class CrudBaseController extends AppController {
+		
+		public $components = ['Lion']; // コンポーネントの登録
+		
+		...略...
+	</code></pre><br>
+	
+	動的にコンポーネントを登録する場合。必要な時だけに宣言して使う。
+	<pre><code> $this->Lion = $this->Components->load('Lion');</code></pre><br>
+	
+	コンポーネントの使い方
+	<pre><code> $this->Lion->bark();</code></pre><br>
+	
+	<br><time>2018-10-4</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
