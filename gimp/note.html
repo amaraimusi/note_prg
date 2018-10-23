@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GIMPの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>GIMPの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>HDR合成とは</h3>
+	写真は暗いところは極端に暗く、明るいと所は極点に明るい。<br>
+	カメラの露出補正により、暗いところを明るくすれば、元々明るいところは極端に明るくなる。<br>
+	明るいところを暗くすれば、もともと暗いところが、極端に暗くなる。<br>
+	HDR合成は極端に明るい、暗いを排除し、「暗いところを明るくする」、「明るいところを暗くする」の良いものだけを取り入れたものである。<br>
+	結果的に、暗すぎるところや明るすぎるところがなくなる。またイラストに見えるような特徴がある。<br>
+	<br><time>2013-1-18</time>
+</div>
+
+<div id="sec1-2" class="sec4">
+	<h3>白っぽい画像を鮮やかにする。</h3>
+	レイヤーを複製する。<br>
+	次は、作った「背景コピー」レイヤを選びます。<br>
+	そして、「モード」－「標準」－▼の▼をクリックします。<br>
+	「微粒結合」を選びます。<br>
+	※色がかなり薄い場合は下の「白っぽい画像を鮮やかにする。その２」と交互に上記の処理を繰り返す。<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-3" class="sec4">	
+	<h3>白っぽい画像を鮮やかにする。その２</h3>
+	色メニュー⇒明るさコントラクトを選択<br>
+	スライドバーで調整する。<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-4" class="sec4">
+	<h3>写真を鉛筆絵にする。</h3>
+	レイヤー複製<br>
+	コピーレイヤーを選択<br>
+	フィルタ⇒輪郭抽出⇒ソーベル<br>
+	すべてにチェックし、OK<br>
+	色⇒諧調反転<br>
+	色⇒色レベル<br>
+	　⇒スライド<br>
+	レイヤー透明度を調整<br>
+	レイヤー統合<br>
+	色⇒脱色<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-5" class="sec4">
+	<h3>ギロチンの手順</h3>
+	切り分けの線を引く<br>
+	　画像→ガイド→新規ガイドを追加<br>
+	<br>
+	切り分け線でギロチン<br>
+	　画像→変換→ギロチン<br>
+	<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-6" class="sec4">
+	<h3>ぼかしのないラインを引く</h3>
+	ツールボックスの鉛筆アイコンをクリック<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-7" class="sec4">
+	<h3>背景色を透明にする。</h3>
+	画像ウィンドウの「レイヤー」メニュー→「透明部分」→「アルファチャンネルを追加」<br>
+	<br>
+	背景を色で選択<br>
+	　選択メニューー⇒色域で選択<br>
+	<br>
+	Deleteを押す。<br>
+	色メニュー⇒色を透明に・・・<br>
+	<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-8" class="sec4">
+	<h3>画像を回転させる</h3>
+	ショートカット	Ｓｈｉｆｔ＋Ｒ<br>
+	ショートカットを使わない手順。<br>
+	　画像を右クリック<br>
+	　ツール<br>
+	　変換ツール<br>
+	　回転<br>
+	　表示されたダイアログにあるスクロールバーを調節して回転<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-9" class="sec4">
+	<h3>正方形に切り抜く</h3>
+	Shift+C またはツールボックスで「切り抜き」アイコンを押す。<br>
+	切り抜きウィンドウが表示されるので以下の入力をする。<br>
+	　「値を固定」ラジオボタンにチェックを入れる。<br>
+	　開始位置に、始点座標を入力<br>
+	　大きさに切り抜きサイズを入力<br>
+	画像画面でハイライトされている部分を左クリック<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-10" class="sec4">
+	<h3>角を丸める</h3>
+	選択⇒角を丸める<br>
+	表示されるフォーム画面のスライダーを動かし、丸める量を決めて決定する。<br>
+	丸めた範囲が選択状態になる。<br>
+	選択を反転し、外側を選択。<br>
+	deletボタンで外側をクリア<br>
+	<br><time>2013-1-18</time>
+</div>
+
+
+<div id="sec1-11" class="sec4">
+	<h3>色を薄くする。</h3>
+	白レイヤーを新たに追加して、透過度を調整すればよい。<br>
+	<br><time>2013-1-18</time>
+</div>
+
+	
+	
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/gimp/">GIMPの覚書</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-1-18</div>
+</body>
+</html>

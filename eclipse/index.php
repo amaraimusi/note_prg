@@ -48,6 +48,9 @@
 				<li><a href="note.php#sec1-9" >.htaccessファイルなどのドットファイルを表示する</a></li>
 				<li><a href="note.php#sec1-10" >Shell Scriptエディタをインストール | シェルファイルのエディタ</a></li>
 				<li><a href="note2.html#sec2-1" >デフォルトの改行を[\n]にする</a></li>
+				<li><a href="note2.html#sec2-2" >Eclipseプラグイン作成の旧覚書</a></li>
+				<li><a href="note2.html#sec2-3" >インクルードするプロジェクトを追加する</a></li>
+				<li><a href="note2.html#sec2-4" >Eclipseで特定ファイルのデフォルト文字コードを設定する</a></li>
 			</ol>
 			</div>
 

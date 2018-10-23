@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>C#の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>C#の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec0-1" class="sec4" >
+	<h3>旧覚書</h3>
+
+	<pre>
+	■JSONの取り扱い
+		JSONを解析してデータを取得する時、DynamicJsonを使うと便利である。
+		DynamicJsonはサードパーティ製であり,「DynamicJson.dll」として提供されている。
+		DynamicJson.dllはCodePlexのサイトからダウンロードできる。
+	
+		利用する前にDynamicJson.dllの参照設定をする必要がある。
+		参照設定の手順を以下に示す。
+		・DynamicJson.dllをまず、bin配下のdebugおよびreleaceフォルダ内に配置する。
+		・ソリューションエクスプローラーの参照を右クリックして「参照の追加」をクリック。
+		・「参照」タブをクリックする。
+		・先ほどコピーしたDynamicJson.dllを選択する。
+	
+		var型を使えるようにする必要がある。
+		Microsoft.CSharpを参照設定しておく。
+		・ソリューションエクスプローラーの参照を右クリックして「参照の追加」をクリック。
+		・「.NET」タブをクリックする。
+		・「Microsoft.CSharp」を選択する。
+	
+		サンプルコードは以下の通り。
+		var json = DynamicJson.Parse(@"{""foo"":""json"", ""bar"":100, ""nest"":{ ""foobar"":true } }");
+	
+	    String r1 = json.foo; 
+	    String r2 = json.bar + ""; 
+	    String r3 = json.nest.foobar +""; 
+	    String r4 = json["nest"]["foobar"] +""; 
+	    Debug.WriteLine(r1);
+	    Debug.WriteLine(r2);
+	    Debug.WriteLine(r3);
+	    Debug.WriteLine(r4);
+	
+		var型は値を指定した時点で型が決まっているため、空文字を付け足して強制的に文字列に変換している。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	■最初のフォーム設定
+	Program.csのコードを修正。Form1になっている場所を変えればよい。
+	
+	
+	■HTML式　色データの設定 
+	Color c=ColorTranslator.FromHtml("#FFFFFF");
+	
+	■&yen;を２連続で入力させずに済む方法。文字列の先頭に「@」をつける。
+	string fn=@"&yen;sys&yen;img&yen;kouya.png";
+	
+	
+	■Hashtableのループに注意
+	かならず「DictionaryEntry」を利用せねばならない。
+	
+	class Example
+	{
+	    public static void Main()
+	    {
+	        // Create a new hash table.
+	        //
+	        Hashtable openWith = new Hashtable();
+	
+	        // Add some elements to the hash table. There are no 
+	        // duplicate keys, but some of the values are duplicates.
+	        openWith.Add("txt", "notepad.exe");
+	        openWith.Add("bmp", "paint.exe");
+	        openWith.Add("dib", "paint.exe");
+	        openWith.Add("rtf", "wordpad.exe");
+	
+	        // When you use foreach to enumerate hash table elements,
+	        // the elements are retrieved as KeyValuePair objects.
+	        Console.WriteLine();
+	
+			//★★★
+	        foreach (DictionaryEntry de in openWith)
+	        {
+	            Console.WriteLine("Key = {0}, Value = {1}", de.Key, de.Value);
+	        }
+	    }
+	}
+	
+	■ＨＴＭＬ式の色定義でカラーオブジェクトを生成
+	Color col=ColorTranslator.FromHtml("#FF6347");
+	
+	
+	
+	■FormのWindowsコントロールにアクセスする方法
+	たとえばForm1のbutton1を外部クラスでも参照できるようにするには以下のようにする。
+	ソリューションエクスプローラーのForm1の「＋」をクリックする。
+	Form1.Designer.csとForm1.resxファイルが現れるので、Form1.Designer.csを開く。
+	buttonがprivateで宣言されているのでpublicに書き直す。
+	
+	
+	■デリゲート・関数ポインター・関数をオブジェクトのように扱う
+	※関数をメソッドのないクラスとしてみると理解しやすい。
+	using System;
+	
+	// SomeDelegate という名前のデリゲート型を定義。クラスで言うインターフェースのようなもの。
+	delegate void SomeDelegate(int a);
+	
+	class DelegateTest
+	{
+	  static void Main()
+	  {
+	    SomeDelegate a = A; // 暗黙にSomeDelegate型に変換。
+	    a(256);
+	  }
+	
+	  static void A(int n)
+	  {
+	    Console.Write("A({0}) が呼ばれました。&yen;n", n);
+	  }
+	}
+	
+	※イベント用のデリゲートは以下のように宣言
+	public event SomeDelegate evFunc
+	
+	■引数付コンストラクタを持つ、基本クラスの実装方法
+	    class GetWebDataWorker:WorkerExecuteBase
+	    {
+	        public GetWebDataWorker(BackgroundWorker bw):base(bw)
+	
+	
+	■配列からArrayListを作成
+	        string[] strs=line.Split(spkey);
+	        ArrayList al = new ArrayList(strs);
+	
+	■ランダム
+	    // Random クラスの新しいインスタンスを生成する
+	    Random cRandom = new System.Random();
+	
+	    // 0 以上の乱数を取得する
+	    int iResult1 = cRandom.Next();
+	
+	    // 0 以上 512 未満の乱数を取得する
+	    int iResult2 = cRandom.Next(512);
+	
+	    // 256 以上 512 未満の乱数を取得する
+	    int iResult3 = cRandom.Next(256, 512);
+	
+	■継承・メソッドの書き方
+	◇基本クラスの通常メソッドを上書きするにはnewキーワードを用いる。
+	public new void run()
+	
+	◇基本クラスの抽象メソッドを上書きするにはoverrideキーワードを用いる。
+	public override void DrawRectangle() { }
+	
+	◇抽象メソッド
+	public void DrawRectangle() { }
+	
+	
+	■エンティティリストのソート
+	// IComparerを利用してソートする
+	
+	using System;
+	using System.Collections;
+	
+	public class Word {
+	  public string data;
+	  public Word(string s) { data = s; }
+	}
+	
+	public class WordSort1 {
+	  static void Main() {
+	    Word[] wordArray = {
+	      new Word("いろは"),
+	      new Word("にほえと"),
+	      new Word("ちりぬるを"),
+	      new Word("わか"),
+	      new Word("よたれそ"),
+	      new Word("つねならむ"),
+	    };
+	    IComparer wordComp = new WordComparer();
+	    Array.Sort(wordArray, wordComp);
+	
+	    foreach (Word w in wordArray) {
+	      Console.WriteLine(w.data);
+	    }
+	    // 出力：
+	    // わか
+	    // いろは
+	    // よたれそ
+	    // にほえと
+	    // つねならむ
+	    // ちりぬるを
+	  }
+	}
+	
+	public class WordComparer: IComparer {
+	  public int Compare(object x, object y) {
+	    Word word1 = (Word)x;
+	    Word word2 = (Word)y;
+	
+	    return word1.data.Length - word2.data.Length;
+	  }
+	}
+	
+	
+	■文字列の改行
+	"&yen;r&yen;n"　←改行コード
+	
+	
+	■文字から数値に変換
+	int year = int.Parse(s0);
+	
+	■ファイル存在チェック
+	if (File.Exists(filePath)) {
+	  // filePathのファイルは存在する
+	} else {
+	  // filePathのファイルは存在しない
+	}
+	
+	■ディレクトリ存在チェック
+	if (Directory.Exists(dirPath)) {
+	  // dirPathのディレクトリは存在する
+	} else {
+	  // dirPathのディレクトリは存在しない
+	}
+	
+	
+	
+	
+	■アプリケーションパス取得
+	Application.StartupPath;
+	
+	
+	
+	■プロジェクトに別のDLLプロジェクトを関連付ける。
+	ソリューションエクスプローラーのソリューションを右クリック
+	追加→既存のプロジェクト→関連づけるDLLプロジェクトファイル（csproj）を選択
+	再度、ソリューションエクスプローラーのソリューションを右クリックし、プロジェクト依存関係を選択。
+	コンボボックスでメインのプロジェクトを選択
+	さきほど、追加した、プロジェクトにチェックを入れる。
+	ソリューションエクスプローラの参照設定、参照追加を選択
+	プロジェクトタブをクリックし、上記で追加したプロジェクト名を選択。
+	以上で終了。
+	※注意。　DLLプロジェクト側のクラス名にはPublicの修飾が必要。
+	例 public Class1
+	
+	
+	■スリープ
+	System.Threading.Thread.Sleep(1000);//一秒スリープ
+	
+	■バックグランドワーカー　サンプル（雛形）
+	▽バックグランドワーカーコントロールの配置と設定
+	・ツールボックスからBackgroundWorkerを持ってきてフォームに配置する
+	・BackgroundWorkerのWorkerRepertsProgresをtrueにすること。
+		backgroundWorker1_ProgressChangedイベントを利用で器用にする。
+	・BackgroundWorkerのイベントであるDoWork,ProgressChanged,RunWorkerComplatedを設定すること。
+		イベントの設定はプロパティウィンドウの雷アイコンから可能
+	
+	    // ［スタート］ボタンのイベント・ハンドラ
+	    private void buttonStart_Click(object sender, EventArgs e) {
+	      buttonStart.Enabled = false;
+	
+	      // 時間のかかる処理を別スレッドで開始
+	      backgroundWorker1.RunWorkerAsync(100);
+	      // DoWorkイベント発生
+	    }
+	
+	    // 時間のかかる処理を行うメソッド
+	    private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+	      // 別スレッドで実行されるため、このメソッドでは
+	      // UI（コントロール）を操作してはいけない
+	
+	      // このメソッドへのパラメータ
+	      int backgroundWorker1Arg = (int)e.Argument;
+	
+	      // senderの値はbackgroundWorker1の値と同じ
+	      BackgroundWorker worker = (BackgroundWorker)sender;
+	
+	      // 時間のかかる処理
+	      for (int i = 0; i &lt; backgroundWorker1Arg; i++) {
+	
+	        System.Threading.Thread.Sleep(100);
+	
+	        int percentage = i * 100 / backgroundWorker1Arg; // 進ちょく率
+	        worker.ReportProgress(percentage);
+	        // ProgressChangedイベント発生
+	      }
+	      // このメソッドからの戻り値
+	      e.Result = "すべて完了";
+	
+	      // この後、RunWorkerCompletedイベントが発生
+	    }
+	
+	    private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+	      // 進ちょく状況の表示
+	      this.Text = e.ProgressPercentage + "％完了";
+	      progressBar.Value = e.ProgressPercentage;
+	    }
+	
+	    private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+	      // 処理結果の表示
+	      this.Text = e.Result.ToString();
+	      MessageBox.Show("正常に完了");
+	
+	      buttonStart.Enabled = true;
+	    }
+	
+	
+	
+	
+	■文字列置換
+	    // 文字列を格納するための変数を宣言する
+	    string stTarget = "ABCD";
+	
+	    // 文字列 "ABC" を "1234" に置き換える
+	    stTarget = stTarget.Replace("ABC", "1234");
+	
+	    // 1 文字だけを置き換える場合は char 型を使用する
+	    stTarget = stTarget.Replace('D', '5');
+	
+	
+	■リストボックスのレコードに指定文字列が存在するかチェックする。
+	int index = ListBox1.Items.IndexOf("test");
+	存在しない場合は、indexに-1がセットされる。
+	存在する場合は、indexにレコードのインデックスが入る
+	
+	
+	■文字列のエスケープ処理OFF。　＠
+	とりあえず、C# で普通に文字を書くには、次の様に書きますね。
+	view sourceprint?
+	1.
+	string s = "C:&yen;&yen;path&yen;&yen;to&yen;&yen;file";
+	「&yen;」はエスケープする必要があるので、「&yen;&yen;」と重ねて書くわけです。
+	で、「@」を利用すると次の様に書くことができ、便利になります。
+	view sourceprint?
+	1.
+	string s = @"C:&yen;path&yen;to&yen;file";
+	
+	◇以下のようにすることで改行まで対応できる
+	string sql = @"
+	SELECT *
+	FROM [XX]
+	WHERE [YY]
+	";
+	■ブックマークのショートカット
+	
+	Ctrl + B→Ctrl + C
+	ドキュメント内のすべてのブックマークを削除します。
+	
+	Ctrl + B→Ctrl + E
+	現在のドキュメント内でブックマークを使用できるようにします。
+	
+	Ctrl + B→Ctrl + N
+	★ドキュメント内の次のブックマークに移動します。
+	
+	Ctrl + B→Ctrl + P
+	前のブックマークに移動します。
+	
+	Ctrl + B→Ctrl + T
+	★ドキュメント内の現在の行でブックマークを切り替えます。ブックマーク追加
+	
+	Ctrl + W→Ctrl + B
+	[ブックマーク] ウィンドウを表示します。
+	
+	
+	
+	■ListBox	複数選択項目のIndexを取得する
+	            String s_items="";
+	            foreach (Object listItem in this.lstDataJ.SelectedIndices)
+	            {
+	                int i = (int)listItem;
+	                s_items = s_items + listItem.ToString();
+	            }
+	            MessageBox.Show(s_items);
+	
+	
+	■一括コメントアウト
+	[一括コメントアウト]
+	①コメントアウトしたい部分をマウス等で選択します。
+	②Ctrl + K を押下します。
+	③Ctrl キーを押したまま、C を押下します。
+	[一括コメント解除]
+	①コメントアウトしたい部分をマウス等で選択します。
+	②Ctrl + K を押下します。
+	③Ctrl キーを押したまま、U を押下します。
+	
+	
+	■メッセージボックス
+	 MessageBox.Show("Test");
+	
+	■引数の参照渡しについて
+	オブジェクトの場合、自動的に参照渡しとなる。
+	
+	■文字列中に特定の文字列が含まれているか調べる
+	public class StringContains {
+	  static void Main() {
+	    string str = "ろうにゃくなんにょ";
+	
+		
+	    Console.WriteLine(str.Contains("にゃく")); // ★出力：True
+	    Console.WriteLine(str.Contains("にゃん")); // ★出力：False
+	    Console.WriteLine(str.Contains(""));       // 出力：True
+	
+	    Console.WriteLine(str.IndexOf(""));        // 出力：0
+	  }
+	}
+	
+	
+	■DataTableのキーの件数分、ループ
+	      foreach (DataColumn dtCol in dt.Columns)
+	      {
+	        Console.WriteLine(dtCol.ColumnName); 
+	      }
+	
+	■DataTableのループ
+	      foreach (DataRow row in dt.Rows)
+	      {
+	        foreach(object obj in row.ItemArray)
+	        {
+	          Console.WriteLine(obj);
+	        }
+	      }
+	
+	
+	■ArrayListから配列に変換する。
+	private void button1_Click(object sender, EventArgs e)
+	{
+	  ArrayList al = new ArrayList() { "X", "Y", "Z" };
+	  string[] sdim = new string[al.Count];
+	
+	  al.CopyTo(sdim);
+	  foreach (string item in sdim)
+	  {
+	    Console.WriteLine(item);
+	  }
+	}
+	
+	
+	■配列のサイズを変更するには？
+	　.NET Frameworkでは、配列のサイズ（要素数）はそれを宣言したときに決定し、以降そのサイズを変更することはできない。
+	
+	このような場合に取り得る手段の1つは、サイズの異なる配列を別に宣言し、元の配列にあった値をコピーすることだ。具体的には次のようにすればよい。
+	string[] newNumbers = new string[4];
+	Array.Copy(origNumbers, newNumbers, origNumbers.Length);
+	
+	■文字列：左側の1文字を取得する。
+	    string test = "あいうえお";
+	    string t2 = test.Substring(0,1);//左側の１文字を取得する。
+	    string t3 = test.Substring(test.Length-1, 1);//右側の１文字を取得する。
+	    string t4 = test.Substring(0, 3);//左側の3文字を取得する。
+	    string t5 = test.Substring(test.Length - 3, 3);//右側の3文字を取得する。
+	    Common.Debug(t2);
+	    Common.Debug(t3);
+	    Common.Debug(t4);
+	    Common.Debug(t5);
+	
+	出力
+		あ
+		お
+		あいう
+		うえお
+	
+	■ＡｒｒａｙＬｉｓｔの注意点
+	ArrayListに入れられるのはobject型と決まっている
+	これがいろんな問題を起こす
+	・int型の値を入れても、object型へとボックス化されるので、それがオーバーヘッドとなりうる
+	・要素を取り出す時にキャストする必要がある
+	・配列の要素の型が同じとは限らないので、混乱が起きる可能性があるし、型チェックが処理のたびに必要
+	・イテレータが使えない
+	
+	
+	■Hashtable
+	Hashtable ht = new Hashtable();
+	ht["japan"] = "日本";
+	ht.Add("china", "中国");
+	
+		//キーループ
+	   foreach (string key in m_msgs.Keys){
+	
+	            }
+	
+	    // キーの存在チェック
+	    if (!ht.ContainsKey("france")) {
+	      ht["france"] = "フランス";//こうすると更新
+	    }
+	
+	
+	■コレクションについて
+	クラス												キー		インデックス		説明
+	ArrayList										×			○								もっとも基本的なコレクション。
+	Hashtable									○			×	　
+	SortedList									○			○								ArrayListとHashtableを合体させたようなコレクション。 ただし、インデックスは自動的にキーの辞書順になります。
+	NameValueCollection		○			○								ArrayListとHashtableを合体させたようなコレクション。 ただし、文字列型のみを扱う。
+	
+	□ハッシュテーブルのループ
+		※Valuesを忘れないように注意すること。
+		foreach (Object obj in hashTbl.Values){
+			//繰り返し処理。
+		}
+	
+	
+	
+	
+	■文字列操作説明サイト
+		http://www.labasp.net/CsharpNote/mTips/Moji/
+	
+	■文字列切り取り
+	string s = "あいうえお";
+	
+	//先頭から2文字を取得する。先頭の文字のインデックスは0。
+	string s1 = s.Substring(0, 2);
+	//「あい」となる
+	
+	//2文字目（インデックスは1）から3文字を取得する
+	string s2 = s.Substring(1, 3);
+	//「いうえ」となる
+	
+	//4文字目（インデックスは3）から最後まで取得する
+	string s3 = s.Substring(3);
+	//「えお」となる
+	
+	■小文字、大文字を区別せずに比較
+	If String.Compare(strA, strB, True) = 0 Then
+	  '
+	  ' （大文字／小文字の違いはあるかもしれないが）
+	  '  strAとstrBは同じ
+	  '
+	End If
+	
+	■文字列を分割して配列化する（split)
+	    // 必要な変数を宣言する
+	    string stCsvData = "5, Jitta, ABC";
+	
+	    // ★カンマ区切りで分割して配列に格納する
+	    string[] stArrayData = stCsvData.Split(',');
+	
+	    // データを確認する
+	    foreach (string stData in stArrayData) {
+	        MessageBox.Show(stData);
+	    }
+	
+	■配列を１つの文字に連結（配列連結、JOIN)
+		string result;
+	    string[] data = {"リンゴ", "みかん", "バナナ"};
+		//★配列を１つの文字に連結
+	    result = String.Join(",", data);
+	    Console.WriteLine(result);
+	
+	
+	■文字列中に変数を埋め込む。
+		例１
+		string str = String.Format(
+		                "{0}さん、今日は{1}月{2}日です", name, month, day);
+		◇使えるもの
+		0埋め	String.Format("{0:D4}", num) 
+		
+		◇応用
+			指定する書式	書式指定項目の記述例	出力例
+			幅指定で右詰め	String.Format("{0, 4}", num)	“   1”
+			幅指定で左詰め	String.Format("{0, -4}", num)	“1   ”
+			0埋め	String.Format("{0:D4}", num) 
+			または
+			String.Format("{0:0000}", num)	“0001”
+			幅指定かつ0埋め	String.Format("{0, 8:D4}", num)	“    0001”
+		◇参考サイト
+			http://www.atmarkit.co.jp/fdotnet/dotnettips/116formatint/formatint.html
+	
+	■docコメント
+	メソッド名、クラス名、メンバ名コードの直上行で、「///」と入力すると自動でdocコメントが入力できる。
+	
+	■ショートカットキー
+	詳細情報
+	http://msdn.microsoft.com/ja-jp/vstudio/dd183140
+	
+	
+	■ブックマーク関連のショートカット
+	Edit.ClearBookmarks
+	Ctrl + B、Ctrl + C
+	ドキュメント内のすべてのブックマークを削除します。
+	Edit.EnableBookmark
+	Ctrl + B、Ctrl + E
+	現在のドキュメント内でブックマークを使用できるようにします。
+	Edit.NextBookmark
+	Ctrl + B、Ctrl + N
+	ドキュメント内の次のブックマークに移動します。
+	Edit.PreviousBookmark
+	Ctrl + B、Ctrl + P
+	前のブックマークに移動します。
+	Edit.ToggleBoomark
+	Ctrl + B、Ctrl + T
+	ドキュメント内の現在の行でブックマークを切り替えます。
+	View.BookmarkWindow
+	Ctrl + W、Ctrl + B
+	[ブックマーク] ウィンドウを表示します。
+	
+	
+	■boolとbooleanの違い
+	boolとbooleanは同じ
+	
+	■デバッグ出力
+	using System.Diagnostics;
+	
+	Debug.WriteLine("デバッグ・メッセージを出力■■■□□□■■■□□□");//改行付き
+	Debug.Write("改行なし");
+	
+	■自作クラスのnamespaceを,usingで記述する。
+	namespace demo
+	{
+	    using test;//namespaceの次に記述
+	    public partial class Form1 : Form
+	    {
+	        public Form1()
+	        {
+	            InitializeComponent();
+	        }
+	
+	        private void button1_Click(object sender, EventArgs e)
+	        {
+	            //MessageBox.Show("'TEST'");
+	            Test test_=new Test();
+	
+	        }
+	    }
+	}
+	
+	
+	■メッセージボックスの表示
+	MessageBox.Show("'TEST'");
+	
+	■キー
+	PQT8W-68YB2-MPY6C-9JV9X-42WJV
+	
+	
+	
+	■SpriteBatch.DrawString メソッド
+	参考：http://sorceryforce.com/xna/tips_scaletext.html
+	文字列を描画します。
+	spriteFont	SpriteFont	文字列のイメージが格納されている SpriteFont を指定します。
+	text	string	表示するテキストを指定します。
+	position	Vector2	テキストを表示する位置。スクリーンの左上を基準にしたスクリーン座標で指定します。テキストの原点は最初の文字の左上になります。
+	color	Color	テキストの色
+	rotation	float	テキストの回転角度。単位は radian で指定する。回転軸はテキストの左上になります。
+	origin	Vector2	テキストを回転させるときの回転軸の位置を指定します。テキストのどの位置を回転軸にするかを指定しますが、実際には回転軸の位置はテキストの左上固定で、テキストの表示位置が -origin 移動します。
+	scale	float	テキストの拡大率を指定します。1.0を基準として、縦と横に拡大縮小します。拡大の原点はテキストの左上になります。指定方法は縦横等倍の float 指定と、縦横別々の倍率で指定できる Vector2 の２通りがあります
+	effects	SpriteEffects	テキストの表示反転効果を指定します。特に何もしなければ SpriteEffects.None を指定します。
+	layerDepth	float	テキストを表示する深度を指定します。主にテキストを手前に表示したり奥に表示するのに使用します。0.0～1.0 の範囲で指定し、0.0が最前面、1.0が最背面になります。
+	
+	
+	■整数型一覧
+	sbyte
+	-128 ～ 127
+	符号付き 8 ビット整数
+	byte
+	0 ～ 255
+	符号なし 8 ビット整数
+	char
+	U+0000 ～ U+ffff
+	Unicode 16 ビット文字
+	short
+	-32,768 ～ 32,767
+	符号付き 16 ビット整数
+	ushort
+	0 ～ 65,535
+	符号なし 16 ビット整数
+	int
+	-2,147,483,648 ～ 2,147,483,647
+	符号付き 32 ビット整数
+	uint
+	0 ～ 4,294,967,295
+	符号なし 32 ビット整数
+	long
+	-9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807
+	符号付き 64 ビット整数
+	ulong
+	0 ～ 18,446,744,073,709,551,615
+	符号なし 64 ビット整数
+	</pre>
+	
+	<br><time>2013-9-19</time>
+</div>
+
+
+
+
+<div id="sec0-2" class="sec4">
+	<h3>DataSetの旧覚書</h3>
+
+	<pre>
+	■データベースからの取得の流れ。パラメータクラスを使えばサニタイジングもされる。
+	            DaoForMdb m_dao = DaoForMdb.GetInstance();
+	            OleDbConnection cn = m_dao.GetConnection();
+	
+	            OleDbCommand cmd1 = cn.CreateCommand();
+	            cmd1.CommandText = "SELECT * FROM WordTbl "
+	                            + "WHERE WordName = ?";
+	            OleDbParameter p1 = new OleDbParameter();
+	            //OleDbParameter p2 = new OleDbParameter();
+	            cmd1.Parameters.Add(p1);
+	            //cmd1.Parameters.Add(p2);
+	            p1.Value = "諸葛孔明";
+	            //p2.Value = "03";
+	            OleDbDataAdapter adapter = new OleDbDataAdapter(cmd1);
+	            DataTable dTbl=new DataTable();
+	            adapter.Fill(dTbl); ;
+	            adapter.Dispose();
+	            cmd1.Dispose();
+	            m_dao.Close(cn);
+	
+	
+	■DataSetからキーを取得する。
+	        DataTable dTbl=ds.Tables[0];
+	        
+	        foreach(DataColumn clm in dTbl.Columns){
+	            Debug.WriteLine(clm.ColumnName);
+	        }
+	
+	
+	■変更、追加、削除された部分のデータを取得
+	  if (m_dtSet.HasChanges(DataRowState.Added))
+	            {
+	                //更新されたDataSetを抽出します。
+	                DataSet dsUpd = m_dtSet.GetChanges(DataRowState.Added);
+	            }
+	
+	            if (m_dtSet.HasChanges(DataRowState.Modified))
+	            {
+	                //更新されたDataSetを抽出します。
+	                DataSet dsMdf = m_dtSet.GetChanges(DataRowState.Modified);
+	            }
+	
+	            if (m_dtSet.HasChanges(DataRowState.Deleted))
+	            {
+	                //更新されたDataSetを抽出します。
+	                DataSet dsDel = m_dtSet.GetChanges(DataRowState.Deleted);
+	            }
+	
+	■型名を取得する。
+	    //データセットからテーブルを取得する（名前を指定）
+	    dtTable = dtSet.Tables("アドレステーブル")
+	
+	    //Columnsプロパティでフィールドを取得
+	    'Columns(0)とすることで１番目のフィールドを取得します
+	    dtCol = dtTable.Columns(0)
+	
+	    //フィールドの型名を取得する
+	    MessageBox.Show("フィールドの型は:" &amp; dtCol.DataType.ToString) 
+	
+	
+	■データベースとの連動
+	SqlConnectionクラス
+	SqlCommandクラス
+	SqlDataReaderクラス
+	SqlParameterクラス
+	
+	
+	■■■■データセットの構成
+	■DataColumnクラス
+	　まず、データベースに含まれるテーブルは、通常複数の「列」を持っている。列には名前が付けられていて、その列に入るデータが文字列なのか数値なのかといったデータ型も設定されている。こういった列に関する情報はDataColumnクラスで表される。
+	
+	■DataRowクラス
+	　テーブルに格納されている具体的なデータは「行」として扱われるが、これはDataRowクラスで表される。1つの行（レコード）には、通常それぞれの列に対応する複数のデータを含んでいるが、同様に1つのDataRowオブジェクトにも、列の数だけ実データを格納することができる。
+	
+	■DataTableクラス
+	　DataTableクラスはデータベース内のテーブルに対応するクラスで、上記2つのクラスの複数のオブジェクトを保持できる。
+	
+	■DataSetクラス
+	　通常、1つのデータベースには複数のテーブルが存在する。データベースに対応し、DataTableクラスで表された複数のテーブルを保持できるクラスがDataSetクラスである。
+	
+	
+	■DataSetとDataGridViewとの連動
+		
+	DataGridViewとDataSetをバインドし、画面のDataGridViewコントロールのデータを編集すると、DataSetにも編集が影響する。
+	
+	
+	       // データセットの作成
+	            DataSet data_set = new DataSet("default_set");
+	
+	            // データテーブルの作成
+	            DataTable data_table = new DataTable("default_table");
+	
+	            // データテーブルをデータセットに登録
+	            data_set.Tables.Add(data_table);
+	
+	            // データテーブルにカラムを作成・登録
+	            data_table.Columns.Add("col1", Type.GetType("System.String"));
+	            data_table.Columns.Add("col2", Type.GetType("System.String"));
+	            data_table.Columns.Add("col3", Type.GetType("System.String"));
+	
+	            // データテーブルのプライマリーキー（主キー）を設定
+	            data_table.PrimaryKey = new DataColumn[] { data_table.Columns["col1"] };
+	
+	            DataRow data_row;
+	            // データ行の作成とテーブルへの登録　その１
+	            data_row = data_table.NewRow();
+	            data_row["col1"] = "test1";
+	            data_row["col2"] = "test2";
+	            data_row["col3"] = "test3";
+	            data_table.Rows.Add(data_row);
+	
+	            // データ行の作成とテーブルへの登録　その１
+	            data_row = data_table.NewRow();
+	            data_row["col1"] = "test21";
+	            data_row["col2"] = "test22";
+	            data_row["col3"] = "test23";
+	            data_table.Rows.Add(data_row);
+	
+	            // DataGridViewにデータセットを設定
+	            dataGridView1.DataMember = data_set.Tables[0].TableName;
+	            dataGridView1.DataSource = data_set;	
+	</pre>
+	
+	<br><time>2013-9-19</time>
+</div>
+
+
+
+
+<div id="sec0-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2013-9-19</time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/cs/">C#の覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-9-19</div>
+</body>
+</html>

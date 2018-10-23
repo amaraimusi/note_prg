@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Javaの旧覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Javaの旧覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec0-1" class="sec4" >
+	<h3>ataSource用のDaoの組み込み手順について</h3>
+	
+	<pre><code>
+	①ドライバを入手（同フォルダにある「mysql-connector-java-5.1.7-bin.jar」のこと）
+	②ドライバを特定のディレクトリへ配置する。場所は２通りの方法がある。
+		・%JAVA_HOME%&yen;bin&yen;lib&yen;extに配置する。【確認済み】（C:&yen;Java&yen;jdk&yen;lib&yen;extディレクトリへドライバを配置）
+		・%TOMCAT_HOME%&yen;common&yen;libに配置
+	
+	③TOMCATのserver.xmlの&lt;context &gt;タグ内に以下のような設定を追加する。
+	
+		&lt;Context path="/neko" docBase="C:&yen;Java&yen;workspace&yen;Neko"&gt;
+			
+			&lt;!-- DB設定情報 MYSQLの場合 --&gt;
+		    &lt;Resource 
+				name="jdbc/my_db" &lt;!-- 任意の名前を指定。JAVAソース側でこの名前を利用する。  --&gt;
+				auth="Container" &lt;!-- 変更しなくても良い。詳細は不明 --&gt;
+				type="javax.sql.DataSource" &lt;!-- 変更しなくて良い。詳細は不明 --&gt;
+				maxActive="10" &lt;!-- プールする接続の最大値を指定します。0を指定すると無制限になります。 --&gt;
+				maxIdle="3" &lt;!--プールの中に保持する使用されていない接続の最大値を指定します。0を指定すると無制限になります。  --&gt;
+				maxWait="10000" &lt;!-- プール内の接続が全て使用されている場合、接続が使用可能になるまで待つ時間をミリ秒単位で指定します。この時間が過ぎても接続が使用可能にならない場合は例外がスローされます。-1を指定すると無期限になります。 --&gt;
+				username="root" &lt;!-- DB側で登録されいるユーザー名 --&gt;
+				password="neko" &lt;!-- DB側で登録されいるパスワード --&gt;
+				driverClassName="org.gjt.mm.mysql.Driver" &lt;!-- ドライバの指定。MySQLやODBCなどで異なる。 --&gt;
+				url="jdbc:mysql:///TEST01?useUnicode=true&amp;amp;characterEncoding=utf-8" &lt;!-- 接続URL。MySQLやODBCなどで異なる。 --&gt;
+			/&gt;
+		
+		&lt;/Context&gt;
+		
+		※他にも以下の設定が可能
+			removeAbandoned 利用不可能な接続を再利用可能にする場合trueに設定します。規定値はfalseです。 
+			removeAbandonedTimeout 利用不可能とみなすまでの時間を秒単位で指定します。規定値は300秒です。 
+			logAbandoned 接続のcloseに失敗した場所をログに出力する場合にtrueに設定します。規定値はfalseです。 
+	
+	④DaoForDataSourceをJAVAソースに組み込む。
+		組み込み場所は、アプリケーションレベルのスコープに格納すること。
+	
+	●２種類以上のDBを利用する場合
+		③の設定は、name部分をユニークにすればいくつでも作れる
+	
+	●web.xmlについて
+	書籍によってはweb.xmlへ以下の記述を行うことが指定されているが、特にしなくても問題ないようだ。
+	&lt;webapp &gt;
+	    &lt;res-ref-name&gt;jdbc/DB&lt;/res-ref-name&gt;
+	    &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
+	    &lt;res-auth&gt;Container&lt;/res-auth&gt;
+	  &lt;/resource-ref&gt;
+	●よくあるバグ
+		server.xmlの設定ミスによるところが多い
+			urlにDB名が入っているかなど
+		server.xmlへUTF-8形式で保存すること
+	</code></pre>
+
+
+	<br><time>2008-11-16</time>
+</div>
+
+
+
+
+<div id="sec0-2" class="sec4">
+	<h3>Validateの旧忘備録 | struts</h3>
+	
+	<pre><code>
+
+	■■■基本
+	◇２種類の入力チェックがあります。
+		・Validateメソッド・・・formに検証用のメソッドを書きます。
+		・Validator・・・・・・入力チェックを専用定義ファイルにより行います。
+	
+	
+	■■■Validatorの基本
+	◇利用に適している条件
+		・フォームのフィールドがbean、配列、コレクションでないほうがよい。
+		・下記の検証ルールに適するもの
+	
+	◇２種類の検証ルールファイルがあります。
+		・検証ルール定義ファイル（validator-rules.xml)・・・文字数チェックなどを定義。
+		・検証ルール適用ファイル(validation.xml)・・・・・・どの場所に適用するかを設定。
+	
+	◇エラーオブジェクトはrequestスコープに格納されます。
+		・エラーオブジェクト名 ActionErros
+		・requestへのキー org.apache.stuts.action.ERROR
+	
+	◇エラー表示用ＪＳＰも設定できます。
+	
+	
+	◇検証ルール
+		・入力必須チェック
+		・条件チェック
+		・文字数チェック
+		・数字チェック・・・int型、long型などのチェック
+		・範囲値チェック
+		・正規表現チェック
+		・メルアドチェック
+		・日付チェック
+		・クレジットカード形式チェック
+	
+	■■■Validatorを利用方法
+	◇以下のファイルを編集せねばならない。
+		・アクションフォーム
+		・Struts設定ファイル・・・・・plugin部分は編集しなくても良いかもしれません。
+		・検証ルール定義ファイル・・・編集しなくても良いかもしれません。
+		・検証ルール適用ファイル
+		・エラー表示用ＪＳＰ
+	
+	◇アクションフォームの編集
+		継承するクラスはActionFormからValidatorFormに変更する
+		public class HomeForm extends ActionForm
+					↓↓↓
+		public class HomeForm extends ValidatorForm
+	
+	
+	◇Struts設定ファイルの編集
+	2種類の設定が必要です。
+		・action-mappingでの設定
+			&lt;action
+				― 省略 ―
+				validate="true"
+				input="/Error.jsp"・・・エラー用のＪＳＰ
+				― 省略 ―
+			/&gt;
+		
+		・プラグインの設定
+			以下のように編集。最初から記述されてあるかもしれません。
+			  &lt;!-- =================================================== Validator plugin --&gt;
+			  &lt;plug-in className="org.apache.struts.validator.ValidatorPlugIn"&gt;
+			    &lt;set-property
+			        property="pathnames"
+			        value="/org/apache/struts/validator/validator-rules.xml,
+			               /WEB-INF/validation.xml"/&gt;
+			  &lt;/plug-in&gt;
+	
+	
+	◇検証ルール適用ファイル(validation.xml)
+		&lt;form-beans&gt;
+		    &lt;form-bean name="formName" type="org.apache.struts.validator.DynaValidatorForm"&gt;
+		        &lt;form-property name="userName" type="java.lang.String"/&gt;
+		        &lt;form-property name="address" type="java.lang.String"/&gt;
+		    &lt;/form-bean&gt;
+		&lt;/form-beans&gt;
+		&lt;form-validation&gt;
+		    &lt;formset&gt;
+		        &lt;form name="formName"&gt;
+		            &lt;field property="userName" depends="required"&gt;
+		                &lt;arg0 key="ユーザ名" resource="false" /&gt;
+		            &lt;/field&gt;
+		            &lt;field property="address" depends="required,maxlength"&gt;
+		                &lt;arg0 key="住所" resource="false"/&gt;
+		                &lt;var&gt;
+		                    &lt;var-name&gt;maxlength&lt;/var-name&gt;
+		                    &lt;var-value&gt;32&lt;/var-value&gt;
+		                &lt;/var&gt;
+		            &lt;/field&gt;
+		        &lt;/form&gt;
+		    &lt;/formset&gt;
+		&lt;/form-validation&gt;
+	
+		上記の例ではuserNameはrequired、addressはrequiredとmaxlengthのチェックを行なう設定です。
+		arg0タグは上記で設定したMessageResources.propertiesに例えばメッセージ「{0}は必須」があれば
+		{0}の部分をkeyで指定した値に置き換えます。(userNameの場合は「ユーザ名は必須」となる)
+		また、resource属性をfalseにするとリソースバンドルを使用する設定となります。
+	
+	
+	◇参考サイト
+		開発メモ.COM
+		http://www.develop-memo.com/java/struts/actionform.html
+	</code></pre>
+
+
+	<br><time>2008-12-23</time>
+</div>
+
+
+
+
+<div id="sec0-3" class="sec4">
+	<h3>JSPの旧・忘備録</h3>
+
+	<pre><code>
+	■■■昔のフォーム情報が送られてくる場合がある。その対策。
+	サブミットボタンを押下し、その後、ブラウザ更新を行うと、昔のフォーム情報がもう一度送られてくる。
+	session上のデータ削除処理や追加処理にはバグがからむので注意する。
+	原因はおそらく、前のページのフォーム情報をもう一度取ってくるからだと考えられる。
+	・対策
+		ページカウンター方式を実装する。
+			ページカウンター方式では昔の情報を検知することができる。
+			・やり方
+				フォームにpageConterプロパティ(int)を追加する。
+				JSPに上記のプロパティをhiddenとして配置する。
+				アクションクラスにもpageConterを追加する。
+				jas
+	
+	
+	■■■JSPから配列データを取得する場合に注意点
+	アクションフォームのリスト系プロパティがitemListだとすると、&lt;logic:iterate&gt;タグのidもitemListと同じ名前にしなければならない。
+	
+	まだ同じJSPに遷移する場合、sessionにしないと値がとれない。フォームとしての情報が取れないかと思われる。
+	
+	■■■配列やリストを扱う場合
+		logic:iterateタグを用いてリストを表示する。
+		上記タグ内のタグについての注意点として、
+			表示だけの場合は属性 indexed="true"は必要ないが、
+			テキストボックスなど、データ取得目的がある場合は、属性 indexed="true"を入れること。
+			ページのソースを見ると配列として表示される。
+	
+		☆サンプル
+		&lt;logic:iterate id = "newItemList" name="HomeForm" property ="newItemList"  indexId="index"&gt;
+			"left" alt="&lt;bean:write name="newItemList" property = "itemName"/&gt;の画像"&gt;
+					&lt;p&gt;&lt;bean:write name="newItemList" property = "itemName"/&gt;&lt;/p&gt;
+					&lt;p&gt;&lt;span class="values"&gt;&yen;&lt;bean:write name="newItemList" property = "kakaku"/&gt;&lt;/span&gt;&lt;/p&gt;
+					&lt;p&gt;購入数&lt;html:text name="newItemList" property="inItemCount" size="2" indexed="true"/&gt; 
+							&lt;html:submit value="カートに入れる" property="HomeForm"/&gt;&lt;/p&gt;
+							&lt;bean:write name="newItemList" property = "comment"/&gt;
+							&lt;html:hidden  name="newItemList" property="buyCount" indexed="true"/&gt;
+							
+		&lt;/logic:iterate&gt;
+	
+	■■■URLに注意
+	「_」などの特殊文字はURLには使えないので注意。struts-config.xmlでpath名を付けるさいに気をつける。
+	
+	■■■Struts-config.xmlとスタイルシートの適用において
+	Action-mappingのActionタグの「/path」に名前をつけるときに注意する。
+	名前をつけるときには相対パスも含めること。
+	jspファイルをnekoというフォルダにおいてあるのなら、「/neko/○○○」といった名前をつける。
+	
+	もし上記を怠ると、URLで○○.doとアクセスしたさい、スタイルシートや画像が適用表示されない。カレントパスがホームになっているための現象。
+	
+	
+	■■■プロパティの注意点
+	JSPでプロパティを記述するとき必ず先頭を小文字にすること。
+	良い例　&lt;bean:write name="ent" property = "kakaku"/&gt;
+	悪い例　&lt;bean:write name="ent" property = "Kakaku"/&gt;
+	
+	■■■Ｆ５ボタンによる更新の注意点
+	formをSessionで保持していたとしても、Ｆ５ボタンを押下したときは、最後にsubmitボタンを押したときのform情報になっている。
+	
+	
+	
+	■■■日本語入力に対応させる【Struts】
+		アクションフォームに以下のコードを追加すること。
+		public void reset(ActionMapping mapping, HttpServletRequest request) {
+			//日本語入力に対応させる
+			try {
+				request.setCharacterEncoding("UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+	</code></pre>
+
+	<br><time>2009-6-24</time>
+</div>
+
+
+
+<div id="sec0-4" class="sec4">
+	<h3>properties忘備録.txt</h3>
+
+
+	<br><time>2009-7-2</time>
+</div>
+
+
+
+<div id="sec0-5" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+<div id="sec0-6" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+<div id="sec0-" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+<div id="sec0-" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+<div id="sec0-" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+<div id="sec0-" class="sec4">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div id="sec0-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/java/">Javaの覚書</a></li>
+	<li>Javaの旧覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2008-11-11 | 2013-4-23</div>
+</body>
+</html>

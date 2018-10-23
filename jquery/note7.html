@@ -115,6 +115,59 @@
 
 
 
+<div id="sec7-3" class="sec4">
+	<h3>「insertAfter」による要素移動を検証 | イベントは消えていまいか</h3>
+	
+	insertAfterで要素移動しても登録したイベントはそのまま残っている!<br>
+	<br>
+	
+	<a href="/sample/js/a008/elm_move/elm_move.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="a1" style="background-color:#ffcd42"&gt;
+		黄色いバナナ
+		&lt;input type="button" id='btn_a1' value="A1ボタン" class="btn btn-primary btn-xs" /&gt;
+	&lt;/div&gt;
+	&lt;div id="a2" style="background-color:#dd5246"&gt;
+		赤いリンゴ
+		&lt;input type="button" id='btn_a2' value="A2ボタン" class="btn btn-primary btn-xs" /&gt;
+	&lt;/div&gt;
+	&lt;input type="button" value="要素移動テスト" class="btn btn-success" onclick="test1()" /&gt;
+	</code></pre>
+	<br>
+	
+	JavaScript
+	<pre><code>
+	// 初期化
+	$(() =&gt; {
+	
+		// ▼クリックイベントを組み込む
+		$('#btn_a1').click(()=&gt;{
+			alert('黄色いバナナのボタン')
+		});
+		$('#btn_a2').click(()=&gt;{
+			alert('赤いリンゴのボタン')
+		});
+	});
+	
+	// クリックイベント
+	function test1(){
+		$('#a1').<strong>insertAfter</strong>('#a2');
+	}
+	</code></pre>
+	<br>
+	
+
+
+	<br><time>2018-10-18</time>
+</div>
+
+
+
+
+
 <div id="sec7-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

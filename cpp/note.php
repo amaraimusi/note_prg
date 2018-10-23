@@ -186,6 +186,111 @@
 
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>実行方法（コンソール）</h3>
+
+	F5キー実行<br>
+	　コンソール画面はすぐに閉じられる。<br>
+	　※プログラムの最後に getchar();　を入れると、すぐにコンソールが閉じられることはない。<br>
+	<br>
+	
+	Ctrlキーを押しながらF5キーを押して実行する。<br>
+	　コンソールは何かボタンを押すまで閉じられない<br>
+	<br>
+
+	<br><time>2012-1-30</time>
+</div>
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>省略機能 using namespace</h3>
+	
+	例）
+	<pre><code>
+	#include &lt;iostream&gt;
+	using namespace std;
+	int main(){
+	  cout &lt;&lt; "Hello world." &lt;&lt; endl;
+	  return 0;
+	}
+	</code></pre>
+
+	<br><time>2012-1-30</time>
+</div>
+
+
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>コンソール出力</h3>
+
+	<pre><code>
+	#include &lt;iostream&gt;
+	using namespace std;
+	
+	int main(){
+	//using namespace stdとしていることでstdが不要になる。
+	 //std.cout &lt;&lt; "Hello world." &lt;&lt; std.endl;
+	
+	  cout &lt;&lt; "Hello world." &lt;&lt; endl;
+	
+	  return 0;
+	}
+	
+	</code></pre>
+	※printfも普通に使えるので、これを使ったほうが便利かと思われる
+
+	<br><time>2012-1-30</time>
+</div>
+
+
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>動的配列</h3>
+
+	<pre><code>
+	int *p;     //配列用のポインタ
+	p = new int[n];
+	delete[] p;	
+	</code></pre>
+	※・new演算子で確保したメモリは、「delete[] 解放するオブジェクト」で解放します。
+
+
+	<br><time>2012-1-30</time>
+</div>
+
+
+
+
+<div id="sec1-9" class="sec4" >
+	<h3>ヘッダーファイルとは</h3>
+	
+	Cで関数を使用する場合、プロトタイプ宣言をする。<br>
+	※Ｃは上から順番にコードをコンパイルする。そのため、下段側に存在する関数を、
+	上側にあるコードが使用すると、未知の関数となりコンパイルエラーとなる。
+	そのためプロトタイプ宣言というものが必要である。<br>
+	プロトタイプ宣言をまとめたのがヘッダーファイルである。<br>
+	<br>
+	
+	<aside>
+	　「#if !defined(TEST)～#endif 」は一回だけヘッダー情報を読込むようにするための仕組み<br>
+	　ヘッダーファイルにも上から順の法則が働くため、ヘッダーの宣言に順番を意識する必要がある。<br>
+	</aside>
+	<br>
+	
+	<a href="http://www.kab-studio.biz/Programing/Codian/Cpp/02.html" target="blank" class="btn btn-link btn-xs">参考サイト</a><br>
+	<br>
+	
+		
+	<br><time>2012-1-30</time>
+</div>
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

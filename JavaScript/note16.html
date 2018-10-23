@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="s16-1" class="sec4">
+	<h3>JavaScriptの旧覚書</h3>
+
+<pre><code>
+
+	■GETパラメータを取得する。
+	function getUrlVars() 
+	{ 
+	    var vars = [], hash; 
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&amp;'); 
+	    for(var i = 0; i &lt; hashes.length; i++) { 
+	        hash = hashes[i].split('='); 
+	        vars.push(hash[0]); 
+	        vars[hash[0]] = hash[1]; 
+	    } 
+	    return vars; 
+	}
+	
+	■関数内に関数を定義できる。
+		        function testFunc(){
+			        var x=200;
+							testFunc2(x);
+			        function testFunc2(value){
+				        alert(value);
+			        };
+	
+			        alert("neko");
+			        
+		        }
+	
+	■メーラーを立ち上げる
+	件名や本文をあらかじめ記述しておくこともできる。
+	
+	◇サンプルコード
+		  var a="amara";
+		  var b="imusi";
+		  var mailAddress=a+b+"@gmail.com";
+		  var mailto = "mailto:"+mailAddress;
+	
+		  var matter=$('#matter option:selected').val();
+		  mailto = mailto + 
+		    "?subject="+matter+"&amp;body=" + matter + "%0D%0A";
+	
+			//新しいウィンドウで開く
+		  var w=window.open();
+		  w.location.href=mailto;
+	
+	
+	■Chromeでデバッグする。
+	Shift+Ctrl+iを押す。
+	Scriptパネルを押す。（デバッグ画面の上段にある。）
+	左上のアイコンをクリックしてデバッグ対象のモジュールを選択。
+	ブレークポイントを設定したい行をクリック。
+	
+	■URLエンコードする。
+				//港名をURLエンコードする。
+				haborName=encodeURIComponent(haborName);
+	
+				//▼いくつかの記号はエンコードしない。
+				haborName=encodeURI(haborName);
+	
+	■文字列からタグを消す正規表現
+	var s = s.replace(/&lt;&yen;/?[^&gt;]+&gt;/gi, "");
+	
+	■WebWorkers
+	
+	
+	■一定間隔で関数を実行する。  setIntervalの使い方
+	//関数Hyoji()を1000ミリ秒間隔で呼び出す
+	  setInterval("Hyoji()",1000);
+	  
+	 ■指定時間後に関数を実行する。
+	 setTimeout（"関数",ミリ秒）:
+	 ※関数はダブルクォートでくくること。
+	 
+	 例：
+		 document.write("hoge&yen;n");//最初に出力される。
+		setTimeout(function(){ document.write("fuga&yen;n") }, 1000);//一秒後に実行されるため、3番目に出力される。
+		document.write("piyo&yen;n");//2番目に出力
+	  
+	
+	■innerHTMLの使い方。
+		$elm=document.getElementById('file_preview');
+		$elm.innerHTML='テスト';
+	
+	
+	■文字を小文字、大文字変換する。
+		var str='AAAbbb';
+		alert(str.toLowerCase());
+		alert(str.toUpperCase());
+	
+	
+	
+	
+	
+	arguments.calleeが自分自身の関数を示す。
+	■再帰呼び出し
+	//例
+	function sanitaizeTreeData(treeData){
+		if(treeData==null){return null;}
+		
+		if(isArray(treeData)==true){
+			for (var i=0;i&lt;treeData.length;i++){
+			
+				treeData[i]=arguments.callee(treeData[i]);
+			}
+		}else{
+			if(typeof(treeData)=='string'){
+				treeData=escape_html_tag(treeData)
+				
+			}
+		}
+		
+		return treeData;
+	}
+	
+	■アンカー、リンクからJavaScriptを起動する
+		&lt;a href="#" onclick="alert('test');return false;"
+			style="text-decoration: none;"&gt;▼表示
+		&lt;/a&gt;
+		※hrefには「#」を入れ、JS部分はfalseを返すようにすること。falseを返さないとブラウザのスクロールが最初の状態に戻る。
+	
+	■JavaScriptのクラス
+	クラス名：Animal 右の引数はコンストラクタ引数となる。
+	var Animal = function(name, sex) {
+	  this.name = name;//プロパティ
+	  this.sex = sex;//プロパティ
+	  this.toString = function() {//メソッド
+	    window.alert(this.name + " " + this.sex);
+	  };
+	}
+	・使用例
+	var anim = new Animal("ジロウ", "オス");
+	anim.toString(); // 「ジロウ オス」
+	
+	■セレクトボックスのクリア   &lt;select box clear&gt;
+			
+		var specSbElm=document.getElementById('depreciation');//セレクトボックスのエレメントを取得する。
+		specSbElm.options.length=0;//セレレクトボックスをクリアする。
+		
+	■セレクトボックスへOptionを追加
+	
+		selectBoxElm.options[0]=new Option('選択項目A','1');
+		selectBoxElm.options[1]=new Option('選択項目B','2');
+		selectBoxElm.options[2]=new Option('選択項目C','3');
+		
+		※selectBoxElmはセレクトボックスオブジェクト
+		※new Option(text, value, defaultSelected, selected)
+			text	Optionオブジェクトのtextプロパティに相当する文字列（省略可能）。
+			value	Optionオブジェクトのvalueプロパティに相当する文字列（省略可能）。
+			defaultSelected	OptionオブジェクトのdefaultSelectedプロパティに相当する論理値（省略可能）。
+			selected	Optionオブジェクトのselectedプロパティに相当する論理値（省略可能）。
+	
+	
+	■配列へ追加
+	xx = new Array("Sun", "Mon");
+	xx.unshift("xxx");//先頭に追加。
+	xx.push("Tue");//末尾に追加
+	xx.push("Wed");
+	xx.push("Th", "Fri","Sat") ;複数追加
+	
+	■特定の記号をエスケープする。
+	function escapeHTML(str) {
+		  return str.replace(/[&amp;"&lt;&gt;]/g, function(c) {
+		    return {
+		      "&amp;": "&amp;amp;",
+		      '"': "&amp;quot;",
+		      "&lt;": "&amp;lt;",
+		      "&gt;": "&amp;gt;"
+		    }[c];
+		  });
+		}
+	
+	■リンク（アンカー）からJS起動。「#」を指定すること。
+	&lt;a href="#" onclick="changePicture('new')"&gt;正しい方法は＃をhrefに指定&lt;/a&gt;
+	×&lt;a href="" onclick="changePicture('new')"&gt;hrefを空にするとJSの効果が出ない。すぐに画面が元に戻る現象&lt;/a&gt;
+	
+	■■■IE注意
+	const　定数宣言は使えません。operaも同様
+	
+	■基本的なJSONデータ
+	{"プロパティ名" : 値}
+	
+	■複数のデータを含むJSONデータ（2次元データをJSONで表現）
+		{"item":
+			[
+				{"itemCode":91,
+				"itemName":"塩ラーメン",
+				"itemPrice":300},
+				
+				{"itemCode":94,
+				"itemName":"味噌ラーメン",
+				"itemPrice":290},
+				
+				{"itemCode":95,
+				"itemName":"豚骨ラーメン",
+				"itemPrice":320}
+			]
+		}
+		※JSONのフォーマットはJavaScriptのオブジェクトとほとんど同じですが、文字列は必ず '' ではなく "" で囲みます。
+	
+	■複数型JSONデータその２
+		var jdata=[{year: '2011',month: '11',day: '28'},{year: '2012',month: '11',day: '28'}];
+			alert(jdata[1].year);
+	
+	■JSONパース・JSONオブジェクトからJSON文字列に変換
+		JSON.parse(json文字列)	JSON文字列をオブジェクトに変換して返します。
+		JSON.stringify(jsonオブジェクト)	オブジェクトをJSON文字列に変換して返します。
+	
+		例
+			var json = JSON.stringify( { 'key': 'value' } );//JSONオブジェクトからJSON文字列に変換
+			alert(json); // {"key": "value"}
+			var object = JSON.parse(json);//JSON文字列からJSONオブジェクトに変換する。
+	
+		※古いやり方：var jsonData=eval(&lt;?php echo $m_jsonData ?&gt;);
+	
+	
+	■非同期通信
+		他のテキストファイル（html,xml,jsonなど様々）を非同期で読み込める。
+		
+			var url='def.json';//テキストファイルのURLを指定
+			var http_request = new XMLHttpRequest();
+			http_request.open( "GET", url, true );
+			http_request.onreadystatechange = function () {
+			    if ( http_request.readyState == 4 ) {
+			        if ( http_request.status == 200 ) {
+			        	
+			        	var strData=http_request.responseText;//テキストファイルの中身
+						alert(strData);
+			        } else {
+			            alert( "There was a problem with the URL." );
+			        }
+			        http_request = null;
+			    }
+			};
+			http_request.send(null);
+			
+	
+	
+	
+	</code></pre>
+	<br><time>2013-4-8</time>
+</div>
+
+
+
+
+<div id="sec16-2" class="sec4">
+	<h3>TR要素のスキマに編集フォーム要素を移動</h3>
+	
+	<a href="/sample/js/a008/tr_gap/tr_gap.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;table id="tbl1" class="table"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;備考&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;td&gt;&lt;input type='button' value='編集' onclick='clickEdit(this)' /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;山羊&lt;/td&gt;&lt;td&gt;草食&lt;/td&gt;&lt;td&gt;&lt;input type='button' value='編集' onclick='clickEdit(this)' /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;td&gt;&lt;input type='button' value='編集' onclick='clickEdit(this)' /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;td&gt;&lt;input type='button' value='編集' onclick='clickEdit(this)' /&gt;&lt;/td&gt;&lt;/tr&gt;
+			&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;td&gt;&lt;input type='button' value='編集' onclick='clickEdit(this)' /&gt;&lt;/td&gt;&lt;/tr&gt;
+	
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	
+
+	&lt;table&gt;
+	
+		&lt;!-- 編集フォーム --&gt;
+		&lt;tr id='edit_form'&gt;&lt;td&gt;
+			&lt;div&gt;
+				編集フォーム&lt;br&gt;
+				A &lt;input type="text" /&gt;&lt;br&gt;
+				B &lt;input type="text" /&gt;&lt;br&gt;
+				&lt;input id="reg_btn" type="button" value='ダミー登録ボタン' class="btn btn-success" /&gt;
+			&lt;/div&gt;
+		&lt;td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	// 初期化
+	$(() =&gt; {
+		
+		// ▼ 編集フォームのダミー登録ボタンにテスト用のクリックイベントを組み込む
+		$('#reg_btn').click((e) =&gt; {
+			alert('クリックイベントのテスト');
+		});
+	
+	});
+	
+	// TR要素の編集ボタン・クリックイベント
+	function clickEdit(btnElm){
+		
+		// ▼ 編集フォームをクリックしたTR要素の下に移動させる。
+		var tr = jQuery(btnElm).parents('tr');
+		jQuery('#edit_form').insertAfter(tr);
+		
+	}
+	</code></pre><br>
+	
+
+
+	<br><time>2018-10-18</time>
+</div>
+
+
+
+
+<div id="sec16-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-4-8 | 2018-10-15</div>
+</body>
+</html>

@@ -90,6 +90,7 @@
 	<li><a href="note7.html#sec7-4" >分岐： CASE WHEN ～ THEN | 入れ子</a></li>
 	<li><a href="note7.html#sec7-5" >SQL文（クエリ）の最大長さは？</a></li>
 	<li><a href="note7.html#sec7-6" >データベースを作成する</a></li>
+	<li><a href="note7.html#sec7-8" >旧覚書：MySQLのインストールとＯＤＢＣへの登録について</a></li>
 </ol>
 <hr><br><br><br>	
 			

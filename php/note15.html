@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec15-1" class="sec4">
+	<h3>ImageMagickの旧覚書</h3>
+
+	<pre><code>
+
+	■概要
+	　ImageMagickを使うと、サイズを変えたサムネイル画像を作成したり、形式（拡張子）が異なる画像に変換できる。（TIF→PNGなど）
+	　ImageMagickはサーバー側にインストールされている。さくらサーバーにもインストールされているが、perl専用のため、専用クラス（imagemagickクラス）が利用できない。しかしsystem関数によるコマンド型で、利用することができる。
+	　ImageMagickはVBやC++などからも利用できる。おそらくJavaでも・・
+	
+	■設定手順
+	
+	1.ImageMagickを以下のサイトからダウンロードする。
+		ダウンロードサイト：http://imagemagick.org/script/binary-releases.php#windows
+		いくつか種類があるが、初回はImageMagick-6.7.4-7-Q8-windows-dll.exeを入手
+	
+	2.ImageMagickをインストールする。
+		ImageMagick-6.7.4-7-Q8-windows-dll.exeを実行し、ウィザードに従ってゆく。途中perl用,C++用などの選択があるが、とりあえずperl用にチェックを入れておけばよい。（チェックなしでも問題ない可能性もある）
+	
+	3.PC再起動
+		環境パスへ設定されると思われる。
+	
+	4.PHP用拡張ライブラリをダウンロード
+		ダウンロードサイト：http://valokuva.org/outside-blog-content/imagick-windows-builds/080709/
+		拡張ライブラリはいくつか種類があるが、とりあえず、環境によりどれが動作するか不明のため、すべて入手。
+		拡張ライブラリにはphp_imagick_dyn-Q16.dll、	php_imagick_st-Q16.dllなどがある。
+	
+	5.PHP用拡張ライブラリをPHPディレクトリの指定場所に配置する。
+		配置場所の例としてC:&yen;web&yen;PHP&yen;ext
+	
+	6.php.iniに設定を追加
+	以下の記述を追加する。
+		extension_dir = "C:&yen;web&yen;PHP&yen;ext"
+		extension=php_imagick_st-Q16.dll
+		
+		extension_dirはextディレクトリを有効にするための設定かと思われる。extディレクトリはデフォルトでは存在しないため。ImageMagickとは無関係のライブラリでも利用する場合があるので、既存がないか要確認。
+		extensionには、上記でダウンロードした、拡張ライブラリ名を指定。複数の拡張ライブラリをダウンロードしたが、そのうち動作する拡張ライブラリの名前を指定。動作確認はApacheの再起動で確認できる。動作不能な拡張ライブラリの場合、エラーがでて再起動に失敗する。
+		Apacheを再起動を忘れずに。
+	
+	■サンプルコード（クラス利用型）
+	&lt;?
+	$im = new imagick( '../files/023.TIF' );
+	$im-&gt;thumbnailImage( 200, 0);
+	$im-&gt;writeImage( '../files/023.png' );
+	
+	echo "test003 success!!";
+	?&gt;
+	■サンプルコード２（system関数利用型）
+	&lt;?
+	system("convert -geometry 20% 023.TIF 023.png");
+	echo "success!!";
+	?&gt;
+	
+	※convertコマンドの使い方
+	http://www.envinfo.uee.kyoto-u.ac.jp/user/susaki/image/magick_process.html
+	
+	■参考サイト
+	http://www.elxsy.com/2009/07/installing-imagemagick-on-windows-and-using-with-php-imagick/
+	http://q.hatena.ne.jp/1101107667
+	http://blog.quall.net/linuxserver/505/
+	</code></pre>
+
+	<br><time>2012-1-17</time>
+</div>
+
+
+
+
+<div id="sec15-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2012-1-17 | 2018-10-15</div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ASP | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>ASP | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="sec0-1" class="sec4" >
+	<h3>ASPの旧覚書</h3>
+
+	<pre>
+
+	■タグ入力を許可する。例「&lt;a&gt;」
+	以下の入力のバグ対策です。
+	「"&gt;&lt;script&gt;alert('hoge')&lt;/script&gt;」
+	
+	JikoReport.aspxの「&lt;%@ Page...」タグに「ValidateRequest="false"」を追加すると登録可能になります。
+	
+	変更前
+	&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JikoReport.aspx.cs" Inherits="mob.jiko.JikoReport" %&gt;
+	
+	変更後
+	&lt;%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" CodeBehind="JikoReport.aspx.cs" Inherits="mob.jiko.JikoReport" %&gt;
+	
+	■カレントパスを取得。「../」を指定した場合、１つ上のフォルダ。
+	string path=HttpContext.Current.Server.MapPath("../");
+	
+	■web.configに独自設定値を定義する。
+	◇web.config
+	&lt;configuration&gt;
+	  &lt;appSettings&gt;
+	    &lt;add key="SampleDataMode" value="1" /&gt;
+	  &lt;/appSettings&gt;
+	&lt;/configuration&gt;
+	
+	◇クライアントクラス。
+	string xxx = System.Configuration.ConfigurationManager.AppSettings["SampleDataMode"];
+	
+	※web.configに存在しない設定値を取得する場合、nullが取得される。
+	
+	
+	■URLエンコードとデコード
+	//URL エンコードする
+	string encodeStr = System.Web.HttpUtility.UrlEncode(str);
+	
+	// URL デコードする
+	string decodeStr = System.Web.HttpUtility.UrlDecode(encodeStr);
+	
+	
+	
+	■ファイル削除
+	File.Delete(fileName);
+	
+	
+	■ファイルアップロード＆保存
+	http://www.ipentec.com/document/document.aspx?page=csharp-asp-net-create-generic-handler-to-get-form-file&amp;culture=ja-jp
+	
+	■配列のPOSTデータを受け取る。
+	string[] fnFiles = Request.Form.GetValues("ary[]");
+	
+	■HTMLへ書き出し。
+	Response.Write("&lt;strong&gt;test&lt;/strong&gt;");
+	
+	
+	■クロスドメイン通信を許可
+	Response.AppendHeader("Access-Control-Allow-Origin", "*");//クロスドメイン通信を許可する。
+	
+	■ASP.NET | WebService(asmx)の外部アクセスを許可する
+	&lt;system.web&gt;
+	・・・
+	&lt;!-- ↓system.web内に以下を追加 --&gt;
+	&lt;webServices&gt;
+	&lt;protocols&gt;
+	&lt;add name="HttpGet"/&gt;&lt;!-- getを許可する場合 --&gt;
+	&lt;add name="HttpPost"/&gt;&lt;!-- postを許可する場合 --&gt;
+	&lt;/protocols&gt;
+	&lt;/webServices&gt;
+	&lt;!-- ↑ここまで --&gt;
+	&lt;/system.web&gt;
+	参考URL:http://ortk.main.jp/blog/?p=554
+	
+	■URLデコードを行う。
+	// URL デコードを行う
+	name = Server.UrlDecode(name);
+	
+	■相対パスを取得
+	Uri root = new Uri(Server.MapPath("."));
+	string loacalPath=root.LocalPath;
+	//path=file:///C:/web/asp/hogehoge
+	//loacalPath=C:&yen;web&yen;asp&yen;Test2&yen;Test2
+	
+	■データベースの作成
+	APP_Dataフォルダを右クリック⇒
+	新しい項目の追加をクリック⇒
+	「インストールされたテンプレート一覧」の一覧からデータを選択。
+	画面右側でSQL Server データベースを選択して追加ボタンを押す。
+	ソリューションエクスプローラのApp_DataにDatabase1.mdfが追加されていればOK.
+	
+	■ファイルアップロード＆保存
+	            if (FileUpload1.HasFile)
+	            {
+	            
+	                //カレントディレクトリを取得する。
+	                Uri url = new Uri(Server.MapPath("."));
+	                string path = url.LocalPath;
+	
+	                //ファイル名を取得する。
+	                string fileName = FileUpload1.PostedFile.FileName;
+	                fileName = "123" + fileName;//ファイル名を変更。
+	                string fullFileName = Path.Combine(path, fileName);
+	
+	                //☆ファイルを保存する。
+	                FileUpload1.SaveAs(fullFileName);
+	
+	
+	            }
+	
+	■ファイルアップロード＆ダウンロード
+	        protected void Button1_Click(object sender, EventArgs e)
+	        {
+	            // ファイルがアップロードされていなければリターン
+	            if (FileUpload1.HasFile == false) { return; }
+	
+	            // 一時ファイルに保存
+	            string fpath = Path.GetTempFileName();
+	            FileUpload1.SaveAs(fpath);
+	
+	            // レスポンスを作成して返す（アップロードされたファイルをそのままダウンロード）
+	            HttpResponse resp = HttpContext.Current.Response;
+	            resp.Clear();
+	            resp.ContentType = FileUpload1.PostedFile.ContentType; // コンテントタイプ
+	            resp.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode(FileUpload1.FileName));
+	            resp.WriteFile(fpath);
+	            resp.Flush();
+	
+	            // 一時ファイルを削除
+	            File.Delete(fpath);
+	        }
+	</pre>
+
+	<br><time>2013-9-19</time>
+</div>
+
+
+
+
+<div id="sec0-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2013-9-19</time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/cs/">ASP</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2013-9-19</div>
+</body>
+</html>
