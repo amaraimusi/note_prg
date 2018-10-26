@@ -168,6 +168,84 @@
 
 
 
+<div id="sec7-4" class="sec4" >
+	<h3>class属性の確認、追加、削除 | hasClass,addClass,removeClass.toggleClass</h3>
+	
+	hasClass class属性の存在チェック。true or false。<br>
+	removeClass class属性を除去する。複数指定していできる。<br>
+	addClass class属性を追加する。複数指定できる。<br>
+	toggleClass class属性の切替。存在するなら除去し、存在しないなら追加。<br>
+	<br>
+
+	<a href="/sample/js/a008/class_has/class_has.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;style&gt;
+		.red{
+			color:red;
+		}
+		.big{
+			font-size:2em;
+		}
+	&lt;/style&gt;
+	&lt;div id="neko" class="long red big"&gt;
+		ネコにエサをあげてください。
+	&lt;/div&gt;
+	&lt;input type="button" value="test1" onclick="test1()" class="btn btn-success" /&gt;
+	&lt;input type="button" value="test2" onclick="test2()" class="btn btn-success" /&gt;
+	&lt;input type="button" value="test3" onclick="test3()" class="btn btn-success" /&gt;
+	&lt;input type="button" value="test4" onclick="test4()" class="btn btn-success" /&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	function test1(){
+		
+		var obj = jQuery('#neko');
+		
+		if(obj.hasClass('red')){
+			obj.removeClass('red');
+		}else{
+			obj.addClass('red');
+		}
+	}
+	
+	function test2(){
+		jQuery('#neko').toggleClass('big');
+	}
+	
+	function test3(){
+		
+		var obj = jQuery('#neko');
+		
+		if(obj.hasClass('red')){
+			obj.removeClass('red big');
+		}else{
+			obj.addClass('red big');
+		}
+	}
+	
+	function test4(){
+		
+		var obj = jQuery('.btn-success');
+		
+		if(obj.hasClass('btn-xs')){
+			obj.removeClass('btn-xs');
+		}else{
+			obj.addClass('btn-xs');
+		}
+	}
+	</code></pre><br>
+
+	<br><time>2018-10-27</time>
+</div>
+
+
+
+
+
 <div id="sec7-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
