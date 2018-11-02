@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>予約システムの設計 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>予約システムの設計 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<div id="s1" class="sec4">
+	<h3>概要</h3>
+
+	予約システムは一般用、管理者用、クーロンに大別される。<br>
+	ホテル、貸施設、レンタルを念頭に置いたシステム。<br>
+	<br>
+	
+	<h4>一般用</h4>
+	<ol>
+		<li><a href="#s2-1" class="livipage">一般・予約カレンダー画面（空状況表画面）</a></li>
+		<li><a href="#s2-2" class="livipage">貸施設一覧画面</a></li>
+		<li><a href="#s2-3" class="livipage">予約申請画面</a></li>
+		<li><a href="#s2-4" class="livipage">予約確認・変更画面</a></li>
+		<li><a href="" class="livipage">キャンセル空予約画面</a></li>
+	</ol>
+	
+	
+	<h4>管理者用</h4>
+	<ol>
+		<li><a href="" class="livipage">月間管理画面</a></li>
+		<li><a href="" class="livipage">管理者用・予約カレンダー</a></li>
+		<li><a href="" class="livipage">施設マスタ画面</a></li>
+		<li><a href="" class="livipage">時間割マスタ画面</a></li>
+		<li><a href="" class="livipage">休日マスタ画面</a></li>
+		<li><a href="" class="livipage">予約一覧画面</a></li>
+		<li><a href="" class="livipage">一般ユーザー管理画面</a></li>
+		<li><a href="" class="livipage">オペレータユーザー管理画面</a></li>
+		<li><a href="" class="livipage">設定画面（キャンセル空き予約締め切り時間）</a></li>
+		<li><a href="" class="livipage">メール通知履歴画面</a></li>
+	</ol>
+
+	
+	<h4>クーロン</h4>
+	<ol>
+		<li><a href="" class="livipage">キャンセル空き・メール通知機能</a></li>
+	</ol>
+
+
+	<br><time>2018-11-1</time>
+</div>
+
+
+
+
+<div id="s2-1" class="sec4">
+	<h3>一般・予約カレンダー画面（空状況表画面）</h3>
+	
+	お客が空状況を見ながら予約を開始する画面。
+	施設一覧画面から当画面にアクセスできる。<br>
+	予約カレンダー画面は予約カレンダーが主な機能である。<br>
+	<br>
+
+	<strong>予約カレンダーについて</strong>
+	一般客はこの予約カレンダーから予約を行う。<br>
+	予約カレンダーはオペレータ用も存在する。<br>
+	予約カレンダーは施設と1:1の関係とする。（予約カレンダー一つに複数の施設を組み込まないこと）<br>
+	予約カレンダーのX軸は単位時間、Y軸は日付、セルは空数リンクから構成される。
+	単位時間とは30分区切り、1時間区切りなどを一区切りとした単位とした数値である。単位時間は時間割テーブルで変更できる。
+	Y軸の日付は一月分が望ましい。
+	空部屋数リンクから予約ができる。空部屋数が0であるなら満室として表記するのが良い。
+	<br>
+	拡張としてキャンセル待ち機能も組み込める。その場合はキャンセル待ち数をセルに追加する。<br>
+	<br>
+	
+	<strong>予約カレンダーまとめ</strong>
+	<ul>
+		<li>一つの施設IDに一つの予約カレンダー</li>
+		<li>X軸→単位時間配列（時間割IDの配列）</li>
+		<li>Y軸→日付配列</li>
+		<li>セル→空数リンク、キャンセル待ち数リンク（拡張機能）</li>
+	</ul>
+	
+	
+	<h4>予約カレンダーのモック</h4>
+	<table class="tbl2">
+		<thead>
+			<tr><th></th><th>6～9時</th><th>10～12時</th><th>13～17時</th><th>17時～22時</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>2018-11-1</td>
+				<td><a href="" class='btn btn-link btn-xs'>空:5</a></td>
+				<td>満</td>
+				<td><a href="" class='btn btn-link btn-xs'>空:7</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:1</a></td>
+			</tr>
+			<tr>
+				<td>2018-11-2</td>
+				<td><a href="" class='btn btn-link btn-xs'>空:5</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:7</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:7</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:1</a></td>
+			</tr>
+			<tr>
+				<td>2018-11-3</td>
+				<td>満</td>
+				<td>満</td>
+				<td>満</td>
+				<td><a href="" class='btn btn-link btn-xs'>空:2</a></td>
+			</tr>
+			<tr>
+				<td>2018-11-4</td>
+				<td><a href="" class='btn btn-link btn-xs'>空:5</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:7</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:7</a></td>
+				<td><a href="" class='btn btn-link btn-xs'>空:1</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	
+	<h4>予約カレンダーに必要なデータ</h4>
+	<pre>
+		施設ID 施設予約日付	時間割ID	施設数（マスタ）	予約数（マスタ）	残数	キャンセル待ち人数	休日フラグ	時間割・稼働フラグ	月間管理フラグ
+	</pre>
+	
+	<h4>予約カレンダーデータを取得するSQL</h4>
+	<pre>
+	SELECT 施設ID、　施設名、	時間割ID、　時間割名
+	FROM
+		予約・集計
+			SELECT 施設ID、日付、時間割ID、SUM（ID) AS 予約数
+			WHERE
+				施設ID、月初日、月末日、予約状態＝予約
+			GROUP BY 施設ID、日付、時間割ID
+		施設テーブル（予約集計・施設ID＝ID）
+		時間割テーブル（予約集計・時間割ID＝ID）
+		
+	WHERE
+		施設ID
+	
+	キャンセル待ち集計データ	
+		予約状態＝キャンセル待ち
+	</pre>	
+
+	<br><time>2018-11-1</time>
+</div>
+
+
+
+
+<div id="s2-2" class="sec4">
+	<h3>貸施設一覧画面</h3>
+
+	一般客用の貸施設一覧画面。貸施設名リンクから予約カレンダー画面に遷移できる。<br>
+	貸施設テーブルと紐づいている。<br>
+	<br>
+	
+	一覧のモック
+	<table class="tbl2">
+		<thead>
+			<tr><th>貸施設名</th><th>施設数</th><th>備考</th></tr>
+		</thead>
+		<tbody>
+			<tr><td><span class="text-primary">テニスコート</span></td><td>2</td><td>テスト</td></tr>
+			<tr><td><span class="text-primary">バスケットボール</span></td><td>20</td><td>テスト</td></tr>
+			<tr><td><span class="text-primary">宿泊部屋</span></td><td>4</td><td>テスト</td></tr>
+			<tr><td><span class="text-primary">ユニック</span></td><td>3</td><td>テスト</td></tr>
+	
+		</tbody>
+	</table>
+	
+	<br><time>2018-11-1</time>
+</div>
+
+
+
+
+<div id="s2-3" class="sec4">
+	<h3>予約申請画面</h3>
+	
+	入力画面、確認画面、結果画面と遷移する画面。<br>
+	最終的に予約テーブルに登録する。<br>
+	<br>
+	
+	パスワードなしの手続きについて考察<br>
+	期間限定のハッシュコードを発行する方法がある。<br>
+	ハッシュコードが有効である間はマイページを閲覧することができる。<br>
+	<br>
+
+	<br><time>2018-11-2</time>
+</div>
+
+
+
+
+
+<div id="s2-4" class="sec4">
+	<h3>予約確認・変更画面</h3>
+
+	アカウントなし型の検討<br>
+	ハッシュコード付きのURLから当ページにアクセスできる。<br>
+	ハッシュコードがパスワードの代わりである。<br>
+	ハッシュコードは当然期間限定。<br>
+	<br>
+	ハッシュコードは管理者も確認できるので、一般客の代わりにオペレータが変更するといったことも可能。<br>
+	<br>
+	
+	ハッシュコードは漏洩しないようにする工夫が必要。<br>
+	できれば端末情報の確認をとる。<br>
+	<br>
+	異なる端末からアクセスされた場合は、注意メールを送信する機能があればないよい。<br>
+	<br>
+
+	<br><time>2018-11-2</time>
+</div>
+
+
+
+
+
+
+<div id="s0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/mng/">マネージメントの覚書</a></li>
+	<li>予約システムの設計</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-11-1</div>
+</body>
+</html>
