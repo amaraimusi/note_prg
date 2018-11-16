@@ -97,6 +97,179 @@
 
 
 
+<div id="sec15-2" class="sec4" >
+	<h3>ページネーション</h3>
+	
+	<a href="/sample/php/a040/pagenation/pagenation.php" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	<pre><code>
+	&lt;?php 
+	
+	$page_no = 0;
+	if(!empty($_GET['page_no'])){
+		$page_no = $_GET['page_no'];
+	}
+	
+	$base_url = "/sample/php/a040/pagenation/pagenation.php";
+	$all_data_cnt = 100;
+	$row_limit = 10;
+	$midasi_cnt = 5;
+	$params = ['a' =&gt; 'neko' , 'b' =&gt; 'buta'];
+	
+	
+	$res = createpagenationHtml($base_url, $page_no, $all_data_cnt, $row_limit, $midasi_cnt, $params);
+	
+	echo $res['mokuji'];
+	
+	/**
+	 * ページネーション用の目次HTMLを作成する
+	 * @param int $page_no	現在のページ番号（0から開始）
+	 * @param int $all_data_cnt 全データ数
+	 * @param int $row_limit 行制限数(LIMIT)
+	 * @param int $midasi_cnt 表示するペースの数
+	 * @param array $params リンクのURLに付加するパラメータ（キー、値）
+	 * @param array $option
+	 *  - page_field ページフィールド名： def→ page_no
+	 * @return array ページネーションデータ
+	 */
+	function createpagenationHtml($base_url, $page_no, $all_data_cnt, $row_limit, $midasi_cnt, $params, $option = array()){
+		
+		// ページネーションデータ
+		$pagenationData = array(
+				'mokuji'=&gt;'', // 目次HTML
+				'page_prev_link'=&gt;'',
+				'page_next_link'=&gt;'',
+				'page_top_link'=&gt;'',
+				'page_last_link'=&gt;'',
+				'query_str'=&gt;'',
+				'base_url' =&gt; $base_url,
+				'page_no' =&gt; $page_no,
+				'all_data_cnt' =&gt; $all_data_cnt,
+				'row_limit' =&gt; $row_limit,
+				'midasi_cnt' =&gt; $midasi_cnt,
+		);
+		if($all_data_cnt == 0) return $pagenationData;
+		if(empty($row_limit)) return $pagenationData;
+		
+		// オプションの初期化
+		if(empty($option['page_field'])) $option['page_field'] ='page_no';
+		
+		$page_field = $option['page_field'];
+		
+		
+		//▼ページネーションを構成する総リンク数をカウントする。
+		$allMdCnt = ceil($all_data_cnt / $row_limit);
+		$md2 = $allMdCnt;
+		if($md2 &gt; $midasi_cnt){
+			$md2 = $midasi_cnt;
+		}
+		$linkCnt =4 + $md2;
+		
+		//▼最終ページ番号を取得
+		if($md2 &gt; 0){
+			$lastPageNo = $allMdCnt-1;
+		}
+		
+		$strParams='';
+		if(!empty($params)){
+			//▼その他パラメータコードを作成する。
+			foreach($params as $key=&gt;$val){
+				if($val !== null &amp;&amp; $val !== '')
+					$strParams = $strParams.'&amp;'.$key.'='.$val;
+			}
+		}
+		
+		//▼最戻リンクを作成
+		$page_top_link = '';
+		$rtnMax = '&amp;lt&amp;lt';
+		if($page_no &gt; 0){
+			$url = "{$base_url}?{$page_field}=0{$strParams}";
+			$page_top_link = $url;
+			$rtnMax="&lt;a href='{$url}'&gt;{$rtnMax}&lt;/a&gt;";
+		}
+		
+		//▼単戻リンクを作成
+		$rtn1='&amp;lt';
+		$page_prev_link = '';
+		if($page_no &gt; 0){
+			$p=$page_no - 1;
+			$url = "{$base_url}?{$page_field}={$p}{$strParams}";
+			$page_prev_link = $url;
+			$rtn1 = "&lt;a href='{$url}'&gt;{$rtn1}&lt;/a&gt;";
+		}
+		
+		//▼単進リンクを作成
+		$page_next_link = '';
+		$next1='&amp;gt';
+		if($page_no &lt; $lastPageNo){
+			$p=$page_no + 1;
+			$url = "{$base_url}?{$page_field}={$p}{$strParams}";
+			$page_next_link = $url;
+			$next1 = "&lt;a href='{$url}'&gt;{$next1}&lt;/a&gt;";
+		}
+		
+		//▼最進リンクを作成
+		$page_last_link = '';
+		$nextMax='&amp;gt&amp;gt';
+		if($page_no &lt; $lastPageNo){
+			$p=$lastPageNo;
+			$url = "{$base_url}?{$page_field}={$p}{$strParams}";
+			$page_last_link = $url;
+			$nextMax="&lt;a href='$url'&gt;{$nextMax}&lt;/a&gt;";
+		}
+		
+		//▼見出し配列を作成
+		$fno=$lastPageNo - $md2 + 1;
+		if($page_no &lt; $fno){
+			$fno=$page_no;
+		}
+		$lno = $fno + $md2 - 1;
+		
+		for($i = $fno; $i &lt;= $lno; $i++){
+			$pn=$i+1;
+			if($i!=$page_no){
+				$url = "{$base_url}?{$page_field}={$i}{$strParams}";
+				$midasiList[]="&lt;a href='$url'&gt;{$pn}&lt;/a&gt;";
+			}else{
+				$midasiList[]=$pn;
+			}
+		}
+		
+		//▼HTML組み立て
+		$html = "&lt;div id='page_index'&gt;";
+		$html .= "{$rtnMax}&amp;nbsp;&yen;n";
+		$html .= "{$rtn1}&amp;nbsp;&yen;n";
+		foreach($midasiList as $key=&gt;$val){
+			$html .= "{$val}&amp;nbsp;&yen;n";
+		}
+		$html .= "{$next1}&amp;nbsp;&yen;n";
+		$html .= "{$nextMax}&amp;nbsp;&yen;n";
+		$html .= "&lt;/div&gt;&yen;n";
+		
+		// クエリ文字列
+		$query_str = "{$page_field}=0{$strParams}";
+		
+		$pagenationData['mokuji'] = $html;
+		$pagenationData['page_prev_link'] = $page_prev_link;
+		$pagenationData['page_next_link'] = $page_next_link;
+		$pagenationData['page_top_link'] = $page_top_link;
+		$pagenationData['page_last_link'] = $page_last_link;
+		$pagenationData['query_str'] = $query_str;
+	
+		return $pagenationData;
+	}
+	
+	?&gt;
+	</code></pre>
+
+
+	<br><time>2018-11-16</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

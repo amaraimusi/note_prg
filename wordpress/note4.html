@@ -491,6 +491,65 @@
 
 
 
+<div id="sec4-9" class="sec4">
+	<h3>カテゴリ名とカテゴリコードを取得するSQL</h3>
+	
+	<pre><code>
+	SELECT
+		term_id AS category_id, 
+		name AS category_name,
+		slug AS category_code
+	FROM
+		wp_terms
+	WHERE
+		term_id = 8
+	</code></pre>
+	
+	<br><time>2018-11-13</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-10" class="sec4">
+	<h3>投稿IDリストからカテゴリID,カテゴリコード、カテゴリ名を取得するSQL</h3>
+	
+	<pre><code>
+	SELECT 
+		WpTermR.object_id AS post_id,
+		WpTermR.term_taxonomy_id AS category_id,
+		WpTerm.name AS category_name,
+		WpTerm.slug AS category_code
+	FROM wp_term_relationships AS WpTermR
+	LEFT JOIN wp_terms AS WpTerm
+		ON(WpTermR.term_taxonomy_id = WpTerm.term_id)	
+	WHERE 
+		WpTermR.object_id IN ('100','101','102','103')
+		AND term_order = 0
+	</code></pre>
+	
+	「'100','101','102','103'」は投稿者IDリスト<br>
+	<br>
+	
+	
+	<br><time>2018-11-13</time>
+</div>
+
+
+
+
+
+
+
+
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
