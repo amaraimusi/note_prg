@@ -92,6 +92,7 @@
 	<li><a href="note7.html#sec7-6" >データベースを作成する</a></li>
 	<li><a href="note7.html#sec7-8" >旧覚書：MySQLのインストールとＯＤＢＣへの登録について</a></li>
 	<li><a href="note7.html#sec7-9" >INで指定した順に取得する</a></li>
+	<li><a href="note7.html#sec7-10" >リストアのよくあるエラー　Fatal error: Allowed memory size of 402653184 bytes exhausted</a></li>
 </ol>
 <hr><br><br><br>	
 			
