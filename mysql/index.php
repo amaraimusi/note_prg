@@ -91,6 +91,7 @@
 	<li><a href="note7.html#sec7-5" >SQL文（クエリ）の最大長さは？</a></li>
 	<li><a href="note7.html#sec7-6" >データベースを作成する</a></li>
 	<li><a href="note7.html#sec7-8" >旧覚書：MySQLのインストールとＯＤＢＣへの登録について</a></li>
+	<li><a href="note7.html#sec7-9" >INで指定した順に取得する</a></li>
 </ol>
 <hr><br><br><br>	
 			
