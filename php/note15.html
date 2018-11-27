@@ -270,6 +270,38 @@
 
 
 
+<div id="sec15-3" class="sec4">
+	<h3>タグ除去</h3>
+	
+	<pre><code>
+	$test_str = "
+		&lt;div class=&yen;"yohaku&yen;"&gt;&lt;/div&gt;
+		
+		&lt;ol class=&yen;"breadcrumb&yen;"&gt;
+			&lt;li&gt;&lt;a href=&yen;"/&yen;"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href=&yen;"/sample&yen;"&gt;サンプルソースコード&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href=&yen;"/sample/php&yen;"&gt;PHP ｜ サンプル&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;タグ除去&lt;/li&gt;
+		&lt;/ol&gt;
+		&lt;p&gt;TEST&lt;/p&gt;
+	";
+	
+	echo '&lt;p&gt;出力&lt;/p&gt;&lt;pre&gt;';
+	$test_str = strip_tags($test_str,'&lt;a&gt;&lt;p&gt;'); // AタグとPタグだけ除外
+	echo $test_str;
+	echo '&lt;/pre&gt;';
+	</code></pre>
+	
+	<a href="/sample/php/a040/tag_remove/tag_remove.php" class="btn btn-info">デモ</a><br>
+	<br>
+
+
+	<br><time>2018-11-27</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
