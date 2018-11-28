@@ -110,16 +110,23 @@
 	
 	/**
 	 * 文字列を左側から印文字を検索し、左側の文字を切り出す。
+	 * @date 2016-12-8 | 2018-11-28
+	 * @version 1.1
+	 * 
 	 * @param s 対象文字列
 	 * @param mark 印文字
+	 * @param not_find_flg 0:印文字が見つからないなら空を返す[デフォルト] , 1:見つからないならそのまま対象文字列を返す
 	 * @return 印文字から左側の文字列
 	 */
-	function stringLeft(s,mark){
+	_stringLeft(s, mark, not_find_flg){
 
-		if (s==null || s==""){
-			return s;
-		}
+		if (s==null || s=="") return s;
+		
 		var a=s.indexOf(mark);
+		if(a== -1){
+			if(not_find_flg == 1) return s;
+		}
+		
 		var s2=s.substring(0,a);
 		return s2;
 		
@@ -131,7 +138,7 @@
 	<script>
 
 	</script>
-	<br><time>2016-12-8</time>
+	<br><time>2016-12-8 | 2018-11-28</time>
 </div>
 
 
