@@ -397,6 +397,25 @@
 
 
 
+<div id="sec16-4" class="sec4" >
+	<h3>入力フォームの各input要素にEnterキー押下イベントを組み込む</h3>
+
+	<pre><code>
+	// 入力フォームの各input要素にEnterキー押下イベントを組み込む
+	$('#xxx_form input').keypress(function(e){
+		if(e.which==13){ // Enterキーが押下された場合
+			// Enterキーが押された時の処理を記述
+		}
+	});	
+	</code></pre>
+	テキストボックスにフォーカスが入っている状態でEnterキーを押すとイベント発動。<br>
+	<br>
+	<br><time>2018-11-28</time>
+</div>
+
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
