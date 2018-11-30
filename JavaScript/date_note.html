@@ -152,6 +152,32 @@
 
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>日付フォーマット【y-m-d形式】</h3>
+
+	<pre><code>
+	/**
+	 * 日付オブジェクトを「y-m-d」形式の日付書式に変換する
+	 * @param Date date1 日付オブジェクト
+	 * @returns string 「y-m-d」形式の日付文字列
+	 */
+	function convDateToYMD(date1){
+		var year = date1.getFullYear();
+		var month = date1.getMonth() + 1;
+		var day = date1.getDate();
+		var date_str = year + '-' + month + '-' + day;
+		return date_str;
+	}
+	</code></pre>
+
+	<br><time>2018-12-1</time>
+</div>
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none" >
 	<h3>xxx</h3>
 
