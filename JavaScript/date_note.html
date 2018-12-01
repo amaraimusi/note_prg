@@ -178,6 +178,72 @@
 
 
 
+<div id="sec1-6" class="sec4">
+	<h3>月初日を取得</h3>
+	
+	<pre><code>
+	/**
+	 * 対象日付の月初日を取得
+	 * @param mixed date1 対象日付
+	 * @return string 対象日付の月初日
+	 */
+	_getMonthStartDate(date1){
+		if(date1 == null) return null;
+		if((typeof date1) == 'string'){
+			date1 = new Date(date1);
+		}
+		
+		var year = date1.getFullYear();
+		var month = date1.getMonth() + 1;
+		var date_str = year + '-' + month + '-1';
+		return date_str;
+	}
+	</code></pre>
+
+
+	<br><time>2018-12-1</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-7" class="sec4">
+	<h3>月末日を取得</h3>
+	
+	<pre><code>
+	/**
+	 * 対象日付の月末日を取得する
+	 * @param mixed date1 対象日付
+	 * @return string 月末日
+	 */
+	_getMonthEndDate(date1){
+		if(date1 == null) return null;
+		if((typeof date1) == 'string'){
+			date1 = new Date(date1);
+		}
+
+		// 月末日の算出
+		var mEndDate = new Date(date1.getFullYear(), date1.getMonth() + 1, 0);
+		
+		var year = mEndDate.getFullYear();
+		var month = mEndDate.getMonth() + 1;
+		var day = mEndDate.getDate();
+		var date_str = year + '-' + month + '-' + day;
+		return date_str;
+	}
+	</code></pre>
+
+
+	<br><time>2018-12-1</time>
+</div>
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none" >
 	<h3>xxx</h3>
 
