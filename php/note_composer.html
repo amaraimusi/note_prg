@@ -38,6 +38,7 @@
 				<li><a href="#s6">ライブラリを更新する</a></li>
 				<li><a href="#s7">ライブラリをプロジェクトに組み込む</a></li>
 				<li><a href="#s8">推奨:リポジトリ管理から外す</a></li>
+				<li><a href="#s9">composerをWindowsで手軽に動かすセット</a></li>
 			</ol>
 		
 
@@ -204,24 +205,52 @@
 
 
 
+<div id="s9" class="sec4">
+	<h3>composerをWindowsで手軽に動かすセット</h3>
+	
+	<a href="zips/note_composer/composer-set.zip" class="btn btn-success">composer-set.zip</a><br>
+	<br>
+	
+	
+	<table class="tbl2">
+		<caption>composer-set.zipの中身</caption>
+		<thead><tr><th>ファイル名</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>composer.json</td>
+				<td>インストールするライブラリの情報を記述する。</td>
+			</tr>
+			<tr>
+				<td>composer.phar</td>
+				<td>composerの本体</td>
+			</tr>
+			<tr>
+				<td>install.bat</td>
+				<td>インストールを実行するバッチファイル。<br>
+					このバッチファイルが存在する同じディレクトリにvendorフォルダを作成し、そこに各種ライブラリが配置される。<br>
+					インストールするとcomposer.lockファイルが作成される。再度、インストールしなおす場合、composer.lockファイルを削除すること<br>
+					</td>
+					
+			</tr>
+			<tr>
+				<td>update.bat</td>
+				<td>ライブラリを更新する</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<time>2018-12-8</time>
+</div>
 
 
 
 
 
-<!-- --------------------------------------------------------------- -->
-<div id="sec8-0" class="sec1" style="display: none">
+<div id="s0" class="sec4" style="display: none">
 	<h3>xxx</h3>
 
-	<input type="button" value="source" onclick="$('#source6-0').toggle()" class="btn btn-primary btn-xs" />
-	<pre id="source6-0" style="display:none">
-	</pre>
-	
-	<a href="#" target="brank" class="btn btn-link btn-xs">参考サイト</a><br>
-	<time>2016-4-19</time>
+	<time>xxx</time>
 </div>
-<hr />
-<!-- --------------------------------------------------------------- -->
 
 
 
