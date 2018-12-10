@@ -302,6 +302,166 @@
 
 
 
+<div id="sec15-4" class="sec4">
+	<h3>GCPへの登録から「Google Translate API」をPHPで動かすところまでの手順</h3>
+	
+	Google Translate APIは無料期間もあるが有料サービスなので注意。<br>
+	<br>
+	
+	<h4>手順</h4>
+	<ol class="list_large">
+		<li>
+			まずはGCP（Google Clound Platform）に登録する必要がある。<br>
+			Googleにログインした状態（GMailログインなど）でGCPの「https://cloud.google.com/」にアクセスする。<br>
+			「無料トライアル」ボタンを押して登録手続きを進める。<br>
+			<aside>
+			登録には使用可能なクレジットカードまたはデビッドカードが必要。<br>
+			JNBのデビッドカードで登録できた。
+			</aside>
+			<img src="img/note15/sec15-4a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			登録が出来たら、GCPの管理画面が表示される。<br>
+			最初に行うのはプロジェクトの選択。上部メニューの「プロジェクトの選択」から任意のプロジェクトを選択する。<br>
+			ここでは最初から用意されている「API Project」を選択する。<br>
+			<aside>新しくプロジェクトを作成しても良い。</aside>
+			<img src="img/note15/sec15-4a2.png" class="img_compact_k" />
+		</li>
+		<li>
+			後の手順でプロジェクトIDが必要になるのでプロジェクトIDの控えを保持しておく。<br>
+			<img src="img/note15/sec15-4a3.png"  class="img_compact_k" />
+		</li>
+		<li>
+			「Google Translate API」を有効にするため、「Google Translate API」の管理ページに移動する。<br>
+			左側メニューの「APIとサービス」から「ライブラリ」を選択。<br>
+			<img src="img/note15/sec15-4a4.png" class="img_compact_k" />
+		</li>
+		<li>
+			検索テキストボックスに「Google Translate API」を入力して検索する。<br>
+			<img src="img/note15/sec15-4a5.png" class="img_compact_k" />
+		</li>
+		<li>
+			「Clound Translation API」を選択<br>
+			<img src="img/note15/sec15-4a6.png" class="img_compact_k" />
+		</li>
+		<li>
+			「有効にする」ボタンを押して、「Google Translate API」を使えるようにする。<br>
+			<img src="img/note15/sec15-4a7.png" class="img_compact_k" />
+		</li>
+		<li>
+			続いて「キー」を取得するため左側メニューの「認証情報」からキーを確認する。（無ければキーを作成する）<br>
+			下記の手順で必要になるのでキーの控えをコピーして保持しておく。<br>
+			<img src="img/note15/sec15-4a8.png" class="img_compact_k" />
+			<img src="img/note15/sec15-4a9.png" class="img_compact_k" />
+		</li>
+		<li>
+			続いてPHP側。<br>
+			適当にPHPのプロジェクトを用意する。<br>
+		</li>
+		<li>
+			composerで専用ライブラリ「TranslateClient」をインストールする。<br>
+			<aside>composerの使い方は省略</aside><br>
+			<br>
+			
+			<strong>composer.json</strong>
+			<pre><code>
+	{
+		"require": {
+			 "google/cloud-translate": "*"
+		}
+	}
+			</code></pre>
+		</li>
+		<li>
+			「Clound Translation API」をPHPで使用してみる。<br>
+			<pre><code>
+	// composerでインストールしたライブラリをインクルードする。
+	require_once 'vendor/vendor/autoload.php';
+	
+	// 「Clound Translation API」使うためのライブラリを使用宣言する。
+	use Google\Cloud\Translate\TranslateClient;
+
+	// 「プロジェクトID」をセットする
+	$projectId = 'api-project-5779xxxxxxxxx';
+	
+	// 認証情報で確認したキーをセットする。
+	$apiKey = 'AIzaSyBFdIWjxxxxxxxxx';
+	
+	// 「TranslateClient」クラスを呼び出し
+	$translate = new TranslateClient([
+		'projectId' => $projectId,
+		'key' => $apiKey,
+	]);
+	
+	// 翻訳する言語を指定。
+	$lang = "en"; // 英語
+	
+	// 翻訳開始
+	$result = $translate->translate("私の猫を捕まえてください。<br>この猫はキジトラの雄です。", [
+		'target' => $lang,
+	]);
+	
+	// 翻訳結果を表示
+	var_dump($result);
+			</code></pre><br>
+			出力
+			<pre class="console">
+	array(4) { ["source"]=> string(2) "ja" ["input"]=> string(82) "私の猫を捕まえてください。
+	この猫はキジトラの雄です。" ["text"]=> string(59) "Please catch my cat. 
+	This cat is a males of the quail." ["model"]=> NULL }
+			</pre>
+		</li>
+		<li>
+			PHPでの「Google Cloud Translation API」の使い方は以上で終わり。<br>
+		</li>
+	</ol>
+
+
+	<br><time>2018-12-10</time>
+</div>
+
+
+
+
+<div id="sec15-5" class="sec4">
+	<h3>Google Translate API | 言語リストを取得</h3>
+
+	PHPプロジェクトにあらかじめ「TranslateClient」をcomposerでインストールしておくこと。<br>
+	<br>
+	
+	<pre><code>
+	require_once 'vendor/vendor/autoload.php';
+	use Google\Cloud\Translate\TranslateClient;
+	
+	//Google APIの「プロジェクトID」
+	$projectId = 'api-project-5779xxxxxx';
+	
+	// 認証情報のキー
+	$apiKey = 'AIzaSyBFdIWjLXlyGV8axxxxxxxxxxxx';
+	
+	// 「TranslateClient」クラスを呼び出し
+	$translate = new TranslateClient([
+	'projectId' => $projectId,
+	'key' => $apiKey,
+	]);
+	
+	// 言語リストを取得
+	$langList = $translate->languages();
+	var_dump($langList);
+	</code></pre>
+	<br>
+	出力
+	<pre class="console">
+OKarray(104) { [0]=> string(2) "af" [1]=> string(2) "am" [2]=> string(2) "ar" [3]=> string(2) "az" [4]=> string(2) "be" [5]=> string(2) "bg" [6]=> string(2) "bn" [7]=> string(2) "bs" [8]=> string(2) "ca" [9]=> string(3) "ceb" [10]=> string(2) "co" [11]=> string(2) "cs" [12]=> string(2) "cy" [13]=> string(2) "da" [14]=> string(2) "de" [15]=> string(2) "el" [16]=> string(2) "en" [17]=> string(2) "eo" [18]=> string(2) "es" [19]=> string(2) "et" [20]=> string(2) "eu" [21]=> string(2) "fa" [22]=> string(2) "fi" [23]=> string(2) "fr" [24]=> string(2) "fy" [25]=> string(2) "ga" [26]=> string(2) "gd" [27]=> string(2) "gl" [28]=> string(2) "gu" [29]=> string(2) "ha" [30]=> string(3) "haw" [31]=> string(2) "hi" [32]=> string(3) "hmn" [33]=> string(2) "hr" [34]=> string(2) "ht" [35]=> string(2) "hu" [36]=> string(2) "hy" [37]=> string(2) "id" [38]=> string(2) "ig" [39]=> string(2) "is" [40]=> string(2) "it" [41]=> string(2) "iw" [42]=> string(2) "ja" [43]=> string(2) "jw" [44]=> string(2) "ka" [45]=> string(2) "kk" [46]=> string(2) "km" [47]=> string(2) "kn" [48]=> string(2) "ko" [49]=> string(2) "ku" [50]=> string(2) "ky" [51]=> string(2) "la" [52]=> string(2) "lb" [53]=> string(2) "lo" [54]=> string(2) "lt" [55]=> string(2) "lv" [56]=> string(2) "mg" [57]=> string(2) "mi" [58]=> string(2) "mk" [59]=> string(2) "ml" [60]=> string(2) "mn" [61]=> string(2) "mr" [62]=> string(2) "ms" [63]=> string(2) "mt" [64]=> string(2) "my" [65]=> string(2) "ne" [66]=> string(2) "nl" [67]=> string(2) "no" [68]=> string(2) "ny" [69]=> string(2) "pa" [70]=> string(2) "pl" [71]=> string(2) "ps" [72]=> string(2) "pt" [73]=> string(2) "ro" [74]=> string(2) "ru" [75]=> string(2) "sd" [76]=> string(2) "si" [77]=> string(2) "sk" [78]=> string(2) "sl" [79]=> string(2) "sm" [80]=> string(2) "sn" [81]=> string(2) "so" [82]=> string(2) "sq" [83]=> string(2) "sr" [84]=> string(2) "st" [85]=> string(2) "su" [86]=> string(2) "sv" [87]=> string(2) "sw" [88]=> string(2) "ta" [89]=> string(2) "te" [90]=> string(2) "tg" [91]=> string(2) "th" [92]=> string(2) "tl" [93]=> string(2) "tr" [94]=> string(2) "uk" [95]=> string(2) "ur" [96]=> string(2) "uz" [97]=> string(2) "vi" [98]=> string(2) "xh" [99]=> string(2) "yi" [100]=> string(2) "yo" [101]=> string(2) "zh" [102]=> string(5) "zh-TW" [103]=> string(2) "zu" }
+	</pre>
+
+	通信を行う関係上、処理は遅いので注意。AJAXで利用するのが望ましい。<br>
+	<br><time>2018-12-10</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
