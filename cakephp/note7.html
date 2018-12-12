@@ -122,9 +122,13 @@
 
 	<strong>JS:ajax_sample.js</strong>　ES6版
 	<pre><code>
-	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'xxx':111};
+	
+	var text1 = "cat&amp;dog"; // &amp;が混じった文字列
+	text1 = text1.replace(/&amp;/g, '%26'); // PHPのJSONデコードでエラーになるので、＆だけ変換しておく。
+	
+	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'text1':text1};
 
-	data = _escapeForAjax(data); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
+	// data = _escapeForAjax(data); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
 
 	var json_str = JSON.stringify(data);//データをJSON文字列にする。
 
@@ -183,7 +187,7 @@
 
 
 
-	<time>2013-9-3 | 2018-7-4</time>
+	<time>2013-9-3 | 2018-12-12</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->
