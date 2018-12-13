@@ -351,6 +351,174 @@ echo "出力完了"
 
 
 
+<div id="sec1-8" class="sec4">
+	<h3>テーブル名一覧を取得しテキストファイルに出力する</h3>
+
+	<pre><code>
+	mysql -uroot -pパスワード DB名 -N -e "show tables" > test.txt
+	</code></pre><br>
+	
+	test.txt
+	<pre class="console">
+	kanis
+	neko_groups
+	nekos
+	users
+	wp_commentmeta
+	wp_comments
+	wp_duplicator_packages
+	wp_links
+	wp_options
+	wp_postmeta
+	wp_posts
+	wp_term_relationships
+	wp_term_taxonomy
+	wp_termmeta
+	wp_terms
+	wp_usermeta
+	wp_users
+	yagis
+	</pre>
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-9" class="sec4">
+	<h3>wp_から始まるテーブル一覧をテキストファイルに出力する</h3>
+	
+	<pre><code>
+	mysql -uroot -pパスワード DB名 -N -e "show tables like 'wp_%'" > test.txt
+	</code></pre>
+
+	<pre class="console">
+	wp_commentmeta
+	wp_comments
+	wp_duplicator_packages
+	wp_links
+	wp_options
+	wp_postmeta
+	wp_posts
+	wp_term_relationships
+	wp_term_taxonomy
+	wp_termmeta
+	wp_terms
+	wp_usermeta
+	wp_users
+	</pre>
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-10" class="sec4">
+	<h3>ファイル名に日付を含める</h3>
+
+	<pre><code>
+	date1=`date +"%Y%m%d"`
+	mysql -uroot -pパスワード DB名 -N -e "show tables" > test$date1.txt
+	</code></pre>
+	「test20181213.txt」が作成される。(2018-12-13現在の場合)<br>
+	<br>
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-11" class="sec4">
+	<h3>テキストファイルを読み込み変数にセット</h3>
+
+	<pre><code>
+	tbls_text=`cat test.txt`
+	echo "$tbls_text"
+	</code></pre><br>
+	
+	echo 出力
+	<pre class="console">
+	wp_commentmeta
+	wp_comments
+	wp_duplicator_packages
+	wp_links
+	wp_options
+	wp_postmeta
+	wp_posts
+	wp_term_relationships
+	wp_term_taxonomy
+	wp_termmeta
+	wp_terms
+	wp_usermeta
+	wp_users
+	</pre>
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
+
+<div id="sec1-12" class="sec4">
+	<h3>改行を半角スペースに変換しながらテキストファイルを読み込む</h3>
+
+	<pre><code>
+	tbls_text=`cat wp_table_names.txt | tr  '\n\r' ' '`
+	echo "$tbls_text"
+	</code></pre><br>
+	echo 出力
+	<pre class="console">
+	wp_commentmeta  wp_comments  wp_duplicator_packages  wp_links  wp_options  wp_postmeta  wp_posts  wp_term_relationships  wp_term_taxonomy  wp_termmeta  wp_terms  wp_usermeta  wp_users
+	</pre>
+
+	Windowsなら改行コードを「\n\r」とする。あと半角スペースが2つになるようだ。<br>
+	Linuxなら「\n」。<br>
+	<br>
+	
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
+<div id="sec1-13" class="sec4">
+	<h3>wp_から始まるテーブルだけエクスポートする</h3>
+	
+	<pre><code>
+	echo "ローカルDBのパスワードを入力してください"
+	read pw
+	
+	# wp_から始まるテーブル名一覧を取得し、テキストファイルに出力する。
+	mysql -uroot -p$pw animal_park -N -e "show tables like 'wp_%'" > wp_table_names.txt
+	
+	# テキストファイルを読み込む。その際、改行はスペースに変換する。 改行コードはWindowsなら\n\r、Linuxなら\nに書き換えるように。
+	tbls_text=`cat wp_table_names.txt | tr  '\n\r' ' '`
+	echo "$tbls_text"
+	
+	echo 'SQLをエクスポートします。'
+	mysqldump -uroot -p$pw animal_park $tbls_text --add-drop-table > wp_tbls.sql
+	echo 'エクスポートしました。'
+	</code></pre><br>
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

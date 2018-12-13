@@ -110,6 +110,12 @@
 	<li><a href="cmd_note.html#sec1-5" >DBのリストア【ローカル】 </a></li>
 	<li><a href="cmd_note.html#sec1-6" >DBのリストア【リモート】 </a></li>
 	<li><a href="cmd_note.html#sec1-7" >テーブルだけバックアップ </a></li>
+	<li><a href="cmd_note.html#sec1-8" >テーブル名一覧を取得しテキストファイルに出力する</a></li>
+	<li><a href="cmd_note.html#sec1-9" >wp_から始まるテーブル一覧をテキストファイルに出力する</a></li>
+	<li><a href="cmd_note.html#sec1-10" >ファイル名に日付を含める</a></li>
+	<li><a href="cmd_note.html#sec1-11" >テキストファイルを読み込み変数にセット</a></li>
+	<li><a href="cmd_note.html#sec1-12" >改行を半角スペースに変換しながらテキストファイルを読み込む</a></li>
+	<li><a href="cmd_note.html#sec1-13" >wp_から始まるテーブルだけエクスポートする</a></li>
 	
 </ol>
 			
