@@ -475,6 +475,65 @@ OKarray(104) { [0]=> string(2) "af" [1]=> string(2) "am" [2]=> string(2) "ar" [3
 
 
 
+<div id="sec15-7" class="sec4">
+	<h3>PhantomJSで動的HTMLをスクレイピング（Windowsローカル環境）</h3>
+	
+	まず、PhantomJSをComposerでインストール。<br>
+	<br>
+	
+	composer.json
+	<pre><code>
+	{
+	    "scripts": {
+	        "post-install-cmd": [
+	            "PhantomInstaller\\Installer::installPhantomJS"
+	        ],
+	        "post-update-cmd": [
+	            "PhantomInstaller\\Installer::installPhantomJS"
+	        ]
+	    },
+	    "require": {
+	        "jonnyw/php-phantomjs": "4.*"
+	    }
+	}
+	</code></pre><br>
+	
+	PHP(このコードはWindowsのローカル環境でしか動かない)
+	<pre><code>
+
+	require_once 'vendor/autoload.php';
+	use JonnyW&yen;PhantomJs&yen;Client;
+	$client = Client::getInstance();
+	
+	// Phantomjs.exeエンジンを設定
+	$client-&gt;getEngine()-&gt;setPath('vendor&yen;bin&yen;phantomjs.exe');
+	
+	$request  = $client-&gt;getMessageFactory()-&gt;createRequest();
+	$response = $client-&gt;getMessageFactory()-&gt;createResponse();
+	$request-&gt;setTimeout(120 * 1000); // 最大2分待つ。2分を超えるとステータス408エラーが返る。
+	
+	$request-&gt;setMethod('GET');
+	$url1 = 'http://www.example.com/'; // スクレイピングするURLを指定する
+	$request-&gt;setUrl($url1);
+	$client-&gt;send($request, $response);
+	
+	if($response-&gt;getStatus() === 200) {
+		echo $response-&gt;getContent();
+	}else{
+		echo "request url: " . $request-&gt;getUrl() . "&lt;br&gt;";
+		echo "response: " . $response-&gt;getStatus() . "&lt;br&gt;";
+		echo 'ログ&lt;br&gt;';
+		echo $client-&gt;getLog();
+	}
+	</code></pre>
+
+
+	<br><time>2018-12-13</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
