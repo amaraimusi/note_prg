@@ -534,6 +534,33 @@ OKarray(104) { [0]=> string(2) "af" [1]=> string(2) "am" [2]=> string(2) "ar" [3
 
 
 
+<div id="sec15-8" class="sec4">
+	<h3>execが動かしているもの</h3>
+	
+	exec()コマンドはLinux系OSだとLinuxコマンドを実行するが、Windows系だとコマンドプロンプトのコマンドを実行する。<br>
+	<br>
+	
+	
+	PHP
+	<pre><code>
+	$res_str = '';
+	if($_SERVER['SERVER_NAME'] == 'localhost'){
+		// Windowsローカル環境ではコマンドプロンプトのコマンドを実行する
+		$res_str =  <strong>exec</strong>("cd"); // → C:\xampp\htdocs\sample\php\a040\exec_background
+		$res_str = mb_convert_encoding($res_str, 'utf8' ,"SJIS"); //　shift-jisなのでutf8にエンコードする必要がある。
+	}else{
+		// Linux系のサーバーなのでLinux系のコマンドを実行する
+		$res_str =  <strong>exec</strong>("pwd"); // → home/amaraimusi/www/sample/php/a040/exec_background
+	}
+	</code></pre>
+
+
+	<br><time>2018-12-14</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
