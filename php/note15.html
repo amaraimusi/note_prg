@@ -561,6 +561,74 @@ OKarray(104) { [0]=> string(2) "af" [1]=> string(2) "am" [2]=> string(2) "ar" [3
 
 
 
+<div id="sec15-9" class="sec4">
+	<h3>OSを調べる</h3>
+
+	<pre><code>
+	echo <strong>PHP_OS</strong>; // Windowsなら「WINNT」が表示される
+	</code></pre>
+	<br><time>2018-12-15</time>
+</div>
+
+
+
+
+<div id="sec15-10" class="sec4">
+	<h3>バックグラウンド（非同期）でPHPを実行する</h3>
+
+	<pre><code>
+	&lt;?php 
+	
+	$t1 = microtime(true);
+	echo 'START&lt;br&gt;';
+	
+	// バックグラウンド（非同期）でPHPを実行する
+	execPhpByBackground('test.php');
+	
+	$t0 = microtime(true) - $t1;
+	echo $t0 . 'ms&lt;br&gt;';
+	echo 'END&lt;br&gt;';
+	
+	/**
+	 * バックグラウンド（非同期）でPHPを実行する
+	 * @param string $php_fp PHPファイルパス
+	 */
+	function execPhpByBackground($php_fp){
+	
+		if (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') {
+			// Windowsである場合のPHP非同期実行
+			$fp = popen('start php test.php', 'r');
+			pclose($fp);
+		}else{
+			// Linux系である場合のPHP非同期実行
+			// → nohupはkillを防ぐ役割、「/dev/null &amp;」は出力の除去を表す
+			exec("nohup php -c '' 'test.php' &gt; /dev/null &amp;");
+			
+		}
+	
+	}
+	</code></pre>
+	
+	test.php
+	<pre>
+	&lt;?php
+	$a=0;
+	for($i=0;$i&lt;10000000;$i++){
+		$a++;
+	}
+	echo 'Hello World! こんにちは世界';
+	
+	$file = 'test.txt';
+	$text = 'バックグラウンド処理成功=' . $a;
+	file_put_contents( $file, $text );
+	</pre>
+
+	<br><time>2018-12-15</time>
+</div>
+
+
+
+
 <div id="sec15-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
