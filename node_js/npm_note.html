@@ -29,6 +29,135 @@
 
 
 
+<div id="sec1-1" class="sec4">
+	<h3>npmの導入からjQueryのインストールまでの手順(Git bash for windows)</h3>
+	
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>
+			npmコマンドを使えるようにするにはnode.jsをインストールする必要がある。<br>
+			<a href="https://nodejs.org/ja/" target="blank">node.jsのサイト</a>
+			にWindows用インストーラが用意されているので、普通にダウンロードしてインストールする。
+		</li>
+		
+		<li>
+			node.jsのインストールが完了したらコマンドプロンプトやGit Bashでnpmコマンドが使えるようになる。
+		</li>
+		
+		<li>
+			npmコマンドが使えるかどうか、バージョン確認してみる。<br>
+			<pre class='console'>	npm -v</pre>
+			<br>
+			<p>コマンドプロンプト</p>
+			<img src="img/npm_note/sec1-1a1.png"><br>
+			<br>
+			
+			<p>Git Bash</p>
+			<img src="img/npm_note/sec1-1a2.png"><br>
+			<br>
+			
+			
+			<aside>
+				「node -v」でNode.jsのバージョンも確認できる。
+			</aside>
+		</li>
+	
+		<li>
+			続いて、npmでjQueryをインストールする。<br>
+			まず、jQueryをインストールする場所にカレントディレクトリを移動する。<br>
+			<pre class="cosole">	$ cd git/okianim/app/webroot/js2</pre>
+			<aside>Git Bash で検証</aside>
+		</li>
+	
+		<li>
+			「nmp init」コマンドでpackage.jsonを作成する。
+			<pre class="console">	$ nmp init</pre>
+			jQueryなどのモジュールはパッケージと呼ばれ、package.jsonで管理されている。<br>
+			package.jsonはcomposerのjsonファイルとよく似た概念。<br>
+			<br>
+			<img src="img/npm_note/sec1-1a3.png" class='img_compact_k' />
+		</li>
+	
+		<li>
+			「nmp init」コマンドの実行によりpackage.jsonファイルがカレントディレクトリに作成されているのを確認する。<br>
+			<img src="img/npm_note/sec1-1a4.png"  /><br>
+			
+		</li>
+
+		<li>
+			jQueryをインストール
+			<pre class="console">	$ npm install jquery --save</pre>
+			<img src="img/npm_note/sec1-1a5.png" /><br>
+			package.jsonにjQueryの情報が書き込まれるとともに、node_modulesフォルダが作成される。<br>
+			node_modulesフォルダ内にjQueryがインストールされている。<br>
+			<br>
+			
+			node_modules\jquery\dist<br>
+			<img src="img/npm_note/sec1-1a6.png" /><br>
+			<br>
+			
+			以上でjQueryのインストール完了<br>
+		</li>
+
+	</ol>
+	
+	
+	<p>補足：package.jsonの活用場面</p>
+	複数のPC環境に同一のパッケージをインストールしたいときにpackage.jsonは活躍する。<br>
+	package.jsonにパケージ情報が書き込まれているなら「npm install」だけでインストール可能。<br>
+	つまり、package.jsonを別PC環境に配布するだけで、同一のパッケージをインストールできるようになる。<br>
+	<br>
+
+
+	<br><time>2018-12-20</time>
+</div>
+
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>バージョン確認</h3>
+	
+	<pre class="console">$ npm -v</pre>
+
+
+	<br><time>2018-12-20</time>
+</div>
+
+
+
+
+<div id="sec1-3" class="sec4">
+	<h3>パッケージをインストール</h3>
+
+	jQueryをインストールする場合
+	<pre class="console">$ npm install jquery --save</pre>
+	パッケージのモジュールがカレントディレクトのnode_modulesディレクトリ配下にインストールされる。<br>
+	また、package.jsonにもインストールしたパッケージの情報が記述される。<br>
+	<br>
+
+	<br><time>2018-12-20</time>
+</div>
+
+
+
+
+<div id="sec1-4" class="sec4">
+	<h3>パッケージをアンインストール</h3>
+
+	jQueryをアンインストールする場合
+	<pre class="console">$ npm uninstall jquery --save</pre>
+	パッケージのモジュールがカレントディレクトのnode_modulesディレクトリ配下からアンインストールされる。<br>
+	また、package.jsonのパッケージ情報からもjQueryに関する記述が削除される。<br>
+	<br>
+
+	<br><time>2018-12-20</time>
+</div>
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
