@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>gulpの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>gulpの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+<a href="https://gulpjs.com/" target="brank">公式サイト</a>
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>gulpの導入からjsのコンパイルまで</h3>
+	
+	jsのコンパイルとしてJSコードの圧縮を行ってみる。（厳密にはコンパイルではないが）。<br>
+	もちろん圧縮以外にもES6→ES5などいろいろできる。<br>
+	<br>
+	
+	<h4>手順</h4>
+	Git Bashで検証。
+	<ol class="list_large">
+		<li>
+			npmコマンドを使えるようにしておく。<br>
+			<a href="npm_note.html#sec1-1" class="btn btn-link btn-xs">npmの導入からjQueryのインストールまでの手順(Git bash for windows)</a><br>
+			<br>
+		</li>
+		
+		<li>
+			gulpコマンドを使えるようにするため、npmでgulpをグローバルインストールする。<br>
+			<pre class="console">$ npm install -g gulp</pre><br>
+			<img src="img/gulp_note/sec1-1a1.png"  /><br>
+		</li>
+		
+		<li>
+			cdコマンドでプロジェクトのパッケージインストール先にカレントディレクトリを移動する。<br>
+			<img src="img/gulp_note/sec1-1a2.png" /><br>
+		</li>
+		
+		<li>
+			「nmp init」コマンドでpackage.jsonを作成する。<br>
+			すでにpackage.jsonが存在するなら不要。<br>
+			<a href="/note_prg/node_js/npm_note.html#sec1-1" class="btn btn-link btn-xs">
+				参考：npmの導入からjQueryのインストールまでの手順(Git bash for windows)</a><br>
+		</li>
+		
+		<li>
+			npmコマンドでカレントディレクトリにgulpをインストールする。
+			<pre class="console">npm install --save-dev gulp</pre>
+			カレントディレクトリのnode_modulesフォルダにgulpがインストールされる。<br>
+			package.jsonにもgulpのインストール情報が作成される。<br>
+			<img src="img/gulp_note/sec1-1a3.png" /><br>
+		</li>
+		
+		<li>
+			gulpfile.jsファイルを作成する。
+			<pre class="console">$ touch gulpfile.js</pre>
+			touchコマンドはファイルのタイムスタンプを変更するコマンドであるが、
+			存在しないファイル名を指定することで、空のファイルを新規作成することができる。<br>
+			<img src="img/gulp_note/sec1-1a4.png" /><br>
+		</li>
+		
+		<li>
+			今回、JSコードの圧縮を行いたいので「gulp-uglify」をインストールする。
+			<pre class="console">$ npm install --save-dev gulp-uglify</pre>
+		</li>
+		
+		<li>
+			gulpfile.jsにgulp-uglify使用の記述する。
+			<pre><code>
+	var gulp = require('gulp');
+	var uglify = require('gulp-uglify');
+	
+	gulp.task('test1', function () {
+		gulp.src('test/test2.js')
+			.pipe(uglify())
+			.pipe(gulp.dest('dist'))
+	});
+				</code></pre>
+		</li>
+		
+		<li>
+			gulpを実行してJSコードを圧縮する。
+			<pre class="console">$ gulp test1</pre>
+		</li>
+		
+		<li>
+			圧縮前 test/test2.js
+			<pre>
+	/**
+	 * TEST
+	 * @returns
+	 */
+	function test2(){
+		
+		var a = 1 + 1;
+		console.log(a);
+		
+		console.log('Hello gulp!!');
+	}
+	
+	test2();
+			</pre><br>
+			圧縮後 dist/test2.js
+			<pre>
+	function test2(){console.log(2),console.log("Hello gulp!!")}test2();
+			</pre>
+		</li>
+		
+		<li>
+			以上で終わり
+		</li>
+	</ol>
+
+
+	<br><time>2018-12-21</time>
+</div>
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>複数のJSファイルをコード圧縮しながら一つにまとめる</h3>
+
+	<h4>手順</h4>
+	<ol class="list_large">
+		<li>
+			JSファイル群を一つにまとめる「gulp-concat」と、JSコードを圧縮する「gulp-uglify」をインストールする。
+			<pre class="console">$ npm install --save-dev gulp-concat gulp-uglify</pre>
+		</li>
+		
+		<li>
+			gulpfile.jsに記述
+<pre><code>
+	var gulp = require('gulp');
+	var concat = require('gulp-concat');
+	var uglify = require('gulp-uglify');
+	
+	gulp.task('test1', function () {
+		gulp.src('test/*.js')
+			.pipe(concat('one.js')) //ファイルを結合し、bundle.jsファイルとして出力
+			.pipe(uglify())
+			.pipe(gulp.dest('dist'))
+	});
+</code></pre>
+		</li>
+		
+		<li>
+			gulpを実行
+			<pre class="console">$ gulp test1</pre>
+		</li>
+		
+		<li>
+実行前:test/*.js
+<div>
+<pre style="display:inline-block">
+// test2.js
+function test2(){
+	console.log('TEST2 !');
+}
+test2();
+</pre>
+<pre style="display:inline-block">
+// test3.js
+function test3(){
+	console.log('TEST3 !');
+}
+test3();
+</pre>
+<pre style="display:inline-block">
+// test4.js
+function test4(){
+	console.log('TEST4 !');
+}
+test4();
+</pre>
+</div>
+
+実行後 dist/one.js
+<pre>
+function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}function test4(){console.log("TEST4 !")}test2(),test3(),test4();
+</pre>
+
+
+		</li>
+	</ol>
+
+	<br><time>2018-12-21</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>gulpの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-12-21</div>
+</body>
+</html>
