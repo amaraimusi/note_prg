@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Babelの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Babelの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>BabelでES6をES5に変換してみる | gulp-babel 8</h3>
+	
+	2018年12月の時点ではBabelのバージョンは8。<br>
+	Babelはバージョンによって設定方法が大きく異なるので注意する。<br>
+	<br>
+	
+	<h4>手順</h4>
+	<ol class="list_large">
+		<li>
+			まずはcd コマンドで、カレントディレクトリをタスクランナーに関するパッケージをインストールする場所に移動する。
+		</li>
+		
+		<li>
+			「npm init」コマンドでpackage.jsonを作成する。<br>
+			<pre class="console">$ npm init</pre>
+		</li>
+		
+		<li>
+			gulpをインストールする。
+			<pre class="console">$ npm install --save-dev gulp</pre>
+		</li>
+		
+		<li>
+			gulpfile.jsを作成する。
+			<pre class="console">$ touch gulpfile.js</pre>
+		</li>
+		
+		<li>
+			Babelをインストールする。
+			<pre class="console">$ npm install --save-dev gulp-babel</pre>
+			2018年12月の時点ではBabelのバージョンは8。
+		</li>
+		
+		<li>
+			Babelのコアをインストールする。
+			<pre class="console">npm install --save-dev @babel/core @babel/preset-env</pre>
+			Babelバージョン8のときに必要になると思われるパッケージ。下位バージョンとは方法が異なる。<br>
+		</li>
+		
+		<li>
+			gulpfile.jsに記述。
+			<pre><code>
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+
+gulp.task('test1', function () {
+	gulp.src('../test1.js')
+	.pipe(babel({
+		presets: ['@babel/env']
+	}))
+	.pipe(gulp.dest('../dist'));
+});
+			</code></pre>
+			他のBabelバージョンとは記述方法が異なるので注意。
+		</li>
+		
+		<li>
+			gulpを実行してtest1.jsをES6からES5に変換する。
+			<pre class="console">$ gulp test1</pre>
+		</li>
+		
+		<li>
+実行前 test1.js
+<pre>
+$(() => {
+	var bigCat = new BigCat();
+	bigCat.bark();
+});
+
+class BigCat{
+	bark(){
+		const bark_str = 'ギョーム';
+		$('#res').html(bark_str);
+	}
+}
+</pre><br>
+実行後 dist/test1.js
+<pre>
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+$(function () {
+  var bigCat = new BigCat();
+  bigCat.bark();
+});
+
+var BigCat =
+/*#__PURE__*/
+function () {
+  function BigCat() {
+    _classCallCheck(this, BigCat);
+  }
+
+  _createClass(BigCat, [{
+    key: "bark",
+    value: function bark() {
+      var bark_str = 'ギョーム';
+      $('#res').html(bark_str);
+    }
+  }]);
+
+  return BigCat;
+}();
+</pre>
+		</li>
+	</ol>
+
+
+
+	<br><time>2018-12-21</time>
+</div>
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>ES6→ES5, 一つにまとめる, JSコード圧縮</h3>
+	
+	<aside>詳細な手順は省略</aside><br>
+
+	インストール
+	<pre class="console">$ npm install --save-dev gulp-babel gulp-concat gulp-uglify</pre><br>
+	<br>
+			
+	gulpfile.js
+	<pre><code>
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+
+gulp.task('test1', function () {
+	gulp.src('../*.js')
+	.pipe(concat('one.js'))
+	.pipe(babel({
+		presets: ['@babel/env']
+	}))
+	.pipe(uglify())
+	.pipe(gulp.dest('../dist'));
+});
+	</code></pre>
+
+
+
+	<br><time>2018-12-21</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time></time>
+</div>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/node/">Node.jsの覚書</a></li>
+	<li>Babelの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2018-6-2</div>
+</body>
+</html>

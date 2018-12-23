@@ -157,7 +157,7 @@
 	
 	gulp.task('test1', function () {
 		gulp.src('test/*.js')
-			.pipe(concat('one.js')) //ファイルを結合し、bundle.jsファイルとして出力
+			.pipe(concat('one.js'))
 			.pipe(uglify())
 			.pipe(gulp.dest('dist'))
 	});
@@ -223,7 +223,7 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
 	<li><a href="/note_prg">プログラミングの覚書</a></li>
-	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li><a href="/note_prg/node/">Node.jsの覚書</a></li>
 	<li>gulpの覚書</li>
 </ol>
 
