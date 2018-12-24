@@ -432,6 +432,65 @@
 
 
 
+<div id="sec16-6" class="sec4">
+	<h3>データidを指定して行要素を取得する</h3>
+
+	<a href="/sample/js/a009/get_row_by_id/get_row_by_id.html" class="btn btn-info">デモ</a><br>
+	<br>
+	
+	JavaScript
+	<pre>
+	/**
+	 * 親要素からデータidに紐づく行要素を取得する
+	 * @param jQuery parElm 親要素
+	 * @param string ent_slt エンティティ要素のセレクタ 例 → tr
+	 * @param int id データid
+	 * @returns jQuery 行要素
+	 */
+	function <strong>getRowElmById</strong>(parElm, ent_slt, id){
+	
+		// ▼ data-id属性による行取得
+		var slt = ent_slt + "[data-id='" + id +"']";
+		var tr = jQuery(slt);
+		if(tr[0]) return tr;
+		
+		// ▼ input系のname属性による値要素の取得
+		slt = "[name='id'][value='" + id + "']";
+		var valElm = parElm.find(slt);
+		
+		// ▼ input系のclass属性による値要素の取得
+		if(valElm[0] == null){
+			slt = ".id[value='" + id + "']";
+			valElm = parElm.find(slt);
+		}
+		
+		// ▼ div,spanなどのclass属性による値要素の取得（やや重い処理）
+		if(valElm[0] == null){
+			parElm.find('.id').each((i,e2) =&gt; {
+				var elm2 = jQuery(e2);
+				var id2 = elm2.text();
+				if(id == id2){
+					valElm = elm2;
+					return;
+				}
+			});
+		}
+
+		if(valElm[0]){
+			tr = valElm.parents(ent_slt);
+			return tr;
+		}
+		return null;
+	
+	}
+	</pre>
+
+	<br><time>2018-12-24</time>
+</div>
+
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
