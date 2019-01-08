@@ -388,6 +388,56 @@ $data6 → 1
 
 
 
+<div id="s1-8" class="sec4" >
+	<h3>配列の階層の深さを調べる</h3>
+	
+	<p>サンプル</p>
+	<pre><code>
+	$data[0] = 1;
+	$data['animal'][1] = 'bigcat';
+	$data['animal'][2]['konchu'][2] = 'kuro-ari';
+	$data['fish']='fish';
+	
+	$depth = arrayDepth($data);
+	
+	var_dump($depth);
+	
+	function arrayDepth(&amp;$ary, $depth=0){
+		if(is_array($ary)){
+			$depth++;
+			
+			$max_depth = 0;
+			foreach($ary as $value){
+				$dep = arrayDepth($value, $depth);
+				if($dep &gt; $max_depth) $max_depth = $dep;
+			}
+			return $max_depth;
+			
+		}else{
+			return $depth;
+		}
+	}
+	</code></pre>
+	
+	<p>出力</p>
+	<pre>
+	int(4)
+	</pre>
+	
+	<br><time>2019-1-8</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="s1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
