@@ -251,6 +251,18 @@
 	<pre>
 	Debugger::dump($this->Auth->user('id'));
 	</pre>
+	
+	ログインユーザー名取得(未ログインである場合はnone)
+	<pre>
+	// 更新ユーザーを取得(ログインユーザー名)
+	$update_user = 'none';
+	if(!empty($this->Auth->user())){
+		$userData = $this->Auth->user();
+		$update_user = $userData['username'];
+	}
+	</pre>
+	
+	<time>2013-9-3 | 2019-1-8</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
