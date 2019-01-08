@@ -438,6 +438,39 @@ $data6 → 1
 
 
 
+<div id="s1-9" class="sec4">
+	<h3>配列先頭の値を取得</h3>
+	
+	<pre><code>
+	$ary = array();
+	$ary[0] = 'dog';
+	$ary['animal'] = 'cat';
+	$first = <strong>current</strong>($ary);
+	var_dump($first); // → dog
+	</code></pre>
+	<hr>
+	<p>空配列の場合</p>
+	<pre><code>
+	$ary = array();
+	$first = current($ary);
+	var_dump($first); // → false
+	</code></pre>
+	<aside>nullや配列をcurrentの引数に指定するとWarningが生じる。</aside>
+	
+	<br><time>2019-1-8</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="s1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
