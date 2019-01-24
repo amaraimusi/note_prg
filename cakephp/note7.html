@@ -72,38 +72,25 @@
 		}
 
 		/**
-		 * Ajax | 非同期通信
+		 * 〇〇 | Ajax 非同期通信
 		 * @return string
 		 */
 		public function ajax(){
+			$this-&gt;autoRender = false;//ビュー(ctp)を使わない。
 
-			App::uses('Sanitize', 'Utility');
-
-			$this->autoRender = false;//ビュー(ctp)を使わない。
-
-			$json_param=$_POST['key1'];
-
-			$param=json_decode($json_param,true);//JSON文字を配列に戻す
+			// 通信元から送信されてきたパラメータを取得する。
+			$param_json = $_POST['key1'];
+			$param=json_decode($param_json,true);//JSON文字を配列に戻す
 			
-			/*	
-			// 不正アクセスチェック：パラメータ内の指定したフィールドが数値であるかチェックする
-			if($this->checkNumberParam($param,array('xxx_id')) == false){
-				 // 不正アクセスエラー処理
-				 $res = array('err' => '不正アクセスエラー');
-				return json_encode($res);
-			}
-			*/
-
 			//データ加工や取得
-			$data=array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
+			$data = array('neko'=&gt;'猫','yagi'=&gt;'山羊','kani'=&gt;'蟹','same'=&gt;'鮫');
 
-			//サニタイズ（XSS対策）
-			$data=Sanitize::clean($data, array('encode' => true));
-
-			$json_data=json_encode($data);//JSONに変換
-
+			// JSONに変換し、通信元に返す。
+			$json_str = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
 			return $json_data;
+
 		}
+
 
 	}
 	</code></pre>
@@ -130,33 +117,31 @@
 
 	// data = _escapeForAjax(data); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
 
-	var json_str = JSON.stringify(data);//データをJSON文字列にする。
+	var send_json = JSON.stringify(data);//データをJSON文字列にする。
 
 	// AJAX
 	$.ajax({
 		type: "POST",
-		url: "/animal/devloper/ajax",
-		data: "key1="+json_str,
+		url: "devloper/ajax",
+		data: "key1=" + send_json,
 		cache: false,
 		dataType: "text",
 	})
-	.done((str_json, type) => {
-		var ent;
+	.done((res_json, type) =&gt; {
+		var res;
 		try{
-			ent =jQuery.parseJSON(str_json);//パース
-			jQuery("#res").html(str_json);
+			res =jQuery.parseJSON(res_json);//パース
 		}catch(e){
 			alert('エラー');
-			jQuery("#err").html(str_json);
+			jQuery("#err").html(res_json);
 			return;
 		}
+		console.log(res);
 	})
-	.fail((jqXHR, statusText, errorThrown) => {
+	.fail((jqXHR, statusText, errorThrown) =&gt; {
 		jQuery('#err').html(jqXHR.responseText);
 		alert(statusText);
 	});
-	
-	
 	
 	
 	/**
@@ -187,7 +172,7 @@
 
 
 
-	<time>2013-9-3 | 2018-12-12</time>
+	<time>2013-9-3 | 2019-1-24</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->
