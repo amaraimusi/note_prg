@@ -252,6 +252,90 @@
 
 
 
+<div id="sec3-5" class="sec4">
+	<h3>郵便番号変換</h3>
+	
+<pre><code>
+	$post_no = 1234567;
+	var_dump($post_no);
+	$post_no = convPostNo($post_no);
+	var_dump($post_no);
+	/**
+	 * 郵便番号変換 123-4567形式にする
+	 * @param int $post_no 数字羅列の郵便番号
+	 * @return string 変換後の郵便番号
+	 */
+	function convPostNo($post_no){
+		
+		$post_no_str = $post_no . ''; // 文字列にキャストする
+		$post_no_str = trim($post_no_str);
+		if(strlen($post_no_str) != 7) return $post_no_str;
+		
+		$str1 = substr($post_no_str, 0,3); // 先頭の3文字を取得
+		$str2 = substr($post_no_str,-4); // 末尾の4文字を取得
+		$post_no_str = $str1 . '-' . $str2;
+		
+		return $post_no_str;
+		
+	}
+</code></pre>	
+
+
+	<br><time>2019-1-26</time>
+</div>
+
+
+
+
+
+<div id="sec3-6" class="sec4">
+	<h3>億万円表記</h3>
+
+	<pre><code>
+	/**
+	 * 億万円表記  例　150000000 → 1億5000万
+	 * @param int $value 数値
+	 * @return string 億万円表記
+	 */
+	function convOkuman($value){
+	
+		$unitList = array('','万', '億', '兆', '京', );
+	
+		// 4桁リストの作成
+		$int_str = $value . ''; // 整数部分
+		$rev_str = strrev($int_str);
+		$keta4List = str_split($rev_str,4);
+	
+		// 億万表記を組み立てる
+		$res = ''; // 億万表記の文字列
+		foreach($keta4List as $i =&gt; $keta4){
+			
+			$k = strrev($keta4);
+			$k = $k + 0;
+			if(!empty($k)){
+				$unit = '';
+				if(!empty($unitList[$i])) $unit = $unitList[$i];
+				$k = $k . '';
+				$res = $k . $unit . $res;
+			}
+		}
+	
+		return $res;
+		
+	}
+	</code></pre><br>
+	<br>
+	
+	<a href="/sample/php/a040/conv_okuman/conv_okuman.php" class="btn btn-info">デモ</a><br>
+	<br>
+
+	<br><time>2019-1-27</time>
+</div>
+
+
+
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
