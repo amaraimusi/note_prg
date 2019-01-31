@@ -87,7 +87,7 @@
 
 			// JSONに変換し、通信元に返す。
 			$json_str = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
-			return $json_data;
+			return $json_str;
 
 		}
 
@@ -113,14 +113,14 @@
 	var text1 = "cat&amp;dog"; // &amp;が混じった文字列
 	text1 = text1.replace(/&amp;/g, '%26'); // PHPのJSONデコードでエラーになるので、＆だけ変換しておく。
 	
-	var data={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'text1':text1};
+	var sendData={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'text1':text1};
 
-	// data = _escapeForAjax(data); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
+	// data = _escapeForAjax(sendData); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
 
-	var send_json = JSON.stringify(data);//データをJSON文字列にする。
+	var send_json = JSON.stringify(sendData);//データをJSON文字列にする。
 
 	// AJAX
-	$.ajax({
+	jQuery.ajax({
 		type: "POST",
 		url: "devloper/ajax",
 		data: "key1=" + send_json,
@@ -132,14 +132,14 @@
 		try{
 			res =jQuery.parseJSON(res_json);//パース
 		}catch(e){
-			alert('エラー');
-			jQuery("#err").html(res_json);
+			jQuery("#err").append(res_json);
 			return;
 		}
 		console.log(res);
 	})
 	.fail((jqXHR, statusText, errorThrown) =&gt; {
-		jQuery('#err').html(jqXHR.responseText);
+		jQuery('#err').append('アクセスエラー');
+		jQuery('#err').append(jqXHR.responseText);
 		alert(statusText);
 	});
 	
@@ -172,7 +172,7 @@
 
 
 
-	<time>2013-9-3 | 2019-1-24</time>
+	<time>2013-9-3 | 2019-1-31</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->

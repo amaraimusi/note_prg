@@ -459,6 +459,28 @@
 <div id="sec10-7" class="sec1" >
 	<h3>非同期で実行する | setTimeout</h3>
 
+	<pre><code>
+	$(()=&gt;{
+		var testClass = new TestClass();
+		testClass.execute("いろは");
+	});
+	
+	
+	class TestClass{
+		
+		execute(value){
+			setTimeout(this.test1, 1000, value);
+		}
+		
+		test1(value){
+			alert(value);
+		}
+	}
+	</code></pre>
+	
+	<hr>
+	<p>旧記述</p>
+	
 	setTimeout関数で非同期処理を実現できる。<br>
 	<br>
 	
@@ -475,7 +497,7 @@
 	<br>
 
 	
-	<br><time>2016-10-17 | 2018-6-23</time>
+	<br><time>2016-10-17 | 2018-6-23 | 2019-1-31</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

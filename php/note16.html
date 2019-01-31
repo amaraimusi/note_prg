@@ -66,6 +66,45 @@
 
 
 
+<div id="sec16-2" class="sec4">
+	<h3>ブラウザ判定</h3>
+
+	<pre><code>
+	function judgBrowser(){
+		
+		// ユーザーエージェントを取得、および小文字化する。
+		$browser = strtolower($_SERVER['HTTP_USER_AGENT']);
+	
+		// ユーザーエージェント文字列中のキーワードからブラウザを判定する
+		if (strstr($browser , 'edge')) {
+			return 'edge';
+		} elseif (strstr($browser , 'trident') || strstr($browser , 'msie')) {
+			return 'ie';
+		} elseif (strstr($browser , 'chrome')) {
+			if(strstr($browser , 'opr')){
+				return 'opera';
+			}else{
+				return 'chrome';
+			}
+		} elseif (strstr($browser , 'firefox')) {
+			return 'firefox';
+		} elseif (strstr($browser , 'safari')) {
+			return 'safari';
+		} else {
+			return 'none';
+		}
+	}
+	</code></pre>
+	
+	<a href="https://qiita.com/gnk0096/items/9b72fb18b2ef99d33bfa" target="blank" class="btn btn-link btn-xs">参考:
+		アクセスされたブラウザ名をPHPで判別する方法</a><br>
+	<br>
+
+	<br><time>2019-1-31</time>
+</div>
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
