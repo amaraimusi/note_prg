@@ -490,6 +490,24 @@
 
 
 
+<div id="sec16-7" class="sec4">
+	<h3>DOM構築直後のイベント | DOMContentLoaded</h3>
+
+	DOMContentLoadedはjQueryの「 $(document).ready 」と同等のイベント。<br>
+	loadイベントは画像やすべてのスクリプトが読み込まれた時点で発動するが、DOMContentLoadedは、DOMの構築が完了した時点で実行される。<br>
+	<br>
+	
+	<pre><code>
+	document.addEventListener('DOMContentLoaded', function () {
+		console.log('test=Ａ');
+	}
+	</code></pre>
+	
+	<br><time>2019-2-2</time>
+</div>
+
+
+
 
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
