@@ -28,6 +28,7 @@
 
 
 
+
 <h2>目次</h2>
 <ol>
 	<li><a href="note.php#sec1-1" >クロスコンパイラ（Cross GCC）とは</a></li>
