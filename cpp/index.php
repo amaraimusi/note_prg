@@ -5,7 +5,7 @@
 	<meta name="google" content="notranslate" />
    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>テンプレート | ワクガンス</title>
+	<title>C++の覚書| ワクガンス</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
