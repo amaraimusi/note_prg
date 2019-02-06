@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gitの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div id="header" ><h1>Gitの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+<a href="#" target="brank">公式サイト</a>
+
+<h2>目次</h2>
+<ol>
+	<li><a href="#standard_index">基本</a></li>
+	<li><a href="#public_index">一般</a></li>
+	<li><a href="#bash_index">Bash コマンド</a></li>
+</ol>
+
+<br><br><hr><br>
+
+
+<h2 id="standard_index">基本</h2>
+<ol>
+	<li><a href="github_note.html#s1">GitHubとは</a></li>
+	<li><a href="github_note.html#s2">Gitとは</a></li>
+	<li><a href="github_note.html#s3">Gitの基本</a></li>
+	<li><a href="github_note.html#s4">GitHubへユーザー登録する</a></li>
+	<li><a href="github_note.html#s5">新しくリポジトリを作成する</a></li>
+	<li><a href="github_note.html#s6">Eclipseと連携</a></li>
+	<li><a href="github_note.html#s7">１つのプロジェクトにGitHubとBitbucketの両方を連携させる</a></li>
+	<li><a href="github_note.html#s8">コミット＆プッシュでGitHubサーバーへ反映</a></li>
+	<li><a href="github_note.html#s9">別ユーザーを追加</a></li>
+	<li><a href="github_note10.html#s10">Reset | リセット</a></li>
+	<li><a href="github_note10.html#s11">Resetで１つ前のコミットに戻す</a></li>
+	<li><a href="github_note10.html#s12">Revert | プッシュの取り消し</a></li>
+	<li><a href="github_note10.html#s13">競合の修正方法</a></li>
+	<li><a href="github_note10.html#s14">SSHを設定する</a></li>
+	<li><a href="github_note10.html#s15">ファイルまたはフォルダをGit管理外にする | Ignore</a></li>
+	<li><a href="bitbucket_note.html" >Gitとbitbucketの覚書</a></li>
+</ol>
+
+<br><hr><br>
+
+
+<h2 id="public_index">一般</h2>
+<ol class="list_sm">
+	<li><a href="github_note.html#s100" >バージョン管理システム</a></li>
+	<li><a href="github_note.html#s101" >リポジトリとは</a></li>
+	<li><a href="github_note.html#s102" >リモートリポジトリとは</a></li>
+	<li><a href="github_note.html#s103" >ローカルリポジトリとは</a></li>
+	<li><a href="github_note.html#s103-2" >リモートリポジトリとローカルリポジトリの関係</a></li>
+	<li><a href="github_note.html#s104" >Eclipse側でリモートリポジトリの連携を解除</a></li>
+	<li><a href="github_note.html#s110" >ブランチとは</a></li>
+	<li><a href="github_note.html#s111" >masterブランチとは</a></li>
+	<li><a href="github_note.html#s112" >GitHubでブランチをブランチを切る（ブランチ作成）</a></li>
+	<li><a href="github_note.html#s113" >GitHubでブランチを切り替える</a></li>
+	<li><a href="github_note.html#s113-2" >Eclipse側にもブランチを作成する</a></li>
+	<li><a href="github_note.html#s114" >GitHubでブランチを統合する</a></li>
+	<li><a href="github_note10.html#s16" >Eclipse側で不要になったブランチをローカルリポジトリから削除する</a></li>
+	<li><a href="github_note.html#s120" >Gitのコミット</a></li>
+	<li><a href="github_note.html#s121" >プルとは | pull</a></li>
+	<li><a href="github_note.html#s122" >フェッチとは | feche</a></li>
+	<li><a href="github_note.html#s123" >マージとは | merge</a></li>
+	<li><a href="github_note.html#s126" >プッシュとは | push</a></li>
+	<li><a href="github_note.html#s124" >競合発生のタイミング</a></li>
+	<li><a href="github_note10.html#s17" >non-fast-forward | ブランチでコミットに失敗したら・・・</a></li>
+	<li><a href="github_note.html#s127" >インデックスへ追加 | add</a></li>
+	<li><a href="github_note.html#s128" >Eclipseで add 操作</a></li>
+	<li><a href="github_note.html#s129" >インデックスの省略</a></li>
+	<li><a href="github_note.html#s130" >インデックスへ add する利点</a></li>
+	<li><a href="github_note.html#s131" >間違えてインデックスに追加してしまったら</a></li>
+	<li><a href="github_note.html#s132" >ワークツリーとは</a></li>
+	<li><a href="github_note.html#s133" >HEADとは</a></li>
+	<li><a href="github_note.html#s134" >ORIG_HEADとは</a></li>
+	<li><a href="github_note.html#s135" >FETCH_HEADとは</a></li>
+	<li><a href="github_note.html#s136" >リモートリポジトリのコミット一覧を見る</a></li>
+	<li><a href="github_note.html#s137" >リベースとは | rebase</a></li>
+	<li><a href="github_note.html#s999" >参考リンク</a></li>
+	
+</ol>
+
+<br><hr><br>
+
+
+<h2 id="bash_index">Bash コマンド</h2>
+<ol class="list_sm">
+	<li><a href="gitcmd_note.html#sec1-1">ここまでを覚書に記述する →ローカルのみのgit環境を作成、およびEclipseと連携</a></li>
+</ol>
+
+
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Gitの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2016-8-25 | 2019-2-6</div>
+</body>
+</html>

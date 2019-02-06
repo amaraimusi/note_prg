@@ -5,14 +5,16 @@
 	<meta name="google" content="notranslate" />
    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>テンプレート | ワクガンス</title>
+	<title>Gitの覚書 | ワクガンス</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
+	<link href="/note_prg/css/jquery-ui.min.css" rel="stylesheet">
 	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
 	<link href="/note_prg/css/common2.css" rel="stylesheet">
 
 	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/jquery-ui.min.js"></script>
 	<script src="/note_prg/js/bootstrap.min.js"></script>
 	<script src="/note_prg/js/highlight.pack.js"></script>
 	<script src="/note_prg/js/livipage.js"></script>
@@ -21,16 +23,47 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-<div id="header" ><h1>テンプレート | ワクガンス</h1></div>
+<div id="header" ><h1>Gitの覚書 | ワクガンス</h1></div>
 <div class="container">
 
 
+
 <div id="sec1-1" class="sec4">
-	<h3>xxx</h3>
+	<h3>ローカルのみのgit環境を作成、およびEclipseと連携</h3>
+	
+	Git Bash for Windowsで検証<br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			任意の場所にフォルダを作成し、その場所へcdコマンドで移動、そして「git init」コマンドを実行する。<br>
+			<aside>例ではprivateフォルダを作成</aside>
+			<pre class="console">
+	$ mkdir private
+	$ cd private
+	$ git init
+			</pre>
+		</li>
+		
+		<li>
+			privateフォルダ内にREADME.mdファイルを作成する。
+			<aside>README.mdでなくても良い。適当にファイルを一つ作成する。</aside>
+		</li>
+		
+		<li>
+			「add」および「commit」コマンドを実行して、README.mdをコミットする。<br>
+			<pre class="console">
+	$ git add Readme.md
+	$ git commit -m '初回コミット'
+			</pre>
+		</li>
+		
+	</ol>
 
 
 	<br><time>2019-2-6</time>
 </div>
+
 
 
 <div id="sec1-0" class="sec4" style="display:none">
@@ -41,19 +74,15 @@
 </div>
 
 
+
+
 <div class="yohaku"></div>
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
 	<li><a href="/note_prg">プログラミングの覚書</a></li>
-	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
-	<li>テンプレート</li>
+	<li><a href="/note_prg/git/">Gitの覚書</a></li>
 </ol>
-<ol class="breadcrumb">
-	<li><a href="/">ホーム</a></li>
-	<li><a href="/sample">サンプルソースコード</a></li>
-	<li><a href="/sample/js">JavaScript ｜ サンプル</a></li>
-	<li>テンプレート</li>
-</ol>
+
 </div><!-- content -->
 <div id="footer">(C) kenji uehara 2019-2-6</div>
 </body>
