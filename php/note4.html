@@ -715,6 +715,44 @@
 
 
 
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-9-2" class="sec1">
+	<h3>ディレクトリを深く探り、ファイル群のファイルパス配列を取得する</h3>
+
+	<pre>
+	/**
+	 * ディレクトリを深く探り、ファイル群のファイルパス配列を取得する
+	 * @param string $path ディレクトリパス
+	 * @param array $data 内部処理用・ファイルパスリスト
+	 * @return array ファイルパスリスト
+	 */
+	function getFilePathFromDeep($path, &amp;$data=array()){
+		
+		if(is_file($path)){
+			$data[] = $path;
+		}else{
+			foreach(glob($path . '/*') as $path2){
+				$data = getFilePathFromDeep($path2, $data);
+			}
+		}
+		
+		return $data;
+	}
+	</pre>
+	<time>2019-2-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 <div id="sec4-10" class="sec1" >
 	<h3>IPアドレスを取得する</h3>
