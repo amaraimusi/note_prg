@@ -73,6 +73,80 @@
 </div>
 
 
+<div id="sec1-3" class="sec4">
+	<h3>基本：コントローラとビューの作成</h3>
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>
+			コントローラを作成する。
+			<pre class="console">$php artisan make:controller YagisController</pre>
+			<img src="img/note/sec1-3a1.png" class='img_compact_k' />
+		</li>
+		
+		<li>
+			コントローラからデータを渡しつつビューを呼び出す。<br>
+			<pre><code>
+&lt;?php
+
+namespace App&yen;Http&yen;Controllers;
+
+use Illuminate&yen;Http&yen;Request;
+
+class YagisController extends Controller
+{
+	public function bark() {
+		
+		$data = ['neko'=&gt;'猫', 'yagi'=&gt;'山羊'];
+		
+		return view('yagis.bark', compact('data'));
+	}
+}
+			</code></pre>
+		</li>
+		
+		<li>
+			ビューを作成する。→ resources/views/yagis/bark.blade.php<br>
+			<img src="img/note/sec1-3a2.png" class='img_compact_k' />
+			<pre><code>
+&lt;!doctype html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+		&lt;title&gt;ヤギ：べーべー&lt;/title&gt;
+		
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div&gt;
+			{{$data['yagi']}}
+			&lt;?php echo $data['neko'] ?&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+			</code></pre>
+		</li>
+		
+		<li>
+			web.phpにルートを記述する。<br>
+			<img src="img/note/sec1-3a3.png" class='img_compact_k' /><br>
+			
+			routes/web.php
+			<pre><code>Route::get('yagis/bark', 'YagisController@bark');</code></pre>
+		</li>
+		
+		<li>
+			ブラウザから「http://localhost/laravel5_hello/dev/public/yagis/bark」を開く<br>
+			<img src="img/note/sec1-3a4.png" /><br>
+			以上。
+		</li>
+	</ol>
+
+
+	<br><time>2019-2-6</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
