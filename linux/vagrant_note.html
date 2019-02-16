@@ -28,13 +28,21 @@
 <div id="sec1-1" class="sec4">
 	<h3>VagrantのインストールからCent OS7を仮想OSとして実行およびログインするところまで</h3>
 	
+	VagrantはVMWare, VirtualBox などの仮想OSを簡単に利用するためのラッパー的なツールである。<br>
+	「box」という仮想OSイメージを指定してコマンドを実行するだけで、VMからSSH環境の設定までやってくれる。<br>
+	本番環境をシミュレートするという目的がある。<br>
+	<br>
+	
+	<p>Dockerとの関係</p><br>
+	VagrantはDockerより上位の管理ツール。<br>
+	Vagrant → 仮想OS（Cent OS7) → Docker　→　仮想OSその２　→　Apacheなど<br>
+	<br>
+	
+	<p>手順</p>
 	Windows10,64bitのPCにて検証。<br>
 	コマンド実行にはGit for Windowsの Git Bashを使用している。
 	（<a href="/note_prg/linux/ssh_note.html#sec1-1" class="livipage">参考：Git for Windowsのインストール</a>）
 	
-	<br>
-	
-	<p>手順</p>
 	<ol class="list_large">
 		<li>
 			公式サイトからインストーラ（例 vagrant_2.2.3_x86_64.msi）をダウンロードする。<br>
