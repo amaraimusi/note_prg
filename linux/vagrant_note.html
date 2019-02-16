@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Vagrantの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Vagrantの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>VagrantのインストールからCent OS7を仮想OSとして実行およびログインするところまで</h3>
+	
+	Windows10,64bitのPCにて検証。<br>
+	コマンド実行にはGit for Windowsの Git Bashを使用している。
+	（<a href="/note_prg/linux/ssh_note.html#sec1-1" class="livipage">参考：Git for Windowsのインストール</a>）
+	
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_large">
+		<li>
+			公式サイトからインストーラ（例 vagrant_2.2.3_x86_64.msi）をダウンロードする。<br>
+			<img src="img/vagrant_note/sec1-1a1.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			特に面倒な設定はないので道なりにインストールを進める。最後まで進めるとPC再起動が促される。<br>
+			<aside>windows defenderが暴れまわるので、インストール前にPCを再起動したほうが良いかもしれない。</aside>
+			<img src="img/vagrant_note/sec1-1a3.png" />
+			<img src="img/vagrant_note/sec1-1a4.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a5.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a9.png" /><br>
+		</li>
+		
+		<li>
+			インストールの確認を下記コマンドにてGit Bash、またはコマンドプロンプトで行える。
+			<aside>Git Bashは「Git for Windows」に付属するツール。</aside>
+			<pre class="console">	$ vagrant --version</pre>
+			<img src="img/vagrant_note/sec1-1a10.png" class="img_compact_k" /><br>
+			
+		</li>
+		
+		<li>
+			Vagrant単体では役に立たないのでVirtualBoxをインストールする。<br>
+			<a href="https://www.virtualbox.org/" target="blank">公式サイト</a>
+			からインストーラ（例VirtualBox-6.0.4-128413-Win.exe）をダウンロードする。<br>
+			<img src="img/vagrant_note/sec1-1a11.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a12.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			VirtualBoxのインストール。幾つか設定があるがデフォルトのまま進めていく。<br>
+			<aside>インストール途中に見慣れないOracle関連の「インストール許可」が求めらるが「インストールする」を選択する。</aside>
+			<img src="img/vagrant_note/sec1-1a13.png" />
+			<img src="img/vagrant_note/sec1-1a14.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a15.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a16.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			下記画面が表示されたらVirtualBoxのインストール成功。<br>
+			<img src="img/vagrant_note/sec1-1a17.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			続いて仮想OSのインストールを行う。まず最初に、任意のディレクトリ（例：vagrant_test1）を作成しカレントディレクトリにする。
+			<pre class="console">
+				$ mkdir vagrant_test1
+				$ cd vagrant_test1
+			</pre>
+			<aside>Git Bashで検証</aside>
+		</li>
+		
+		<li>
+			仮想OSのイメージであるBoxが必要になる。boxはネット上に存在するが公式サイトでも用意されている。
+			( <a href="https://app.vagrantup.com/boxes/search" target="blank">公式サイトでの入手先</a> )<br>
+			今回はCent OS 7 を仮想OSにする。<br>
+			
+			遷移先ページ内から「vagrant init centos/7」文字列を入手しておく。<br>
+			<img src="img/vagrant_note/sec1-1a18.png" class="img_compact_k" />
+			<img src="img/vagrant_note/sec1-1a19.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「vagrant init」コマンドを実行する。
+			<pre class="console">$ vagrant init centos/7</pre>
+			<img src="img/vagrant_note/sec1-1a20.png" />
+		</li>
+		
+		<li>
+			「Vagrantfile」が作成されるのでテキストエディタで開く。<br>
+			<img src="img/vagrant_note/sec1-1a21.png" />
+		</li>
+		
+		<li>
+			Vagrantfileファイル内の「# config.vm.network "private_network", ip: "192.168.33.10"」
+			となっている箇所のコメントを外して保存。<br>
+			<img src="img/vagrant_note/sec1-1a22.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「vagrant up」コマンドを実行する。
+			<aside>10分くらいかかる。</aside>
+			<pre class="console">$ vagrant up</pre>
+			<img src="img/vagrant_note/sec1-1a23.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			以上で仮想OSの作成終了。<br>
+			VirtualBoxの画面で仮想OSが実行されているのが確認できる。<br>
+			<img src="img/vagrant_note/sec1-1a24.png" class="img_compact_k" />
+			
+		</li>
+		
+		<li>
+			仮想OSにログインする。
+			<aside>少しタイムラグがある。</aside>
+			<pre>$ vagrant ssh</pre>
+			<img src="img/vagrant_note/sec1-1a25.png" />
+			
+		</li>
+	</ol>
+	
+	<hr>
+	
+	<p>参考リンク</p>
+	<a href="https://www.vagrantup.com/" target="brank" class="btn btn-link btn-xs">公式サイト</a><br>
+	<a href="https://eng-entrance.com/linux-vagrant-install" target="brank" class="btn btn-link btn-xs">【初歩の初歩】Vagrantのインストールと使い方を簡単解説</a><br>
+	<a href="http://acchi-muite-hoi.hatenablog.com/entry/2016/05/30/041618" target="brank" class="btn btn-link btn-xs">dockerとvagrantの違い言える？新人エンジニアでも分かった気になれる俺流まとめ</a><br>
+	<a href="https://qiita.com/htanaka0828/items/57204c89bb6976312bb5" target="brank" class="btn btn-link btn-xs">Vagrantとdockerを使って快適な開発環境を作る（サンプルあり）</a><br>
+	<a href="https://qiita.com/hidekuro/items/fc12344d36d996198e96" target="brank" class="btn btn-link btn-xs">VagrantとDockerについて名前しか知らなかったので試した</a><br>
+	<a href="" target="brank" class="btn btn-link btn-xs"></a><br>
+
+	<br><time>2019-2-6</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-2-6</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/linux/">Linuxの覚書</a></li>
+	<li>Vagrantの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-2-16</div>
+</body>
+</html>
