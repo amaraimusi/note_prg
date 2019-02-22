@@ -14,6 +14,8 @@
 	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
 	<script src="/note_prg/js/jquery-ui.min.js"></script>
 	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
 	
 	<style>
 		.seiku{
@@ -23,7 +25,7 @@
 		}
 		.jinbutu{
 			display:inline-block;
-			margin-top:10px;
+			margin-top:15px;
 			margin-right:4px;
 		}
 	</style>
@@ -51,15 +53,177 @@
 	そうでしたね。<br>
 	
 	<div class="text-primary jinbutu">奉仕者</div>
-	ほんの数分でしたが，大切なこの点について聖書が何を教えているかご一緒に学ぶことができました。<br>
-	次は〇〇について話し合うことができます。来週のこの時間にお寄りしてもよろしいですか。<br>
+	神様はどんな方なのか、神様が将来何をしようとしていることから考えることができます。<br>
+	今の世の中は犯罪だとかテロだとか病気など苦しいことたくさんありますね。<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	ええ<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	この本は「聖書の教え」という本ですが、こちらの挿絵をご覧になってもらえますか。<br>
+	神様が将来行おうとしてる事柄です。<br>
+	年取った人が若返ったり、亡くなった人が生き返ったりしている挿絵です。〇〇さんはこの中で何が実現してほしいと思われますか<br>
+	<img src="img/wariate2019-2-25/4.jpg" class="img_compact_k" /><br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	(挿絵の中の一つから適当に答える)<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	このことについて聖書中ではこんな約束が成されています。<br>
+	<input type="button" class="btn btn-info" value="聖句からの答え" onclick="jQuery('#sasie_seiku').toggle(300)" />
+	<ol id="sasie_seiku" style="display:none">
+		<li id="p9" data-pid="9" class="si">
+			<em>「神は彼らの目からすべての涙をぬぐい去ってくださり，もはや死はなく，嘆きも叫びも苦痛ももはやない」。</em><br>
+			<a href="#keiji21-4" data-bid="2-1" class="b livipage"><em>啓示 21:4</em></a>
+			<div id="keiji21-4" style="display:none">
+				また神は彼らの目からすべての涙をぬぐい去ってくださり，もはや死はなく，嘆きも叫びも苦痛ももはやない。<br>
+				以前のものは過ぎ去ったのである」。<br>
+				<hr>
+				神様は死や苦しみを将来なくすと約束しています。
+			</div>
+		</li>
+		<li id="p10" data-pid="10" class="si">
+			<em>『足のなえた者は雄鹿のように登って行く』。</em><br>
+			<a href="#izaya35-6" data-bid="3-1" class="b livipage"><em>イザヤ 35:6</em></a>
+			<div id="izaya35-6" style="display:none">
+				その時，足のなえた者は雄鹿のように登って行き，口のきけない者の舌はうれしさの余り叫びを上げる。<br>
+				荒野に水が，砂漠平原に奔流が噴き出るからである。<br>
+				<hr>
+				神様は歩けない人や耳の聞こえない障害を　治すと約束しています。
+			</div>
+		</li>
+		<li id="p11" data-pid="11" class="si">
+			<em>『盲人の目は開かれる』。―</em>
+			<a href="#izaya35-5" data-bid="4-1" class="b livipage"><em>イザヤ 35:5</em></a>
+			<div id="izaya35-5" style="display:none">
+				その時，盲人の目は開かれ，耳の聞こえない者の耳も開けられる。
+				<hr>
+				神様は目が見えない人や耳が聞こえない障害を　治すと約束しています。<br>
+			</div>
+		</li>
+		<li id="p12" data-pid="12" class="si">
+			<em>『記念の墓の中にいるものがみな出て来る』。―</em>
+			<a href="#yohane5-28" data-bid="5-1" class="b livipage"><em>ヨハネ 5:28-29</em></a>
+			<div id="yohane5-28" style="display:none">
+				28 このことを驚き怪しんではなりません。<br>
+				記念の墓の中にいる者がみな，彼の声を聞いて出て来る時が来ようとしているのです。<br>
+				29 良いことを行なった者は命の復活へ，いとうべきことを習わしにした者は裁きの復活へと[出て来るのです。<br>
+				<hr>
+				神様は亡くなって人の命を復活させる、つまり生き返らせると約束しています。
+			</div>
+		</li>
+		<li id="p13" data-pid="13" class="si">
+			<em>「『わたしは病気だ』と言う居住者はいない」。―</em>
+			<a href="#izaya33-24" data-bid="6-1" class="b livipage"><em>イザヤ 33:24</em></a>
+			<div id="izaya33-24" style="display:none">
+				そして，「わたしは病気だ」と言う居住者はいない。<br>
+				その地に住んでいる民は，自分のとがを赦された者たちとなるのである。<br>
+				<hr>
+				神様は病気を亡くすことを約束しています。
+			</div>
+		</li>
+		<li id="p14" data-pid="14" class="si">
+			<em>『地には穀物が豊かに実る』。―</em>
+			<a href="#sihan72-16" data-bid="7-1" class="b livipage"><em>詩編 72:16</em></a>
+			<div id="sihan72-16" style="display:none">
+				地には穀物が豊かに実り，<br>
+				山々の頂であふれんばかりに実ります。<br>
+				彼の実はレバノンのもののようになり，<br>
+				都市からの者たちは地の草木のように咲き輝くことでしょう。<br>
+				<hr>
+				植物は豊かに実るようになり、食糧問題がなくなることを神様は約束しておられます。
+			</div>
+		</li>
+	</ol><br>
+
+	<div class="text-danger jinbutu">家の人</div>
+	(聖句に関心を示す)<br>
+	聖書にはこんなことが書かれているのですね。<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	他にも挿絵から興味ある点はございますか？
+	<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	(2回目：挿絵の中の一つから適当に答える)<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	（挿絵について聖句から答える）<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	(聖句の答えに対する返事) そうなんですね。<br>
+
+	<div class="text-primary jinbutu">奉仕者</div>
+	この本の第3章をご覧になっていただけますか？<br>
+	1節から3節までの部分から「神様の目的」について学べるようになっています。<br>
+	<br>
+	1節を見ますと神は地球に対してどのような目的を持っていたかわかります。<br>
+	2節の方には人間は永久に生きることについて、3節にはなぜ現在は苦しみがあるのかについて書かれています。<br>
+	人が永久に生きるということについてどう思われますか？<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	すばらしいことだとは思いますが、人口爆発とかいろいろ問題も起こりそうですね。<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	そうですね。<br>
+	この本はそのような疑問の答えを得るための助けになります。<br>
+	お気づきかと思いますが、各節には対応する質問があります<br>
+	これまで何百万という人たちが，質問と答えというこの方法を用いて，エホバの証人と聖書の話し合いを行なってきました。<br>
+	<br>
+	〇〇さんも週に一度、このような形式で聖書を学んでみたいと思われますか？<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	そうですね。おもしろそうです。<br>
+	
+	<div class="text-primary jinbutu">奉仕者</div>
+	ありがとうございます。<br>
+	ほんの数分でしたが，聖書が何を教えているかご一緒に学ぶことができたと思います。<br>
+	来週もこの時間にお寄りしてもよろしいですか。<br>
+	
+	<div class="text-danger jinbutu">家の人</div>
+	ええですよ。<br>
 </div>
 	
+	
+<div style="display:none">
+	<br><br>
+	もし家の人がいずれかの聖句に特別な関心を示すなら，本の中でその聖句が扱われている幾つかの節を考慮し，その点について聖書が何と教えているかを示します。（折り込みのこのページにある囲みを参照してください。）
+	聖書は合計66の本や手紙を集めたものです。それらは参照しやすいように章に分けられ，章は節に分けられています。この書籍で聖句が引き合いに出されている場合<br>
+	<br>
+	
+	6Pの質問について
+	
+	■ 7ページを使って，聖書研究の仕方を実際に示すことができます:
+
+7ページの最初の三つの文を読みます。それから3章を開き，1‐3節を用いて研究の仕方を実際に示します。3節の本文にある質問の答えについて話し合うため，次の訪問を取り決めます。
+この本を読んでおられるのは，聖書の教えを知りたいと思っておられるからでしょう。この本は助けになります。お気づきのとおり，各節には対応する質問があります。これまで何百万という人たちが，質問と答えというこの方法を用いて，エホバの証人と聖書の話し合いを行なってきました。
+
+
+
+
+これまで何百万という人たちが，質問と答えというこの方法を用いて，エホバの証人と聖書の話し合いを行なってきました。
+あなたもその方法から益を得られるでしょう。聖書が実際に教えている事柄を学ぶという，楽しくて満足のゆく経験をされるあなたに，神の祝福がありますように。
+
+
+神は地球についてどんな目的をお持ちですか<br>
+神は人間について，どんな目的をお持ちですか。<br>
+<br>
+神に対してどんな異議が唱えられましたか。<br>
+<br>
+地上での生活は将来どのようなものになりますか。<br>
+<br>
+<div class="text-primary jinbutu">奉仕者</div>
+この本を読んでおられるのは，聖書の教えを知りたいと思っておられるからでしょう。この本は助けになります。お気づきのとおり，各節には対応する質問があります。
+
+	
+</div>
+
 <p>資料</p>
 <ul>
 	<li><a href="https://wol.jw.org/ja/wol/d/r7/lp-j/202019050" target="blank">集会ワークブック 2月25日–3月3日</a></li>
 	<li><a href="https://wol.jw.org/ja/wol/d/r7/lp-j/1102005130" target="blank">神はこのようなことを目的とされたのですか 3-7p</a></li>
 	<li><a href="https://wol.jw.org/ja/wol/d/r7/lp-j/202006003" target="blank">『聖書の教え』の本で研究を取り決める方法</a></li>
+	<li><a href="https://wol.jw.org/ja/wol/d/r7/lp-j/1102005133" target="blank">3章 神は地球についてどんな目的をお持ちですか</a></li>
 	
 </ul>
 
