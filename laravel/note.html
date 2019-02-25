@@ -152,14 +152,84 @@ class YagisController extends Controller
 <div id="sec1-4" class="sec4">
 	<h3>DB接続 | MySQL</h3>
 	
-	本番DB接続設定とローカルDB接続設定は場所がことなるので注意。<br>
-	本番DB接続設定は「config/database.php」で行う。<br>
-	ローカルDB接続設定は「.env」ファイルで行う。(ルートパス/.env)。<br>
+	Laravel5.7でのDB接続の設定は「.env」あるいは、「config/database.php」で行う。<br>
+	database.phpの設定は、envメソッドを通して設定されている。<br>
+	つまり「.env」の設定をdatabase.phpが利用しているようなので、実質「.env」にだけDB接続の設定を記述すればよい。<br>
+	envメソッドを使わないならdatabase.phpに直接DB接続設定をすることも可能。<br>
+	「.env」はappフォルダと同列のディレクトリに存在する。(ルート/.env)<br>
 	<br>
 	
-	本番DB接続設定 config/database.php<br>
+	ローカル側の.env設定例
 	<pre><code>
+	DB_CONNECTION=mysql
+	DB_HOST=127.0.0.1
+	DB_PORT=3306
+	DB_DATABASE=animal_park【DB名】
+	DB_USERNAME=root
+	DB_PASSWORD=【パスワード】
 	</code></pre>
+	
+	サーバー側の.env設定例(さくらサーバー・スタンダードプラン)
+	<pre><code>
+	DB_CONNECTION=mysql
+	DB_HOST=mysqlXXX.db.sakura.ne.jp
+	DB_PORT=3306
+	DB_DATABASE=【ユーザー名】_animal_park
+	DB_USERNAME=【ユーザー名】
+	DB_PASSWORD=【パスワード】
+	</code></pre><br>
+	
+	config/database.php<br>
+	envを利用して「.env」の値を設定している。そのためdatabase.phpはデフォルトのままでも構わない。<br>
+	<pre>
+    'connections' => [
+
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+
+        '<span class="text-primary">mysql</span>' => [
+            'driver' => 'mysql',
+            'host' => <span class="text-danger">env</span>('DB_HOST', '127.0.0.1'), // ← envメソッドを通して設定されている
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+	</pre>
+	
+	
+	<p>コントローラ側での使用例</p>
+	<pre>
+	namespace App&yen;Http&yen;Controllers;
+	
+	use Illuminate&yen;Http&yen;Request;
+	<span class="text-danger">use Illuminate&yen;Support&yen;Facades&yen;DB;</span>
+	
+	class YagisController extends Controller
+	{
+		public function bark() {
+			
+			$data2 = <span class="text-danger">DB::select</span>.('select * from yagis where id=2');
+			// $data2 = DB::connection('<span class="text-primary">mysql</span>')-&gt;select('select * from yagis where id=2'); // ← DB接続設定を指定する場合
+			
+			var_dump($data2);
+			return view('yagis.bark', compact('data2'));
+		}
+	}
+	</pre>
+	<br>
+	
 	
 	.envファイルでローカルDB接続設定を記述しなかった場合、以下のエラーが生じる。<br>
 	<pre>	SQLSTATE[HY000] [1045] Access denied for user 'homestead'@'localhost'</pre>
