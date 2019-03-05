@@ -434,6 +434,47 @@
 
 
 
+<div id="sec1-4" class="sec4">
+	<h3>Vue.jsの基本</h3>
+	
+	<a href="/sample/js/vue_js/demo/demo5.html" class="btn btn-info">デモ</a><br>
+	<br>
+
+	<p>HTML</p>
+	<pre><code>
+	&lt;div id="app1"&gt;
+	  &lt;div&gt;{{ message1 }}&lt;/div&gt;
+	  &lt;input v-model="message1"&gt;
+	  &lt;div v-bind:title="text1"&gt;アマミノクロウサギ:title属性にセット&lt;/div&gt;
+	  &lt;div v-bind:class="class1"&gt;サキシマハブ:クラス属性にセット&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					message1: 'リュウキュウオオコウモリ',
+					text1: '奄美大島に生息', 
+					class1: 'text-danger'
+				}
+			})
+	});	
+	</code></pre>
+	
+	<br><time>2019-3-5</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
