@@ -475,6 +475,164 @@
 
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>外部からVue.jsのデータを変更する</h3>
+
+	<pre><code>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					message1: 'リュウキュウオオコウモリ',
+					text1: '奄美大島に生息', 
+					class1: 'text-danger'
+				}
+			})
+	});
+	
+	// 外部からデータを変更してみる
+	function testFunc1(){
+		<span class="text-danger">app.message1 = "ヌマエビ";</span>
+		
+	}
+	</code></pre>
+	<br>
+	
+	<br><time>2019-3-5</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>Vue.jsのフィルタ</h3>
+
+	HTML5
+	<pre><code>
+	  &lt;div&gt;{{ message1 | <span class="text-danger">fil1</span>}}&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre>
+	app = new Vue({
+			el: '#app1',
+			data: {
+				message1: 'リュウキュウオオコウモリ',
+				text1: '奄美大島に生息', 
+				class1: 'text-danger'
+			},
+			<span class="text-danger">filters: {
+					fil1: (value) =&gt; {
+						if (!value) return ''
+						return 'ﾌｨﾙﾀ【' + value + '】';
+					}
+				}</span>
+		})
+	</pre>
+	<br>
+	
+	「|」で区切ることにより複数のフィルターをかけることが可能
+
+	<pre><code>
+	  &lt;div&gt;{{ message1 | fil1 | fil2 | fil3}}&lt;/div&gt;
+	</code></pre>
+	
+	<br><time>2019-3-5</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-7" class="sec4">
+	<h3>Vue.jsのメソッド</h3>
+
+	HTML
+	<pre>
+	&lt;div id="app2"&gt;
+		&lt;div v-if="flg1"&gt;{{ message1 }}&lt;/div&gt;
+		&lt;button <span class="text-danger">v-on:click="testFunc2"</span> class="btn btn-success"&gt;関数テスト2&lt;/button&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app2 = new Vue({
+		el: '#app2',
+		data: {
+			message1: 'タヌキ',
+			flg1: false,
+		},
+		<span class="text-danger">methods: {
+				testFunc2: () =&gt; </span>{
+					if(this.flg1){
+						this.flg1 = false;
+					}else{
+						this.flg1 = true;
+						
+					}
+				}
+			}
+	});
+	</pre>
+	<br>
+	
+	<br><time>2019-3-5</time>
+</div>
+
+
+
+
+
+
+
+<div id="sec1-8" class="sec4">
+	<h3>Vue.jsの表示切替 | v-if</h3>
+
+	HTML
+	<pre>
+	&lt;div id="app2"&gt;
+		&lt;div <span class="text-danger">v-if="flg1"</span>&gt;{{ message1 }}&lt;/div&gt;
+		&lt;button v-on:click="testFunc2" class="btn btn-success"&gt;関数テスト2&lt;/button&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app2 = new Vue({
+		el: '#app2',
+		data: {
+			message1: 'タヌキ',
+			<span class="text-danger">flg1: false,</span>
+		},
+		methods: {
+				testFunc2: () =&gt; {
+					if(this.flg1){
+						this.flg1 = false;
+					}else{
+						this.flg1 = true;
+						
+					}
+				}
+			}
+	});
+	</pre>
+	
+	<br><time>2019-3-5</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

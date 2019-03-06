@@ -441,6 +441,102 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec10-6-2" class="sec1" >
+	<h3>クロスドメイン・ファイルアップロード</h3>
+
+	HTML
+	<pre>
+	&lt;input id="file1" type="file" name="file1" /&gt;
+	&lt;input type="button"  value="アップロード" onclick="<span class="text-success">upload1()</span>" /&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	&lt;div id="err"&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;img id="img1" src="http://amaraimusi.sakura.ne.jp/sample/js/a009/cors_file_upload/xxx/test.jpg" alt="" /&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	function upload1(){
+		<span class="text-success">var fd = new FormData();
+		fd.append( "fu_file1", $("#file1").prop("files")[0] );
+		var ajax_url = "http://amaraimusi.sakura.ne.jp/sample/js/a009/cors_file_upload/upload.php";</span>
+	
+		$.ajax({
+			type: "POST",
+			url: ajax_url,
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData : false,
+			contentType : false,
+	
+		})
+		.done(function(str_json, type) {
+			var data;
+			try{
+				data = JSON.parse(str_json);
+				
+			}catch(e){
+				console.log(str_json);
+				jQuery('#err').html(str_json);
+				throw e;
+			}
+			
+			console.log(data);
+			$('#res').html('success');
+			var fp = "http://amaraimusi.sakura.ne.jp/sample/js/a009/cors_file_upload/" + data.fp + '?v=' +  Date.now();
+			console.log('fp=' + fp);
+			$('#img1').attr('src', fp)
+			
+		})
+		.fail(function(jqXHR, statusText, errorThrown) {
+			var err_res = jqXHR.responseText;
+			console.log(err_res);
+			jQuery('#err').html(err_res);
+			alert(statusText);
+			
+		});
+	}	
+	</pre><br>
+	
+	<strong>サーバー側</strong>
+	<pre>
+	<span class="text-success">header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Methods: POST');</span>
+	
+	if($_SERVER["REMOTE_ADDR"] != '126.219.137.211'){
+		echo 'IPアドレス制限がかけられています。';
+		die();
+	}
+	
+	$fn = "test.jpg";
+	$fp = 'xxx/' . $fn;
+	
+	// 一時ファイルをコピー
+	move_uploaded_file($_FILES["fu_file1"]["tmp_name"], $fp);
+	
+	$res = ['fp'=&gt; $fp];
+	$json_str = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+	echo $json_str;
+	</pre><br>
+
+
+	<br><time>2019-3-6</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec10-7" class="sec1" >
 	<h3>２次元配列データからHTMLテーブルを作成</h3>
 	
