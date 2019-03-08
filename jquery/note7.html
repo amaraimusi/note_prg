@@ -246,6 +246,40 @@
 
 
 
+<div id="sec7-5" class="sec4">
+	<h3>指定文字列を一部でも含むすべての要素を選択する | :contains</h3>
+	
+	「contains」は指定した文字列を一部でも含むならその要素を選択する。<br>
+	親要素、先祖要素も選択範囲に含まれるので注意する。<br>
+	<br>
+	
+	JavaScript
+	<pre><code>	$("li:contains('ねこ')").css('color', 'red');</code></pre>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div&gt;ねこ&lt;/div&gt;
+	&lt;div&gt;&lt;span&gt;グローリーキャット&lt;/span&gt;&lt;/div&gt;
+	&lt;ol&gt;
+		&lt;li&gt;catdog&lt;/li&gt;
+		&lt;li&gt;ねこ&lt;/li&gt;
+		&lt;li&gt;いぬ&lt;/li&gt;
+		&lt;li&gt;&lt;strong&gt;大ねこ&lt;/strong&gt;は逃げない&lt;/li&gt;
+	&lt;/ol&gt;
+	</code></pre>
+	
+	<a href="/sample/js/a010/jq_contains/jq_contains.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+
+	<br><time>2019-3-8</time>
+</div>
+
+
+
+
+
 <div id="sec7-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
