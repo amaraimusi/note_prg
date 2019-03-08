@@ -280,6 +280,51 @@
 
 
 
+<div id="sec7-6" class="sec4">
+	<h3>1つでも条件式に一致するならtrueを返す</h3>
+	
+	HTML
+	<pre><code>
+	&lt;input type="text" value="example@example.com" /&gt;
+	&lt;input type="radio" name="test_radio" value="a" /&gt;A
+	&lt;input type="radio" name="test_radio" value="b" /&gt;B
+	&lt;input type="text" value="ゾウ" class="animal" /&gt;
+	&lt;input type="text" value="ゾウカブト" class="musi" /&gt;
+	&lt;input type="text" value="キリン" class="animal" /&gt;
+	&lt;input type="text" value="ダチョウ" class="tori" /&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	$("input").one('click', (evt) =&gt;{
+
+		var inp = $(evt.currentTarget);
+		if (inp.is(":radio")) {
+			alert('ラジオ入力です。');
+		}
+		if (inp.is(":text")) {
+			alert('テキストボックス入力です。');
+		}
+		if (inp.is(".animal, .tori")) {
+			alert('脊椎動物です。');
+		}
+		if (inp.is(".musi")) {
+			alert('虫です。');
+		}
+		
+	});
+	</code></pre>
+	<a href="/sample/js/a010/jquery_is/jquery_is.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+
+	<br><time>2019-3-8</time>
+</div>
+
+
+
+
+
 <div id="sec7-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
