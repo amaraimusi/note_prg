@@ -27,23 +27,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="s100" class="sec4">
+<div id="sec1-1" class="sec4">
 	<h3>自然数チェック</h3>
 	
 	<pre><code>
@@ -69,23 +53,111 @@
 
 
 
+<div id="sec1-2" class="sec1" >
+	<h3>正規表現</h3>
 
-
-
-
-
-<div id="sxxx" class="sec4" style="display:none">
-	<h3>XXX</h3>
+	<pre>
+	var res = "あいうえお9aabbc123".match('/\\d{2}$/');
+	if(res){
+		console.log(res[0]); // → 23
+		console.log(res['index']); // → 17 (先頭からの位置。先頭は0で、全角は2とカウント)
+	}
+	</pre><br>
 	
-	<br><time></time>
+	<a href="/sample/js/reg_exp/reg_exp.html" class="btn btn-info">サンプル</a><br>
+	<br>
+
+	<time>2015-4-4 | 2018-4-23</time>
+</div>
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>正規表現 if文の省略記法</h3>
+
+	正規表現から直接、testプロパティを呼び出してコードを短縮できる。<br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre>
+	$(function(){
+		var str='http://localhost/';
+		if(<strong>/:\/\//.test</strong>(str)){
+			console.log('URLです');
+		}else{
+			console.log('URLでありません');
+		}
+		
+	});
+	</pre>
+	<br>
+
+	<p>コンソール出力</p>
+	<pre class="output_data"><code>	URLです</code></pre>
+	<br>
+
+	<br><time>2016-7-20</time>
 </div>
 
 
 
 
+<div id="sec1-4" class="sec4">
+	<h3>正規表現 | パスワードバリデーション</h3>
+	
+	<pre><code>
+	// 半角英数字チェック
+	var pw_text = "abcd1234";
+	//var res = pw_text.match(/^[a-zA-Z0-9]+$/);
+	var res = pw_text.match(/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/);
+	if(res==null){
+		res = false;
+	}else{
+		res = true;
+	}
+	console.log(res);
+	</code></pre>
+	
+	下の方法でもOK.
+	<pre><code>
+	var res = pw_text.match(/^[a-zA-Z\d]{8,32}$/);
+	</code></pre>
+
+
+	<br><time>2019-3-6</time>
+</div>
 
 
 
+
+<div id="sec1-5" class="sec4">
+	<h3>PwValidK.js パスワードバリデーションK</h3>
+	
+	<a href="/sample/js/a009/pw_valid_k/pw_valid_k.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<a href="/sample/js/a009/pw_valid_k/PwValidK.js" download="PwValidK.js" class="btn btn-success btn-xs">PwValidK.js download</a><br>
+	<br>
+	
+	
+	PwValidK.jsの使い方
+	<pre><code>
+	var pwValidK = new PwValidK();
+	var pw_text = "abCD1234あいうえお";
+	var res = pwValidK.check(pw_text);
+	console.log(res); // → {check: false, err_msg: "パスワードは半角英数字で入力してください。"}
+	</code></pre>
+
+	<br><time>2019-3-6</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>XXX</h3>
+	
+	<br><time></time>
+</div>
 
 
 
@@ -97,6 +169,6 @@
 	<li>バリデーション</li>
 </ol>
 </div><!-- content -->
-<div id="footer">(C) kenji uehara 2016-8-8</div>
+<div id="footer">(C) kenji uehara 2016-8-8 | 2019-3-8</div>
 </body>
 </html>

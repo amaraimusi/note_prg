@@ -82,6 +82,22 @@
 
 
 
+<div id="sec2-4" class="sec4" >
+	<h3>パスワードの正規表現</h3>
+	
+	半角英数字 8～100文字
+	<pre>	/^[a-zA-Z\d]{8,100}$/</pre><br>
+	
+	強パスワード: 英数字を必ず一つ以上含む
+	<pre>	/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/</pre><br>
+
+	<br><time>2019-3-8</time>
+</div>
+
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none" >
 	<h3>xxx</h3>
 
