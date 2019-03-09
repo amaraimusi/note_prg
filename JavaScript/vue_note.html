@@ -633,6 +633,52 @@
 
 
 
+<div id="sec1-9" class="sec4">
+	<h3>Vue.jsとjQueryの連携 | 外部によるinput要素の値変更をvue.jsに反映 | dispatchEvent</h3>
+	
+	<a href="/sample/js/a010/vue_change_by_outer/vue_change_by_outer.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;div&gt;{{ message1 }}&lt;/div&gt;
+		&lt;input id="text1" v-model="message1"&gt;
+	&lt;/div&gt;
+	
+	&lt;input type="button" value="jQueryにてセット" class="btn btn-success" onclick="test1()" /&gt;
+	</code></pre>
+	<br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					message1: 'リュウキュウオオコウモリ',
+				}
+			})
+	});	
+	
+	
+	function test1(){
+		$('#text1').val('jQueryにてセット');
+		<strong class="text-private">$('#text1')[0].dispatchEvent(new Event('input'));</strong> // vue.js側に変更をイベント発信する
+	}
+	</pre>
+	
+	
+	<br><time>2019-3-9</time>
+</div>
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
