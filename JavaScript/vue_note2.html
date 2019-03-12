@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Vue.jsの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Vue.jsの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4">
+	<h3>vue.js | 複数チェックボックス</h3>
+	
+	<a href="/sample/js/a010/vue_mult_checkbox/vue_mult_checkbox.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;input type="checkbox" id="aka_neko" value="1" <span class="text-primary">v-model="cats"</span>&gt;
+		&lt;label for="aka_neko"&gt;赤猫&lt;/label&gt;
+		&lt;input type="checkbox" id="siro_neko" value="2"<span class="text-primary"> v-model="cats"</span>&gt;
+		&lt;label for="siro_neko"&gt;白猫&lt;/label&gt;
+		&lt;input type="checkbox" id="mike_neko" value="3" <span class="text-primary">v-model="cats"</span>&gt;
+		&lt;label for="mike_neko"&gt;三毛猫&lt;/label&gt;
+		&lt;br&gt;
+		&lt;span&gt;選択: {{ cats }}&lt;/span&gt;
+	&lt;/div&gt;
+	</pre>
+
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				cats: [],
+			},
+		})
+	});
+	</pre>
+
+	<br><time>2019-3-12</time>
+</div>
+
+
+<div id="sec2-2" class="sec4">
+	<h3>vue.js | セレクトボックス SELECT</h3>
+	
+	<a href="/sample/js/a010/vue_select/vue_select.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;div&gt;
+			&lt;p&gt;普通のセレクトボックス&lt;/p&gt;
+			「option value」の値を取得して表示
+			&lt;select v-model="fish_type"&gt;
+				&lt;option disabled value=""&gt;-- 魚選択 --&lt;/option&gt;
+				&lt;option value="1"&gt;ガーラ&lt;/option&gt;
+				&lt;option value="2"&gt;ミーバイ&lt;/option&gt;
+				&lt;option value="3"&gt;アーガイ&lt;/option&gt;
+			&lt;/select&gt;
+			&lt;span&gt;Selected: {{ fish_type }}&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;div&gt;
+			&lt;p&gt;テキスト部分を取得して表示&lt;/p&gt;
+			&lt;select v-model="fish_type2"&gt;
+				&lt;option disabled value=""&gt;-- 魚選択2 --&lt;/option&gt;
+				&lt;option&gt;ガーラ&lt;/option&gt;
+				&lt;option&gt;ミーバイ&lt;/option&gt;
+				&lt;option&gt;アーガイ&lt;/option&gt;
+			&lt;/select&gt;
+			&lt;span&gt;Selected: {{ fish_type2 }}&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;div&gt;
+			&lt;p&gt;動的にセレクトボックスを生成&lt;/p&gt;
+			&lt;select v-model="amphibian_type"&gt;
+				&lt;option v-for="option in amphibianOptions" v-bind:value="option.value"&gt;
+					{{ option.text }}
+				&lt;/option&gt;
+			&lt;/select&gt;
+			&lt;span&gt;Selected: {{ amphibian_type }}&lt;/span&gt;
+		&lt;/div&gt;
+		
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				fish_type: '',
+				fish_type2: '',
+				amphibian_type: '2',
+				amphibianOptions: [
+					{ text: 'カエル', value: '1' },
+					{ text: 'イモリ', value: '2' },
+					{ text: 'ｻﾝｼｮｳｳｵ', value: '3' }
+				]
+			},
+		})
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-13</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-3-12</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Vue.jsの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-3-12</div>
+</body>
+</html>
