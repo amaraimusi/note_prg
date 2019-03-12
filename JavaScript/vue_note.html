@@ -644,6 +644,8 @@
 	&lt;div id="app1"&gt;
 		&lt;div&gt;{{ message1 }}&lt;/div&gt;
 		&lt;input id="text1" v-model="message1"&gt;
+		&lt;div&gt;{{ message2 }}&lt;/div&gt;
+		&lt;input id="text2" v-model="message2"&gt;
 	&lt;/div&gt;
 	
 	&lt;input type="button" value="jQueryにてセット" class="btn btn-success" onclick="test1()" /&gt;
@@ -658,6 +660,7 @@
 				el: '#app1',
 				data: {
 					message1: 'リュウキュウオオコウモリ',
+					message2: 'タナガー',
 				}
 			})
 	});	
@@ -666,11 +669,62 @@
 	function test1(){
 		$('#text1').val('jQueryにてセット');
 		<strong class="text-private">$('#text1')[0].dispatchEvent(new Event('input'));</strong> // vue.js側に変更をイベント発信する
+		
+		$('#text2').val('jQueryにてセット');
+		$('#text2')[0].dispatchEvent(new Event('input'));
 	}
 	</pre>
 	
+	「dispatchEvent」はセットのたびに呼び出さなければならないようである。<br>
+	<br>
 	
-	<br><time>2019-3-9</time>
+	
+	<br><time>2019-3-9 | 2019-3-12</time>
+</div>
+
+
+
+<div id="sec1-10" class="sec4">
+	<h3>vue.js | チェックボックスとラジオ</h3>
+	
+	<a href="/sample/js/a010/vue_checkbox_radio/vue_checkbox_radio.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;div style="margin-bottom:10px"&gt;
+			&lt;p&gt;チェックボックス&lt;/p&gt;
+			&lt;input type="checkbox" <span class="text-primary">v-model="flg_a" true-value="1" false-value="0"</span>&gt;フラグA
+			&lt;div&gt;flg_a = &lt;span class="text-success"&gt;{{flg_a}}&lt;/span&gt;&lt;/div&gt;
+		&lt;/div&gt;
+		
+		&lt;div style="margin-bottom:10px"&gt;
+			&lt;p&gt;ラジオボタン&lt;/p&gt;
+			&lt;input type="radio" id="aka_neko" value="1" <span class="text-primary">v-model="cat_type"</span>&gt;
+			&lt;label for="aka_neko"&gt;赤猫&lt;/label&gt;
+			&lt;input type="radio" id="kuro_neko" value="2" v-model="cat_type"&gt;
+			&lt;label for="kuro_neko"&gt;黒猫&lt;/label&gt;
+			&lt;div&gt;cat_type = &lt;span class="text-success"&gt;{{cat_type}}&lt;/span&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				flg_a: 1,
+				cat_type: 2,
+			},
+		})
+	});
+	</pre><br>
+	
+	<br><time>2019-3-12</time>
 </div>
 
 
