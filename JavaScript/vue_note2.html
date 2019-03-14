@@ -237,6 +237,50 @@
 </div>
 
 
+<div id="sec2-5" class="sec4">
+	<h3>v-bindとv-modelの違い</h3>
+	
+	v-modelは表示、入力ともに連動する。<br>
+	v-bindは表示のみの一方通行である。入力を変えても全体に反映されない。<br>
+	ただv-bindは各種属性にも適用できる。例→「v-bind:class='text-primary'」<br>
+	<br>
+		
+	<a href="/sample/js/a010/v_bind_v_model/v_bind_v_model.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		v-model&lt;br&gt;
+		&lt;input type="text" <strong>v-model="test1"</strong>&gt;&lt;br&gt;
+		&lt;br&gt;
+		
+		v-bind:value&lt;br&gt;
+		&lt;input type="text" <strong>v-bind:value="test1"</strong>&gt;&lt;br&gt;
+		&lt;br&gt;
+		
+		{{}}&lt;br&gt;
+		&lt;div&gt;{{test1}}&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				test1:'ライオンタマリン',
+			},
+		})
+	});
+	</code></pre>
+
+	<br><time>2019-3-14</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
