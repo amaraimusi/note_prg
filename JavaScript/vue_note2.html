@@ -281,6 +281,51 @@
 </div>
 
 
+<div id="sec2-6" class="sec4">
+	<h3>vue.js | セレクトボックスとマッピング表示</h3>
+	
+	<a href="/sample/js/a010/vue_select_mapping/vue_select_mapping.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;p&gt;動的にセレクトボックスを生成&lt;/p&gt;
+		&lt;select v-model="amphibian"&gt;
+			&lt;option v-for="(amphibian_name, amphibian_id) in amphibianList" v-bind:value="amphibian_id"&gt;
+				{{amphibian_name}}
+			&lt;/option&gt;
+		&lt;/select&gt;
+		&lt;span&gt;Selected: {{ amphibianList[amphibian] }}&lt;/span&gt;
+	
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				amphibian: '2',
+				amphibianList: {
+					'100':'トウキョウサンショウウオ',
+					'101':'シリケンイモリ',
+					'102':'ホルストガエル',
+					'103':'オオサンショウウオ',
+					'104':'イボイモリ',
+				}
+			},
+		})
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-14</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
