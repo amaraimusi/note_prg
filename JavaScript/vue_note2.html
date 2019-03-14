@@ -156,7 +156,7 @@
 	HTML
 	<pre><code>
 	&lt;div id="app1"&gt;
-		&lt;div v-for="(ent, key) in catData" v-bind:value="ent.value" style="display:inline-block;margin-right:10px"&gt;
+		&lt;div v-for="(ent, key) in catData" style="display:inline-block;margin-right:10px"&gt;
 			&lt;input type="checkbox" id="{{ent.xid}}" value="ent.value" v-model="cats[key]"&gt;
 			&lt;label v-bind:for="ent.xid"&gt;{{ent.text}}&lt;/label&gt;
 		&lt;/div&gt;
@@ -189,11 +189,59 @@
 </div>
 
 
+<div id="sec2-4" class="sec4">
+	<h3>v-forとinput要素へのbind</h3>
+	
+	<a href="/sample/js/a010/v_for_input_bind/v_for_input_bind.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;div v-for="(ent, key, index) in catData" style="margin-right:10px"&gt;
+			&lt;span&gt;index = {{index}}:&lt;/span&gt;
+			&lt;span&gt;key = {{key}}:&lt;/span&gt;
+			&lt;input type="text" v-model="ent.cat_name"&gt;
+			&lt;input type="text" v-model="ent.cat_num"&gt;
+	
+		&lt;/div&gt;
+		&lt;br&gt;
+		
+		&lt;hr&gt;
+		&lt;div v-for="(ent, key, index) in catData" style="margin-right:10px"&gt;
+			&lt;span class="text-success"&gt;{{ent.cat_name}}&lt;/span&gt;
+			&lt;input type="text" v-bind:value="ent.cat_num" /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				catData:{
+					akaneko: {cat_name:'赤猫', cat_num:1},
+					sironeko: {cat_name:'白猫', cat_num:2},
+					mikeneko: {cat_name:'三毛猫', cat_num:3},
+					chasiro: {cat_name:'茶白猫', cat_num:4},
+				},
+			},
+		})
+	});
+	</code></pre>
+
+	<br><time>2019-3-14</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2019-3-12</time>
+	<br><time>2019-3-14</time>
 </div>
 
 
