@@ -57,8 +57,23 @@
 		})
 	});
 	</pre>
-
-	<br><time>2019-3-12</time>
+	
+	<p>checkedについて</p>
+	vue.jsを適用しているcheckboxにchecked属性を記述してもチェックされない。<br>
+	チェック状態にするにはdataのプロパティに値をセットする。
+	<pre>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				<span class="text-primary">cats: [],</span>
+			},
+		})
+	});
+	</pre>
+	
+	<br><time>2019-3-13</time>
 </div>
 
 
@@ -129,6 +144,48 @@
 
 
 	<br><time>2019-3-13</time>
+</div>
+
+
+<div id="sec2-3" class="sec4">
+	<h3>vue.js | 動的複数チェックボックス</h3>
+	
+	<a href="/sample/js/a010/vue_dyn_multi_checkbox/vue_dyn_multi_checkbox.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;div v-for="(ent, key) in catData" v-bind:value="ent.value" style="display:inline-block;margin-right:10px"&gt;
+			&lt;input type="checkbox" id="{{ent.xid}}" value="ent.value" v-model="cats[key]"&gt;
+			&lt;label v-bind:for="ent.xid"&gt;{{ent.text}}&lt;/label&gt;
+		&lt;/div&gt;
+		&lt;br&gt;
+		&lt;span&gt;選択: {{ cats }}&lt;/span&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				cats: [false, true, true, false],
+				catData:[
+					{text:'赤猫', value:1, xid:'cb_cat_aka'},
+					{text:'白猫', value:2, xid:'cb_cat_siro'},
+					{text:'三毛猫', value:3, xid:'cb_cat_mike'},
+					{text:'茶白猫', value:4, xid:'cb_cat_chasiro'},
+				],
+			},
+		})
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-14</time>
 </div>
 
 
