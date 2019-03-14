@@ -326,6 +326,41 @@
 </div>
 
 
+<div id="sec2-7" class="sec4">
+	<h3>vue.js | v-ifの使い方</h3>
+	
+	<a href="" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;div v-for="(str, key, index) in catdog"&gt;
+			&lt;div v-if="str=='cat'" class="text-danger"&gt;ネコ&lt;/div&gt;
+			&lt;div v-if="str=='dog'" class="text-primary"&gt;イヌ&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&amp;gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				catdog:['cat', 'cat', 'dog', 'cat']
+			},
+		})
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-14</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
