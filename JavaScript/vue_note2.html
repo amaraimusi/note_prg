@@ -361,6 +361,51 @@
 
 
 
+<div id="sec2-8" class="sec4">
+	<h3>vue.js | 全データループ</h3>
+	
+	<a href="/sample/js/a010/vue_all_data_loop/vue_all_data_loop.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+			el: '#app1',
+			data: {
+				cat_name:'赤猫', 
+				cat_num:100,
+				cat_date:'2019-3-20'
+			},
+		})
+		
+		// ▼ 全データのループ
+		for(var key in <strong>app._data</strong>){
+			console.log('key=' + key);
+			console.log(app[key]);
+			jQuery('#res').append(key + ' = ' + app[key] + '&lt;br&gt;');
+		}
+		
+	});
+	</code></pre>
+	
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;input type="text" v-model="cat_name"&gt;
+		&lt;input type="text" v-model="cat_num"&gt;
+		&lt;input type="text" v-model="cat_date"&gt;
+	&lt;/div&gt;
+	&lt;hr&gt;
+	&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	</code></pre>
+
+	<br><time>2019-3-20</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
