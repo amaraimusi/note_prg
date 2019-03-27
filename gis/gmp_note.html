@@ -85,6 +85,11 @@
 		
 		<li>
 			APIキーをコピペして保持しておく。<br>
+			
+			<aside>
+				このAPIキーを使えば地図表示ができるようになるが、だれでもこのAPIキーを使えてしまうので制限をかける必要がある。<br>
+				詳しくは「<a href="#sec1-2">APIキーに制限をかける</a>」を参考。
+			</aside>
 			<img src="img/gmap_note/sec1-1a14.png" class="img_compact_k" />
 			<br>
 		</li>
@@ -106,6 +111,119 @@
 
 
 	<br><time>2019-3-26</time>
+</div>
+
+
+<div id="sec1-2" class="sec4">
+	<h3>APIキーに制限をかける</h3>
+	
+	<ol class="list_lg">
+		<li>
+			「Google Cloud Platform」にアクセスしAPIを選択する。<br>
+			<img src="img/gmap_note/sec1-3a1.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			「認証情報」をクリックし、APIキー一覧から該当する行の「編集」アイコンを押下。<br>
+			<img src="img/gmap_note/sec1-2a1.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			「HTTPリファラ（ウェブサイト）」を選択し、URLのフィルターを入力する。<br>
+			例→ http://amaraimusi.sakura.ne.jp/*<br>
+			<img src="img/gmap_note/sec1-2a2.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			「キーを宣言」、フィルタの「Maps Static API」にチェックを入れ、「保存」ボタンを押したら制限完了。<br>
+			<aside>実際に制限がかかるまで2，3分かかるように思える。</aside>
+			<img src="img/gmap_note/sec1-2a3.png" class="img_compact_k" />
+			<br>
+		</li>
+	</ol>
+
+
+	<br><time>2019-3-26</time>
+</div>
+
+
+<div id="sec1-3" class="sec4">
+	<h3>表示回数制限</h3>
+	
+	1日の表示上限、100秒間の表示上限、1ユーザーの100秒間表示上限ができる。<br>
+	とりあえず1日の表示上限だけでも適切に設定すれば無課金にできる。<br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			「Google Cloud Platform」にアクセスしAPIを選択する。<br>
+			<img src="img/gmap_note/sec1-3a1.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			ダッシュボードのAPI一覧から「Maps Static API」をクリック。<br>
+			<img src="img/gmap_note/sec1-3a2.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			「割り当て」タブを選択する。<br>
+			<img src="img/gmap_note/sec1-3a3.png" class="img_compact_k" />
+			<br>
+		</li>
+		<li>
+			「割り当て」タブを選択している状態で少し下にスクロールすると表示制限ができる。<br>
+		
+			<table class="tbl2"><tbody>
+				<tr>
+					<td>Requests with a signature per day</td>
+					<td>一日の表示上限</td>
+					<td>Maps Static API(ウェブ)は月10万件まで無料なので、31日で割り、3200くらいを設定してみる。</td>
+				</tr>
+				<tr>
+					<td>Requests with a signature per 100 seconds</td>
+					<td>100秒間の表示上限</td>
+					<td>集中アクセスを防ぐ目的の設定と思われる。とりあえず、100秒間の上限は500回くらいにしておけばよかろう。</td>
+				</tr>
+				<tr>
+					<td>Requests with a signature per 100 seconds per user</td>
+					<td>1ユーザーの100秒間の表示上限</td>
+					<td>
+						ここの設定でDOSアタックや悪質なスクレイピングをある程度防げる。<br>
+						100秒間に20回で良かろう。もう少し少なくてもいいかもしれない。
+					</td>
+				</tr>
+				
+			</tbody></table><br>
+			<p>変更前（一部変更済み）</p>
+			<img src="img/gmap_note/sec1-3a4.png" />
+			<br>
+			<p>変更後</p>
+			<img src="img/gmap_note/sec1-3a6.png" />
+			<br>
+			<hr>
+			変更の注意<br>
+			数値を変更すると「保存」が押せなくなるが、チェックボックスにチェックを入れると押せるようになる。<br>
+			<img src="img/gmap_note/sec1-3a5.png" class="img_compact_k" />
+		</li>
+		<li>
+			「未署名のリクエスト（URL署名シークレットが定義されている場合）」という似たような設定がある。<br>
+			よくわからないがとりあえず同様に設定を変更する。<br>
+			<img src="img/gmap_note/sec1-3a7.png" class="img_compact_k" />
+			<br>
+		</li>
+	</ol>
+	
+	<hr>
+	<p>参考サイト</p>
+	<ul>
+		<li><a href="https://stackoverflow.com/questions/50289374/new-google-maps-platform-how-do-i-set-my-own-usage-limits" class="btn btn-link btn-xs" target="blank">
+			自分の使用制限を設定する方法</a></li>	
+		<li><a href="https://ring-and-link.co.jp/dream2000/user/notice/web/2975" class="btn btn-link btn-xs" target="blank">
+			Google Maps PlatformのAPI 使用の上限設定</a></li>
+	</ul>
+
+
+	<br><time>2019-3-27</time>
 </div>
 
 
