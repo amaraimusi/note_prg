@@ -107,6 +107,65 @@
 </div>
 
 
+<div id="sec1-3" class="sec4">
+	<h3>マーカーの表示 | マーカークリックイベント | 吹き出し</h3>
+	
+	<a href="/sample/js/a011/gmap_js_api/demo3_marker.html" class="btn btn-info">Demo</a><br>
+	<br>	
+	
+	HTML
+	<pre><code>
+	&lt;div id="map1" style="width:640px;height:480px;"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	var map; // Mapsオブジェクト
+	var infoWindow1; // 吹き出しウィンドウ
+	var marker; // マーカーオブジェクト
+	
+	jQuery(()=&gt;{
+		var mapElm = jQuery('#map1')
+	
+		// 地図を作成
+		map = new google.maps.Map( mapElm[0], {
+			center: new google.maps.LatLng(26.698820, 127.933059 ),
+			zoom: 15 ,
+		});
+		
+		// マーカーの作成
+		marker = new google.maps.Marker( {
+			map: map ,
+			position: new google.maps.LatLng( 26.69740142087048, 127.9333379497375 ) ,
+		}) ;
+		
+		// アイコンを変更する
+		marker.setOptions({
+			icon: {
+				url: 'icon/sakana.png',
+				scaledSize: new google.maps.Size(32, 32) // サイズ
+			}
+		});
+		
+		// 吹き出しオブジェクトの作成
+		infoWindow1 = new google.maps.InfoWindow({ 
+			content: '&lt;div class="text-success"&gt;テスト&lt;br&gt;畑&lt;/div&gt;'
+		});
+		
+		// マーカーのクリックイベント
+		marker.addListener('click', ()=&gt; {
+			infoWindow1.open(map, marker); // 吹き出し表示
+			
+		});
+		
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-28</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
