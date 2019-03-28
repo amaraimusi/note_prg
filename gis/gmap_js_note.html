@@ -57,6 +57,56 @@
 </div>
 
 
+<div id="sec1-2" class="sec4">
+	<h3>クリックイベントとその場所のplaceIdと緯度経度を取得</h3>
+	
+	<a href="/sample/js/a011/gmap_js_api/demo2_click.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;div id="map1" style="width:480px;height:320px;"&gt;&lt;/div&gt;
+	lat: &lt;span id="lat"&gt;&lt;/span&gt;&lt;br&gt;
+	lng: &lt;span id="lng"&gt;&lt;/span&gt;&lt;br&gt;
+	place_id: &lt;span id="place_id"&gt;&lt;/span&gt;&lt;br&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	jQuery(()=&gt;{
+		var map1 = jQuery('#map1')
+	
+		var map = new google.maps.Map( map1[0], {
+			center: new google.maps.LatLng(26.698820, 127.933059 ),
+			zoom: 15 ,
+		});
+		
+		map.addListener( "click", function ( argument ) {
+			console.log( argument ) ;
+			var latLng = argument.latLng;
+			var lat = latLng.lat();
+			var lng = latLng.lng();
+			var place_id = argument.placeId;
+			
+			jQuery('#lat').html(lat);
+			jQuery('#lng').html(lng);
+			
+			if(place_id == null) place_id = '';
+			jQuery('#place_id').html(place_id);
+	
+		}) ;
+		
+	});
+	</code></pre>
+	
+	<aside>
+	placeIdから詳細情報を得るにはGoogle Places API Web Serviceを使わねばならないようだ。有料と思われる。<br>
+	</aside>
+
+	<br><time>2019-3-28</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
