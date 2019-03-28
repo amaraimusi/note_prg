@@ -166,6 +166,117 @@
 </div>
 
 
+<div id="sec1-4" class="sec4">
+	<h3>複数マーカーの表示切替</h3>
+	
+	<a href="/sample/js/a011/gmap_js_api/demo4.html" class="btn btn-info">Demo</a><br>
+	<br>	
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;div id="map1" style="width:640px;height:320px;"&gt;&lt;/div&gt;
+	
+	&lt;div&gt;
+		&lt;input type="checkbox" checked onclick="check1(this, 0)" /&gt; テスト1&lt;br&gt;
+		&lt;input type="checkbox" checked onclick="check1(this, 1)" /&gt; テスト2&lt;br&gt;
+		&lt;input type="checkbox" checked onclick="check1(this, 2)" /&gt; テスト3&lt;br&gt;
+		&lt;input type="checkbox" checked onclick="check1(this, 3)" /&gt; テスト4&lt;br&gt;
+		&lt;input type="checkbox" checked onclick="check1(this, 4)" /&gt; テスト5&lt;br&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	var m_map; // Mapsオブジェクト
+	var m_infoWindows = []; // 吹き出しウィンドウ
+	var m_markers = []; // マーカーオブジェクト
+	
+	jQuery(()=&gt;{
+		var mapElm = jQuery('#map1')
+	
+		// 地図を作成
+		m_map = new google.maps.Map( mapElm[0], {
+			center: new google.maps.LatLng(26.698820, 127.933059 ),
+			zoom: 15 ,
+		});
+		
+		// データ
+		var data = [
+			{icon:'sakana.png', hukidasi_html:"&lt;span&gt;テスト1&lt;/span&gt;", lat:26.69740142, lng:127.9333379},
+			{icon:'book.png', hukidasi_html:"&lt;span&gt;テスト2&lt;/span&gt;", lat:26.7011587, lng:127.938874},
+			{icon:'inu.png', hukidasi_html:"&lt;span&gt;テスト3&lt;/span&gt;", lat:26.70100534, lng:127.9283598},
+			{icon:'tatunootosigo.png', hukidasi_html:"&lt;span&gt;テスト4&lt;/span&gt;", lat:26.69640457, lng:127.927244},
+			{icon:'tougyu.png', hukidasi_html:"&lt;span&gt;テスト5&lt;/span&gt;", lat:26.69723524, lng:127.9286671},
+		];
+		
+		for(var i in data){
+			var ent = data[i];
+			
+			// マーカーを作成
+			var marker = new google.maps.Marker( {
+				map: m_map ,
+				position: new google.maps.LatLng( ent.lat, ent.lng ) ,
+			}) ;
+			
+			// アイコンを変更する
+			marker.setOptions({
+				icon: {
+					url: 'icon/' + ent.icon,
+					scaledSize: new google.maps.Size(32, 32) // サイズ
+				}
+			});
+			
+			// 吹き出しオブジェクトの作成
+			var infoWindows = new google.maps.InfoWindow({ 
+				content: ent.hukidasi_html
+			});
+			
+			m_infoWindows.push(infoWindows);
+			
+			m_markers.push(marker);
+		}
+		
+		// マーカーにクリックイベントを追加
+		for(var i in data){
+			markerEvent(i);
+		}
+	
+	});
+	
+	
+	/**
+	 * マーカーにクリックイベントを追加
+	 * @param i インデックス
+	 */
+	function markerEvent(i) {
+		m_markers[i].addListener('click', ()=&gt; {
+			m_infoWindows[i].open(m_map, m_markers[i]); // 吹き出しの表示
+		});
+	}
+	
+	
+	/**
+	 * チェックボックスのクリックイベント
+	 * @param elm チェックボックス要素
+	 * @param i インデックス
+	 */
+	function check1(elm, i){
+		var elm = jQuery(elm);
+		if(elm.prop('checked')){
+			m_markers[i].setVisible(true);
+		}else{
+			m_markers[i].setVisible(false);
+		}
+		
+	}
+	</code></pre>
+	
+
+
+	<br><time>2019-3-28</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
