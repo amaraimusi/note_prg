@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rubyの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Rubyの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>RubyとRuby on railsのインストールからプロジェクト作成および実行まで</h3>
+	
+	<ol class="list_lg">
+		<li>
+			公式サイトから<a href="https://rubyinstaller.org/downloads/" target="blank">インストーラ</a>をダウンロードする。
+			最新であれば良いというわけでもないので注意。下手に最新版に手をだすと時間を浪費することになる。
+			お勧めのバージョンについて右側文章に記載されているので、お勧めバージョンをダウンロードするようにする。<br>
+			<img src="img/note/sec1-1a1.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			インストーラを実行する。<br>
+			「Use UTF-8 as default ...」のチェックボックスにチェックを入れる。<br>
+			<br><img src="img/note/sec1-1a2.png"/>
+			<br><img src="img/note/sec1-1a3.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			MSYS2をすでにインストール済みである場合は、チェックを外しても良い。<br>
+			<br><img src="img/note/sec1-1a4.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			完了に見えるが、まだインストールは終わっていない。コマンドプロンプトが立ち上がる。
+			<br><img src="img/note/sec1-1a5.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			コマンドプロンプトでEnterを押すとインストールが継続する。15分後くらいにRubyのインストールは完了する。
+			<br><img src="img/note/sec1-1a6.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			コマンドラインツールで「gem」コマンドが使えるか調べる。<br>
+			下記のバージョンチェックコマンドを実行し、バージョンが表示されたら成功。<br>
+			<pre class="console">	$ gem --version</pre>
+			<br><img src="img/note/sec1-1a7.png"/>
+			<aside>コマンドラインツールにはGit for WindowsのGit Bashを用いた。</aside>
+		</li>
+
+		<li>
+			続いてコマンドラインツールにて「Ruby on rails」をインストールする。
+			インストールは下記のコマンドを実行するだけ。<br>
+			コマンド実行直後は10分くらい何も起こらないのでフリーズしたように見えるが、ちゃんと実行されているので待つこと。
+			<pre class="console">$ gem install rails</pre>
+			<br><img src="img/note/sec1-1a8.png" />
+		</li>
+		
+		<li>
+			Ruby on railsのインストールが完了したらプロジェクトを作成する。<br>
+			プロジェクトの作成にはデータベースを指定する必要がある。
+			今回、xamppのMySQLをそのまま利用する。利用するとはいっても特別なことは不要である。<br>
+			<aside>データベースを指定しなかった場合、sqliteが使われるようだ。</aside>
+			cdコマンドでプロジェクトを作成するディレクトリへ移動し、プロジェクト生成コマンドを実行する。
+			今回、プロジェクト名は「ruby_test2」にした。<br>
+			<pre class="console">
+	$ cd git
+	$ rails new ruby_test2 -d mysql
+			</pre>
+			<br><img src="img/note/sec1-1a9.png" />
+			
+		</li>
+		
+		<li>
+			続いてサーバーを動かす。
+			プロジェクトのディレクトリへcdコマンドで移動し、「$ rails s」コマンドを実行する。
+			<pre class="console">
+	$ cd ruby_test2
+	$ rails s
+			</pre>
+			<br><img src="img/note/sec1-1a10.png" />
+		</li>
+		
+		<li>
+			ブラウザで動かしてみる。<br>
+			「http://localhost:3000/」にブラウザでアクセスする。<br>
+			画面が開いたら成功。<br>
+			<br><img src="img/note/sec1-1a11.png"  class="img_compact_k"/>
+			<aside>図はMySQLのパスワードを記述していないのでエラーがでている状態</aside>
+		</li>
+	</ol>
+
+
+	<br><time>2019-3-12</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-3-12</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Rubyの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-3-29</div>
+</body>
+</html>
