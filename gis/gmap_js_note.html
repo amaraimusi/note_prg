@@ -367,6 +367,191 @@
 </div>
 
 
+<div id="sec1-7" class="sec4">
+	<h3>Directions API　| 距離と所要時間の取得、およびルートのライン描画</h3>
+	
+	<a href="/sample/js/a011/gmap_directions/demo1.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;div id="map1" style="width:640px;height:480px;float:left;"&gt;&lt;/div&gt;
+	&lt;div style="padding:10px"&gt;
+		&lt;div id="err" class="text-danger"&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;select id="travel_mode"&gt;
+				&lt;option value="DRIVING"&gt;自動車&lt;/option&gt;
+				&lt;option value="BICYCLING"&gt;自転車&lt;/option&gt;
+				&lt;option value="TRANSIT"&gt;電車/公共交通機関&lt;/option&gt;
+				&lt;option value="WALKING"&gt;徒歩&lt;/option&gt;
+			&lt;/select&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			距離:&lt;span id="dist1"&gt;&lt;/span&gt; (&lt;span id="dist2"&gt;&lt;/span&gt;)
+		&lt;/div&gt;
+		&lt;div&gt;
+			時間:&lt;span id="time1"&gt;&lt;/span&gt; (&lt;span id="time2"&gt;&lt;/span&gt;)
+		&lt;/div&gt;
+		&lt;div&gt;
+			開始住所：&lt;span id="start_address"&gt;&lt;/span&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			終了住所：&lt;span id="end_address"&gt;&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	var map; // Mapsオブジェクト
+	var infoWindow1; // 吹き出しウィンドウ
+	var marker; // マーカーオブジェクト
+	var marker2; // マーカーオブジェクト
+	var linePath; // ラインオブジェクト
+	
+	jQuery(()=&gt;{
+		var mapElm = jQuery('#map1')
+	
+		// 地図を作成
+		map = new google.maps.Map( mapElm[0], {
+			center: new google.maps.LatLng(26.698820, 127.933059 ),
+			zoom: 13 ,
+		});
+		
+		// マーカーの作成
+		marker = new google.maps.Marker( {
+			map: map ,
+			position: new google.maps.LatLng( 26.69740142087048, 127.9333379497375 ) ,
+		}) ;
+		
+		marker2 = new google.maps.Marker( {
+			map: map ,
+			position: new google.maps.LatLng( 26.698666640945667, 127.92767312429805 ) ,
+		}) ;
+		
+		// アイコンを変更する
+		marker.setOptions({
+			icon: {
+				url: 'icon/sakana.png',
+				scaledSize: new google.maps.Size(32, 32) // サイズ
+			}
+		});
+		marker2.setOptions({
+			icon: {
+				url: 'icon/inu.png',
+				scaledSize: new google.maps.Size(32, 32) // サイズ
+			}
+		});
+		
+		// 吹き出しオブジェクトの作成
+		infoWindow1 = new google.maps.InfoWindow({ 
+			content: '&lt;div class="text-success"&gt;テスト&lt;br&gt;畑&lt;/div&gt;'
+		});
+		
+		// マーカーのクリックイベント
+		marker.addListener('click', ()=&gt; {
+			infoWindow1.open(map, marker); // 吹き出し表示
+			
+		});
+		
+		// ▼ 地図上をクリックしたらマーカーを移動、および距離、所要時間、ルートを描画する
+		map.addListener( "click", function ( argument ) {
+			
+			jQuery('#err').html('');
+			
+			// マーカーの位置をクリック位置に移動する。
+			marker2.setPosition(argument.latLng);
+	
+			// 開始位置を取得
+			var origLatLng = marker.getPosition();
+			var origin = origLatLng.lat() + ',' + origLatLng.lng();
+	
+			// 終了位置（クリック位置）を取得
+			var destLatLng = marker2.getPosition();
+			var destination = destLatLng.lat() + ',' + destLatLng.lng();
+	
+			// 移動方法を取得
+			var travel_mode = jQuery('#travel_mode').val();
+			if(travel_mode == null) return;
+	
+			// 距離やルート情報を取得する
+			var directionsService = new google.maps.DirectionsService();
+			var directionsRequest = {
+				origin: origin,
+				destination: destination,
+				travelMode: google.maps.DirectionsTravelMode[travel_mode],
+				unitSystem: google.maps.UnitSystem.METRIC
+			};
+			directionsService.route(directionsRequest, function (response, status) {
+				
+				if (status == google.maps.DirectionsStatus.OK) {					
+	
+					console.log('routes_count=' + response.routes.length);
+					if(response.routes[0] == null){
+						jQuery('#err').append('No root');
+						return;
+					}
+					
+					var route = response.routes[0];
+					
+					var legs = route['legs'];
+					console.log('legs_count=' + legs.length);
+					
+					if(legs[0] == null){
+						jQuery('#err').append('No root 2');
+						return;
+					}
+					var leg = legs[0];
+					
+					
+					// 距離：distance: {text: "3.7 km", value: 3693}
+					// 時間：duration: {text: "6分", value: 342}
+					var dist1 = leg.distance.text;
+					var dist2 = leg.distance.value;
+					var time1 = leg.duration.text;
+					var time2 = leg.duration.value;
+					jQuery('#dist1').html(dist1);
+					jQuery('#dist2').html(dist2);
+					jQuery('#time1').html(time1);
+					jQuery('#time2').html(time2);
+		
+					// 開始住所、終了住所
+					jQuery('#start_address').html(leg.start_address);
+					jQuery('#end_address').html(leg.end_address);
+					
+					// ライン（ルート）をクリアする
+					if(linePath) linePath.setMap(null);
+					
+					// ラインを描画する
+					linePath = new google.maps.Polyline({
+						path: route.overview_path,
+						geodesic: true,
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.5,
+						strokeWeight: 6
+					 });
+					linePath.setMap(map);
+					
+				}
+				else{
+					//Error has occured
+					alert(status);
+					jQuery('#err').append('アクセスエラー');
+					jQuery('#err').append(status);
+					
+				}
+			});
+			
+		}) ;
+		
+	});
+	</code></pre>
+
+
+	<br><time>2019-3-30</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
