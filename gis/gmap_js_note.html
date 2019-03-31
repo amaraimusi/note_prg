@@ -342,6 +342,31 @@
 </div>
 
 
+<div id="sec1-6" class="sec4">
+	<h3>マーカーの緯度経度を取得またはセット</h3>
+	
+	
+	<p>マーカーから緯度経度を取得</p>
+	<pre><code>
+	var lat = marker.<strong>getPosition()</strong>.lat();
+	var lng = marker.getPosition().lng();
+	</code></pre>
+	<aside>※markerは「new google.maps.Marker」クラスのオブジェクト</aside><br>
+	<br>
+	
+	<p>緯度経度をマーカーにセットする</p>
+	<pre><code>
+	var lat = 26.69740142087048;
+	var lng = 127.9333379497375;
+	var latLng = new google.maps.LatLng(lat, lng);
+	marker.<strong>setPosition</strong>(latLng);
+	</code></pre>
+
+
+	<br><time>2019-3-31</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
