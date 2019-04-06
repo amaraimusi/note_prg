@@ -107,7 +107,7 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec7-2" class="sec1">
-	<h3>File API | ファイルからテキストデータを取得</h3>
+	<h3>File API | テキストファイルからテキスト文字列を取得</h3>
 	
 	
 	選択したファイルからテキストを読み込み表示する。<br>
@@ -136,20 +136,28 @@
 	javascript(file_api2.js)
 	<pre>
 	$( function() {
+	
 		//ファイルアップロードイベント
 		$('#file1').change(function(e) {
+		
 			//ファイルオブジェクト配列を取得（配列要素数は選択したファイル数を表す）
 			var files = e.target.files;
 			var fileObj = files[0];
+			
 			//ファイルリーダーにファイルオブジェクトを渡すと、ファイル読込完了イベントなどをセットする。
 			var reader = new FileReader();
-			reader.readAsText(fileObj, "Shift_JIS");
+			reader.readAsText(fileObj, "Shift_JIS"); // ← テキストファイルの文字コードがshift-jisである場合
+			//reader.readAsText(fileObj); // ← utf-8の場合（BOMの有無は問題ない）
+			
 			//ファイル読込完了イベント
 			reader.onload = function(evt) {
+			
 				//テキストデータを取得する
 				var text_data = evt.target.result;
+				
 				//XSSサニタイズ
 				text_data = xssSanitaizeEncode(text_data);
+				
 				//出力
 				$("#res").html(text_data);
 			}
@@ -174,6 +182,7 @@
 	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api3.php" >File API | ファイル読込の進捗</a><br>
 	<a href="http://amaraimusi.sakura.ne.jp/sample/js/file_api/file_api4.php" >File API | 複数ファイルアップロード</a><br>
 
+	<time>2015-10-22 | 2019-4-6</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
