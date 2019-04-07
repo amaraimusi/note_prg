@@ -755,6 +755,15 @@
 	 * @returns array 2次元配列
 	 */
 	function csvTextToData(csv_text){
+	
+		if(csv_text=='' || csv_text==null) return null;
+	
+		// CSVテキストの末尾が改行でないければ改行を付け足す。
+		var last = csv_text[csv_text.length - 1];
+		if(!last.match(/\r|\n/)){
+			csv_text += "\n";
+		}
+		
 		var data = [];
 		var len = csv_text.length;
 		var enclose = 0; // ダブルクォート囲み状態フラグ  0:囲まれていない , 1:囲まれている
@@ -818,7 +827,7 @@
 	</code></pre>
 
 
-	<br><time>2019-4-6</time>
+	<br><time>2019-4-6 | 2019-4-8</time>
 </div>
 
 
