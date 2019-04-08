@@ -66,6 +66,98 @@
 
 
 
+<div id="sec16-1-2" class="sec4">
+	<h3>データからINSERTとUPDATEのSQL文を生成する</h3>
+	
+<pre><code>
+&lt;?php 
+$data = [
+		['id'=&gt;2, 'tanuki_name'=&gt;'アオダヌキ','tanuki_date'=&gt;'2019-4-8','kemono_id'=&gt;100],
+		['id'=&gt;null, 'tanuki_name'=&gt;'赤ダヌキ','tanuki_date'=&gt;'2019-4-9','kemono_id'=&gt;101],
+		['id'=&gt;3, 'tanuki_name'=&gt;'黒ダヌキ','tanuki_date'=&gt;'2019-4-10','kemono_id'=&gt;102],
+		['id'=&gt;null, 'tanuki_name'=&gt;'ビッグダヌキ','tanuki_date'=&gt;'2019-4-11','kemono_id'=&gt;103],
+];
+
+$res = getMasterDataFromDb('tanukis', $data);
+echo '&lt;pre&gt;&lt;code&gt;';
+var_dump($res);
+echo '&lt;/code&gt;&lt;/pre&gt;';
+
+/**
+ * データからINSERTとUPDATEのSQL文を生成する
+ * @param string $tbl_name テーブル名
+ * @param array $data エンティティ配列型のデータ
+ * @return array|string[][]
+ */
+function getMasterDataFromDb($tbl_name, $data){
+	if(empty($data)) return array();
+	
+	// 列名群文字列を組み立て
+	$ent0 = current($data);
+	$keys = array_keys($ent0);
+	$clms_str = implode(',', $keys); // 列名群文字列
+	
+	$inserts = array(); // INSERT SQLリスト
+	$updates = array(); // UPDATE SQLリスト
+	foreach($data as &amp;$ent){
+	
+		
+		// IDが空ならINSERT文を組み立て
+		if(empty($ent['id'])){
+			$vals_str = "'" . implode("','", $ent) . "'";
+			$inserts[] = "INSERT INTO {$tbl_name} ({$clms_str}) VALUES ({$vals_str});";
+		}
+		
+		// IDが存在すればUPDATE文を組み立て
+		else{
+			$vals_str = '';
+			foreach($keys as $field){
+				if($field == 'id') continue;
+				$vals_str .= "{$field}='{$ent[$field]}',";
+			}
+			$vals_str=mb_substr($vals_str,0,mb_strlen($vals_str)-1); // 末尾のコンマを削る
+			$updates[] = "UPDATE {$tbl_name} SET {$vals_str} WHERE id={$ent['id']}";
+		}
+	}
+	unset($ent);
+	
+	$res = [
+			'inserts' =&gt; $inserts,
+			'updates' =&gt; $updates,
+	];
+	return $res;
+}
+?&gt;
+</code></pre>
+
+<p>出力</p>
+<pre class="console">
+array(2) {
+  ["inserts"]=&gt;
+  array(2) {
+    [0]=&gt;
+    string(103) "INSERT INTO tanukis (id,tanuki_name,tanuki_date,kemono_id) VALUES ('','赤ダヌキ','2019-4-9','101');"
+    [1]=&gt;
+    string(110) "INSERT INTO tanukis (id,tanuki_name,tanuki_date,kemono_id) VALUES ('','ビッグダヌキ','2019-4-11','103');"
+  }
+  ["updates"]=&gt;
+  array(2) {
+    [0]=&gt;
+    string(98) "UPDATE tanukis SET tanuki_name='アオダヌキ',tanuki_date='2019-4-8',kemono_id='100' WHERE id=2"
+    [1]=&gt;
+    string(96) "UPDATE tanukis SET tanuki_name='黒ダヌキ',tanuki_date='2019-4-10',kemono_id='102' WHERE id=3"
+  }
+}
+
+</pre>
+	
+
+
+	<br><time>2019-4-8</time>
+</div>
+
+
+
 <div id="sec16-2" class="sec4">
 	<h3>ブラウザ判定</h3>
 
