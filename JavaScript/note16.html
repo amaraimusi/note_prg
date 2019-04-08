@@ -509,6 +509,45 @@
 
 
 
+<div id="sec16-8" class="sec4">
+	<h3>Ajax送信不具合、「&amp;」記号対策 | データ中の「&amp;」を「%26」に一括サニタイズ</h3>
+
+	<a href="/sample/js/a011/ampTo26/ampTo26.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+	/**
+	 * データ中の「&amp;」を「%26」に一括エスケープ
+	 * @note
+	 * PHPのJSONデコードでエラーになるので、＆記号を「%26」に変換する
+	 * 
+	 * @param mixed data エスケープ対象 :文字列、オブジェクト、配列を指定可
+	 * @returns エスケープ後
+	 */
+	function _ampTo26(data){
+		if (typeof data == 'string'){
+			if ( data.indexOf('&amp;') != -1) {
+				return data.replace(/&amp;/g, '%26');
+			}else{
+				return data;
+			}
+		}else if (typeof data == 'object'){
+			for(var i in data){
+				data[i] = _ampTo26(data[i]);
+			}
+			return data;
+		}else{
+			return data;
+		}
+	}
+	</code></pre>
+
+	<br><time>2019-4-8</time>
+</div>
+
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
