@@ -116,6 +116,7 @@
 	var sendData={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'text1':text1};
 
 	// data = _escapeForAjax(sendData); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
+	// data = _ampTo26(data); // PHPのJSONデコードでエラーになるので、＆を%26に一括変換する
 
 	var send_json = JSON.stringify(sendData);//データをJSON文字列にする。
 
@@ -167,12 +168,37 @@
 			return data;
 		}
 	}
+	
+	/**
+	 * データ中の「&amp;」を「%26」に一括エスケープ
+	 * @note
+	 * PHPのJSONデコードでエラーになるので、＆記号を「%26」に変換する
+	 * 
+	 * @param mixed data エスケープ対象 :文字列、オブジェクト、配列を指定可
+	 * @returns エスケープ後
+	 */
+	function _ampTo26(data){
+		if (typeof data == 'string'){
+			if ( data.indexOf('&amp;') != -1) {
+				return data.replace(/&amp;/g, '%26');
+			}else{
+				return data;
+			}
+		}else if (typeof data == 'object'){
+			for(var i in data){
+				data[i] = _ampTo26(data[i]);
+			}
+			return data;
+		}else{
+			return data;
+		}
+	}
 	</code></pre>
 	<hr>
 
 
 
-	<time>2013-9-3 | 2019-1-31</time>
+	<time>2013-9-3 | 2019-4-8</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->
