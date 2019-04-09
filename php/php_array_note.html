@@ -471,6 +471,61 @@ $data6 → 1
 
 
 
+<div id="s1-10" class="sec4">
+	<h3>配列内を値で検索し、キーを取得する | array_searchの検証</h3>
+	
+	<pre><code>
+&lt;?php 
+$list = [
+		'yakusima' =&gt; 'ヤクシマタゴガエル',
+		'tokyo' =&gt; 'トウキョウダルマガエル',
+		'chousen' =&gt; 'チョウセンヤマアカガエル',
+		'tusima' =&gt; 'ツシマアカガエル',
+		'test1' =&gt; '\'',
+		'test2' =&gt; '&amp;',
+		'test3' =&gt; '"',
+		'test4' =&gt; '$',
+		'test5' =&gt; '\',
+		'tonosama' =&gt; 'トノサマガエル',
+		'ryokyu' =&gt; 'リュウキュウアカガエル',
+	];
+
+echo "&lt;pre class='console'&gt;";
+$key = array_search('ツシマアカガエル', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('ニョロボン', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('\'', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('&amp;', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('"', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('$', $list);
+echo $key . '&lt;br&gt;';
+$key = array_search('\', $list);
+echo $key . '&lt;br&gt;';
+echo "&lt;/pre&gt;";
+?&gt;
+</code></pre>
+
+<p>出力</p>
+<pre class='console'>tusima<br><br>test1<br>test2<br>test3<br>test4<br>test5<br></pre>
+	
+	<br><time>2019-4-9</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div id="s1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
