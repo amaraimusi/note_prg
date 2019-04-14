@@ -556,28 +556,38 @@
 		
 	<p>HTML</p>
 	<pre><code>
-	&lt;div id="form1"&gt;
-		&lt;textarea class="cat_name folding_ta" cols="30" rows="5"&gt;赤い猫はごみを漁ります。野良猫だからです。庭に猫のエサを置くと、夜のうちに食べに来ます。
-		&lt;/textarea&gt;
-		&lt;textarea class="test1 folding_ta" cols="30" rows="5"&gt;我が子よ，
-		その時にはこのように行動して自分を救い出せ。あなたは仲間の者の掌中に陥ったからである。すなわち，行って，自分を低くし，その仲間の者にあらしのように懇願を浴びせよ。
-		&lt;/textarea&gt;
-		&lt;textarea class="test2 folding_ta" cols="30" rows="5" &gt;さて，カナン人でアラドの王である者がネゲブに住んでいたが，その者は，イスラエルがアタリムを通ってやって来たことを聞いた。それで彼はイスラエルに対して戦いを始め，その幾人かをとりこにして連れ去った。
-		&lt;/textarea&gt;
-		&lt;textarea class="test3 folding_ta" cols="30" rows="5"&gt;いろはにほへとちりぬるをわかよたれそつねならむ
-		&lt;/textarea&gt;
-	&lt;/div&gt;
+&lt;div id="form1"&gt;
+	&lt;textarea class="test1" cols="30" rows="5" data-folding-ta&gt;いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせすん
+	&lt;/textarea&gt;
+	&lt;textarea class="test2" cols="30" rows="5" data-folding-ta="5"&gt;あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめも
+	&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;input type="button" value="外部による値変更" class="btn btn-primary btn-xs" onclick="test_input_by_outsider()" /&gt;→
+&lt;input type="button" value="一括反映表示" class="btn btn-success btn-xs" onclick="reflection()" /&gt;
 	</code></pre>
 	
 	<p>JavaScript</p>
 	<pre><code>
-	var foldingTa;
-	$(()=&gt;{
-		var foldingTa = new FoldingTa();
-		foldingTa.init({
-			'form_slt':'#form1',
-		});
+var foldingTa;
+$(()=&gt;{
+	foldingTa = new FoldingTa();
+	foldingTa.init({
+		'form_slt':'#form1',
 	});
+});
+
+// 「外部による値変更」ボタンを押下
+function test_input_by_outsider(){
+	jQuery('.test1').val(`我が子よ，
+		その時にはこのように行動して自分を救い出せ。あなたは仲間の者の掌中に陥ったからである。すなわち，行って，自分を低くし，その仲間の者にあらしのように懇願を浴びせよ。`);
+	jQuery('.test2').val(`さて，カナン人でアラドの王である者がネゲブに住んでいたが，その者は，イスラエルがアタリムを通ってやって来たことを聞いた。
+		それで彼はイスラエルに対して戦いを始め，その幾人かをとりこにして連れ去った。`);
+}
+
+// 「一括反映表示」ボタン押下
+function reflection(){
+	foldingTa.reflection();
+}
 	</code></pre>
 	<br>
 	
@@ -586,8 +596,8 @@
 /**
  * 折り畳み式テキストエリア
  * 
- * @date 2019-4-12
- * @version 1.0.0
+ * @date 2019-4-12 | 2019-4-15
+ * @version 1.1.0
  * 
  */
 class FoldingTa{
@@ -636,12 +646,16 @@ class FoldingTa{
 	 */
 	_initBoxs(){
 		var boxs = [];
-		this.formElm.find('.folding_ta').each((i, elm)=&gt;{
-			var taElm = jQuery(elm);
-			var box = {'taElm': taElm};
+		this.formElm.find('[data-folding-ta]').each((i, elm)=&gt;{
+			var taElm = jQuery(elm); // テキストエリア要素を取得
+			
+			// テキストエリア要素から見出し文字数を取得する
+			var midasi_len = taElm.attr('data-folding-ta');
+			if(midasi_len == null || midasi_len=='' ) midasi_len = this.param.midasi_length;
+			var box = {'taElm': taElm, 'midasi_len':midasi_len};
 			boxs.push(box);
 		});
-		
+
 		return boxs;
 	}
 	
@@ -649,17 +663,20 @@ class FoldingTa{
 	/**
 	 * 見出しテキストを取得する
 	 * @param string full_text		フルテキスト（テキストエリアから取得した元のテキスト）
+	 * @param string midasi_len 見出し文字数
 	 * @return string 見出しテキスト		見出し用に短くしたテキスト
 	 */
-	_getMidasiText(full_text){
+	_getMidasiText(full_text, midasi_len){
 		if(full_text == '' | full_text==null) return '';
 		
 		var midasi_text = '';
 		if(full_text.length &gt; this.param.midasi_length){
-			midasi_text = full_text.substring(0, this.param.midasi_length); // 見出し文字数文だけ切り出し、見出しテキストにセットする。
+			midasi_text = full_text.substring(0, midasi_len); // 見出し文字数文だけ切り出し、見出しテキストにセットする。
 		}else{
 			midasi_text = full_text;
 		}
+		
+		midasi_text = this._xss_sanitize(midasi_text); // XSSサニタイズ
 		
 		return midasi_text;
 	}
@@ -677,7 +694,7 @@ class FoldingTa{
 			var taElm = box.taElm;
 			
 			// 見出しテキストを取得する
-			var midasi_text = this._getMidasiText(taElm.val());
+			var midasi_text = this._getMidasiText(taElm.val(), box.midasi_len);
 				
 			var preview_html = `
 				&lt;div class="folding_ta_preview" data-folding-ta-p-i="${i}" "&gt;
@@ -744,7 +761,7 @@ class FoldingTa{
 			
 		}else{
 			
-			var midasi_text = this._getMidasiText(box.taElm.val());// 見出しテキストを取得する
+			var midasi_text = this._getMidasiText(box.taElm.val(), box.midasi_len);// 見出しテキストを取得する
 			box.midasiElm.html(midasi_text);
 			box.taElm.hide();
 			box.midasiElm.show();
@@ -755,8 +772,49 @@ class FoldingTa{
 	}
 	
 	
+	/**
+	 * 一括反映
+	 * @note
+	 * 外部によりテキストエリアが書き換えられた時に、このメソッドを呼び出すと、プレビューの見出しに一括で反映させる。
+	 */
+	reflection(){
+		for(var i in this.boxs){
+			var box = this.boxs[i];
+			var text = box.taElm.val();
+			var midasi_text = this._getMidasiText(text, box.midasi_len);
+			box.midasiElm.html(midasi_text);
+		}
+	}
+	
+	
+	/**
+	 * XSSサニタイズ
+	 * 
+	 * @note
+	 * 「&lt;」と「&gt;」のみサニタイズする
+	 * 
+	 * @param any data サニタイズ対象データ | 値および配列を指定
+	 * @returns サニタイズ後のデータ
+	 */
+	_xss_sanitize(data){
+		if(typeof data == 'object'){
+			for(var i in data){
+				data[i] = this._xss_sanitize(data[i]);
+			}
+			return data;
+		}
+		
+		else if(typeof data == 'string'){
+			return data.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+		}
+		
+		else{
+			return data;
+		}
+	}
 	
 }
+
 	</code></pre>
 
 
