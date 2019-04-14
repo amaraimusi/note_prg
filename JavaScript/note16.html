@@ -548,6 +548,224 @@
 
 
 
+<div id="sec16-9" class="sec4">
+	<h3>折り畳みテキストエリア | FoldingTa.js </h3>
+
+	<a href="/sample/js/a011/folding_ta/folding_ta.html" class="btn btn-info">Demo</a><br>
+	<br>
+		
+	<p>HTML</p>
+	<pre><code>
+	&lt;div id="form1"&gt;
+		&lt;textarea class="cat_name folding_ta" cols="30" rows="5"&gt;赤い猫はごみを漁ります。野良猫だからです。庭に猫のエサを置くと、夜のうちに食べに来ます。
+		&lt;/textarea&gt;
+		&lt;textarea class="test1 folding_ta" cols="30" rows="5"&gt;我が子よ，
+		その時にはこのように行動して自分を救い出せ。あなたは仲間の者の掌中に陥ったからである。すなわち，行って，自分を低くし，その仲間の者にあらしのように懇願を浴びせよ。
+		&lt;/textarea&gt;
+		&lt;textarea class="test2 folding_ta" cols="30" rows="5" &gt;さて，カナン人でアラドの王である者がネゲブに住んでいたが，その者は，イスラエルがアタリムを通ってやって来たことを聞いた。それで彼はイスラエルに対して戦いを始め，その幾人かをとりこにして連れ去った。
+		&lt;/textarea&gt;
+		&lt;textarea class="test3 folding_ta" cols="30" rows="5"&gt;いろはにほへとちりぬるをわかよたれそつねならむ
+		&lt;/textarea&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	var foldingTa;
+	$(()=&gt;{
+		var foldingTa = new FoldingTa();
+		foldingTa.init({
+			'form_slt':'#form1',
+		});
+	});
+	</code></pre>
+	<br>
+	
+	<input type="button" value="FoldingTa.js" onclick="jQuery('#sec16-9a1').toggle(300)" class="btn btn-info"/>
+	<pre id="sec16-9a1" style="display:none"><code>
+/**
+ * 折り畳み式テキストエリア
+ * 
+ * @date 2019-4-12
+ * @version 1.0.0
+ * 
+ */
+class FoldingTa{
+	
+	
+	/**
+	 * 初期化
+	 * 
+	 * @param param
+	 * - form_slt フォームセレクタ
+	 * - midasi_length 見出し文字数
+	 */
+	init(param){
+		param = this._setParamIfEmpty(param);
+		this.param = param;
+		this.formElm = jQuery(param.form_slt); // フォーム要素
+
+		var boxs = this._initBoxs(); // ボックスリスト     テキストエリア要素などが詰めこまれている。
+		boxs = this._addPreviewElms(boxs); // プレビュー要素を作成し、その要素をボックスリストに追加する。
+		this._addEventTenkaiClick(boxs); // 展開ボタンのクリックイベントを追加
+		
+		this.boxs = boxs;
+		
+	}
+
+	
+	/**
+	 * If Param property is empty, set a value.
+	 */
+	_setParamIfEmpty(param){
+		
+		if(param == null) param = {};
+		if(param['form_slt'] == null) throw new Error("Empty 'form_slt' !");
+		if(param['midasi_length'] == null) param['midasi_length']=20;
+		
+		return param;
+	}
+	
+	
+	/**
+	 * ボックスリストの初期化
+	 * 
+	 * @note
+	 * class属性が「folding_ta」であるテキストエリア要素を取得してボックスリストに詰める。
+	 * @return array ボックスリスト
+	 */
+	_initBoxs(){
+		var boxs = [];
+		this.formElm.find('.folding_ta').each((i, elm)=&gt;{
+			var taElm = jQuery(elm);
+			var box = {'taElm': taElm};
+			boxs.push(box);
+		});
+		
+		return boxs;
+	}
+	
+	
+	/**
+	 * 見出しテキストを取得する
+	 * @param string full_text		フルテキスト（テキストエリアから取得した元のテキスト）
+	 * @return string 見出しテキスト		見出し用に短くしたテキスト
+	 */
+	_getMidasiText(full_text){
+		if(full_text == '' | full_text==null) return '';
+		
+		var midasi_text = '';
+		if(full_text.length &gt; this.param.midasi_length){
+			midasi_text = full_text.substring(0, this.param.midasi_length); // 見出し文字数文だけ切り出し、見出しテキストにセットする。
+		}else{
+			midasi_text = full_text;
+		}
+		
+		return midasi_text;
+	}
+	
+	
+	/**
+	 * プレビュー要素を作成し、その要素をボックスリストに追加する。
+	 * @return array ボックスリスト
+	 */
+	_addPreviewElms(boxs){
+		
+		// プレビュー要素を作成し、テキストエリアの上に挿入する
+		for(var i in boxs){
+			var box = boxs[i];
+			var taElm = box.taElm;
+			
+			// 見出しテキストを取得する
+			var midasi_text = this._getMidasiText(taElm.val());
+				
+			var preview_html = `
+				&lt;div class="folding_ta_preview" data-folding-ta-p-i="${i}" "&gt;
+					&lt;div class="folding_ta_midasi" style="display:inline-block;margin-right:5px"&gt;${midasi_text}&lt;/div&gt;
+					&lt;input type="button" value='...' class="folding_ta_tenkai btn btn-default btn-xs" data-folding-ta-p-i="${i}" style="margin-top:0px" /&gt;
+				&lt;/div&gt;
+			`;
+			
+			taElm.before(preview_html);
+		}
+		
+		// ▼プレビュー要素、見出し要素、展開ボタン要素を取得し、ボックスにセットする。
+		this.formElm.find('.folding_ta_preview').each((i, elm)=&gt;{
+			var previewElm = jQuery(elm);
+			var index = previewElm.attr('data-folding-ta-p-i');
+			var box = boxs[index];
+			box['previewElm'] = previewElm;
+			
+			var midasiElm = previewElm.find('.folding_ta_midasi');
+			box['midasiElm'] = midasiElm;
+			
+			var tenkaiElm = previewElm.find('.folding_ta_tenkai');
+			box['tenkaiElm'] = tenkaiElm;
+			
+		});
+
+		return boxs;
+	}
+	
+	
+	/**
+	 * 展開ボタンのクリックイベントを追加
+	 * @param array boxs ボックスリスト
+	 */
+	_addEventTenkaiClick(boxs){
+		
+		for(var i in boxs){
+			var box = boxs[i];
+			box.tenkaiElm.click(evt=&gt;{
+				var btnElm = jQuery(evt.currentTarget);
+				this.clickTenkai(btnElm); // 展開ボタンクリックイベント
+			});
+			
+			box.taElm.hide(); // テキストエリアを隠す
+			
+		}		
+	}
+	
+	
+	/**
+	 * 展開ボタンクリックイベント
+	 * @param jQuery btnElm 展開ボタン要素
+	 * 
+	 */
+	clickTenkai(btnElm){
+		
+		var index = btnElm.attr('data-folding-ta-p-i'); // ボックスリストのインデックスを取得する
+		
+		var box = this.boxs[index];
+		if(box.taElm.css('display') == 'none'){
+			box.taElm.show();
+			box.midasiElm.hide();
+			box.tenkaiElm.attr('value', '閉じる');
+			
+		}else{
+			
+			var midasi_text = this._getMidasiText(box.taElm.val());// 見出しテキストを取得する
+			box.midasiElm.html(midasi_text);
+			box.taElm.hide();
+			box.midasiElm.show();
+			box.tenkaiElm.attr('value', '...');
+			
+		}
+		
+	}
+	
+	
+	
+}
+	</code></pre>
+
+
+	<br><time>2019-4-15</time>
+</div>
+
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
