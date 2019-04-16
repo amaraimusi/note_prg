@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>YOLPの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>YOLPの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Yahoo!ジオコーダAPI | アプリケーションIDの登録～住所から緯度経度取得</h3>
+	
+	<a href="https://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/geocoder.html" target="blank">公式: Yahoo!ジオコーダAPI</a><br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			まずはアプリケーションIDが必要なので、手続きを行う。<br>
+			<a href="https://developer.yahoo.co.jp/yconnect/v1/registration.html" target="blank">
+			Yahoo!デベロッパーネットワーク</a>のサイトにアクセス、「アプリケーション登録ページ」を開く。<br>
+			<img src="img/yolp_note/sec1-1a1.png" class="img_compact_k" />
+		</li>
+		<li>
+			PHPファイルにアプリケーションIDを埋め込むので「サーバーサイド」を選択。<br>
+			他は適当に入力する。<br>
+			<img src="img/yolp_note/sec1-1a2.png" class="img_compact_k" />
+		</li>
+		<li>
+			登録が完了するとアプリケーションIDが発行されるので、控えを取得しておく。<br>
+			<img src="img/yolp_note/sec1-1a3.png" class="img_compact_k" />
+		</li>
+		<li>
+			PHP側のコーディング。住所から緯度経度を取得する。<br>
+			<strong>PHP</strong>
+			<pre><code>
+			&lt;?php 
+			$app_id = "先ほど取得したアプリケーションID";
+			$place = "沖縄県国頭郡本部町石川４２４";// 住所
+			$place = urlencode($place);// URLエンコード
+			$url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid={$app_id}&amp;query={$place}&amp;results=1"; // XML系s機
+			//$url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid={$app_id}&amp;query={$place}&amp;results=1&amp;output=json"; // JSON形式
+			$text = file_get_contents ($url);
+			var_dump($text);
+			?&gt;
+			</code></pre>
+			
+			出力（緯度経度も取得できていることが分かる）
+			<div class="console">
+			&lt;YDF xmlns="http://olp.yahooapis.jp/ydf/1.0" totalResultsReturned="1" totalResultsAvailable="1" firstResultPosition="1"&gt;&lt;ResultInfo&gt;&lt;Count&gt;1&lt;/Count&gt;&lt;Total&gt;1&lt;/Total&gt;&lt;Start&gt;1&lt;/Start&gt;&lt;Status&gt;200&lt;/Status&gt;&lt;Description&gt;&lt;/Description&gt;&lt;Copyright&gt;&lt;/Copyright&gt;&lt;Latency&gt;0.014&lt;/Latency&gt;&lt;/ResultInfo&gt;&lt;Feature&gt;&lt;Id&gt;47308.1.424&lt;/Id&gt;&lt;Gid&gt;&lt;/Gid&gt;&lt;Name&gt;沖縄県国頭郡本部町石川（字）424&lt;/Name&gt;&lt;Geometry&gt;&lt;Type&gt;point&lt;/Type&gt;&lt;Coordinates&gt;127.87798745,26.69430191&lt;/Coordinates&gt;&lt;BoundingBox&gt;127.87238745,26.68870191 127.88358745,26.69990191&lt;/BoundingBox&gt;&lt;/Geometry&gt;&lt;Category/&gt;&lt;Description&gt;&lt;/Description&gt;&lt;Style/&gt;&lt;Property&gt;&lt;Uid&gt;8408cdf99bc13cfe5f7451f14e00734ed5928a78&lt;/Uid&gt;&lt;CassetteId&gt;b22fee69b0dcaf2c2fe2d6a27906dafc&lt;/CassetteId&gt;&lt;Yomi&gt;オキナワケンクニガミグンモトブチョウイシカワ（アザ）&lt;/Yomi&gt;&lt;Country&gt;&lt;Code&gt;JP&lt;/Code&gt;&lt;Name&gt;日本&lt;/Name&gt;&lt;/Country&gt;&lt;Address&gt;沖縄県国頭郡本部町石川（字）424&lt;/Address&gt;&lt;GovernmentCode&gt;47308&lt;/GovernmentCode&gt;&lt;AddressMatchingLevel&gt;6&lt;/AddressMatchingLevel&gt;&lt;AddressType&gt;地番・戸番&lt;/AddressType&gt;&lt;/Property&gt;&lt;/Feature&gt;&lt;/YDF&gt;
+			</div>
+		</li>
+	</ol>
+
+
+	<br><time>2019-4-16</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-4-16</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/gis/">GISの覚書</a></li>
+	<li>YOLPの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-4-16</div>
+</body>
+</html>
