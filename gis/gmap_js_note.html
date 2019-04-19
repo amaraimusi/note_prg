@@ -344,14 +344,22 @@
 
 
 <div id="sec1-5-2" class="sec4">
-	<h3>マーカーをクリックしたとき、マーカーを識別するインデックスを取得</h3>
+	<h3>マーカー複数 | マーカーをクリックしたとき、マーカーを識別するインデックスを取得する</h3>
 
 	<pre><code>
-	marker.addListener('click', ()=> {
-		alert(<strong>i</strong>);
-	});
+	for(var <strong>i</strong> in data){
+	
+		var marker = new google.maps.Marker( ... 略 ...
+		
+		// マーカーのクリックイベント
+		google.maps.event.addListener(marker, 'click', function(self, marker, index) {
+			 return function() {
+				 console.log('index=' + index);
+				 self._exsample(index); // 同じクラス内のメソッドを呼び出す thisは使えない。
+			}}(this, marker,<strong>i</strong>));
+	}
 	</code></pre>
-	<aside>※ var marker = new google.maps.Marker( ...</aside>
+	<aside>※ サンプルはES6のクラス内を想定</aside>
 
 	<br><time>2019-4-19</time>
 </div>
