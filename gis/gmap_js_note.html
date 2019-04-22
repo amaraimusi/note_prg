@@ -733,6 +733,69 @@
 </div>
 
 
+
+<div id="sec1-8-2" class="sec4">
+	<h3>住所から緯度経度を取得【クラスのメソッド版】</h3>
+	
+	<pre><code>
+	/**
+	 * 住所から緯度経度を取得する
+	 * 
+	 * @note
+	 * 住所、地名、ランドマークなどから正規住所、プレースID、緯度経度を取得する
+	 * 
+	 * @param string address_text 住所
+	 * @param function callback コールバック(緯度経度など）
+	 */
+	_getLatLngByAddr(address_text, callback){
+
+		// ジオコーダーオブジェクトの生成
+		if(this.geocoder == null){
+			this.geocoder = new google.maps.Geocoder();  //ジオコーディングのインスタンスの生成
+		}
+		var geocoder = this.geocoder;
+
+		// 住所から緯度経度などの情報を取得する
+		geocoder.geocode({address: address_text}, (results, status) =&gt; {
+			if (status === 'OK' &amp;&amp; results[0]){
+					var result = results[0];
+		
+					// 正規住所
+					var formatted_address = result.formatted_address;
+					
+					// プレースID
+					var place_id = result.place_id;
+					
+					// 緯度経度
+					var lat = result.geometry.location.lat();
+					var lng = result.geometry.location.lng();
+
+					// レスポンスに値をセットし、レスポンスをコールバックに渡す
+					var res = {
+							formatted_address:formatted_address,
+							place_id:place_id,
+							lat:lat,
+							lng:lng,
+					};
+					callback(res);
+	
+				}else{
+					var res = {
+							err:'見つかりませんでした。',
+							err_status:status
+					}
+					callback(res);
+				}
+			}); 
+		
+	}
+	</code></pre>
+
+
+	<br><time>2019-3-28</time>
+</div>
+
+
 <div id="sec1-9" class="sec4">
 	<h3>地図の四隅の座標を取得する</h3>
 	
