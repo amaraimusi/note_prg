@@ -112,6 +112,14 @@
 	<h3>イベントリスナーの登録</h3>
 
 	JSソースコード
+	<pre><code>
+		$('.row_check').click((e)=>{
+			var elm = $(evt.currentTarget);
+			console.log(elm.val());
+		});
+	</code></pre><br>
+	
+	旧式
 	<pre>
 	$(function() {
 		$('.row_check').click(function(e){
@@ -127,6 +135,62 @@
 	&lt;input type="text" class="row_check" value="inu" /&gt;
 	</pre>
 	<a class="ref_link" target="brank" href="http://www.buildinsider.net/web/jqueryref/015" >参考</a>
+
+	<time>2013-9-3 | 2019-4-22</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-2-3" class="sec1">
+	<h3>イベントの発火</h3>
+	
+	<a href="/sample/js/a011/jq_event_trigger/jq_event_trigger.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;input type="button" value="イベント発火" class="btn btn-success" onclick="fire()"/&gt;&lt;br&gt;
+	&lt;input id="btn1" type="button" value="ボタン1" class="btn btn-default"  onclick="test2()"/&gt;
+	&lt;input type="text" id="text1" value="チェンジイベントテスト"  /&gt;
+	&lt;div class="console" id="res"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	$(()=&gt;{
+		// クリックイベント
+		$('#btn1').click((evt)=&gt;{
+			var btn = $(evt.currentTarget);
+			var msg = btn.attr('value') + 'が押されました。&lt;br&gt;';
+			$('#res').append(msg);
+		});
+		
+		// チェンジイベント
+		$('#text1').change((evt)=&gt;{
+			var tb = $(evt.currentTarget);
+			var msg = 'テキストチェンジ→ ' + tb.val() + '&lt;br&gt;';
+			$('#res').append(msg);
+		});
+	});
+	
+	function fire(){
+		$('#btn1').<strong>trigger</strong>('click'); // クリックイベント発火
+		$('#text1').<strong>trigger</strong>('change'); // チェンジイベント発火
+	}
+	
+	function test2(){
+		$('#res').append('属性：onclickによる呼び出し&lt;br&gt;');
+	}
+	</code></pre>
+
+	<br><time>2019-4-22</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
