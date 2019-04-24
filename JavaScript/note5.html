@@ -422,6 +422,56 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec5-4-2" class="sec1">
+	<h3>ES6のクラス版のsetIntervalによるスレッド、バッチ処理、バックグラウンド</h3>
+
+	<pre><code>
+class Catdog{
+
+	/**
+	 * スレッドを開始する
+	 */
+	_startThread(){
+		this.handlers = []; // スレッドのハンドラーリスト
+		this.main_index = 0;
+		var h = setInterval(()=>{this.thread();}, 300); // スレッド開始。スレッドにする関数と間隔（ミリ秒）を指定する。
+		this.handlers.push(h); // ハンドラをリストに追加
+	}
+	
+	/**
+	 * スレッド | 定期的に呼び出される関数
+	 */
+	thread(){
+		this.main_index ++;
+		console.log(this.main_index);
+
+	}
+	
+	/**
+	 * スレッドを停止する。
+	 */
+	stopThread(){
+		for(var i in this.handlers){
+			var h = this.handlers[i];
+			clearInterval(h); // スレッド停止
+		}
+	}
+}
+	</code></pre>
+	
+	<time>2019-4-24</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec5-5" class="sec1" >
 	<h3>数値範囲入力チェックのバリデーション</h3>
 	
