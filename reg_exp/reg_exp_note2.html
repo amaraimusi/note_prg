@@ -27,6 +27,38 @@
 
 
 
+<div id="sec2-0-1" class="sec4" >
+	<h3>数値系の正規表現について</h3>
+	
+	<a href="/sample/js/a007/reg_exp_tool/reg_exp_tool.html" class="btn btn-info">正規表現検証ツール</a><br>
+	<br>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>正規表現</th><th>説明</th><th>例</th><th>例の説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>x?</td><td>0回一致 or 1回一致</td><td>[0-9]?</td><td>空、もしくは一桁の自然数が一致。「99」など数値が2桁並ぶと不一致。</td></tr>
+			<tr><td>x*</td><td>0回以上の一致</td><td>[0-9]*</td><td>空、もしくは自然数の一致。自然数の桁数はいくつでもよい。</td></tr>
+			<tr><td>x+</td><td>1回以上の一致</td><td>[0-9]+</td><td>自然数（桁問わず）の一致。自然数の桁数はいくつでもよい。必ず一文字の数値であり空は不可。</td></tr>
+			<tr><td>x{n}</td><td>n回一致</td><td>[0-9]{4}</td><td>4桁の自然数に一致。3桁や5桁の自然数だと不一致。</td><td></td></tr>
+			<tr><td>x{n,}</td><td>n回以上の一致</td><td>[0-9]{4,}</td><td>4桁以上の自然数に一致。3桁だと不一致。5桁は一致。</td></tr>
+			<tr><td>x{n,m}</td><td>n回以上、m回以下の一致</td><td>[0-9]{4,6}</td><td>4,5,6桁の自然数に一致。3桁、7桁の自然数は不一致</td></tr>
+	
+		</tbody>
+	</table>
+
+	<p>応用・日本の携帯電話番号</p>
+	<pre><code>	[0-9]{3}[-]?[0-9]{4}[-]?[0-9]{4}</code></pre>
+	→090-0123-4567 や 09001234567 が一致する。<br>
+	<br>
+
+
+	<br><time>2019-4-27</time>
+</div>
+
+
+
 
 <div id="sec2-1" class="sec4">
 	<h3>日時の正規表現</h3>
