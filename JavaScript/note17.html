@@ -471,6 +471,74 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-2" class="sec4">
+	<h3>画面間におけるローカルストレージの値共有を検証する</h3>
+
+	ローカルストレージはキーが同じなら複数画面で共有される。<br>
+	複数ページで共有したくない場合、URLをキーすると良い。
+	<a href="#sec17-3">参考：ローカルストレージのキーにURLを用いる</a>
+	<br>
+	
+	<a href="/sample/js/a012/localstrage_verif/localstrage_verif.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;input id="text1" type="text"  /&gt;&lt;br&gt;
+	&lt;input type="button" value="ローカルストレージに保存" onclick="save()" class="btn btn-success btn-xs" /&gt;
+	&lt;input type="button" value="ローカルストレージから読取" onclick="read()" class="btn btn-primary btn-xs" /&gt;
+	&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	&lt;a href="page2.html"&gt;ページ2へ（値共有の確認）&lt;/a&gt;&lt;br&gt;
+	&lt;br&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+	function save(){
+		var text = $('#text1').val();
+		localStorage.setItem("key1", text);
+		$('#res').append('ローカルストレージに保存しました。&lt;br&gt;');
+	}
+	
+	function read(){
+		var text = localStorage.getItem("key1");
+		$('#text1').val(text);
+		$('#res').append('ローカルストレージから読み取りました。&lt;br&gt;');
+	}
+	</code></pre>
+
+	<br><time>2019-5-11</time>
+</div>
+
+
+<div id="sec17-3" class="sec4">
+	<h3>ローカルストレージのキーにURLを用いる</h3>
+	
+	<a href="/sample/js/a012/localstrage_verif/localstrage_verif.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+	function save2(){
+		var text = $('#text1').val();
+		var url = location.href; // 現在ページのURLを取得
+		var url = url.split(/[?#]/)[0]; // クエリ部分を除去
+		localStorage.setItem(url, text);
+		$('#res').append('ローカルストレージに保存しました。【検証2】&lt;br&gt;');
+	}
+	
+	function read2(){
+		var url = location.href; // 現在ページのURLを取得
+		var url = url.split(/[?#]/)[0]; // クエリ部分を除去
+		var text = localStorage.getItem(url);
+		$('#text1').val(text);
+		$('#res').append('ローカルストレージから読み取りました。【検証2】&lt;br&gt;');
+	}
+	</code></pre>
+
+	<br><time>2019-5-11</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
