@@ -156,6 +156,72 @@
 
 
 
+<div id="sec4-4" class="sec4">
+	<h3>テーブルを自動縮小せず、値に合わせて横に広げ、スクロールバーを表示する | セル内で自動改行させない</h3>
+	
+	通常の状態。セル内で自動改行されている
+	<div style="width:200px">
+		<table border="1">
+			<thead>
+				<tr><th>id</th><th>コード</th><th>名前</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>neko</td><td>猫</td></tr>
+				<tr><td>2</td><td>yagi</td><td>わたしは他のだれよりも道理をわきまえておらず，人についての理解を持っていないからである。</td></tr>
+				<tr><td>3</td><td>same</td><td>鮫</td></tr>
+				<tr><td>4</td><td>wasi</td><td>鷲</td></tr>
+				<tr><td>5</td><td>goki</td><td>御器</td></tr>
+		
+			</tbody>
+		</table>
+	</div>
+	
+	<p>テーブルを自動縮小や改行をさせず、値に合わせて横に広げスクロールバーを表示する </p>
+	<div style="width:200px;overflow:auto">
+		<table border="1" style="white-space:nowrap;">
+			<thead>
+				<tr><th>id</th><th>コード</th><th>名前</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>1</td><td>neko</td><td>猫</td></tr>
+				<tr><td>2</td><td>yagi</td><td>わたしは他のだれよりも道理をわきまえておらず，人についての理解を持っていないからである。</td></tr>
+				<tr><td>3</td><td>same</td><td>鮫</td></tr>
+				<tr><td>4</td><td>wasi</td><td>鷲</td></tr>
+				<tr><td>5</td><td>goki</td><td>御器</td></tr>
+		
+			</tbody>
+		</table>
+	</div>
+
+	<p>HTMLソースコード</p>
+	<pre><code>
+	&lt;div style="width:200px;<strong>overflow:auto</strong>"&gt;
+		&lt;table border="1" style="<strong>white-space:nowrap;</strong>"&gt;
+			&lt;thead&gt;
+				&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;コード&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;/tr&gt;
+			&lt;/thead&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;neko&lt;/td&gt;&lt;td&gt;猫&lt;/td&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;yagi&lt;/td&gt;&lt;td&gt;わたしは他のだれよりも道理をわきまえておらず，人についての理解を持っていないからである。&lt;/td&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;same&lt;/td&gt;&lt;td&gt;鮫&lt;/td&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;wasi&lt;/td&gt;&lt;td&gt;鷲&lt;/td&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;goki&lt;/td&gt;&lt;td&gt;御器&lt;/td&gt;&lt;/tr&gt;
+		
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	「white-space」 は空白、半角スペース、改行、タブに関するCSS。
+	文字列が自動折り返しをしないよう設定できる。<br>
+	<br>
+
+	<br><time>2019-5-11</time>
+</div>
+
+
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
