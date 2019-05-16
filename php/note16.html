@@ -70,64 +70,104 @@
 	<h3>データからINSERTとUPDATEのSQL文を生成する</h3>
 	
 <pre><code>
-&lt;?php 
-$data = [
-		['id'=&gt;2, 'tanuki_name'=&gt;'アオダヌキ','tanuki_date'=&gt;'2019-4-8','kemono_id'=&gt;100],
-		['id'=&gt;null, 'tanuki_name'=&gt;'赤ダヌキ','tanuki_date'=&gt;'2019-4-9','kemono_id'=&gt;101],
-		['id'=&gt;3, 'tanuki_name'=&gt;'黒ダヌキ','tanuki_date'=&gt;'2019-4-10','kemono_id'=&gt;102],
-		['id'=&gt;null, 'tanuki_name'=&gt;'ビッグダヌキ','tanuki_date'=&gt;'2019-4-11','kemono_id'=&gt;103],
-];
-
-$res = getMasterDataFromDb('tanukis', $data);
-echo '&lt;pre&gt;&lt;code&gt;';
-var_dump($res);
-echo '&lt;/code&gt;&lt;/pre&gt;';
-
-/**
- * データからINSERTとUPDATEのSQL文を生成する
- * @param string $tbl_name テーブル名
- * @param array $data エンティティ配列型のデータ
- * @return array|string[][]
- */
-function getMasterDataFromDb($tbl_name, $data){
-	if(empty($data)) return array();
-	
-	// 列名群文字列を組み立て
-	$ent0 = current($data);
-	$keys = array_keys($ent0);
-	$clms_str = implode(',', $keys); // 列名群文字列
-	
-	$inserts = array(); // INSERT SQLリスト
-	$updates = array(); // UPDATE SQLリスト
-	foreach($data as &amp;$ent){
-	
-		
-		// IDが空ならINSERT文を組み立て
-		if(empty($ent['id'])){
-			$vals_str = "'" . implode("','", $ent) . "'";
-			$inserts[] = "INSERT INTO {$tbl_name} ({$clms_str}) VALUES ({$vals_str});";
-		}
-		
-		// IDが存在すればUPDATE文を組み立て
-		else{
-			$vals_str = '';
-			foreach($keys as $field){
-				if($field == 'id') continue;
-				$vals_str .= "{$field}='{$ent[$field]}',";
-			}
-			$vals_str=mb_substr($vals_str,0,mb_strlen($vals_str)-1); // 末尾のコンマを削る
-			$updates[] = "UPDATE {$tbl_name} SET {$vals_str} WHERE id={$ent['id']}";
-		}
-	}
-	unset($ent);
-	
-	$res = [
-			'inserts' =&gt; $inserts,
-			'updates' =&gt; $updates,
+	&lt;?php 
+	$data = [
+			['id'=&gt;2, 'tanuki_name'=&gt;'アオダヌキ','tanuki_date'=&gt;'2019-4-8','kemono_id'=&gt;100],
+			['id'=&gt;null, 'tanuki_name'=&gt;'赤ダヌキ','tanuki_date'=&gt;'2019-4-9','kemono_id'=&gt;101],
+			['id'=&gt;3, 'tanuki_name'=&gt;'黒ダヌキ','tanuki_date'=&gt;'2019-4-10','kemono_id'=&gt;102],
+			['id'=&gt;null, 'tanuki_name'=&gt;'ビッグダヌキ','tanuki_date'=&gt;'2019-4-11','kemono_id'=&gt;103],
 	];
-	return $res;
-}
-?&gt;
+	
+	$res = getMasterDataFromDb('tanukis', $data);
+	echo '&lt;pre&gt;&lt;code&gt;';
+	var_dump($res);
+	echo '&lt;/code&gt;&lt;/pre&gt;';
+
+	/**
+	 * データからINSERTとUPDATEのSQL文を生成する
+	 * @param string $tbl_name テーブル名
+	 * @param array $data エンティティ配列型のデータ
+	 * @return array|string[][]
+	 */
+	private function createInsertAndUpdate($tbl_name, $data){
+		if(empty($data)) return array();
+		
+		// 列名群文字列を組み立て
+		$ent0 = current($data);
+		$keys = array_keys($ent0);
+		$clms_str = implode(',', $keys); // 列名群文字列
+		
+		$inserts = array(); // INSERT SQLリスト
+		$updates = array(); // UPDATE SQLリスト
+		foreach($data as &amp;$ent){
+			
+			
+			// IDが空ならINSERT文を組み立て
+			if(empty($ent['id'])){
+				$inserts[] = $this-&gt;makeInsertSql($tbl_name, $ent); // INSERT文を作成する
+			}
+			
+			// IDが存在すればUPDATE文を組み立て
+			else{
+				$updates[] = $this-&gt;makeUpdateSql($tbl_name, $ent); // UPDATE文を作成する
+			}
+		}
+		unset($ent);
+		
+		$res = [
+				'inserts' =&gt; $inserts,
+				'updates' =&gt; $updates,
+		];
+		return $res;
+	}
+	
+	
+	/**
+	 * INSERT文を作成する
+	 * @param string $tbl_name テーブル名
+	 * @param array $ent 登録データのエンティティ
+	 * @return string INSERT文
+	 */
+	private function makeInsertSql($tbl_name, &amp;$ent){
+		
+		$clms_str = '';
+		$vals_str = '';
+		foreach($ent as $field =&gt; $value){
+			if($value === null) continue;
+			$clms_str .= $field . ',';
+			$vals_str .= "'{$value}',";
+		}
+		
+		// 末尾の一文字であるコンマを削る
+		$clms_str = mb_substr($clms_str,0,mb_strlen($clms_str)-1);
+		$vals_str = mb_substr($vals_str,0,mb_strlen($vals_str)-1);
+		
+		$insert_sql = "INSERT INTO {$tbl_name} ({$clms_str}) VALUES ({$vals_str});";
+		return $insert_sql;
+	}
+	
+	
+	/**
+	 * UPDATE文を作成する
+	 * @param string $tbl_name テーブル名
+	 * @param array $ent 登録データのエンティティ
+	 * @return string UPDATE文
+	 */
+	private function makeUpdateSql($tbl_name, &amp;$ent){
+		if(empty($ent['id'])) throw new Exception('makeUpdateSql: idが空です。');
+		
+		$vals_str = '';
+		foreach($ent as $field =&gt; $value){
+			if($value === null) continue;
+			$vals_str .= "{$field}='{$value}',";
+		}
+			
+		$vals_str = mb_substr($vals_str,0,mb_strlen($vals_str)-1);// 末尾の一文字であるコンマを削る
+		
+		$update_sql = "UPDATE {$tbl_name} SET {$vals_str} WHERE id={$ent['id']}";
+		
+		return $update_sql;
+	}
 </code></pre>
 
 <p>出力</p>
@@ -153,7 +193,7 @@ array(2) {
 	
 
 
-	<br><time>2019-4-8</time>
+	<br><time>2019-4-8 | 2019-5-16</time>
 </div>
 
 
