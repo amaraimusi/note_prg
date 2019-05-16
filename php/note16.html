@@ -158,6 +158,64 @@ array(2) {
 
 
 
+<div id="sec16-1-3" class="sec4">
+	<h3>エンティティからINSERT文とUPDATE文を作成する</h3>
+	
+	<pre><code>
+	/**
+	 * INSERT文を作成する
+	 * @param string $tbl_name テーブル名
+	 * @param array $ent 登録データのエンティティ
+	 * @return string INSERT文
+	 */
+	private function makeInsertSql($tbl_name, &amp;$ent){
+		
+		$clms_str = '';
+		$vals_str = '';
+		foreach($ent as $field =&gt; $value){
+			if($value === null) continue;
+			$clms_str .= $field . ',';
+			$vals_str .= "'{$value}',";
+		}
+		
+		// 末尾の一文字であるコンマを削る
+		$clms_str = mb_substr($clms_str,0,mb_strlen($clms_str)-1);
+		$vals_str = mb_substr($vals_str,0,mb_strlen($vals_str)-1);
+		
+		$insert_sql = "INSERT INTO {$tbl_name} ({$clms_str}) VALUES ({$vals_str});";
+		return $insert_sql;
+	}
+	
+	
+	/**
+	 * UPDATE文を作成する
+	 * @param string $tbl_name テーブル名
+	 * @param array $ent 登録データのエンティティ
+	 * @return string UPDATE文
+	 */
+	private function makeUpdateSql($tbl_name, &amp;$ent){
+		if(empty($ent['id'])) throw new Exception('makeUpdateSql: idが空です。');
+		
+		$vals_str = '';
+		foreach($ent as $field =&gt; $value){
+			if($value === null) continue;
+			$vals_str .= "{$field}='{$value}',";
+		}
+			
+		$vals_str = mb_substr($vals_str,0,mb_strlen($vals_str)-1);// 末尾の一文字であるコンマを削る
+		
+		$update_sql = "UPDATE {$tbl_name} SET {$vals_str} WHERE id={$ent['id']}";
+		
+		return $update_sql;
+	}
+	</code></pre>
+
+
+	<br><time>2019-5-16</time>
+</div>
+
+
+
 <div id="sec16-2" class="sec4">
 	<h3>ブラウザ判定</h3>
 
