@@ -309,6 +309,38 @@ array(2) {
 
 
 
+<div id="sec16-4" class="sec4">
+	<h3>使用メモリを取得 memory_get_usage()</h3>
+	
+	バイト単位で割り当てられている使用メモリを取得する<br>
+	<pre><code>
+	$mem1 =  memory_get_usage();
+	
+	～ 重たい処理 ～
+	
+	$mem2 =  memory_get_usage() - $mem1;
+	echo "使用量→{$mem2}Byte<br>";
+	</code></pre>
+
+
+	<br><time>2019-5-18</time>
+</div>
+
+
+
+<div id="sec16-5" class="sec4">
+	<h3>ファイル容量を取得 | filesize()</h3>
+	
+	<pre><code>
+	$fsize = filesize ($fn);
+	</code></pre>
+
+
+	<br><time>2019-5-18</time>
+</div>
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
