@@ -546,6 +546,43 @@
 
 
 
+<div id="s1-8" class="sec4">
+	<h3>半角英数字（一部記号）のチェック</h3>
+	
+	<pre><code>
+	$strs = [];
+	$strs[] = "abc-123_5.csv";
+	$strs[] = "ねこ";
+	$strs[] = "cat";
+	$strs[] = 987;
+	$strs[] = "";
+	$strs[] = '-_';
+	$strs[] = 'abcあ';
+	
+	foreach($strs as $str){
+		echo $str;
+		if (preg_match("/^[a-zA-Z0-9-_.]+$/", $str)) {
+			echo "&yen;t〇&lt;br&gt;";
+		} else {
+			echo "&yen;t×&lt;br&gt;";
+		}
+	}
+	</code></pre>
+	
+	<p>出力</p>
+	<pre class="console">abc-123_5.csv	〇<br>ねこ	×<br>cat	〇<br>987	〇<br>	×<br>-_	〇<br>abcあ	×<br></pre>
+	
+	<br><time>2019-5-20</time>
+</div>
+<hr>
+
+
+
+
+
+
+
+
 <div id="s1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
