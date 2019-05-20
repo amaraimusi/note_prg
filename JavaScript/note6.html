@@ -34,9 +34,52 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec6-1" class="sec1" >
-	<h3>JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする代替案</h3>
+	<h3>JSクラス内のコールバック関数内で、自分のメンバやメソッドにアクセスする | コールバックにあらかじめ引数を渡す</h3>
 	
-	<h4>方法（新）</h4>
+	<a href="/sample/js/a012/callback_def_param/callback_def_param.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+	$(()=&gt;{
+		let ahiru = new Ahiru();
+		let torikago = new Torikago();
+		
+		var func1 = ahiru.bark.<strong>bind</strong>(ahiru); // ← コールバックにする関数にAhiruのオブジェクトを引数として渡す
+		torikago.setCallback(func1);
+		
+		// テスト実行
+		torikago.move();
+		
+	});
+	
+	
+	class Ahiru{
+		bark(){
+			this.barkDetail(); // thisはbindで渡されたAhiruオブジェクトを指している。
+		}
+		
+		barkDetail(){
+			$('#res').html("ガーガー");
+		}
+	}
+	
+	class Torikago{
+		
+		setCallback(callback){
+			this.callback = callback;
+		}
+		
+		move(){
+			this.callback();
+		}
+	}
+	</code></pre>
+	<p>出力</p>
+	<pre id="res" class="console">ガーガー</pre>
+	<hr>
+	
+	
+	<h4>方法（旧式）</h4>
 	新しい方法を確認。<br>
 	「<a href="note7.php#sec7-7">JavaScriptでクラスを実現する</a>」のソースコードを参考。
 	2016-4-5
@@ -86,7 +129,7 @@
 	</aside>
 	
 	<hr>
-	<h3>方法2：引数に自分自身のインスタンスを渡す方法</h3>
+	<h3>方法（旧式2）：引数に自分自身のインスタンスを渡す方法</h3>
 	こちらのやり方がスマートである。<br>
 	<br>
 	
@@ -115,6 +158,8 @@
 		};
 	};
 	</pre>
+	
+	<time>2015-10-22 | 2019-5-20</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
