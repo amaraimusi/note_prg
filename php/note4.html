@@ -537,14 +537,15 @@
 	 * ディレクトリごとファイルを削除する。（階層化のファイルまで削除可能）
 	 * @param string $dir 削除対象ディレクトリ
 	 */
-	function removeDirectory($dir) {
-		if ($handle = opendir("$dir")) {
+	private function removeDirectory($dir) {
+		if ($handle = opendir($dir)) {
 			while (false !== ($item = readdir($handle))) {
 				if ($item != "." &amp;&amp; $item != "..") {
-					if (is_dir("$dir/$item")) {
-						removeDirectory("$dir/$item");
+					$dp = $dir . '/' . $item;
+					if (is_dir($dp)) {
+						removeDirectory($dp);
 					} else {
-						unlink("$dir/$item");
+						unlink($dp);
 					}
 				}
 			}
@@ -557,7 +558,72 @@
 	<a href="http://kidokorock.com/php%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AD%89%E3%81%8C%E5%86%85%E5%8C%85%E3%81%95%E3%82%8C%E3%81%9F%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%EF%BC%88%E3%83%95%E3%82%A9/" target="blank">参考サイト</a><br>
 	<br>
 
-	<br><time>2016-10-25</time>
+	<br><time>2016-10-25 | 2019-5-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7-3" class="sec1">
+	<h3>ディレクトリ内のファイルとフォルダをすべて除去する</h3>
+	
+	<pre><code>
+	/**
+	 * ディレクトリ内のファイルとフォルダをまとめて削除する。
+	 * @param  string $dir_name ファイル削除対象のディレクト名
+	 */
+	private function dirClearEx($dir_name){
+		//フォルダ内のファイルを列挙
+		$files = scandir($dir_name);
+		$files = array_filter($files, function ($file) {
+			return !in_array($file, array('.', '..'));
+		});
+			
+			foreach($files as $fn){
+				$ffn=$dir_name.'/'.$fn;
+				try {
+					//unlink($ffn);//削除
+					$this-&gt;removeDirectory($ffn);
+				} catch (Exception $e) {
+					throw e;
+				}
+			}
+			
+			return true;
+	}
+	
+	/**
+	 * ディレクトリごとファイルを削除する。（階層化のファイルまで削除可能）
+	 * @param string $dir 削除対象ディレクトリ
+	 */
+	private function removeDirectory($dir) {
+		if ($handle = opendir($dir)) {
+			while (false !== ($item = readdir($handle))) {
+				if ($item != "." &amp;&amp; $item != "..") {
+					$dp = $dir . '/' . $item;
+					if (is_dir($dp)) {
+						removeDirectory($dp);
+					} else {
+						unlink($dp);
+					}
+				}
+			}
+			closedir($handle);
+			rmdir($dir);
+		}
+	}
+	</code></pre>
+
+	<time>2019-5-20</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
