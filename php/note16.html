@@ -341,6 +341,37 @@ array(2) {
 
 
 
+<div id="sec16-6" class="sec4">
+	<h3>UTF8ファイルのテキストに付いているBOMを除去する</h3>
+	
+	テキストファイルから文字列を読み込んだ時、先頭に謎の文字がくっついており、それがバグを引き起こすことがある。<br>
+	この謎の文字はBOMと呼ばれるものである。<br>
+	以下のメソッドは文字列からBOMを除去する。<br>
+	<br>
+	
+	<pre><code>
+	/**
+	 * UTF8ファイルのテキストに付いているBOMを除去する
+	 * @param string $str UTF8ファイルから取得したテキストの文字列
+	 * @return string BOMを除去した文字列
+	 */
+	function deleteBom($str){
+		if (($str == NULL) || (mb_strlen($str) == 0)) {
+			return $str;
+		}
+		if (ord($str{0}) == 0xef &amp;&amp; ord($str{1}) == 0xbb &amp;&amp; ord($str{2}) == 0xbf) {
+			$str = substr($str, 3);
+		}
+		return $str;
+	}
+	</code></pre>
+
+
+	<br><time>2019-5-21</time>
+</div>
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
