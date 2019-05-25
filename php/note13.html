@@ -302,6 +302,296 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec13-5-3" class="sec1">
+	<h3>CSVテキストを読み込み配列データに格納する | バージョン2</h3>
+
+	<pre><code>
+	/**
+	 * CSVテキストを2次元配列に変換する
+	 * @note
+	 * ExcelのCSVに対応
+	 * ダブルクォート内の改行に対応
+	 * 「""」エスケープに対応
+	 *
+	 * @param string $csv_text CSVテキスト
+	 * @returns array 2次元配列
+	 */
+	private function csvTextToData($csv_text){
+		
+		if($csv_text=='' || $csv_text==null) return null;
+		
+		
+		$ary = preg_split("//u", $csv_text, -1, PREG_SPLIT_NO_EMPTY);
+
+		// CSVテキストの末尾が改行でないければ改行を付け足す。
+		$csv_text_len = count($ary);
+		$last = $ary[$csv_text_len - 1];
+		if(preg_match("/&yen;r|&yen;n/", $last)){
+			$ary[] = "&yen;n";
+		}
+		
+		$data = [];
+		$len = count($ary);
+		$enclose = 0; // ダブルクォート囲み状態フラグ  0:囲まれていない , 1:囲まれている
+		$cell = '';
+		$row = [];
+		
+		for($i=0; $i&lt;$len; $i++){
+			
+			$one = $ary[$i];
+			
+			// ダブルクォートで囲まれていない
+			if($enclose == 0){
+				if($one == '"'){
+					$enclose = 1; // 囲み状態にする
+				}
+				else if($one == ','){
+					$row[] = $cell;
+					$cell = '';
+				}
+				else if(preg_match("/&yen;r|&yen;n/", $one)){
+					$row[] = $cell;
+					$data[] = $row;
+					$cell = '';
+					$row = [];
+					
+					// 次も改行文字ならインデックスを飛ばす
+					if($i &lt; $len - 1){
+						$ns = $ary[$i+1];
+						if(preg_match("/&yen;r|&yen;n/", $ns)){
+							$i++;
+						}
+					}
+				}else{
+					$cell .= $one;
+				}
+			}
+			
+			// ダブルクォートで囲まれている
+			else{
+				if($one == '"'){
+					if($i &lt; $len - 1){
+						$s2 = $one . $ary[$i + 1]; // 2文字分を取得
+						// 2文字が「""」であるなら、一つの「"」とみなす。
+						if($s2 == '""'){
+							$cell .= '"';
+							$i++;
+						}else{
+							$enclose = 0; // 囲み状態を解除する
+						}
+					}
+					
+				}
+				else{
+					$cell .= $one;
+				}
+			}
+			
+		}
+		return $data;
+	}
+	</code></pre>
+	
+	<time>2019-5-25</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec13-5-4" class="sec1">
+	<h3>CSVの行が改行中であるか判定する</h3>
+
+<pre><code>
+$data = [
+		'"98","沖縄に生息するイモリ","TEST"',
+		'99,abc',
+		'100,シリケンイモリ,"沖縄に生息するイモリ"',
+		'100,シリケンイモリ,"沖縄に生息する,イモリ"',
+		'101,シリケンイモリ,"沖縄に生息するイモリ',
+		'101,シリケンイモリ,"沖縄に生息するイモリ,',
+		'102,シリケンイモリ,"沖縄に生息する',
+		'103,シリケンイモリ,"',
+		'104,シリケンイモリ,',
+		'104,シリケンイモリ,,',
+		'105,シリケンイモリ,"沖縄に""生息""するイモリ"',
+		'106,シリケンイモリ,"沖縄に""生息""する',
+		'107,シリケンイモリ,"""沖縄""に生息する,""イモリ"""',
+		'107,シリケンイモリ, """沖縄""に生息する,""イモリ"""',
+		'"イモリ"',
+		'"イモ',
+		'"',
+		'""""',
+		'"""',
+		'"シリケン","""',
+		'107,シリケンイモリ,"沖縄',
+		'に""生息""',
+		'するイモリ"',
+		'イモリ",',
+];
+
+echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;CSVの行&lt;/th&gt;&lt;th&gt;判定&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+foreach($data as $csv_line){
+	
+	$msg = "&lt;span class='text-success'&gt;OK&lt;/span&gt;";
+	if(idDuringLineFeed($csv_line)){
+		$msg = "&lt;span class='text-danger'&gt;改行中です&lt;/span&gt;";
+	}
+	
+	echo "&lt;tr&gt;&lt;td&gt;{$csv_line}&lt;/td&gt;&lt;td&gt;{$msg}&lt;/td&gt;&lt;/tr&gt;";
+	
+}
+echo "&lt;/tbody&gt;&lt;/table&gt;";
+
+/**
+ * CSVの行が改行中であるか判定する
+ * @param string $csv_line CSVの行
+ * @return true:改行中の行である
+ */
+function idDuringLineFeed($csv_line){
+	if(empty($csv_line)) return false;
+	
+	$ary = preg_split("//u", $csv_line, -1, PREG_SPLIT_NO_EMPTY);
+	
+	$state = 0; // 0:初期状態, 1:通常状態, 2:ダブルクォート監視状態, 3:ダブルクォート内状態
+	$dq_flg = 0; // 連続ダブルクォートフラグ   ダブルクォート内状態においてダブルクォートが連続するときONになる。
+	$len = count($ary); // 文字数を取得する
+	
+	foreach($ary as $i =&gt; $one){
+		// 文字が「,」である場合、
+		if($one == ','){
+			// 	初期状態
+			switch ($state){
+				case 0: // 初期状態
+					$state = 1; // 通常状態にする
+					break;
+				case 1: // 通常状態
+					$state = 2; // ダブルクォート監視状態にする。
+					break;
+				case 2: // ダブルクォート監視状態
+					break;
+				case 3: // ダブルクォート内状態
+					break;
+			}
+		}
+		
+		// 文字が半角スペースである場合
+		elseif($one == ' '){
+			
+			switch ($state){
+				case 0: // 初期状態
+					$state = 1; // 通常状態にする
+					break;
+				case 1: // 通常状態
+					break;
+				case 2: // ダブルクォート監視状態
+					break;
+				case 3: // ダブルクォート内状態
+					break;
+			}
+
+		}
+
+		// 文字が「"」である場合
+		elseif($one == '"'){
+			switch ($state){
+				case 0: // 初期状態
+					$state = 3; // ダブルクォート内状態
+					break;
+				case 1: // 通常状態
+					break;
+				case 2: // ダブルクォート監視状態
+					$state = 3; // ダブルクォート内状態
+					break;
+				case 3: // ダブルクォート内状態
+					
+					if($dq_flg == 1){
+						$dq_flg = 0; // 連続ダブルクォート状態を解除
+						break;
+					}
+					// 次の文字はない
+					if($i == $len-1){
+						$state = 1; // 通常状態にする
+						break;
+					}
+					
+					// 次の文字はダブルクォートか？
+					$next = $ary[$i + 1];
+					if($next == '"'){
+						$dq_flg = 1; // 連続ダブルクォート状態にする
+						break;
+					}
+					
+					// 次以降に最初に現れる文字は「,」か？（スペースは飛ばす）
+					for($i2=$i+1; $i2&lt;$len; $i2++){
+						$nnext = $ary[$i2];
+						if($nnext == ','){
+							$state = 1; // 通常状態にする
+							break;
+						}elseif($nnext == ' '){
+							continue;
+						}else{
+							break;
+						}
+					}
+					break;
+			}
+		}
+		
+		// その他の文字である場合
+		else{
+			switch ($state){
+				case 0: // 初期状態
+					$state = 1; // 通常状態にする
+					break;
+				case 1: // 通常状態
+					break;
+				case 2: // ダブルクォート監視状態
+					$state = 1; // 通常状態にする
+					break;
+				case 3: // ダブルクォート内状態
+					break;
+			}
+		}
+		
+		$prev_state = $state;
+	} // ループ終わり
+	
+	$flg = false;
+	
+	// ダブルクォート状態のまま担っている場合、「改行中」という判断を下す。
+	if($state == 3){
+		$flg = true;
+	}
+	
+	return $flg;
+}
+</code></pre>
+
+	<p>出力</p>
+	<table class="tbl2"><thead><tr><th>CSVの行</th><th>判定</th></tr></thead><tbody><tr><td>"98","沖縄に生息するイモリ","TEST"</td><td><span class="text-success">OK</span></td></tr><tr><td>99,abc</td><td><span class="text-success">OK</span></td></tr><tr><td>100,シリケンイモリ,"沖縄に生息するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>100,シリケンイモリ,"沖縄に生息する,イモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>101,シリケンイモリ,"沖縄に生息するイモリ</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>101,シリケンイモリ,"沖縄に生息するイモリ,</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>102,シリケンイモリ,"沖縄に生息する</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>103,シリケンイモリ,"</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>104,シリケンイモリ,</td><td><span class="text-success">OK</span></td></tr><tr><td>104,シリケンイモリ,,</td><td><span class="text-success">OK</span></td></tr><tr><td>105,シリケンイモリ,"沖縄に""生息""するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>106,シリケンイモリ,"沖縄に""生息""する</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>107,シリケンイモリ,"""沖縄""に生息する,""イモリ"""</td><td><span class="text-success">OK</span></td></tr><tr><td>107,シリケンイモリ, """沖縄""に生息する,""イモリ"""</td><td><span class="text-success">OK</span></td></tr><tr><td>"イモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>"イモ</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>"</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>""""</td><td><span class="text-success">OK</span></td></tr><tr><td>"""</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>"シリケン","""</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>107,シリケンイモリ,"沖縄</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>に""生息""</td><td><span class="text-success">OK</span></td></tr><tr><td>するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>イモリ",</td><td><span class="text-success">OK</span></td></tr></tbody></table>
+	
+	<time>2019-5-25</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec13-6" class="sec1" >
 	<h3>evalの使い方</h3>
 
