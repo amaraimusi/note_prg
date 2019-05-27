@@ -383,6 +383,30 @@ array(2) {
 
 
 
+<div id="sec16-8" class="sec4">
+	<h3>ログ出力 | オリジナル</h3>
+	
+	<pre><code>
+	/**
+	 * ログB
+	 * @param mixed $val
+	 */
+	function logB($val){
+		if(is_array($val)){
+			error_log(print_r($val, true), 3, 'log_b.log');
+		}else{
+			error_log($val, 3, 'log_b.log');
+		}
+		error_log("\n", 3, 'log_b.log');
+	}
+	</code></pre>
+
+
+	<br><time>2019-5-27</time>
+</div>
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
