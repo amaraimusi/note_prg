@@ -1068,6 +1068,7 @@
 
 
 
+
 <!-- --------------------------------------------------------------- -->
 <div id="sec7-8-3" class="sec1">
 	<h3>クラス存在チェック</h3>
@@ -1095,6 +1096,163 @@ class Neko{
 </pre>
 
 	<time>2018-8-8</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-8-4" class="sec1">
+	<h3>クラスその6 機能テンプレート</h3>
+
+	<pre><code>
+/**
+ * アニマル機能クラス
+ * @date 2019-5-27
+ * @version 1.0.0
+ */
+class Animal{
+	
+	/**
+	 * 初期化
+	 * 
+	 * @param param
+	 * - div_xid 当機能埋込先区分のid属性
+	 */
+	init(param){
+		
+		this.param = this._setParamIfEmpty(param);
+		this.tDiv = jQuery('#' + this.param.div_xid); //  This division
+		
+		// 当機能のHTMLを作成および埋込
+		let html = this._createHtml(); 
+		this.tDiv.html(html);
+		
+		this.fShowBtn = this.tDiv.find('.akc_f_show_btn'); // 機能表示ボタン要素
+		this.funcDiv = this.tDiv.find('.akc_func_div'); // 機能区分
+		this.resDiv = this.tDiv.find('.akc_res'); // 結果区分
+		this.errDiv = this.tDiv.find('.akc_err'); // エラー区分
+		this.startBtn = this.tDiv.find('.akc_start_btn'); // スタートボタン要素
+		
+		this._addClickFShowBtn(this.fShowBtn); // 機能表示ボタンのクリックイベント
+		
+	}
+
+	
+	/**
+	 * If Param property is empty, set a value.
+	 */
+	_setParamIfEmpty(param){
+		
+		if(param == null) param = {};
+
+		if(param['div_xid'] == null) param['div_xid'] = 'api_key_changer';
+		
+		
+		return param;
+	}
+	
+	
+	/**
+	 * 当機能のHTMLを作成および埋込
+	 */
+	_createHtml(){
+		let html = `
+	&lt;input class='akc_f_show_btn btn btn-primary btn-xs' type="button" value='アニマル機能' /&gt;
+	&lt;div class='akc_func_div' style="display:none"&gt;
+		&lt;div style="display:inline-block;padding:10px;border:solid 4px #5bd59e;border-radius:5px;margin-bottom:10px"&gt;
+			&lt;p&gt;アニマル機能&lt;/p&gt;
+			&lt;input class="akc_start_btn btn btn-success" type='button' value="スタート" /&gt;
+			&lt;div class="akc_res text-success"&gt;&lt;/div&gt;
+			&lt;div class="akc_err text-danger"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+		`;
+		return html;
+	}
+	
+	
+	/**
+	 * エラーを表示
+	 * @param string err_msg エラーメッセージ
+	 */
+	_showErr(err_msg){
+		this.errDiv.append(err_msg + '&lt;br&gt;');
+	}
+	
+	
+	/**
+	 * 機能表示ボタンのクリックイベント
+	 * @param jQuery fShowBtn 機能表示ボタン
+	 */
+	_addClickFShowBtn(fShowBtn){
+		
+		fShowBtn.click((evt)=&gt;{
+			
+			var d = this.funcDiv.css('display');
+			if(d==null | d=='none'){
+				let f_show_btn_name = this._getFShowBtnName(0);
+				this.fShowBtn.val(f_show_btn_name);
+				this.tDiv.css('display','block');
+				this.funcDiv.show(300);
+				
+			}else{
+				let f_show_btn_name = this._getFShowBtnName(1);
+				this.fShowBtn.val(f_show_btn_name);
+				this.tDiv.css('display','inline-block');
+				this.funcDiv.hide(300);
+				
+			}
+
+		});
+	}
+	
+	
+	/**
+	 * 機能表示ボタン名に「閉じる」の文字を付け足したり、削ったりする。
+	 * @param string show_flg 表示フラグ 0:閉, 1:表示
+	 * @return string 機能表示ボタン名
+	 */
+	_getFShowBtnName(show_flg){
+		let close_name = ' (閉じる)';
+		let btn_name = this.fShowBtn.val();
+		if(show_flg == 1){
+			btn_name = btn_name.replace(close_name, '');
+		}else{
+			btn_name += close_name;
+		}
+		return btn_name;
+	}
+
+	
+	// Check empty.
+	_empty(v){
+		if(v == null || v == '' || v=='0'){
+			return true;
+		}else{
+			if(typeof v == 'object'){
+				if(Object.keys(v).length == 0){
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+}
+
+	</code></pre>
+	
+	<time>2019-5-28</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
