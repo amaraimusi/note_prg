@@ -638,7 +638,39 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec2-18" class="sec1">
-	<h3>saveとsaveAllの違い</h3>
+	<h3>saveとsaveAll</h3>
+	
+	<h4>saveAllのサンプル</h4>
+	<pre><code>
+	$this-&gt;begin();//トランザクション開始
+	try {
+		$rs=$this-&gt;saveAll($data, array('atomic' =&gt; false,'validate'=&gt;false));
+		//...他の保存処理・・・
+		$this-&gt;commit();//コミット
+	} catch (Exception $e) {
+		$this-&gt;rollback();//ロールバック
+		throw $e;
+	}
+	</code></pre>
+	<br>
+	
+	<h4>saveのサンプル</h4>
+	<pre><code>
+	$this-&gt;begin();//トランザクション開始
+	$this-><strong>create()</strong>; // 連続でsaveを呼び出すとき、このコードは必須。バッチ処理のときは特に注意。
+	$rs = $this->save($ent, array('atomic' => false,'validate'=>false));
+	$this-&gt;commit();//コミット
+	</code></pre>
+
+	
+	<h4>オプションの説明</h4>
+	<table class="table">
+		<tr><td>atomic</td><td>true:トランザクション自動化（trueがデフォルト） , false:トランザクション手動（begin～commitではさむ）</td></tr>
+		<tr><td>validate</td><td>true:バリデーション有効 , false:バリデーション無効,first:データの保存前に 全て のレコードのバリデーションを行う(firstがデフォルト)</td></tr>
+	</table>
+	<br>
+	<a href="https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-savemany-array-data-null-array-options-array" target="blank">オプションの参考</a><br>
+	<br>
 
 	<ul>
 		<li>saveAllは複数レコードを一括保存するときに。</li>
@@ -659,32 +691,7 @@
 
 	<hr>
 	
-	<h4>saveAllのサンプル（トランザクション用）</h4>
-	<pre>
-	$this-&gt;begin();//トランザクション開始
-	try {
-		$rs=$this-&gt;saveAll($data, array('atomic' =&gt; false,'validate'=&gt;false));
-		//...他の保存処理・・・
-		$this-&gt;commit();//コミット
-	} catch (Exception $e) {
-		$this-&gt;rollback();//ロールバック
-		throw $e;
-	}
-	</pre>
-	<br>
-	
-	<h4>saveのサンプル</h4>
-	<pre>$rs = $this->save($ent, array('atomic' => false,'validate'=>'false'));</pre>
 
-	
-	<h4>オプションの説明</h4>
-	<table class="table">
-		<tr><td>atomic</td><td>true:トランザクション自動化（trueがデフォルト） , false:トランザクション手動（begin～commitではさむ）</td></tr>
-		<tr><td>validate</td><td>true:バリデーション有効 , false:バリデーション無効,first:データの保存前に 全て のレコードのバリデーションを行う(firstがデフォルト)</td></tr>
-	</table>
-	<br>
-	<a href="https://book.cakephp.org/2.0/ja/models/saving-your-data.html#model-savemany-array-data-null-array-options-array" target="blank">オプションの参考</a><br>
-	<br>
 	
 	
 	<p>DB保存に失敗する場合</p>
@@ -703,7 +710,7 @@
 	<br>
 	<br>
 
-	<time>2013-9-3 | 2017-9-25</time>
+	<time>2013-9-3 | 2019-6-1</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
