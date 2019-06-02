@@ -458,6 +458,7 @@ echo "&lt;/tbody&gt;&lt;/table&gt;";
 function idDuringLineFeed($csv_line){
 	if(empty($csv_line)) return false;
 	
+	$csv_line = trim($csv_line); // スペースだけでなく末尾の改行を除く
 	$ary = preg_split("//u", $csv_line, -1, PREG_SPLIT_NO_EMPTY);
 	
 	$state = 0; // 0:初期状態, 1:通常状態, 2:ダブルクォート監視状態, 3:ダブルクォート内状態
@@ -578,7 +579,7 @@ function idDuringLineFeed($csv_line){
 	<p>出力</p>
 	<table class="tbl2"><thead><tr><th>CSVの行</th><th>判定</th></tr></thead><tbody><tr><td>"98","沖縄に生息するイモリ","TEST"</td><td><span class="text-success">OK</span></td></tr><tr><td>99,abc</td><td><span class="text-success">OK</span></td></tr><tr><td>100,シリケンイモリ,"沖縄に生息するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>100,シリケンイモリ,"沖縄に生息する,イモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>101,シリケンイモリ,"沖縄に生息するイモリ</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>101,シリケンイモリ,"沖縄に生息するイモリ,</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>102,シリケンイモリ,"沖縄に生息する</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>103,シリケンイモリ,"</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>104,シリケンイモリ,</td><td><span class="text-success">OK</span></td></tr><tr><td>104,シリケンイモリ,,</td><td><span class="text-success">OK</span></td></tr><tr><td>105,シリケンイモリ,"沖縄に""生息""するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>106,シリケンイモリ,"沖縄に""生息""する</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>107,シリケンイモリ,"""沖縄""に生息する,""イモリ"""</td><td><span class="text-success">OK</span></td></tr><tr><td>107,シリケンイモリ, """沖縄""に生息する,""イモリ"""</td><td><span class="text-success">OK</span></td></tr><tr><td>"イモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>"イモ</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>"</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>""""</td><td><span class="text-success">OK</span></td></tr><tr><td>"""</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>"シリケン","""</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>107,シリケンイモリ,"沖縄</td><td><span class="text-danger">改行中です</span></td></tr><tr><td>に""生息""</td><td><span class="text-success">OK</span></td></tr><tr><td>するイモリ"</td><td><span class="text-success">OK</span></td></tr><tr><td>イモリ",</td><td><span class="text-success">OK</span></td></tr></tbody></table>
 	
-	<time>2019-5-25</time>
+	<time>2019-5-25 | 2019-6-2</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
