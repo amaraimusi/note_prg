@@ -1157,7 +1157,13 @@ class Animal{
 
 		if(param['div_xid'] == null) param['div_xid'] = 'api_key_changer';
 		
+		this.lsParam = this._getLsParam(); // ローカルストレージパラメータを取得する
 		
+		if(this.lsParam['kj_limit'] != null){
+			param['kj_limit'] = this.lsParam['kj_limit'];
+		}else{
+			if(param['kj_limit'] == null) param['kj_limit'] = 100;
+		}
 		return param;
 	}
 	
@@ -1178,6 +1184,51 @@ class Animal{
 	&lt;/div&gt;
 		`;
 		return html;
+	}
+	
+	
+	/**
+	 * ローカルストレージパラメータを取得する
+	 */
+	_getLsParam(){
+		
+		let ls_key = this._getLsKey(); // ローカルストレージキーを取得する
+		let param_json = localStorage.getItem(ls_key);
+		let lsParam = JSON.parse(param_json);
+		if(lsParam == null) lsParam = {};
+		return lsParam;
+		
+	}
+	
+	/**
+	 * ローカルストレージで保存しているパラメータをクリアする
+	 */
+	clearlocalStorage(){
+		let ls_key = this._getLsKey(); // ローカルストレージキーを取得する
+		localStorage.removeItem(ls_key);
+	}
+	
+	
+	/**
+	 * ローカルストレージにプロパティを保存
+	 */
+	_saveLsProp(key, val){
+		this.lsParam[key] = val;
+		let ls_key = this._getLsKey(); // ローカルストレージキーを取得する
+		var param_json = JSON.stringify(this.lsParam);
+		localStorage.setItem(ls_key, param_json);
+	}
+	
+	
+	/**
+	 * ローカルストレージキーを取得する
+	 */
+	_getLsKey(){
+		// ローカルストレージキーを取得する
+		let ls_key = location.href; // 現在ページのURLを取得
+		ls_key = ls_key.split(/[?#]/)[0]; // クエリ部分を除去
+		ls_key += '_Animal';
+		return ls_key;
 	}
 	
 	
@@ -1252,7 +1303,7 @@ class Animal{
 
 	</code></pre>
 	
-	<time>2019-5-28</time>
+	<time>2019-5-28 | 2019-6-3</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
