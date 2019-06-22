@@ -51,6 +51,8 @@
 				<li><a href="note2.html#sec2-2" >Eclipseプラグイン作成の旧覚書</a></li>
 				<li><a href="note2.html#sec2-3" >インクルードするプロジェクトを追加する</a></li>
 				<li><a href="note2.html#sec2-4" >Eclipseで特定ファイルのデフォルト文字コードを設定する</a></li>
+				<li><a href="note2.html#sec2-5" >コメントのスペースから後ろが文字化けする</a></li>
+				<li><a href="note2.html#sec2-6" >EclipseのCompareが効かなくなった | 比較 → 相互が表示されない</a></li>
 			</ol>
 			</div>
 
