@@ -358,9 +358,12 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec4-6" class="sec1" >
-	<h3>ディレクトリ内のファイルを列挙</h3>
-	<br>
-	関数<br>
+	<h3>ディレクトリ内のファイルを列挙 | ファイル一覧を取得</h3>
+
+	<pre><code>
+	</code></pre>
+
+	<p>旧式</p>
 	<pre>
 	/**
 	 * scandir関数の拡張関数。
@@ -402,7 +405,7 @@
 	
 	<aside>検証：PHP 5.6</aside>
 	
-	<time>2015-12-7 | 2016-8-31</time>
+	<time>2015-12-7 | 2019-6-27</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
@@ -624,6 +627,124 @@
 	</code></pre>
 
 	<time>2019-5-20</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7-4" class="sec1">
+	<h3>ディレクトリ内のファイル削除 | 指定日数より古い更新日のファイルをすべて削除する</h3>
+	
+<pre><code>
+&lt;?php 
+
+$sample = new Sample();
+$sample-&gt;removeFileByOldDay('sample', 2);
+
+class Sample{
+	
+	/**
+	 * 危険処理
+	 * 指定日数より古い更新日のファイルをすべて削除する
+	 *
+	 * @note
+	 *指定日数に2を指定した場合、二日以上前のファイルをすべて削除。
+	 *0を指定すると、すべてのファイルを削除
+	 *
+	 * @param string $dp ディレクトリパス
+	 * @param number $day_num 指定日数
+	 */
+	public function removeFileByOldDay($dp, $day_num = 1){
+		
+		$fps = $this-&gt;scandir3($dp); // ディレクトリ内にあるすべてのファイルのファイルパスを取得する
+		$today = date("Y-m-d");
+		
+		foreach($fps as $fp){
+			$dt = date("Y-m-d", filemtime($fp));
+			$diff_day = $this-&gt;diffDay($today, $dt); // 2つの日付の日数差を算出する
+			
+			// 日付差が指定日数以上なら、ファイル削除を行う
+			if($day_num &lt;= $diff_day){
+				unlink($fp);
+			}
+		}
+	}
+	
+	
+	/**
+	 * 2つの日付の日数差を算出する
+	 *
+	 * diff = d2 - d1
+	 *
+	 * @param date or string $d2
+	 * @param date or string $d1
+	 * @return int 日数差
+	 */
+	private function diffDay($d2,$d1){
+		
+		$u1=strtotime($d1);
+		$u2=strtotime($d2);
+		
+		//日数を算出
+		$diff=$u2-$u1;
+		$d_cnt=$diff/86400;
+		
+		return $d_cnt;
+	}
+	
+	
+	/**
+	 * scandir関数の拡張関数。
+	 *
+	 * @note
+	 * 「.」「..」となっているファイル名は除外する。
+	 *
+	 * @param  string $dp ディレクトリ名
+	 * @param string $sep セパレータ（省略可）
+	 * @return array ファイルパスリスト
+	 */
+	private function scandir3($dp, $sep = '/'){
+		$files = scandir($dp);
+		
+		// ディレクトリパスの末尾にセパレータを付け足す
+		$dp2 = $dp;
+		if(mb_substr($dp2, -1) != $sep){
+			$dp2 .= $sep;
+		}
+		
+		// 「.」,「..」名のファイルを除去、および日本語ファイルに対応。
+		$fps = [];
+		foreach($files as $file){
+			if($file=='.' || $file=='..'){
+				continue;
+			}
+			$fps[] = $dp2 . $file;
+		}
+		
+		return $fps;
+	}
+}
+
+
+function debug($var){
+	echo '&lt;pre&gt;';
+	var_dump($var);
+	echo '&lt;/pre&gt;';
+}
+
+?&gt;
+</code></pre>
+
+	<time>2019-6-27</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
