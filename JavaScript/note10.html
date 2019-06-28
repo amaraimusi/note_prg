@@ -646,6 +646,95 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec10-11" class="sec1">
+	<h3>テーブル名からモデル名を作成</h3>
+	
+	<pre><code>
+	/**
+	 * テーブル名からモデル名に変換する
+	 * (例) big_cat_tests → BigCatTest
+	 */
+	_tblNameToModelName(str){
+		if(str=='' || str==null) return '';
+		
+		//_+小文字を大文字にする(例:_a を A)
+		str = str.replace(/_./g,
+			function(s) {
+				return s.charAt(1).toUpperCase();
+			}
+		);
+
+		// 先頭を大文字化する
+		str = str.charAt(0).toUpperCase() + str.slice(1);
+		
+		// 末尾が「s」なら削る
+		var e1 = str.slice(-1);
+		if(e1 == 's'){
+			str =str.substr(0,str.length-1);
+		}
+		
+		return str;
+	}
+	</code></pre>
+
+	<br><time>2019-6-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec10-12" class="sec1">
+	<h3>モデル名からテーブル名を作成する</h3>
+
+
+	<pre><code>
+	/**
+	 * モデル名からテーブル名を作成する
+	 (例) BigCatTest → big_cat_tests
+	 */
+	_modelNameToTblName(str){
+		if(str=='' || str==null) return '';
+		// 先頭を小文字かする
+		str = str.charAt(0).toLowerCase() + str.slice(1);
+		
+		//大文字を_+小文字にする(例:A を _a)
+		str = str.replace(/([A-Z])/g,
+			function(s) {
+				return '_' + s.charAt(0).toLowerCase();
+			}
+		);
+		
+		str += 's';
+
+		return str;
+	}
+	</code></pre>
+
+	
+	<br><time>2019-6-28</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec10-0" class="sec1" style="display: none">
 	<h3>xxx</h3>
 
