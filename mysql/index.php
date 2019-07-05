@@ -119,6 +119,7 @@
 	<li><a href="cmd_note.html#sec1-13" >wp_から始まるテーブルだけエクスポートする</a></li>
 	<li><a href="cmd_note2.html#sec2-1" >mysql本体の場所を探す</a></li>
 	<li><a href="cmd_note2.html#sec2-2" >最大許可パケットを調べる　max_allowed_packet</a></li>
+	<li><a href="cmd_note2.html#sec2-3" >ミラーDB作成シェル | データベースを複製する</a></li>
 	
 </ol>
 			
