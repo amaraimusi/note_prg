@@ -229,6 +229,36 @@
 
 
 
+<div id="sec10-6" class="sec4">
+	<h3>CakePHPのhttpsリダイレクトを.htaccessに記述 | 暫定版</h3>
+	
+	httpにアクセスしたならhttpsにリダイレクトさせたい。<br>
+	しかし下記のサンプルではどうしてもhttpsのトップページにリダイレクトしてまうので暫定版とする。<br>
+	CakePHPの場合、htaccessだけでhttpsにリダイレクトさせるのは難しい。<br>
+	<br>
+	
+	<pre><code>
+&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+&lt;/IfModule&gt;
+	</code></pre><br>
+	
+	<br><time>2019-7-8</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
