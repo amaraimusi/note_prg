@@ -230,8 +230,37 @@
 
 
 <div id="sec10-6" class="sec4">
-	<h3>CakePHPのhttpsリダイレクトを.htaccessに記述 | 暫定版</h3>
+	<h3>CakePHPのhttpsリダイレクト</h3>
 	
+	<pre><code>
+	class AppController extends Controller {
+	    public $uses = array();
+	
+	    public $components = array(
+	        'Security',
+	    );
+	
+	
+		public function beforeFilter(){
+		    
+		    // httpsにリダイレクトする処理
+		    $this-&gt;Security-&gt;blackHoleCallback = 'forceSSL';
+		    $this-&gt;Security-&gt;requireSecure();
+		    $this-&gt;Security-&gt;validatePost = false; // httpsでもPOSTが動くようにする
+		    $this-&gt;Security-&gt;csrfCheck = false;  // httpsでもPOSTが動くようにする
+	
+		}
+		
+		// httpsにリダイレクトする
+		public function forceSSL() {
+		    $this-&gt;redirect('https://' . env('SERVER_NAME') . $this-&gt;here);
+		}
+	</code></pre>
+	
+	
+	<p>旧式</p>
+	.htaccessに記述する方式はAjax通信で不具合がでるので使えない
+	<hr>
 	httpにアクセスしたならhttpsにリダイレクトさせたい。<br>
 	しかし下記のサンプルではどうしてもhttpsのトップページにリダイレクトしてまうので暫定版とする。<br>
 	CakePHPの場合、htaccessだけでhttpsにリダイレクトさせるのは難しい。<br>
@@ -248,7 +277,7 @@
 &lt;/IfModule&gt;
 	</code></pre><br>
 	
-	<br><time>2019-7-8</time>
+	<br><time>2019-7-8 | 2019-7-9</time>
 	
 </div>
 
