@@ -348,6 +348,66 @@
 
 
 
+<div id="sec3-8" class="sec4">
+	<h3>ディレクトリパスの末尾のセパレータを除去、もしくは追加</h3>
+
+<pre><code>
+
+    $tests =[
+        'neko',
+        'neko/',
+        'animal/neko',
+        'x/animal/neko/',
+    ];
+    
+    echo "&lt;table class='tbl2'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;元データ&lt;/th&gt;&lt;th&gt;末尾のセパレータ無し&lt;/th&gt;&lt;th&gt;末尾のセパレータ有り&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
+    foreach($tests as $dp){
+        echo "&lt;tr&gt;";
+        echo "&lt;td&gt;{$dp}&lt;/td&gt;";
+        
+        $dp1 = dpEndSp($dp);
+        echo "&lt;td&gt;{$dp1}&lt;/td&gt;";
+        
+        $dp2 = dpEndSp($dp, true);
+        echo "&lt;td&gt;{$dp2}&lt;/td&gt;";
+        
+        echo "&lt;/tr&gt;";
+    }
+    echo "&lt;/tbody&gt;&lt;/table&gt;";
+    
+    
+    /**
+     * ディレクトリパスの末尾のセパレータを除去、もしくは追加 
+     * @param string $dp ディレクトリパス
+     * @param boolean $end_sep_flg false:セパレータ除去(def), true:セパレータ追加
+     * @param string $sep セパレータ
+     * @return string ディレクトリパス
+     */
+    function dpEndSp($dp, $end_sep_flg=false, $sep ='/'){
+        
+        if(empty($dp)) return '';
+        
+        $e_s = mb_substr($dp, -1);
+        if($e_s==$sep &amp;&amp; $end_sep_flg==false ){
+            $dp = mb_substr($dp, 0, mb_strlen($dp)-1);
+        }elseif($e_s!=$sep &amp;&amp; $end_sep_flg==true ){
+            $dp .= $sep;
+        }
+        
+        return $dp;
+    }
+</code></pre>
+
+	<p>出力</p>
+	<table class='tbl2'><thead><tr><th>元データ</th><th>末尾のセパレータ無し</th><th>末尾のセパレータ有り</th></tr></thead><tbody><tr><td>neko</td><td>neko</td><td>neko/</td></tr><tr><td>neko/</td><td>neko</td><td>neko/</td></tr><tr><td>animal/neko</td><td>animal/neko</td><td>animal/neko/</td></tr><tr><td>x/animal/neko/</td><td>x/animal/neko</td><td>x/animal/neko/</td></tr></tbody></table>
+	
+	<br><time>2019-7-11</time>
+</div>
+
+
+
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
