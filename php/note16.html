@@ -407,6 +407,525 @@ array(2) {
 
 
 
+<div id="sec16-9" class="sec4">
+	<h3>入力チェックバリデーション | InputCheckValid</h3>
+
+	<pre><code>
+	&lt;?php 
+	
+	    require_once 'InputCheckValid.php';
+	    $icv = new InputCheckValid(); // 入力チェックバリデーション
+	    
+	    $long_str = "ウナギ（鰻[2]、うなぎ）とは、ウナギ科(Anguillidae) ウナギ属(Anguilla) に属する魚類の総称である。世界中の熱帯から温帯にかけて分布する。ニホンウナギ、オオウナギ、ヨーロッパウナギ、アメリカウナギ（英語版）など世界で19種類（うち食用となるのは4種類）が確認されている";
+	    
+	    $data = [
+	        ['animal_name'=&gt;'タウナギ', 'age'=&gt;4],
+	        ['animal_name'=&gt;'オオウナギ', 'age'=&gt;1000],
+	        ['animal_name'=&gt;'ドジョウ', 'age'=&gt;-1],
+	        ['animal_name'=&gt;'ウツボ', 'age'=&gt;1.2],
+	        ['animal_name'=&gt;'ウミヘビ', 'age'=&gt;'a'],
+	        ['animal_name'=&gt;$long_str, 'age'=&gt;-1.2],
+	        [],
+	    ];
+	    
+	    // バリデーションデータ
+	    $validData=[
+	        'animal_name'=&gt;['valid_type'=&gt;'string', 'wamei'=&gt;'動物名', 'len'=&gt;4, 'req'=&gt;1],
+	        'age'=&gt;['valid_type'=&gt;'int', 'wamei'=&gt;'年齢', 'req'=&gt;0, 'max'=&gt;1000],
+	    ];
+	    
+	    $validData = $icv-&gt;normalizeValidData($validData); // バリデーションデータの正規化
+	    
+	    foreach($data as $ent){
+	        $animal_name = '';
+	        if(!empty($ent['animal_name'])) $animal_name = $ent['animal_name'];
+	        if(mb_strlen($animal_name) &gt; 8){
+	            $animal_name = mb_substr($animal_name, 0, 8);
+	            $animal_name .= '...';
+	        }
+	
+			$age = '';
+	        if(isset($ent['age'])) $age = $ent['age'];
+	        $res1 = $icv-&gt;validEnt($ent, $validData);
+	        echo "&lt;tr&gt;";
+	        echo "&lt;td&gt;{$animal_name}&lt;/td&gt;";
+	        echo "&lt;td&gt;{$age}&lt;/td&gt;";
+	        echo "&lt;td&gt;{$res1}&lt;/td&gt;";
+	        echo "&lt;/tr&gt;";
+	    }
+	    
+	    function debug($value){
+	        echo '&lt;pre&gt;';
+	        var_dump($value);
+	        echo '&lt;/pre&gt;';
+	    }
+	?&gt;
+	</code></pre><br>
+	
+	<input type="button" value="InputCheckValid.php" class="btn btn-info" onclick="jQuery('#sec16-9a1').toggle()" />
+	<pre id="sec16-9a1" style="display:none"><code>
+&lt;?php
+/**
+ * 入力チェックバリデーション | InputCheckValid
+ * 
+ * @date 2019-7-11
+ * @version 1.0
+ * @license MIT
+ * @author k_uehara
+ *
+ */
+class InputCheckValid{
+    
+    var $param;
+    
+    /**
+     * コンストラクタ
+     * @param array $param
+     *  - smp_str_len    サンプル文字列長    省略可
+     */
+    public function __construct($param = []){
+        $this-&gt;param = $this-&gt;setParamIfEmpty($param);
+    }
+    
+    /**
+     * If Param property is empty, set a value.
+     * @param array $param
+     * @return array
+     */
+    private function setParamIfEmpty($param){
+        if(empty($param)) $param = [];
+        
+        if(empty($param['smp_str_len'])) $param['smp_str_len'] = 8; // サンプル文字列長
+        
+        return $param;
+    }
+    
+    /**
+     * バリデーションデータを正規化する
+     * @param array $validData バリデーションデータ
+     * @return array 正規化したバリデーション
+     */
+    public function normalizeValidData(&amp;$validData){
+        
+        foreach($validData as $field =&gt; &amp;$validEnt){
+            if(empty($validEnt['req'])) $validEnt['req'] = null;
+            if(empty($validEnt['field'])) $validEnt['field'] = $field;
+            if(empty($validEnt['wamei'])) $validEnt['wamei'] = $field;
+            $validEnt['field_name'] = "「{$validEnt['wamei']}」";
+            
+            // バリデーションタイプが数値系である場合、最大値と最小値を定義する。
+            $valid_type = $validEnt['valid_type'];
+            if($valid_type == 'int' || $valid_type == 'double' || $valid_type == 'natural' ){
+                if(!isset($validEnt['max'])) $validEnt['max'] = null;
+                if(!isset($validEnt['min'])) $validEnt['min'] = null;
+            }
+
+        }
+        unset($validEnt);
+        
+        return $validData;
+    }
+    
+    /**
+     * エンティティのバリデーション
+     * @param array $ent エンティティ
+     * @param array $validData バリデーションデータ
+     * @param int $res_type レスポンスタイプ 0:文字列, 1:配列(キー:フィールド, 値:エラーメッセージ)
+     * @return mixed エラー情報 null:すべて正常
+     */
+    public function validEnt(&amp;$ent, &amp;$validData, $res_type=0){
+        
+        $errs = [];
+        foreach($validData as $field =&gt; &amp;$validEnt){
+            $valid_type = $validEnt['valid_type'];
+            $err_msg = null;
+            switch ($valid_type){
+                case 'string':
+                    $err_msg = $this-&gt;validString($ent, $validEnt); // 文字列バリデーション
+                    break;
+                case 'int':
+                    $err_msg = $this-&gt;validInt($ent, $validEnt); // 整数バリデーション
+                    break;
+                case 'natural':
+                    $err_msg = $this-&gt;validNatural($ent, $validEnt); // 自然数バリデーション
+                    break;
+                case 'double':
+                    $err_msg = $this-&gt;validDouble($ent, $validEnt); // 浮動小数バリデーション
+                    break;
+                case 'date':
+                    $err_msg = $this-&gt;validDate($ent, $validEnt); // 日付バリデーション
+                    break;
+                case 'datetime':
+                    $err_msg = $this-&gt;validDatetime($ent, $validEnt); // 日時バリデーション
+                    break;
+                default:
+                    throw new Exception("Unknown valid_type:{$valid_type}");
+                    
+            }
+            if(!empty($err_msg)) $errs[$field] = $err_msg;
+        }
+        unset($validEnt);
+        
+        // エラーメッセージのレスポンス
+        $res = null;
+        if(!empty($errs)){
+            if($res_type == 1){
+                $res = $errs;
+            }else{
+                $res = implode(' | ', $errs);
+            }
+        }
+        
+        return $res;
+    }
+    
+    
+    /**
+     * 文字列バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validString(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        $value = '';
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 必須入力チェック
+        if($validEnt['req']!=null &amp;&amp; $value==''){
+            return "{$validEnt['field_name']}は必須入力です。";
+        }
+        
+        // 長さチェック
+        if(!empty($validEnt['len'])){
+            $len = $validEnt['len'];
+            $smp_str = $value;
+            if($len &lt; mb_strlen($smp_str)){
+                $smp_str_len = $this-&gt;param['smp_str_len'];
+                if(mb_strlen($smp_str) &gt; $smp_str_len){
+                    $smp_str = mb_substr($smp_str, 0, $smp_str_len);
+                    $smp_str .= '...';
+                }
+                return "{$validEnt['field_name']}は{$len}文字以内にしてください。→'{$smp_str}'";
+            }
+        }
+        
+        return "";
+    }
+    
+    
+    /** 
+     * 整数バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validInt(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        // 数値用必須バリデーション
+        $err_msg = $this-&gt;validReqForNum($field, $ent, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+
+        $value = 0;
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 整数チェック
+        if(!preg_match('/^[-]?[0-9]+?$/', $value)){
+            return "{$validEnt['field_name']}は整数にしてください。→{$value}";
+        }
+        
+        // 最大値と最小値のバリデーション
+        $err_msg = $this-&gt;validMaxAndMin($value, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+        
+        return "";
+    }
+    
+    
+    /**
+     * 自然数バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validNatural(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        // 数値用必須バリデーション
+        $err_msg = $this-&gt;validReqForNum($field, $ent, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+        
+        $value = 0;
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 整数チェック
+        if(!preg_match('/^[0-9]+?$/', $value)){
+            return "{$validEnt['field_name']}は自然数にしてください。→{$value}";
+        }
+        
+        // 最大値と最小値のバリデーション
+        $err_msg = $this-&gt;validMaxAndMin($value, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+        
+        return "";
+    }
+    
+    
+    /**
+     * 浮動小数バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validDouble(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        // 数値用必須バリデーション
+        $err_msg = $this-&gt;validReqForNum($field, $ent, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+        
+        $value = 0;
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 浮動小数チェック
+        if(!preg_match('/^[+-]?[0-9]*[&yen;.]?[0-9]*/', $value)){
+            return "{$validEnt['field_name']}は数値にしてください。→{$value}";
+        }
+        
+        // 最大値と最小値のバリデーション
+        $err_msg = $this-&gt;validMaxAndMin($value, $validEnt);
+        if(!empty($err_msg)) return $err_msg;
+        
+        return "";
+    }
+    
+    
+    /**
+     * 数値用必須バリデーション
+     * @param string $field
+     * @param array $ent
+     * @param array $validEnt
+     * @return string エラーメッセージ
+     */
+    private function validReqForNum($field, $ent, &amp;$validEnt){
+        // 必須入力チェック
+        if($validEnt['req'] != null){
+            if(!isset($ent[$field])){
+                return  "{$validEnt['field_name']}が存在しません。";
+            }
+            
+            if(empty($ent[$field]) &amp;&amp; $ent[$field]!==0 &amp;&amp; $ent[$field] !=='0'){
+                return "{$validEnt['field_name']}は必須入力です。";
+            }
+        }
+        return '';
+    }
+    
+    
+    /**
+     * 最大値と最小値のバリデーション
+     * @param int $value
+     * @param array $validEnt
+     * @return string エラーメッセージ
+     */
+    private function validMaxAndMin($value, &amp;$validEnt){
+        
+        // 最大値チェック
+        if($validEnt['max'] !== null){
+            $max = intval($validEnt['max']);
+            if($max &lt; $value){
+                return "{$validEnt['field_name']}は{$max}を超えてはなりません。→{$value}";
+            }
+        }
+        
+        // 最小値チェック
+        if($validEnt['min'] !== null){
+            $min = intval($validEnt['min']);
+            if($min &gt; $value){
+                return "{$validEnt['field_name']}は{$min}を下回ってはなりません。→{$value}";
+            }
+        }
+        
+        return "";
+    }
+    
+    
+    /**
+     * 日付バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validDate(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        $value = '';
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 必須入力チェック
+        if($value == ''){
+            if(empty($validEnt['req'])){
+                return "";
+            }else{
+                return "{$validEnt['field_name']}は必須入力です。";
+            }
+            
+        }
+        
+        //日付を年月日時分秒に分解する。
+        $aryA =preg_split( '|[ /:_-]|', $value );
+        if(count($aryA)!=3){
+            return "{$validEnt['field_name']}は日付型（Y-m-dもしくはY/m/d)で入力してください。→{$value}";
+        }
+        
+        foreach ($aryA as $key =&gt; $val){
+            
+            //▼正数以外が混じっているば、即座にfalseを返して処理終了
+            if (!preg_match("/^[0-9]+$/", $val)) {
+                return "{$validEnt['field_name']}は日付を入力してください。→{$value}";
+            }
+            
+        }
+        
+        //▼グレゴリオ暦と整合正が取れてるかチェック。（閏年などはエラー） ※さくらサーバーではemptyでチェックするとバグになるので注意。×→if(empty(checkdate(12,11,2012))){・・・}
+        if(checkdate($aryA[1], $aryA[2], $aryA[0])==false){
+            return "{$validEnt['field_name']}は実在する日付を入力してください。→{$value}";
+        }
+        
+        return "";
+    }
+    
+    
+    /**
+     * 日時バリデーション
+     * @param array $ent データのエンティティ
+     * @param array $validEnt バリデーションエンティティ
+     * @return string エラーメッセージ
+     */
+    private function validDatetime(&amp;$ent, &amp;$validEnt){
+        $field = $validEnt['field'];
+        
+        $value = '';
+        if(!empty($ent[$field])) $value = $ent[$field];
+        
+        // 必須入力チェック
+        if($value == ''){
+            if(empty($validEnt['req'])){
+                return "";
+            }else{
+                return "{$validEnt['field_name']}は必須入力です。";
+            }
+            
+        }
+        
+        //日付を年月日時分秒に分解する。
+        $aryA =preg_split( '|[ /:_-]|', $value );
+        if(count($aryA)!=6){
+            return "{$validEnt['field_name']}は日時型（Y-m-d h:i:sもしくはY/m/d h:i:s)で入力してください。→{$value}";
+        }
+        
+        foreach ($aryA as $key =&gt; $val){
+            
+            //▼正数以外が混じっているば、即座にfalseを返して処理終了
+            if (!preg_match("/^[0-9]+$/", $val)) {
+                return "{$validEnt['field_name']}は日時を入力してください。→{$value}";
+            }
+            
+        }
+        
+        //▼グレゴリオ暦と整合正が取れてるかチェック。（閏年などはエラー） ※さくらサーバーではemptyでチェックするとバグになるので注意。×→if(empty(checkdate(12,11,2012))){・・・}
+        if(checkdate($aryA[1], $aryA[2], $aryA[0])==false){
+            return "{$validEnt['field_name']}は実在する日付を入力してください。→{$value}";
+        } 
+        
+        //▼時刻の整合性をチェック
+        if($aryA[3] &lt; 0 || $aryA[3] &gt; 23){
+            return "{$validEnt['field_name']}の時間部分(時）が異常です。→{$value}";
+        }
+        if($aryA[4] &lt; 0 ||  $aryA[4] &gt; 59){
+            return "{$validEnt['field_name']}の時間部分(分）が異常です。→{$value}";
+        }
+        if($aryA[5] &lt; 0 || $aryA[5] &gt; 59){
+            return "{$validEnt['field_name']}の時間部分(秒）が異常です。→{$value}";
+        }
+        
+        return "";
+    }
+    
+    
+    /**
+     * 日時入力チェックのバリデーション
+     * ※日付のみあるいは時刻は異常と見なす。
+     * @param string $strDateTime 日時文字列
+     * @param string $reqFlg 必須許可フラグ
+     * @return boolean	true:正常, false:異常
+     * @date 2015-10-5	改良
+     */
+    private function isDatetime($strDateTime, $reqFlg){
+        
+        //空値且つ、必須入力がnullであれば、trueを返す。
+        if(empty($strDateTime) &amp;&amp; empty($reqFlg)){
+            return true;
+        }
+        
+        //空値且つ、必須入力がtrueであれば、falseを返す。
+        if(empty($strDateTime) &amp;&amp; !empty($reqFlg)){
+            return false;
+        }
+        
+        
+        //日時を　年月日時分秒に分解する。
+        $aryA =preg_split( '|[ /:_-]|', $strDateTime );
+        if(count($aryA)!=6){
+            return false;
+        }
+        
+        foreach ($aryA as $key =&gt; $val){
+            
+            //▼正数以外が混じっているば、即座にfalseを返して処理終了
+            if (!preg_match("/^[0-9]+$/", $val)) {
+                return false;
+            }
+            
+        }
+        
+        //▼グレゴリオ暦と整合正が取れてるかチェック。（閏年などはエラー） ※さくらサーバーではemptyでチェックするとバグになるので注意。×→if(empty(checkdate(12,11,2012))){・・・}
+        if(checkdate($aryA[1],$aryA[2],$aryA[0])==false){
+            return false;
+        }
+        
+        //▼時刻の整合性をチェック
+        if($aryA[3] &lt; 0 || $aryA[3] &gt; 23){
+            return false;
+        }
+        if($aryA[4] &lt; 0 ||  $aryA[4] &gt; 59){
+            return false;
+        }
+        if($aryA[5] &lt; 0 || $aryA[5] &gt; 59){
+            return false;
+        }
+        
+        return true;
+    }
+
+}	
+	</code></pre>
+	
+	<p>出力</p>
+	<table class="tbl2"><thead><tr>
+		<th>動物名</th>
+		<th>年齢</th>
+		<th>エラーメッセージ</th>
+	</tr></thead><tbody>
+	<tr><td>タウナギ</td><td>4</td><td></td></tr><tr><td>オオウナギ</td><td>1000</td><td>「動物名」は4文字以内にしてください。→'オオウナギ'</td></tr><tr><td>ドジョウ</td><td>-1</td><td></td></tr><tr><td>ウツボ</td><td>1.2</td><td>「年齢」は整数にしてください。→1.2</td></tr><tr><td>ウミヘビ</td><td>a</td><td>「年齢」は整数にしてください。→a</td></tr><tr><td>ウナギ（鰻[2]...</td><td>-1.2</td><td>「動物名」は4文字以内にしてください。→'ウナギ（鰻[2]...' | 「年齢」は整数にしてください。→-1.2</td></tr><tr><td></td><td></td><td>「動物名」は必須入力です。</td></tr></tbody></table>
+
+	<br><time>2019-7-12</time>
+</div>
+
+
+
 <div id="sec16-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
