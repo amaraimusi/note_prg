@@ -652,32 +652,41 @@ $sample-&gt;removeFileByOldDay('sample', 2);
 
 class Sample{
 	
-	/**
-	 * 危険処理
-	 * 指定日数より古い更新日のファイルをすべて削除する
-	 *
-	 * @note
-	 *指定日数に2を指定した場合、二日以上前のファイルをすべて削除。
-	 *0を指定すると、すべてのファイルを削除
-	 *
-	 * @param string $dp ディレクトリパス
-	 * @param number $day_num 指定日数
-	 */
-	public function removeFileByOldDay($dp, $day_num = 1){
-		
-		$fps = $this-&gt;scandir3($dp); // ディレクトリ内にあるすべてのファイルのファイルパスを取得する
-		$today = date("Y-m-d");
-		
-		foreach($fps as $fp){
-			$dt = date("Y-m-d", filemtime($fp));
-			$diff_day = $this-&gt;diffDay($today, $dt); // 2つの日付の日数差を算出する
-			
-			// 日付差が指定日数以上なら、ファイル削除を行う
-			if($day_num &lt;= $diff_day){
-				unlink($fp);
-			}
-		}
-	}
+    /**
+     * 危険処理
+     * 指定日数より古い更新日のファイルをすべて削除する
+     *
+     * @note
+     *指定日数に2を指定した場合、二日以上前のファイルをすべて削除。
+     *0を指定すると、すべてのファイルを削除
+     *
+     * @param string $dp ディレクトリパス
+     * @param number $day_num 指定日数
+     * @param string $ext 削除ファイルの拡張子（小文字） null:すべてのファイルが対象
+     */
+    public function removeFileByOldDay($dp, $day_num = 1, $ext = null){
+        
+        $fps = $this-&gt;scandir3($dp); // ディレクトリ内にあるすべてのファイルのファイルパスを取得する
+        $today = date("Y-m-d");
+        
+        foreach($fps as $fp){
+            $dt = date("Y-m-d", filemtime($fp));
+            $diff_day = $this-&gt;diffDay($today, $dt); // 2つの日付の日数差を算出する
+
+            // 日付差が指定日数以上なら、ファイル削除とする。
+            if($day_num &lt;= $diff_day){
+                
+                // ファイルパスから拡張子（小文字）を取得
+                $pi = pathinfo($fp);
+                $ext2 = mb_strtolower($pi['extension']); 
+                
+                // 拡張子が一致するなら、このファイルを削除する
+                if($ext == $ext2){
+                    unlink($fp);
+                }
+            }
+        }
+    }
 	
 	
 	/**
@@ -744,7 +753,7 @@ function debug($var){
 ?&gt;
 </code></pre>
 
-	<time>2019-6-27</time>
+	<time>2019-6-27 | 2019-7-13</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
