@@ -761,12 +761,12 @@ function debug($var){
 	<h3>ファイル名からディレクトリ、ファイル名、拡張子を取得する | pathinfo()</h3>
 
 	<pre>
-	$path_param = pathinfo('/okinawa/kunigami/oku/habu.jpg');
+	$pi = pathinfo('/okinawa/kunigami/oku/habu.jpg');
 
-	echo $path_param['dirname'],	//→ '/okinawa/kunigami/oku',
-	echo $path_param['basename'];	//→ 'habu.jpg',
-	echo $path_param['extension'];	//→ 'jpg'
-	echo $path_param['filename'];	//→ 'habu'
+	echo $pi['dirname'],	//→ '/okinawa/kunigami/oku',
+	echo $pi['basename'];	//→ 'habu.jpg',
+	echo $pi['extension'];	//→ 'jpg'
+	echo $pi['filename'];	//→ 'habu'
 
 	</pre>
 </div>
