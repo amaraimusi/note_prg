@@ -269,6 +269,37 @@ cmd /k
 
 
 
+<div id="sec2-9" class="sec4">
+	<h3>シェルに引数を渡す</h3>
+	
+	<pre class="console">
+	$ sh test.sh 猫 犬
+	</pre>
+	
+	test.sh
+	<pre><code>
+	#!/bin/bash
+	echo $0
+	echo $1
+	echo $2
+	echo $#
+	cmd /k
+	</code></pre>
+	
+	<p>出力</p>
+	<pre class="console">
+test.sh ←シェル名
+猫 ←第一引数
+犬 ←第二引数
+2 ←引数の数
+	</pre>
+	
+	<br><time>2019-7-22s</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
