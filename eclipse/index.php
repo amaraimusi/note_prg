@@ -53,6 +53,7 @@
 				<li><a href="note2.html#sec2-4" >Eclipseで特定ファイルのデフォルト文字コードを設定する</a></li>
 				<li><a href="note2.html#sec2-5" >コメントのスペースから後ろが文字化けする</a></li>
 				<li><a href="note2.html#sec2-6" >EclipseのCompareが効かなくなった | 比較 → 相互が表示されない</a></li>
+				<li><a href="note2.html#sec2-7" >PHPのタブスペース設定</a></li>
 			</ol>
 			</div>
 
