@@ -1032,6 +1032,26 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-4" class="sec4">
+	<h3>全角を半角に変換する</h3>
+	
+	<pre><code>
+	/**
+	 * 全角を半角に変換する
+	 * @param string str 全角文字
+	 * @return string 半角文字
+	 */
+	_toHalfWidth(str) {
+		return str.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
+			return String.fromCharCode(s.charCodeAt(0)-0xFEE0);
+		});
+	}
+	</code></pre>
+
+	<br><time>2019-7-27</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
