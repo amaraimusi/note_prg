@@ -1138,11 +1138,11 @@ class Animal{
 		let html = this._createHtml(); 
 		this.tDiv.html(html);
 		
-		this.fShowBtn = this.tDiv.find('.akc_f_show_btn'); // 機能表示ボタン要素
-		this.funcDiv = this.tDiv.find('.akc_func_div'); // 機能区分
-		this.resDiv = this.tDiv.find('.akc_res'); // 結果区分
-		this.errDiv = this.tDiv.find('.akc_err'); // エラー区分
-		this.startBtn = this.tDiv.find('.akc_start_btn'); // スタートボタン要素
+		this.fShowBtn = this.tDiv.find('.anm_f_show_btn'); // 機能表示ボタン要素
+		this.funcDiv = this.tDiv.find('.anm_func_div'); // 機能区分
+		this.resDiv = this.tDiv.find('.anm_res'); // 結果区分
+		this.errDiv = this.tDiv.find('.anm_err'); // エラー区分
+		this.startBtn = this.tDiv.find('.anm_start_btn'); // スタートボタン要素
 		
 		this._addClickFShowBtn(this.fShowBtn); // 機能表示ボタンのクリックイベント
 		
@@ -1156,16 +1156,38 @@ class Animal{
 		
 		if(param == null) param = {};
 
-		if(param['div_xid'] == null) param['div_xid'] = 'api_key_changer';
+		if(param['div_xid'] == null) param['div_xid'] = 'animal';
 		
-		this.lsParam = this._getLsParam(); // ローカルストレージパラメータを取得する
+		let lsParam = this._getLsParam(); // ローカルストレージパラメータを取得する
 		
-		if(this.lsParam['kj_limit'] != null){
-			param['kj_limit'] = this.lsParam['kj_limit'];
-		}else{
-			if(param['kj_limit'] == null) param['kj_limit'] = 100;
-		}
+		param['test_flg'] = this._getProperty('test_flg', 1, param, lsParam);
+
+		this.lsParam = lsParam;
+
 		return param;
+	}
+	
+	
+	/**
+	 * プロパティ値を取得する
+	 * @param string key プロパティのキー
+	 * @param mixed init_value 初期値
+	 * @param object param
+	 * @param object lsParam ローカルストレージから取得したパラメータ
+	 * @return プロパティ値
+	 */
+	_getProperty(key, init_value, param, lsParam){
+
+		// ローカルストレージ、引数、デフォルトを優先順にプロパティ値を取得する。
+		let prop_v = null; // プロパティ値
+		if(lsParam[key] != null){
+			prop_v = lsParam[key];
+		}else if(param[key] != null){
+			prop_v = param[key];
+		}else{
+			prop_v = init_value;
+		}
+		return prop_v;
 	}
 	
 	
@@ -1174,13 +1196,13 @@ class Animal{
 	 */
 	_createHtml(){
 		let html = `
-	&lt;input class='akc_f_show_btn btn btn-primary btn-xs' type="button" value='アニマル機能' /&gt;
-	&lt;div class='akc_func_div' style="display:none"&gt;
+	&lt;input class='anm_f_show_btn btn btn-primary btn-xs' type="button" value='アニマル機能' /&gt;
+	&lt;div class='anm_func_div' style="display:none"&gt;
 		&lt;div style="display:inline-block;padding:10px;border:solid 4px #5bd59e;border-radius:5px;margin-bottom:10px"&gt;
 			&lt;p&gt;アニマル機能&lt;/p&gt;
-			&lt;input class="akc_start_btn btn btn-success" type='button' value="スタート" /&gt;
-			&lt;div class="akc_res text-success"&gt;&lt;/div&gt;
-			&lt;div class="akc_err text-danger"&gt;&lt;/div&gt;
+			&lt;input class="anm_start_btn btn btn-success" type='button' value="スタート" /&gt;
+			&lt;div class="anm_res text-success"&gt;&lt;/div&gt;
+			&lt;div class="anm_err text-danger"&gt;&lt;/div&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
 		`;
@@ -1304,7 +1326,7 @@ class Animal{
 
 	</code></pre>
 	
-	<time>2019-5-28 | 2019-7-26</time>
+	<time>2019-5-28 | 2019-7-30</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
