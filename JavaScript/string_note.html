@@ -265,37 +265,20 @@
 	<h3>全角数字を半角数字に変換する</h3>
 	
 	<pre><code>
-	$str = '1４５６a';
-	$str2 = mb_convert_kana($str, 'n');
-	echo $str2; // → 1456a
-	</code></pre>
-	<br>
-	
-	mb_convert_kana関数は他にも、ひらがなをカタカナに変えるなどいろいろできるようだ。(
-	<a href="http://php.net/manual/ja/function.mb-convert-kana.php" target="blank">mb_convert_kana関数</a>)<br>
-	<br>
-
-	<br><time>2019-2-4</time>
-</div>
-
-
-
-
-
-
-
-<div id="sec1-7" class="sec4">
-	<h3>全角スペースを半角スペースに変換する</h3>
-	
-	<pre><code>
-	// 全角スペースを半角スペースに変換
-	$str = 'A　B　C';
-	$str2 = mb_convert_kana($str, 's');
-	echo $str2; // → A B C
+		/**
+	 * 全角を半角に変換する
+	 * @param string str 全角文字
+	 * @return string 半角文字
+	 */
+	_toHalfWidth(str) {
+		return str.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) => {
+			return String.fromCharCode(s.charCodeAt(0)-0xFEE0);
+		});
+	}
 	</code></pre>
 	<br>
 
-	<br><time>2019-2-4</time>
+	<br><time>2019-7-31</time>
 </div>
 
 
