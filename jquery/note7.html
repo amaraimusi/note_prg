@@ -417,8 +417,17 @@
 
 
 <div id="sec7-8" class="sec4">
-	<h3>Slickのリフレッシュ | 動的に内容が変化した時</h3>
+	<h3>Slickのリフレッシュ | 動的に内容が変化した時 | slick.js</h3>
 	
+	<pre><code>
+		let elm = jQuery('...略 要素を取得
+		elm.slick('removeSlide', null, null, true); // 一旦クリアする
+		elm.html('&lt;div&gt;...略'); // 動的に内容を変更する
+		elm.slick('refresh');
+	</code></pre>
+	
+	<hr>
+	<p>旧</p>
 	<a href="/sample/js/a012/slick/demo2_dynamic.html" class="btn btn-info">Demo</a><br>
 	<br>
 	
@@ -426,7 +435,7 @@
 	$('#test1')[0].slick.refresh();
 	</code></pre>
 
-	<br><time>2019-5-9</time>
+	<br><time>2019-5-9 | 2019-8-8</time>
 </div>
 
 
