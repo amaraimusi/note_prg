@@ -1052,6 +1052,68 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-5" class="sec4">
+	<h3>手入力数値の数値化および入力チェック | 全角数値を半角数値に変換</h3>
+	<a href="/sample/js/a012/numericize_and_check/numericize_and_check.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+		/**
+	 * 手入力数値の数値化および入力チェック | 全角数値を半角数値に変換
+	 * 
+	 * @note
+	 * 負数にも対応するが全角ハイフン「－」には対応しない。半角ハイフンのみ。
+	 * 小数値にも対応。
+	 * 
+	 * @param mixed num_text 数値テキスト
+	 * @param bool req 必須チェックフラグ true(デフォ）:必須
+	 * @return int 数値 or エラー文字列
+	 */
+	function _numericizeAndCheck(num_text, req){
+		
+		if(req==null) req = true; // 必須チェックフラグ
+		
+		// 空文字判定
+		if(num_text == null || num_text === '' || num_text === false){
+			if(req == true){
+				return "必須入力です。";
+			}else{
+				return 0;
+			}
+		}
+	
+		num_text += ''; // 文字列扱いにする
+		
+		// 全角を半角にする
+		num_text = num_text.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, (s) =&gt; {
+			return String.fromCharCode(s.charCodeAt(0)-0xFEE0);
+		});
+		
+		num_text = num_text.trim();
+		
+		// 整形後の空文字判定
+		if(num_text === ''){
+			if(req == true){
+				return "必須入力です。";
+			}else{
+				return 0;
+			}
+		}
+
+		if(isNaN(num_text)){
+			return "数値を入力してください。";
+			return;
+		}
+		
+		num_text = num_text * 1; // 数値化する
+		
+		return num_text;
+	}
+	</code></pre>
+	<br><time>2019-8-8</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
