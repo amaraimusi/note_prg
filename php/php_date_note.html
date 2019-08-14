@@ -826,7 +826,252 @@ function <strong>getDateFormatFromString</strong>($str,$option=array()){
 <div id="sec1-6" class="sec4"">
 	<h3>手入力日時の自動変換</h3>
 	
-	<pre><code>
+		手入力による様々な日付文字列入力を正しい日付フォーマットに自動変換する関数。<br>
+		 全角数値は半角数値に変換される。<br>
+		 日付文字列の前後に文字列があっても問題ない。<br>
+		 <br>
+	
+	クラスメソッド型<input type="button" value="ソースコードA" class="btn btn-info" onclick="jQuery('#sec1-6a1').toggle(100);">
+	<pre id="sec1-6a1" style="display:none"><code>
+		/**
+	 * 手入力日時の自動変換
+	 *
+	 * @note
+	 * 手入力による様々な日付文字列入力を正しい日付フォーマットに自動変換する。
+	 * 全角数値は半角数値に変換される。
+	 * 日付文字列の前後に文字列があっても問題ない。
+	 *
+	 * 例)
+	 * 「山の日８月１２日公共」 → 2019-8-12 12:13:14
+	 *
+	 * @param string $date_str 日付文字列
+	 * @param string $format 日付フォーマット（デフォ：Y-m-d h:i:s）
+	 * @return array
+	 *  - string value 自動変換後の日付
+	 *  - string err 入力エラー文字列
+	 */
+	public function humanInputDateTime($date_str, $format='Y-m-d h:i:s'){
+		
+		$date_str0 = $date_str;
+		
+		$res = ['date'=&gt;$date_str, 'err'=&gt;''];
+		if(empty($date_str)) return $res;
+		
+		$date_str = mb_convert_kana($date_str, 'n'); // 全角を半角に変換する
+		$date_str = mb_convert_kana($date_str, 's'); // 全角スペースを半角に変換する
+		$date_str = mb_convert_kana($date_str, 'a'); // 全角記号半角に変換する
+		$date_str = str_replace('・', '/', $date_str); // 「・」はスラッシュに置換する
+		$date_str = trim($date_str);
+		$date_str = preg_replace('/¥s(?=¥s)/', '', $date_str); // 連続スペースを一つにする
+		if(empty($date_str)) return $res;
+		$date_str = str_replace('日 ', ' ', $date_str);
+		
+		
+		// Y/m/d h:i:s
+		$date = '';
+		$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})(¥/|-|月)([0-9]{1,2})(日|¥s)([0-9]{1,2})(:|時)([0-9]{1,2})(:|分)([0-9]{1,2})}';
+		preg_match($re, $date_str, $match);
+		if(!empty($match)){
+			$date = $match[0];
+		}
+		
+		// Y/m/d h:i
+		if(empty($date)){
+			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})(¥/|-|月)([0-9]{1,2})(日|¥s)([0-9]{1,2})(:)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date .= ':00';
+			}
+		}
+		
+		// Y/m/d
+		if(empty($date)){
+			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})(¥/|-|月)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date .= ' 00:00:00';
+			}
+		}
+		
+		// m/d
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(¥/|-|月)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y') . '/' . $date . ' 00:00:00';
+			}
+		}
+		
+		// y/m
+		if(empty($date)){
+			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date .= '/1 00:00:00';
+			}
+		}
+		
+		// h:i:s
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(:|時)([0-9]{1,2})(:|分)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m/d') . ' ' . $date;
+			}
+		}
+		
+		// h:i
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(:|時)([0-9]{1,2})}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m/d') . ' ' . $date . ':00';
+			}
+		}
+		
+		// Y
+		if(empty($date)){
+			$re = '{([0-9]{4})(年)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = $date . '1/1 00:00:00';
+			}
+		}
+		
+		// m
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(月)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y') . '/' . $date . '1 00:00:00';
+			}
+		}
+		
+		// 日
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(日)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m') . '/' . $date . ' 00:00:00';
+			}
+		}
+		
+		// 時
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(時)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m/d') . ' ' . $date . '00:00';
+			}
+		}
+		
+		// 分
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(分)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m/d h:')  . $date . '00';
+			}
+		}
+		
+		// 秒
+		if(empty($date)){
+			$re = '{([0-9]{1,2})(秒)}';
+			preg_match($re, $date_str, $match);
+			if(!empty($match)){
+				$date = $match[0];
+				$date = date('Y/m/d h:i:') . $date ;
+			}
+		}
+		
+		$date = preg_replace('{年|月}', '/', $date);
+		$date = preg_replace('{時|分}', ':', $date);
+		$date = preg_replace('{日|秒}', '', $date);
+		
+		$err = $this-&gt;isDatetime($date); // 日時チェック
+		
+		if(empty($err)){
+			$date = date($format); // フォーマット変換
+		}else{
+			$err .= '→' . $date;
+			$date = '';
+		}
+		
+		$res['date'] = $date;
+		$res['err'] = $err;
+		
+		return $res;
+	}
+	
+	
+	/**
+	 * 日時入力チェックのバリデーション
+	 * ※日付のみあるいは時刻は異常と見なす。
+	 * @param string $str_dt	日時文字列
+	 * @param bool $req	入力必須フラグ false:空許可(デフォ), true:入力必須
+	 * @return string	エラー文字列  正常のときはnull
+	 * @date 2015-10-5 | 2019-8-12
+	 */
+	public function isDatetime($str_dt, $req=false){
+		
+		//空値且つ、必須入力がnullであれば、trueを返す。
+		if(empty($str_dt) &amp;&amp; empty($req)){
+			return null;
+		}
+		
+		//日時を　年月日時分秒に分解する。
+		//$aryA =preg_split( '|[/:_-&yen;s]|', $str_dt );
+		//$aryA =preg_split('|[¥s¥/&yen;-:]|', $str_dt );
+		$aryA =preg_split('/[-: &yen;/]/', $str_dt );
+		
+		if(count($aryA)!=6){
+			return '日時形式ではありません。';
+		}
+		
+		foreach ($aryA as $key =&gt; $val){
+			
+			//▼正数以外が混じっているば、即座にfalseを返して処理終了
+			if (!preg_match("/^[0-9]+$/", $val)) {
+				return '文字列が混じっています。';
+			}
+			
+		}
+		
+		//▼グレゴリオ暦と整合正が取れてるかチェック。（閏年などはエラー） ※さくらサーバーではemptyでチェックするとバグになるので注意。×→if(empty(checkdate(12,11,2012))){・・・}
+		if(checkdate($aryA[1],$aryA[2],$aryA[0])==false){
+			return '存在しない日付です(グレゴリオ暦)。';
+		}
+		
+		//▼時刻の整合性をチェック
+		if($aryA[3] &lt; 0 || $aryA[3] &gt; 23){
+			return '時刻に異常があります。';
+		}
+		if($aryA[4] &lt; 0 ||  $aryA[4] &gt; 59){
+			return '「分」に異常があります。';
+		}
+		if($aryA[5] &lt; 0 || $aryA[5] &gt; 59){
+			return '秒に異常があります。';
+		}
+		
+		return null;
+	}
+	</code></pre>
+	<hr>
+		
+		
+	旧型（preg_match関連が安定していない）<input type="button" value="ソースコードB" class="btn btn-info" onclick="jQuery('#sec1-6a2').toggle(100);">
+	<pre id="sec1-6a2" style="display:none"><code>
 	/**
  * 手入力日時の自動変換 
  * 
