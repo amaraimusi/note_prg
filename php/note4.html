@@ -541,6 +541,13 @@
 	 * @param string $dir 削除対象ディレクトリ
 	 */
 	private function removeDirectory($dir) {
+	
+		// ディレクトリでないなら即削除
+		if (!is_dir($dir)) {
+			unlink($dir);
+			return;
+		}
+		
 		if ($handle = opendir($dir)) {
 			while (false !== ($item = readdir($handle))) {
 				if ($item != "." &amp;&amp; $item != "..") {
@@ -561,7 +568,7 @@
 	<a href="http://kidokorock.com/php%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AD%89%E3%81%8C%E5%86%85%E5%8C%85%E3%81%95%E3%82%8C%E3%81%9F%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%EF%BC%88%E3%83%95%E3%82%A9/" target="blank">参考サイト</a><br>
 	<br>
 
-	<br><time>2016-10-25 | 2019-5-20</time>
+	<br><time>2016-10-25 | 2019-8-16</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
