@@ -833,7 +833,7 @@ function <strong>getDateFormatFromString</strong>($str,$option=array()){
 	
 	クラスメソッド型<input type="button" value="ソースコードA" class="btn btn-info" onclick="jQuery('#sec1-6a1').toggle(100);">
 	<pre id="sec1-6a1" style="display:none"><code>
-		/**
+	/**
 	 * 手入力日時の自動変換
 	 *
 	 * @note
@@ -866,6 +866,7 @@ function <strong>getDateFormatFromString</strong>($str,$option=array()){
 		if(empty($date_str)) return $res;
 		$date_str = str_replace('日 ', ' ', $date_str);
 		
+		$success = false; // 成功フラグ
 		
 		// Y/m/d h:i:s
 		$date = '';
@@ -873,140 +874,161 @@ function <strong>getDateFormatFromString</strong>($str,$option=array()){
 		preg_match($re, $date_str, $match);
 		if(!empty($match)){
 			$date = $match[0];
+			$success = true;
 		}
 		
 		// Y/m/d h:i
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})(¥/|-|月)([0-9]{1,2})(日|¥s)([0-9]{1,2})(:)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date .= ':00';
+				$success = true;
 			}
 		}
 		
 		// Y/m/d
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})(¥/|-|月)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date .= ' 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// m/d
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(¥/|-|月)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y') . '/' . $date . ' 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// y/m
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{4})(¥/|-|年)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date .= '/1 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// h:i:s
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(:|時)([0-9]{1,2})(:|分)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m/d') . ' ' . $date;
+				$success = true;
 			}
 		}
 		
 		// h:i
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(:|時)([0-9]{1,2})}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m/d') . ' ' . $date . ':00';
+				$success = true;
 			}
 		}
 		
 		// Y
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{4})(年)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = $date . '1/1 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// m
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(月)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y') . '/' . $date . '1 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// 日
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(日)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m') . '/' . $date . ' 00:00:00';
+				$success = true;
 			}
 		}
 		
 		// 時
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(時)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m/d') . ' ' . $date . '00:00';
+				$success = true;
 			}
 		}
 		
 		// 分
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(分)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m/d h:')  . $date . '00';
+				$success = true;
 			}
 		}
 		
 		// 秒
-		if(empty($date)){
+		if(empty($success)){
 			$re = '{([0-9]{1,2})(秒)}';
 			preg_match($re, $date_str, $match);
 			if(!empty($match)){
 				$date = $match[0];
 				$date = date('Y/m/d h:i:') . $date ;
+				$success = true;
 			}
 		}
 		
-		$date = preg_replace('{年|月}', '/', $date);
-		$date = preg_replace('{時|分}', ':', $date);
-		$date = preg_replace('{日|秒}', '', $date);
-		
-		$err = $this-&gt;isDatetime($date); // 日時チェック
-		
-		if(empty($err)){
-			$date = date($format); // フォーマット変換
+		if($success == true){
+			$date = preg_replace('{年|月}', '/', $date);
+			$date = preg_replace('{時|分}', ':', $date);
+			$date = str_replace('日', ' ', $date);
+			$date = str_replace('  ', ' ', $date);
+			$date = str_replace('秒', '', $date);
+			
+			$err = $this-&gt;isDatetime($date); // 日時チェック
+			
+			if(empty($err)){
+				$date = date($format, strtotime($date)); // フォーマット変換
+			}else{
+				$date = $date_str0;
+				$err .= '→' . $date;
+			}
 		}else{
-			$err .= '→' . $date;
-			$date = '';
+			$date = $date_str0;
+			$err = '日時形式ではありません →' . $date;
 		}
+
 		
 		$res['date'] = $date;
 		$res['err'] = $err;
@@ -1031,8 +1053,6 @@ function <strong>getDateFormatFromString</strong>($str,$option=array()){
 		}
 		
 		//日時を　年月日時分秒に分解する。
-		//$aryA =preg_split( '|[/:_-&yen;s]|', $str_dt );
-		//$aryA =preg_split('|[¥s¥/&yen;-:]|', $str_dt );
 		$aryA =preg_split('/[-: &yen;/]/', $str_dt );
 		
 		if(count($aryA)!=6){
@@ -1309,7 +1329,7 @@ function isDatetime($str_dt, $req=false){
 	<a href="/sample/php/a060/human_input_datetime/human_input_datetime.php" class="btn btn-info">検証</a><br>
 	<br>
 	
-	<br><time>2019-8-12</time>
+	<br><time>2019-8-12 | 2019-8-16</time>
 </div>
 
 
