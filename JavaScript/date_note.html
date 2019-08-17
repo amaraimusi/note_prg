@@ -403,6 +403,42 @@ function dateFormat(date1, format){
 
 
 
+<div id="sec1-9" class="sec4"  >
+	<h3>年月をyyyy-mm型に変換する</h3>
+
+	<pre><code>
+	/**
+	 * yyyy-mm型に変換する
+	 * 
+	 * @note
+	 * 例) 2012-2 → 2012-02
+	 * 例) 2012-12 → 2012-12
+	 * 
+	 * @param string ym 年月文字列
+	 * @param string delim 区切り文字（デフォルトはハイフン）
+	 * @return yyyy-mm型の年月文字列
+	 */
+	_toYyyyMm(ym, delim){
+		ym = ym.trim();
+		if(ym == null || ym == '' || ym == 0) return ym;
+		if(delim == null) delim = '-';
+		let ary = ym.split(delim);
+		if (ary.length != 2) return ym;
+		let month = ary[1];
+		month = ("0"+month).slice(-2); // 2桁にそろえる。 例 3→03
+		let ym2 = ary[0] + delim + month;
+		return ym2;
+	}
+	</code></pre>
+
+	<br><time>2019-8-17</time>
+</div>
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none" >
 	<h3>xxx</h3>
 
