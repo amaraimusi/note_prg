@@ -326,7 +326,7 @@ function dateFormat(date1, format){
 	/**
 	 * 対象日付の月末日を取得する
 	 * @param mixed date1 対象日付
-	 * @return string 月末日
+	 * @return string 月末日(yyyy-mm-dd)
 	 */
 	_getMonthEndDate(date1){
 		if(date1 == null) return null;
@@ -340,13 +340,20 @@ function dateFormat(date1, format){
 		var year = mEndDate.getFullYear();
 		var month = mEndDate.getMonth() + 1;
 		var day = mEndDate.getDate();
+		
+		// 2桁にそろえる。 例 3→03
+		var month = ("0"+month).slice(-2);
+		var day = ("0"+day).slice(-2);
+		
 		var date_str = year + '-' + month + '-' + day;
+		
 		return date_str;
+
 	}
 	</code></pre>
 
 
-	<br><time>2018-12-1</time>
+	<br><time>2018-12-1 | 2019-8-17</time>
 </div>
 
 
