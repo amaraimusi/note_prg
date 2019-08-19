@@ -40,6 +40,78 @@
 
 
 
+<div id="sec8-2" class="sec4">
+	<h3>緯度経度フィールドを含むサンプルデータを100万件作成</h3>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>フィールド</th><th>型</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>id</td><td>int(主キー auto)</td></tr>
+			<tr><td>big_name</td><td>varchar(64)</td></tr>
+			<tr><td>lat</td><td>double</td></tr>
+			<tr><td>lng</td><td>double</td></tr>
+		</tbody>
+	</table><br>
+	
+	100万件分の行を作成する。(二の二十乗=104万...)<br>
+	<pre><code>
+	INSERT INTO bigs () VALUES ();
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	INSERT INTO bigs (id) SELECT 0 FROM bigs;
+	</code></pre><br>
+	
+	一括サンプルデータ入力
+	<pre><code>
+	UPDATE bigs SET
+	  big_name = CONCAT('ビッグマン', id),
+	  lat =RAND() * 180 - 90,
+	  lng =RAND() * 360 - 180
+	</code></pre>
+	<aside>
+		lat(緯度)は-90～90の範囲でランダム。<br>
+		lng(経度)は-180～180の範囲でランダム。<br>
+	</aside><br>
+	
+	
+	<a href="https://qiita.com/tayasu/items/c5ddfc481d6b7cd8866d" target="blank">参考サイト</a><br>
+	<br>
+
+	<br><time>2019-8-19</time>
+</div>
+
+
+
+<div id="sec8-3" class="sec4">
+	<h3>緯度経度による検索を早くするためのチューニング</h3>
+	
+	
+
+
+	<br><time>2019-8-19</time>
+</div>
+
+
+
 <div id="sec8-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

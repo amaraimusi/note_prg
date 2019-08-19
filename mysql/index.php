@@ -94,6 +94,9 @@
 	<li><a href="note7.html#sec7-9" >INで指定した順に取得する</a></li>
 	<li><a href="note7.html#sec7-10" >リストアのよくあるエラー　Fatal error: Allowed memory size of 402653184 bytes exhausted</a></li>
 	<li><a href="note8.html#sec8-1" >INSERTしたレコードのidを取得（AUTO_INCREMENT 型のidである場合） | LAST_INSERT_ID()</a></li>
+	<li><a href="note8.html#sec8-2" >緯度経度フィールドを含むサンプルデータを100万件作成</a></li>
+	<li><a href="note8.html#sec8-3" >緯度経度による検索を早くするためのチューニング</a></li>
+	
 </ol>
 <hr><br><br><br>	
 			
