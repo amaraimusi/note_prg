@@ -104,8 +104,45 @@
 <div id="sec8-3" class="sec4">
 	<h3>緯度経度による検索を早くするためのチューニング</h3>
 	
+	以下のチューニングを行うと緯度経度による検索(SELECT)は速くなるが挿入、更新、削除は遅くなる。<br>
+	<br>
 	
-
+	<table class="tbl2">
+		<thead>
+			<tr><th>フィールド</th><th>型</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>id</td><td>int(主キー)</td></tr>
+			<tr><td>big_name</td><td>varchar(64)</td></tr>
+			<tr><td>lat</td><td>double(8,6)</td></tr>
+			<tr><td>lng</td><td>double(9,6)</td></tr>
+		</tbody>
+	</table>
+	まず緯度経度の桁数を制限。<br>
+		lat(緯度)の型は「double(8,6)」すなわち桁数8,小数点以下の桁数6にする。<br>
+		lng(経度)の型は「double(9,6)」、すなわち桁数9,小数点以下の桁数6にする。<br>
+		<aside>桁数を上記のように短く制限することにより1m以内の誤差が生じる。</aside>
+		<br>
+		
+		latとlngにインデックスを追加。
+		<pre><code>
+		ALTER TABLE bigs ADD INDEX lat_index(lat);
+		ALTER TABLE bigs ADD INDEX lng_index(lng);
+		</code></pre>
+		
+		以上でチューニング完了。<br>
+		<br>
+		
+		<p>検証結果について</p>
+		100万件データで下記の検索SQLを実行したときの計測時間を測定。
+		<pre>SELECT big_name, lat, lng from bigs where lat &gt; 26 AND lat &lt; 27 AND lng &gt; 127 AND lng &lt; 128</pre>
+		計測時間<br>
+		チューニング前→ クエリの実行時間： 1.2658 秒<br>
+		チューニング後→ クエリの実行時間： 0.5152 秒<br>
+		<br>
+		
+		倍以上の改善が見られた。<br>
+		<br>
 
 	<br><time>2019-8-19</time>
 </div>
