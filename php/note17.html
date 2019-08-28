@@ -63,11 +63,117 @@
 </div>
 
 
+<div id="sec17-2" class="sec4">
+	<h3>ファイル名変更</h3>
+	
+	<pre><code>
+	$oldname = "test/漢字.txt";
+	$newname = "test/aaa.txt";
+	rename ($oldname, $newname);
+	</code></pre>
+
+	<br><time>2019-8-12</time>
+</div>
+
+
+<div id="sec17-3" class="sec4">
+	<h3>日本語ファイル名を半悪英数字に変更</h3>
+	
+	<pre><code>
+	$dp = 'test';
+	$res = jpFnRename($dp);
+	
+	echo '&lt;pre&gt;';
+	var_dump($res);
+	echo '&lt;/pre&gt;';
+	
+	
+	/**
+	 * 日本語ファイル名を半悪英数字に変更 
+	 * 
+	 * @note
+	 * 指定ディレクトリ内の日本語ファイル名を日時から生成したファイル名に一括変更する。
+	 * 
+	 * @param string $dp ディレクトリパス
+	 * @param string $sep セパレータ（省略可）
+	 * @return array ファイル名変更情報
+	 */
+	function jpFnRename($dp, $sep='/'){
+		
+		$resData = []; // レスポンスデータ
+		
+		// ディレクトリパスの末尾にセパレータがなければ付け足す。
+		$one = mb_substr($dp, -1);
+		if($one != $sep) $dp .= $sep;
+		
+		$fns = scandir($dp);
+		foreach($fns as $i =&gt; $fn){
+			if($fn == '.' || $fn == '..') continue;
+			if (!preg_match("/^[a-zA-Z0-9-_.]+$/", $fn)) {
+				
+				$old_fp = $dp . $fn; // 旧ファイルパス
+				
+				// 拡張子を取得
+				$pi = pathinfo($fn);
+				$ext = $pi['extension'];
+				
+				// 新ファイルパス
+				$date_str = date('Ymd_his');
+				$new_fp = "{$dp}{$date_str}_{$i}.{$ext}";
+				
+				rename ($old_fp, $new_fp); // ファイル名変更
+				
+				$ent = ['old_fp'=&gt;$old_fp, 'new_fp'=&gt;$new_fp,];
+				$resData[] = $ent;
+				
+			}else{
+				$old_fp = $dp . $fn;
+				$ent = ['old_fp'=&gt;$old_fp, 'new_fp'=&gt;$old_fp,];
+				$resData[] = $ent;
+			}
+		}
+		
+		return $resData;
+	}
+	</code></pre>
+	
+	<p>出力</p>
+	<pre class="console">
+	array(3) {
+	  [0]=&gt;
+	  array(2) {
+	    ["old_fp"]=&gt;
+	    string(16) "test/big_cat.txt"
+	    ["new_fp"]=&gt;
+	    string(16) "test/big_cat.txt"
+	  }
+	  [1]=&gt;
+	  array(2) {
+	    ["old_fp"]=&gt;
+	    string(24) "test/あいうえお.csv"
+	    ["new_fp"]=&gt;
+	    string(26) "test/20190828_080607_3.csv"
+	  }
+	  [2]=&gt;
+	  array(2) {
+	    ["old_fp"]=&gt;
+	    string(15) "test/赤猫.txt"
+	    ["new_fp"]=&gt;
+	    string(26) "test/20190828_080607_4.txt"
+	  }
+	}
+	</pre>
+
+
+	<br><time>2019-8-28</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2019-38-12</time>
+	<br><time>2019-8-12</time>
 </div>
 
 
