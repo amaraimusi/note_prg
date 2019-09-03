@@ -234,26 +234,28 @@
 	
 	<pre><code>
 	class AppController extends Controller {
-	    public $uses = array();
+		public $uses = array();
 	
-	    public $components = array(
-	        'Security',
-	    );
+		public $components = array(
+			'Security',
+		);
 	
 	
 		public function beforeFilter(){
-		    
-		    // httpsにリダイレクトする処理
-		    $this-&gt;Security-&gt;blackHoleCallback = 'forceSSL';
-		    $this-&gt;Security-&gt;requireSecure();
-		    $this-&gt;Security-&gt;validatePost = false; // httpsでもPOSTが動くようにする
-		    $this-&gt;Security-&gt;csrfCheck = false;  // httpsでもPOSTが動くようにする
+			
+			// httpsにリダイレクトする処理 (if文はログアウト時に起こるエラー対策)
+			if(!empty( $this->Security)){
+				$this-&gt;Security-&gt;blackHoleCallback = 'forceSSL';
+				$this-&gt;Security-&gt;requireSecure();
+				$this-&gt;Security-&gt;validatePost = false; // httpsでもPOSTが動くようにする
+				$this-&gt;Security-&gt;csrfCheck = false;  // httpsでもPOSTが動くようにする
+			}
 	
 		}
 		
 		// httpsにリダイレクトする
 		public function forceSSL() {
-		    $this-&gt;redirect('https://' . env('SERVER_NAME') . $this-&gt;here);
+			$this-&gt;redirect('https://' . env('SERVER_NAME') . $this-&gt;here);
 		}
 	</code></pre>
 	
@@ -268,16 +270,16 @@
 	
 	<pre><code>
 &lt;IfModule mod_rewrite.c&gt;
-    RewriteEngine On
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+	RewriteEngine On
+	RewriteCond %{HTTPS} off
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^ index.php [L]
 &lt;/IfModule&gt;
 	</code></pre><br>
 	
-	<br><time>2019-7-8 | 2019-7-9</time>
+	<br><time>2019-7-8 | 2019-9-3</time>
 	
 </div>
 
