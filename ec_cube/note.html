@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EC-CUBEの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>EC-CUBEの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>EC-CUBE4をローカル環境に導入する手順</h3>
+		バージョン情報<br>
+		EC-CUBE 4.0.3<br>
+		PHP 7.1<br>
+		<br>
+		<h4>手順</h4>
+		<ol class="list_lg">
+			<li>
+				EC-CUBEのzipファイルを
+				<a href="http://doc4.ec-cube.net/quickstart_install" target="blank">公式サイト</a>
+				からダウンロードする 。<br>
+				「EC-CUBE 4のパッケージをダウンロードし、解凍してください。」のリンクからEC-CUBEのzipをダウンロードできる。
+			</li>
+				
+				<li>
+					WEBサーバーのルートディレクトリにダウンロードしたzipファイルを展開<br>
+					例）
+					<pre>C:\xampp\htdocs\hello_ec_cube</pre>
+					<aside>※xamppを利用している場合</aside>
+					<img src="img/note/sec1-1/b3.png" class="img_compact_k"  />
+				</li>
+				
+				<li>
+						MySQLにてDBを作成。<br>
+						phpMyAdiminなどで任意のデータベースを作成する。テーブル等は不要。<br>
+						例）phpMyAdiminにてデータベースを<strong>hello_ec_cube</strong>の名前で新規作成。<br>
+				</li>
+				
+				<li>
+					「http://localhost/hello_ec_cube/」にアクセス。
+					<pre>http://localhost/hello_ec_cube/</pre>
+					<aside>画面が表示されるまで数十秒がかかる</aside>
+				</li>
+				
+				<li>
+					画面表示が表示され問題なければ「次へ進む」ボタンを押す。<br>
+					<img src="img/note/sec1-1/a1.png" class="img_compact_k"  /><br>
+					図では「<a href="#sec1-2" class="livipage">Intl拡張モジュールが有効になっていません。</a>」という問題が発生している。
+					このままではログイン時にエラーが発生してしまう。<br>
+					この場合、php.iniの「extension=php_intl.dll」を有効にすると解決する。<br>
+				</li>
+				
+				<li>
+					そのまま「次へ進む」ボタンを押す。<br>
+					<img src="img/note/sec1-1/a2.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					店名、メールアドレス、管理画面ログインアカウント、管理画面へのパスなど入力。<br>
+					ローカル環境である場合、SMTPやIP制限は不要。<br>
+					<aside>本番環境である場合、IP制限はかけたほうがいい。許可したIPアドレスの端末以外からは管理画面にアクセスできなくすることができるようだ。<br></aside>
+					
+					<img src="img/note/sec1-1/a3.png" class="img_compact_k"  />
+					<img src="img/note/sec1-1/a4.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					一般的なローカル環境でのMySQL設定を入力する場合、図のようになる。<br>
+					データベース名には先ほど作成したDBの名前を入力する。<br>
+					例）hello_ec_cube。<br>
+					<img src="img/note/sec1-1/a5.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					そのまま「次へ進む」を押す。(数十秒ほど時間がかかる)<br>
+					<img src="img/note/sec1-1/a6.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					インストール完了。<br>
+					このまま「管理画面を表示」ボタンを押して管理画面を表示させてみる。<br>
+					<img src="img/note/sec1-1/a7.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					ログイン画面がでるので、先ほどの手順にて入力した管理画面ログインアカウントを入力する。（デフォルトで入力されている）<br>
+					<img src="img/note/sec1-1/a8.png" class="img_compact_k"  /><br>
+				</li>
+				
+				<li>
+					管理画面が表示されたら成功。<br>
+					<img src="img/note/sec1-1/a9.png" class="img_compact_k"  /><br>
+				</li>
+		</ol>
+		
+		
+
+
+
+	
+
+
+	<br><time>2019-9-7</time>
+</div>
+
+
+<div id="sec1-2" class="sec4">
+	<h3>EC-CUBE4 「Intl拡張モジュールが有効になっていません。」</h3>
+
+	php.iniの「extension=php_intl.dll」部分のコメントを外し、Apatchの再起動する。<br>
+	<br>
+
+	有効化前<br>
+	<img src="img/note/sec1-1/b1.png" /><br>
+	<br>
+	有効化後<br>
+	<img src="img/note/sec1-1/b2.png" /><br>
+	<br>
+	
+	<br><time>2019-9-7</time>
+</div>
+
+
+<div id="sec1-3" class="sec4">
+	<h3>開発者モードにする</h3>
+	
+	EC-CUBEファイル群が配置されているディレクトリに「.env」ファイルが存在する。
+	<aside>「.env」はトップのディクトリに配置されている。Eclipseの初期設定だと、このファイルは見えないので注意。</aside>
+	「.env」をテキストエディタで開き、下記のように変更すると開発者モードになる。<br>
+	<br>
+
+	[変更前]
+	<pre>
+	APP_ENV=prod
+	APP_DEBUG=0
+	</pre>
+	<br>
+	
+	[変更後]
+	<pre>
+	APP_ENV=dev
+	APP_DEBUG=1
+	</pre>
+	
+	<br><time>2019-9-7</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-9-7</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/ec_cube/">EC-CUBEの覚書</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-9-7</div>
+</body>
+</html>
