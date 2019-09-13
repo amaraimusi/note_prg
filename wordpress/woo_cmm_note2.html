@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WooCommerceの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WooCommerceの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4">
+	
+	<h3>関連DBに関するメモ書き</h3>
+	WooCommerceとWordpressのDB構成についておおまかに調査。<br>
+	調査は不完全なので感想程度のもの。<br>
+	<br>
+	
+	<pre>
+	wp_commentmeta
+		meta_id	主キー
+		comment_id
+		データは空
+	wp_comments
+		comment_ID 主キー
+		comment_post_ID
+		comment_content コメント文が入っている
+		コメント関連のデータを扱っているようだがどのような位置付けなのか不明。
+	wp_failed_jobs
+		id 主キー
+		job	text
+		現在、空。失敗作業データを格納しているのだろうか？
+	wp_links
+		link_id	主キー
+		link_url
+		link_name
+		link_image
+		現在、空。リンク関連のデータのようだが位置付けが不明。
+	wp_mailchimp_carts
+		id
+		email	主キー
+		user_id
+		cart text
+		メールアドレスが主キーとなっている。
+		このemailが表すのは投稿者か？それとも顧客か？
+		cartがtextとなっているが、シーケンスデータなのか？それとも何かのメッセージなのか？
+	wp_options
+		option_id 主キー
+		option_name ユニーク
+		option_value text
+		autoload
+		option_nameを指定してoption_valueの値を受け取るということだろう。
+		autoloadは何らかの「タイミング」が関係しているのだろう。
+	wp_postmeta
+		meta_id 主キー
+		post_id	ユニーク
+		meta_key ユニーク
+		meta_value longtext
+		投稿データと関連あるテーブル。
+		投稿エンティティ1件に対し、当データは複数存在する。
+		目的はmeta_valueの取得だろう。
+		拡張的な意味があるのかもしれない。
+	wp_posts
+		ID
+		post_author ユニーク
+		post_date ユニーク
+		post_content longtext
+		post_title text
+		post_status ユニーク
+		post_name ユニーク
+		post_parent  ユニーク
+		post_type ユニーク
+		最も主要なテーブル
+	wp_queue
+		id 主キー
+		job text
+		attempts	tinyint 試みフラグ？
+		キューに関するデータを格納している。
+		バッチ処理やクーロンでの処理で利用しているのかもしれない。
+	wp_termmeta
+		meta_id 主キー
+		term_id ユニーク
+		meta_key ユニーク
+		meta_value 
+		タームはタクソノミーの子分類のようなもの。
+		タクソノミーはカテゴリやタグの総称。
+	wp_terms
+		term_id 主キー
+		name ユニーク タームの名前
+		slug ユニーク 見出し（短い名前）
+		term_group bigint グループ化ができるようだ
+	wp_term_taxonomy
+		term_taxonomy_id 主キー
+		term_id ユニーク
+		taxonomy ユニーク　タクソノミーのコード
+		parent bigint
+		カテゴリ、タグなどの大分類
+		タームとは親的な関係になっているはずである。
+	wp_term_relationships
+		object_id
+		term_taxonomy_id
+		term_order
+		term_orderは並び替えを意味しているはず。
+		だとするとこのテーブルはタクソノミーの並び順管理が主な役割と思われる。
+	wp_usermeta
+		umeta_id　主キー
+		user_id　ユーザーID
+		meta_key　メタキー
+		meta_value
+		user_idが存在していることから、ログインユーザーごとに異なる値をもつパラメータを管理しているのだろう。
+	wp_users
+		user_login
+		user_pass
+		ログインユーザーのデータを保存している。
+	wp_wc_admin_notes
+		note_id 主キー
+		name varchar(255)
+	 	contents longtext コンテンツ
+		静的なコンテンツテキストを管理していると思われる。
+		adminとあることから管理者専用なのかもしれない。
+	wp_wc_admin_note_actions
+		action_id
+		note_id
+		name
+		query
+		status
+		note_idが存在することからコンテンツに対し何らかのアクションを組み込んでいる。
+	wp_wc_customer_lookup
+		customer_id
+		user_id
+		username
+		first_name
+		email
+		customerという文言から顧客関連だと推測できる
+		顧客データとみてもいいかもしれない。
+	wp_wc_download_log
+		download_log_id
+		timestamp ユニーク
+		permission_id ユニーク
+		user_id
+		user_idがあることからログインユーザーごとの記録にも見える。
+		だれがダウンロードしたのか記録するテーブルだろうか？
+	wp_wc_order_coupon_lookup
+		order_id
+		coupon_id
+		date_created datetime
+		discount_amount	double
+		顧客が注文の際、使用したクーポンだろうか？
+		それともお店側が発行するクーポンの管理？
+	wp_wc_order_product_lookup
+		order_item_id 主キー
+		order_id ユニーク 注文ID
+		product_id  ユニーク 商品ID
+		customer_id  ユニーク
+		date_created  ユニーク
+		product_qty	数量
+		shipping_amount
+		注文のあった商品情報を蓄積するテーブルとみてよかろう。
+		WooCommerceの主要なテーブル
+	wp_wc_order_stats
+		order_id
+		parent_id
+		date_created ユニーク
+		num_items_sold 売れきれ件数？
+		gross_total　原価＋諸経費を加えた、全部ひっくるめた金額
+		tax_total 税金合計
+		いわゆる注文テーブル。注文1件に対し1レコード。
+	wp_wc_order_tax_lookup
+		order_id 主キー
+		tax_rate_id 主キー,ユニーク
+		date_created
+		shipping_tax
+		order_tax
+		total_tax
+		注文データと連動しているテーブルのようだ。
+		tax_rate_idがあることから税金テーブルを紐づける枠割もあるようだ。
+		税金関連のカラムを取りまとめたテーブルか？
+	wp_wc_product_meta_lookup
+		product_id
+		sku ストック・キーピング・ユニット 商品の最小識別単位。 例えばあるスマホ商品が赤、白、青の3種があれば3SKUという。
+		virtual ユニーク
+		min_price ユニーク
+		max_price ユニーク
+		stock_status ユニーク
+		onsale
+		stock_quantity 在庫量
+		一見、商品テーブルのようにも見えるがそうではない。
+		商品価格や在庫状況を管理している。
+		ユニークキーが多いことから、主要なテーブルの一つだと分かる。
+	wp_wc_tax_rate_classes
+		tax_rate_class_id
+		name　名称
+		slug　短い名前
+		税率クラステーブルと見えるが？
+		商品ごとの課税か？
+	wp_wc_webhooks
+		WEBフックと読めるが,WEB APIのことかもしれない。
+		WEB APIも様々なのでパラメータも様々。
+	wp_woocommerce_api_keys
+		おそらくAPIキーの管理を行っている。
+	wp_woocommerce_attribute_taxonomies
+		attribute_id 主キー
+		attribute_name
+		属性値を管理しているようだ。
+		何に使う属性なのかは不明。
+	wp_woocommerce_downloadable_product_permissions
+		permission_id 主キー
+		download_id ユニーク
+		product_id ユニーク
+		order_id ユニーク
+		order_key ユニーク
+		user_email
+		user_id ユニーク
+		downloads_remaining ダウンロード残り？
+		access_expires ユニーク
+		そもそも何をダウンロードするのか？
+		商品IDや注文IDがあるがCSVのダウンロード強化だろうか？
+	wp_woocommerce_log
+		ログデータを保存しているようだ。
+	wp_woocommerce_order_itemmeta
+		meta_id
+		order_item_id ユニーク
+		meta_key
+		meta_value
+		商品情報のメタデータをセットしているようだ。
+	wp_woocommerce_order_items
+		order_item_id 注文商品ID
+		order_item_name 
+		order_item_type
+		order_id　ユニーク
+		顧客から注文が入った商品を登録か？
+	wp_woocommerce_payment_tokenmeta
+		meta_id
+		payment_token_id ユニーク
+		meta_key ユニーク
+		meta_value
+		支払いに関するメタデータを登録しているようだ。
+	wp_woocommerce_payment_tokens
+		token_id
+		gateway_id
+		token
+		user_id ユニークID
+		type
+		支払いに関する制御のようだが。。。
+	wp_woocommerce_sessions
+		セッション関連の保存
+	wp_woocommerce_shipping_zones
+		出荷ゾーン　単なる地域指定
+	wp_woocommerce_shipping_zone_methods
+		発送方法についてのデータのようだが、送料に関する記述はない。
+	wp_woocommerce_tax_rates
+		税金データ
+	wp_woocommerce_tax_rate_locations
+		地域と税金に関するデータ
+	</pre><br>
+	<br>
+	
+	データ移行についての考察
+	<pre>
+	
+1. 顧客データ
+	wp_users,wp_wc_order_product_lookupなど関わっている模様
+	ログインユーザーと顧客データは同じ１つのテーブルを見ている可能性あり。（wp_usersテーブル）
+
+
+2. 在庫/陳列
+	wp_wc_order_product_lookupテーブル, wp_wc_product_meta_lookupテーブルなどが関わっている。
+	商品価格、SKU, バーゲンセール, 税金, 在庫など関連しており、かなり複雑な部分になる。
+
+3. 税金関連
+	「在庫/陳列」と深く関わっている。
+	テーブル構造も複雑。
+	消費税10%が間もなく施行なのでこのあたりが難しいと思われる。
+	詳細な調査結果次第でもありますが、DBまわりの作業も必要になるかもしれない。
+
+4. 配送関連
+	商品データとの関連は薄そうなので、WooCommerce管理画面から入力だけで対応できそう。
+
+5. 支払い関連
+	PayPayなどいくつかあるが、WooCommerce管理画面だけで対応できそう。
+
+6. ログインユーザーごとの権限。
+	WooCommerce管理画面だけで対応できそう。
+
+7. 受注関連
+	</pre>
+
+
+	<br><time>2019-9-13</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-9-13</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">Wordpressの覚書</a></li>
+	<li>WooCommerceの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-9-13</div>
+</body>
+</html>
