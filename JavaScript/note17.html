@@ -1114,6 +1114,34 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-6" class="sec4">
+	<h3>移動範囲を要素内に限定したドラッグ | jQuery UI Draggable</h3>
+	
+	<a href="/sample/js/a012/ju_draggable_in_div/ju_draggable_in_div.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	HTML
+	<pre><code>
+	&lt;div id="test1" style="width:640px;height:480px;background-color:#BECDA9"&gt;
+		&lt;div id="test2" style="width:64px;height:48px;background-color:#DC8490"&gt;Drag&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	JavaScript
+	<pre><code>
+	jQuery( ()=> {
+		jQuery( '#test2' ).draggable( {
+			containment: '#test1',
+			scroll: false,
+		} );
+	} );
+	</code></pre>
+
+	<br><time>2019-9-17</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
