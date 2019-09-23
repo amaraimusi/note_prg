@@ -164,6 +164,730 @@
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>DBについてのメモ書き</h3>
+	
+	<pre>
+--------------
+doctrine_migration_versions
+	主なフィールド
+		version
+	概要
+		行儀移行バージョンと呼べるテーブル
+		バージョン情報のみ。
+		インストール直後は空
+
+--------------
+dtb_authority_role
+	主なフィールド
+		id主	int(10)
+		authority_idインデックス	smallint(5)
+		creator_idインデックス	int(10)
+		deny_url	varchar(4000)
+	概要
+		管理権限系のテーブルである。
+		authority_idとは権限リストのIDなのかもしれない。
+
+
+--------------
+dtb_base_info
+	主なフィールド
+		int(10)	
+		country_idインデックス	smallint(5)	
+		pref_idインデックス	smallint(5)
+		company_name	varchar(255)
+		company_kana	
+	概要
+		管理者の基本情報テーブルのことだと思われる。
+
+
+--------------
+dtb_block
+	主なフィールド
+		device_type_idインデックス	smallint(5)
+		block_name	varchar(255)
+		file_nameインデックス	varchar(255)
+	概要
+		区分のことをブロックと呼んでいるようだ。
+		このテーブルはブロックそのものではなくブロックの種類を管理している模様。
+
+
+--------------
+dtb_block_position
+	主なフィールド
+		section主	int(10)
+		block_id主インデックス	int(10)
+		layout_id主インデックス	int(10)
+		block_row	int(10)
+	概要
+		「ブロックの位置」と読める
+		位置関係と思われる
+		レイアウトとブロックを紐づけているのだと思わえる。
+
+
+--------------
+dtb_cart
+	主なフィールド
+		int(10)	
+		customer_idインデックス	int(10)
+		cart_key	varchar(255)
+		pre_order_idインデックス	varchar(255)
+		total_price	decimal(12,2)
+		delivery_fee_total	decimal(12,2)
+		sort_no	smallint(5)
+		create_date	datetime
+		update_dateインデックス	datetime
+		add_point	decimal(12,0)
+		use_point	decimal(12,0)
+		discriminator_type	varchar(255)
+	概要
+		total_priceがあることから小計を関連にも見える。
+		一回の買い物に付き1フィールドか？
+		その辺は詳しくみていく必要がある。
+
+
+--------------
+dtb_cart_item
+	主なフィールド
+		id主
+		product_class_idインデックス
+		cart_idインデックス
+		price
+		quantity
+		point_rate
+	概要
+		カート内のアイテムとみてよいだろう
+
+
+--------------
+dtb_category
+	主なフィールド
+		int(10)
+		parent_category_idインデックス
+		creator_idインデックス
+		category_name
+		hierarchy
+		sort_no
+		create_date
+	概要
+		カテゴリーを管理しているテーブルのようである。
+		parent_category_idがあることから親カテゴリの概念がある。
+
+
+--------------
+dtb_class_category
+	主なフィールド
+		id主
+		class_name_idインデックス
+		creator_idインデックス
+		backend_name
+		name
+	概要
+		カテゴリ関連ではあるがdtb_categoryとの関連付けがよくわからない
+
+
+--------------
+dtb_class_name
+	主なフィールド
+		id主
+		creator_idインデックス
+		backend_name
+		name
+	概要
+		nameは「フレーバー」、「サイズ」など。
+		カテゴリ分類の一種のようだ。
+
+--------------
+dtb_csv
+	主なフィールド
+		int(10)
+		csv_type_idインデックス
+		creator_idインデックス
+		entity_name
+		field_name
+		reference_field_name
+		disp_name
+
+	概要
+		CSVのフィールドを管理しているテーブルのようだ。
+		field_nameはフィールド名であり、disp_nameは和名。
+
+
+
+
+--------------
+dtb_customer	
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		customer_status_idインデックス	smallint(5)
+		sex_idインデックス	smallint(5)
+		job_idインデックス	smallint(5)
+		country_idインデックス	smallint(5)
+		pref_idインデックス	smallint(5)
+		name01	varchar(255)
+		name02	varchar(255)
+		kana01	varchar(255)
+		kana02	varchar(255)
+		company_name	varchar(255)
+		postal_code	varchar(8)
+		addr01	varchar(255)
+		addr02	varchar(255)
+	概要
+		住所や氏名のカラムが存在することから顧客テーブルのことと思われる。
+		お客さんの情報が入っているのだろう。
+
+--------------
+dtb_customer_address	
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		customer_idインデックス	int(10)
+		country_idインデックス	smallint(5)
+		pref_idインデックス	smallint(5)
+		name01	varchar(255)
+		name02	varchar(255)
+		kana01	varchar(255)
+		kana02	varchar(255)
+		company_name	varchar(255)
+		postal_code	varchar(8)
+		addr01	varchar(255)
+		addr02	varchar(255)
+		phone_number	varchar(14)
+	概要
+		顧客は複数の住所を入力できるようだ。
+		サブ住所的なものだろうか？
+
+
+
+--------------
+dtb_customer_favorite_product
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		customer_idインデックス	int(10)
+		product_idインデックス	int(10)
+	概要
+		「favorite product」は「好きな商品」という意味である。
+		顧客の好きな商品と管理しているテーブルらしい
+
+--------------
+dtb_delivery
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		creator_idインデックス	int(10)
+		sale_type_idインデックス	smallint(5)
+		name	varchar(255)
+		service_name	varchar(255)
+		description	varchar(4000)
+		confirm_url	varchar(4000)
+	概要
+		配送業者名が登録されている。
+		配送業者を管理しているテーブルのようだ。
+
+
+--------------
+dtb_delivery_duration
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		name	varchar(255)
+		duration	smallint(5)
+		sort_no	int(10)
+		discriminator_type	varchar(255)
+	概要
+		durationは「期間」という意味。配送日数が入力されているようだ。
+		nameカラムには配送期間名について入力されている。
+		つまりこのテーブルは配送日数テーブルということだろう。
+
+
+--------------
+dtb_delivery_fee
+	主なフィールド
+		id主	int(10)
+		delivery_idインデックス	int(10)
+		pref_idインデックス	smallint(5)
+		fee	decimal(12,2)
+	概要
+		配送地域ごとの配送料を管理している。
+
+--------------
+dtb_delivery_time
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		delivery_idインデックス	int(10)
+		delivery_time	varchar(255)
+		sort_no	smallint(5)
+		visible	tinyint(1)
+	概要
+		「午前」、「午後」などのデータが見受けられることから、配送到着時間帯を指しているようだ。
+
+--------------
+dtb_layout
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		device_type_idインデックス	smallint(5)
+		layout_name	varchar(255)ac
+	概要
+		レイアウト区分要素に関するテーブルだろうか？
+		layout_nameにて見出しくらいしか入力できもるものがない。
+		dtb_block_positionにlayout_idがあっとのでブロックの親要素的な存在かもしれない。
+
+--------------
+dtb_mail_history
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		order_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		send_date	datetime
+		mail_subject	varchar(255)
+		mail_body	longtext
+		mail_html_body	longtext
+	概要
+		メール履歴テーブルのようである。
+		order_idがユニークになっているのが気になる。1件の注文に対して、1件のメール内容しか保存できない内容だからである。
+
+--------------
+dtb_mail_template
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		creator_idインデックス	int(10)
+		name	varchar(255)
+		file_name	varchar(255)
+		mail_subject	varchar(255)
+	概要
+		nameに「問い合わせ」、「パスワードリセット」などのテキストが入力されていることから、メールテンプレートであることがうかがえる。
+		しかし、本文のテンプレートに関するテキストは存在しない。
+
+--------------
+dtb_member	
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		work_idインデックス	smallint(5)
+		authority_idインデックス	smallint(5)
+		creator_idインデックス	int(10)
+		name	varchar(255)
+		department	varchar(255)
+		login_id	varchar(255)
+		password	varchar(255)
+		salt	varchar(255)
+	概要
+		管理者のアカウントが登録されている。
+
+
+--------------
+dtb_news
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		creator_idインデックス	int(10)
+		publish_date	datetime
+		title	varchar(255)
+		description	longtext
+		url	varchar(4000)
+		link_method	tinyint(1)
+	概要
+		商品やコンテンツなどの新着情報もしくはトピックスを管理するテーブル。
+
+--------------
+dtb_order	
+	主なフィールド
+		データ型	照合順序
+		id主	int(10)
+		customer_idインデックス	int(10)
+		country_idインデックス	smallint(5)
+		pref_idインデックス	smallint(5)
+		sex_idインデックス	smallint(5)
+		job_idインデックス	smallint(5)
+		payment_idインデックス	int(10)
+		device_type_idインデックス	smallint(5)
+		pre_order_idインデックス	varchar(255)
+		order_noインデックス	varchar(255)
+		message	varchar(4000)
+		name01	varchar(255)
+		name02	varchar(255)
+		kana01	varchar(255)
+		kana02	varchar(255)
+		company_name	varchar(255)
+		emailインデックス	varchar(255)
+		phone_number	varchar(14)
+		postal_code	varchar(8)
+		addr01	varchar(255)
+		addr02	varchar(255)
+		birth	datetime
+		subtotal	decimal(12,2)
+		discount	decimal(12,2)
+		delivery_fee_total	decimal(12,2)
+		charge	decimal(12,2)
+		tax	decimal(12,2)
+		total	decimal(12,2)
+		payment_total	decimal(12,2)
+		payment_method	varchar(255)
+		note	varchar(4000)
+		create_date	datetime
+		update_dateインデックス	datetime
+		order_dateインデックス	datetime
+		payment_dateインデックス	datetime
+		currency_code	varchar(255)
+		complete_message	longtext
+		complete_mail_message	longtext
+		add_point	decimal(12,0)
+		use_point	decimal(12,0)
+		order_status_idインデックス	smallint(5)
+		discriminator_type	varchar(255)
+	概要
+		いわゆる注文テーブルである。
+		1注文で1レコード。
+		支払い合計額、送り先住所などのフィールドが見受けられる。
+
+
+--------------
+dtb_order_item	
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		order_idインデックス	int(10)
+		product_idインデックス	int(10)
+		product_class_idインデックス	int(10)
+		shipping_idインデックス	int(10)
+		rounding_type_idインデックス	smallint(5)
+		tax_type_idインデックス	smallint(5)
+		tax_display_type_idインデックス	smallint(5)
+		order_item_type_idインデックス	smallint(5)
+		product_name	varchar(255)
+		product_code	varchar(255)
+		class_name1	varchar(255)
+		class_name2	varchar(255)
+		class_category_name1	varchar(255)
+		class_category_name2	varchar(255)
+		price	decimal(12,2)
+		quantity	decimal(10,0)
+		tax	decimal(10,0)
+		tax_rate	decimal(10,0)
+		tax_rule_id	smallint(5)
+	概要
+		注文商品テーブル。
+		商品を指し示す「product_id」フィールドがみられる。
+		1つの注文に対して複数の商品が登録されている。
+
+
+
+--------------
+dtb_order_pdf	
+	主なフィールド
+		データ型	照合順序
+		member_id主	int(10)
+		title	varchar(255)
+		message1	varchar(255)
+		message2	varchar(255)
+		message3	varchar(255)
+		note1	varchar(255)
+		note2	varchar(255)
+		note3	varchar(255)
+	概要
+		PDF関連のようだがmember_idだけが主キーとうのが気になる。
+		member_id、つまり一人の管理者につき一つのPDFとはどういうことか？
+		member_idは管理者IDという認識であったが、会員IDなのだろうか？
+		note1からnote3まで同類フィールドが複数存在することから柔軟にデータを管理しているようだ。
+		PDFの様々なフォーマットに対応しているのかもしれない。
+		
+
+--------------
+dtb_page	
+	主なフィールド
+		名前	データ型
+		id主	int(10)
+		master_page_idインデックス	int(10)
+		page_name	varchar(255)
+		urlインデックス	varchar(255)
+		file_name	varchar(255)
+		edit_type	smallint(5)
+		author	varchar(255)
+		description	varchar(255)
+		keyword	varchar(255)
+	概要
+		ページテーブル。
+		Myページ、商品一覧ページなど各種ページのページ名やURLを管理している。
+		カスタムページなども登録できるのかもしれない。
+
+
+--------------
+dtb_page_layout
+	主なフィールド
+		名前	データ型
+		page_id主インデックス	int(10)
+		layout_id主インデックス	int(10)
+	概要
+		ページとレイアウトを紐づけているテーブル
+
+--------------
+dtb_payment	
+	主なフィールド
+		id主	int(10)
+		creator_idインデックス	int(10)
+		payment_method	varchar(255)
+		charge	decimal(12,2)
+		rule_max	decimal(12,2)
+	概要
+		銀行振込、郵便振込などのデータが見受けられることから支払い方法テーブルであるということがわかる。
+
+--------------
+dtb_payment_option
+	主なフィールド
+		delivery_id主インデックス	int(10)
+		payment_id主インデックス	int(10)
+		discriminator_type	varchar(255)
+	概要
+		配送方法と支払い方法を結び付けているテーブルのようだ。
+		代引き支払いなら代引き発送と結び付けられている。
+		discriminatorは差別、区別などという意味であり補足的なフィールド。
+
+--------------
+dtb_plugin	
+	主なフィールド
+		id主	int(10)
+		name	varchar(255)
+		code	varchar(255)
+		enabled	tinyint(1)
+		version	varchar(255)
+		source	varchar(255)
+		initialized	tinyint(1)
+	概要
+		プラグイン用のテーブルであることがわかる。
+		source部分にコードをかけるようだ。インポートやオブジェクトの生成はこちらで行えるのだろう。
+
+--------------
+dtb_product
+	主なフィールド
+		id主	int(10)
+		creator_idインデックス	int(10)
+		product_status_idインデックス	smallint(5)
+		name	varchar(255)
+		note	varchar(4000)
+		description_list	varchar(4000)
+		description_detail	varchar(4000)
+		search_word	varchar(4000)
+		free_area	longtext
+	概要
+		商品テーブルである。
+		商品名と商品説明が主なデータであり、料金などは別テーブルにて管理されているようだ。
+
+--------------
+dtb_product_category
+	主なフィールド
+		product_id主インデックス	int(10)
+		category_id主インデックス	int(10)
+	概要
+		商品とカテゴリを紐づけているテーブル
+
+--------------
+dtb_product_class
+	主なフィールド
+		id主	int(10)
+		product_idインデックス	int(10)
+		sale_type_idインデックス	smallint(5)
+		class_category_id1インデックス	int(10)
+		class_category_id2インデックス	int(10)
+		delivery_duration_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		product_code	varchar(255)
+		stockインデックス	decimal(10,0)
+		stock_unlimitedインデックス	tinyint(1)
+		sale_limit	decimal(10,0)
+		price01	decimal(12,2)
+		price02インデックス	decimal(12,2)
+		delivery_fee	decimal(12,2)
+		visible	tinyint(1)
+	概要
+		商品の価格、在庫、セール期限を行っているテーブル。
+		商品陳列に大きくかかわっており、EC-CUBEの中核をなすテーブルと言ってもいいだろう。
+		クラスカテゴリ1,クラスカテゴリ2が何を表しているのか現時点では不明。
+
+--------------
+dtb_product_image
+	主なフィールド
+		id主	int(10)
+		product_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		file_name	varchar(255)
+	概要
+		商品画像テーブル。
+		商品1件に対し、複数の写真を設定できる。
+
+--------------
+dtb_product_stock
+	主なフィールド
+		id主	int(10)
+		product_class_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		stock	decimal(10,0)
+	概要
+		商品在庫テーブルのようである。
+		dtb_product_classテーブルにも在庫数(stock)が存在する。
+		違いはあるはずである。
+		dtb_product_classテーブルとは1対1の関係であるので、一時的な在庫の変化と関係があるのかもしれない。
+
+--------------
+dtb_product_tag
+	主なフィールド
+		id主	int(10)
+		product_idインデックス	int(10)
+		tag_idインデックス	int(10)
+		creator_idインデックス	int(10)
+	概要
+		商品とタグを紐づけているテーブル
+
+
+--------------
+dtb_shipping
+	主なフィールド
+		id主	int(10)
+		order_idインデックス	int(10)
+		country_idインデックス	smallint(5)
+		pref_idインデックス	smallint(5)
+		delivery_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		name01	varchar(255)
+		name02	varchar(255)
+		kana01	varchar(255)
+		kana02	varchar(255)
+		company_name	varchar(255)
+		phone_number	varchar(14)
+		postal_code	varchar(8)
+		addr01	varchar(255)
+		addr02	varchar(255)
+		delivery_name	varchar(255)
+		time_id	int(10)
+		delivery_time	varchar(255)
+		delivery_date	datetime
+		shipping_date	datetime
+		tracking_number	varchar(255)
+	概要
+		shippingつまり出荷テーブルのことだろうと思われる。
+		似たようなテーブルが存在するが、このテーブルは受注と配送の組み合わせに重きを置いているようである。
+		商売において、1回の注文で1回の発送で終わりとは限らない。複数に分けて発送することもある。それに対応したテーブルなのかもしれない。
+
+
+--------------
+dtb_tax_rule
+	主なフィールド
+		id主	int(10)
+		product_class_idインデックス	int(10)
+		creator_idインデックス	int(10)
+		country_idインデックス	smallint(5)
+		pref_idインデックス	smallint(5)
+		product_idインデックス	int(10)
+		rounding_type_idインデックス	smallint(5)
+		tax_rate	decimal(10,0)
+		tax_adjust	decimal(10,0)
+	概要
+		product_classテーブルと地域の組み合わせによる税金テーブル
+
+
+--------------
+dtb_template
+	主なフィールド
+		id主	int(10)
+		device_type_idインデックス	smallint(5)
+		template_code	varchar(255)
+		template_name	varchar(255)
+	概要
+		device_type_idつまりデバイスタイプからデバイスごとにことなるテンプレートだということが想像できる。
+		スマホ版、PC版のテンプレートを登録できるのだろう。
+
+
+--------------
+mtb_authority
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		権限名が登録されている。
+		システム管理者と店舗オーナーのデータが存在する。
+
+
+--------------
+mtb_country
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		国名が登録されている。
+
+--------------
+mtb_csv_type
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		CSV種類テーブル。
+		商品CSV、会員CSVなどの情報が登録されている。
+
+--------------
+mtb_customer_order_status
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		注文受付, 注文受付, 発送済みなどのステータス名を定義しているテーブル。
+
+--------------
+mtb_customer_status
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		仮会員、本会員、退会など会員のステータスを定義しているテーブル。
+
+--------------
+mtb_device_type
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		端末の種類が定義されているテーブル。
+		端末の種類は２つのみでモバイルとPC。
+--------------
+mtb_job
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		職種テーブル。
+		様々な職業名が定義されている。
+
+--------------
+mtb_order_item_type
+	主なフィールド
+		id主	smallint(5)
+		name	varchar(255)
+	概要
+		注文商品タイプテーブル。
+		商品、送料、手数料、割引、税、ポイントなどからなる。
+
+--------------
+mtb_order_status
+	主なフィールド
+		id主	smallint(5)
+		display_order_count	tinyint(1)
+		name	varchar(255)
+	概要
+		注文ステータス
+		mtb_customer_order_statusと類似しているテーブル。
+		こちらのテーブルが本来のステータステーブルと思われる。	
+	</pre>
+
+
+	<br><time>2019-9-20</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
