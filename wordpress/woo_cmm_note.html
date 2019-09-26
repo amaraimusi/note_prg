@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WooCommerceの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>WooCommerceの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>WooCommerceのインストール</h3>
+	
+	<p>手順</p>
+	<aside>試行錯誤する場面もあったので手順は参考程度に。</aside>
+	<ol class="list_lg">
+		<li>
+			WordPressにてWooCommerceのプラグインをインストールする。<br>
+			<img src="img/woo_cmm_note_sec1_1/a1.png" class="img_compact_k" />/>
+			<img src="img/woo_cmm_note_sec1_1/a2.png" class="img_compact_k" />/><br>
+		</li>
+
+		<li>
+			インストール後、WordPressの左側メニューからWooCommerceにアクセスすると初期設定を行う画面になる。(うろ覚え)<br>
+			お店の情報等を入力して適当にすすめる。<br>
+			<img src="img/woo_cmm_note_sec1_1/a3.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			支払い方法をいくつか指定できるようであるが、こちらも適用に選択する。<br>
+			<img src="img/woo_cmm_note_sec1_1/a4.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			出荷に関する入力。あとで編集できるので適用でよい。<br>
+			<img src="img/woo_cmm_note_sec1_1/a5.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			JetPackプラグインをインストールする。<br>
+			JetPackは問い合わせフォームやSNS連携など大きな機能をパックにしたプラグイン。<br>
+			<img src="img/woo_cmm_note_sec1_1/a7.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			「WooCommerce Admin」プラグインのインストール。<br>
+			基本的な設定入力が終わったのち、もう一度「WooCommerce」を押すと
+			「WooCommerce Admin」のインストールが求められる。<br>
+			<img src="img/woo_cmm_note_sec1_1/a8.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			商品登録画面を開く。<br>
+			商品登録画面はWordPressの左メニューに存在するProductからアクセスできる。(new item)<br>
+			日本語翻訳が適用されている場合、Productではなく「商品」として表示されている。<br>
+			<img src="img/woo_cmm_note_sec1_1/a9.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			商品情報を入力する。WordPressの投稿ページを流用しているようである。<br>
+			<img src="img/woo_cmm_note_sec1_1/a10.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			ショップページを見る。<br>
+			<aside>WordPressで一般向けページを見る方法と同じ。</aside>
+			<br>
+
+			例)<br>
+			プロジェクト名が「hello_woocommerce」である場合、以下のURLでアクセスするとお客が見るページにアクセスできる。<br>
+			<pre>http://localhost/hello_woocommerce/</pre>
+			<img src="img/woo_cmm_note_sec1_1/a11.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			上段の「Shop」を選択すると入力した商品が表示される。<br>
+			<img src="img/woo_cmm_note_sec1_1/a12.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			WooCommerceの管理画面が英語表記になっている場合、
+			WordPress左メニューの「更新」から更新ページにアクセスし、
+			「翻訳を更新」をクリックする。<br>
+			するとWooCommerce管理画面関連の表記は英語から日本語になる。
+			<img src="img/woo_cmm_note_sec1_1/a13.png" class="img_compact_k" /><br>
+		</li>
+
+		<li>
+			お客向けのページを日本向けにする場合、「Japanize For WooCommerce」プラグインをインストールする。<br>
+			単に日本語になるだけでなく、氏名や住所入力が日本方式になる。<br>
+			<img src="img/woo_cmm_note_sec1_1/a14.png" class="img_compact_k" /><br>
+		</li>
+		
+	</ol>
+
+	<br><time>2019-9-26</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-9-13</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/wordpress/">Wordpressの覚書</a></li>
+	<li>WooCommerceの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-9-13</div>
+</body>
+</html>
