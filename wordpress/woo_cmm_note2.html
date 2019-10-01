@@ -306,6 +306,129 @@
 </div>
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>画面に関するメモ書き</h3>
+	
+	<pre>
+----------------------------------
+画面名：Dashboard
+パンくずリスト
+	WooCommerce/Dashboard
+
+アクセス
+	管理画面の左メニュー→WooCommerce→Dashboard
+
+URL
+	http://localhost/hello_woocommerce/wp-admin/admin.php?page=wc-admin
+
+調査
+	統計とグラフが表示されている。
+	右上にメニューがあり、inbox,orders,stock,reviews,notiecesが存在する。
+
+----------------------------------
+画面名：注文
+パンくずリスト
+	WooCommerce/注文
+
+アクセス
+	管理画面の左メニュー →WooCommerce→受注
+
+URL
+	http://localhost/hello_woocommerce/wp-admin/edit.php?post_type=shop_order
+
+調査
+	新規注文を受け取った際、この画面に表示される。
+	「注文」リンクがあり、こちらでオペレータが注文を受けたまることが可能になっているようである。
+
+
+
+----------------------------------
+画面名：商品（すべての商品）
+パンくずリスト
+	WooCommerce/商品
+
+アクセス
+	管理画面の左メニュー →商品
+	管理画面の左メニュー →商品 →すべての商品
+URL
+	http://localhost/hello_woocommerce/wp-admin/edit.php?post_type=product
+
+調査
+	すべての商品を一覧で閲覧できる。
+	新商品の登録や編集も可能のようだ。
+
+----------------------------------
+画面名：新商品を追加
+パンくずリスト
+	WooCommerce/商品/新規追加
+
+アクセス
+	商品画面の新規追加ボタン
+	管理画面の左メニュー →商品→新規追加
+
+URL
+	http://localhost/hello_woocommerce/wp-admin/post-new.php?post_type=product
+
+調査
+	新商品を追加できるページ。
+	WordPressの投稿ページをカスタイズしたページっぽい。
+
+
+
+
+----------------------------------
+画面名：商品を編集
+パンくずリスト
+	WooCommerce/商品/商品の編集
+
+アクセス
+	商品の一覧ページなどから
+
+URL
+	http://localhost/hello_woocommerce/wp-admin/post.php?post=16&action=edit
+
+調査
+	商品名や説明の変更ができるようである。
+	商品価格や在庫の設定も可能。
+	wp_wc_product_meta_lookupテーブルに商品価格や在庫に値がセットされているようである。
+
+
+----------------------------------
+画面名：販売者商品カテゴリ
+パンくずリスト
+	WooCommerce/商品/販売者商品カテゴリ
+
+アクセス
+	管理画面の左メニュー →商品 →カテゴリー
+
+調査
+	カテゴリ名の新規追加や編集ができる。
+	カテゴリは商品に不可できる。
+	一つの商品に対し、複数のカテゴリを指定できるようだ。
+
+
+----------------------------------
+
+画面名：在庫
+パンくずリスト
+	WooCommerce/アナリティクス/在庫
+
+アクセス
+	管理画面の左メニュー →アナリティクス→在庫
+URL
+	http://localhost/hello_woocommerce/wp-admin/admin.php?page=wc-admin&path=%2Fanalytics%2Fstock
+調査
+	商品ごとに在庫状態を一覧表示できる画面。
+	在庫数はwp_wc_product_meta_lookupテーブルに存在している。
+	商品が一回注文されるたびに在庫数は減る。比較的シンプルな機能である。
+	在庫数がある程度減ったら通知する機能も存在するようだ。
+
+	</pre>
+
+	<br><time>2019-10-1</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
