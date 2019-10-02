@@ -212,6 +212,12 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 <div id="sec1-3" class="sec4">
 	<h3>Gulpの更新（再インストール） | 2019年版</h3>
 	
+	Gulpにはグローバルインストールとローカルインストールという２つの概念がある。<br>
+	グローバルインストールはすべてのプロジェクト共通のGulp。<br>
+	ローカルインストールはプロジェクト毎に用意するGulp。<br>
+	両方インストールしておくと便利のようである。<br>
+	<br>
+	
 		<ol class="list_lg">
 			<li>
 			更新前のバージョン確認
@@ -223,7 +229,7 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 			</li>
 			
 			<li>
-				一旦、アンインストール
+				一旦、グローバルのGulpをアンインストール
 				<pre class="console">
 	$ npm rm --global gulp
 				</pre>
@@ -231,8 +237,7 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 			</li>
 			
 			<li>
-				再インストールその1
-				<aside>この手順は必須なのか不明なのだが、これだけではgulpは動作しない。</aside>
+				Gulpをグローバルインストール。
 				<pre class="console">
 	$ npm install -g gulp
 				</pre>
@@ -240,7 +245,7 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 			</li>
 			
 			<li>
-				cdコマンドで任意ディレクトリへ移動
+				ローカルインストールのためcdコマンドで任意ディレクトリへ移動
 				<pre class="console">
 	$ cd git/cake_demo/gulp2019
 				</pre>
@@ -248,9 +253,8 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 			</li>
 			
 			<li>
-				再インストールその2
+				Gulpのローカルインストール
 				<pre class="console">
-	$ npm install -g gulp
 	$ npm install --save-dev gulp
 				</pre>
 				任意ディレクトリにnode_modulesフォルダされ中にGulpのモジュール群がインストールされる。
