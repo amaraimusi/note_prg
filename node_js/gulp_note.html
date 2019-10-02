@@ -209,6 +209,125 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 
 
 
+<div id="sec1-3" class="sec4">
+	<h3>Gulpの更新（再インストール） | 2019年版</h3>
+	
+		<ol class="list_lg">
+			<li>
+			更新前のバージョン確認
+				<pre class="console">
+	$ gulp -v
+	CLI version: 2.2.0
+	Local version: Unknown
+				</pre>
+			</li>
+			
+			<li>
+				一旦、アンインストール
+				<pre class="console">
+	$ npm rm --global gulp
+				</pre>
+				
+			</li>
+			
+			<li>
+				再インストールその1
+				<aside>この手順は必須なのか不明なのだが、これだけではgulpは動作しない。</aside>
+				<pre class="console">
+	$ npm install -g gulp
+				</pre>
+			
+			</li>
+			
+			<li>
+				cdコマンドで任意ディレクトリへ移動
+				<pre class="console">
+	$ cd git/cake_demo/gulp2019
+				</pre>
+			
+			</li>
+			
+			<li>
+				再インストールその2
+				<pre class="console">
+	$ npm install -g gulp
+	$ npm install --save-dev gulp
+				</pre>
+				任意ディレクトリにnode_modulesフォルダされ中にGulpのモジュール群がインストールされる。
+			
+			</li>
+			
+			<li>
+				gulpのバージョン確認
+				<pre class="console">
+	$ gulp -v
+	CLI version: 2.2.0
+	Local version: 4.0.2
+				</pre>
+			
+			</li>
+			
+			<li>
+			gulpfile.jsを作成する
+				<pre class="console">
+	$ touch gulpfile.js
+				</pre>
+			
+			</li>
+			
+			<li>
+				gulp-concatをインストールする
+				<pre class="console">
+	npm install --save-dev gulp-concat
+				</pre>
+			
+			</li>
+			
+			<li>
+			gulp-terserをインストールする。
+			gulp-terserはjsをmin化する。
+			<aside>今までgulp-uglifyを採用していたがES6にてエラーがでるので不採用にした。</aside>
+				<pre class="console">
+	npm install gulp-terser --save-dev
+				</pre>
+				<a href="https://www.npmjs.com/package/gulp-terser" target="blank">gulp-terserの公式サイト</a><br>
+			</li>
+			
+			<li>
+				gulpfile.jsに下記を記述する。
+				<pre class="console">
+	var gulp = require('gulp');
+	var concat = require('gulp-concat');
+	var terser = require('gulp-terser');
+	
+	gulp.task('HelloGulp2', function () {
+		gulp.src('../app/webroot/js/my_lib/*.js')
+		.pipe(concat('all_for_one.min.js'))
+		.pipe(terser())
+		.pipe(gulp.dest('../app/webroot/js/my_lib/dist'));
+	});
+				</pre>
+			
+			</li>
+			
+			<li>
+				Gulpを実行してall_for_one.min.jsを生成する。
+				<pre class="console">
+	$ gulp HelloGulp2
+				</pre>
+				「../app/webroot/js/my_lib/」ディレクトリ内にあるすべてのjsファイルをgulp-concatで一つのjsファイル(all_for_one.min.js)にまとめる。<br>
+				さらに一つにまとめたファイルをgulp-terserでmin化する。<br>
+			
+			</li>
+			
+		</ol>
+
+
+	<br><time>2019-10-2</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
