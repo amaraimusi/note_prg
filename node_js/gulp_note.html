@@ -332,6 +332,44 @@ function test2(){console.log("TEST2 !")}function test3(){console.log("TEST3 !")}
 
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>Gulp更新用のshell</h3>
+	
+	下記のgulp_install.shを各プロジェクト内の任意ディレクトリに配置し、実行する。<br>
+	グローバルへの再インストールおよび、ローカルへのインストールが行われる。<br>
+	<br>
+	
+	gulp_install.sh
+	<pre class="console">
+	#!/bin/sh
+	echo 'gulpといくつかのパッケージをインストールします。'
+	
+	echo 'グローバルのgulpを一旦、アンインストールします。'
+	npm rm --global gulp
+	
+	echo 'グローバルへgulpを再インストールします。'
+	npm install gulp -g
+	
+	echo 'ローカルへgulpをインストールします。'
+	npm install --save-dev gulp
+	
+	echo 'gulp-concatをインストールします。'
+	npm install --save-dev gulp-concat
+	
+	echo 'gulp-terserをインストールします。'
+	npm install gulp-terser --save-dev
+	
+	
+	echo "------------ インストール作業がすべて終わりました。"
+	cmd /k
+	</pre>
+
+
+	<br><time>2019-10-2</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
