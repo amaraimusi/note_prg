@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EC-CUBE3の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>EC-CUBE3の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>EC-CUBE3のインストール手順</h3>
+			ローカル環境（xampp)にインストールする手順を示す。<br>
+			EC-CUBE3はPHP5.3対応とあるが、PHP7.1にて動作確認済み（2019年10月時点）<br>
+	<ol class="list_lg">
+		<li>
+			ルートにプロジェクトのディレクトリを作成。
+			例）<br>
+			アパッチのhtdocsディレクトリ直下に「hello_ec_cube3」を作成。
+		</li>
+		<li>
+		
+			ComposerでEC-CUBE3をインストール。
+			<pre class="console">$ php composer.phar create-project ec-cube/ec-cube ec-cube "^3.0"</pre>
+			<aside>※事前にcomposer.pharを用意。</aside>
+		</li>
+		
+		<li>
+				MySQLにデータベースを作成。<br>
+				例）<br>
+				DB名「hello_ec_cube3」を作成。照合順序は	utf8mb4_general_ci	。テーブルの作成は不要。<br>
+		</li>
+		
+		<li>
+			ブラウザにて下記URLにアクセスするとEC-CUBE3の初期設定ページが開く。
+			<pre>http://localhost/hello_ec_cube3/html</pre>
+			
+		</li>
+		
+			<li>
+				ショップサイトの基本情報を入力。<br>
+				<img src="img/ec_cube3_note/sec1-1a1.png" class="img_compact_k" /><br>
+			</li>
+		
+			<li>
+				DB情報を入力。<br>
+				<img src="img/ec_cube3_note/sec1-1a2.png" class="img_compact_k" /><br>
+			</li>
+		
+			<li>
+				後は、道なりにすすめばインストール完了。<br>
+				<img src="img/ec_cube3_note/sec1-1a3.png" class="img_compact_k" />
+				<img src="img/ec_cube3_note/sec1-1a4.png" class="img_compact_k" /><br>
+			</li>
+	</ol>
+
+
+	<br><time>2019-10-18</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2019-10-18</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/ec_cube/">EC-CUBEの覚書</a></li>
+	<li>EC-CUBE3の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2019-10-18</div>
+</body>
+</html>
