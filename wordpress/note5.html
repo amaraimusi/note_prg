@@ -39,6 +39,39 @@
 </div>
 
 
+<div id="sec5-2" class="sec4">
+	<h3>WordPressのDB設定 | wp-config.php</h3>
+	
+	ルートパスの直下にある「wp-config.php」がDB設定ファイルになっている。<br>
+	<br>
+	※wp-config.phpの内容を抜粋
+	<pre>
+	// ** MySQL 設定 - この情報はホスティング先から入手してください。 ** //
+	/** WordPress のためのデータベース名 */
+	define( 'DB_NAME', 'hello_wordpress' );
+	
+	/** MySQL データベースのユーザー名 */
+	define( 'DB_USER', 'root' );
+	
+	/** MySQL データベースのパスワード */
+	define( 'DB_PASSWORD', 'xxxx' );
+	
+	/** MySQL のホスト名 */
+	define( 'DB_HOST', 'localhost' );
+	
+	/** データベースのテーブルを作成する際のデータベースの文字セット */
+	define( 'DB_CHARSET', 'utf8mb4' );
+	
+	/** データベースの照合順序 (ほとんどの場合変更する必要はありません) */
+	define('DB_COLLATE', '');
+	</pre>
+	<br>
+
+
+	<br><time>2019-10-19</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
