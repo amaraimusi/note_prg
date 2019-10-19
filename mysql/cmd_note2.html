@@ -98,6 +98,47 @@
 
 
 
+<div id="sec2-4" class="sec4">
+	<h3>「wp_」から始まるテーブルをすべて削除するシェル</h3>
+
+	<pre>
+#!/bin/sh
+echo '「wp_」から始まるテーブルをすべて削除します。'
+
+pw='hogehoge' #パスワード
+db_name1='animal_park' #DB名
+mysql -u root -p$pw -e "SHOW TABLES FROM $db_name1" | grep wp_* | xargs -I "@@" mysql -u root -p$pw -e "DROP TABLE $db_name1.@@;"
+
+echo '処理完了'
+cmd /k
+	</pre>
+
+	<br><time>2019-10-19</time>
+</div>
+
+
+
+
+<div id="sec2-5" class="sec4">
+	<h3>「wp_」から始まるテーブルを列挙するシェル</h3>
+
+<pre>
+#!/bin/sh
+echo '「wp_」から始まるテーブル名を列挙します。'
+
+pw='hogehoge' #パスワード
+db_name1='animal_park' #DB名
+mysql -uroot -p$pw -e "SHOW TABLES FROM $db_name1" | grep wp_* | xargs -I "@@" echo "テーブル名→ $db_name1.@@"
+
+echo '処理完了'
+cmd /k
+</pre>
+	<br><time>2019-10-19</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
