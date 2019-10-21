@@ -149,6 +149,30 @@
 
 
 
+<div id="sec8-4" class="sec4">
+	<h3>Alterで列の変更や追加ができない | #1067-'post_date' | sql_mode</h3>
+	
+	datetime型のフィールドでデフォルト値に「0000-00-00 00:00:00」が入っているとAlterによる列編集でエラーが起きるようになる。<br>
+	<br>
+	
+	<p>対策</p>
+	my.iniを開き、sql_modeを書き換える。
+	<pre>
+	#sql_mode=NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION
+	sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+	</pre>
+	
+	<aside>
+	my.iniの場所（xamppの場合）<br>
+	C:\xampp\mysql\bin\my.ini
+	</aside>
+
+
+	<br><time>2019-10-21</time>
+</div>
+
+
+
 <div id="sec8-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

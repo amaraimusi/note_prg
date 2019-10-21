@@ -96,6 +96,7 @@
 	<li><a href="note8.html#sec8-1" >INSERTしたレコードのidを取得（AUTO_INCREMENT 型のidである場合） | LAST_INSERT_ID()</a></li>
 	<li><a href="note8.html#sec8-2" >緯度経度フィールドを含むサンプルデータを100万件作成</a></li>
 	<li><a href="note8.html#sec8-3" >緯度経度による検索を早くするためのチューニング</a></li>
+	<li><a href="note8.html#sec8-4" >Alterで列の変更や追加ができない | #1067-'post_date' | sql_mode</a></li>
 	
 </ol>
 <hr><br><br><br>	
