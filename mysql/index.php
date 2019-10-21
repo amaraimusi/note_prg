@@ -77,6 +77,7 @@
 	<li><a href="note5.php#sec5-10" >idが存在しないテーブルにidと連番を入力する</a></li>
 	<li><a href="note6.php#sec6-1" >連番を作る</a></li>
 	<li><a href="note6.php#sec6-2" >IDを振りなおす</a></li>
+	<li><a href="note6.php#sec6-2-1" >オートインクリメントのリセット</a></li>
 	<li><a href="note6.php#sec6-3" >UPDATEとJOINの組み合わせ</a></li>
 	<li><a href="note6.php#sec6-4" >重複を調べる</a></li>
 	<li><a href="note6.php#sec6-5" >最新レコードを取得する</a></li>
