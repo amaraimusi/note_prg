@@ -56,6 +56,41 @@
 </div>
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>ローカルリポジトリのコミットを取り消す方法</h3>
+	
+	ローカルでコミットを行ったあとリモートへのプッシュに失敗することがある。<br>
+	例えば100MBファイルを超えるファイルをローカルでコミット後、GitHubにプッシュしようとすると容量制限で拒否されるというケースである。<br>
+	この場合、ローカルでのコミットを取り消す必要がある。<br>
+	そのコミットの取り消し手順を以下に示す。<br>
+	<br>
+	
+
+	
+	<ol>
+		<li>
+			Eclipseのコミット履歴画面にて元に戻すコミットIDを確認する。<br>
+			プロジェクトを右クリック→Team→Show in History<br>
+			<img src="img/github_note2/sec2-2a1.png" class="img_compact_k" />
+			<img src="img/github_note2/sec2-2a2.png" class="img_compact_k" />
+		</li>
+		<li>
+			GitBashを起動し、cdコマンドで対象プロジェクトに移動する。<br>
+			<br>
+		</li>
+		<li>
+			下記コマンドによりコミットの取り消しを行える<br>
+			<pre>git reset --hard コミットID</pre>
+		</li>
+
+	</ol>
+	
+
+
+	<br><time>2019-10-22</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
