@@ -72,6 +72,74 @@
 </div>
 
 
+<div id="sec5-3" class="sec4" >
+	<h3>画像からサムネイルを一括で作成する | Regenerate Thumbnailsプラグイン</h3>
+	
+	<ol class="list_lg">
+		<li>
+			画像からサムネイルを一括で作成する | Regenerate Thumbnailsプラグイン
+		</li>
+		
+		<li>
+			プロジェクトホーム\wp-content\uploads\2019\10」にオリジナルサイズの画像ファイルを配置する
+			<aside>
+			※日付部分は投稿日。
+			今回の例では１つのファイルだけであるが複数の画像ファイルを一括で処理するのが本来の使い方である。<br>
+			</aside>
+			<img src="img/note5/sec5-4a0.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+		wp_postsに画像ファイルのデータを登録する。(DBを直接編集)<br>
+		例 「haze.jpgをプロジェクトホーム\wp-content\uploads\2019\10」に配置した場合
+		<table class="tbl2">
+			<thead>
+				<tr><th>ID</th><th>post_author</th><th>post_date</th><th>post_date_gmt</th><th>post_content</th><th>post_title</th><th>post_excerpt</th><th>post_status</th><th>comment_status</th><th>ping_status</th><th>post_password</th><th>post_name</th><th>to_ping</th><th>pinged</th><th>post_modified</th><th>post_modified_gmt</th><th>post_content_filtered</th><th>post_parent</th><th>guid</th><th>menu_order</th><th>post_type</th><th>post_mime_type</th><th>comment_count</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><strong>8297</strong></td><td>1</td><td>2019/10/21 0:00</td><td>2019/10/21 0:00</td>
+				<td>テストデータの画像です。</td><td><strong>haze</strong></td><td>ハゼ</td><td>inherit</td>
+				<td>open</td><td>closed</td><td></td><td>haze</td><td></td><td></td><td>2019/10/21 0:00</td><td>2019/10/21 0:00</td><td>test2</td><td>14</td><td></td><td>0</td><td>attachment</td><td>image/jpeg</td><td>0</td></tr>
+			</tbody>
+		</table>
+		</li>
+		
+		<li>
+			wp_postmetaにデータを登録する。(DBを直接編集)
+			例<br>
+			<table class="tbl2">
+				<thead>
+					<tr><th>meta_id</th><th>post_id</th><th>meta_key</th><th>meta_value</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>72</td><td><strong>8297</strong></td><td>_wp_attached_file</td><td>2019/10/haze.jpg</td></tr>
+				</tbody>
+			</table>
+			
+		</li>
+		
+		<li>
+			Regenerate Thumbnailsのツール画面を開く。<br>
+			<img src="img/note5/sec5-4a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			サムネイルの一括作成を実行する。<br>
+			<img src="img/note5/sec5-4a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			サムネイルが作成される。<br>
+			<img src="img/note5/sec5-4a3.png" class="img_compact_k" />
+			WordPressダッシュボードのメディアやギャラリーにも画像が一覧表示されるようになる。
+		</li>
+	</ol>
+
+
+	<br><time>2019-10-24</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
