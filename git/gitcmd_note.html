@@ -80,6 +80,106 @@
 
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>コマンドでコミット→プッシュ</h3>
+
+	<ol>
+		<li>
+			cdコマンドでプロジェクトのトップディレクトリに移動する。
+		</li>
+		<li>
+			差分ファイルを追加
+			<pre class="console">$ git add -A</pre>
+		</li>
+		<li>
+			コミット
+			<pre class="console">$ git commit m任意のメッセージ</pre>
+		</li>
+		<li>
+			プッシュ<br>
+			$git push リポジトリ名 ブランチ名
+			<pre class="console">$ git push origin master</pre>
+		
+			<aside>
+				プッシュすべきリポジトリにが他にもあるなら...<br>
+				$ git push animal master
+			</aside>
+		</li>
+	</ol>
+
+	<br><time>2019-11-2</time>
+</div>
+
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>プロジェクトに紐づいているリモートリポジトリの情報を確認する。</h3>
+	
+	先にcdコマンドでプロジェクトのホームディレクトリへ移動しておく。その後、下記コマンドを実行。
+	<pre>$ git remote -v</pre>
+	
+	<pre class="console">
+	$ git remote -v
+	origin  git@github.com:amaraimusi/cake_demo.git (fetch)
+	origin  git@github.com:amaraimusi/cake_demo.git (push)
+	</pre>
+
+	<br><time>2019-11-2</time>
+</div>
+
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>リモートリポジトリからプル（履歴が違うと怒られる場合）</h3>
+	
+	$git pull --allow-unrelated-histories リポジトリ名 ブランチ名
+	<pre>$git pull <strong>--allow-unrelated-histories</strong> origin master</pre>
+
+	<br><time>2019-11-2</time>
+</div>
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>メールアドレスが登録されていない | fatal: unable to auto-detect email address</h3>
+
+	<pre>$git config --global user.email amaraimusi@example.com</pre>
+	
+	<a href="https://qiita.com/Taylor-U/items/3f329895766e613b3acf" target="_blank">参考</a><br>
+	<br>
+	
+	<br><time>2019-11-2</time>
+</div>
+
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>コンフリクト（競合）の修正</h3>
+	※暫定版
+	<pre>
+	README.mdファイルでコンフリクト（競合）が起きたとする。
+	README.mdファイルファイルを開き、手作業で修正する。
+	
+	修正が終わったら普通に保存。
+	
+	差分ファイル追加を行う。
+	$ add README.md
+	「$ git add -A」でも良い？
+	
+	コミット
+	$ git commit m任意のメッセージ
+	
+	プッシュ
+	$git push リポジトリ名 ブランチ名
+	$ git push origin master
+	</pre>
+
+
+	<br><time>2019-11-2</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
