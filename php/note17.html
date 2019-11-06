@@ -184,6 +184,28 @@
 </div>
 
 
+<div id="sec17-5" class="sec4">
+	<h3>現在のURLを取得する | HTTP, HOST(ホスト)の部分を取得する</h3>
+
+	<pre>
+	echo empty($_SERVER["HTTPS"]) ? "http://" : "https://";
+	echo $_SERVER["HTTP_HOST"];
+	echo $_SERVER["REQUEST_URI"];
+	echo (empty($_SERVER["HTTPS"]) ? "http://" : "https://") . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+	</pre>
+	
+	出力例
+	<pre class="console">
+	http://
+	localhost
+	/animal_park/nekos/neko.php
+	http://localhost/animal_park/nekos/neko.php
+	</pre>
+
+	<br><time>2019-11-6</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
