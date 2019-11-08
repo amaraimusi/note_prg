@@ -431,6 +431,50 @@ URL
 </div>
 
 
+<div id="sec2-3" class="sec4" >
+	<h3>Woocommerce | wp_postmetaテーブルのmeta_keyについて</h3>
+
+	
+	<p>wp_postmetaテーブルのmeta_key</p>
+	説明は筆者の感想であり、正確なものではないので注意。<br>
+<table class="tbl2">
+	<thead>
+		<tr><th>meta_key</th><th>meta_value</th><th>説明</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>_edit_last</td><td>1</td><td></td></tr>
+		<tr><td>_edit_lock</td><td>1573193061:1</td><td></td></tr>
+		<tr><td>_thumbnail_id</td><td>15</td><td>wp_postsテーブルのpost_id。サムネイル画像の投稿レコードとひもづいている。</td></tr>
+		<tr><td>_regular_price</td><td>680</td><td>通常価格</td></tr>
+		<tr><td>_sale_price</td><td>380</td><td>セール価格</td></tr>
+		<tr><td>total_sales</td><td>0</td><td></td></tr>
+		<tr><td>_tax_status</td><td>taxable</td><td></td></tr>
+		<tr><td>_tax_class</td><td></td><td></td></tr>
+		<tr><td>_manage_stock</td><td>yes</td><td>デフォルトはno。WordPress(Woocommers)の商品編集画面にて在庫の「商品単位での在庫管理を有効にする」にチェックを入れるとyesになる。</td></tr>
+		<tr><td>_backorders</td><td>yes</td><td>デフォルトはno。WordPress(Woocommers)の商品編集画面にて在庫の「バックオーダーを受け付けますか ?」を許可にするとyesになる。</td></tr>
+		<tr><td>_sold_individually</td><td>yes</td><td>デフォルトはno。WordPress(Woocommers)の商品編集画面にて在庫の「個別販売」にチェックを入れるとyesになる。</td></tr>
+		<tr><td>_virtual</td><td>no</td><td>デフォルトはno。バーチャルにチェックを入れるとyesになる。バーチャルとは物品でない商品、サービスなどを指す。</td></tr>
+		<tr><td>_downloadable</td><td>no</td><td>デフォルトはno。ダウンロードにチェックを入れるとyesになる。ここでの「ダウンロード」とはダウンロード販売である。</td></tr>
+		<tr><td>_download_limit</td><td>-1</td><td></td></tr>
+		<tr><td>_download_expiry</td><td>-1</td><td></td></tr>
+		<tr><td>_stock</td><td>99</td><td>デフォルトはNULL(在庫制限なしの扱い)。WordPress(Woocommers)の商品編集画面にて在庫数を入力すると、その数値が登録される。</td></tr>
+		<tr><td>_stock_status</td><td>instock</td><td></td></tr>
+		<tr><td>_wc_average_rating</td><td>0</td><td></td></tr>
+		<tr><td>_wc_review_count</td><td>0</td><td></td></tr>
+		<tr><td>_product_version</td><td>3.7.1</td><td></td></tr>
+		<tr><td>_price</td><td>380</td><td>現在の料金。商品編集画面にて更新ボタンを押したとき、セール期間中だとセール価格になり、期間外だと通常価格になる。</td></tr>
+		<tr><td>_product_image_gallery</td><td>17</td><td>wp_postsテーブルのpost_id。ギャラリー画像の投稿レコードを紐づいている。複数指定可能。複数指定する場合はコンマで区切る。</td></tr>
+		<tr><td>_sku</td><td>88</td><td>デフォルト時はこのレコード自体が存在しない。SKUに数値を入力されると登録される。SKUとは商品の管理数、つまり１単位の物品数。</td></tr>
+		<tr><td>_sale_price_dates_from</td><td>1573138800</td><td>デフォルト時はこのレコード自体が存在しない。セール期間の開始日。</td></tr>
+		<tr><td>_sale_price_dates_to</td><td>1573916399</td><td>デフォルト時はこのレコード自体が存在しない。セール期間の終了日。</td></tr>
+
+	</tbody>
+</table>
+
+	<br><time>2019-11-8</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
