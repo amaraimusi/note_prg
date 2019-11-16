@@ -50,6 +50,48 @@
 
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>docker-composeのインストール</h3>
+	
+	
+	ターミナルのCURLコマンドでdocker-composeをダウンロードおよびインストールすることができる。<br>
+	<br>
+	
+	ターミナル（Git for Bash, power shell)などを起動し、下記のコマンドを実行する。<br>
+	<aside>
+	※バージョンの部分は「<a href="https://github.com/docker/compose/releases" target="blank">https://github.com/docker/compose/releases</a>」にて確認する。（バージョンは1.25.0-rc4は2019年11月時点のもの）<br>
+	配置先のローカルディレクトリは、「ホームルート/bin/docker-compose」がふさわしい。<br>
+	</aside>
+	
+	<pre>
+	curl -L https://github.com/docker/compose/releases/download/1.25.0-rc4/docker-compose-`uname -s`-`uname -m` -o bin/docker-compose
+	chmod +x bin/docker-compose
+	</pre>
+	<br>
+	
+	インストールできたか確認する。（バージョンを確認）
+	<pre>$ docker-compose --version</pre>
+	
+	<br><br>
+	<img src="img/docker_note2/sec2-3a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	
+	
+	<a href="https://knowledge.sakura.ad.jp/16862/" target="_blank">参考サイト</a><br>
+	
+	
+	<br><time>2019-11-16</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
