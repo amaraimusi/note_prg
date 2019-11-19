@@ -1141,6 +1141,34 @@ function _setValueToInputVJ(jqElm, value){
 
 
 
+<div id="sec2-10" class="sec4" >
+	<h3>Vue.jsの要素の表示切替</h3>
+	
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;input type="text" v-model="test1" v-if="flg_a==1" /&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app1 = new Vue({
+		el: '#app1',
+		data: {
+			test1: 'テスト',
+			flg_a:1
+		}
+	})
+	</code></pre>
+	flg_aが1である場合のみテキストボックス要素は表示される。<br>
+	<br>
+
+	<br><time>2019-11-19</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
