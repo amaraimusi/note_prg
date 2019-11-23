@@ -72,6 +72,39 @@
 </div>
 
 
+<div id="sec3-3" class="sec4">
+	<h3>Vue.js | テキストエリア</h3>
+
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;div style="<strong>white-space:pre-wrap; word-wrap:break-word;</strong>"&gt;{{ text1 }}&lt;/div&gt;
+		&lt;textarea v-model="text1" style="width:50%;height:100px"&gt;&lt;/textarea&gt;
+	&lt;/div&gt;
+	</pre>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					text1: '奄美大島に生息\n改行→アマミノクロウサギ\tタブのテスト<div>AA</div>', 
+				},
+			})
+	});
+	</pre>
+	
+	改行はスタイルの「white-space:pre-wrap; word-wrap:break-word;」で対応している。<br>
+	<br>
+	<a href="/sample/js/a012/vue_textarea/vue_textarea.html" target="blank" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<br><time>2019-11-23</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
