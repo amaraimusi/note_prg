@@ -1142,6 +1142,25 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-7" class="sec4" >
+	<h3>小数点以下の桁数を固定する | n.toFixed(4)</h3>
+	
+	「n.toFixed(x)」で取得される値は<strong>文字列</strong>になるので注意すること。<br>
+	<pre>
+	let n = 123.456;
+	let str = n.toFixed(4); // →123.4560
+	
+	let n2 = 123;
+	let str2 = n2.toFixed(4); //→ 123.0000
+	
+	let n3 = 123.456789;
+	let str3 = n3.toFixed(4); //→ 123.4568 (四捨五入で丸められる)
+	</pre>
+
+	<br><time>2019-12-1</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
