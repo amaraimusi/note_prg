@@ -506,6 +506,33 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec5-6-2" class="sec1" >
+	<h3>id以外のレコードをコピーする</h3>
+	
+	<pre>
+	CREATE TEMPORARY TABLE tmp SELECT * from animals where id=1234;
+	ALTER TABLE tmp drop id;
+	INSERT INTO animals SELECT 0,tmp.* FROM tmp;
+	DROP TABLE tmp;
+	</pre>
+	
+	プログラムに埋め込んでの使用はふさわしくない。<br>
+	とりあえずレコードのコピーが欲しいときに。<br>
+	<br>
+	
+
+	<time>2019-11-30</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec5-7" class="sec1">
 	<h3>SQLに変数名を組み込む | 動的SQL</h3>
 

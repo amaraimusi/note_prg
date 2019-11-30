@@ -71,6 +71,7 @@
 	<li><a href="note5.php#sec5-5" >テーブルの容量サイズを取得 （ついでに行数や平均行容量も）</a></li>
 	<li><a href="note5.php#sec5-5-2" >DBのサイズ（容量）を取得する</a></li>
 	<li><a href="note5.php#sec5-6" >レコードのコピー</a></li>
+	<li><a href="note5.php#sec5-6-2" >id以外のレコードをコピーする</a></li>
 	<li><a href="note5.php#sec5-7" >SQLに変数名を組み込む | 動的SQL</a></li>
 	<li><a href="note5.php#sec5-8" >phpMyAdminで大容量ファイルをインポートできるようにする</a></li>
 	<li><a href="note5.php#sec5-9" >最大値のレコードを取得（すべてのフィールドを取得）</a></li>
