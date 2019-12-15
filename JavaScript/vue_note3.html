@@ -105,6 +105,52 @@
 </div>
 
 
+<div id="sec3-4" class="sec4" >
+	<h3>動的に後からvueオブジェクトのdataにバインドを追加する</h3>
+
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+	
+		&lt;div&gt;{{animal1}}&lt;/div&gt;
+		
+		&lt;input type="button" value="動的にバインドを追加" class="btn btn-success btn-xs" onclick="testFunc1();" /&gt;
+		&lt;div id="div1"&gt;
+				&lt;span&gt;{{animal2}}&lt;/span&gt;
+				&lt;input v-model="animal2"&gt;
+		&lt;/div&gt;
+	
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var vueApp; // vue.js
+	
+	jQuery(() =&gt; {
+		vueApp = new Vue({
+				el: '#app1',
+				data: {
+					animal1:'トウキョウサンショウウオ',
+				},
+			});
+		
+	});
+	
+	// 外部からデータを変更してみる
+	function testFunc1(){
+		vueApp.$set('animal2', 'シリケンイモリ');
+		
+	}
+	</pre>
+	
+	<a href="/sample/js/vue_js/demo/demo6.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<br><time>2019-12-15</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
