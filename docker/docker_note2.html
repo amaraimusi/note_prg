@@ -234,6 +234,37 @@
 
 
 
+<div id="sec2-10" class="sec4" >
+	<h3>docker runのエラー | no matching manifest for windows/amd64 10.0.18362 in the manifest list entries</h3>
+	
+	ボリュームは永続するデータの保存先である。<br>
+	コンテナとボリュームは兄弟関係のようなもの。または、パソコンと外部HDDの関係に似ている。<br>
+	通常、コンテナ内のデータ（ファイルなど）はコンテナが削除されるとデータも一緒に消える。<br>
+	データベースなどコンテナを削除してもデータを消したくない場合、ボリュームを用いる。<br>
+	ボリュームからデータが消えないのはホストPC（普段のPC環境）にデータを保存しているからである。
+	<aside>コンテナと同様、仮想環境にボリュームを作成することも可能。</aside>
+	<br>
+
+	<p>コンテナでボリュームを用いる</p>
+	「docker run」でコンテナを作成する際、「-v 〇〇」のような形でボリュームを指定することになる。<br>
+	<br>
+	docker runでのボリューム指定の例
+	<pre>docker run -it --name test_name -p 8080:80 <strong>-v c:/Users/user_xxx/git:/var/www/html</strong> test_image:5.6</pre>
+	「-v」でホストPCのディレクトリとコンテナ内のディレクトリを結び付けている。<br>
+	「c:/Users/user_xxx/git」はホストPCのディレクトリであり、「/var/www/html」はコンテナ内でのディレクトリである。<br>
+	<br>
+
+	<br><time>2019-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
