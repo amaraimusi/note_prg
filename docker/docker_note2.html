@@ -167,6 +167,30 @@
 
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>コンテナを停止する | docker stop コンテナID</h3>
+	
+	コンテナを停止する（コンテナIDが069863c72e56である場合
+	<pre class="console">docker stop 069863c72e56</pre>
+	
+	docker ps -a」コマンドで実行するとコンテナが停止していることが確認できる。STATUSがExited(終了しました)になっている。
+	<img src="img/docker_note2/sec2-8a1.png" class='img-responsive'/><br>
+	<br>
+	
+	docker stopコマンドが反応しない場合、restartコマンドでコンテナを再起動することにより治ることがある。
+	<pre class="console">docker restart 069863c72e56</pre>
+
+	<br><time>2019-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
