@@ -179,6 +179,49 @@
 	
 	docker stopコマンドが反応しない場合、restartコマンドでコンテナを再起動することにより治ることがある。
 	<pre class="console">docker restart 069863c72e56</pre>
+	
+	再スタートする場合
+	<pre class="console">docker start 069863c72e56</pre>
+
+	<br><time>2019-12-20</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec2-9" class="sec4">
+	<h3>docker runのエラー | no matching manifest for windows/amd64 10.0.18362 in the manifest list entries</h3>
+	
+	Docker Deskctop(Windows)の常駐アイコンから設定することにより修正が可能。
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			Windowsの右下にある常駐アプリアイコンの欄から、Docker Deskctopを右クリックし、Settingsを選択。
+			<br>
+			<img src="img/docker_note2/sec2-9a1.png"  />
+			<img src="img/docker_note2/sec2-9a2.png" class="img_compact_k" />
+		</li>
+
+
+		<li>
+			左メニューから「Demon」を選択。Basicとなっているスイッチを切り替えて「Advanced」にする。
+			<br>
+			<img src="img/docker_note2/sec2-9a3.png" class="img_compact_k" />
+		</li>
+
+		<li>
+			「"experimental":true」を記述し、Applyボタンを押せば、修正設定終わり。
+			<br>
+			<img src="img/docker_note2/sec2-9a4.png" class="img_compact_k" />
+		</li>
+		
+	</ol>
 
 	<br><time>2019-12-20</time>
 </div>
