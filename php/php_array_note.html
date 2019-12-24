@@ -393,15 +393,29 @@ $data6 → 1
 	
 	<p>サンプル</p>
 	<pre><code>
+	$data['neko'][1]['mike'] = 'sallcat';
 	$data[0] = 1;
 	$data['animal'][1] = 'bigcat';
 	$data['animal'][2]['konchu'][2] = 'kuro-ari';
 	$data['fish']='fish';
 	
 	$depth = arrayDepth($data);
+	echo "depth={$depth}&lt;br&gt;";
 	
-	var_dump($depth);
+	$depth2 = arrayDepthSmp($data);
+	echo "depth2={$depth2}&lt;br&gt;";
 	
+	
+	/**
+	 * 配列の階層の深さを調べる
+	 * 
+	 * @note
+	 * 配列すべてをサーチするので処理は重め
+	 * 
+	 * @param array $ary 対象配列
+	 * @param number $depth 深度（再起呼び出しで使用するので省略すること）
+	 * @return number 階層数
+	 */
 	function arrayDepth(&amp;$ary, $depth=0){
 		if(is_array($ary)){
 			$depth++;
@@ -417,14 +431,36 @@ $data6 → 1
 			return $depth;
 		}
 	}
+	
+	/**
+	 * 配列の階層の深さを調べる（高速版）
+	 *
+	 * @note
+	 * 配列の先頭からのみ深度を調べる。
+	 * 処理は速いが、階層にばらつきのある配列には向かない。
+	 * 行列データなどに。
+	 *
+	 * @param array $ary 対象配列
+	 * @param number $depth 深度（再起呼び出しで使用するので省略すること）
+	 * @return number 階層数
+	 */
+	function arrayDepthSmp(&amp;$ary, $depth=0){
+		if(is_array($ary)){
+			$depth++;
+			$first_key = key($ary);
+			$depth = arrayDepthSmp($ary[$first_key], $depth);
+		}
+		return $depth;
+	}
 	</code></pre>
 	
 	<p>出力</p>
 	<pre>
-	int(4)
+	depth=4
+	depth2=3
 	</pre>
 	
-	<br><time>2019-1-8</time>
+	<br><time>2019-1-8 | 2019-12-24</time>
 </div>
 
 
