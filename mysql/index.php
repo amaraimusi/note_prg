@@ -100,7 +100,7 @@
 	<li><a href="note8.html#sec8-3" >緯度経度による検索を早くするためのチューニング</a></li>
 	<li><a href="note8.html#sec8-4" >Alterで列の変更や追加ができない | #1067-'post_date' | sql_mode</a></li>
 	<li><a href="note8.html#sec8-5" >文字を置換する | REPLACE</a></li>
-	
+	<li><a href="note8.html#sec8-6" >MySQLのスキーマ</a></li>
 </ol>
 <hr><br><br><br>	
 			
