@@ -154,6 +154,27 @@
 </div>
 
 
+<div id="sec5-5" class="sec4" >
+	<h3>カスタムタクソノミーを追加 | register_taxonomy</h3>
+	
+	<pre>
+	$args = array(
+		'label' => '猫カテゴリー',
+		'public' => true,
+		'show_ui' => true,
+		'show_in_quick_edit' => true,
+		'show_admin_column' => true,
+		'hierarchical' => true,
+		'rewrite' => false,
+	);
+	register_taxonomy( 'cat_category', 'product', $args );
+	</pre>
+
+
+	<br><time>2019-12-26</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
