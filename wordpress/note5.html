@@ -190,13 +190,34 @@
 </div>
 
 
+<div id="sec5-7" class="sec4">
+	<h3>メニューに追加 | admin_menu | add_submenu_page</h3>
+	
+	<pre>
+	// メニューのツールへ新項目を追加する。
+	add_action('admin_menu', 'add_pages');
+	function add_pages() {
+		add_submenu_page('tools.php', '動物管理','動物管理',  'level_8', 'animal', 'animal_page');
+	}
+	
+	function animal_page() {
+		echo '動物管理ページ';
+	}
+	</pre>
+	
+	<a href="https://qiita.com/konweb/items/330f735a899e448ef876" target="_blank">参考サイト</a><br>
+	<br>
+
+	<br><time>2019-1-6</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
 	<br><time>2019-10-8</time>
 </div>
-
 
 <div class="yohaku"></div>
 <ol class="breadcrumb">
