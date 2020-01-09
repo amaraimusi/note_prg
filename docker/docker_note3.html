@@ -5,7 +5,7 @@
 	<meta name="google" content="notranslate" />
    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>テンプレート | ワクガンス</title>
+	<title>Dockerの覚書 | ワクガンス</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
@@ -21,15 +21,27 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-<div id="header" ><h1>テンプレート | ワクガンス</h1></div>
+<div id="header" ><h1>Dockerの覚書 | ワクガンス</h1></div>
 <div class="container">
 
 
-<div id="sec1-1" class="sec4">
-	<h3>xxx</h3>
-
-
-	<br><time>2020-1-1</time>
+<div id="sec3-1" class="sec4">
+	<h3>ホストのファイルおよびフォルダをコンテナへコピーする | docker cp</h3>
+	
+	
+	<pre class="console">$ docker cp ホスト内のパス コンテナID:コンテナ内のパス</pre>
+	
+	注意：<br>
+	Windowsである場合、コンテナを停止してから上記コマンドを実行すること。
+	コンテナが動いている状態だと以下のエラーが表示される。<br>
+	<pre>Error response from daemon: filesystem operations against a running Hyper-V container are not supported</pre>
+	<br>
+	
+	<p>逆にコンテナからホストへ</p>
+	パスを入れ替えるだけでよい。<br>
+	<pre class="console">$ docker cp コンテナID:コンテナ内のパス ホスト内のパス</pre>
+	
+	<br><time>2020-1-9</time>
 </div>
 
 
@@ -37,7 +49,7 @@
 	<h3>xxx</h3>
 
 
-	<br><time>2020-1-1</time>
+	<br><time>2020-1-9</time>
 </div>
 
 
@@ -45,16 +57,10 @@
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
 	<li><a href="/note_prg">プログラミングの覚書</a></li>
-	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
-	<li>テンプレート</li>
+	<li><a href="/note_prg/docker/">Dockerの覚書</a></li>
 </ol>
-<ol class="breadcrumb">
-	<li><a href="/">ホーム</a></li>
-	<li><a href="/sample">サンプルソースコード</a></li>
-	<li><a href="/sample/js">JavaScript ｜ サンプル</a></li>
-	<li>テンプレート</li>
-</ol>
+
 </div><!-- content -->
-<div id="footer">(C) kenji uehara 2020-1-1</div>
+<div id="footer">(C) kenji uehara 2020-1-9</div>
 </body>
 </html>
