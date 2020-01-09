@@ -213,7 +213,7 @@
 
 
 <div id="sec1-5" class="sec4">
-	<h3>イメージからコンテナを生成および実行状態する</h3>
+	<h3>Dockerの基本 | イメージからコンテナを生成および実行状態する</h3>
 	
 	「<strong>docker run</strong>」コマンドでイメージからコンテナを生成および実行状態にすることができる。
 	<pre>$ docker run -t -i phpmyadmin/phpmyadmin</pre>
@@ -242,6 +242,10 @@
 	アタッチは「docker attach コンテナID（またはNAME)」コマンドを実行する。<br>
 	<pre>$ docker attach 8881e83a6e66</pre>
 	<img src="img/docker_note/sec1-5a2.png"/><br>
+	<aside>
+		Windowsの場合、「<strong>winpty</strong>」を付加する。<br>
+		$ winpty docker attach 8881e83a6e66<br>
+	</aside>
 	<br>
 	
 	<p>稼働中のコンテナ一覧を確認する方法</p>
