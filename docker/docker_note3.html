@@ -45,6 +45,134 @@
 </div>
 
 
+<div id="sec3-2" class="sec4" >
+	<h3>Windows環境におけるDockerのLAMP構築(CentOS, PHP, MySQL)</h3>
+	
+	<p>環境</p>
+	Windows10 バージョン1903。<br>
+	Docker Desctop for Windows、2019年11月時点のバージョン<br>
+	ターミナルはGit Bashを使用。dockerコマンドが使える状態になっていること。<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			ターミナルを起動（Git Bash）
+		</li>
+		<li>
+			Docker HubからCentOS7のイメージをダウンロード
+			<pre class="console">$ winpty docker pull centos:centos7</pre>
+			「centos:centos7」の部分は「 centos:latest」でも良い。
+		</li>
+		<li>
+			<pre class="console">$ winpty docker run -it -d --name demo1 -p 8080:80 -v /c:/Users/user/git/docker_demo/html:/var/www/html centos</pre>
+			<table class="table"><thead>
+				<tr><td>winpty</td><td>
+					winptyはGit for WindowsのGit Bashを使っているときに必要になるコード。これがないとエラーになる。<br>
+					<aside>winptyを省略する方法もあるらしい。</aside>
+				</td></tr>
+				<tr><td>-it</td><td>
+					「t」の部分はttyを表している。ttyとは仮想環境（コンテナ）の入出力が関わるデバイスのことらしいが詳しくは不明。<br>
+					「i」の部分はinteractive、つまり「対話」を表す。シェルなのでコンテナとホスト(仮想でなくいつものWindows)の間で対話できるような仕組みだろうか？<br>
+				</td></tr>
+				<tr><td>-d</td><td>
+					デタッチド・モードする。省略した場合、アタッチモードになる。
+					デタッチド・モードはコンテナをバックグランドで動かすモードのようだ。
+					デタッチド・モードにするとターミナル(Git Bash)を閉じてもコンテナは生きており、後ろで動いている。
+				</td></tr>
+				<tr><td>--name demo1 </td><td>
+					--name demo1はコンテナ名を表す。「demo1」の部分に任意の名前を付けられる。<br>
+					コンテナ名はdockerの各種コマンドで用いられる。（コンテナ名を省略した場合は、コンテナIDを用いることになる）
+				</td></tr>
+				<tr><td>-p 8080:80</td><td>
+					「-p 8080:80」はポート番号を表す。<br>
+					「80」はwebサーバーを表すおなじみの80番ポートのこと。<br>
+					<br>
+					「8080」はホストのブラウザからコンテナのwebサーバーにアクセスするときの仮ポート番号。8080は開発環境を表す慣習的な番号であるが、好きな番号を指定してもよい。
+					URLに使われており、ホスト側のブラウザで「http://localhost:8080」にアクセスするとコンテナのwebサーバー内のサイトにアクセスできる。<br>
+				</td></tr>
+				<tr><td>-v /c:/Users/user/git/docker_demo/html:/var/www/html</td><td>
+					-vはボリュームのことである。ボリュームとはコンテナ内のディレクトリをホストのディレクトリと結びつける設定のようなもの。（ホストだけでなく別コンテナとの結びつけもできる）
+					コンテナがホストのディレクトリをマウントするという意味合いもある。<br>
+					「:」で区切られており、左側がホストのディレクトリ、右側がコンテナ内のディレクトリを表しており、この２つのディレクトリを結び付けている。<br>
+					つまり、コンテナ内で「/var/www/html」を見るとき、ホスト内の「c:\Users\user\git\docker_demo」を見ているということである。<br>
+					<br>
+					「/c:/Users/user/git/docker_demo/html」はスラッシュから始まっているが、これは「&yen;」で区切られているということを表しているらしい。
+					Windows環境ならではの記述方法のようだ。<br>
+				</td></tr>
+				<tr><td>centos</td><td>
+					イメージ名を表す。イメージ名の代わりにイメージIDを指定することもできる。
+				</td></tr>
+				
+			</thead></table>
+		</li>
+		
+		<li>
+			コンテナが作成されていることを確認する。
+			<pre class="console">$ docker ps</pre>
+			<img src="img/docker_note3/sec3-2a1.png" class="img-responsive" />
+			
+		</li>
+
+		<li>
+			コンテナ内に入る。
+			<pre>$ winpty docker attach demo1</pre>
+			<aside>demo1は部分はコンテナIDを指定してもよい。</aside>
+			このコマンドを実行するとコンテナ内のCentOSを操作できるようになる。
+			このことをコンテナにアタッチすると言う。
+			<br>
+			<br>
+			コンテナ内の操作から抜けるにはCtrlキーを押しながらP,Qキーと順番に押す。<br>
+		</li>
+
+		<li>
+			apacheをコンテナ内のCentOSにインストールする。
+			<pre># yum install httpd</pre>
+			インストール中、いくつか質問を聞かれるのでYES(yを入力）を選択。
+		</li>
+
+		<li>
+			apacheを起動する。
+			<pre>httpd -T</pre>
+			<br>
+			
+			他のサイトでは「systemctl status httpd.service」でapache起動としている説明が多いが、2020年1月時点ではapacheの起動に失敗する。<br>
+			systemctlを使う特権がないのが原因らしい。
+			systemctlを使えるようにするため、docker runコマンドに「--privileged」を追記する方法もあるが、Windows環境ではこれもバグになる。
+			現在は「httpd -T」という方法でapacheを起動するようになっているようだ。<br>
+			<br>
+			
+			apache起動のエラー
+			<aside>
+			[root@7428700f2706 /]# systemctl status httpd.service
+			System has not been booted with systemd as init system (PID 1). Can't operate.
+			Failed to connect to bus: Host is down
+			</aside>
+			
+			Windows環境にてdocker runコマンドに「--privileged」を追記したときのエラー。
+			<aside>Failed to get D-Bus connection: Operation not permitted</aside>
+		</li>
+
+		<li>
+			ホスト側のブラウザを開き「http://localhost:8080/」のURLにアクセスする。下記のようなページが表示されたら成功。
+			<img src="img/docker_note3/sec3-2a2.png" style="width:50%;height:50%;" />
+		</li>
+		
+		<li>
+			続いてボリュームの設定がうまくいっているか確認する。<br>
+			docker runの際、ボリュームで指定したホスト側のディレクトリ、「c:/Users/user/git/docker_demo/html」を開き、
+			「Hello World1」とだけ記述そたtest.htmlを作成し配置する。
+			ブラウザから「http://localhost:8080/test.html」にアクセス。
+			test.htmlの内容が表示されたら、ボリュームの設定は成功している。<br>
+			<img src="img/docker_note3/sec3-2a3.png" class="img-responsive" />
+		</li>
+	</ol>
+
+
+	<br><time>2020-1-17</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

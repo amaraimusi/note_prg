@@ -10,22 +10,21 @@
  * 使用例
  * <img src="xxx" class="img_compact_k" />
  * 
- * @version 1.0
- * @date 2016-4-27 新規作成
+ * @version 1.0.1
+ * @date 2016-4-27 | 2020-1-17
  * 
  * 
  */
 
 
 $(function(){
-
 	imgCompactK();
 });
 
 
 function imgCompactK(){
 	$('.img_compact_k').each(function(){
-		
+
 		$(this).attr('class','');
 		
 		$(this).css ({'width':'160px',
@@ -33,9 +32,15 @@ function imgCompactK(){
 		});
 		
 		$(this).click(function() {
-			
+
 			var w = $(this).css('width');
-			if(w=='160px'){
+			w = w.replace('px','');
+			if(w==''){
+				w = 0;
+			}else{
+				w = w * 1;
+			}
+			if(w<=160){
 				$(this).attr('class','img-responsive');
 				
 				$(this).css ({

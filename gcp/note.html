@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GCPの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>GCPの覚書 | Google Cloud Platform | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>GCEでLAMPを構築する | Google Compute Engine</h3>
+	
+	検証日：2020年1月16日。<br>
+	
+	<p>事前準備</p>
+	Windows10 バージョン1903。<br>
+	ssh-keygenコマンドで秘密キーと公開キーは発行済み。（<a href="/note_prg/linux/ssh_note2.html#sec2-2">公開鍵と秘密鍵について</a>)<br>
+	GCPのアカウント登録済み。（クレジットカード登録も済んでいる）<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	<li>
+		Google Compute Engineのダッシュボードページを開き、適当なプロジェクトを選択する。
+		<aside>プロジェクトの詳細については割愛</aside>
+		<img src="img/note/sec1-1a0.png" class="img_compact_k" />
+		
+	</li>
+	<li>
+		左上のメニューから「Compute Engine」を選択。<br>
+		<img src="img/note/sec1-1a1.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		左メニューの「VMインスタンス」をクリックすると、準備が始まるのでしばらく待つ。<br>
+		<img src="img/note/sec1-1a2.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		VMインスタンスの準備が終わったら作成ボタンを押す。<br>
+		<img src="img/note/sec1-1a3.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		マシン設定：前半<br>
+		名前は任意を入力。リージョンは東京にする。<br>
+		マシンタイプは要注意。マシンタイプにより料金が異なるので、右上の料金を見ながら適切なものを選択する。<br>
+		<img src="img/note/sec1-1a4.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		マシン設定：後半<br>
+		CentOS7を選択する。<br>
+		HTTPトラフィックを許可にするとファイヤフォールが自動設定されるようだ。(
+		<a href="https://gihyo.jp/admin/serial/01/google-cloud-platform/0003" target="blank">参考</a>)<br>
+		入力が終わったら作成ボタンを押す。<br>
+		<img src="img/note/sec1-1a5.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		続いてSSHでアクセスできるようにするためSSH認証鍵の登録を行う。
+		公開鍵が必要になるのでssh-keygenコマンドで秘密キーと公開キーを発行しておくこと。（<a href="/note_prg/linux/ssh_note2.html#sec2-2">公開鍵と秘密鍵について</a>)<br>
+		<br>
+		左メニューから「メタデータ」→SSH認証鍵タブ→「SSH認証鍵を追加」と進む。<br>
+		<img src="img/note/sec1-1a6.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		id_rsa.pubファイル内の全テキストをコピーし、テキストエリアに張り付け、保存ボタンを押下。
+		異常でSSH認証鍵の登録完了。<br>
+		<aside>id_rsa.pubファイルはssh-keygenコマンドで作成されるファイル。</aside>
+		<img src="img/note/sec1-1a7.png" class="img_compact_k" />
+		<img src="img/note/sec1-1a8.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		続いてグローバルIPアドレスを取得する。<br>
+		左メニューの「VMインスタンス」からVMインスタンスの画面を再表示するとマシン情報が一覧表示されている。<br>
+		ここの外部IPアドレスをグローバルIPアドレスとして控えておく。<br>
+		ついでに接続方法が「SSH」になっていることも確認する。<br>
+		<img src="img/note/sec1-1a9.png" style="width:100%"/>
+		
+	</li>
+	
+	<li>
+		ターミナルを開き、先ほど取得したグローバルIPアドレスを指定してSSHログインを行う。
+		<pre>$ SSH 34.84.XXX.220</pre>
+		<img src="img/note/sec1-1a10.png"  />
+	</li>
+	
+	<li>
+		SSHログインに成功したら、まずはapacheをインストール
+		<pre>$ sudo yum install httpd</pre>
+		<aside>途中で質問を聞かれるがとりあえず「y」を選択。</aside>
+	</li>
+	
+	<li>
+		apacheをインストールがインストールできたら、apacheを起動する。
+		<pre>$ sudo systemctl start httpd.service</pre>
+		「$ sudo httpd -T」でもapacheを起動できるかもしれない。<br>
+	</li>
+	
+	<li>
+		ブラウザから「http://34.84.XXX.220/」にURLアクセス。下記のページが表示できたら成功。<br>
+		<img src="img/note/sec1-1a11.png" style="width:75%"/>
+	</li>
+	
+	<li>
+		続いてPHPをインストール。<br>
+		まずはPHPのインストールに必要なremiリポジトリをインストールする。<br>
+		<pre>$ sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm</pre>
+		<br>
+		
+		<a href="https://rpms.remirepo.net/" target="blank">remiのサイト</a>
+	</li>
+	
+	<li>
+		remiリポジトリからPHPパッケージをインストールする。(今回はPHP7.2をインストール)
+		<pre>$ sudo yum install --enablerepo=remi,remi-php72 php php-devel php-mbstring php-pdo php-gd</pre>
+		
+	</li>
+	
+	<li>
+		apacheを再起動する。
+		<pre>$ sudo systemctl start httpd.service</pre>
+	</li>
+	
+	<li>
+		PHPが正常にインストールされているかどうか、PHPバージョンチェックで確認する。<br>
+		<pre>$ php -v</pre>
+		<img src="img/note/sec1-1a13.png" />
+	</li>
+	
+	<li>
+		続いてtest.phpを作成し、サーバーにアップするための準備を行う。<br>
+		ユーザー名はuserでSSHログインしているが、「/var/www/html/」はrootユーザーしかファイル作成や配置ができない状態になっている。
+		ユーザー名:userに「/var/www/html/」を操作できる権限を与える。<br>
+		<pre>$ sudo chown user. /var/www/html/</pre>
+		<aside>chown [一般ユーザー名]. /var/www/html/</aside>
+	</li>
+	
+	<li>
+		適当にtest.phpを作成し、下記コマンドでtest.phpをアップロードする。
+		<pre>$ rsync -auvz ./test.php 34.84.XXX.220:/var/www/html/</pre>
+		<aside>※Windowsでrsyncコマンドを使うにはMSYS2のインストールが必要</aside>
+		
+		test.php
+		<pre>
+	&lt;?php 
+	echo 'Hello Docker';
+	phpinfo();
+	?&gt;
+		</pre>
+	</li>
+	
+	<li>
+		「http://34.84.XXX.220/test.php」にアクセスする。<br>
+		きちんとPHPコードが実行されているようであれば成功。<br>
+		<img src="img/note/sec1-1a12.png" />
+		
+	</li>
+	
+	</ol>
+
+	
+	<br><time>2020-1-17</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2020-1-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/gcp/">GCPの覚書</a></li>
+	<li>GCPの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-1-17</div>
+</body>
+</html>
