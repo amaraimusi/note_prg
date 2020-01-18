@@ -35,6 +35,9 @@
 	GCPのアカウント登録済み。（クレジットカード登録も済んでいる）<br>
 	<br>
 	
+	<a href="http://yebisupress.dac.co.jp/2018/08/23/publish_website_with_google-cloud-platform/" target="blank">参考サイト</a><br>
+	<br>
+	
 	<p>手順</p>
 	<ol class="list_lg">
 	<li>
@@ -177,10 +180,88 @@
 		
 	</li>
 	
+	<li>
+		続いてMySQLの構築を行う。<br>
+		「Google Cloud SQL」をインストールするため,CentOSにあらかじめインストールされているmariaDBをアンインストールする。<br>
+		<pre>$ sudo yum remove mariadb-libs</pre>
+	</li>
+	
+	<li>
+		CentOS 7にMySQLの公式yumリポジトリをインストールする。
+		<pre>$ sudo yum localinstall http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm</pre>
+	</li>
+	
+	<li>
+		MySQLをインストール。
+		<pre>$ sudo yum install mysql-community-server</pre>
+	</li>
+	
+	<li>
+		MySQLを起動する。
+		$ sudo systemctl start mysqld.service
+	</li>
+	
+	<li>
+		続いて「Google Cloud SQL」の利用設定を行う。<br>
+		GCPダッシュボードのトップページに戻り、左上のメニューから「SQL」に進む。<br>
+		<img src="img/note/sec1-1a14.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		「インスタンスを作成」をクリック。<br>
+		<img src="img/note/sec1-1a15.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		MySQLを選択。<br>
+		<img src="img/note/sec1-1a16.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		インスタンスIDとrootパスワードに新規入力する。（MySQLにログインしたり、接続したりするときに利用することになる。）<br>
+		リージョンとゾーンは、GCEのマシン設定の時と同じものを入力するとよい。（GCEのマシン設定情報は「左上メニューボタン→Computer Engine→VMインスタンス」で確認できる。）<br>
+		データベースのバージョンは2020年1月時点ではバージョン5.7を選択するのが無難。<br>
+		入力が終わったら作成ボタンを押す。<br>
+		<img src="img/note/sec1-1a17.png" class="img_compact_k" /><br>
+		<br>
+		
+		VMインスタンス画面のマシン設定情報、にリージョンとゾーンの情報が記載されている。<br>
+		<img src="img/note/sec1-1a18.png" style="width:75%" />
+		
+	</li>
+	
+	<li>
+		一覧表示されるのを少し待つ。一覧表示されたらGoogle Cloud SQLの最低限な設定は終わり。<br>
+		<img src="img/note/sec1-1a19.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		続いてセキュリティ対策として、接続元のIP制限を行う。GCEのマシンのみMySQLにアクセスできるようにする。<br>
+		<br>
+		左メニューから「SQL」→「接続」と進む。<br>
+		パブリックIPとなっている箇所から「＋ネットワークを追加」をクリック。<br>
+		任意の名前と、GCEのマシンのグローバルIPアドレスを入力する。<br>
+		完了ボタン、保存ボタンと押す。（「保存中...」と表示され数分ほど時間がかかる）<br>
+		<img src="img/note/sec1-1a20.png" class="img_compact_k" />
+		<img src="img/note/sec1-1a21.png" class="img_compact_k" />
+	</li>
+	
+	<li>
+		確認のためSSHでMySQLにログインしてみる。<br>
+		ターミナルを開き、GCEのマシンにSSHログイン。
+		<pre>ssh 34.84.XXX.220</pre>
+		続いてMySQLにログイン。
+		<pre>$ mysql -h 104.199.XXX.36 -u root -p</pre>
+		「mysql>」と表示されれば成功。MySQLコマンドが使える状態になっている。<br>
+		<br>
+		<img src="img/note/sec1-1a22.png" class="img_compact_k" /><br>
+		以上でGoogle Cloud SQLのMySQL設定は終わり。
+	</li>
+	
 	</ol>
 
 	
-	<br><time>2020-1-17</time>
+	<br><time>2020-1-17 | 2020-1-18</time>
 </div>
 
 
