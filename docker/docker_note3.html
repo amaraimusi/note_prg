@@ -54,6 +54,9 @@
 	ターミナルはGit Bashを使用。dockerコマンドが使える状態になっていること。<br>
 	<br>
 	
+	注意!! MySQLの設定は不完全。どうしてもうまくいかない箇所あり。<br>
+	<br>
+	
 	<p>手順</p>
 	<ol class="list_lg">
 		<li>
@@ -165,6 +168,34 @@
 			ブラウザから「http://localhost:8080/test.html」にアクセス。
 			test.htmlの内容が表示されたら、ボリュームの設定は成功している。<br>
 			<img src="img/docker_note3/sec3-2a3.png" class="img-responsive" />
+		</li>
+		
+		<li>
+			続いてMySQLの手順。<br>
+			この手順は不完全。<br>
+			とりあえずうまくいっている部分を記述。<br>
+			<br>
+			
+			イメージをダウンロード
+			<pre>$ docker pull mysql</pre>
+			
+			コンテナ作成。<br>
+			ポート3306をxamppで仕様しているので、13306にする。（同じ3306を使うとエラーになる）
+			<pre>$ docker run --name mysql_demo -e MYSQL_ROOT_PASSWORD=neko -d -p 13306:3306 mysql</pre>
+			
+			実行
+			<pre>$ winpty docker exec -it mysql_demo bash</pre>
+			
+			ログイン
+			<pre># mysql - h mysql_demo -uroot -pneko</pre>
+			<br>
+			
+			<p>上手くいっていない箇所</p>
+			とりあえず、ここまではうまくいったが,ボリュームによるデータの永続がうまくいかない。<br>
+			↓下記のコマンドをいろいろいじったが、ログインまでは進まず。<br>
+			docker run --name mysql_demo -e MYSQL_ROOT_PASSWORD=neko -d -p 13306:3306 mysql -v /mnt/c/Users/user/dbdata:/var/lib/mysql<br>
+			<br>
+
 		</li>
 	</ol>
 

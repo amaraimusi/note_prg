@@ -27,13 +27,23 @@
 <div id="sec1-1" class="sec4">
 	<h3>GCEでLAMPを構築する | Google Compute Engine</h3>
 	
-	検証日：2020年1月16日。<br>
+	<p>手順の概要</p>
+	GCPのダッシュボードにてGCE（Compute Engine)の新規設定。<br>
+	GCEにCentOS7を設定。<br>
+	CentOS7にhttpd(Apache)をインストール。<br>
+	CentOS7にPHP7.2をインストール。<br>
+	CentOS7にMySQL（コマンドのみ、データはGoogle Clound SQL）をインストール。<br>
+	Google Clound SQLの設定。<br>
+	データベース管理ツール、Adminerのインストールおよび設定。<br>
+	<br>
 	
 	<p>事前準備</p>
 	Windows10 バージョン1903。<br>
 	ssh-keygenコマンドで秘密キーと公開キーは発行済み。（<a href="/note_prg/linux/ssh_note2.html#sec2-2">公開鍵と秘密鍵について</a>)<br>
 	GCPのアカウント登録済み。（クレジットカード登録も済んでいる）<br>
 	<br>
+	
+	検証日：2020年1月16日～24日。<br>
 	
 	<a href="http://yebisupress.dac.co.jp/2018/08/23/publish_website_with_google-cloud-platform/" target="blank">参考サイト</a><br>
 	<br>
@@ -258,10 +268,112 @@
 		以上でGoogle Cloud SQLのMySQL設定は終わり。
 	</li>
 	
+	<li>
+		続いてテスト用のデータベース、test1を作成する。<br>
+		ダッシュボードに戻り、「左メニュー→SQL→データベース」と進むとデータベースの新規作成ができる画面になる。<br>
+		「データベースを作成」ボタンからデータベースを作成する。<br>
+		<img src="img/note/sec1-1a23.png" class="img_compact_k" /><br>
+	</li>
+	
+	<li>
+		mysqlのコマンドでtest1に適当にデータを投入する。（詳細は割愛）<br>
+		<br>
+		
+		私の場合、phpMyAdminで以前作成したサンプル用のデータをtest1.sqlとしてエクスポートし、そのtest1.sqlを先ほど作成したtest1データベースにインポートした。
+		<pre>#mysql -h 104.199.XXX.36 -uroot -p -B test1 &lt; /var/www/html/test1.sql</pre>
+		<aside>
+		※ 事前に「/var/www/html/」ディレクトリにtest1.sqlをrsyncコマンドでアプロードしている。
+		</aside>
+
+	</li>
+	
+	<li>
+		SELinuxのセキュリティによりPHPからDB接続できないようになっているので接続できるよう設定する。<br>
+		一旦、「mysql>」の状態をexitで抜け、CentOSのコマンド入力状態に戻し、下記のコマンドを実行。
+		<pre># sudo setsebool httpd_can_network_connect_db on</pre>
+		<aside>
+			SELinuxはCentOSなどのディストリビューションにあらかじめ組み込まれているプログラム。セキュリティ的なものらしい。
+		</aside>
+	</li>
+	
+	<li>
+		PDOが動くかテストする。<br>
+		pdo_test.php
+	<pre>
+	&lt;?php
+		echo 'PDOのテスト&lt;br&gt;';
+		try {
+		
+			$pdo = new PDO('mysql:host=104.199.XXX.36;dbname=test1;charset=utf8', 'root', 'パスワード',
+				array(PDO::ATTR_EMULATE_PREPARES =&gt; false));
+		
+			echo '&lt;ul&gt;';
+			$sql = 'show tables';
+			$stmt = $pdo-&gt;query($sql);
+			foreach ($stmt as $row) {
+				echo "&lt;li&gt;$row[0]&lt;/li&gt;";
+			}
+			echo '&lt;/ul&gt;';
+		
+			
+		} catch (PDOException $e) {
+			exit('データベース接続失敗。'.$e-&gt;getMessage());
+		}
+	?&gt;
+	</pre>
+	</li>
+	
+	<li>
+		rsyncコマンドでpdo_test.phpをGCE,CentOSの「/var/www/html/」ディレクトリにアップロードする。<br>
+		そして「http://34.84.XXX.220/pdo_test.php」URLへアクセス。<br>
+		PDOのエラーがでなければ成功。<br>
+		<img src="img/note/sec1-1a24.png" class="img_compact_k" /><br>
+	</li>
+	
+	<li>
+		データベース管理ツールのAdminerをインストールする。
+		AdminerはphpMyAdminと似ており、ブラウザからDB管理を行えるツール。<br>
+		Adminerの本体はたた一つのphpファイル（adminer-X.X.X.php）である。<br>
+		インストールとは言っても、いつものhtmlルートの好きな場所にadminer-X.X.X.php配置するだけ。<br>
+		<br>
+	</li>
+	
+	<li>
+		Adminerの公式サイトからadminer-X.X.X.phpをダウンロードする。<br>
+		<a href="https://www.adminer.org/">https://www.adminer.org/</a><br>
+		<aside>2020年1月時点の最新はadminer-4.7.5.php</aside>
+		<br>
+	</li>
+	
+	<li>
+		rsyncコマンドでadminer-X.X.X.phpをGCE,CentOSの「/var/www/html/」ディレクトリにアップロードする。<br>
+		そして「http://34.84.XXX.220/adminer-X.X.X.php」URLへアクセス。<br>
+	</li>
+	
+	<li>
+		sshでmysqlにログインするときと同じ情報を入力してログインする。<br>
+		<pre>
+		サーバー → 104.199.XXX.36
+		ユーザー名 → root
+		パスワード → rootのパスワード
+		データベース → test1
+		</pre>
+		<img src="img/note/sec1-1a25.png" class="img_compact_k" /><br>
+	</li>
+	
+	<li>
+		データベースの管理画面が表示されれば成功。<br>
+		<img src="img/note/sec1-1a26.png" class="img_compact_k" /><br>
+	</li>
+	
+	<li>
+		非常に長い手順であったが、とりあえず終わり。<br>
+		ここまでできれば、大体のことができるはずである。<br>
+	</li>
 	</ol>
 
 	
-	<br><time>2020-1-17 | 2020-1-18</time>
+	<br><time>2020-1-17 | 2020-1-24</time>
 </div>
 
 
