@@ -53,29 +53,29 @@
 	<li>
 		Google Compute Engineのダッシュボードページを開き、適当なプロジェクトを選択する。
 		<aside>プロジェクトの詳細については割愛</aside>
-		<img src="img/note/sec1-1a0.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a0.png" class="img_compact_k" />
 		
 	</li>
 	<li>
 		左上のメニューから「Compute Engine」を選択。<br>
-		<img src="img/note/sec1-1a1.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a1.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		左メニューの「VMインスタンス」をクリックすると、準備が始まるのでしばらく待つ。<br>
-		<img src="img/note/sec1-1a2.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a2.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		VMインスタンスの準備が終わったら作成ボタンを押す。<br>
-		<img src="img/note/sec1-1a3.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a3.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		マシン設定：前半<br>
 		名前は任意を入力。リージョンは東京にする。<br>
 		マシンタイプは要注意。マシンタイプにより料金が異なるので、右上の料金を見ながら適切なものを選択する。<br>
-		<img src="img/note/sec1-1a4.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a4.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -84,7 +84,7 @@
 		HTTPトラフィックを許可にするとファイヤフォールが自動設定されるようだ。(
 		<a href="https://gihyo.jp/admin/serial/01/google-cloud-platform/0003" target="blank">参考</a>)<br>
 		入力が終わったら作成ボタンを押す。<br>
-		<img src="img/note/sec1-1a5.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a5.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -92,15 +92,15 @@
 		公開鍵が必要になるのでssh-keygenコマンドで秘密キーと公開キーを発行しておくこと。（<a href="/note_prg/linux/ssh_note2.html#sec2-2">公開鍵と秘密鍵について</a>)<br>
 		<br>
 		左メニューから「メタデータ」→SSH認証鍵タブ→「SSH認証鍵を追加」と進む。<br>
-		<img src="img/note/sec1-1a6.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a6.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		id_rsa.pubファイル内の全テキストをコピーし、テキストエリアに張り付け、保存ボタンを押下。
 		異常でSSH認証鍵の登録完了。<br>
 		<aside>id_rsa.pubファイルはssh-keygenコマンドで作成されるファイル。</aside>
-		<img src="img/note/sec1-1a7.png" class="img_compact_k" />
-		<img src="img/note/sec1-1a8.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a7.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a8.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -108,14 +108,14 @@
 		左メニューの「VMインスタンス」からVMインスタンスの画面を再表示するとマシン情報が一覧表示されている。<br>
 		ここの外部IPアドレスをグローバルIPアドレスとして控えておく。<br>
 		ついでに接続方法が「SSH」になっていることも確認する。<br>
-		<img src="img/note/sec1-1a9.png" style="width:100%"/>
+		<img src="img/gcp_note/sec1-1a9.png" style="width:100%"/>
 		
 	</li>
 	
 	<li>
 		ターミナルを開き、先ほど取得したグローバルIPアドレスを指定してSSHログインを行う。
 		<pre>$ SSH 34.84.XXX.220</pre>
-		<img src="img/note/sec1-1a10.png"  />
+		<img src="img/gcp_note/sec1-1a10.png"  />
 	</li>
 	
 	<li>
@@ -132,7 +132,7 @@
 	
 	<li>
 		ブラウザから「http://34.84.XXX.220/」にURLアクセス。下記のページが表示できたら成功。<br>
-		<img src="img/note/sec1-1a11.png" style="width:75%"/>
+		<img src="img/gcp_note/sec1-1a11.png" style="width:75%"/>
 	</li>
 	
 	<li>
@@ -158,7 +158,7 @@
 	<li>
 		PHPが正常にインストールされているかどうか、PHPバージョンチェックで確認する。<br>
 		<pre>$ php -v</pre>
-		<img src="img/note/sec1-1a13.png" />
+		<img src="img/gcp_note/sec1-1a13.png" />
 	</li>
 	
 	<li>
@@ -186,7 +186,7 @@
 	<li>
 		「http://34.84.XXX.220/test.php」にアクセスする。<br>
 		きちんとPHPコードが実行されているようであれば成功。<br>
-		<img src="img/note/sec1-1a12.png" />
+		<img src="img/gcp_note/sec1-1a12.png" />
 		
 	</li>
 	
@@ -214,17 +214,17 @@
 	<li>
 		続いて「Google Cloud SQL」の利用設定を行う。<br>
 		GCPダッシュボードのトップページに戻り、左上のメニューから「SQL」に進む。<br>
-		<img src="img/note/sec1-1a14.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a14.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		「インスタンスを作成」をクリック。<br>
-		<img src="img/note/sec1-1a15.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a15.png" class="img_compact_k" />
 	</li>
 	
 	<li>
 		MySQLを選択。<br>
-		<img src="img/note/sec1-1a16.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a16.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -232,17 +232,17 @@
 		リージョンとゾーンは、GCEのマシン設定の時と同じものを入力するとよい。（GCEのマシン設定情報は「左上メニューボタン→Computer Engine→VMインスタンス」で確認できる。）<br>
 		データベースのバージョンは2020年1月時点ではバージョン5.7を選択するのが無難。<br>
 		入力が終わったら作成ボタンを押す。<br>
-		<img src="img/note/sec1-1a17.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a17.png" class="img_compact_k" /><br>
 		<br>
 		
 		VMインスタンス画面のマシン設定情報、にリージョンとゾーンの情報が記載されている。<br>
-		<img src="img/note/sec1-1a18.png" style="width:75%" />
+		<img src="img/gcp_note/sec1-1a18.png" style="width:75%" />
 		
 	</li>
 	
 	<li>
 		一覧表示されるのを少し待つ。一覧表示されたらGoogle Cloud SQLの最低限な設定は終わり。<br>
-		<img src="img/note/sec1-1a19.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a19.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -252,8 +252,8 @@
 		パブリックIPとなっている箇所から「＋ネットワークを追加」をクリック。<br>
 		任意の名前と、GCEのマシンのグローバルIPアドレスを入力する。<br>
 		完了ボタン、保存ボタンと押す。（「保存中...」と表示され数分ほど時間がかかる）<br>
-		<img src="img/note/sec1-1a20.png" class="img_compact_k" />
-		<img src="img/note/sec1-1a21.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a20.png" class="img_compact_k" />
+		<img src="img/gcp_note/sec1-1a21.png" class="img_compact_k" />
 	</li>
 	
 	<li>
@@ -264,7 +264,7 @@
 		<pre>$ mysql -h 104.199.XXX.36 -u root -p</pre>
 		「mysql>」と表示されれば成功。MySQLコマンドが使える状態になっている。<br>
 		<br>
-		<img src="img/note/sec1-1a22.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a22.png" class="img_compact_k" /><br>
 		以上でGoogle Cloud SQLのMySQL設定は終わり。
 	</li>
 	
@@ -272,7 +272,7 @@
 		続いてテスト用のデータベース、test1を作成する。<br>
 		ダッシュボードに戻り、「左メニュー→SQL→データベース」と進むとデータベースの新規作成ができる画面になる。<br>
 		「データベースを作成」ボタンからデータベースを作成する。<br>
-		<img src="img/note/sec1-1a23.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a23.png" class="img_compact_k" /><br>
 	</li>
 	
 	<li>
@@ -327,7 +327,7 @@
 		rsyncコマンドでpdo_test.phpをGCE,CentOSの「/var/www/html/」ディレクトリにアップロードする。<br>
 		そして「http://34.84.XXX.220/pdo_test.php」URLへアクセス。<br>
 		PDOのエラーがでなければ成功。<br>
-		<img src="img/note/sec1-1a24.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a24.png" class="img_compact_k" /><br>
 	</li>
 	
 	<li>
@@ -358,12 +358,12 @@
 		パスワード → rootのパスワード
 		データベース → test1
 		</pre>
-		<img src="img/note/sec1-1a25.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a25.png" class="img_compact_k" /><br>
 	</li>
 	
 	<li>
 		データベースの管理画面が表示されれば成功。<br>
-		<img src="img/note/sec1-1a26.png" class="img_compact_k" /><br>
+		<img src="img/gcp_note/sec1-1a26.png" class="img_compact_k" /><br>
 	</li>
 	
 	<li>
