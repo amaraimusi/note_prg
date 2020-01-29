@@ -25,6 +25,17 @@
 <div class="container">
 
 
+<div id="sec1-5" class="sec4">
+	<h3>wgetコマンドとは</h3>
+
+	ファイルのダウンロードほか、Webサイトや特定の階層を取得できるコマンド。<br>
+	<a href="https://www.atmarkit.co.jp/ait/articles/1606/20/news024.html" target="blank">参考サイト</a><br>
+	<br>
+
+	<br><time>2020-1-29</time>
+</div>
+
+
 <div id="sec1-6" class="sec4" >
 	<h3>wgetコマンドがありません | bash: wget: command not found</h3>
 	
@@ -45,6 +56,27 @@
 	<pre>$ sudo yum remove php-*</pre>
 
 	<br><time>2020-1-25</time>
+</div>
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>Failed to set locale, defaulting to C.UTF-8 | ロケール環境変数</h3>
+	
+	「$ yum check」などで下記のエラーが生じたとき。
+	<pre class="console">Failed to set locale, defaulting to C.UTF-8</pre>
+	
+	下記のコマンドでロケール環境変数にCをセットしてやると解決する。<br>
+	<pre>$ export LC_ALL=C</pre>
+	
+	「export」は環境変数を設定するコマンド。<br>
+	Cを設定することによりUTF-8が設定されるようだ。詳細は未定。<br>
+	<br>
+	
+	下記コマンドを実行するとロケール環境変数を確認することができる。<br>
+	<pre>locale -a</pre>
+	<img src="img/centos7/sec1-8.png" alt="" />
+
+	<br><time>2020-1-29</time>
 </div>
 
 
