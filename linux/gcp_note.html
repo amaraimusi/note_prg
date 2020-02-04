@@ -48,6 +48,19 @@
 	<a href="http://yebisupress.dac.co.jp/2018/08/23/publish_website_with_google-cloud-platform/" target="blank">参考サイト</a><br>
 	<br>
 	
+	<p>注意</p>
+	<div>
+		Compute EngineとCloud SQLは有料。<br>
+		Compute Engineはソフトウェアをいろいろインストールするだけでも課金される。
+		こちらはあまり気になる金額ではない。環境構築するため、いろいろ試行錯誤したが1000円未満で済んだ。<br>
+		問題はCloud SQLである。
+		Cloud SQLは大量なレコードを格納しているテーブルがあると何もしなくても課金されていく。<br>
+		15万件くらいのレコードを持つテーブルをCloud SQLに格納し、
+		2,3週間ほど放置した結果3000円近く課金されてしまった。<br>
+		GCPのダッシュボードにて課金状況をよく見ることが大切である。<br>
+	</div>
+	<hr>
+	
 	<p>手順</p>
 	<ol class="list_lg">
 	<li>
@@ -373,7 +386,7 @@
 	</ol>
 
 	
-	<br><time>2020-1-17 | 2020-1-24</time>
+	<br><time>2020-1-17 | 2020-2-4</time>
 </div>
 
 
