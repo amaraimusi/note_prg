@@ -47,6 +47,51 @@
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>パッケージ一覧を表示する | yum list</h3>
+	
+	インストール済み、未インストールに関わらず、すべてのパッケージを一覧表示する。
+	<pre>$ yum list</pre>
+	<br>
+	
+	パッケージ名を指定して絞込み表示。ワイルドカード「*」の指定が可能。
+	<aside>php関連のパッケージを一覧表示</aside>
+	<pre>yum list php*</pre>
+	
+	<br><time>2020-2-5</time>
+</div>
+
+
+<div id="sec1-2-1" class="sec4" >
+	<h3>インストール済みのパッケージを一覧表示 | yum list installed</h3>
+	
+	すべてのインストール済みのパッケージを一覧表示
+	<pre>$ yum list installed</pre>
+	<br>
+	
+	パッケージ名を指定して絞込み表示。ワイルドカード「*」の指定が可能。
+	<aside>python関連のインストール済みパッケージを一覧表示</aside>
+	<pre>$ yum list installed python*</pre>
+
+	<br><time>2020-2-5</time>
+</div>
+
+
+<div id="sec1-2-2" class="sec4" >
+	<h3>yum list available	まだインストールしていない利用可能なパッケージを一覧表示 | yum list available</h3>
+	
+	すべての未インストールのパッケージを一覧表示
+	<pre>$ yum list available</pre>
+	<br>
+	
+	パッケージ名を指定して絞込み表示。ワイルドカード「*」の指定が可能。
+	<aside>python関連の<strong>未インストール</strong>パッケージを一覧表示</aside>
+	<pre>$ yum list available python*</pre>
+
+	<br><time>2020-2-5</time>
+</div>
+
+
 <div id="sec1-5" class="sec4">
 	<h3>wgetコマンドとは</h3>
 
@@ -99,6 +144,15 @@
 	<img src="img/centos7/sec1-8.png" alt="" />
 
 	<br><time>2020-1-29</time>
+</div>
+
+
+<div id="sec1-9" class="sec4" >
+	<h3>キャッシュクリア | yum clean all</h3>
+
+	<pre>$ yum clean all</pre>
+
+	<br><time>2020-2-5</time>
 </div>
 
 

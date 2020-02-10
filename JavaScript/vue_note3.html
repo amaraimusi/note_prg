@@ -151,6 +151,56 @@
 </div>
 
 
+<div id="sec3-5" class="sec4" >
+	<h3>vue.jsでバインドしている要素群をjQuryで移動させてみる</h3>
+	<a href="/sample/js/vue_js/demo/demo7.html" class="btn btn-info">Demo</a><br>
+	vue.jsと関連付けている区画要素をjQueryのinsertAfterメソッドで移動しても、vue.jsのバインドは切れていない。<br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;div&gt;{{ message1 }}&lt;/div&gt;
+		&lt;input v-model="message1"&gt;
+	&lt;/div&gt;
+	
+	&lt;input type="button" value="app1要素を青四角の下へ" onclick="test1()" class="btn btn-primary btn-xs" /&gt;
+	&lt;input type="button" value="app1要素を赤四角の下へ" onclick="test2()" class="btn btn-danger btn-xs" /&gt;
+	&lt;div id="box1" style="width:300px;height:100px;background-color:blue"&gt;&lt;/div&gt;
+	&lt;div id="box2" style="width:300px;height:100px;background-color:red"&gt;&lt;/div&gt;
+	</pre>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					message1: 'ヌガー',
+				}
+			})
+	});
+	
+	
+	// クリックイベント
+	function test1(){
+		$('#app1').insertAfter('#box1');
+	}
+	
+	
+	//クリックイベント
+	function test2(){
+		$('#app1').insertAfter('#box2');
+	}
+	</pre>
+	
+
+	
+	<br><time>2020-2-10</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
