@@ -201,6 +201,238 @@
 </div>
 
 
+<div id="sec3-6" class="sec4" >
+	<h3>vue.jsによるテーブル</h3>
+
+	<a href="/sample/js/vue_js/demo/demo8.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	html
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;table&gt;
+			&lt;thaed&gt;
+				&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;数値&lt;/th&gt;&lt;/tr&gt;
+			&lt;/thaed&gt;
+			&lt;tbody&gt;
+				&lt;tr v-for="ent in data"&gt;
+					&lt;td v-for="(value, key) in ent"&gt;{{ value }}&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					data:[
+						{id:100, fish_name:'グルクン', fish_price:200},
+						{id:101, fish_name:'フィーフチャー', fish_price:300},
+						{id:102, fish_name:'ミーバイ', fish_price:400},
+						{id:103, fish_name:'グルクマー', fish_price:200},
+					]
+				}
+		
+			})
+	});
+	</pre><br>
+	
+	<br><time>2020-2-13</time>
+</div>
+
+
+<div id="sec3-7" class="sec4" >
+	<h3>vue.jsによるテーブル | 追加と削除</h3>
+
+	<a href="/sample/js/vue_js/demo/demo9.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	html
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;table class="tbl2"&gt;
+			&lt;thaed&gt;
+				&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;数値&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;
+			&lt;/thaed&gt;
+			&lt;tbody&gt;
+				&lt;tr v-for="(ent, index) in data"&gt;
+					&lt;td v-for="(value, key) in ent"&gt;{{ value }}&lt;/td&gt;
+					&lt;td&gt;&lt;button v-on:click="deleteAction(index)" class="btn btn-danger btn-xs"&gt;削除&lt;/button&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;input type="button" v-on:click="addAction()" value="追加" class="btn btn-success"/&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					data:[
+						{id:100, fish_name:'グルクン', fish_price:200},
+						{id:101, fish_name:'フィーフチャー', fish_price:300},
+						{id:102, fish_name:'ミーバイ', fish_price:400},
+						{id:103, fish_name:'グルクマー', fish_price:200},
+					]
+				},
+				methods: {
+					deleteAction:(index)=>{
+						app.data.splice(index, 1);
+					},
+					addAction:()=>{
+						let newRow = {id:900, fish_name:'追加テスト', fish_price:999};
+						app.data.push(newRow);
+					}
+				}
+			})
+	});
+	</pre><br>
+
+	
+	<br><time>2020-2-13</time>
+</div>
+
+
+<div id="sec3-8" class="sec4" >
+	<h3>vue.jsによるテーブル | 行中にセレクトボックスあり(SELECT要素)</h3>
+
+	<a href="/sample/js/vue_js/demo/demo10.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	html
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;table class="tbl2"&gt;
+			&lt;thaed&gt;
+				&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;SELECT&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;
+			&lt;/thaed&gt;
+			&lt;tbody&gt;
+				&lt;tr v-for="(ent, index) in data"&gt;
+					&lt;td&gt;{{ent.id}}&lt;/td&gt;
+					&lt;td&gt;{{ent.fish_name}}&lt;/td&gt;
+					&lt;td&gt;
+						&lt;select v-model="ent.fish_type"&gt;
+							&lt;option value="1"&gt;沖縄&lt;/option&gt;
+							&lt;option value="2"&gt;山口&lt;/option&gt;
+							&lt;option value="3"&gt;大間&lt;/option&gt;
+						&lt;/select&gt;
+					&lt;/td&gt;
+					&lt;td&gt;&lt;button v-on:click="deleteAction(index)" class="btn btn-danger btn-xs"&gt;削除&lt;/button&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;input type="button" v-on:click="addAction()" value="追加" class="btn btn-success"/&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() => {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					data:[
+						{id:100, fish_name:'グルクン', fish_type:1},
+						{id:101, fish_name:'本マグロ', fish_type:3},
+						{id:102, fish_name:'トラフグ', fish_type:2},
+						{id:103, fish_name:'グルクマー', fish_type:1},
+					]
+				},
+				methods: {
+					deleteAction:(index)=>{
+						app.data.splice(index, 1);
+					},
+					addAction:()=>{
+						let newRow = {id:900, fish_name:'追加テスト', fish_price:999};
+						app.data.push(newRow);
+					}
+				}
+			})
+	});
+
+	</pre><br>
+
+	
+	<br><time>2020-2-13</time>
+</div>
+
+
+<div id="sec3-9" class="sec4" >
+	<h3>vue.jsによるテーブル | 行中にセレクトボックス その2</h3>
+
+	<a href="/sample/js/vue_js/demo/demo11.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	html
+	<pre>
+	&lt;div id="app1"&gt;
+		&lt;table class="tbl2"&gt;
+			&lt;thaed&gt;
+				&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;SELECT&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;
+			&lt;/thaed&gt;
+			&lt;tbody&gt;
+				&lt;tr v-for="(ent, index) in data"&gt;
+					&lt;td&gt;{{ent.id}}&lt;/td&gt;
+					&lt;td&gt;{{ent.fish_name}}&lt;/td&gt;
+					&lt;td&gt;
+						&lt;select v-model="ent.fish_type"&gt;
+							&lt;option v-for="(value, key) in  fishTypeList" v-bind:value="key"&gt;{{value}}&lt;/option&gt;
+						&lt;/select&gt;
+					&lt;/td&gt;
+					&lt;td&gt;&lt;button v-on:click="deleteAction(index)" class="btn btn-danger btn-xs"&gt;削除&lt;/button&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;input type="button" v-on:click="addAction()" value="追加" class="btn btn-success"/&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	var app; // vue.js
+	jQuery(() => {
+		
+		let fishTypeList = {1:'なは', 2:'やまぐち', 3:'おおま'};
+		
+		app = new Vue({
+				el: '#app1',
+				data: {
+					data:[
+						{id:100, fish_name:'グルクン', fish_type:1},
+						{id:101, fish_name:'本マグロ', fish_type:3},
+						{id:102, fish_name:'トラフグ', fish_type:2},
+						{id:103, fish_name:'グルクマー', fish_type:1},
+					], 
+					fishTypeList:fishTypeList,
+				},
+				methods: {
+					deleteAction:(index)=>{
+						app.data.splice(index, 1);
+					},
+					addAction:()=>{
+						let newRow = {id:900, fish_name:'追加テスト', fish_price:999};
+						app.data.push(newRow);
+					}
+				}
+			})
+	});
+	</pre><br>
+
+	
+	<br><time>2020-2-13</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
