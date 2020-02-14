@@ -684,7 +684,54 @@
 
 
 
-<div id="sec1-10" class="sec4">
+
+
+
+
+<div id="sec1-10-1" class="sec4">
+	<h3>Vue.jsのラジオボタン | リストからラジオボタンを生成</h3>
+	
+	<a href="/sample/js/vue_js/demo/demo12.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	HTML
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;label v-for="(value, key) in animalTypeList"&gt;
+			&lt;input type="radio" name="ent.animal_type" v-model='ent.animal_type' v-bind:value="key" &gt;{{value}} 
+		&lt;/label&gt;
+		&lt;br&gt;
+		&lt;div&gt;{{ent.animal_type}}&lt;/div&gt;
+		&lt;div&gt;{{ animalTypeList[ent.animal_type] }}&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() => {
+		
+		let animalTypeList = {1:'哺乳類', 2:'魚類', 3:'両生類', 4:'爬虫類', 5:'鳥類'};
+		let ent = {id:100, animal_type:2, animal_name:'ネオンテトラ'};
+		
+		app = new Vue({
+				el: '#app1',
+				data: {
+					animalTypeList: animalTypeList,
+					ent,
+				}
+			})
+	});
+	</code></pre>
+	<br>
+	
+	<br><time>2020-2-14</time>
+</div>
+
+
+
+<div id="sec1-10-2" class="sec4">
 	<h3>vue.js | チェックボックスとラジオ</h3>
 	
 	<a href="/sample/js/a010/vue_checkbox_radio/vue_checkbox_radio.html" class="btn btn-info">Demo</a><br>
