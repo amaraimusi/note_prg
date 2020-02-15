@@ -433,6 +433,51 @@
 </div>
 
 
+<div id="sec3-10" class="sec4" >
+	<h3>セレクトボックスのチェンジイベント | SELECT onchange</h3>
+	
+	<a href="/sample/js/vue_js/demo/demo13.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;select v-model='cat_type' v-on:change="testChange('猫')"&gt;
+		&lt;option v-for="(value, key) in catTypeList" v-bind:value="key"&gt;{{value}}&lt;/option&gt;
+	&lt;/select&gt;
+	&lt;div&gt;{{res}}&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+	var app; // vue.js
+	jQuery(() => {
+		
+		let catTypeList = {
+				1:'三毛猫',
+				2:'シャムトラ',
+				3:'鯖トラ',
+				4:'白黒',
+		};
+		app = new Vue({
+				el: '#app1',
+				data: {
+					catTypeList:catTypeList,
+					cat_type:2,
+					res:'',
+				},
+				methods:{
+					testChange:(name)=>{
+						app.res = name + '→' + app.catTypeList[app.cat_type];
+					}
+				}
+			})
+	});
+	</code></pre>
+	
+	<br><time>2020-2-15</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
