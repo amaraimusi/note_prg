@@ -35,6 +35,7 @@
 				<li><a href="#s3">composer.pharとは</a></li>
 				<li><a href="#s4">composer.pharはどこに配置すべきか</a></li>
 				<li><a href="#s5">ライブラリをインストールする</a></li>
+				<li><a href="#s5-2">composer.pharをコマンドでインストール</a></li>
 				<li><a href="#s6">ライブラリを更新する</a></li>
 				<li><a href="#s7">ライブラリをプロジェクトに組み込む</a></li>
 				<li><a href="#s8">推奨:リポジトリ管理から外す</a></li>
@@ -146,6 +147,31 @@
 				<br>
 				
 			</div>
+
+
+
+
+
+<div id="s5-2" class="sec4" >
+	<h3>composer.pharをコマンドでインストール</h3>
+	
+	インストールとはいっても、composer.pharファイルをWEBから取ってくるだけ。<br>
+	まず、cdコマンドでcomposer.pharを配置するディレクトリに移動する。<br>
+	<br>
+	
+	Windows環境でGit bashのターミナルを使うと、ttyなんとかのエラーが出る。
+	その場合、下記のコマンドを実行すると解決する。
+	<pre>	$ exec winpty bash</pre>
+	
+	下記のPHPコマンドにて、composer.pharをインストール（入手）する。
+	<pre>	$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+	
+	cdコマンドで移動したディレクトリに入手したcomposer.pharファイルが配置される。<br>
+	<br>
+	
+
+	<time>2020-2-23</time>
+</div>
 			
 			
 			
