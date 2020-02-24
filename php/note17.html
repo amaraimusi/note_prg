@@ -232,6 +232,341 @@
 </div>
 
 
+<div id="sec17-8" class="sec4" >
+	<h3>TCPDFによるPDF | 基本</h3>
+
+	<p>Demo</p>
+<a href="/sample/php/a060/tcpdf_demo/demo1_pdf.php" class="btn btn-success">PDFを表示</a>
+<a href="/sample/php/a060/tcpdf_demo/demo1_pdf.php" download class="btn btn-success">PDFのダウンロード</a>
+<br><br>
+
+「TCPDF」はCompserで入手。<br>
+<br>
+
+compser.json
+<pre><code>
+{
+	"require": {
+		"tecnickcom/tcpdf": "*"
+	}
+}
+</code></pre><br>
+
+HTML
+<pre><code>
+&lt;a href="demo1_pdf.php" class="btn btn-success"&gt;PDFを表示&lt;/a&gt;
+&lt;a href="demo1_pdf.php" download class="btn btn-success"&gt;PDFのダウンロード&lt;/a&gt;
+</code></pre><br>
+
+
+PHP(demo1_pdf.php)
+<pre><code>
+&lt;?php
+include '../../../composer/vendor/autoload.php';
+$tcpdf = new TCPDF("Portrait");
+$tcpdf-&gt;AddPage();
+$tcpdf-&gt;SetFont("kozminproregular", "", 10);
+$html = &lt;&lt;&lt; EOF
+&lt;style&gt;
+	h1 {
+		font-weight:bold;
+		font-size: 24px;
+		color:#FF8080;
+	}
+
+&lt;/style&gt;
+&lt;h1&gt;Hello World!&lt;/h1&gt;
+いろはにほへと&lt;br&gt;
+大きなヤギと小さな犬&lt;br&gt;
+EOF;
+
+$tcpdf-&gt;writeHTML($html);
+$tcpdf-&gt;Output("test.pdf");
+</code></pre>
+
+	<br><time>2020-2-24</time>
+</div>
+
+
+<div id="sec17-9" class="sec4" >
+	<h3>TCPDFのCSSスタイル</h3>
+
+<p>Demo</p>
+<a href="/sample/php/a060/tcpdf_demo/demo2_pdf.php" class="btn btn-success">PDFを表示</a>
+<a href="/sample/php/a060/tcpdf_demo/demo2_pdf.php" download class="btn btn-success">PDFのダウンロード</a>
+<br><br>
+
+TCPDFは便利であるが、利用できるCSSスタイルは著しく制限されるという弱点がある。HTMLタグにも使用できなものが多数あり。<br>
+レイアウトやデザインについてはある程度の妥協が必須である。<br>
+改ページに関しては、テキストが増えれば、自動的になされるので便利である。<br>
+<br>
+
+<table class="table">
+	<thead><tr><th>HTMLタグまたはCSSスタイル</th><th>効き具合</th></tr></thead>
+	<tbody>
+		<tr><td>
+			padding, margin, width, height,<br>
+			display:inline-block, float:left</td>
+		<td>
+			こららのレイアウト系CSSスタイルは効かない。table要素で何とか代用しなければならない。td,th要素だけはwidthとheightが効く。
+		</td>
+		</tr>
+		
+		<tr><td>
+			div
+		<td>
+			幅は100%で固定である。上記にあるようにpadding, margin, width, heightなどは使えない。
+		</td>
+		</tr>
+		
+		<tr><td>border</td>
+		<td>
+			効く。border-top,border-bottomなどもOK。ただし、線の種類指定はできない。線の太さと色のみ。
+		</td>
+		</tr>
+		
+		<tr><td>table</td>
+		<td>
+			通常のHTML5とは若干挙動が異なる。罫線も破線などは使えず。<br>
+			tdタグのcolspan属性は効くのでレイアウトに活用できる。
+		</td>
+		</tr>
+		
+		<tr><td>background-color</td>
+		<td>
+			効く。
+		</td>
+		</tr>
+		
+		<tr><td>font-size, font-weight, font-style, color, text-decoration</td>
+		<td>
+			文字装飾系のCSSスタイルはあるていど効いているが、部分的に効かないものもある。下線を破線にしたりはできない。<br>
+		</td>
+		</tr>
+		
+		<tr><td>text-align</td>
+		<td>
+			中央寄せ、右寄せ、共に問題ない。
+		</td>
+		</tr>
+		
+		<tr><td>ul, ol</td>
+		<td>
+			効く。しかし上部に隙間が空くので使い勝手は悪い。margin,paddingは使えないので隙間の調整は不可。
+		</td>
+		</tr>
+		
+		<tr><td>strong, small</td>
+		<td>
+			効く。
+		</td>
+		</tr>
+		
+		<tr><td>hr</td>
+		<td>
+			黒線のみ。線の色、太さ、種類は一切指定できず。<br>
+		</td>
+		</tr>
+		
+		<tr><td>空白</td>
+		<td>
+			空白は&amp;npsp;を記述する必要がある。<br>
+		</td>
+		</tr>
+		
+		<tr><td>文字の種類</td>
+		<td>
+			utf-8で使用できるすべての文字が使えるわけではない。<br>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<br><br>
+
+
+	html
+	<pre><code>
+	&lt;a href="/sample/php/a060/tcpdf_demo/demo2_pdf.php" class="btn btn-success"&gt;PDFを表示&lt;/a&gt;
+	&lt;a href="/sample/php/a060/tcpdf_demo/demo2_pdf.php" download class="btn btn-success"&gt;PDFのダウンロード&lt;/a&gt;
+	</code></pre><br>
+	
+	demo2_pdf.php
+	<pre><code>
+&lt;?php
+	include '../../../composer/vendor/autoload.php';
+	$tcpdf = new TCPDF("Portrait");
+	$tcpdf-&gt;AddPage();
+	$tcpdf-&gt;SetFont("kozminproregular", "", 10);
+	
+	$param = [];
+	$html = render('demo2_in.php', $param);
+	
+	$tcpdf-&gt;writeHTML($html);
+	$tcpdf-&gt;Output("test.pdf");
+	
+	function render($in_fn, $params){
+		extract($params);
+		ob_start();
+		
+		include $in_fn;
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		return $html;
+	}
+	</code></pre><br>
+	
+	demo2_in.php
+	<pre><code>
+&lt;style&gt;
+	.box1{
+		border:4px solid #90C05C;
+		border-radius:4px;
+		padding:10px;
+	}
+.tbl2{
+	border-collapse:collapse;
+}
+
+.tbl2 th{
+	border: 1px solid #bdbfdf;
+	color:#393656;
+}
+.tbl2 td{
+	border: 1px solid #bdbfdf;
+	color:#34353f;
+}
+&lt;/style&gt;
+&lt;h2&gt;TCPDF DEMO2&lt;/h2&gt;
+Hello World!
+
+&lt;br&gt;
+&lt;div style="background-color:red"&gt;背景色のテスト&lt;/div&gt;
+&lt;br&gt;
+hrタグのテスト(黒線のみ。線の色、太さ、種類は一切指定できず。）
+&lt;hr style="border-top: 3px double red"&gt;
+&amp;nbsp;&lt;br&gt;
+&lt;div style="padding:20px;margin:30px;border-top:4px solid #8080FF"&gt;
+	border-topのテスト。上罫線のテスト（青色の線）&lt;br&gt;
+	padding,marginは一切効かない。&lt;br&gt;
+&lt;/div&gt;
+&amp;nbsp;&lt;br&gt;
+画像テスト。imgのwidth属性とheight属性は効果あり。&lt;br&gt;
+&lt;img src="test.png" alt="" width="30px" height="50px" /&gt;&lt;br&gt;
+&amp;nbsp;&lt;br&gt;
+テーブルのテスト&lt;br&gt;
+&lt;table class="tbl2"&gt;
+	&lt;thead&gt;&lt;tr&gt;&lt;th style="width:25%"&gt;名前&lt;/th&gt;&lt;th style="width:25%"&gt;生息地&lt;/th&gt;&lt;th style="width:50%"&gt;説明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td style="width:25%"&gt;アブラコウモリ&lt;/td&gt;
+			&lt;td style="width:25%"&gt;日本/台湾&lt;/td&gt;
+			&lt;td style="width:50%"&gt;アブラコウモリ（油蝙蝠、学名: Pipistrellus abramus）は、コウモリ亜目ヒナコウモリ科に属するコウモリの一種。日本に棲息する中では唯一の、住家性、すなわち、家屋のみをすみかとするコウモリである。したがって、日本では人間にとって最も身近なコウモリであると言える。その習性から、イエコウモリ（家蝙蝠）の別名がある。史前帰化動物とする説もある。&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr style="background-color:#AAAAAA"&gt;
+			&lt;td&gt;AA&lt;/td&gt;
+			&lt;td&gt;BB&lt;/td&gt;
+			&lt;td&gt;CC&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+	
+&lt;/table&gt;
+
+&amp;nbsp;&lt;br&gt;
+
+ブロックレイアウトはtableを活用しなければならない。colspanは何とか効いている。&lt;br&gt;
+&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td&gt;1&lt;/td&gt;
+		&lt;td&gt;2&lt;/td&gt;
+		&lt;td&gt;3&lt;/td&gt;
+		&lt;td&gt;4&lt;/td&gt;
+		&lt;td&gt;5&lt;/td&gt;
+		&lt;td&gt;6&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td colspan="2"&gt;&lt;div style="border-bottom:2px solid blue"&gt;colspan="2"テストテスト&lt;/div&gt;&lt;/td&gt;
+		&lt;td&gt;3&lt;/td&gt;
+		&lt;td&gt;4&lt;/td&gt;
+		&lt;td&gt;5&lt;/td&gt;
+		&lt;td&gt;6&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+
+&amp;nbsp;&lt;br&gt;
+
+&lt;div class="box1" &gt;
+	アブラコウモリ（油蝙蝠、学名: Pipistrellus abramus）は、コウモリ亜目ヒナコウモリ科に属するコウモリの一種。日本に棲息する中では唯一の、住家性、すなわち、家屋のみをすみかとするコウモリである。したがって、日本では人間にとって最も身近なコウモリであると言える。その習性から、イエコウモリ（家蝙蝠）の別名がある。史前帰化動物とする説もある。
+&lt;/div&gt;
+
+
+&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;h3&gt;長文と改ページのテスト&lt;/h3&gt;
+市街地を中心として、平野部に広く分布する。東京都心をはじめとする都市部の市街地にも数多く棲息し、夕刻の空に普通に見られる。人家のない山間部などには棲息せず、自然洞窟などでの記録は、まれにしかない。1.5cm ほどの隙間があれば出入りすることができ、家屋の瓦の下、羽目板と壁の間、戸袋の中、天井裏、換気口など建物の隙間などを主な棲息場所（ねぐら）とする。都市部では、高層ビルの非常口裏などのほか、道路・鉄道等の高架や橋の下、大型倉庫内などもねぐらとなる。
+
+数頭の家族単位（雌と幼獣）で暮らすことが多いが、幼獣を含む雌の繁殖集団では、50-60頭、時には200頭にもなる。成獣の雄は1頭で暮らすことが比較的多い。
+
+夜行性で、昼間はねぐらで休み、日没近くから夜間に飛び回る。カ、ユスリカ、ヨコバイなどの小型昆虫類を主食とし、ウンカ、甲虫なども捕食する。活動は日没後2時間程度が最も活発。河川などの水面上や田畑・駐車場などのオープンスペース、あるいは街灯の近くなどを、ヒラヒラと不規則に飛び回り、飛翔昆虫を捕食する。都市部では、有機物量の多い汚濁河川から大量に発生するユスリカが重要な食物となっていることが多い。
+
+日本では、11月の中ごろから冬眠に入る。暖かい場所に多数が集まって冬越しをする。3月中下旬に冬眠から覚め、活動を開始する。冬眠期間中でも、暖かい日には飛翔する姿が見られることもある。近年、都市部では冬眠しないものも現れている。
+
+雌は満1歳から出産し、7月初旬に1-4頭（通常は2-3頭）の仔を産む。30日程度で離乳して巣立つ。10月に入ると交尾を行う。精子は雌の生殖器官に貯えられたまま冬を越す。冬眠あけの4月下旬になってから排卵が起こり、受精・妊娠する。寿命は雄で3年、雌で5年ほどと、他のコウモリと比べると短い。雄は1年以内に死んでしまうことが多い。
+
+
+
+
+&amp;nbsp;&lt;br&gt;
+
+&lt;div style="display:inline-block;border:2px solid blue;" &gt;
+	インラインブロックは効かない
+&lt;/div&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;div style="width:100px;height:40px;border:2px solid blue;" &gt;
+	widthとheightは効かない
+&lt;/div&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;div style="text-align:center;border:1px solid blue;" &gt;
+	text-align:centerによる中央寄
+&lt;/div&gt;
+&lt;div style="text-align:right;border:1px solid blue;" &gt;
+	右寄
+&lt;/div&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;div style="font-size:2em;color:#A36F3F;border:2px solid blue;" &gt;
+	文字に色を付ける。文字を大きくする。
+&lt;/div&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;div style="font-weight:bold;border:1px solid blue;" &gt;
+	文字を太くする。
+&lt;/div&gt;
+&amp;nbsp;&lt;br&gt;
+&lt;span style="text-decoration: underline dotted red;" &gt;
+	文字の下に線を引いてみる。一種類の線しか引けず、線色も効かない。
+&lt;/span&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;div style=";border:1px solid blue;" &gt;
+	&lt;strong&gt;strongタグ&lt;/strong&gt;と&lt;small&gt;smallタグ&lt;/small&gt;
+&lt;/div&gt;
+
+&amp;nbsp;&lt;br&gt;
+&lt;ul&gt;
+	&lt;li&gt;アメリカザリガニ&lt;/li&gt;
+	&lt;li&gt;ブラックバス&lt;/li&gt;
+	&lt;li&gt;カミツキガメ&lt;/li&gt;
+	&lt;li&gt;ガーパイク&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+	</code></pre>
+
+
+	<br><time>2020-2-24</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
