@@ -246,11 +246,14 @@
 
 
 <div id="sec3-6" class="sec4" >
-	<h3>WordPressのAjax</h3>
+	<h3>WordPressのAjax 管理画面用</h3>
 	
 	
 	WordPressプラグインではAjaxの使い方が特殊である。一般のWebアプリのようにはいかない。<br>
 	以下にサンプルコードを記述する。<br>
+	<br>
+	なお、管理画面(ダッシュボード)でしか、下記のサンプルは動作しない。<br>
+	公開ページにおいてのAjaxの方法は異なる。<br>
 	<br>
 	
 	<p>プラグインファイル構成</p>
@@ -279,7 +282,10 @@
 					//"ajax_animal_test2" =&gt; array("action" =&gt; "ajax_animal_test2_action", "function" =&gt; "test2"),
 			);
 			foreach ($ajax_actions as $custom_key =&gt; $custom_action) {
+				// アクションコード「wp_ajax_nopriv_〇〇」は、非ログイン中でもAjaxの動作を受け付ける。（ログイン中は動作せず？）
 				add_action("wp_ajax_nopriv_" . $custom_action['action'], array($this, $custom_action["function"]));
+				
+				// アクションコード「wp_ajax_〇〇」は、ログイン中のみAjaxの動作を受け付ける。
 				add_action("wp_ajax_" . $custom_action['action'], array($this, $custom_action["function"]));
 			}
 			
@@ -393,7 +399,7 @@
 	<br>
 
 
-	<br><time>2017-5-9 | 2017-6-29</time>
+	<br><time>2017-5-9 | 2020-2-26</time>
 </div>
 
 
