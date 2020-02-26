@@ -212,6 +212,27 @@
 </div>
 
 
+<div id="sec5-8" class="sec4" >
+	<h3>WordPressと関連付いていないプレーンなphpファイルから、$wpdbオブジェクトを利用。（DBアクセス）</h3>
+	
+	<pre><code>
+&lt;?php
+$wp_dp = dirname(dirname(dirname(__DIR__)));
+require_once($wp_dp . '/wp-load.php'); //例→ C:\Users\user\git\wordpress_prject\wp-load.php
+global $wpdb;
+echo "Hello World!";
+
+$sql = 'SELECT * FROM wp_posts LIMIT 4';
+$data = $wpdb-&gt;get_results($sql);
+var_dump($data);
+	</code></pre>
+
+	<a href="https://agohack.com/wpdb-select-with-prepare/" class="btn btn-link btn-xs" target="blank">参考サイト：AgoHack：[WordPress] $wpdb を使って SELECT 結果取得</a>
+
+	<br><time>2020-2-26</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
