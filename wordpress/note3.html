@@ -245,7 +245,7 @@
 
 
 
-<div id="sec3-6" class="sec4" >
+<div id="sec3-6-1" class="sec4" >
 	<h3>WordPressのAjax 管理画面用</h3>
 	
 	
@@ -400,6 +400,106 @@
 
 
 	<br><time>2017-5-9 | 2020-2-26</time>
+</div>
+
+
+
+
+
+
+
+
+<div id="sec3-6-2" class="sec4" >
+	<h3>WordPressのAjax 公開ページ用</h3>
+	
+	サンプルはWordpressのプラグイン形式。公開ページにショートコードに組み込んでいる。<br>
+	<img src="img/note3/sec3-6-2a1.png" alt="" /><br>
+	<br>
+	
+	ajax_fish.php（プラグインのスタートアップであるモジュール）
+	<pre><code>
+	&lt;?php
+
+/*
+ Plugin Name: Ajax Fish
+ Plugin URI: http://amaraimusi.sakura.ne.jp/
+ Description: WordPress公開ページにおけるAjaxのテストです。
+ Version: 1.0
+ Author: kenji uehara
+ Author URI: http://amaraimusi.sakura.ne.jp/
+ License: MIT
+ */
+// ショートコード
+add_shortcode('ajax-fish-test1','ajaxFishTest1');
+
+function ajaxFishTest1(){
+	wp_enqueue_script( 'jquery3', '/wp-content/plugins/ajax_fish/jquery3.js' );
+	wp_enqueue_script( 'send_ajax', '/wp-content/plugins/ajax_fish/send_ajax.js' );
+	$html = "
+		&lt;div&gt;
+			&lt;h3&gt;Ajax Fish Test&lt;/h3&gt;
+			&lt;div&gt;WordPress公開ページにおけるAjaxのテストです。&lt;/div&gt;
+			&lt;input type='button' value='Ajaxテスト' onclick='ajax_fish_test1()' /&gt;
+			&lt;div id='res' style='color:#60C894'&gt;&lt;/div&gt;
+			&lt;div id='err style='color:red''&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	";
+	return $html;
+}
+	</code></pre><br>
+	
+	send_ajax.js
+	<pre><code>
+	function ajax_fish_test1(){
+		let ajax_url = '/wp/wp-content/plugins/ajax_fish/res_ajax.php';
+		let sendData={aaa:'cat', bbb:'dog'};
+		let send_json = JSON.stringify(sendData);//データをJSON文字列にする。
+	
+		// AJAX
+		jQuery.ajax({
+			type: "POST",
+			url: ajax_url,
+			data: "key1=" + send_json,
+			cache: false,
+			dataType: "text",
+		})
+		.done((res_json, type) =&gt; {
+			let res;
+			try{
+				res =jQuery.parseJSON(res_json);//パース
+			}catch(e){
+				jQuery("#err").append(res_json);
+				return;
+			}
+			jQuery("#res").append(res_json);
+		})
+		.fail((jqXHR, statusText, errorThrown) =&gt; {
+			jQuery('#err').append('アクセスエラー');
+			jQuery('#err').append(jqXHR.responseText);
+			alert(statusText);
+		});
+	}
+	</code></pre><br>
+	
+	res_ajax.php
+	<pre><code>
+	&lt;?php
+	
+	// 通信元から送信されてきたパラメータを取得する。
+	$param_json = $_POST['key1'];
+	$param=json_decode($param_json,true);//JSON文字を配列に戻す
+	
+	//データ加工や取得
+	$param['bbb'] = 'tanuki';
+	$param['ccc'] = 'pig';
+	
+	// JSONに変換し、通信元に返す。
+	$json_str = json_encode($param, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+	echo $json_str;
+	</code></pre>
+	
+	
+	<br><time>2020-2-27</time>
 </div>
 
 
