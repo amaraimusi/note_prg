@@ -465,7 +465,32 @@
 
 
 
-<div id="sec4-8" class="sec4" >
+<div id="sec4-8-1" class="sec4" >
+	<h3>SQLを実行する（SELECT以外）</h3>
+	
+	「$wpdb->query」でSQLを実行できる。ただし、SELECT用ではない。<br>
+	レスポンスは件数を返すのみである。<br>
+	<br>
+	
+	<pre><code>
+	$query = "SELECT * FROM wp_posts LIMIT 2";
+	$res = $wpdb->query( $query );
+	debug($res);// レスポンスは2件
+	</code></pre>
+	
+	<br><time>2020-2-28</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="sec4-8-2" class="sec4" >
 	<h3>実行したSQLを表示する</h3>
 	
 	<pre><code>
