@@ -219,6 +219,8 @@
 &lt;?php
 $wp_dp = dirname(dirname(dirname(__DIR__)));
 require_once($wp_dp . '/wp-load.php'); //例→ C:\Users\user\git\wordpress_prject\wp-load.php
+// 注意:wp-load.phpは$_POSTの値をサニタイズしてしまう。サニタイズされると$_POSTに格納されているjson文字列がパースできなくなるので注意。
+
 global $wpdb;
 echo "Hello World!";
 
@@ -229,7 +231,7 @@ var_dump($data);
 
 	<a href="https://agohack.com/wpdb-select-with-prepare/" class="btn btn-link btn-xs" target="blank">参考サイト：AgoHack：[WordPress] $wpdb を使って SELECT 結果取得</a>
 
-	<br><time>2020-2-26</time>
+	<br><time>2020-2-26 | 2020-2-28</time>
 </div>
 
 
