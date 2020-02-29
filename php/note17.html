@@ -567,6 +567,25 @@ hrタグのテスト(黒線のみ。線の色、太さ、種類は一切指定�
 </div>
 
 
+<div id="sec17-9-2" class="sec4" >
+	<h3>TCPDF ERROR: Some data has already ...</h3>
+
+	下記のエラーが表示された場合、「ob_end_clean();」を呼び出すと解決する。
+	<pre>TCPDF ERROR: Some data has already been output, can't send PDF file</pre>
+	<br>
+	WordPressプラグイン開発でPDFを作成するときによく発生する問題。
+	DBアクセスのため、wp-load.phpを読み込むと上記のエラーが発生することがある。
+	wp-load.phpのインクルード直下に、「ob_end_clean()」を呼び出せば解決する。
+	<pre><code>
+	include '../../../wp-load.php';
+	ob_end_clean();
+	global $wpdb;
+	</code></pre>
+
+	<br><time>2020-2-29</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
