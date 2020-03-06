@@ -577,12 +577,13 @@ hrタグのテスト(黒線のみ。線の色、太さ、種類は一切指定�
 	DBアクセスのため、wp-load.phpを読み込むと上記のエラーが発生することがある。
 	wp-load.phpのインクルード直下に、「ob_end_clean()」を呼び出せば解決する。
 	<pre><code>
+	ob_start();
 	include '../../../wp-load.php';
 	ob_end_clean();
 	global $wpdb;
 	</code></pre>
 
-	<br><time>2020-2-29</time>
+	<br><time>2020-2-29 | 2020-3-6</time>
 </div>
 
 
