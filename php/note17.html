@@ -243,6 +243,13 @@
 「TCPDF」はCompserで入手。<br>
 <br>
 
+TCPDFを導入する前に、php.iniにタイムゾーンが設定されている必要がある。<br>
+もしタイムゾーンの設定がされていない場合、php.iniに下記を追記する。<br>
+<pre>
+date.timezone = "Asia/Tokyo"
+</pre>
+
+
 compser.json
 <pre><code>
 {
@@ -284,7 +291,7 @@ $tcpdf-&gt;writeHTML($html);
 $tcpdf-&gt;Output("test.pdf");
 </code></pre>
 
-	<br><time>2020-2-24</time>
+	<br><time>2020-2-24 | 2020-3-6</time>
 </div>
 
 
