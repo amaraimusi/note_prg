@@ -136,6 +136,27 @@
 </div>
 
 
+<div id="sec18-3" class="sec4">
+	<h3>メール送信 | mb_send_mail</h3>
+
+	<pre><code>
+	$to = "example@example.com"; // 宛先メールアドレス
+	$subject = "テストメールのタイトル";
+	$message = "こんにちは　テストメールです。\n本日の天気はいかがですか。";
+	$headers = "";
+	mb_send_mail($to, $subject, $message, $headers);
+	</code></pre>
+	<br>
+	このサンプルは、さくらレンタルサーバー（スタンダードプラン）の環境で動作する。
+	ローカル環境では動作しない。<br>
+	「$headers」は空でよい。下手に値を指定すると受信側にて警告メッセージが表示されてしまう。<br>
+	メール文章の改行は「\n」。
+	<br>
+
+	<br><time>2020-3-8</time>
+</div>
+
+
 <div id="sec18-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
