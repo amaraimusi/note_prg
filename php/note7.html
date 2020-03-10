@@ -295,6 +295,47 @@
 
 
 
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec7-5-3" class="sec1" >
+	<h3>セッションのエラー：Warning: session_start(): Cannot start session when headers already sent in ...</h3>
+	
+	session_start()を実行したときに下記の警告が表示されることがある。
+	<pre>Warning: session_start(): Cannot start session when headers already sent in ...</pre>
+	原因：session_start()が実行される前にechoなどの出力が発生すると、この警告が出る。<br>
+	対策は、session_start()をecho出力する処理の前に呼び出すこと。
+	もしくはob_start()とob_end_clean()を用いてecho出力を一旦クリアすることである。<br>
+	<br>
+	
+	wordpressプラグイン開発の際、wp-load.phpを読み込んだ時によく起こるエラー。
+	wp-load.phpは読込の際、なんらかのecho出力をしている疑いがある。
+	wp-load.phpの読込をob_start()とob_end_clean()で挟むと解決するようだ。
+	<pre>
+	ob_start();
+	include '../../../../wp-load.php';
+	// 注意:wp-load.phpは$_POSTの値をサニタイズしてしまう。サニタイズされると$_POSTに格納されているjson文字列がパースできなくなるので注意。
+	global $wpdb;
+	ob_end_clean();
+	session_start();
+	</pre>
+	<aside>wp-load.phpは$wpdb(DBアクセス)を使用するのに必要なモジュール</aside>
+	<br>
+
+	<time>2020-3-10</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 <div id="sec7-6" class="sec1" >
 	<h3>配列のキーと値を入れ替える | array_flip</h3>
