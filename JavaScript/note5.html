@@ -237,12 +237,16 @@
 	<pre>
 	/**
 	 * 日付チェック
+	 * 
+	 * @note
 	 * yyyy/mm/dd形式とyyyy-mm-dd形式に対応
 	 * 閏年に対応
+	 * 空値ならfalseを返す。
+	 * 
 	 * @param value
 	 * @returns true:入力OK    false:入力エラー
 	 */
-	function isDate(value){
+	_isDate(value){
 
 		var ary=value.split("/");
 		if(ary.length != 3){
@@ -251,18 +255,25 @@
 				return false;;
 			}
 		}
+		
+		let y = ary[0];
+		let m = ary[1];
+		let d = ary[2];
 
-		var y=parseInt(ary[0]);
-		var m=parseInt(ary[1]);
-		var d=parseInt(ary[2]);
-
+		let regexp = /^[0-9]*$/;
+		if(!regexp.test(y)) return false;
+		if(!regexp.test(m)) return false;
+		if(!regexp.test(d)) return false;
+		
 		var dt=new Date(y,m-1,d);
 		if(dt.getFullYear()!=y || dt.getMonth()!=m-1 || dt.getDate()!=d){
 			return false;
 		}
+		
 		return true;
 	}
 	</pre>
+	<time>2015/08/07 | 2020-3-12</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
@@ -295,9 +306,13 @@
 				return false;;
 			}
 		}
-
-		var y=parseInt(ary[0]);
-		var m=parseInt(ary[1]);
+		
+		let y = ary[0];
+		let m = ary[1];
+		
+		let regexp = /^[0-9]*$/;
+		if(!regexp.test(y)) return false;
+		if(!regexp.test(m)) return false;
 
 		var dt=new Date(y,m-1,1);
 		if(dt.getFullYear()!=y || dt.getMonth()!=m-1 ){
@@ -306,6 +321,8 @@
 		return true;
 	}
 	</pre>
+	
+	<time>2015/08/07 | 2020-3-12</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
