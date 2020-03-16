@@ -257,6 +257,29 @@ var_dump($data);
 </div>
 
 
+<div id="sec5-9" class="sec4" >
+	<h3>WordPressのセッション | Warning: session_start(): Cannot start session when headers already sent in ... </h3>
+	
+	WordPressプラグイン開発において、適当な場所で「session_start()」を記述すると下記の警告エラーが表示される。
+	<pre>Warning: session_start(): Cannot start session when headers already sent in ...</pre>
+	<br>
+	
+	確定ではないが、一時的な対策として以下の方法がある。
+	<pre><code>
+	add_action('init', function(){
+		if(session_status() !== PHP_SESSION_ACTIVE){
+			@session_start();
+		}
+	});
+	</code></pre>
+	「@」は警告を非表示するための記号。<br>
+	単に、「@session_start();」だけでもいいかもしれない...。<br>
+	<br>
+
+	<br><time>2020-3-16</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
