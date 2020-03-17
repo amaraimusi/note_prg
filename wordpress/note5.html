@@ -176,6 +176,74 @@
 </div>
 
 
+<div id="sec5-4-3" class="sec4" >
+	<h3>WordPressのCSS | 子テーマを作成</h3>
+	
+	<ol class="list_lg">
+		<li>
+			/wp-content/themesに子テーマのフォルダを作成し、その中に「style.css」を作成。
+			フォルダはテーマの名称になる。<br>
+			テーマ名の例：animal_child<br>
+			<img src="img/note5/sec5-4-3a1.png" />
+		</li>
+		<li>
+			style.cssにコメントを記述。
+			ここのコメントは一般への説明書という扱いになる。<br>
+			style.css
+			<pre>
+/*
+ Theme Name: Animal Child
+ Theme URI: 
+ Description: for test
+ Author: Kenji Uehara
+ Author URI: http://amaraimusi.sakura.ne.jp/
+ Template: twentynineteen
+ Version: 1.0.0
+ License: MIT
+ Tags: test
+ Text Domain:  
+*/
+
+/* 以降にCSSを記述 */
+div{color:red}
+span.xxx{color:red}
+			</pre>
+			Templateには親テーマのコード名称をセットする。<br>
+		</li>
+		<li>
+			ダッシュボードを開き、左メニューの「概観」をクリックすると、作成したテーマの情報が掲載されているので、
+			作成したテーマの有効化する。<br>
+			<img src="img/note5/sec5-4-3a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+		
+		function.phpに以下を記述。
+		<aside>プラグイン開発しているならモジュールに記述。</aside>
+		<pre>
+	add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
+	function theme_enqueue_styles() {
+		// 子スタイルの適用
+		wp_enqueue_style( 'child-style', '/wp-content/themes/animal-child/style.css');
+	}
+		</pre>
+		</li>
+		<li>
+			以上でサイトページに子テーマが適用されるようになる。
+		</li>
+		<li>
+			ダッシュボードから子テーマのCSSを編集できる。<br>
+			「ダッシュボード → 概観→ テーマエディター」で編集ページを開き、右上から該当のテーマを選択する。<br>
+			<img src="img/note5/sec5-4-3a3.png" class="img_compact_k" />
+			
+		</li>
+	</ol>
+	
+
+	<br><time>2020-3-17</time>
+</div>
+
+
 <div id="sec5-5" class="sec4" >
 	<h3>カスタムタクソノミーを追加 | register_taxonomy</h3>
 	
