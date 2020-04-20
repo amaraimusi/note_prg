@@ -140,6 +140,10 @@
 	<h3>メール送信 | mb_send_mail</h3>
 
 	<pre><code>
+	// 日本語文字化け対策
+	mb_language("Japanese");
+	mb_internal_encoding("UTF-8");
+
 	$to = "example@example.com"; // 宛先メールアドレス
 	$subject = "テストメールのタイトル";
 	$message = "こんにちは　テストメールです。\n本日の天気はいかがですか。";
@@ -153,7 +157,7 @@
 	メール文章の改行は「\n」。
 	<br>
 
-	<br><time>2020-3-8</time>
+	<br><time>2020-3-8 | 2020-4-20</time>
 </div>
 
 
