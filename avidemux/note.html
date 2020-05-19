@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Avidemuxの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Avidemuxの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Avidemuxの導入～動画カット～動画の出力</h3>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+		Avidemuxアプリは多くのアプリダウンロードサイトに散らばっているようである。
+		適切なアプリダウンロードサイトからダウンロードしてインストールする。<br>
+		<p>2020年5月の時点の最新</p>
+		Avidemux_2.7.5VC++64bits.exe<br>
+		<a href="http://avidemux.sourceforge.net/download.html" target="_blank">ダウンロードサイト（公式?）</a>
+		 
+		</li>
+		
+		<li>
+			Avidemuxを起動する。<br>
+			<img src="img/note/sec1_1a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			編集する動画ファイル(mp4ファイルなど)を読み込む。
+			<pre>File → Open</pre>
+			<img src="img/note/sec1_1a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			基本的な編集として、動画の先頭部分をカット（切り捨て）を行ってみる。<br>
+			まずは、スライダーを動かし、カットするポイントを選ぶ。<br>
+			<img src="img/note/sec1_1a3.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「B」ボタンを押して、範囲選択状態にする。<br>
+			<img src="img/note/sec1_1a4.png" class="" />
+			<aside>※「A」ボタンを押すと右側が選択状態になる。</aside>
+		</li>
+		
+		<li>
+			上部メニューの「Edit」から「cut」をクリックし範囲選択部分をカットする。(Edit→Deleteでも可)<br>
+			基本的なカット操作は以上になる。<br>
+			なお、カット操作はショートカットキー「Ctrl + x 」が便利。<br>
+			<img src="img/note/sec1_1a5.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			続いて、編集した動画の出力。<br>
+			オプションにより出力方法をいろいろいじれるが、今回は最もシンプルな方法で出力してみる。
+
+		</li>
+		
+		<li>
+		カット編集だけならVideo outputは「Copy」でも良い。<br>
+		字幕などの編集を行った場合は「Mpeg4 AVC」を選択する。ただし、出力に時間がかかる。<br>
+		<aside>Mpeg4 AVCにすると動画ファイル容量が少し圧縮される利点もある。</aside>
+		<br>
+		Output Formatにて「MP4 Muxer」を選択。<br>
+		<img src="img/note/sec1_1a6.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			保存ボタンを押下、ファイル名を入力。<br>
+			以上で動画ファイル(mp4)が出力される。<br>
+		<img src="img/note/sec1_1a7.png" class="img_compact_k" />
+		</li>
+	</ol>
+
+
+	<br><time>2020-5-19</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>指定コマのサムネイル画像を保存する</h3>
+
+	<ol>
+		<li>スライダーでサムネイル画像出力したいコマを選択。</li>
+		<li>File→Save as image→Save as PNG</li>
+	</ol>
+	<img src="img/note/sec1_2.png" class="img_compact_k" />
+	
+
+	<br><time>2020-5-19</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>字幕</h3>
+	
+	字幕は字幕テキストファイルとして別途用意する。
+	字幕テキストファイルはメモ帳などのテキストエディタで編集する。
+	字幕テキストファイルの拡張子は「.srt」、文字コードはUTF-8で保存する。
+	デフォルトで日本語にも対応している。<br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			字幕テキストファイルを新規作成し、下記のように字幕情報を入力。
+			<pre>
+1
+00:00:00,000 --> 00:00:03,000
+いろは歌
+いろはにほへと
+
+2
+00:00:05,000 --> 00:00:08,000
+ちりぬのを
+
+3
+00:00:10,000 --> 00:00:13,000
+わかよたれそ
+			</pre>
+		</li>
+		
+		<li>
+			ファイル名の拡張子を「srt」、文字コードをUTF-8にして保存する。<br>
+			例→sample.srt<br>
+			<img src="img/note/sec1_3a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			Avidemuxを開く。<br>
+			Video Outputにて「Mpeg4 AVC」を選択後、フィルタボタンを押下。<br>
+			<img src="img/note/sec1_3a2.png" class="img_compact_k" />
+			
+		</li>
+		
+		<li>
+			「字幕」を選択。<br>
+			<img src="img/note/sec1_3a3.png" class="img_compact_k" />
+		
+		</li>
+		
+		<li>
+			Availabel Filtersの「SSA/ASS/SRT」をクリック。<br>
+			字幕ファイルにて先ほど作成した字幕テキストファイル(sample.srt)を開く。<br>
+			フォントスケールにて文字を少し大きくする。<br>
+			OKボタンを押下。<br>
+			<img src="img/note/sec1_3a4.png" class="img_compact_k" />
+		
+		</li>
+		
+		<li>
+			「preview」ボタンを押すと字幕のプレビューができる。<br>
+			<img src="img/note/sec1_3a5.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			Output Formatで「MP4 Muxer」を選択後、保存ボタンを押す。<br>
+			すると字幕が追加された動画ファイルができあがる。<br>
+			<img src="img/note/sec1_3a6.png" class="img_compact_k" />
+			<img src="img/note/sec1_3a7.png" class="img_compact_k" />
+		</li>
+		
+		
+	</ol>
+
+
+	<br><time>2020-5-19</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2020-5-19</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/avidemux">Avidemuxの覚書</a></li>
+	<li>Avidemuxの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-5-19</div>
+</body>
+</html>
