@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>播種量表 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+	<script src="clm_show_hide.js"></script>
+	<script src="script.js"></script>
+
+	<style>
+	.csh_cb_div{
+		display:inline-block;
+		margin-right:10px;
+	}
+	.csh_func_btn{
+		display:inline-block;
+		margin-right:10px;
+	}
+	</style>
+</head>
+<body>
+<div id="header" ><h1>播種量表 | ワクガンス</h1></div>
+<div class="container">
+
+<h3>播種量表</h3>
+<input type="button" value="詳細" onclick="$('#btns1').toggle(300)" class="btn btn-info" />
+<div id="btns1" style="width:100%;display:none"></div>
+<table id="tbl1" class="tbl2">
+	<thead>
+		<tr><th>野菜名</th><th>畝幅F(cm)</th><th>畝幅T(cm)</th><th>条数F(本)</th><th>条数T</th><th>株間F(cm)</th><th>株間T(cm)</th><th>10a株数F</th><th>10a株数T</th><th>10a播種量F(dl)</th><th>10a播種量T</th><th>10a粒数F(粒)</th><th>10a粒数T(粒)</th><th>20ml粒数F(粒)</th><th>20ml粒数T(粒)</th><th>10㎡株数F</th><th>10㎡株数T</th><th>10㎡播種量F(cc)</th><th>10㎡播種量T</th><th>10㎡粒数F(粒)</th><th>10㎡粒数T(粒)</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>ダイコン</td><td>120</td><td>120</td><td>2</td><td>2</td><td>20</td><td>30</td><td>5,500</td><td>8500</td><td>4</td><td>6</td><td>14000</td><td>30000</td><td>700</td><td>1000</td><td>55</td><td>85</td><td>4</td><td>6</td><td>140</td><td>300</td></tr>
+		<tr><td>ハツカダイコン</td><td>90</td><td>90</td><td>4</td><td>4</td><td>3</td><td>5</td><td>90000</td><td>150,000</td><td>15</td><td>25</td><td>10000</td><td>16000</td><td>1300</td><td>1300</td><td>900</td><td>1500</td><td>15</td><td>25</td><td>100</td><td>160</td></tr>
+		<tr><td>ニンジン(除毛)</td><td>60</td><td>90</td><td>2</td><td>4</td><td>8</td><td>12</td><td>30000</td><td>60000</td><td>6</td><td>10</td><td>105000</td><td>250000</td><td>3500</td><td>5000</td><td>300</td><td>600</td><td>6</td><td>10</td><td>1050</td><td>2500</td></tr>
+		<tr><td>カブ(小型)</td><td>90</td><td>90</td><td>4</td><td>4</td><td>8</td><td>12</td><td>40000</td><td>60000</td><td>4</td><td>6</td><td>132000</td><td>225000</td><td>6600</td><td>7500</td><td>400</td><td>600</td><td>4</td><td>6</td><td>1320</td><td>2250</td></tr>
+		<tr><td>カブ(大型)</td><td>120</td><td>120</td><td>2</td><td>2</td><td>30</td><td>35</td><td>4500</td><td>5500</td><td>0.7</td><td>1.2</td><td>23100</td><td>45000</td><td>6,600</td><td>7,500</td><td>45</td><td>55</td><td>0.7</td><td>1.2</td><td>231</td><td>450</td></tr>
+		<tr><td>ゴボウ</td><td>60</td><td>70</td><td>1</td><td>1</td><td>10</td><td>10</td><td>15000</td><td>20000</td><td>10</td><td>15</td><td>32500</td><td>60000</td><td>650</td><td>800</td><td>150</td><td>200</td><td>10</td><td>15</td><td>325</td><td>600</td></tr>
+		<tr><td>タマネギ（育苗)</td><td>60</td><td>60</td><td>2</td><td>2</td><td>10</td><td>10</td><td>25000</td><td>35000</td><td>4</td><td>6</td><td>50000</td><td>90000</td><td>2500</td><td>3000</td><td>250</td><td>350</td><td>4</td><td>6</td><td>500</td><td>900</td></tr>
+		<tr><td>ハクサイ(育苗)</td><td>60</td><td>70</td><td>1</td><td>1</td><td>45</td><td>50</td><td>2,800</td><td>3,700</td><td>0.3</td><td>0.4</td><td>5,250</td><td>10000</td><td>3,500</td><td>5,000</td><td>28</td><td>37</td><td>0.3</td><td>0.4</td><td>52.5</td><td>100</td></tr>
+		<tr><td>ハクサイ(直まき)</td><td>60</td><td>70</td><td>1</td><td>1</td><td>45</td><td>50</td><td>2,800</td><td>3700</td><td>0.8</td><td>1</td><td>14000</td><td>20000</td><td>3,500</td><td>5000</td><td>28</td><td>37</td><td>0.8</td><td>1</td><td>140</td><td>200</td></tr>
+		<tr><td>キャベツ(育苗)</td><td>50</td><td>120</td><td>1</td><td>2</td><td>30</td><td>40</td><td>4,000</td><td>5500</td><td>0.3</td><td>0.4</td><td>4500</td><td>8000</td><td>3,000</td><td>5000</td><td>40</td><td>55</td><td>0.3</td><td>0.4</td><td>45</td><td>80</td></tr>
+		<tr><td>メキャベツ(育苗)</td><td>80</td><td>100</td><td>1</td><td>1</td><td>50</td><td>60</td><td>1,500</td><td>2500</td><td>0.2</td><td>0.3</td><td>3,500</td><td>6000</td><td>3,500</td><td>4000</td><td>15</td><td>25</td><td>0.2</td><td>0.3</td><td>35</td><td>60</td></tr>
+		<tr><td>セルリー</td><td>120</td><td>135</td><td>2</td><td>2</td><td>40</td><td>40</td><td>3,700</td><td>4000</td><td>0.2</td><td>0.3</td><td>30000</td><td>52500</td><td>30000</td><td>35000</td><td>37</td><td>40</td><td>0.2</td><td>0.3</td><td>300</td><td>525</td></tr>
+		<tr><td>アスパラガス</td><td>150</td><td>180</td><td>1</td><td>1</td><td>40</td><td>45</td><td>1,200</td><td>1700</td><td>0.6</td><td>0.8</td><td>2,100</td><td>3200</td><td>700</td><td>800</td><td>12</td><td>17</td><td>0.6</td><td>0.8</td><td>21</td><td>32</td></tr>
+		<tr><td>パセリ</td><td>135</td><td>135</td><td>2</td><td>2</td><td>15</td><td>20</td><td>7,000</td><td>9000</td><td>0.6</td><td>0.8</td><td>18000</td><td>30000</td><td>6,000</td><td>7500</td><td>70</td><td>90</td><td>0.6</td><td>0.8</td><td>180</td><td>300</td></tr>
+		<tr><td>レタス</td><td>45</td><td>180</td><td>1</td><td>4</td><td>27</td><td>35</td><td>6,300</td><td>8200</td><td>0.2</td><td>0.25</td><td>8,000</td><td>14300</td><td>7,000</td><td>11,500</td><td>63</td><td>82</td><td>0.2</td><td>0.25</td><td>80</td><td>143</td></tr>
+		<tr><td>リーフレタス</td><td>45</td><td>180</td><td>1</td><td>4</td><td>25</td><td>32</td><td>6,900</td><td>8900</td><td>0.25</td><td>0.3</td><td>8,750</td><td>17200</td><td>7,000</td><td>11500</td><td>69</td><td>89</td><td>0.25</td><td>0.3</td><td>87.5</td><td>172</td></tr>
+		<tr><td>カリフラワー</td><td>60</td><td>135</td><td>1</td><td>2</td><td>40</td><td>50</td><td>3,000</td><td>3,800</td><td>0.5</td><td>0.6</td><td>6,250</td><td>10500</td><td>2,500</td><td>3,500</td><td>30</td><td>38</td><td>0.5</td><td>0.6</td><td>62.5</td><td>105</td></tr>
+		<tr><td>ブロッコリー</td><td>60</td><td>135</td><td>1</td><td>2</td><td>40</td><td>50</td><td>3,000</td><td>4,500</td><td>0.3</td><td>0.4</td><td>3,750</td><td>7,000</td><td>2,500</td><td>3,500</td><td>30</td><td>45</td><td>0.3</td><td>0.4</td><td>37.5</td><td>70</td></tr>
+		<tr><td>ホウレンソウ(直まき)</td><td>110</td><td>140</td><td>4</td><td>6</td><td>3</td><td>7</td><td>70000</td><td>150000</td><td>30</td><td>50</td><td>90000</td><td>225000</td><td>600</td><td>900</td><td>700</td><td>1500</td><td>30</td><td>50</td><td>900</td><td>2250</td></tr>
+		<tr><td>ホウレンソウ(ネーキッド)</td><td>110</td><td>140</td><td>4</td><td>6</td><td>3</td><td>7</td><td>70000</td><td>150000</td><td>8</td><td>15</td><td>92000</td><td>195000</td><td>2,300</td><td>2,600</td><td>700</td><td>1500</td><td>8</td><td>15</td><td>920</td><td>1950</td></tr>
+		<tr><td>シソ（青・赤）</td><td>120</td><td>120</td><td>2</td><td>2</td><td>15</td><td>20</td><td>80,000</td><td>110000</td><td>2</td><td>3</td><td>100000</td><td>180000</td><td>10000</td><td>12000</td><td>800</td><td>1100</td><td>2</td><td>3</td><td>1000</td><td>1800</td></tr>
+		<tr><td>コマツナ</td><td>100</td><td>150</td><td>4</td><td>5</td><td>3</td><td>5</td><td>200000</td><td>300000</td><td>13</td><td>20</td><td>227000</td><td>500000</td><td>3,500</td><td>5,000</td><td>2000</td><td>3000</td><td>13</td><td>20</td><td>2270</td><td>5000</td></tr>
+		<tr><td>ミズナ</td><td>100</td><td>150</td><td>3</td><td>5</td><td>5</td><td>15</td><td>30000</td><td>100000</td><td>2</td><td>5</td><td>80000</td><td>200000</td><td>5,000</td><td>8,000</td><td>300</td><td>1000</td><td>2</td><td>5</td><td>800</td><td>2000</td></tr>
+		<tr><td>シュンギク</td><td>100</td><td>180</td><td>5</td><td>7</td><td>15</td><td>20</td><td>30000</td><td>50000</td><td>20</td><td>30</td><td>300000</td><td>675000</td><td>3,000</td><td>4,500</td><td>300</td><td>500</td><td>20</td><td>30</td><td>3000</td><td>6750</td></tr>
+		<tr><td>ネギ(直まき)</td><td>90</td><td>90</td><td>4</td><td>4</td><td>1</td><td>1</td><td>400000</td><td>500000</td><td>30</td><td>40</td><td>450000</td><td>1000000</td><td>3,000</td><td>5,000</td><td>4000</td><td>5000</td><td>30</td><td>40</td><td>4500</td><td>10000</td></tr>
+		<tr><td>ネギ(根深)</td><td>70</td><td>90</td><td>1</td><td>1</td><td>3</td><td>4</td><td>40000</td><td>50000</td><td>5</td><td>7</td><td>75000</td><td>175000</td><td>3,000</td><td>5,000</td><td>400</td><td>500</td><td>5</td><td>7</td><td>750</td><td>1750</td></tr>
+		<tr><td>チンゲンサイ</td><td>100</td><td>120</td><td>3</td><td>4</td><td>10</td><td>20</td><td>20000</td><td>40000</td><td>1</td><td>2</td><td>27500</td><td>55000</td><td>5,500</td><td>5,500</td><td>200</td><td>400</td><td>1</td><td>2</td><td>275</td><td>550</td></tr>
+		<tr><td>トマト大玉</td><td>180</td><td>180</td><td>2</td><td>2</td><td>40</td><td>50</td><td>2,400</td><td>2,400</td><td>0.3</td><td>0.4</td><td>2,700</td><td>3,600</td><td>1,800</td><td>1,800</td><td>24</td><td>24</td><td>0.3</td><td>0.4</td><td>27</td><td>36</td></tr>
+		<tr><td>トマト中玉</td><td>180</td><td>180</td><td>2</td><td>2</td><td>40</td><td>50</td><td>1,800</td><td>2,400</td><td>0.2</td><td>0.4</td><td>2,000</td><td>4,600</td><td>2,000</td><td>2,300</td><td>18</td><td>24</td><td>0.2</td><td>0.4</td><td>20</td><td>46</td></tr>
+		<tr><td>ミニトマト</td><td>180</td><td>180</td><td>2</td><td>2</td><td>40</td><td>50</td><td>1,800</td><td>2,400</td><td>0.2</td><td>0.3</td><td>3,100</td><td>4,600</td><td>1500</td><td>6000</td><td>18</td><td>24</td><td>0.2</td><td>0.3</td><td>31</td><td>46</td></tr>
+		<tr><td>キュウリ育苗</td><td>270</td><td>270</td><td>2</td><td>2</td><td>60</td><td>60</td><td>1,200</td><td>1,200</td><td>0.8</td><td>1</td><td>1,920</td><td>2,400</td><td>480</td><td>480</td><td>12</td><td>12</td><td>0.8</td><td>1</td><td>19.2</td><td>24</td></tr>
+		<tr><td>ナス育苗</td><td>180</td><td>180</td><td>1</td><td>1</td><td>60</td><td>60</td><td>900</td><td>900</td><td>0.2</td><td>0.3</td><td>2,000</td><td>3,600</td><td>2,000</td><td>2,400</td><td>9</td><td>9</td><td>0.2</td><td>0.3</td><td>20</td><td>36</td></tr>
+		<tr><td>ピーマン育苗</td><td>150</td><td>150</td><td>1</td><td>1</td><td>45</td><td>45</td><td>1,500</td><td>1,500</td><td>0.3</td><td>0.4</td><td>2,250</td><td>3,000</td><td>1,500</td><td>1,500</td><td>15</td><td>15</td><td>0.3</td><td>0.4</td><td>22.5</td><td>30</td></tr>
+		<tr><td>パプリカ育苗</td><td>150</td><td>150</td><td>1</td><td>1</td><td>25</td><td>45</td><td>1,500</td><td>2,700</td><td>0.3</td><td>0.5</td><td>2,250</td><td>3,750</td><td>1,500</td><td>1,500</td><td>15</td><td>27</td><td>0.3</td><td>0.5</td><td>22.5</td><td>37.5</td></tr>
+		<tr><td>トウガラシ育苗</td><td>150</td><td>150</td><td>1</td><td>1</td><td>45</td><td>45</td><td>1,500</td><td>1,500</td><td>0.3</td><td>0.4</td><td>2,250</td><td>3,000</td><td>1,500</td><td>1,500</td><td>15</td><td>15</td><td>0.3</td><td>0.4</td><td>22.5</td><td>30</td></tr>
+		<tr><td>カボチャ日本種</td><td>250</td><td>250</td><td>1</td><td>1</td><td>75</td><td>75</td><td>550</td><td>550</td><td>2</td><td>2</td><td>1,000</td><td>1000</td><td>50000</td><td>50000</td><td>5.5</td><td>5.5</td><td>2</td><td>2</td><td>10</td><td>10</td></tr>
+		<tr><td>カボチャ西洋種</td><td>270</td><td>270</td><td>1</td><td>1</td><td>75</td><td>75</td><td>500</td><td>500</td><td>4</td><td>6</td><td>720</td><td>1,500</td><td>18,000</td><td>25,000</td><td>5</td><td>5</td><td>4</td><td>6</td><td>7.2</td><td>15</td></tr>
+		<tr><td>スイカ育苗</td><td>270</td><td>270</td><td>1</td><td>1</td><td>75</td><td>90</td><td>400</td><td>500</td><td>0.5</td><td>0.6</td><td>625</td><td>750</td><td>250</td><td>250</td><td>4</td><td>5</td><td>0.5</td><td>0.6</td><td>6.25</td><td>7.5</td></tr>
+		<tr><td>マクワ育苗</td><td>250</td><td>250</td><td>1</td><td>1</td><td>80</td><td>80</td><td>500</td><td>500</td><td>0.2</td><td>0.2</td><td>840</td><td>900</td><td>840</td><td>900</td><td>5</td><td>5</td><td>0.2</td><td>0.2</td><td>8.4</td><td>9</td></tr>
+		<tr><td>メロン（立ち）</td><td>120</td><td>120</td><td>1</td><td>1</td><td>40</td><td>40</td><td>2,100</td><td>2,100</td><td>1.6</td><td>1.6</td><td>2,400</td><td>3,200</td><td>300</td><td>400</td><td>21</td><td>21</td><td>1.6</td><td>1.6</td><td>24</td><td>32</td></tr>
+		<tr><td>メロン（地這い）</td><td>250</td><td>250</td><td>1</td><td>1</td><td>60</td><td>60</td><td>660</td><td>660</td><td>0.6</td><td>0.6</td><td>900</td><td>1,200</td><td>300</td><td>400</td><td>6.6</td><td>6.6</td><td>0.6</td><td>0.6</td><td>9</td><td>12</td></tr>
+		<tr><td>シロウリ育苗</td><td>240</td><td>240</td><td>1</td><td>1</td><td>100</td><td>100</td><td>400</td><td>400</td><td>0.3</td><td>0.3</td><td>900</td><td>900</td><td>600</td><td>600</td><td>4</td><td>4</td><td>0.3</td><td>0.3</td><td>9</td><td>9</td></tr>
+		<tr><td>ニガウリ育苗</td><td>270</td><td>270</td><td>2</td><td>2</td><td>80</td><td>80</td><td>800</td><td>1,000</td><td>5</td><td>5</td><td>1,000</td><td>1,500</td><td>40</td><td>60</td><td>8</td><td>10</td><td>5</td><td>5</td><td>10</td><td>15</td></tr>
+		<tr><td>エダマメ</td><td>60</td><td>60</td><td>1</td><td>1</td><td>25</td><td>25</td><td>6,000</td><td>7,000</td><td>80</td><td>100</td><td>18400</td><td>30000</td><td>23,000</td><td>30,000</td><td>60</td><td>70</td><td>80</td><td>100</td><td>184</td><td>300</td></tr>
+		<tr><td>実エンドウ</td><td>150</td><td>150</td><td>1</td><td>1</td><td>20</td><td>20</td><td>3,000</td><td>4,000</td><td>30</td><td>50</td><td>6,000</td><td>19200</td><td>20,000</td><td>48,000</td><td>30</td><td>40</td><td>30</td><td>50</td><td>60</td><td>192</td></tr>
+		<tr><td>莢エンドウ</td><td>150</td><td>150</td><td>1</td><td>1</td><td>10</td><td>10</td><td>6,000</td><td>7,000</td><td>70</td><td>90</td><td>14000</td><td>43200</td><td>20,000</td><td>48,000</td><td>60</td><td>70</td><td>70</td><td>90</td><td>140</td><td>432</td></tr>
+		<tr><td>インゲン(ツル有)</td><td>200</td><td>200</td><td>2</td><td>2</td><td>45</td><td>45</td><td>2,200</td><td>2,200</td><td>30</td><td>40</td><td>2,700</td><td>16000</td><td>9000</td><td>40,000</td><td>22</td><td>22</td><td>30</td><td>40</td><td>27</td><td>160</td></tr>
+		<tr><td>ツル無</td><td>120</td><td>120</td><td>2</td><td>2</td><td>35</td><td>35</td><td>4,700</td><td>4,700</td><td>60</td><td>70</td><td>12000</td><td>21000</td><td>20,000</td><td>30,000</td><td>47</td><td>47</td><td>60</td><td>70</td><td>120</td><td>210</td></tr>
+		<tr><td>ソラマメ育苗</td><td>120</td><td>150</td><td>1</td><td>1</td><td>40</td><td>50</td><td>1,600</td><td>2,000</td><td>110</td><td>120</td><td>2,750</td><td>6,600</td><td>2500</td><td>5500</td><td>16</td><td>20</td><td>110</td><td>120</td><td>27.5</td><td>66</td></tr>
+		<tr><td>ラッカセイ</td><td>60</td><td>60</td><td>1</td><td>1</td><td>35</td><td>35</td><td>4,700</td><td>4,700</td><td>110</td><td>120</td><td>6,000</td><td>7,200</td><td>5500</td><td>6000</td><td>47</td><td>47</td><td>110</td><td>120</td><td>60</td><td>72</td></tr>
+		<tr><td>オクラ</td><td>150</td><td>150</td><td>2</td><td>2</td><td>30</td><td>30</td><td>8,000</td><td>10,000</td><td>40</td><td>40</td><td>40,000</td><td>40,000</td><td>100,000</td><td>100,000</td><td>80</td><td>100</td><td>40</td><td>40</td><td>400</td><td>400</td></tr>
+		<tr><td>スイートコーン</td><td>150</td><td>150</td><td>2</td><td>2</td><td>30</td><td>30</td><td>4,500</td><td>4,500</td><td>40</td><td>60</td><td>11200</td><td>19200</td><td>28,000</td><td>32,000</td><td>45</td><td>45</td><td>40</td><td>60</td><td>112</td><td>192</td></tr>
+
+	</tbody>
+</table>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/halther/">農業の覚書</a></li>
+	<li>播種量表</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-6-13</div>
+</body>
+</html>
