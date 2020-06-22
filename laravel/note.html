@@ -30,9 +30,16 @@
 	
 	<aside>コマンド実行にはGit Bashを利用</aside>
 	Laravel5.7は<span class="text-danger">PHP7.1.3</span>以上を必要とするので注意<br>
+	<aside>Laravel7も同様な方法でインストール可能（2020/6/22)</aside><br>
 	<br>
 	
+	<p>手順</p>
 	<ol class="list_large">
+	
+		<li>
+			php.iniをテキストエディタで開き、「;」を外して「extension=php_intl.dll」を有効にする。<br>
+			<aside>php.iniを書き換えたらApacheの再起動を忘れずに。</aside>
+		</li>
 		
 		<li>
 			プロジェクトを作成する任意にディレクトリへ移動
@@ -41,9 +48,13 @@
 		
 		<li>
 			composerのコマンドでLaravel5をインストールする。<br>
-			<aside>数分かかる。</aside>
+			
 			<pre class="console">$ composer create-project "laravel/laravel=5.7.*" dev</pre>
-			<aside>devとなっている箇所は任意。インストール先ディレクトリの名前になる。</aside>
+	
+			インストールには数分かかる。 <br>
+			devとなっている箇所は任意。インストール先ディレクトリの名前になる。 <br>
+			<aside><a href="/note_prg/php/note_composer.html#s1_2" >Windows環境でcomposerコマンドを使えるようにするには？【2020年】</a></aside>
+	
 		</li>
 		
 		<li>
@@ -55,7 +66,7 @@
 	</ol>
 
 
-	<br><time>2019-2-16</time>
+	<br><time>2019-2-16 | 2020-6-22</time>
 </div>
 
 
