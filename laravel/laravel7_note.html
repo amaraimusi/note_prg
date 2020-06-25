@@ -95,6 +95,25 @@
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>Laravel7に「$this->beforeFilter(...)」がないことに対する考察</h3>
+
+	Laravel7にて、コントローラに事前処理である「$this->beforeFilter(...)」を組み込もうとしたらエラーになった。<br>
+	継承元のController.phpを調べてもbeforeFilterメソッドは存在しない。
+	Controller.phpはBaseControllerを継承しているが、BaseController.phpクラスファイル自体が存在しない。
+	必要なら自前でBaseController.phpとbeforeFilterメソッドを用意するということらしい。
+	こうした仕様は、恐らく、各所に見られると思われる。
+	<br>
+
+<pre><code>
+//class NekoController extends Controller 
+class NekoController // → 「Controller」を継承しなくても動作する
+{
+</code></pre>
+	<br><time>2020-6-25</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
