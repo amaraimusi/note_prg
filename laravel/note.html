@@ -231,8 +231,10 @@ class YagisController extends Controller
 	{
 		public function bark() {
 			
-			$data2 = <span class="text-danger">DB::select</span>.('select * from yagis where id=2');
+			//$data2 = <span class="text-danger">DB::select</span>('select * from yagis where id=2');
 			// $data2 = DB::connection('<span class="text-primary">mysql</span>')-&gt;select('select * from yagis where id=2'); // ← DB接続設定を指定する場合
+			$data2 = &yen;<span class="text-danger">DB::select</span>('select * from yagis where id=2'); // Laravel7の場合、「&yen;」を付ける必要がある。
+			
 			
 			var_dump($data2);
 			return view('yagis.bark', compact('data2'));
@@ -247,7 +249,7 @@ class YagisController extends Controller
 	<br>
 
 
-	<br><time>2019-2-25</time>
+	<br><time>2019-2-25 | 2020-6-26</time>
 </div>
 
 
