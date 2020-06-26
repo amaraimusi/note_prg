@@ -142,6 +142,63 @@ class NekoController // → 「Controller」を継承しなくても動作する
 </div>
 
 
+<div id="sec1-6" class="sec4" >
+	<h3>Laravelのモデル</h3>
+	
+	<p>Laravelのモデルに対する考え方</p>
+	「開発者ごとにモデルに対する考えは異なる」という理由から、Modelsディレクトリは用意されていない。
+	必要なら自分でModelsディレクトリを用意してもいいし、別のディレクトリ名を付けてもいい。
+	Laravelはモデルについて型を厳密に定めておらず、それぞれの開発者に任せているようだ。
+	Laravel7の場合、デフォルトでのモデルクラスの置き場所は、appディレクトリの直下になっている。<br>
+	<br>
+	
+	<p>モデル名の通例</p>
+	ルールというわけでもないが、CakePHPのようにテーブル名がred_catsならモデル名はRedCatとするのが通例。<br>
+	<br>
+	
+	<p>artisanコマンドでモデルを作成</p>
+	<pre>$ php artisan make:model RedCat</pre>
+	上記のコマンドを実行するとappディレクトリの直下にRedCat.phpモデルクラスファイルが作成される。
+	<aside>※ cdコマンドでプロジェクトのルートディレクトに移動してからartisanコマンドを実行すること</aside>
+	<br>
+	
+	<p>ディレクトリを指定しながらartisanコマンドでモデルを作成</p>
+	<pre>$ php artisan make:model Models/RedCat</pre>
+	appディレクトリにModelsフォルダが作成され、その中にRedCat.phpモデルクラスファイルが作成される。<br>
+	<br>
+	
+	<p>例：作成されたモデルクラスのソースコード</p>
+	<pre><code>
+	&lt;?php
+	
+	namespace App;
+	
+	use Illuminate\Database\Eloquent\Model;
+	
+	class RedCat extends Model
+	{
+	    //
+	}
+	</code></pre><br>
+	
+	<p>コントローラからモデルを使う</p>
+	<pre>
+&lt;?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+<strong>use App\Models\RedCat;</strong>
+
+class NekoController
+{
+	public function index(){
+		$md = new <strong>RedCat();</strong>
+	</pre>
+	
+	<br><time>2020-6-25</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
