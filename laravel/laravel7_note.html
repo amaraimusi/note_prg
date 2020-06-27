@@ -199,6 +199,37 @@ class NekoController
 </div>
 
 
+<div id="sec1-7" class="sec4" >
+	<h3>モデルをテーブルと関連付ける</h3>
+	
+	<pre>
+namespace App&yen;Models;
+
+use Illuminate&yen;Database&yen;Eloquent&yen;Model;
+
+class Neko extends Model
+{
+	<strong>protected $table = 'nekos';</strong> // 紐づけるテーブル名
+	protected $guarded = ['id']; // 予期せぬ代入をガード。 通常、主キーフィールドや、パスワードフィールドなどが指定される。
+	public $timestamps = false; // タイムスタンプ。 trueならcreated_atフィールド、updated_atフィールドに適用される。（それ以外のフィールドを設定で指定可）
+	
+	public function getData(){
+
+		$query = &yen;DB::table($this-&gt;table);
+		$query-&gt;where('id', 4);
+		$data = $query-&gt;get();
+		
+		dump($data); // ダンプ
+		return $data;
+	}
+}
+	</pre>
+
+
+	<br><time>2020-6-27</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
