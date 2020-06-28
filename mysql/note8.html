@@ -196,6 +196,47 @@
 
 
 
+<div id="sec8-7" class="sec4" >
+	<h3>rootのパスワードを変更→ phpMyAdminで接続できません mysqli::real_connect(): (HY000/1045) ...</h3>
+	
+	rootのパスワードを変更すると、phpMyAdminで以下のエラーが発生して接続できなくなる。<br>
+	<br>
+	
+	<pre>
+	エラー
+	MySQL のメッセージ: ドキュメント
+	
+	接続できません。設定が無効です。
+	 mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+	 MySQL サーバに接続しようとしましたが拒否されました。config.inc.php のホスト、ユーザ名、パスワードが MySQL サーバの管理者から与えられた情報と一致するか確認してください。
+	</pre>
+	<img src="img/note8/sec8-7a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	<p>修正手順</p>
+	<ol class="list_lg">
+		<li>
+			config.inc.phpをテキストエディタで開く<br>
+			xamppの場合の例→C:\xampp\phpMyAdmin\config.inc.php
+		</li>
+		<li>
+			passwordの箇所にrootに設定しているパスワードを入力<br>
+			<img src="img/note8/sec8-7a2.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			XAMPP Control PanelなどにてMySQLを再起動<br>
+			以上で修正完了
+		</li>
+	</ol>
+	
+
+
+
+	<br><time>2020-6-28</time>
+</div>
+
+
+
 <div id="sec8-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
