@@ -252,6 +252,37 @@ $users = DB::table('users')
 </div>
 
 
+
+<div id="sec1-9" class="sec4" >
+	<h3>DB: IN句</h3>
+
+	<pre><code>
+	$data = &yen;DB::table('nekos')
+		-&gt;whereIn('id', [1, 2, 3, 4])
+		-&gt;get();
+	</code></pre>
+
+	<br><time>2020-6-29</time>
+</div>
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>DB: NOT IN句 | whereNotIn</h3>
+	
+	<pre><code>
+		$data = &yen;DB::table('nekos')
+			-&gt;<strong>whereNotIn</strong>('neko_name', ['buta', 'ゴボウ', 'ハマダイコン'])
+			-&gt;get();
+	</code></pre>
+	
+	上記のクエリビルダで作成されたSQL
+	<pre>select * from `nekos` where `neko_name` not in (?, ?, ?)</pre>
+	<br>
+
+	<br><time>2020-6-29</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
