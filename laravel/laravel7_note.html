@@ -230,6 +230,28 @@ class Neko extends Model
 </div>
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>DB: WHEREの基本</h3>
+
+	<pre><code>
+$users = DB::table('users')
+                ->where('votes', '>=', 100)
+                ->get();
+
+$users = DB::table('users')
+                ->where('votes', '<>', 100)
+                ->get();
+
+$users = DB::table('users')
+                ->where('name', 'like', 'T%')
+                ->get();
+	</code></pre>
+	<a href="https://readouble.com/laravel/5.7/ja/queries.html" target="_blank">公式ドキュメント</a>より抜粋
+
+	<br><time>2020-6-29</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
