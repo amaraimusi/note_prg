@@ -154,6 +154,31 @@
 </div>
 
 
+<div id="sec2-5" class="sec4" >
+	<h3>DB: BETWEEN演算子 | whereBetween | whereNotBetween</h3>
+	
+	<p>whereBetween</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereBetween ('neko_val', [2,4]);
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `neko_val` between ? and ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre><br>
+	
+	<p>whereNotBetween</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereNotBetween ('neko_val', [2,4]);
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `neko_val` not between ? and ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+	<br><time>2020-6-29</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
