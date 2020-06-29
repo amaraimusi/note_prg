@@ -120,8 +120,37 @@
 	</code></pre>
 	出力<p>
 	<img src="img/laravel7_note2/sec2-3a1.png" class="img_compact_k" />
+	<br><br>
+	
+	<p>オペレータの指定もできる</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereColumn ('created', '&lt;', 'modified');
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `created` &lt; `modified`"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
 
 	<br><time>2020-6-29</time>
+</div>
+
+
+<div id="sec2-4" class="sec4"  >
+	<h3>複数のWHERE条件</h3>
+	
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;where ([
+			['neko_name', 'kame'],
+			['neko_val', 3],
+	]);
+	dump($query-&gt;toSql()); // →"select * from `nekos` where (`neko_name` = ? and `neko_val` = ?)"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+
+	<br><time>2020-6-30</time>
 </div>
 
 
