@@ -53,6 +53,78 @@
 </div>
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>DB: 日時の検索 whereDate / whereMonth / whereDay / whereYear / whereTime</h3>
+
+	<p>whereDate</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereDate ('neko_dt', '2014-04-28');
+	dump($query-&gt;toSql()); // → "select * from `nekos` where date(`neko_dt`) = ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+	出力<br>
+	<img src="img/laravel7_note2/sec2-2a1.png" class="img_compact_k" />
+	<br>
+	
+	<p>whereMonth</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereMonth ('neko_dt', '4'); // 「04」表記も検索対象
+	dump($query-&gt;toSql()); // → "select * from `nekos` where month(`neko_dt`) = ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+	<p>whereDay</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereDay ('neko_dt', 28);
+	dump($query-&gt;toSql()); // → "select * from `nekos` where day(`neko_dt`) = ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+	
+	<p>whereYear</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereYear ('neko_dt', 2014);
+	dump($query-&gt;toSql()); // → "select * from `nekos` where year(`neko_dt`) = ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+	
+	<p>whereTime</p>
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereTime ('neko_dt', '10:05:00'); // 秒を省略して時分（10:05)での検索も可能
+	dump($query-&gt;toSql()); // → "select * from `nekos` where time(`neko_dt`) = ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+	<br><time>2020-6-29</time>
+</div>
+
+
+<div id="sec2-3" class="sec4" >
+	<h3>DB: ２つのカラムが同値のレコードを検索 | whereColumn</h3>
+
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;whereColumn ('created', 'modified');
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `created` = `modified`"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+	出力<p>
+	<img src="img/laravel7_note2/sec2-3a1.png" class="img_compact_k" />
+
+	<br><time>2020-6-29</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
