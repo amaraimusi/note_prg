@@ -46,6 +46,36 @@
 
 
 
+<div id="sec3-2" class="sec4"  >
+	<h3>DB: 大型データの分割処理 チャンク</h3>
+	
+	数万件ものデータをDBから取得しようとするとメモリーオーバーのエラーが発生する場合がある。
+	このエラーを回避する仕組みとしてチャンクという技術がある。
+	チャンクとは大きな塊という意味。<br>
+	例えば10万件のデータを処理する場合、
+	一度に10万件をDBから取得するのでなく、1000件ずつの塊（チャンク）を少しずつ取得して処理を行うなら、
+	メモリーオーバーエラーを回避できる。<br>
+	<br>
+	
+	下記の例は4件ずつデータを取得し、その4件のデータをループしつつなんらかの処理を行っている。
+	<pre><code>
+	&yen;DB::table('nekos')-&gt;orderBy('id')-&gt;chunk(4, function ($chunk) {
+		dump(count($chunk));// → 4 → 4件ずつDBからデータ取得していることを意味している。
+		foreach ($chunk as $ent) {
+			$ent = (array)$ent;
+			// ～ なんらかの処理
+		}
+	});
+	</code></pre>
+	
+	ダンプ<br>
+	<img src="img/laravel7_note3/sec3-2a1.png" class="img_compact_k" /><br>
+
+	<br><time>2020-6-30</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
