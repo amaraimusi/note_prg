@@ -252,6 +252,23 @@
 </div>
 
 
+<div id="sec2-10" class="sec4" >
+	<h3>DB: GROUP BY句 | groupBy</h3>
+
+	<pre><code>
+	$query = &yen;DB::table('nekos')
+		-&gt;select(&yen;DB::raw('count(id) as count, neko_group'))
+		-&gt;groupBy('neko_group');
+	dump($query-&gt;toSql()); // → "select count(id) as count, neko_group from `nekos` group by `neko_group`"
+	
+	$value = $query-&gt;get();
+	dump($value);
+	</code></pre>
+
+	<br><time>2020-6-30</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
