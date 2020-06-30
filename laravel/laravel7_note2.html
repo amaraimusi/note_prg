@@ -216,6 +216,24 @@
 </div>
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>DB: 単一の値を取得</h3>
+	
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;where('id', '=', 4);
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `id` = ?"
+	
+	$value = $query-&gt;<strong>value('neko_name')</strong>;
+	dump($value);
+	</code></pre>
+	出力<br>
+	<img src="img/laravel7_note2/sec2-8a1.png" /><br>
+	
+
+	<br><time>2020-6-30</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
