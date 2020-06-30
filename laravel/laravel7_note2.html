@@ -179,6 +179,24 @@
 </div>
 
 
+<div id="sec2-6" class="sec4"  >
+	<h3>DB: OR節WHERE</h3>
+	
+	<pre><code>
+	$query = &yen;DB::table('nekos')
+		-&gt;where('neko_name', '=', 'ゴボウ')
+		-&gt;orWhere('neko_val', '&lt;', 4);
+		dump($query-&gt;toSql()); // →"select * from `nekos` where `neko_name` = ? or `neko_val` &lt; ?"
+	
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+
+	<br><time>2020-6-30</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
