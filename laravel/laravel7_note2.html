@@ -197,6 +197,25 @@
 </div>
 
 
+<div id="sec2-7" class="sec4"  >
+	<h3>DB: リスト(配列）として取得</h3>
+	
+	<pre><code>
+	$query = &yen;DB::table('nekos')-&gt;where('neko_val', '&lt;', 5);
+	dump($query-&gt;toSql()); // →"select * from `nekos` where `neko_val` &lt; ?"
+	
+	$list = $query-&gt;<strong>pluck('neko_name')</strong>;
+	dump($list);
+	</code></pre>
+	出力<br>
+	<img src="img/laravel7_note2/sec2-7a1.png" class="img_compact_k" /><br>
+	
+
+
+	<br><time>2020-6-29</time>
+</div>
+
+
 <div id="sec2-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
