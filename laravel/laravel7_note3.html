@@ -76,6 +76,19 @@
 
 
 
+<div id="sec3-3" class="sec4" >
+	<h3>DB: レコードの存在チェック</h3>
+	
+	<pre><code>
+	$res = &yen;DB::table('nekos')-&gt;where('id', 4)-&gt;exists(); // true:レコード存在, false:存在しない
+	</code></pre>
+	<aside>existsとは逆の判定をするdoesntExistメソッドもある。これはレコードがなければtrue。</aside>
+
+	<br><time>2020-6-30</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
