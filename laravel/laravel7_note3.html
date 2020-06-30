@@ -89,6 +89,25 @@
 
 
 
+<div id="sec3-4" class="sec4"  >
+	<h3>DB: LIMITとOFFSET</h3>
+	
+	<pre><code>
+	$query = &yen;DB::table('nekos')
+		-&gt;offset(10)
+		-&gt;limit(5);
+	dump($query-&gt;toSql()); // → "select * from `nekos` limit 5 offset 10"
+		
+	$data = $query-&gt;get();
+	dump($data);
+	</code></pre>
+
+
+	<br><time>2020-6-30</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
