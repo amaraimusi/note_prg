@@ -152,6 +152,24 @@
 
 
 
+<div id="sec3-7" class="sec4"  >
+	<h3>DB: SELECT句</h3>
+	
+	<pre><code>
+		$query = &yen;DB::table('nekos')-&gt;
+			select('id', 'neko_name as cat', 'neko_val', 'neko_date');
+		dump($query-&gt;toSql()); // →"select `id`, `neko_name` as `cat`, `neko_val`, `neko_date` from `nekos`"
+		
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+
+
+	<br><time>2020-6-30</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
