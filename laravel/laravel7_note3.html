@@ -108,6 +108,31 @@
 
 
 
+<div id="sec3-5" class="sec4"  >
+	<h3>DB: ORDER BY句 | orderBy</h3>
+	
+	<pre><code>
+		$query = &yen;DB::table('nekos')-&gt;orderBy('neko_name');
+		dump($query-&gt;toSql()); // → "select * from `nekos` order by `neko_name` asc"
+			
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+	
+	<p>DESC</p>
+	<pre><code>
+		$query = &yen;DB::table('nekos')-&gt;orderBy('neko_name', 'desc');
+		dump($query-&gt;toSql()); // →"select * from `nekos` order by `neko_name` desc"
+		
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+
+	<br><time>2020-7-1</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
