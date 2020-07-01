@@ -147,7 +147,7 @@
 	</code></pre>
 
 
-	<br><time>2020-6-30</time>
+	<br><time>2020-7-1</time>
 </div>
 
 
@@ -165,7 +165,25 @@
 	</code></pre>
 
 
-	<br><time>2020-6-30</time>
+	<br><time>2020-7-1</time>
+</div>
+
+
+
+<div id="sec3-8" class="sec4" >
+	<h3>DB: SELECTの直接記述 | selectRaw </h3>
+	
+	<pre><code>
+		$query = &yen;DB::table('nekos')-&gt;
+			selectRaw('id, neko_name, neko_val as CatValue');
+		dump($query-&gt;toSql()); // →"select id, neko_name, neko_val as CatValue from `nekos`"
+		
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+
+
+	<br><time>2020-7-1</time>
 </div>
 
 
