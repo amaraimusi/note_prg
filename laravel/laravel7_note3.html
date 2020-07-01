@@ -133,6 +133,25 @@
 
 
 
+<div id="sec3-6" class="sec4"  >
+	<h3>DB: WHEREの直接記述 | whereRaw</h3>
+	
+	<pre><code>
+		$query = &yen;DB::table('nekos')-&gt;
+			whereRaw('neko_val = 4')-&gt;
+			orderByRaw('neko_name desc');
+		dump($query-&gt;toSql()); // →"select * from `nekos` where neko_val = 4 order by neko_name desc"
+		
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+
+
+	<br><time>2020-6-30</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
