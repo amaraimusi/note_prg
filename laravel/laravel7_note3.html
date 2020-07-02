@@ -233,6 +233,38 @@
 
 
 
+<div id="sec3-10" class="sec4" >
+	<h3>セッションへの書き込み、または読み取り | session</h3>
+	
+	セッションへ書き込み
+	<pre><code>
+	&yen;Session::put('neko_key', '赤猫');
+	
+	// 配列も指定可能
+	&yen;Session::put('dog_key', ['dog_name'=>'白犬', 'age'=>10]);
+	</code></pre><br>
+	<aside>
+
+	</aside>
+	<br>
+	
+	セッションから読み取り
+	<pre><code>
+	$value = session('neko_key');
+	</code></pre><br>
+	
+	<p>注意事項</p>
+	<ul>
+		<li>セッションへの書き込みに 「session('neko_key', '赤猫');」という記述方法が紹介されているが、同一リクエスト内でのみでしか有効でない。なので避けるべき。</li>
+		<li> ソースコードを修正して変更するとセッションの保存データがリセットされることがある。</li>
+	</ul>
+	
+
+	<br><time>2020-7-2</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
