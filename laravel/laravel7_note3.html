@@ -188,11 +188,56 @@
 
 
 
+<div id="sec3-9" class="sec4" >
+	<h3>セッションをDBに保存する設定 | session</h3>
+	
+	<ol class="list_lg">
+		<li>
+			プロジェクトのルートディレクトリの直下に存在する「.env」を開き、下記のように書き換える
+			<pre>SESSION_DRIVER=database</pre>
+			<aside>変更前：SESSION_DRIVER=file</aside>
+		</li>
+		<li>
+			config/session.phpを開き、下記のように修正
+			<pre>'driver' => env('SESSION_DRIVER', 'database')</pre>
+			<aside>変更前：'driver' => env('SESSION_DRIVER', 'file')</aside>
+		</li>
+		<li>
+			ターミナルやGit BashなどでコマンドUIを起動し、cdコマンドでプロジェクトのルートディレクトリへ移動
+			<pre>cd ルートディレクトリへのパス</pre>
+		</li>
+		<li>
+			下記のコマンドを実行すると、sessionテーブルのマイグレーションファイルが「database/migrations」ディレクトリに作成される。
+			<pre>php artisan session:table</pre>
+			<img src="img/laravel7_note3/sec3-9a1.png"  />
+			<aside>sessionテーブルのマイグレーションファイルの例→ database/migrations/2020_07_02_075049_create_sessions_table.php</aside>
+		</li>
+		<li>
+			下記のコマンドを実行すると、関連づけているDBにsessionsテーブルが作成される。
+			<pre>php artisan migrate</pre>
+			<img src="img/laravel7_note3/sec3-9a2.png" /><br>
+			<br>
+			
+			phpMyAdmin<br>
+			<img src="img/laravel7_note3/sec3-9a3.png" class="img_compact_k" />
+			
+		</li>
+		<li>
+			以上で設定終わり
+		</li>
+	</ol>
+
+
+	<br><time>20207-2</time>
+</div>
+
+
+
 <div id="sec3-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2020-6-30</time>
+	<br><time>2020-7-2</time>
 </div>
 
 
