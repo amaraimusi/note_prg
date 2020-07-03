@@ -236,6 +236,7 @@
 <div id="sec3-10" class="sec4" >
 	<h3>セッションへの書き込み、または読み取り | session</h3>
 	
+	
 	セッションへ書き込み
 	<pre><code>
 	&yen;Session::put('neko_key', '赤猫');
@@ -252,6 +253,11 @@
 	<pre><code>
 	$value = session('neko_key');
 	</code></pre><br>
+	
+	
+	Laravelの環境下のオリジナルクラスであれば、下記の宣言を行う。
+	<pre><code>use Illuminate\Http\Request;</code></pre>
+	<br>
 	
 	<p>注意事項</p>
 	<ul>
