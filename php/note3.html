@@ -220,8 +220,23 @@
 <div id="sec3-3-1" class="sec1" >
 	<h3>XSSサニタイズ</h3>
 
-	<p>XSSエスケープ</p>
+	<p>XSSサニタイズ</p>
 	<pre><code>
+	/**
+	 * XSSサニタイズ
+	 *
+	 * @note
+	 * XSSサニタイズ
+	 * 記号「&lt;&gt;」を「&amp;lt;&amp;gt;」にエスケープする。
+	 *
+	 * @param mixied $data 対象データ | 値および配列を指定
+	 * @return void
+	 */
+	public function xssSanitizeW(&amp;$data){
+		$this-&gt;xss_sanitize($data);
+		return $data;
+	}
+	
 	/**
 	 * XSSエスケープ（XSSサニタイズ）
 	 *
@@ -230,14 +245,14 @@
 	 * 記号「&lt;&gt;」を「&amp;lt;&amp;gt;」にエスケープする。
 	 * 高速化のため、引数は参照（ポインタ）にしており、返値もかねている。
 	 *
-	 * @param any $data 対象データ | 値および配列を指定
+	 * @param mixied $data 対象データ | 値および配列を指定
 	 * @return void
 	 */
-	function xss_escape(&amp;$data){
+	private function xss_sanitize(&amp;$data){
 		
 		if(is_array($data)){
 			foreach($data as &amp;$val){
-				xss_escape($val);
+				$this-&gt;xss_sanitize($val);
 			}
 			unset($val);
 		}elseif(gettype($data)=='string'){
@@ -300,7 +315,7 @@
 	}
 	</code></pre>
 	
-	<br><time>2013-9-3 | 2017-6-1</time>
+	<br><time>2013-9-3 | 2017-6-1 | 2020-7-6</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
