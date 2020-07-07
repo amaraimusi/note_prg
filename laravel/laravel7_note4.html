@@ -147,11 +147,106 @@
 		</li>
 		
 	</ol>
+	
+	<p>スタイルの適用</p>
+	下記の手順でBootstrapを適用するとスタイルが適用されたログイン画面になる。<br>
+	<a href="#sec4-5" class="livipage">Laravel Mix | vue.js, jQuery, Bootstrapなどを一つのapp.jsおよびapp.cssにまとめ、さらに圧縮する</a><br>
+	<img src="img/laravel7_note4/sec4-4a8.png" class="img-responsive" /><br>
+	<aside>※スタイルが適用されたログイン画面</aside>
+	<br>
 
 	<p>注意</p>
 	Laravel7では「php artisan make:auth」コマンドが使えなくなっている。<br>
 	<img src="img/laravel7_note4/sec4-4a7.png" class="img_compact_k" /><br>
 	<br>
+
+	<br><time>2020-7-7</time>
+</div>
+
+
+
+<div id="sec4-5" class="sec4"  >
+	<h3>Laravel Mix | vue.js, jQuery, Bootstrapなどを一つのapp.jsおよびapp.cssにまとめ、さらに圧縮する</h3>
+
+	※コマンドはGit for windowsのGit Bashにて実行。
+
+
+
+	<ol class="list_lg">
+		<li>事前にnodeコマンドとnpmコマンドを使えるようにしておく。</li>
+		<li>cdコマンドでプロジェクトのルートディレクトリまで移動する。</li>
+		
+		<li>
+			下記のコマンドでBootstrapの追加設定を行う。
+			<pre><code>php artisan ui bootstrap</code></pre>
+			<aside>※ルートディレクトリのpackage.jsonにBootstrapの項目が追記されるようである。</aside>
+			<img src="img/laravel7_note4/sec4-5a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			同様にVue.jsの追加設定を行う。(Vue.jsの最新が追加設定されるようである）。
+			<pre><code>php artisan ui vue</code></pre>
+		</li>
+		
+		<li>
+			ルートディレクトリにpackage-lock.jsonが存在するなら削除
+			<aside>
+				※package-lock.jsonは誤操作によるパッケージ上書きを防止するためのファイルである。
+				package-lock.jsonが存在する状態では下記の「npm install」コマンドは無効になる。
+			</aside>
+		</li>
+		
+		<li>
+			npmでパッケージをインストールする。
+			<pre>npm install</pre>
+			<aside>
+				※BootstrapやVue.jsがインストールされる。
+				また、package-lock.jsonが再生成される。インストールをやり直す場合はpackage-lock.jsonを削除すればよい。
+			</aside>
+			<img src="img/laravel7_note4/sec4-5a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			パッケージをapp.js、app.cssにまとめる。
+			<pre><code>npm run dev</code></pre>
+			bootstrap.jsやvue.js, jqueryなど一つにまとめる。その一つにまとめたファイルがapp.jsである。app.cssも同様に各種CSSパッケージを一つにまとめたもの。
+			<img src="img/laravel7_note4/sec4-5a3.png" class="img_compact_k" />
+			<img src="img/laravel7_note4/sec4-5a4.png" class="img_compact_k" /><br>
+		</li>
+		
+		<li>
+			app.js, app.cssを圧縮する
+			<pre>npm run production</pre>
+			<aside>※ ここで行わる圧縮はいわゆる〇〇.min.jsと同じもの。ただ、圧縮後のファイル名はapp.min.jsではなく、app.jsである。（つまり上書き）</aside>
+			<div style="display:inline-block">
+				<img src="img/laravel7_note4/sec4-5a6.png" class="img_compact_k" /><br>
+				圧縮前のapp.js
+			</div>
+			<div style="display:inline-block">
+				<img src="img/laravel7_note4/sec4-5a7.png" class="img_compact_k" /><br>
+				圧縮後のapp.js
+			</div>
+		</li>
+		
+		<li>
+			ビューファイル(bladeファイル)にてapp.jsとapp.cssを読み込み
+				bladeファイルのheader要素内に下記を追記する。
+				<pre><code>
+				&lt;script src="{{ asset('js/app.js') }}" defer&gt;&lt;/script&gt;
+				&lt;script src="{{ asset('/js/test.js') }}"&gt;&lt;/script&gt;
+				</code></pre>
+				<aside>※bladeファイルの例：resources/views/neko/index.blade.php</aside>
+				
+		</li>
+		
+		<li>
+			以上で終わり<br>
+			サンプル：Bootstarapが効いているか確認<br>
+			<img src="img/laravel7_note4/sec4-5a8.png" class="img-responsive" />
+		</li>
+		
+	</ol>
+
 
 	<br><time>2020-7-7</time>
 </div>
