@@ -93,11 +93,76 @@
 
 
 
+<div id="sec4-3" class="sec4" >
+	<h3>ユーザー情報を取得する | ユーザーID,ユーザー名,メールアドレスなどを取得する</h3>
+	
+	<pre><code>
+	if(\Auth::id()){// idは未ログインである場合、nullになる。
+		$user_id = \Auth::id(); // ユーザーID（番号）
+		$user_name = \Auth::user()->name; // ユーザー名
+		$user_email = \Auth::user()->email; // メールアドレス
+		$user_password_hash = \Auth::user()->password; // ハッシュ化（解読不可）されたパスワード
+		
+	}
+	</code></pre>
+
+
+	<br><time>2020-7-7</time>
+</div>
+
+
+
+<div id="sec4-4" class="sec4" >
+	<h3>ログイン画面を作成</h3>
+		Laravel6および7でのログイン画面作成方法
+
+
+	<ol class="list_lg">
+		<li>
+			下記のコマンドを実行する。（動くまで時間がかかる）
+			<pre>composer require laravel/ui --dev</pre>
+			<aside>「laravel/ui」はBootstrapなどデザイン回りの処理が関係しているようだ</aside>
+			<img src="img/laravel7_note4/sec4-4a1.png" />
+		</li>
+		
+		<li>
+			下記のコマンドを実行し、ログイン画面関連のファイルを自動作成する。
+			<pre>php artisan ui vue --auth</pre>
+			<aside>※先にマイグレーションを実行してDBにusersテーブルを自動生成して置く必要があるかもしれない。</aside>
+			<img src="img/laravel7_note4/sec4-4a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			URL「～ルート～/public/home」にアクセスするとログイン画面になる。<br>
+			例：<pre>http://localhost/animal/public/</pre>
+			<img src="img/laravel7_note4/sec4-4a3.png" class="img_compact_k" />
+			<img src="img/laravel7_note4/sec4-4a4.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			初期状態のwelcomeページにログイン関連のリンクが表示されるようになっている。
+			<aside>welcomeページ「～ルート～/public/」</aside>
+			<img src="img/laravel7_note4/sec4-4a5.png" class="img_compact_k" />
+			<img src="img/laravel7_note4/sec4-4a6.png" class="img_compact_k" />
+		</li>
+		
+	</ol>
+
+	<p>注意</p>
+	Laravel7では「php artisan make:auth」コマンドが使えなくなっている。<br>
+	<img src="img/laravel7_note4/sec4-4a7.png" class="img_compact_k" /><br>
+	<br>
+
+	<br><time>2020-7-7</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2020-7-3</time>
+	<br><time>2020-7-7</time>
 </div>
 
 
