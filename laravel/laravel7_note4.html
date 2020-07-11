@@ -253,6 +253,23 @@
 
 
 
+<div id="sec4-6" class="sec4" >
+	<h3>DB: テーブル名の別名をtableメソッドに記述する方法 nekos AS Neko</h3>
+
+	<pre><code>
+		$query = &yen;DB::table('<strong>nekos AS Neko</strong>')-&gt;
+		select('id', 'neko_name as cat', 'neko_val', 'neko_date');
+		dump($query-&gt;toSql()); // →"select `id`, `neko_name` as `cat`, `neko_val`, `neko_date` from `nekos` as `Neko`"
+		
+		$data = $query-&gt;get();
+		dump($data);
+	</code></pre>
+
+	<br><time>2020-7-11</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
