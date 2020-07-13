@@ -910,6 +910,36 @@ class CrudBaseConfig{
 </div>
 
 
+<div id="sec18-6" class="sec4" >
+	<h3>連想配列から変数を作成する | extract</h3>
+	
+	<pre><code>
+	$box = ['neko'=&gt;'ネコ', 'inu'=&gt;'犬', 'buta'=&gt;'ブタ'];
+	<strong>extract</strong>($box, EXTR_REFS);
+	
+	echo $neko;
+	echo '&lt;br&gt;';
+	echo $inu;
+	echo '&lt;br&gt;';
+	echo $buta;
+	
+	$box['buta'] = "大ブタ";
+	echo '&lt;br&gt;';
+	echo $buta;
+	</code></pre>
+	<aside>EXTR_REFSは「参照渡し」にする設定</aside>
+	<p>出力</p>
+	<pre>
+	ネコ
+	犬
+	ブタ
+	大ブタ
+	</pre>
+
+	<br><time>2020-7-13</time>
+</div>
+
+
 <div id="sec18-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
