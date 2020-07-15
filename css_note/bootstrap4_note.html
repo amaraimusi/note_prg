@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap4 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Bootstrap4 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Bootstrap4のボタン</h3>
+	
+	<a href="https://getbootstrap.jp/docs/4.3/components/buttons/" target="_blank">公式ドキュメント</a><br>
+	<br>
+	<button type="button" class="btn btn-primary">Primary</button>
+	<button type="button" class="btn btn-secondary">Secondary</button>
+	<button type="button" class="btn btn-success">Success</button>
+	<button type="button" class="btn btn-danger">Danger</button>
+	<button type="button" class="btn btn-warning">Warning</button>
+	<button type="button" class="btn btn-info">Info</button>
+	<button type="button" class="btn btn-light">Light</button>
+	<button type="button" class="btn btn-dark">Dark</button>
+	<button type="button" class="btn btn-link">Link</button>
+	<pre><code>
+	&lt;button type="button" class="btn btn-primary"&gt;Primary&lt;/button&gt;
+	&lt;button type="button" class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+	&lt;button type="button" class="btn btn-success"&gt;Success&lt;/button&gt;
+	&lt;button type="button" class="btn btn-danger"&gt;Danger&lt;/button&gt;
+	&lt;button type="button" class="btn btn-warning"&gt;Warning&lt;/button&gt;
+	&lt;button type="button" class="btn btn-info"&gt;Info&lt;/button&gt;
+	&lt;button type="button" class="btn btn-light"&gt;Light&lt;/button&gt;
+	&lt;button type="button" class="btn btn-dark"&gt;Dark&lt;/button&gt;
+	&lt;button type="button" class="btn btn-link"&gt;Link&lt;/button&gt;
+	</code></pre>
+	
+	<br><br>
+	
+	<button type="button" class="btn btn-outline-primary">Primary</button>
+	<button type="button" class="btn btn-outline-secondary">Secondary</button>
+	<button type="button" class="btn btn-outline-success">Success</button>
+	<button type="button" class="btn btn-outline-danger">Danger</button>
+	<button type="button" class="btn btn-outline-warning">Warning</button>
+	<button type="button" class="btn btn-outline-info">Info</button>
+	<button type="button" class="btn btn-outline-light">Light</button>
+	<button type="button" class="btn btn-outline-dark">Dark</button>
+	<pre><code>
+	&lt;button type="button" class="btn btn-outline-primary"&gt;Primary&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-secondary"&gt;Secondary&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-success"&gt;Success&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-danger"&gt;Danger&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-warning"&gt;Warning&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-info"&gt;Info&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-light"&gt;Light&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-dark"&gt;Dark&lt;/button&gt;
+	</code></pre>
+	
+	<br><br>
+	
+	<button type="button" class="btn btn-outline-secondary btn-lg">Large</button>
+	<button type="button" class="btn btn-outline-secondary">Middle</button>
+	<button type="button" class="btn btn-outline-secondary btn-sm">Small</button>
+	<pre><code>
+	&lt;button type="button" class="btn btn-outline-secondary btn-lg"&gt;Large&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-secondary"&gt;Middle&lt;/button&gt;
+	&lt;button type="button" class="btn btn-outline-secondary btn-sm"&gt;Small&lt;/button&gt;
+	</code></pre>
+	<br><br>
+	
+	<button type="button" class="btn btn-info btn-block">Block level button</button>
+	<pre><code>
+		&lt;button type="button" class="btn btn-info btn-block"&gt;Block level button&lt;/button&gt;
+	</code></pre>
+	
+	<br><br>
+	
+	<button type="button" class="btn btn-primary">
+	  Notifications <span class="badge badge-light">4</span>
+	</button>
+	<pre><code>
+	&lt;button type="button" class="btn btn-primary"&gt;
+	  Notifications &lt;span class="badge badge-light"&gt;4&lt;/span&gt;
+	&lt;/button&gt;
+	</code></pre>
+	<br><br>
+	
+	<p>アイコンボタンについて</p>
+	Bootstrap3のときアイコンが使えたがBootstrap4からは外部のアイコンライブラリを使うようにとのこと。
+	<a href="https://getbootstrap.jp/docs/4.3/extend/icons/" target="_blank">Bootstrap4のアイコンについて（公式ドキュメント）</a>
+	
+	<br><br>
+
+	<br><time>2020-7-15</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2020-7-15</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Bootstrap4</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-7-15</div>
+</body>
+</html>
