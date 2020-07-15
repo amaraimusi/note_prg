@@ -270,6 +270,32 @@
 
 
 
+<div id="sec4-7" class="sec4" >
+	<h3>Laravel7＋jQuery「$ is not defined」のエラー</h3>
+	<pre>jQuery is not defined</pre>
+	
+	JS読み込みとCSS読み込みが逆になると「$ is not defined」のエラーが発生するようだ。<br>
+	<br>
+	
+	「$ is not defined」のエラーが出る例<br>
+	<pre><code>
+	&lt;link href="{{ asset('/css/app.css') }}" rel="stylesheet"&gt;
+	&lt;script src="{{ asset('/js/app.js') }}" defer&gt;&lt;/script&gt;
+	</code></pre>
+	<br>
+	
+	正しい方法<br>
+	<pre><code>
+	&lt;script src="{{ asset('/js/app.js') }}" defer&gt;&lt;/script&gt;
+	&lt;link href="{{ asset('/css/app.css') }}" rel="stylesheet"&gt;
+	</code></pre>
+
+
+	<br><time>2020-7-15</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
