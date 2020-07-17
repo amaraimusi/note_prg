@@ -296,6 +296,34 @@
 
 
 
+<div id="sec4-8" class="sec4" >
+	<h3>ビュー（Bladeテンプレート）に別のテンプレートを埋め込む | @include</h3>
+	
+	(ルート)/resources/views/neko/index.blade.php
+	<pre><code>
+	&lt;?php $test1="Hello big fish!";?&gt;
+	<strong>@include</strong>('layouts/common/test')
+	</code></pre><br>
+	
+	(ルート)/resources/views/layouts/common/test.blade.php
+	<pre><code>
+	テンプレートの埋め込みテスト&lt;br&gt;
+	&lt;?php echo $test1;?&gt;
+	</code></pre>
+	<br>
+	
+	画面表示→http://localhost/(ルート)/public/neko
+	<pre>
+	テンプレートの埋め込みテスト
+	Hello big fish!
+	</pre>
+	<br>
+
+	<br><time>2020-7-17</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
