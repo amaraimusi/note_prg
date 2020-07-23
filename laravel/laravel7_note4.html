@@ -324,6 +324,115 @@
 
 
 
+<div id="sec4-9" class="sec4"  >
+	<h3>LaravelのAJAX</h3>
+	
+	<p>ビュー側（ブレードテンプレート/html)</p>
+	<aside>例→ルート/resources/views/neko/index.blade.php</aside>
+	<pre>
+	&lt;input type="button" value="test_ajax" onclick="test_ajax()" /&gt;
+	&lt;input type="hidden" id="csrf_token" value="<strong>{{ csrf_token() }}</strong>" &gt;
+	&lt;div id="test_ajax_res"&gt;&lt;/div&gt;
+	</pre>
+	<aside>
+		※　「csrf_token()」はCSRFトークンを取得するLaravelの標準関数。CSRFトークンはAjaxに関わるセキュリティに関わるもので、Laravelでは必須である。<br>
+	</aside><br>
+	
+	<p>JS側</p>
+	フロント側
+	<aside>例→ルート/public/js/Neko/index.js</aside>
+	<pre>
+function test_ajax(){
+
+	console.log('test_ajax');
+	let fd = new FormData(); // 送信フォームデータ
+	let data = {id:123, name:'古いねこ', age:15}; // バックエンド側に送信するデータ
+	let json = JSON.stringify(data);
+	fd.append( "key1", json );
+	
+	// CSRFトークンを送信フォームデータにセットする。
+	<strong>let token = jQuery('#csrf_token').val();
+	fd.append( "_token", token );</strong>
+	
+	jQuery.ajax({
+		type: "post",
+		url: '<strong>neko/test_ajax_be</strong>',
+		data: fd,
+		cache: false,
+		dataType: "text",
+		processData: false,
+		contentType: false,
+
+	}).done((str_json, type) =&gt; {
+
+		console.log('レスポンスOK');
+		let data = null;
+		try{
+			data =jQuery.parseJSON(str_json);//パース
+			console.log(data);
+		}catch(e){
+			alert('データのエラー:' + str_json);
+			console.log(str_json);
+			return;
+		}
+		
+		let res = '';
+		for(let field in data){
+			res += field + ' = ' + data[field] + '&lt;br&gt;';
+		}
+		jQuery('#test_ajax_res').html(res);
+
+	}).fail((jqXHR, statusText, errorThrown) =&gt; {
+		alert(statusText);
+		console.log('通信エラー');
+		jQuery('#test_ajax_res').html(jqXHR.responseText);
+	});
+}
+	</pre><br>
+	
+	<p>PHP側</p>
+	バックエンド、つまりAjaxの受信側。通常のコントローラクラスにて処理を記述。
+	<aside>例→ルート/app/Http/Controllers/NekoController.php</aside>
+	<pre>
+	～ 略 ～
+class NekoController
+{
+	～ 略 ～
+
+	public function <strong>testAjax</strong>(){
+		
+		$json=$_POST['key1'];
+		$data = json_decode($json,true);
+ 		$data['name'] = '新しい猫';
+ 		$data['age'] = 1;
+ 		$data['date'] = '2020-7-23';
+		
+ 		$json = json_encode($data, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+
+		return $json;
+	}
+	
+	～ 略 ～
+	</pre><br>
+	
+	<p>ルートパス</p>
+	<aside>ルート/routes/web.php</aside>
+	<pre><code>
+	～ 略 ～
+	Route::post('neko/test_ajax_be', 'NekoController@testAjax');
+	～ 略 ～
+	</code></pre><br>
+	
+	<p>画面側の出力例</p>
+	<img src="img/laravel7_note4/sec4-9a1.png" alt="" /><br>
+	<br>
+
+
+	<br><time>2020-7-23</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
