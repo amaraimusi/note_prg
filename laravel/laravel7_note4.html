@@ -29,7 +29,7 @@
 <div id="sec4-1" class="sec4"  >
 	<h3>SQLを直接実行</h3>
 
-	<p>SELECT系のSQLを直接実行</p>
+	<p>SELECT系のSQLを直接実行 | INSERT, UPDATE, DELETE</p>
 	<pre><code>$data = \DB::select('select * from nekos where id= 4');</code></pre>
 	レスポンスはエンティティの配列となる。<br>
 	<br>
@@ -429,6 +429,43 @@ class NekoController
 
 
 	<br><time>2020-7-23</time>
+</div>
+
+
+
+<div id="sec4-10" class="sec4" >
+	<h3>Larevelの日付更新エラー SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: ...</h3>
+
+	日付系フィールドを含むデータをDB保存する際、以下のようなエラーが生じることがある。
+	<pre>SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: ...</pre><br>
+	型を厳密にしている設定が原因と思われる。<br>
+	<br>
+	
+	<p>解決方法</p>
+	ルート/config/database.phpを開きstrictをtrueからfalseに変更する。
+	<pre>
+    'connections' =&gt; [
+        'mysql' =&gt; [
+            'driver' =&gt; 'mysql',
+            'url' =&gt; env('DATABASE_URL'),
+            'host' =&gt; env('DB_HOST', '127.0.0.1'),
+            'port' =&gt; env('DB_PORT', '3306'),
+            'database' =&gt; env('DB_DATABASE', 'forge'),
+            'username' =&gt; env('DB_USERNAME', 'forge'),
+            'password' =&gt; env('DB_PASSWORD', ''),
+            'unix_socket' =&gt; env('DB_SOCKET', ''),
+            'charset' =&gt; 'utf8mb4',
+            'collation' =&gt; 'utf8mb4_unicode_ci',
+            'prefix' =&gt; '',
+            'prefix_indexes' =&gt; true,
+            <strong>'strict' =&gt; false,</strong>
+            'engine' =&gt; null,
+            'options' =&gt; extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA =&gt; env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+	</pre>
+
+	<br><time>2020-7-24</time>
 </div>
 
 
