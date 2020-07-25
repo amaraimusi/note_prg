@@ -27,7 +27,33 @@
 
 
 <div id="sec5-1" class="sec4" >
-	<h3>xxx</h3>
+	<h3>複数レコードのINSERT</h3>
+	
+	<pre><code>
+namespace App&yen;Models;
+use Illuminate&yen;Database&yen;Eloquent&yen;Model;
+
+class Neko extends Model
+{
+	public $fillable = ['neko_name', 'neko_val']; // Laravel規定によるホワイトリスト
+	
+		/**
+	 * 複数レコードのINSERT
+	 * @param [] $data データ（エンティティの配列）
+	 */
+	public function insertAll($data){
+		
+		if(empty($data)) return;
+		
+		foreach($data as &amp;$ent){
+			$ent = array_intersect_key($ent, array_flip($this-&gt;fillable)); // ホワイリストに存在しないフィールドを除外する
+			unset($ent['id']);
+		}
+		unset($ent);
+
+		$neko = $this-&gt;insert($data);
+	}
+	</code></pre>
 
 
 	<br><time>2020-7-25</time>
