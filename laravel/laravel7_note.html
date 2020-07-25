@@ -152,9 +152,15 @@ class NekoController // → 「Controller」を継承しなくても動作する
 	Laravel7の場合、デフォルトでのモデルクラスの置き場所は、appディレクトリの直下になっている。<br>
 	<br>
 	
-	<p>モデル名の通例</p>
-	ルールというわけでもないが、CakePHPのようにテーブル名がred_catsならモデル名はRedCatとするのが通例。<br>
-	<br>
+	<p>モデルの基本仕様</p>
+	モデル名（クラス名）はテーブル名と紐づいている。（例 モデル名：BigYagi() → テーブル名:big_yagis）<br>
+	モデルクラスのメンバにて明示的にテーブル名と紐づけることも可能。<br>
+	<pre>protected $table = 'xxx_yagis';</pre>	<br>
+	CakePHPと同様、主キーの概念がある。主キーはデフォルトでidフィールド（カラム）になっている。（idは整数）<br>
+		主キーはオートインクリメントという扱いになっている（設定でOFFにもできる。$incrementing）<br>
+		モデルクラスのメンバにて明示的に主キーのフィールドを指定することも可能<br>
+		<pre>protected $primaryKey = 'yagi_id';</pre><br>
+		
 	
 	<p>artisanコマンドでモデルを作成</p>
 	<pre>$ php artisan make:model RedCat</pre>
