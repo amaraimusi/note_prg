@@ -61,6 +61,28 @@ class Neko extends Model
 
 
 
+<div id="sec5-2" class="sec4" >
+	<h3>エンティティのINSERT | コントローラ側</h3>
+	
+	<aside>ルート/app/Http/Controllers/NekoController.php</aside>
+	<pre><code>
+	$neko = \App\Models\Neko::insert($ent);
+	</code></pre>
+	
+	「$fillable」によるホワイトリストによるフィルタリングはなされないので注意。ホワイトリストの適用は自前で行うこと。<br>
+	SQLインジェクション対策はできているようだ。エンティティの値にシングルクォートを生で入力しても不具合は起きない。<br>
+	複数レコード（エンティティの配列）を引数すると、複数のレコードをまとめてINSERTすることができる。<br>
+	<br>
+	通常、INSERTはcreateメソッドを使うようことが多いようだが、何かと制約が厳しくエラーが多い。<br>
+	個人的にはinsertメソッドの方が使いやすく感じる。<br>
+	<br>
+
+
+	<br><time>2020-7-25</time>
+</div>
+
+
+
 <div id="sec5-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
