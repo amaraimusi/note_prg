@@ -77,6 +77,8 @@ class Neko extends Model
 	通常、INSERTはcreateメソッドを使うようことが多いようだが、何かと制約が厳しくエラーが多い。<br>
 	個人的にはinsertメソッドの方が使いやすく感じる。<br>
 	<br>
+	レスポンス（返値）は、成功した場合、true。<br>
+	<br>
 
 	<p>トランザクション</p>
 	insertメソッドはトランザクションも効く
@@ -106,6 +108,29 @@ class Neko extends Model
 		<li>トランザクションを適用可能。</li>
 		<li>SQLインジェクション対策はされている。</li>
 		<li>「$fillable」によるホワイトリストも適用されている。</li>
+	</ul>
+
+	<br><time>2020-7-26</time>
+</div>
+
+
+
+<div id="sec5-4" class="sec4" >
+	<h3>DB: INSERTと同時に追加したレコードのidを取得する | insertGetId</h3>
+	
+	<aside>ルート/app/Models/Neko.php</aside>
+	<pre><code>
+	// ホワイトリストによるフィルタリング
+	$ent = array_intersect_key($ent, array_flip($this-&gt;fillable));
+
+	// INSERTおよびidを取得する
+	$id = $this-&gt;<strong>insertGetId</strong>($ent);
+	</code></pre><br>
+
+	補足
+	<ul>
+		<li>引数は単一のエンティティのみ。insertメソッドのように複数のエンティティは受け付けない。</li>
+		<li>insertメソッドと同様、ホワイトリストによるフィルタリングは自前で行うこと。</li>
 	</ul>
 
 	<br><time>2020-7-26</time>
