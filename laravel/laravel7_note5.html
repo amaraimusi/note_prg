@@ -62,8 +62,9 @@ class Neko extends Model
 
 
 <div id="sec5-2" class="sec4" >
-	<h3>エンティティのINSERT | コントローラ側</h3>
+	<h3>エンティティのINSERT</h3>
 	
+	<p>コントローラ内でinsertメソッドを使う場合</p>
 	<aside>ルート/app/Http/Controllers/NekoController.php</aside>
 	<pre><code>
 	$neko = \App\Models\Neko::insert($ent);
@@ -77,8 +78,37 @@ class Neko extends Model
 	個人的にはinsertメソッドの方が使いやすく感じる。<br>
 	<br>
 
+	<p>トランザクション</p>
+	insertメソッドはトランザクションも効く
+	<pre><code>
+	\DB::beginTransaction();
+	$neko = \App\Models\Neko::insert($ent);
+	\DB::rollback();
+	</code></pre><br>
+	
+	<p>モデルクラス内でinsertメソッドを使う場合</p>
+	<aside>ルート/app/Models/Neko.php</aside>
+	<pre><code>$this->insert($data);</code></pre>
 
 	<br><time>2020-7-25</time>
+</div>
+
+
+
+<div id="sec5-3" class="sec4" >
+	<h3>DB: データ更新 | UPDATE | updateOrCreate</h3>
+	
+	<pre><code>
+	$neko = &yen;App&yen;Models&yen;Neko::updateOrCreate(['id'=&gt;$ent['id']] ,$ent);
+	</code></pre>
+	<ul>
+		<li>第一引数はWHERE条件である。</li>
+		<li>トランザクションを適用可能。</li>
+		<li>SQLインジェクション対策はされている。</li>
+		<li>「$fillable」によるホワイトリストも適用されている。</li>
+	</ul>
+
+	<br><time>2020-7-26</time>
 </div>
 
 
