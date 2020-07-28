@@ -141,26 +141,17 @@ class Neko extends Model
 <div id="sec5-5" class="sec4" >
 	<h3>DB: 拡張DB保存 saveEntity | saveAll</h3>
 	
-	CakePHPのようなsaveメソッドとsaveAllメソッドを作成<br>
+	CakePHPのsaveメソッドとsaveAllメソッドを再現する。saveは既にLaravelに予約されているようなのでsaveEntityにする。<br>
 	<br>
 	
 	<aside>下記メソッドはモデルクラスに記述する。例→/app/Models/Neko.php</aside>
 	<pre><code>
-	/**
-	 * エンティティのDB保存(エイリアス版）
-	 * @param [] $ent
-	 * @return [] エンティティ(insertされた場合、新idがセットされている）
-	 */
-	public function <strong>save</strong>(&amp;$ent){
-		return $this-&gt;saveEntity($ent);
-	}
-	
-	
+
 	/**
 	 * エンティティのDB保存
 	 * @note エンティティのidが空ならINSERT, 空でないならUPDATEになる。
 	 * @param [] $ent エンティティ
-	 * @return [] エンティティ
+	 * @return [] エンティティ(insertされた場合、新idがセットされている）
 	 */
 	public function saveEntity(&amp;$ent){
 		
@@ -218,6 +209,21 @@ class Neko extends Model
 	}
 	</code></pre>
 
+
+	<br><time>2020-7-28</time>
+</div>
+
+
+
+<div id="sec5-6" class="sec4" >
+	<h3>DB: データ削除 | destroy</h3>
+
+	<aside>コントローラクラスにて検証。例→/app/Http/Controllers/NekoController.php</aside>
+	<pre><code>
+	$neko = new \App\Models\Neko();
+	$neko->destroy(163);// idを指定して削除
+	$neko->destroy([159, 160, 161]); // 複数のidを指定して削除
+	</code></pre>
 
 	<br><time>2020-7-28</time>
 </div>
