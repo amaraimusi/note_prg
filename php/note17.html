@@ -185,7 +185,7 @@
 
 
 <div id="sec17-5" class="sec4">
-	<h3>現在のURLを取得する | HTTP, HOST(ホスト)の部分を取得する</h3>
+	<h3>現在のURLを取得する | HTTP, HOST(ホスト)の部分を取得 | 相対URLの取得</h3>
 
 	<pre>
 	echo empty($_SERVER["HTTPS"]) ? "http://" : "https://";
@@ -201,8 +201,16 @@
 	/animal_park/nekos/neko.php
 	http://localhost/animal_park/nekos/neko.php
 	</pre>
+	<br>
+	<p>現在ページの相対URLを取得する</p>
+	<pre><code>
+	$url_path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+	</code></pre>
+	出力例($url_path)→/CrudBase/laravel7/dev/public/neko<br>
+	URLクエリなどは除去される。<br>
+	<br>
 
-	<br><time>2019-11-6</time>
+	<br><time>2019-11-6 | 2020-8-1</time>
 </div>
 
 
