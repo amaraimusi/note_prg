@@ -296,6 +296,36 @@ class Neko extends Model
 
 
 
+<div id="sec5-9" class="sec4" >
+	<h3>ログインメニュー</h3>
+	
+	<aside>/resources/views/neko/index.blade.php</aside>
+	<pre><code>
+	&lt;!-- ログインメニュー --&gt;
+	@if (Route::has('login'))
+		&lt;div class="top-right links"&gt;
+			@auth
+				&lt;a href="{{ url('/home') }}" class="btn btn-info btn-sm"&gt;Home&lt;/a&gt;
+			@else
+				&lt;a href="{{ route('login') }}" class="btn btn-info btn-sm"&gt;ログイン&lt;/a&gt;
+
+				@if (Route::has('register'))
+					&lt;a href="{{ route('register') }}" class="btn btn-info btn-sm"&gt;登録&lt;/a&gt;
+				@endif
+			@endauth
+		&lt;/div&gt;
+	@endif
+	</code></pre>
+	
+	<p>ログインメニューの例</p>
+	<img src="img/laravel7_note5/sec5-9a1.png" alt="" />
+	<aside>ボタン類にBootstrap4を適用している</aside>
+
+	<br><time>2020-8-5</time>
+</div>
+
+
+
 <div id="sec5-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
