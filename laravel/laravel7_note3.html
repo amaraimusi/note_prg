@@ -254,9 +254,12 @@
 	$value = session('neko_key');
 	</code></pre><br>
 	
-	
-	Laravelの環境下のオリジナルクラスであれば、下記の宣言を行う。
-	<pre><code>use Illuminate\Http\Request;</code></pre>
+	「'App\Http\Controllers\Session' not found」エラーが起きる場合、下記の宣言を行う。
+	<pre><code>
+		use Illuminate\Http\Request;
+		use Illuminate\Support\Facades\Session;
+	</code></pre>
+	<aside>※オリジナルクラスでセッションを使う場合も上記の宣言をする。</aside>
 	<br>
 	
 	<p>注意事項</p>
@@ -266,7 +269,7 @@
 	</ul>
 	
 
-	<br><time>2020-7-2</time>
+	<br><time>2020-7-2 | 2020-8-5</time>
 </div>
 
 
