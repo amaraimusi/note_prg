@@ -78,6 +78,74 @@
 </div>
 
 
+<div id="sec5-2" class="sec4" >
+	<h3>vertical-align: middle | 縦中央寄せの検証</h3>
+
+	<p>ダメな例：ブロック</p>
+	<pre>
+	&lt;div style="<strong>vertical-align:middle;</strong>width:100%;height:100px;background-color:skyblue"&gt;
+		イリオモテヤマネコ
+	&lt;/div&gt;
+	</pre>
+	<div style=";vertical-align:middle;width:100%;height:100px;background-color:skyblue">
+		イリオモテヤマネコ
+	</div>
+	<hr>
+
+	<p>ダメな例:インラインブロック</p>
+	インラインならいけるようだが、インラインブロックだとダメ。
+	<pre>
+	&lt;div style="width:100%;height:100px;background-color:#ffc6bf;display:<strong>inline-block</strong>;"&gt;
+		ヤンバルクイナ
+	&lt;/div&gt;
+	</pre>
+	<div style="width:100%;height:100px;background-color:#ffc6bf;display:inline-block;">
+		ヤンバルクイナ
+	</div>
+	<hr>
+
+	<p>成功例：table-cell</p>
+	table-cellならうまくいくのだが、その代わり「width:100%」は効かなくなる。「width:200px」などpx指定なら問題ないようだ。
+	<pre>
+	&lt;div style="width:100%;height:100px;background-color:#c1ffc1;display:<strong>table-cell</strong>;vertical-align:middle;"&gt;
+		ヤンバルケナガネズミ
+	&lt;/div&gt;
+	</pre>
+	<div style="width:100%;height:100px;background-color:#c1ffc1;display:table-cell;vertical-align:middle;">
+		ヤンバルケナガネズミ
+	</div>
+	<hr>
+	
+	<p>成功例：内部がブロック要素</p>
+	table-cellであれば、内部がブロック要素（div)であっても縦中央寄せはうまくいくようだ。
+	<pre>
+	&lt;div style="width:100%;height:100px;background-color:#ffc4f3;display:table-cell;vertical-align:middle;"&gt;
+		&lt;div&gt;キノボリトカゲ&lt;/div&gt;
+		&lt;div&gt;ヒメヌマガエル&lt;/div&gt;
+	&lt;/div&gt;
+	</pre>
+	<div style="width:100%;height:100px;background-color:#ffc4f3;display:table-cell;vertical-align:middle;">
+		<div>キノボリトカゲ</div>
+		<div>ヒメヌマガエル</div>
+	</div>
+	<hr>
+		
+	<p>成功例：width:100%を裏技的な手法で実現</p>
+	widthの値にあえて大きな値を指定する。しかし、table-cellの特性のため親の最大幅を超えない。これにより「width:100%」が裏技的に実現できる。
+	<pre>
+	&lt;div style="width:<strong>5000px</strong>;height:100px;background-color:#dfdbf0;display:table-cell;vertical-align:middle;margin-right:auto;margin-left:auto;"&gt;
+		タテヅノマルバネクワガタ
+	&lt;/div&gt;
+	</pre>
+	<div style="width:5000px;height:100px;background-color:#dfdbf0;display:table-cell;vertical-align:middle;margin-right:auto;margin-left:auto;">
+			タテヅノマルバネクワガタ
+	</div>
+	<hr>
+
+	<br><time>2020-8-11</time>
+</div>
+
+
 <div class="yohaku"></div>
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
