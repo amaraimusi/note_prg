@@ -145,6 +145,76 @@
 
 
 
+<div id="sec2-7" class="sec4" >
+	<h3>異常状態のWindows10からコマンドプロンプトでUsersのファイル群を救出</h3>
+	PCは「REGZA PC D712/V3HWS」で検証<br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			予め、別PCにてWindows10のインストールUSBを作成しておく。<br>
+			<aside>
+				USBメモリにWindows10のイメージ(iso)を入れる。
+				マイクロソフトが用意しているツールからインストールUSBを作成することができる。
+				<a href="https://www.atmarkit.co.jp/ait/articles/1508/06/news034.html" target="_blank" class="btn btn-info btn-xs">参考サイト </a>
+				<a href="https://www.microsoft.com/ja-jp/software-download/windows10" target="_blank" class="btn btn-info btn-xs">公式</a>
+			</aside>
+		</li>
+		<li>
+			BIOSを起動して、USBから実行するように設定する。
+			<aside>
+				「REGZA PC D712/V3HWS」である場合、Shiftキーを押しながらPCの電源ボタンを押して電源を切る。電源が完全に切れた後、電源ボタンを入れてすぐにF2キーを連打するとBIOSは起動する。
+				しかし、タイミングが不安定なのでBIOS起動には何度も失敗するかもしれない。
+			</aside>
+		</li>
+		<li>
+			PCにインストールUSBを挿して、PCを再起動するとWindows10のインストール画面が立ち上がる。<br>
+			<aside>必要に応じて救出したファイルを保存するバックアップ用USBを用意し、このタイミングでPCに挿しておく。(このバックアップ用USBは後述でFドライブとして扱われる)</aside>
+			<img src="img/note2/sec2-7a1.jpg" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「コンピューターを修復する」をクリック。<br>
+			<img src="img/note2/sec2-7a2.jpg" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「トラブルシューティング」を選択。<br>
+			<img src="img/note2/sec2-7a3.jpg" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「コマンドプロンプト」を選択。<br>
+			<img src="img/note2/sec2-7a4.jpg" class="img_compact_k" />
+		</li>
+		
+		<li>
+			コマンドプロンプトが起動する。<br>
+			<img src="img/note2/sec2-7a5.jpg" class="img_compact_k" />
+		</li>
+		
+		<li>「c:」と入力してEnterキーを押すとC:\ドライブに移動する。</li>
+		<li>
+			「echo list volume | diskpart」とコマンド入力するとドライブ一覧が確認できる。（ドライブ一覧が表示されるまで数秒ほどのタイムラグがある。）
+			<aside>救出したファイルの保存先を確認すること。</aside>
+		</li>
+		<li>
+			下記xcopyコマンドを入力すると「C:\Users」のファイル、フォルダをFドライブにコピーされ、ファイル救出ができる。
+			<pre>xcopy /E C:\Users F:\</pre>
+			<aside>「/E」はドライブでなく、コピーモードの種類を表している。</aside>
+			<img src="img/note2/sec2-7a6.jpg" class="img_compact_k" />
+			
+		</li>
+		<li>以上</li>
+		
+	</ol>
+	
+	<br><time>2020-8-15</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
