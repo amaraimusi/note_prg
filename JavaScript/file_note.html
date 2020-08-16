@@ -1040,6 +1040,66 @@
 
 
 
+<div id="sec1-10" class="sec4">
+	<h3>file入力要素 | HTMLのonchangeで画像プレビューを表示する</h3>
+	
+	
+	<a href="/sample/js/a013/file_img_onchange/file_img_onchange.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;input type="file" accept="image/*" <strong>onchange</strong>="changeImgFn(this)" /&gt;
+	&lt;img id="img_fn" src="" style="width:400px" /&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre><code>
+function changeImgFn(e){
+	let fuElm = jQuery(e);
+	
+	let files = e.files;
+	let oFile = files[0];
+	
+	// Converting from a file object to a data url scheme.Conversion process by the asynchronous.
+	let reader = new FileReader();
+	reader.readAsDataURL(oFile);
+
+	// After conversion of the event.
+	reader.onload = (evt) =&gt; {
+
+		// accept属性を取得する
+		let accept = fuElm.attr('accept');
+
+		// accept属性が空もしくは画像系であるかチェックする
+		if (accept == '' || accept.indexOf('image') &gt;= 0){
+			let data_url = reader.result;
+			this.data_url = data_url;
+			
+			// IMG要素に画像を表示する
+			let imgElm = jQuery("#img_fn");
+			//imgElm.attr('src',reader.result);
+			imgElm.attr('src', data_url);
+
+		} 
+	}
+}
+	</code></pre>
+
+
+	<time>2020-8-16</time>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
