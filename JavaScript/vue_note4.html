@@ -768,6 +768,31 @@ class CrudBaseValidation{
 </div>
 
 
+<div id="sec4-5" class="sec4" >
+	<h3>vue.jsとjQueryの競合により、ファイル要素のチェンジイベントに不具合</h3>
+	
+	Vue.jsの「v-if」を使うとjQueryのchangeイベントは発動しなくなる。<br>
+	HTML5標準のonchangeイベントなどで対処する。<br>
+	<br>
+	
+	HTML
+	<pre>
+	&lt;div <strong>v-if</strong>="test_flg==1"&gt;
+		&lt;input type="file" id="img1" /&gt;
+	&lt;/div&gt;
+	</pre><br>
+	
+	JavaScript
+	<pre>
+	jQuery('#img1').change((e) =>{
+		// <strong>イベントが発動しない！！</strong>
+	});
+	</pre>
+
+	<br><time>2020-8-16</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
