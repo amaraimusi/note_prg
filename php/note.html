@@ -630,8 +630,47 @@
 	※JSON.stringifyはオブジェトだけでなく通常の配列もJSON化可能。<br>
 	</aside>
 	<br>
+	<hr>
 	
-	<time>2013-9-3 | 2017-6-28</time>
+	<p>DBにjson文字列を保存するときの注意点</p>
+	json文字列をDB保存する場合、addslashesでサニタイズしてからDB保存をすること。
+	そうしないと別の処理でDBからjson文字列を読み出し、そのjson文字列をパース（デコード）する際、失敗することがある。
+	json文字列中の値に「/」が入っているとエラーが起こるようだ。
+	「/」はURL文字列などでよく使われるので注意せねばならない。
+	<pre>
+	$json_str = json_encode($data, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+	$json_str = <strong>addslashes</strong>($json_str); // SQLインジェクション対策のサニタイズ。これをやらないと「/」を含む文字列をデコードできなくなる。
+	// ⇒ 略  $json_strをDBに保存
+	
+	// ～ 略 ～
+	
+	// ⇒ 略 $json_strをDBから取得
+	$data = json_decode($json_str, true);//JSONデコード
+	</pre>
+	<hr>
+	
+	<p>JSONデコードに失敗する</p>
+	JSONデコード（パース）に失敗する原因の一つに、JSON文字列に「&quot;」が混じっているというのがある。
+	この場合、単純に置換してやればよい。
+	<pre>
+	$data = json_decode(str_replace('&quot;','"',$json_str), true);
+	</pre>
+	<aside>
+	JSONデコードは、文字コードがUTF-8でないと失敗するそうである。
+	「mb_detect_encoding($str)」で文字コードを調べてみるのもあり。この関数で出力された文字コードが「UTF8でなく」「ASCII」となることが多いが、これは原因ではない。<br>
+	</aside>
+	<br>
+	
+	<p>JSONデコードのエラーの原因を調べる</p>
+	「json_last_error_msg()」関数で最後に実行したJSONデコード失敗のエラーメッセージを出力できる。
+	<pre>var_dump(json_last_error_msg());</pre>
+	<br>
+	下記のサイトでJSONデコードに失敗する原因を詳しく調べることができる。JSONデコードに失敗するJSON文字列を入力して使用する。<br>
+	<a href="https://lab.syncer.jp/Tool/JSON-Viewer/" target="_target">JSON Pretty Linter Ver3</a><br>
+	<hr>
+	
+	
+	<time>2013-9-3 | 2020-8-19</time>
 
 </div>
 <hr />
