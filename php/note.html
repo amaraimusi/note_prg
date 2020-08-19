@@ -650,10 +650,10 @@
 	<hr>
 	
 	<p>JSONデコードに失敗する</p>
-	JSONデコード（パース）に失敗する原因の一つに、JSON文字列に「&quot;」が混じっているというのがある。
+	JSONデコード（パース）に失敗する原因の一つに、JSON文字列に「&amp;quot;」が混じっているというのがある。
 	この場合、単純に置換してやればよい。
 	<pre>
-	$data = json_decode(str_replace('&quot;','"',$json_str), true);
+	$data = json_decode(str_replace('&amp;quot;','"',$json_str), true);
 	</pre>
 	<aside>
 	JSONデコードは、文字コードがUTF-8でないと失敗するそうである。
