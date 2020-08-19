@@ -226,6 +226,75 @@
 
 
 
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec2-2-1" class="sec1" >
+	<h3>vue.js | セレクトボックス 選択肢を追加</h3>
+	
+	<a href="/sample/js/a010/vue_select/vue_select_add.html" class="btn btn-info">Demo</a>
+	
+	HTML
+	<pre><code>
+&lt;div id="app1"&gt;
+	&lt;select v-model="amphibian_value"&gt;
+		&lt;option v-for="(value, i) in amphibianList" v-bind:value="i"&gt;
+			{{ value }}
+		&lt;/option&gt;
+	&lt;/select&gt;
+	&lt;span&gt;Selected: {{ amphibian_value }}&lt;/span&gt;
+	&lt;input type="text" v-model="new_amphibian" /&gt;
+	&lt;button type="button" v-on:click="addList()" &gt;追加&lt;/button&gt;
+&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+var app; // vue.js
+jQuery(() => {
+	
+	let amphibianList = [
+			'アフリカツメガエル',
+			'シリケンイモリ',
+			'トウキョウサンショウウオ',
+			'カジカガエル',
+	];
+	
+	app = new Vue({
+		el: '#app1',
+		data: {
+			amphibian_value: '2',
+			new_amphibian:'',
+			amphibianList: amphibianList,
+		},
+		methods:{
+			addList:()=>{
+				let add_value = this.app.new_amphibian;
+				this.app.amphibianList.push(add_value);
+			}
+		},
+	})
+});
+	</code></pre>
+	
+	<time>2020-8-19</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 <div id="sec2-3" class="sec1">
 	<div class="title">2次元配列の行列を入替</div>
