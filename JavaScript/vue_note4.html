@@ -793,6 +793,55 @@ class CrudBaseValidation{
 </div>
 
 
+<div id="sec4-6" class="sec4" >
+	<h3>Vue.js | style属性を制御 | CSS</h3>
+	
+	<a href="/sample/js/a013/vue_style/vue_style.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+&lt;div id="app1"&gt;
+	&lt;div v-bind:style="styles123"&gt;
+		ですから，私たちはもう子供であってはならず，波にもまれるかのように翻弄されたり，
+		風に吹かれるかのようにさまざまな教えに振り回されたりしてはなりません。
+		人に欺かれたり，ずる賢いたくらみに乗せられたりしてはならないのです。 
+		- 聖書エフェソス4:14 -
+	&lt;/div&gt;
+	&lt;input type="button" value="スタイル変更" v-on:click="changeStyle()"  /&gt;
+&lt;/div&gt;
+	</code></pre><br>
+	
+	JavaScript
+	<pre><code>
+var app;
+jQuery(()=&gt;{
+	
+	let styles123 = {
+			color:'#585858',
+	}
+	
+	app = new Vue({
+		el: '#app1',
+		data: {
+			styles123: styles123,
+		},
+		methods: {
+			changeStyle: () =&gt; {
+						this.app.styles123.color = '#dc4f43';
+						this.app.styles123['padding'] = '20px';
+						this.app.styles123['border'] = 'solid 4px #f19355';
+				}
+			}
+	});
+});
+	</code></pre><br>
+
+
+	<br><time>2020-8-20</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
