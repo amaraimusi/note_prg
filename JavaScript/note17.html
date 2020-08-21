@@ -1200,6 +1200,82 @@ class ReqBatch{
 </div>
 
 
+<div id="sec17-10" class="sec4" >
+	<h3>Div要素内のコンテンツを画像化する | html2canvas.js</h3>
+	
+	<a href="/sample/js/a013/html2canvas/html2canvas.html" class="btn btn-info">Demo</a>
+	<a href="https://html2canvas.hertzen.com/" target="_blank" class="btn btn-link">公式</a>
+	<br><br>
+	
+	html2canvas.jsはDIV要素のコンテンツをキャプチャーして画像化することができる。<br>
+	<br>
+	2020年の8月のバージョンでは、ブラウザのスクロールによってキャプチャー範囲がずれこむという問題がある。<br>
+	なのでスクロールをリセットしたり、scrollX,scrollYで細かな位置調整を施す必要がある。<br>
+	<br>
+	
+	HTML
+	<pre>
+		&lt;script src="html2canvas.min.js"&gt;&lt;/script&gt;
+		～ 略 ～
+		
+		&lt;input type="botton" value="TEST0" class="btn btn-success" onclick="test0()"/&gt;
+		&lt;input type="botton" value="画像化する" class="btn btn-success" onclick="test1()"/&gt;
+		
+		&lt;div id="div1" style="display:block;border:1px solid #19a15f;width:600px;" &gt;
+			&lt;p&gt;サンプルDiv要素&lt;/p&gt;&lt;br&gt;
+			&lt;img src="imori.jpg" alt="" style="width:550px"/&gt;
+			&lt;div style="padding:20px;"&gt;
+			では，当時生み出していたのはどんな実でしたか。
+			皆さんが今では恥じている事柄です。それらの行き着く先は死です。 
+			しかし，今や皆さんは罪から自由にされて神の奴隷になったので，神聖な生き方という実を生み出しています。
+			行き着く先は永遠の命です。 23 罪の代償は死ですが，神が与える贈り物は，私たちの主であるキリスト･イエスによる永遠の命なのです。
+			&lt;/div&gt;
+		
+			&lt;br&gt;&lt;time&gt;2020-1-1&lt;/time&gt;
+		&lt;/div&gt;
+		
+		&lt;div style="padding:20px;background-color:#e2e1e0"&gt;
+			画像&lt;br&gt;
+			&lt;img id="img1"  /&gt;
+		&lt;/div&gt;
+	</pre>
+	<br>
+	
+	JavaScript
+	<pre><code>
+// 検証0
+function test0(){
+	window.scrollTo(0, 0); // スクロールをリセット
+	html2canvas(document.querySelector("#div1")).then(canvas =&gt; {
+		document.body.appendChild(canvas)
+	});
+	
+}
+
+// 検証1
+function test1(){
+	window.scrollTo(0, 0); // スクロールをリセットする必要がある。
+	let targetElm = jQuery("#div1");
+	let w = targetElm.outerWidth();
+	let h =  targetElm.outerHeight();
+	
+	html2canvas(targetElm[0],{width:w,height:h,scrollX:-8.5,scrollY:0}).then(canvas =&gt; {
+		
+		let imgElm = jQuery('#img1');
+		imgElm.width(w);
+		imgElm.height(h);
+		imgElm[0].src = canvas.toDataURL("image/png");
+		
+	});
+
+}
+	</code></pre>
+
+
+	<br><time>2020-8-21</time>
+</div>
+
+
 <div id="sec17-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
