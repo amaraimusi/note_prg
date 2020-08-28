@@ -45,6 +45,41 @@
 </div>
 
 
+<div id="sec18-2" class="sec4" >
+	<h3>整数チェック | バリデーション</h3>
+	
+	<pre><code>
+	/**
+	 * 整数のチェック
+	 * @note
+	 * null, 空文字は正常と見なす。
+	 * 文字列型の整数値も正常と見なす。
+	 * 半角スペースが混じっていればエラーと見なす。
+	 * 符号付き整数（+100, -100）は正常と見なす。
+	 * 
+	 * @param mixed value
+	 * @return true:正常  false:エラー
+	 */
+	function isInteger(value){
+		
+		if(value === null) return true;
+		if(value === '') return true;
+		
+		if(Number.isNaN(value)) return false;
+		let value2 = Number(value); // 数値型に変換
+		if(Number.isInteger(value2) ) return true; // 整数判定
+		
+		return false;
+	}
+	</code></pre>
+	
+	<a href="/sample/js/a013/crud_base_validation/crud_base_validation.html" class="btn btn-info">検証</a><br>
+	<br>
+	
+	<br><time>2020-8-28</time>
+</div>
+
+
 <div id="sec18-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
