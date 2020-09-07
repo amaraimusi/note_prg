@@ -326,6 +326,44 @@ class Neko extends Model
 
 
 
+<div id="sec5-10" class="sec4" >
+	<h3>ブレード（Blade)の主要なディレクティブ</h3>
+	主要なディレクティブには@if, @empty, @isset, @for, @foreach, @whileなどがある。<br>
+	<br>
+	
+	<pre><code>
+	&lt;div&gt;
+	&lt;?php $hoge = 'neko'; ?&gt;
+	@if($hoge=='neko')
+		&lt;span&gt;飼い猫に人間のエサを与えていけないと犬が言った。&lt;/span&gt;
+	@else
+		&lt;span&gt;野良犬にエサをあげてはいけないと家畜豚は言う。&lt;/span&gt;
+	@endif
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+	@if(@empty($none))
+		&lt;span&gt;ニワトリがネコのエサを占拠したが、イヌのエサをネコに与えた。&lt;/span&gt;
+	@else
+		&lt;span&gt;ブタはネコに食料を分けあたえようとしたが、無理やり食べさせることにした。&lt;/span&gt;
+	@endif
+	&lt;/div&gt;
+	</code></pre>
+	
+	表示
+	<pre>
+飼い猫に人間のエサを与えていけないと犬が言った。
+ニワトリがネコのエサを占拠したが、イヌのエサをネコに与えた。
+	</pre>
+	
+	<a href="https://qiita.com/nyax/items/7f949bcb331b7221e593" target="blank" class="btn btn-info">Qiita@nyax  【Laravel】Bladeの主要ディレクティブ一覧</a><br>
+	<br>
+
+	<br><time>2020-9-7</time>
+</div>
+
+
+
 <div id="sec5-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
