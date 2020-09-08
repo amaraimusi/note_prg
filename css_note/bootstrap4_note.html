@@ -12,6 +12,7 @@
 	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
 	<link href="/note_prg/css/common2.css" rel="stylesheet">
 	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.min.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
 	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
 	<script src="/note_prg/js/vue.min.js"></script>
 	<script src="/note_prg/js/highlight.pack.js"></script>
@@ -234,6 +235,56 @@
 	</code></pre>
 
 	<br><time>2020-8-8</time>
+</div>
+
+
+<div id="sec1-6" class="sec4">
+	<h3>ドロップダウン | Popper.js</h3>
+	
+	Popper.jsか、もしくはPopper.jsを含むbootstrap.bundle.min.jsが必要。<br>
+	<a href="https://getbootstrap.jp/docs/4.2/components/dropdowns/" target="blank" class="btn btn-info">公式ドキュメント</a><br>
+	<br>
+	<br>
+	
+	<aside>
+	※Popper.jsについて<br>
+	Popper.jsはデザイン的に優れたポップアップ機能を提供する。ポップアップを使う場面があればついでに利用していきたい。<br>
+	<a href="https://popper.js.org/" target="blank">Popper.jsの公式ドキュメント</a>
+	</aside>
+	
+	
+	<br>
+	
+
+	
+	<p>Demo</p>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Dropdown button
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" href="#">Action</a>
+			<a class="dropdown-item" href="#">Another action</a>
+			<a class="dropdown-item" href="#">Something else here</a>
+		</div>
+	</div><br>
+	
+	HTML
+	<pre><code>
+	&lt;div class="dropdown"&gt;
+		&lt;button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"&gt;
+			Dropdown button
+		&lt;/button&gt;
+		&lt;div class="dropdown-menu" aria-labelledby="dropdownMenuButton"&gt;
+			&lt;a class="dropdown-item" href="#"&gt;Action&lt;/a&gt;
+			&lt;a class="dropdown-item" href="#"&gt;Another action&lt;/a&gt;
+			&lt;a class="dropdown-item" href="#"&gt;Something else here&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+
+	<br><time>2020-9-8</time>
 </div>
 
 
