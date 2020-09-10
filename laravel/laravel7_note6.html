@@ -40,6 +40,37 @@
 
 
 
+<div id="sec6-2" class="sec4"  >
+	<h3>パスワードリセットのバグ | password_resets doesn't exist</h3>
+	
+	パスワードリセット時に下記のようなエラーができることがある。<br>
+	エラー内容はpassword_resetsテーブルが無いということらしい。
+	<pre>
+	SQLSTATE[42S02]: Base table or view not found: 1146 Table '(DB名).password_resets' doesn't exist (SQL: select * from `password_resets` where `email` = test@example.com limit 1)
+	</pre>
+	<br>
+	
+	下記のコマンドでpassword_resetsテーブルの作成が可能
+	<pre class="console">
+	composer require laravel/ui
+	php artisan ui vue --auth
+	php artisan migrate
+	</pre>
+	<aside>※実行に時間がかかるコマンドもあるので注意（数分ほど要す）</aside>
+	<br>
+
+	上記のコマンドで行っていること。
+	<ol>
+		<li>「laravel/ui」のインストール</li>
+		<li>「laravel/ui」を利用してpassword_resetsなどのマイグレーションファイルを作成</li>
+		<li>マイグレーションを実行してpassword_resetsを作成</li>
+	</ol>
+
+	<br><time>2020-9-10</time>
+</div>
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
