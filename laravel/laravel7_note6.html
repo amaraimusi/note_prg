@@ -133,6 +133,31 @@
 
 
 
+<div id="sec6-5" class="sec4" >
+	<h3>メール設定 | パスワードリセット | さくらサーバー</h3>
+	
+	さくらサーバー環境におけるメール設定<br>
+	<br>
+	
+	.env
+	<pre><code>
+	# MAIL_MAILER=smtp
+	MAIL_DRIVER=smtp
+	MAIL_HOST=アカウント.sakura.ne.jp
+	MAIL_PORT=587
+	MAIL_USERNAME=xxx@アカウント.sakura.ne.jp
+	MAIL_PASSWORD=メールパスワード
+	MAIL_ENCRYPTION=tls
+	MAIL_FROM_ADDRESS=xxx@アカウント.sakura.ne.jp
+	MAIL_FROM_NAME="${APP_NAME}"
+	</code></pre>
+
+
+	<br><time>2020-9-11</time>
+</div>
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
