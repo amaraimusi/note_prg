@@ -71,6 +71,43 @@
 
 
 
+<div id="sec6-3" class="sec4" >
+	<h3>URLのパスからpublicを省略する | .htaccess</h3>
+	
+	ルートディレクトリの直下に下記「.htaccess」を配置する。<br>
+	<br>
+	
+	<p>.htaccess</p>
+	<pre><code>
+&lt;IfModule mod_rewrite.c&gt;
+    &lt;IfModule mod_negotiation.c&gt;
+        Options -MultiViews
+    &lt;/IfModule&gt;
+    
+    RewriteEngine On
+    
+    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ ^$1 [N]
+
+    RewriteCond %{REQUEST_URI} (&yen;.&yen;w+$) [NC]
+    RewriteRule ^(.*)$ public/$1 
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ server.php
+
+&lt;/IfModule&gt;
+	</code></pre>
+	
+	<a href="https://gist.github.com/liaotzukai/8e61a3f6dd82c267e05270b505eb6d5a" target="_blank">参考：liaotzukai/Php laravel 5.5 project .htaccess file</a><br>
+	<br>
+
+	<br><time>2020-9-11</time>
+</div>
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
