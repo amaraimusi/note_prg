@@ -77,6 +77,11 @@
 	ルートディレクトリの直下に下記「.htaccess」を配置する。<br>
 	<br>
 	
+	<div class="text-danger">
+	注意：この方法はlocalhost環境のみ有効!<br>
+	本番環境ではシンボリックリンクを利用したほうが良い。<br>
+	</div>
+	
 	<p>.htaccess</p>
 	<pre><code>
 &lt;IfModule mod_rewrite.c&gt;
@@ -103,6 +108,26 @@
 	<a href="https://gist.github.com/liaotzukai/8e61a3f6dd82c267e05270b505eb6d5a" target="_blank">参考：liaotzukai/Php laravel 5.5 project .htaccess file</a><br>
 	<br>
 
+	<br><time>2020-9-11</time>
+</div>
+
+
+
+<div id="sec6-4" class="sec4" >
+	<h3>URLのパスからpublicを省略する | シンボリックリンク</h3>
+
+	SSHでシンボリックリンクを作成する方法。<br>
+	publicを省略という言い方はやや語弊がある。とはいえ、この方法が正規のやり方なのかもしれない。<br>
+	<br>
+	
+	以下はさくらサーバーにSSHでアクセスし、シンボリックリンクを作成する例<br>
+	<pre class="console">
+	% ln -s /home/amaraimusi/www/CrudBase/laravel7/dev/public /home/amaraimusi/www/crud_base
+	</pre>
+
+	「<a href="http://amaraimusi.sakura.ne.jp/crud_base">http://amaraimusi.sakura.ne.jp/crud_base</a>」でアクセスできるようになる。
+	
+	
 	<br><time>2020-9-11</time>
 </div>
 
