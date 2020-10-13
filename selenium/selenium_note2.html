@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Seleniumの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Seleniumの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Seleniumについて（2020年、Windows10環境）</h3>
+	
+	Seleniumはオートメーションツールと呼ばれるものでブラウザを自動操作できる。<br>
+	テストで使われる他、スクレイピングでも活躍する。<br>
+	「Selenium RC」と「Selenium WebDriver」が存在し、2020年現在は「Selenium WebDriver」が使われる。<br>
+	<br>
+	
+	<p>Selenium RC</p>
+	JavaScriptのコードを対象のページに埋め込んでブラウザを自動操作する。まだ使えるようだが非推奨という扱いになっている。<br>
+	<br>
+	
+	<p>Selenium WebDriver</p>
+	2020年の時点ではこちらの「Selenium」が使われる。ブラウザの拡張機能やOSのネイティブ機能などを利用してブラウザを自動操作する。<br>
+	SeleniumというとChromeが思い浮かぶが、FireFox版、IE版なども存在するようだ。<br>
+	ブラウザの操作コマンドにはPython, Java, ruby、node.jsなどのプログラミング言語が使われる。<br>
+	<br>
+	
+	<p>ChromeでSeleniumを使うには？</p>
+	ChromeでSeleniumを使うにはChromeDriverが必要とのこと。<br>
+	Windows10にChromeDriverをインストールする場合、バージョン合わせや環境編集指定が必要なのでやや面倒ではある。→
+	<a href="https://www.mittsu-kosen.com/chromedriver%E3%82%92windows10%E3%81%A7%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%E3%80%90%E7%94%BB%E5%83%8F%E4%BB%98%E3%81%8D%E3%80%91/">参考</a><br>
+	本格的な自動操作システムを構築したい場合はWindowsよりもLinuxが向いている。<br>
+	<br>
+
+	<p>ChromeDriverとは？</p>
+	Chrome用のWebDriver。<br>
+	Android上のChromeとデスクトップ上のChrome（Mac、Linux、Windows、ChromeOS）で利用できる。<br>
+	<br>
+	
+	<p>WebDriverとは？</p>
+	WebDriverは、多くのブラウザでWebアプリを外部から操作するためのオープンソースツール。<br>
+	Webページへの移動、ユーザー入力、JavaScriptの実行などの機能を提供する。<br>
+	W3Cが策定した標準機能らしい。そのためChromeにかぎらず、主要なブラウザでは一通り実装されている。<br>
+	<br>
+	
+	<p>まとめ</p>
+	Windows10環境である場合、Chrome, ChromeDriver, Selenium, Python3を組み合わせて自動操作システムを構築するようだ。<br>
+	<br>
+
+
+	<br><time>2020-1-13</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2020-1-13</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/selenium/">Seleniumの覚書</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-1-13</div>
+</body>
+</html>
