@@ -91,6 +91,26 @@
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>セルの値を取得、セルに値をセット</h3>
+	
+	<pre><code>
+function myFunction() {
+  
+  let sheet = SpreadsheetApp.getActiveSheet();
+  let val = sheet.getRange(3,2).getValue(); // セルから値を取得
+  console.log(val);
+  
+  sheet.getRange(5,6).setValue('茶色い犬'); // セルに値をセット
+  
+}
+	</code></pre>
+
+
+	<br><time>2020-10-13</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
