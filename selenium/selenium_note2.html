@@ -83,6 +83,88 @@
 </div>
 
 
+<div id="sec2-3" class="sec4" >
+	<h3>Seleniumの基本</h3>
+	
+	
+	python + Chrome + ChromeDriver + Seleniumの組み合わせでスクレイピングを行う。<br>
+	pythonはWinPythonを用いる。<br>
+	<a href="/note_prg/python/note1.html#sec1-1" class="livipage">参考：winPythonの入手</a><br>
+	<br>
+			
+	<p>Seleniumを実行するまでの手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			Winpythonのコンソールを立ち上げ、Seleniumをインストールする。<br>
+			Winpythonパッケージに存在する「IPython Qt Console.exe」を実行するとコンソールが立ち上がる。<br>
+			<pre>$ pip install selenium</pre>
+			<a href="#sec2-2" class="livipage">参考：WinpythonにSeleniumをインストール</a><br>
+			<br>
+		</li>
+		
+		<li>
+			Chromeを開き、Chromeのバージョンを確認する。<br>
+			<img src="img/selenium_note2/sec2-3a1.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			ChromeDriverをダウンロードする。複数のダウンロードリンクが存在するが、Chromeのバージョンに近いものを選ぶ。<br>
+			<a href="https://chromedriver.chromium.org/downloads" target="blank">https://chromedriver.chromium.org/downloads</a><br>
+			<br>
+			<img src="img/selenium_note2/sec2-3a2.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			ダウンロードしたものを展開して「chromedriver.exe」を入手。
+		</li>
+		
+		<li>
+			パス指定するので「chromedriver.exe」はどこに配置しても良い。<br>
+			今回は、pythonのプロジェクトを作成したので、その中にlibディレクトリを作成してchromedriver.exeを配置した。<br>
+			<br>
+			<img src="img/selenium_note2/sec2-3a4.png" /><br>
+			<br>
+		</li>
+
+		<li>
+			
+			"Googleを開き「赤猫」ワードで検索”、という流れを自動操作するソースコード。<br>
+			<br>
+			test.py
+			<pre><code>
+import time
+from selenium import webdriver
+
+driver = webdriver.Chrome(executable_path='lib&yen;&yen;chromedriver.exe')
+driver.get('https://www.google.com/')
+time.sleep(5)
+search_box = driver.find_element_by_name("q")
+search_box.send_keys('赤猫')
+search_box.submit()
+time.sleep(5)
+driver.quit()
+			</code></pre>
+			<aside>
+			上記のソースコードではchromedriver.exeを相対パス指定しているが、環境変数にしたり、
+			「C:\Users\user\git\selenium_scraping_demo\lib\chromedriver.exe」のようにフルパス指定でもOK。
+			</aside>
+		</li>
+		
+		<li>
+			test.pyを実行すると、Chromeが立ち上がり、自動で動き出す。<br>
+			<img src="img/selenium_note2/sec2-3a5.png" class="img_compact_k" />
+		</li>
+		
+		<li>終わり</li>
+	</ol>
+	
+
+
+	<br><time>2020-10-18</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
