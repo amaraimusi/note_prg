@@ -165,11 +165,160 @@ driver.quit()
 </div>
 
 
+<div id="sec2-4" class="sec4" >
+	<h3>よく使うメソッド</h3>
+	
+	
+	<table class="tbl2">
+		<thead><tr><th>メソッド</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>
+					elm = driver.find_element_by_id("neko1") 
+				</td>
+				<td>
+					IDを指定して要素を取得する。<br>
+					JavaScriptにより<strong>動的</strong>に追加された要素も取得可能。
+					<pre><code>&lt;input id="neko1" type="text" value="" &gt;</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm.submit()
+				</td>
+				<td>
+					Submitボタンを自動押下。<br>
+					elm（要素）はsubmitボタン要素である必要はなく、form内のいずれかのinput要素でもよい。
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm = find_element_by_name('要素のname属性')
+				</td>
+				<td>
+					name属性を指定して要素を取得する。
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm = driver.find_element_by_xpath("//input[@name='neko_memo'][@type='text']")
+				</td>
+				<td>
+					jQueryのようなセレクタ指定方式で要素を取得する。<br>
+					最初に見つかった要素を一つ取得する。
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm = driver.find_element_by_link_text('Wikipedia')
+				</td>
+				<td>
+					a要素のリンクテキストを指定して要素を取得する。<br>
+					<pre><code>&lt;a href="https://ja.wikipedia.org/"&gt;Wikipedia&lt;/a&gt;</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm = driver.find_element_by_partial_link_text('Wiki')
+				</td>
+				<td>
+					a要素のリンクテキストを部分一致検索して要素を取得する
+					<pre><code>&lt;a href="https://ja.wikipedia.org/"&gt;Wikipedia&lt;/a&gt;</code></pre>
+					<aside>
+						検索文字がリンクテキストに一部でも含まれていれば取得される。<br>
+						find_element_by_partial_link_text('<strong>iki</strong>')
+					</aside>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm.click()
+				</td>
+				<td>
+					find_element_by_link_textで取得したa要素で「elm.click()」を実行すると、ハイパーリンク先のページに移動する。<br>
+					また、ボタン要素で「elm.click()」を実行すると、ボタン自動押下を行い、JavaScriptのonclickイベントを発動させることができる。
+				</td>
+			</tr>
+			<tr>
+				<td>
+					
+				</td>
+				<td>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+				</td>
+				<td>
+				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				
+				</td>
+				<td>
+				
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+
+
+	<br><time>2020-1-19</time>
+</div>
+
+
+<div id="sec2-5" class="sec4">
+	<h3>SeleniumはJavaScriptにより動的に生成した要素も自動操作できる。</h3>
+	
+	HTML
+	<pre><code>
+	&lt;div&gt;
+		&lt;script&gt;
+		function clickBtn1(){
+			let html = `
+				&lt;input id='btn2' type='button' value='テストボタン2' onclick='clickBtn2()' /&gt;
+			`;
+			jQuery('#div1').html(html);
+		}
+		function clickBtn2(){
+			alert('ボタン２をクリックしました。');
+		}
+		&lt;/script&gt;
+		&lt;input id="btn1" type="button" value="テストボタン" onclick="clickBtn1()"/&gt;
+		&lt;div id="div1"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	Python
+	<pre><code>
+	import time
+	from selenium import webdriver
+	
+	driver = webdriver.Chrome(executable_path='lib\\chromedriver.exe')
+	driver.get('http://localhost/selenium_scraping_demo/web_app_test/test1.php')
+	time.sleep(3)
+	elm = driver.find_element_by_id("btn1") 
+	elm.click()
+	time.sleep(1)
+	elm = driver.find_element_by_id("btn2") 
+	elm.click()
+	</code></pre>
+
+
+	<br><time>2020-10-19</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2020-1-13</time>
+	<br><time>2020-1-1</time>
 </div>
 
 
