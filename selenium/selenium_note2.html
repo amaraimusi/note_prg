@@ -241,26 +241,26 @@ driver.quit()
 			</tr>
 			<tr>
 				<td>
-					
+					elm = driver.find_element_by_tag_name("input") 
 				</td>
 				<td>
-				
-				</td>
-			</tr>
-			<tr>
-				<td>
-				
-				</td>
-				<td>
-				
+					タグ名で最初に見つかった要素を取得する。<br>
 				</td>
 			</tr>
 			<tr>
 				<td>
-				
+					elm = driver.find_element_by_class_name("neko_class") 
 				</td>
 				<td>
-				
+					class属性名そ指定して最初に見つかった要素を取得する。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm = driver.find_element_by_css_selector('input.neko_class')
+				</td>
+				<td>
+					<a href="#sec2-6" class="livipage" >参照：セレクタ：find_element_by_css_selector</a>
 				</td>
 			</tr>
 			
@@ -311,6 +311,46 @@ driver.quit()
 
 
 	<br><time>2020-10-19</time>
+</div>
+
+
+<div id="sec2-6" class="sec4" >
+	<h3>セレクタ：find_element_by_css_selector</h3>
+	
+	<p>ケース1</p>
+	HTML
+	<pre><code>&lt;input id="neko1" type="text"  class="neko_class" value="" &gt;</code></pre>
+	Python
+	<pre><code>elm = driver.find_element_by_css_selector('input.neko_class')</code></pre>
+	<hr>
+	
+	<p>ケース2</p>
+	HTML
+	<pre><code>
+	&lt;div data-id="101"&gt;
+		&lt;input id="neko1" type="text" name="neko_name" class="neko_class" value="新入りの帽子猫" &gt;
+	&lt;/div&gt;
+	</code></pre>
+	Python
+	<pre><code>elm = driver.find_element_by_css_selector('div[data-id="101"] &gt; input')</code></pre>
+	<hr>
+	
+	<p>ケース3</p>
+	HTML
+	<pre><code>&lt;input id="neko1" type="text" value="" &gt;</code></pre>
+	Python
+	<pre><code>elm = driver.find_element_by_css_selector('input#neko1')</code></pre>
+	<hr>
+	
+	<p>ケース4</p>
+	HTML
+	<pre><code>&lt;input id="neko1" type="text" name="neko_name" class="neko_class" value="" &gt;</code></pre>
+	Python
+	<pre><code>elm = driver.find_element_by_css_selector('input.neko_class#neko1[name="neko_name"]')</code></pre>
+	<hr>
+
+
+	<br><time>2020-10-20</time>
 </div>
 
 
