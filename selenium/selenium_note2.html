@@ -263,6 +263,22 @@ driver.quit()
 					<a href="#sec2-6" class="livipage" >参照：セレクタ：find_element_by_css_selector</a>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					elm.clear()
+				</td>
+				<td>
+					要素にセットする値をクリアする。
+				</td>
+			</tr>
+			<tr>
+				<td>
+					elm.send_keys('あいうえお')
+				</td>
+				<td>
+					要素に値を追加する。値を書き換える場合は「elm.clear()」で一旦クリアする。
+				</td>
+			</tr>
 			
 		</tbody>
 	</table>
@@ -351,6 +367,44 @@ driver.quit()
 
 
 	<br><time>2020-10-20</time>
+</div>
+
+
+<div id="sec2-7" class="sec4" >
+	<h3>複数要素の取得とループ | find_elements_by_css_selector</h3>
+
+	HTML
+	<pre><code>
+&lt;ol id="plant_list"&gt;
+	&lt;li&gt;アサガオ&lt;/li&gt;
+	&lt;li&gt;ヒルガオ&lt;/li&gt;
+	&lt;li&gt;グンバイヒルガオ&lt;/li&gt;
+	&lt;li&gt;リュウキュウシャリンバイ&lt;/li&gt;
+&lt;/ol&gt;
+	</code></pre><br>
+	
+	Python
+	<pre><code>
+	elms = driver.find_elements_by_css_selector('#plant_list li')
+	for elm in elms:
+	    print(elm.text)
+	</code></pre><br>
+	<br>
+	
+	<hr />
+	<p>複数の要素を取得するメソッド一覧</p>
+	<ol>
+		<li>find_elements_by_name</li>
+		<li>find_elements_by_xpath</li>
+		<li>find_elements_by_link_text</li>
+		<li>find_elements_by_partial_link_text</li>
+		<li>find_elements_by_tag_name</li>
+		<li>find_elements_by_class_name</li>
+		<li>find_elements_by_css_selector</li>
+	</ol>
+
+
+	<br><time>2020-10-21</time>
 </div>
 
 
