@@ -12,14 +12,15 @@
 	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
 	<link href="/note_prg/css/common2.css" rel="stylesheet">
 
-	<script src="/note_prg/js/jquery-1.11.1.min.js"></script>
-	<script src="/note_prg/js/jquery-ui.min.js"></script>
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
 	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
 	<script src="/note_prg/js/highlight.pack.js"></script>
 	<script src="/note_prg/js/livipage.js"></script>
-	<script src="/note_prg/js/open_src.js"></script>
-	<script src="/note_prg/js/PanelX.js"></script>
-	<script src="/note_prg/js/img_panel_x.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
 
 
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -94,6 +95,100 @@ plt.show()
 	<br>
 
 	<br><time>2020-10-19</time>
+</div>
+
+
+
+<div id="sec2-3" class="sec4">
+	<h3>Winpythonで実行ファイル（exe)を作成 | Selenium </h3>
+	
+	
+	<ol class="list_lg">
+		
+		<li>
+			Seleniumでハローワークから40歳求人を検索するプログラム「test_hello_work.py」を予め作成しておく。<br>
+			
+			<input type="button" class="btn btn-info btn-sm" value="test_hello_work.pyのソースコード" onclick="jQuery('#sec2-3b1').toggle(300)" />
+			<pre id="sec2-3b1" style="display:none"><code>
+import time
+from selenium import webdriver
+
+driver = webdriver.Chrome(executable_path='lib&yen;&yen;chromedriver.exe')
+driver.get('https://www.hellowork.mhlw.go.jp/')
+time.sleep(3)
+
+elm = driver.find_element_by_link_text('求人情報検索')
+elm.click()
+
+elm = driver.find_element_by_name("nenreiInput") 
+# elm.clear()
+elm.send_keys('40')
+time.sleep(3)
+# 
+elm = driver.find_element_by_id("ID_searchBtn") 
+elm.click()
+			</code></pre><br>
+			<br>
+			
+			プロジェクトディレクトリ内にChromeDriver（chromedriver.exe）を配置している。<br>
+			<br>
+			ファイル構成<br>
+			<img src="img/note2/sec2-3a1.png"  class="img_compact_k" /><br>
+			<br>
+			
+		</li>
+		<li>
+			Winpythonパッケージ内のIPython Qt Console.exe、またはWinPython Command Prompt.exeを起動してコマンド入力できる状態する。<br>
+			<img src="img/note2/sec2-3a2.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			pythonソースコードファイルからWindows用のexeファイルを作成するツール「pyinstaller」をインストールする。<br>
+			今回はWinPython Command Prompt.exeを起動して、下記コマンドを実行し、「pyinstaller」をインストール。<br>
+			<pre>$ pip install pyinstaller</pre><br>
+			<img src="img/note2/sec2-3a3.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			exeファイルの作成を行う。<br>
+			<br>
+			今回はWinPython Command Prompt.exeを開いてコンソールを立ち上げ、
+			cdコマンドでpythonソースコードが存在するディレクトリに移動する。（「test_hello_work.py」が存在するディレクトリ）<br>
+			<br>
+			対象のpythonソースコードファイルを指定して、exeファイルを作成するコマンドを実行。
+			<pre>pyinstaller test_hello_work.py</pre><br>
+			<img src="img/note2/sec2-3a4.png" class="img_compact_k" /><br>
+			<br>
+			しばらく処理が続いた後、
+			「INFO: Building COLLECT COLLECT-00.toc completed successfully.」と出れば成功。
+			
+		</li>
+		<li>
+			exeファイルの作成に成功した場合、
+			pythonソースコードファイルの存在するディレクトリにdistフォルダが作成されている。<br>
+			distフォルダにはプロジェクト名のフォルダ（test_hello_work）が作成され、その中にexeファイル(test_hello_work.exe)が存在する。<br>
+			<br>
+			
+			test_hello_work.exeを実行すればアプリを起動するが、Seleniumの場合、このままではまだ動かない。<br>
+			dist\test_hello_workディレクトリにlibフォルダを作成し、ChromeDriver(chromedriver.exe)を配置する。<br>
+			<br>
+			
+			以上で、chromedriver.exeを実行してアプリを起動できるようになる。<br>
+			<br>
+			
+			第3者に配布する場合、distフォルダのプロジェクト名のフォルダ（test_hello_work）を配布する。<br>
+			<br>
+			
+			
+			<img src="img/note2/sec2-3a5.png" class="img_compact_k" /><br>
+			<img src="img/note2/sec2-3a6.png" class="img_compact_k" /><br>
+			
+		</li>
+		<li>
+			終わり
+		</li>
+	</ol>
+
+
+	<br><time>2020-10-21</time>
 </div>
 
 
