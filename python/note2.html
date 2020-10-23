@@ -299,7 +299,86 @@ array(1) {
 	</pre>
 	
 
-	<br><time>202-10-23</time>
+	<br><time>2020-10-23</time>
+</div>
+
+
+
+<div id="sec2-6" class="sec4" >
+	<h3>複数画像をWEBアプリにアップロード</h3>
+	
+	WEBアプリ（PHP)
+	<pre><code>
+&lt;div&gt;
+&lt;?php 	var_dump($_POST); ?&gt;
+&lt;hr&gt;
+&lt;?php var_dump($_FILES);?&gt;
+&lt;/div&gt;
+	</code></pre><br>
+	
+	Python
+	<pre><code>
+import requests
+
+# 送信データ
+neko_name = "ボーシ猫"
+neko_age = "0.5"
+sendData = {'neko_name': neko_name, 'neko_age': neko_age}
+   
+images = {}
+for i, f in enumerate(["imori.jpg", "tamamusi.jpg"]):
+    tiw = open(f, "rb") # io.TextIOWrapper
+    images[f] = tiw.read()
+    
+url = "http://localhost/selenium_scraping_demo/post_to_web/web/post_to_web_page1.php"
+res = requests.post(url, data=sendData, files=images)
+print(res.text)
+
+	</code></pre><br>
+	
+	
+	出力
+	<pre class="console">
+&lt;div&gt;
+array(2) {
+  ["neko_name"]=&gt;
+  string(12) "ボーシ猫"
+  ["neko_age"]=&gt;
+  string(3) "0.5"
+}
+&lt;hr&gt;
+array(2) {
+  ["imori_jpg"]=&gt;
+  array(5) {
+    ["name"]=&gt;
+    string(9) "imori.jpg"
+    ["type"]=&gt;
+    string(0) ""
+    ["tmp_name"]=&gt;
+    string(23) "C:&yen;xampp&yen;tmp&yen;phpAF4.tmp"
+    ["error"]=&gt;
+    int(0)
+    ["size"]=&gt;
+    int(134741)
+  }
+  ["tamamusi_jpg"]=&gt;
+  array(5) {
+    ["name"]=&gt;
+    string(12) "tamamusi.jpg"
+    ["type"]=&gt;
+    string(0) ""
+    ["tmp_name"]=&gt;
+    string(23) "C:&yen;xampp&yen;tmp&yen;phpB05.tmp"
+    ["error"]=&gt;
+    int(0)
+    ["size"]=&gt;
+    int(36015)
+  }
+}
+&lt;/div&gt;
+	</pre>
+
+	<br><time>2020-10-23</time>
 </div>
 
 
