@@ -193,6 +193,52 @@ elm.click()
 
 
 
+<div id="sec2-4" class="sec4" >
+	<h3>PythonでWEBアプリにPOSTデータを送信する</h3>
+	
+	WEBアプリ（HTML)
+	<pre><code>
+	&lt;div&gt;
+	&lt;?php var_dump($_POST); ?&gt;
+	&lt;/div&gt;
+	</code></pre><br>
+	
+	Python
+	<pre><code>
+import urllib.request, urllib.parse
+data = {
+    "neko_name": "帽子猫",
+    "age": 0,
+    "memo": "弱弱しい猫ちゃんです。"
+}
+# ここでエンコードして文字→バイトにする！
+data = urllib.parse.urlencode(data).encode("utf-8")
+with urllib.request.urlopen("http://localhost/selenium_scraping_demo/post_to_web/web/post_to_web_page1.php", data=data) as res:
+   html = res.read().decode("utf-8")
+   print(html)
+	</code></pre><br>
+	
+	出力
+	<pre class="console">
+&lt;div&gt;
+array(3) {
+  ["neko_name"]=&gt;
+  string(9) "帽子猫"
+  ["age"]=&gt;
+  string(1) "0"
+  ["memo"]=&gt;
+  string(33) "弱弱しい猫ちゃんです。"
+}
+&lt;/div&gt;
+	</pre>
+	
+	
+
+	<br><time></time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
