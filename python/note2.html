@@ -239,6 +239,71 @@ array(3) {
 
 
 
+<div id="sec2-5" class="sec4" >
+	<h3>画像を1枚、WEBアプリにアップロード</h3>
+	
+	WEBアプリ（PHP）
+	<pre><code>
+&lt;div&gt;
+&lt;?php var_dump($_POST); ?&gt;
+&lt;hr&gt;
+&lt;?php var_dump($_FILES);?&gt;
+&lt;/div&gt;
+	</code></pre><br>
+
+
+	Python
+	<pre><code>
+import requests
+url = "http://localhost/selenium_scraping_demo/post_to_web/web/post_to_web_page1.php"
+   
+# 送信データ
+neko_name = "ボーシ猫"
+neko_age = "0.5"
+sendData = {'neko_name': neko_name, 'neko_age': neko_age}
+  
+image = "imori.jpg"
+data = open(image, 'rb')
+file = {'file': data}
+  
+res = requests.post(url, data=sendData, files=file)
+print(res.text)
+	</code></pre><br>
+	
+	出力
+	<pre class="console">
+&lt;div&gt;
+array(2) {
+  ["neko_name"]=&gt;
+  string(12) "ボーシ猫"
+  ["neko_age"]=&gt;
+  string(3) "0.5"
+}
+&lt;hr&gt;
+array(1) {
+  ["file"]=&gt;
+  array(5) {
+    ["name"]=&gt;
+    string(9) "imori.jpg"
+    ["type"]=&gt;
+    string(0) ""
+    ["tmp_name"]=&gt;
+    string(24) "C:&yen;xampp&yen;tmp&yen;php5C51.tmp"
+    ["error"]=&gt;
+    int(0)
+    ["size"]=&gt;
+    int(134741)
+  }
+}
+&lt;/div&gt;
+	</pre>
+	
+
+	<br><time>202-10-23</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
