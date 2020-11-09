@@ -142,6 +142,31 @@ class NekoController // → 「Controller」を継承しなくても動作する
 </div>
 
 
+<div id="sec1-5-2" class="sec4" >
+	<h3>ログ出力、日付ごとに</h3>
+	
+	ルート/.envファイルを開き、下記のように修正する。<br>
+	<br>
+
+	変更前(デフォルト)
+	<pre>LOG_CHANNEL=stack</pre><br>
+	
+	変更後
+	<pre>LOG_CHANNEL=daily</pre><br>
+	
+	適当なソースコード中で「info('今日の猫はいかがでしょう');」と記述して実行すると、下記のログファイルが作成され、そこにログが出力される。<br>
+	<pre>/storage/logs/laravel-2020-11-09.log</pre>
+	<pre>[2020-11-09 15:25:21] local.INFO: 今日の猫はいかがでしょう  </pre>
+	<br>
+
+	他にslackへの出力などいくつかの設定などができる。<br>
+	<a href="https://readouble.com/laravel/7.x/ja/logging.html" target="_blank">参考：Laravel 7.x ログ</a><br>
+	<br>
+	
+	<br><time>2020-11-9</time>
+</div>
+
+
 <div id="sec1-6" class="sec4" >
 	<h3>Laravelのモデル</h3>
 	
