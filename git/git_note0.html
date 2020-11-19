@@ -95,6 +95,22 @@ $ git branch -a -v
 			</tr>
 			
 			<tr>
+				<td>$ git branch -vv</td>
+				<td>
+				ローカルブランチとリモートブランチの紐づけを確認する。
+				[]内がリモートのブランチを表している。
+<pre class="console">
+$ git branch -vv
+  main         abfa21e [origin/main] 海へ行きたい
+* okinawa_fish c60f3e3 山へ行きたい
+  tanuki       c3dce2a ファーストコミット
+</pre>
+					[]が存在しない個所はリモートのブランチと紐づいていない状態。<br>
+					<a href="#sec1-0-3" class="livipage">参考：ローカルブランチとリモートブランチを紐づける</a><br>
+				</td>
+			</tr>
+			
+			<tr>
 				<td>$ git checkout ブランチ名</td>
 				<td>
 				アクティブなブランチを変更する。（ローカルリポジトリ内のブランチ）
@@ -251,14 +267,6 @@ Total 3 (delta 2), reused 0 (delta 0)
 </pre>
 				</td>
 			</tr>
-			
-			<tr>
-				<td></td>
-				<td>
-<pre class="console">
-</pre>
-				</td>
-			</tr>
 
 			<tr style="display:none">
 				<td></td>
@@ -365,7 +373,7 @@ $ git branch -vv
 
 
 <div id="sec1-0-4" class="sec4" >
-	<h3>コンフリクト（競合）の修正 | プルしたらコンフリクトが発生しまった</h3>
+	<h3>コンフリクト（競合）の修正 | プルしたらコンフリクトが発生した</h3>
 	
 	<ol class="list_lg">
 		<li>
