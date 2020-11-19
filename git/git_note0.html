@@ -351,7 +351,7 @@ $ git branch -vv
 </pre><br>
 
 この状態でプッシュ「$ git push」しようとするとコンフリクト（競合）が発生することがある。<br>
-詳しくは「<a href="#sec1-0-3">コンフリクト（競合）の修正</a>」を参照。<br>
+詳しくは「<a href="#sec1-0-3" class="livipage">コンフリクト（競合）の修正</a>」を参照。<br>
 <br>
 
 
@@ -359,6 +359,70 @@ $ git branch -vv
 </pre>
 
 
+
+	<br><time>2020-11-19</time>
+</div>
+
+
+<div id="sec1-0-4" class="sec4" >
+	<h3>コンフリクト（競合）の修正 | プルしたらコンフリクトが発生しまった</h3>
+	
+	<ol class="list_lg">
+		<li>
+プルしたらコンフリクトが発生してしまった。（下記の例ではREADME.mdファイルが競合している状態）
+<pre class="console">
+$ git pull
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+</pre>
+		</li>
+		
+		<li>
+			ローカル側でREADME.mdを適当に修正し、コミット（ローカル）を実行する。
+		</li>
+		
+		<li>
+このままプッシュしようとすると怒られた。
+<pre class="console">
+$ git push origin gurukun
+error: src refspec gurukun does not match any
+error: failed to push some refs to 'git@github.com:amaraimusi/eccube4_demo.git'
+</pre><br>
+		</li>
+		
+		<li>
+「$ git push」を実行するとどうすればよいのか教えてくれるようだ。<br>
+<pre class="console">
+$ git push
+fatal: The upstream branch of your current branch does not match
+the name of your current branch.  To push to the upstream branch
+on the remote, use
+
+    git push origin HEAD:gurukun
+
+To push to the branch of the same name on the remote, use
+
+    git push origin HEAD
+
+To choose either option permanently, see push.default in 'git help config'.
+
+</pre>
+「git push origin HEAD:gurukun」を実行するようにとのこと。
+		</li>
+		
+		<li>
+「$ git push origin HEAD:gurukun」を実行すると無事にプッシュ成功。
+<pre class="console">
+$ git push origin HEAD:gurukun
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:amaraimusi/eccube4_demo.git
+   abfa21e..204ccce  HEAD -> gurukun
+</pre><br>
+以上でコンフリクトの修正完了
+		</li>
+	
+	</ol>
 
 	<br><time>2020-11-19</time>
 </div>
