@@ -304,6 +304,66 @@ Total 3 (delta 2), reused 0 (delta 0)
 </div>
 
 
+<div id="sec1-0-3" class="sec4" >
+	<h3>ローカルブランチとリモートブランチを紐づける</h3>
+
+「$ git branch -vv」コマンドでローカルブランチとリモートブランチの紐づけ状況を調べる。
+[origin/main]のように[]内のコードはリモートブランチを表している。
+現在ローカルでアクティブになっているokinawa_fishブランチには[]が存在していない。つまり現在はリモートブランチを紐づいていない状態になっている。
+<pre class="console">
+$ git branch -vv
+  main         abfa21e [origin/main] 海へ行きたい
+* okinawa_fish c60f3e3 山へ行きたい
+  tanuki       c3dce2a ファーストコミット
+</pre><br>
+
+とりあえず「$ git pull」コマンドでプルを実行しようとすると、どのコマンドを実行すれば良いのか知らされる。<br>
+<pre class="console">
+$ git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull &lt;remote&gt; &lt;branch&gt;
+
+If you wish to set tracking information for this branch you can do so with:
+
+    <strong>git branch --set-upstream-to=origin/&lt;branch&gt; okinawa_fish</strong>
+
+</pre>
+「git branch --set-upstream-to=origin/&lt;branch&gt; okinawa_fish」コマンドを書き換えて実行すれば良いようだ。<br>
+<br>
+
+あらかじめGitHub側には「gurukun」ブランチを作成してあるので、コマンドを下記のように書き換えて実行する
+<pre class="console">
+$ git branch --set-upstream-to=origin/<strong>gurukun</strong> okinawa_fish
+Branch 'okinawa_fish' set up to track remote branch 'gurukun' from 'origin'.
+</pre>
+以上でローカルブランチとリモートブランチの紐づけ完了。<br>
+<br>
+
+もう一度「git branch -vv」を実行すると紐づけが行われていることが確認できる。
+<pre class="console">
+$ git branch -vv
+  main         abfa21e [origin/main] 海へ行きたい
+* okinawa_fish c60f3e3 <strong>[origin/gurukun: ahead 1, behind 1]</strong> 山へ行きたい
+  tanuki       c3dce2a ファーストコミット
+</pre><br>
+
+この状態でプッシュ「$ git push」しようとするとコンフリクト（競合）が発生することがある。<br>
+詳しくは「<a href="#sec1-0-3">コンフリクト（競合）の修正</a>」を参照。<br>
+<br>
+
+
+<pre class="console">
+</pre>
+
+
+
+	<br><time>2020-11-19</time>
+</div>
+
+
 <div id="sec1-0-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
