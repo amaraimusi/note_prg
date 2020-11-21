@@ -41,6 +41,14 @@
 					<a href="#sec1-0-2" class="livipage">参考</a>
 				</td>
 			</tr>
+
+			<tr>
+				<td>$ git branch dog</td>
+				<td>
+					ブランチを新しく作成（ローカル側のみ）
+				</td>
+			</tr>
+			
 			<tr>
 				<td>$ git branch</td>
 				<td>
@@ -114,6 +122,7 @@ $ git branch -vv
 				<td>$ git checkout ブランチ名</td>
 				<td>
 				アクティブなブランチを変更する。（ローカルリポジトリ内のブランチ）
+				プロジェクト内のファイル群もそのブランチの修正に一斉に切り替わる。
 <pre class="console">
 $ git checkout gurukun
 Switched to branch 'gurukun'
@@ -248,14 +257,6 @@ Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 301 bytes | 150.00 KiB/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 
-</pre>
-				</td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<td>
-<pre class="console">
 </pre>
 				</td>
 			</tr>

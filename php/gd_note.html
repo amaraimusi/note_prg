@@ -293,6 +293,66 @@
 
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>画像に文字を重ねる | imagettftext</h3>
+	
+
+	文字フォントのモジュールを<a href="https://moji.or.jp/ipafont/" target="blank">文字情報技術促進協議会</a>などから入手可能。
+	文字フォントのモジュールはipaexm.ttfなどttfファイルという形になっている。モジュールの配置先ディレクトリは適当な場所で良い。<br>
+	<br>
+	
+	<p>サンプルコード</p>
+	<pre><code>
+	&lt;?php 
+	
+	$back_img_fp = "imori.jpg"; // 背景画像ファイルパス
+	$res_img_fp = "test.png"; // 合成結果画像ファイルパス
+	$text = "Hello！&yen;nシリケンイモリ&yen;n" . time(); // 重ねて合成表示する文字列
+	$size = 32; // 文字列のサイズ
+	$angle = 0; // 文字列の角度
+	// 挿入位置
+	$x = 8;         // 文字列の位置：左上座標
+	$y = 8 + $size; // 文字列の位置：左上座標
+	
+	$image = imagecreatefromjpeg($back_img_fp);// 画像リソース IDを取得（失敗時はfalse)
+	if(empty($image)){
+		echo '画像取得に失敗しました。' . $back_img_fp . '&lt;br&gt;';
+		die();
+	}
+	
+	
+	$color = imagecolorallocate($image, 255, 255, 255); // 文字列の色（int型：色ID）
+	
+	$fontfile = "ipaexm.ttf"; // 文字列フォントの指定
+	
+	// Windows環境用の文字列フォント設定
+	if(PHP_OS == 'WINNT' ){
+		$fontfile = "C:&yen;Windows&yen;Fonts&yen;meiryo.ttc";
+	}
+	
+	imagettftext($image, $size, $angle, $x, $y, $color, $fontfile, $text); // 文字列を画像に重ねて合成
+	
+	imagepng($image, $res_img_fp); // png形式で画像を出力
+	
+	?&gt;
+	&lt;img src="&lt;?php echo $res_img_fp; ?&gt;?t=&lt;?php echo time(); ?&gt;" /&gt;&lt;br&gt;
+	</code></pre>
+	
+	<p>出力画像</p>
+	<img src="/note_prg/php/img/gd_note/sec1-8.png" style="width:400px" /><br>
+	<br>
+	
+	<br><time>2020-11-21</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
