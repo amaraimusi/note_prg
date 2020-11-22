@@ -353,6 +353,38 @@
 
 
 
+<div id="sec1-9" class="sec4" >
+	<h3>塗りつぶし | imagefill</h3>
+	
+	<pre><code>
+&lt;?php 
+
+$img = imagecreatetruecolor(240, 160);
+$color = imagecolorallocate($img, 250, 50, 50); // 塗りつぶし色
+imagefill ($img ,0 , 0 ,  $color );
+
+// 画像を出力します
+imagepng( $img, "test.png");
+imagedestroy($img);
+$t = time();
+echo "&lt;img src='test.png?t={$t}' /&gt;";
+?&gt;
+	</code></pre>
+	
+	<p>出力画像</p>
+	<img src="img/gd_note/sec1-9.png" alt="" />
+	
+	<br><time>2020-11-22</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
