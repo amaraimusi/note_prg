@@ -385,6 +385,79 @@ echo "&lt;img src='test.png?t={$t}' /&gt;";
 
 
 
+<div id="sec1-10" class="sec4" >
+	<h3>文字列画像の横幅と縦幅 | imagettfbbox</h3>
+	
+	<pre><code>
+&lt;?php 
+
+$back_img_fp = "imori.jpg"; // 背景画像ファイルパス
+$size = 32; // 文字列のサイズ
+$angle = 0; // 文字列の角度
+$text = "シリケンイモリ"; // 重ねて合成表示する文字列
+
+$fontfile = "ipaexm.ttf"; // 文字列フォントの指定
+
+// Windows環境用の文字列フォント設定
+if(PHP_OS == 'WINNT' ){
+	$fontfile = "C:&yen;Windows&yen;Fonts&yen;meiryo.ttc";
+}
+
+$image = imagecreatefromjpeg($back_img_fp);// 画像リソース IDを取得（失敗時はfalse)
+$info = <strong>imagettfbbox</strong> ( $size, $angle, $fontfile, $text );
+
+echo "&lt;table class='table'&gt;";
+foreach($info as $i =&gt; $v){
+	echo "&lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{$v}&lt;/td&gt;&lt;/tr&gt;";
+}
+echo '&lt;/table&gt;';
+
+$color = imagecolorallocate($image, 255, 255, 255); // 文字列の色（int型：色ID）
+
+// 挿入位置
+$x = 8;         // 文字列の位置：左上座標
+$y = 8 + $size; // 文字列の位置：左上座標
+
+
+
+imagettftext($image, $size, $angle, $x, $y, $color, $fontfile, $text); // 文字列を画像に重ねて合成
+
+imagepng($image, 'test.png'); // png形式で画像を出力
+
+?&gt;
+&lt;img src="test.png?t=&lt;?php echo time(); ?&gt;" /&gt;&lt;br&gt;
+	</code></pre>
+	
+	<table class="tbl2">
+		<thead>
+			<tr><th>インデックス</th><th>値</th><th>説明</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>0</td><td>3</td><td>左下X</td></tr>
+			<tr><td>1</td><td>2</td><td>左下Y</td></tr>
+			<tr><td>2</td><td>294</td><td>右下X</td></tr>
+			<tr><td>3</td><td>2</td><td>右下Y</td></tr>
+			<tr><td>4</td><td>294</td><td>右上X</td></tr>
+			<tr><td>5</td><td>-35</td><td>右上Y</td></tr>
+			<tr><td>6</td><td>3</td><td>左上X</td></tr>
+			<tr><td>7</td><td>-35</td><td>左上Y</td></tr>
+	
+		</tbody>
+	</table>
+	<br>
+	<img src="img/gd_note/sec1-10.png" style="width:50%;height:50%" />
+	
+	<br><time>2020-11-23 | 2020-11-24</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
