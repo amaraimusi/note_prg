@@ -289,6 +289,29 @@
 
 
 
+<div id="sec10-7" class="sec4" >
+	<h3>セッションタイムアウト</h3>
+	
+	<pre><code>
+Configure::write('Session', array(
+	'defaults' =&gt; 'php',
+	'timeout' =&gt; 10 // 分を指定
+));
+	</code></pre><br>
+	
+	AppController.phpや各種コントローラのbeforeFilterメソッド内に実装すると良い。<br>
+	<br>
+	
+	<br><time>2020-11-27</time>
+	
+</div>
+
+
+
+
+
+
+
 
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
