@@ -31,6 +31,176 @@
 
 
 
+
+<div id="sec1-0-1" class="sec4" >
+	<h3>Docker | よく使うコマンド</h3>
+	
+	
+	<table class="table">
+		<thead><tr><th>コマンド</th><th>説明</th></tr></thead>
+		<tbody>
+		
+			<tr>
+				<td>$ docker images</td>
+				<td>
+					保持しているイメージ一覧を表示。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker search パッケージ名</td>
+				<td>
+					Docker Hubからイメージを検索する。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker pull phpmyadmin/phpmyadmin</td>
+				<td>
+					Docker Hubからイメージをダウンロードする。<br>
+					例ではphpMyAdminをDocker Hubからダウンロード。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker image list</td>
+				<td>
+					ダウンロードして保持しているイメージ一覧を表示。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker run -t -i centos</td>
+				<td>
+					イメージからコンテナを生成および実行状態にする。(例：centosのダウンロード)
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker create -it centos</td>
+				<td>
+					コンテナのダウンロードだけ行い、実行はしない。(例：centosのダウンロード)
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker start コンテナIDもしくはコンテナ名</td>
+				<td>
+					コンテナを動かす。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker exec -it コンテナIDもしくはコンテナ名 bash -c "任意のコマンド"</td>
+				<td>
+					コンテナに接続。アタッチ状態にする（コンテナ内に入る）。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker attach コンテナIDもしくはコンテナ名</td>
+				<td>
+					アタッチ状態にする（コンテナ内に入る）。なぜか止まることが多いので、docker execコマンドを使ったほうがいいかも。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>docker ps</td>
+				<td>
+					稼働中のコンテナ一覧を表示する。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker ps -a</td>
+				<td>
+					停止中のコンテナ一覧も表示。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker stop コンテナ名もしくはコンテナID</td>
+				<td>
+					コンテナを停止する。
+					再び動かすには「docker start xxxxx」。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>docker inspect コンテナ名もしくはコンテナID</td>
+				<td>
+					コンテナの詳細情報を表示する。<br>
+					マウントしているボリュームや、割り当てIPアドレスなどいろいろな情報が確認可能。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>docker stop $(docker ps -a -q) </td>
+				<td>
+					コンテナをすべて停止する。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>docker rm $(docker ps -a -q) </td>
+				<td>
+					コンテナをすべて削除する。
+				</td>
+			</tr>
+		
+			<tr>
+				<td></td>
+				<td>
+				</td>
+			</tr>
+		
+			<tr>
+				<td></td>
+				<td>
+				</td>
+			</tr>
+		
+			<tr>
+				<td></td>
+				<td>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	
+	
+	<br><time>2020-12-1</time>
+	
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-0-2" class="sec4" >
+	<h3>Dockerを動かすときはxamppのApacheとMysqlは止めたほうが無難</h3>
+	
+		xamppのデフォルト設定は、Apacheはポート80番、MySQLはポート3306番を用いる。
+		Dockerも80ポートや3306ポートを使って開発環境を構築するケースがある。
+		同じポートを使うと競合してどちらかが使えなくなるので注意する。
+		どうしても共存させる場合は、xamppかDockerのどちらかでポート番号を変える必要がある。
+	
+	<br><time>2020-12-1</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec1-1" class="sec4" >
 	<h3>Dockerとは</h3>
 	
