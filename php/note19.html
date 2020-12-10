@@ -69,6 +69,34 @@ class NekoController extends Controller
 </div>
 
 
+<div id="sec19-3" class="sec4" >
+	<h3>property_exists | オブジェクトもしくはクラスにプロパティが存在するかどうかを調べる</h3>
+
+	<pre><code>
+$animal = new Animal();
+
+echo property_exists($animal, 'name'); // → 1
+echo property_exists($animal, 'age');//  → 1
+echo property_exists($animal, 'power');//  → 1
+echo property_exists($animal, 'bark');//  → 空
+echo property_exists($animal, 'dummy');// → 空
+
+class Animal{
+	public $name = 'Cat';
+	protected $age = 99;
+	private $power = 99;
+	
+	public function bark(){
+		
+	}
+}
+	</code></pre>
+	
+	
+	<br><time>2020-12-10</time>
+</div>
+
+
 <div id="sec19-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
