@@ -138,6 +138,34 @@ class Animal{
 </div>
 
 
+<div id="sec19-6" class="sec4" >
+	<h3>staticメソッド | ファクトリー | static() | self::</h3>
+	
+	<pre><code>
+	
+$neko = Neko::factory();
+
+class Neko{
+  public static function factory(){
+    $name = self::getDefName();
+    return new static($name);
+  }
+
+  public static function getDefName(){
+    return 'タマ';
+  }
+
+  public function __construct($name){
+    echo $name;
+  }
+}
+	</code></pre>
+
+
+	<br><time>2020-12-12</time>
+</div>
+
+
 <div id="sec19-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
