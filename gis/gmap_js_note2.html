@@ -301,6 +301,30 @@
 
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>マーカーの大きさと相対位置を動的に変更する | アイコンのサイズ変更、アンカー位置調整</h3>
+	
+	<a href="/sample/js/a011/gmap_js_api/demo3_marker_size_change.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	チェンジイベントやボタンクリックイベントなどで以下を実行
+	<pre><code>
+		marker.setIcon({
+			url: 'icon/sakana.png',
+			scaledSize:new google.maps.Size(32, 32), // アイコンの大きさ
+			anchor:new google.maps.Point(0, 32), // 相対位置x,y
+		});
+	</code></pre>
+	<aside>
+	markerオブジェクトは「marker = new google.maps.Marker(...」で生成されたもの。
+	</aside>
+
+
+	<br><time>2020-12-15</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
