@@ -166,6 +166,52 @@ class Neko{
 </div>
 
 
+<div id="sec19-7" class="sec4" >
+	<h3>falseかtrueのフラグ値に変換するテクニック | !!</h3>
+	
+	<pre><code>
+&lt;table class="tbl2"&gt;&lt;tbody&gt;
+&lt;?php 
+$list = [1, 99, 0.1, 'あ', '赤犬', true, 0, '', null, false];
+foreach($list as $val){
+	$flg = <strong>!!</strong>$val; // falseかtrueに変換する
+	if($flg === false) $flg = 'false';
+	if($flg === true) $flg = 'true';
+	echo "&lt;tr&gt;&lt;td&gt;{$val}&lt;/td&gt;&lt;td&gt;{$flg}&lt;/td&gt;&lt;/tr&gt;";
+}
+?&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+	</code></pre>
+	
+	<p>出力</p>
+	<table class="tbl2"><tbody>
+<tr><td>1</td><td>true</td></tr><tr><td>99</td><td>true</td></tr><tr><td>0.1</td><td>true</td></tr><tr><td>あ</td><td>true</td></tr><tr><td>赤犬</td><td>true</td></tr><tr><td>1</td><td>true</td></tr><tr><td>0</td><td>false</td></tr><tr><td></td><td>false</td></tr><tr><td></td><td>false</td></tr><tr><td></td><td>false</td></tr></tbody></table>
+
+	<br><time>2020-12-19</time>
+</div>
+
+
+<div id="sec19-8" class="sec4" >
+	<h3>初期値をセットする際の1行簡易記述 | ワンライナー | ?? </h3>
+	
+	<pre><code>
+	&lt;?php 
+	$data = ['neko'=&gt;'猫'];
+	$neko = $data['neko'] ?? '犬';
+	$dog = $data['dog'] ?? '犬';
+	echo $neko;
+	echo $dog;
+	?&gt;
+	</code></pre>
+
+	<p>出力</p>
+	<pre class="console">猫犬
+	</pre>
+
+	<br><time>2020-12-19</time>
+</div>
+
+
 <div id="sec19-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
