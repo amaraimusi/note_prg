@@ -190,6 +190,24 @@
 
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>強制的にリモートブランチの最新状態にローカル環境を戻す</h3>
+	
+	間違ってコミットしてまったり、競合が発生していろいろごちゃごちゃ状態になったしまうことがある。<br>
+	とりあえずソースコードをリモートの最新状態に戻すには下記のコマンドを用いる。<br>
+	<br>
+	リモートブランチ「origin/master」の最新状態に、ローカル環境をリセットする。<br>
+	<pre><code>
+	$ git fetch origin master
+	$ git reset --hard origin/master
+	</code></pre>
+
+
+	<br><time>2020-12-23</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
