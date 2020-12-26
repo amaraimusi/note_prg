@@ -231,12 +231,57 @@
 </div>
 
 
+<div id="sec2-7" class="sec4" >
+	<h3>Gitの改行コードを無変換にする | core.autocrlf=false</h3>
+
+	<p>core.autocrlf=falseについて</p>
+
+	Gitはチェックアウトやコミット時に設定によっては勝手にソースコードの改行を変換してしまう。<br>
+	勝手な改行を行わないようにするには下記コマンドを実行する。<br>
+	<pre class="console">
+$ cd ~
+$ git config --global core.autocrlf false
+	</pre>
+
+	設定の確認コマンド
+	<pre class="console">git config --list --global</pre>
+	<br>
+	
+	<p>プロジェクト別で設定する場合、localを指定して設定。</p>
+	<aside>※global設定よりlocal設定が優先される。</aside>
+	<pre class="console">
+$ cd プロジェクトのルートパス
+$ git config --local core.autocrlf false
+$ git config --list --local
+	</pre>
+	<br>
+	
+	<p>core.autocrlfのその他設定値について</p>
+	<table class="table">
+		<thead>
+			<tr><th>core.autocrlfのセット値</th><th>チェックアウト時</th><th>コミット時</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>true</td><td>LFからCRLFに変換</td><td>CRLFからLF変換</td></tr>
+			<tr><td>input</td><td>変換せず</td><td>CRLFからLFに変換</td></tr>
+			<tr><td>false</td><td>変換せず</td><td>変換せず</td></tr>
+	
+		</tbody>
+	</table>
+
+
+
+	<br><time>2020-12-27</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
 	<br><time>2019-3-12</time>
 </div>
+
 
 
 <div class="yohaku"></div>

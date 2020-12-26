@@ -71,8 +71,11 @@
 		<li>全角スペースを表示する。<a href="#sec1-6">参照</a></li>
 	
 		<li>デフォルトの改行を[\n]にする。<a href="/note_prg/eclipse/note2.html#sec2-1" class="livipage">参照</a></li>
+		
+		<li>Gitの改行コードを無変換にする。<a href="/note_prg/git/github_note2.html#sec2-7" class="livipage">参照</a></li>
 	</ol>
 	
+	<time>2015-3-4 | 2020-12-27</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
