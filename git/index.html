@@ -151,6 +151,18 @@ $ git branch -vv
 			</tr>
 			
 			<tr>
+				<td>$ git checkout -b ローカルブランチ名 origin/リモートブランチ名</td>
+				<td>
+					<pre class="console">$ git checkout -b neko origin/neko</pre>
+					リモートブランチのチェックアウト。
+					プルリクエストによるチーム開発ではお世話になるコマンドになるだろう。<br>
+					同じ名前のローカルブランチが存在しない状態で上記コマンドを実行する。
+					また、ローカルブランチ名とリモートブランチは同じブランチ名にする必要がある。<br>
+					<br>
+				</td>
+			</tr>
+			
+			<tr>
 				<td>$ git checkout ブランチ名</td>
 				<td>
 				アクティブなブランチを変更する。（ローカルリポジトリ内のブランチ）
