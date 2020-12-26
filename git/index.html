@@ -276,7 +276,7 @@ $ git commit -m '海へ行きたい'
 			</tr>
 			
 			<tr>
-				<td>$ git push リモート側のブランチ名</td>
+				<td>$ git push リモート側のブランチ名(省略可)</td>
 				<td>
 				リポートリポジトリ側にプッシュ。
 				<a href="gitcmd_note.html#sec1-2" class="livipage">参考:コマンドでコミット→プッシュ</a><br>
@@ -302,6 +302,16 @@ Writing objects: 100% (3/3), 301 bytes | 150.00 KiB/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 
 </pre>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>$git push -f</td>
+				<td>
+					チーム開発では混乱を招くので絶対に使ってはいけない。
+					コミット履歴を強制的に上書きしてしまう。
+					あくまで個人で開発しているときのみに使用を限定すること。
+					<pre class="console">$ git push -f origin main</pre>
 				</td>
 			</tr>
 			
