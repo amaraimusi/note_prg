@@ -187,6 +187,50 @@
 </div>
 
 
+<div id="sec2-6" class="sec4" >
+	<h3>SSH Keyの作成とGitHubへ登録 | 公開鍵と秘密鍵</h3>
+	
+	<ol class="list_lg">
+		<li>
+			<pre class="console">$ cd ~/.ssh</pre>
+			
+		</li>
+		
+		<li>
+			SSH Keyの作成
+			<pre class="console">$ssh-keygen -t rsa</pre>
+			３回ほど質問されるが、そのままEnterでOK.
+		</li>
+		
+		<li>
+			クリップボードにSSH keyをコピー（id_rsa.pubファイルの中身をコピー）（Windows用のコマンド）
+			<pre class="console">$ clip &lt; ~/.ssh/id_rsa.pub</pre>
+		</li>
+		
+		<li>
+			GitHubサイトにSSH Keysを登録する。<br>
+			<br>
+			GitHubのマイページからSSH Keyの登録画面を開く。
+			<pre>GitHubのマイページ→Setting→左メニューのSSH and GPG keys→New SSH keyボタン</pre>
+			登録画面を開いたらTitleに任意の名前、「Key」にクリップボードにコピーしてあるSSH Keyを張り付ける。<br>
+			Add keyボタンを押して登録完了<br>
+			<br>
+		</li>
+		
+		<li>
+			接続確認
+			<pre class="console">$ ssh -T git@github.com</pre>
+			「 You've successfully authenticated, but GitHub does not provide shell access.」という感じのメッセージが出たら成功。
+			
+		</li>
+		
+	</ol>
+
+
+	<br><time>2020-12-26</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
