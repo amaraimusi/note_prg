@@ -219,6 +219,12 @@
 	
 	</ol>
 	
+	<p>ワンライナー</p>
+	ワンライナーでSSHキーを追加する。
+	<pre>$ cat ~/.ssh/id_rsa.pub | ssh example@example.sakura.ne.jp 'cat >> .ssh/authorized_keys'</pre>
+	<aside>2020-12-26</aside>
+	<br>
+	
 	<p>公開鍵をアップした後のさくらサーバーの挙動</p>
 	公開鍵の登録をしたPCからSSHログインするとき、パスワード入力は不要になっている。<br>
 	公開鍵を登録していない別ＰＣからも引き続き、パスワードによる接続ができるようである。<br>
@@ -232,7 +238,7 @@
 	<br>
 
 
-	<br><time>2018-5-30</time>
+	<br><time>2018-5-30 | 2020-12-26</time>
 </div>
 
 
