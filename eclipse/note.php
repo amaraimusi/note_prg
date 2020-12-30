@@ -72,10 +72,19 @@
 	
 		<li>デフォルトの改行を[\n]にする。<a href="/note_prg/eclipse/note2.html#sec2-1" class="livipage">参照</a></li>
 		
-		<li>Gitの改行コードを無変換にする。<a href="/note_prg/git/github_note2.html#sec2-7" class="livipage">参照</a></li>
+		<li>
+			Eclipse外のその他設定の忘備録
+			<ol>
+			<li>Gitの改行コードを無変換にする。<a href="/note_prg/git/github_note2.html#sec2-7" class="livipage">参照</a></li>
+			<li>SSH Keyの作成とGitHubへ登録 | 公開鍵と秘密鍵<a href="/note_prg/git/github_note2.html#sec2-6" class="livipage">参照</a></li>
+			<li>さくらサーバーへ公開鍵を送る<a href="/note_prg/linux/ssh_note2.html#sec2-2" class="livipage">参照</a></li>
+			</ol>
+		</li>
+		
+		
 	</ol>
 	
-	<time>2015-3-4 | 2020-12-27</time>
+	<time>2015-3-4 | 2020-12-30</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
