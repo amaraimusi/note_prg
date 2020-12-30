@@ -175,7 +175,38 @@ cmd /k
 
 
 <div id="sec2-6" class="sec4">
-	<h3>GitBashでrsyncコマンドを使えるようにする</h3>
+	<h3>GitBashでrsyncコマンドを使えるようにする【コマンド版】 │ MSYS2のインストール</h3>
+	
+	下記サイトで紹介されている方法でMYSYS2をコマンドでインストールできる。<br>
+	<a href="https://zenn.dev/buchio/articles/d7a3ea47ac9d65185c33" target="_blank">Znn:Git Bashにrsyncとnetcatをインストールする</a><br>
+	<br>
+	
+	Git Bashを管理者権限で起動後、下記コマンドでMSYS2をインストール可能。<br>
+	別のWindowsユーザーである場合は、インストール後、Git Bashを通常起動。（ルートが管理者ユーザーになっているので）<br>
+	<br>
+	
+	<pre class="console">
+$cd ~
+curl http://repo.msys2.org/msys/x86_64/zstd-1.4.5-2-x86_64.pkg.tar.xz |tar CvxJf / -
+curl http://repo.msys2.org/msys/x86_64/rsync-3.2.2-2-x86_64.pkg.tar.zst |tar Cxvf / - --zstd
+curl http://repo.msys2.org/msys/x86_64/openbsd-netcat-1.206_1-1-x86_64.pkg.tar.xz |tar CxvJf / -
+curl http://repo.msys2.org/msys/x86_64/libzstd-1.4.5-2-x86_64.pkg.tar.xz |tar CxvJf / -
+curl http://repo.msys2.org/msys/x86_64/libxxhash-0.8.0-1-x86_64.pkg.tar.zst  |tar Cvxf / - --zstd
+	</pre>
+	
+	<time>2020-12-30</time>
+</div>
+
+
+
+
+<div id="sec2-6old" class="sec4">
+	<h3>GitBashでrsyncコマンドを使えるようにする【旧】</h3>
+	
+	2020年12月時点においては、ここで紹介する方法はうまくいかない。代わりに「
+	<a href="#sec2-6">GitBashでrsyncコマンドを使えるようにする | コマンド</a>
+	」を参考。<br>
+	<br>
 	
 	<ol>
 		<li>
