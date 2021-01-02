@@ -62,6 +62,7 @@
 			<td>
 				コンテナにアタッチしてコンテナ内にアクセスする。<br>
 				<pre class="console">$ winpty docker exec -it xxx_php_1 bash</pre>
+				<aside>Git for windowsである場合、winptyをつける。</aside>
 			</td>
 		</tr>
 		<tr>
@@ -139,6 +140,118 @@
 	
 	
 	<br><time>2019-11-16 | 2021-1-1</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>docker-compose.yml 環境構築→PHP＋Apatche＋MySQL</h3>
+	
+	ディレクトリ構造の例。
+	<aside>※EclipseとGitで開発しているときの一般的なプロジェクト構造</aside>
+	<pre>
+- ルート（C:\Users\ユーザー名）
+	- git <span style="color:#7dcb3d">←　マウントするディレクトリ（apacheで言うhtdocsに相当する場所）</span>
+		- docker_demo <span style="color:#7dcb3d">← docker制御用のプロジェクト</span>
+			- <strong>docker-compose.yml</strong>
+			- php.ini
+		- animal <span style="color:#7dcb3d">←その他プロジェクト</span>
+			- neko.html <span style="color:#7dcb3d">←サンプルHTML</span>
+	</pre>
+	
+	
+	<p>docker-compose.yml</p>
+	<aside>2021年1月にて稼働を確認</aside>
+	<pre>
+version: '3'
+
+services:
+  php:
+    image: php:7.4.13-apache-buster
+    volumes:
+      - ../:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - 80:80
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=test
+      - PMA_PASSWORD=test
+    links:
+      - mysql
+    ports:
+      - 3306:80
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
+	</pre>
+
+	<p>php.ini</p>
+	<pre>
+memory_limit = 256M
+post_max_size = 256M
+upload_max_filesize = 64M
+[Date]
+date.timezone = "Asia/Tokyo"
+[mbstring]
+mbstring.internal_encoding = "UTF-8"
+mbstring.language = "Japanese"
+	</pre>
+	
+	<p>起動</p>
+	docker-compose.ymlを元にイメージのインストールおよびコンテナを起動する。
+	<aside>
+		xamppが動いている場合は、xamppコンパネのAatcheとMySQLをSTOPさせること。
+		使用ポートが重複するのでエラーになる。（80番ポートと3306番ポートが重複）
+	</aside>
+	<pre class="console">
+	$ cd ~/git/docker_demo
+	$ docker-compose up -d --build
+	</pre>
+	
+	<p>サンプルWEBページを動かす</p>
+	以下のようなURLでDockerコンテナ内のWEBページにアクセス可能
+	<pre>http://localhost/animal/neko.php</pre>
+	<aside>
+		※本来なら「http://localhost:80/animal/neko.php」のようなポート番号付きのURL記述になるが、80番ポートなので省略可能。
+	</aside>
+	
+	<p>phpmyadminを動かす</p>
+	phpmyadminのURL
+	<pre>http://localhost:3306</pre>
+	<aside>※今回の例では「docker-compose up -d --build」を最初に実行した時、docker_demo内にmysqlディレクトリが作成され、そこにMySQL関連データが保管されている。</aside>
+	<br>
+	
+	<p>php.iniを変更した場合</p>
+	php.iniを変更した場合、
+	「docker-compose stop」コマンドでコンテナ群を一旦停止させたあと、
+	「docker-compose up -d --build」コマンドでコンテナを再起動すること。<br>
+	コンテナを停止させずに「「docker-compose up -d --build」」を実行してもphp.iniの変更は反映されないので注意。<br>
+	<br>
+	
+	<p>コンテナ一覧を確認する</p>
+	dockerのコマンドでコンテナ一覧を確認できる。各コンテナはdockerコマンドで操作可能。
+	<pre class="console">
+$ docker ps
+CONTAINER ID   IMAGE                      COMMAND                  CREATED        STATUS          PORTS                  NAMES
+576943301b4d   php:7.4.13-apache-buster   "docker-php-entrypoi…"   12 hours ago   Up 54 minutes   0.0.0.0:80->80/tcp     docker_demo_php_1
+e7aaa1afb467   phpmyadmin/phpmyadmin      "/docker-entrypoint.…"   35 hours ago   Up 54 minutes   0.0.0.0:3306->80/tcp   docker_demo_phpmyadmin_1
+7cbf3ac6b56f   mysql:5.7                  "docker-entrypoint.s…"   35 hours ago   Up 54 minutes   3306/tcp, 33060/tcp    docker_demo_mysql_1
+	</pre>
+	
+	
+
+	<br><br><time>2021-1-2</time>
 </div>
 
 
