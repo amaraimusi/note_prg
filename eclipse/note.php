@@ -73,6 +73,13 @@
 		<li>デフォルトの改行を[\n]にする。<a href="/note_prg/eclipse/note2.html#sec2-1" class="livipage">参照</a></li>
 		
 		<li>
+			Eclipse Marketplaceでインストールできる、おすすめEclipseプラグイン 
+			<ul>
+				<li>Bash Editer2.5→shファイルの編集用に。</li>
+				<li>Emmet→htmlのタグ入力保管に。</li>
+			</ul>
+		</li>
+		<li>
 			Eclipse外のその他設定の忘備録
 			<ol>
 			<li>Gitの改行コードを無変換にする。<a href="/note_prg/git/github_note2.html#sec2-7" class="livipage">参照</a></li>
@@ -84,7 +91,7 @@
 		
 	</ol>
 	
-	<time>2015-3-4 | 2020-12-30</time>
+	<time>2015-3-4 | 2021-1-2</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
