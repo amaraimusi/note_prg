@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>docker-composeの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>docker-composeの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>よく使うコマンド一覧</h3>
+	
+	docker-composeコマンドは基本的に、docker-compose.ymlが配置されているディレクトリにcdコマンドで移動してから実行すること。<br>
+	<br>
+
+	<table class="table">
+	<thead><tr><th>コマンド</th><th>説明</th></tr></thead>
+	<tbody>
+		<tr>
+			<td>$ docker-compose up -d --build</td>
+			<td>
+				docker-composeで最も基本的なコマンド。<br>
+				docker-compose.ymlの情報を元にDockerイメージのインストールやDockerコンテナの起動を行う。<br>
+				Dockerコンテナの起動はstartコマンドでもできるが、
+				docker-compose.ymlを書き換えたときはこちらのupコマンドを実行すること。<br>
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td>$ docker-compose stop</td>
+			<td>
+				Dockerコンテナを停止状態にする。<br>
+				「$ docker-compose start」コマンドで再開することができる。
+			</td>
+		</tr>
+		<tr>
+			<td>$ docker-compose start</td>
+			<td>
+				停止中のDockerコンテナを再開する。
+			</td>
+		</tr>
+		<tr>
+			<td>$ docker exec -it コンテナ名 bash</td>
+			<td>
+				コンテナにアタッチしてコンテナ内にアクセスする。<br>
+				<pre class="console">$ winpty docker exec -it xxx_php_1 bash</pre>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+			
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+			
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+			
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+			
+			</td>
+		</tr>
+	</tbody>
+	</table>
+
+
+	<br><time>2021-1-1</time>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>docker-composeのインストール</h3>
+	
+	<p>Docker for Windowsの設定注意</p>
+	<div style="border:solid 2px red;padding:4px">
+	Windows10のインジケーター（右下の常駐アプリアイコン）のDockerアイコンを右クリックし、「Switch to Linux containers」をクリックしてLinuxコンテナとして動作させること。
+	</div><br>
+	
+	ターミナルのCURLコマンドでdocker-composeをダウンロードおよびインストールすることができる。<br>
+	<br>
+	
+	ターミナル（Git for Bash, power shell)などを起動し、下記のコマンドを実行する。<br>
+	<aside>
+	※バージョンの部分は「<a href="https://github.com/docker/compose/releases" target="blank">https://github.com/docker/compose/releases</a>」にて確認する。（バージョンは1.25.0-rc4は2019年11月時点のもの）<br>
+	配置先のローカルディレクトリは、「ホームルート/bin/docker-compose」がふさわしい。<br>
+	</aside>
+	
+	<pre class="console">
+	$ cd ~/bin/docker-compose
+	$ curl -L https://github.com/docker/compose/releases/download/1.25.0-rc4/docker-compose-`uname -s`-`uname -m` -o bin/docker-compose chmod +x bin/docker-compose
+	</pre>
+	<br>
+	
+	インストールできたか確認する。（バージョンを確認）
+	<pre>$ docker-compose --version</pre>
+	
+	<br><br>
+	<img src="img/docker_note2/sec2-3a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	
+	
+	<a href="https://knowledge.sakura.ad.jp/16862/" target="_blank">参考サイト</a><br>
+	
+	
+	<br><time>2019-11-16 | 2021-1-1</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-1-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/docker/">Dockerの覚書</a></li>
+	<li>docker-composeの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2020-1-1</div>
+</body>
+</html>
