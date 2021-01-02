@@ -275,6 +275,49 @@ $ git config --list --local
 </div>
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>ローカル環境専用のファイル管理対象外 | .git/info/exclude</h3>
+	
+	チーム開発において、個人的に作成したファイルは.gitnoreに追記しづらい。<br>
+	この場合は「.git/info/exclude」ファイルに記述するとよい。<br>
+	<br>
+	
+	例：my_tool内のファイルはGit管理対象外にする。
+	<pre class="console">
+$ cd ~/git/animals
+$ echo my_tool/* >> .git/info/exclude
+	</pre>
+	<p>ディレクトリ構造</p>
+	<pre>
+- animals<span style="color:#5bb734"> ←プロジェクト</span>
+	- .git
+		- info
+			- exclude　<span style="color:#5bb734">←このファイルに管理対象外ファイルを記述する。</span>
+	- my_tool
+		- test_tool.php <span style="color:#5bb734">←管理対象外ファイルになる</span>
+	- index.html
+	</pre>
+	
+	<p>.git/info/excludeファイルの中身</p>
+	<pre>
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+my_tool/*
+	</pre>
+	
+	<p>その他の記述例</p>
+	<pre class="console">$ echo test/dummy/xxx.php >> .git/info/exclude</pre>
+	「ルート/test/dummy/xxx.php」ファイルをGit管理対象外にする。<br>
+	<br>
+	
+	<br><time>2021-1-2</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
