@@ -322,16 +322,45 @@
 			<tr><th>関係</th><th>対</th><th>英語</th><th>和訳</th><th>説明</th><th>外部キー</th></tr>
 		</thead>
 		<tbody>
-			<tr><td>hasOne</td><td>1 対 1</td><td>A has one Bの</td><td>Aは1つのBを有する</td><td>Aは１つ、Bも１つ</td><td>BにAへの外部キーあり</td><td></td></tr>
-			<tr><td>belongsTo</td><td>多 対 1</td><td>B belongs to A</td><td>B（当モデル）はAに属します</td><td>Bを主観。１つのAに複数のBが結びつく。Bから見てAは親のようなものである。</td><td>B（当モデル）に外部キーあり</td><td></td></tr>
-			<tr><td>hasMany</td><td>1 対 多</td><td>A has many B</td><td>Aは多くのBを有してます</td><td>Aは１つ、Bは複数である。Aから見てBは子のようなものである。</td><td>BにAへの外部キーあり</td></tr>
-			<tr><td>hasAndBelongsToMany</td><td>多 対 多</td><td>A has and belongs to many B</td><td>Aは多くのBに属します</td><td>AとBを連結した第３のテーブルあり</td><td>Aは外部キーなし、Bも外部キーなし</td></tr>
+			<tr>
+				<td>hasOne</td>
+				<td>1 対 1</td>
+				<td>A has one Bの</td>
+				<td>A（当モデル）は1つのB（外部モデル）を有する。</td>
+				<td>Aは１つ、Bも１つ。Aは兄、Bは弟という感じ。Bが兄であるAに配慮しているイメージ。</td>
+				<td>BにAへの外部キーあり</td><td></td>
+			</tr>
+			<tr>
+				<td>belongsTo</td>
+				<td>多 対 1</td>
+				<td>A belongs to X</td>
+				<td>A（当モデル）はXに属します</td>
+				<td>１つのXに複数のAが結びつく。Aから見てXは親のようなものである。</td>
+				<td>A（当モデル）にXへの外部キーあり</td><td></td>
+			</tr>
+			<tr>
+				<td>hasMany</td>
+				<td>1 対 多</td>
+				<td>A has many C</td>
+				<td>Aは多くのCを有してます</td>
+				<td>Aは１つ、Cは複数である。Aから見てCは子のようなもの。</td>
+				<td>CにAへの外部キーあり</td>
+			</tr>
+			<tr>
+				<td>hasAndBelongsToMany</td>
+				<td>多 対 多</td>
+				<td>A has and belongs to many D</td>
+				<td>Aは多くのDに属します</td>
+				<td>AとDを連結した第３のテーブルあり。AとDは基本他人同士だが、会社（第3のテーブル）によって関係を結び付けられているイメージ。</td>
+				<td>Aは外部キーなし、Dも外部キーなし</td>
+			</tr>
 	
 		</tbody>
 	</table>
 	
 	<hr>
 	
+	<p>補足資料</p>
 	<h4>A hasOne B</h4>
 	<div class="box_a">
 		A
@@ -509,7 +538,7 @@
 	AB LEFT JOIN B<br>
 	<br>
 
-	<time>2017-12-4</time>
+	<time>2017-12-4 | 2021-1-5</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
