@@ -318,6 +318,112 @@ my_tool/*
 </div>
 
 
+<div id="sec2-9" class="sec4" >
+	<h3>チーム開発におけるプルリクエストの手順</h3>
+	
+	<ol class="list_lg">
+		<li>
+			GitHubの対象リポジトリを開く。(以下、animalリポジトリで解説）
+		</li>
+		
+		<li>
+			上側メニューの「&lt;&gt;Code」タブを選択。
+		</li>
+		
+		<li>
+			ブランチセレクトボックスからmasterブランチ（メインのブランチ）を選択。<br>
+			テキストボックス部分に任意のブランチ名を入力して、新しいリモートブランチを作成する。<br>
+			この流れはmasterブランチをコピーしてnekoブランチを作成という流れである。<br>
+			<pre>例→nekoブランチ。</pre>
+			<aside>
+				※master以外のブランチを選択してから新しいブランチを作成しようとすると
+				、新しいブランチは先ほど選択したブランチのコピーになるので注意する。</aside>
+		</li>
+		
+		<li>
+			ローカル環境のプロジェクトのルートへ移動してから「$ git pull」コマンドを実行する。<br>
+			<pre class="console">
+$ cd ~/git/animal
+$ git pull
+			</pre>
+			これにより、GitHubサイト側の新しいブランチ(nekoブランチ)にチェックアウトできるようになる。
+		</li>
+		
+		<li>
+			新しいブランチ(nekoブランチ)にチェックアウト。<br>
+			<pre class="console">$ git checkout -b neko origin/neko</pre>
+			これによりローカル側にも同じ名前のブランチが作成されるのと同時に、
+			新しいブランチに切り替わり、すべてのソースコードも新しいブランチのものに切り替わる。
+		</li>
+	
+		<li>
+			Eclipseで開発している場合、PHPエクスプローラのプロジェクト名に併記されているブランチ名が変わっていることを確認すること。<br>
+			変わっていない場合はEclipseを再起動すると治る。(2020年1月の時点ではEclipseの再起動が必要)
+		</li>
+	
+		<li>
+			これで作業ができる状態になったので、コーディング作業を開始しても良い。<br>
+		</li>
+
+		<li>
+			コーディング作業が終わったら、普段の通りにコミット＆プッシュを行う。<br>
+			この作業は1回だけ限定というわけではない。何度でもコミット、プッシュしても良い。
+			<pre class="console">
+git add 修正のファイルパス
+git commit -mいろはにほ
+git push
+			</pre>
+		</li>
+		
+		<li>
+			作業を終え、最後のコミット＆プッシュが終わったらプルリクエストの発行を行う。<br>
+			Git Hubサイトの対象リポジトリ画面に戻ると「Compare & pull request」ボタンが表示されており、
+			ここからプルリクエストの発行画面へ移動できる。<br>
+			<img src='img/github_note2/sec2-9a1.png' class="img_compact_k" />
+			<img src='img/github_note2/sec2-9a2.png' class="img_compact_k" />
+			
+			<p>「Compare & pull request」ボタンが表示されていない場合</p>
+			「Pull requests」リンクからもプルリクエストを発行可能。<br>
+			メインのブランチにnekoブランチをマージするような感じで設定すること。<br>
+			<img src='img/github_note2/sec2-9a5.png' class="img_compact_k" />
+			<img src='img/github_note2/sec2-9a6.png' class="img_compact_k" />
+			<img src='img/github_note2/sec2-9a7.png' class="img_compact_k" />
+		</li>
+		
+		<li>
+			プルリクエストの内容を別の人にレビューしてもらう。
+			OKをもらったら「Marge pull request」ボタンを押して、メインのブランチへnekoブランチをマージする。<br>
+			「Marge pull request」ボタンは何人かにレビューOKをもらわないと押せない設定になっていることが多い。<br>
+			OKをもらえなかったら「Close pull request」ボタンを押してプルリクエストを閉じることができる。<br>
+			<img src='img/github_note2/sec2-9a3.png' class="img_compact_k" />
+		</li>
+		
+		<li>
+			メインのブランチへnekoブランチをマージしたら、もはやnekoブランチは不要。
+			特別な理由がないかぎり削除してもよい。
+			「Delete branch」ボタンにて削除できる。<br>
+			<img src='img/github_note2/sec2-9a4.png' class="img_compact_k" />
+		</li>
+		
+		<li>
+			ローカル側→メインのブランチにチェックアウトし、git pullコマンドで最新にする。
+			nekoブランチも残す理由がなければ削除する。
+			<pre class="console">
+$ git checkout main
+$ git pull
+git branch -D neko
+			</pre>
+			
+		</li>
+
+	</ol>
+	
+
+
+	<br><time>2021-1-5</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
