@@ -64,13 +64,13 @@
 		
 		<li>文字コードをutf-8にする。<a href="#sec1-4">参照</a></li>
 		
-		<li>PHPのタイムスケールを日本時間にする<a href="#sec1-5">参照</a></li>
-
 		<li>ctpファイルを専用エディターと関連づける。<a href="#sec1-2">参照</a></li>
 
 		<li>全角スペースを表示する。<a href="#sec1-6">参照</a></li>
 	
 		<li>デフォルトの改行を[\n]にする。<a href="/note_prg/eclipse/note2.html#sec2-1" class="livipage">参照</a></li>
+		
+		<li>ダークテーマに切り替え<a href="/note_prg/eclipse/note2.html#sec2-8" class="livipage">参照</a></li>
 		
 		<li>
 			Eclipse Marketplaceでインストールできる、おすすめEclipseプラグイン 
@@ -82,6 +82,7 @@
 		<li>
 			Eclipse外のその他設定の忘備録
 			<ol>
+			<li>PHPのタイムスケールを日本時間にする<a href="#sec1-5">参照</a></li>
 			<li>Gitの改行コードを無変換にする。<a href="/note_prg/git/github_note2.html#sec2-7" class="livipage">参照</a></li>
 			<li>SSH Keyの作成とGitHubへ登録 | 公開鍵と秘密鍵<a href="/note_prg/git/github_note2.html#sec2-6" class="livipage">参照</a></li>
 			<li>さくらサーバーへ公開鍵を送る<a href="/note_prg/linux/ssh_note2.html#sec2-2" class="livipage">参照</a></li>
