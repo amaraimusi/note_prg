@@ -212,6 +212,54 @@ foreach($list as $val){
 </div>
 
 
+<div id="sec19-9" class="sec4" >
+	<h3>DockerコンテナにてGDを使えるようにする | PHP7.4</h3>
+	
+	<p>注意</p>
+	あれこれコマンドを試したので確定した方法ではないが、
+	おおよそ以下のような流れでGDをインストール。<br>
+	<br>
+
+	Dockerコンテナにアタッチ。<br>
+	<pre class="console">$winpty docker exec -it test_php_1 bash</pre>
+	<aside>※test_php_1コンテナのイメージ→php:7.4.13-apache-buster</aside><br>
+	<br>
+	
+	test_php_1 bashコンテナの中に入ったらGD関連をインストール<br>
+	<pre class="console">
+	#apt-get update 
+	&amp;&amp; apt-get install -y  libmagick++-dev \
+		libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng12-dev
+		libmagickwand-dev \
+		libpq-dev \
+		libwebp-dev \
+		libxpm-dev
+	 &amp;&amp; docker-php-ext-configure gd \
+	    --with-freetype \
+	    --with-jpeg \
+	    --with-webp \
+	    --with-xpm \
+	 &amp;&amp; docker-php-ext-install -j$(nproc) gd
+	</pre>
+	
+	<br>
+	インストールが終わったらDockerコンテナを再起動。<br>
+	<br>
+	
+	「phpinfo()」でGDの項目が出てきたら成功。<br>
+	<img src="img/note19/sec19-9a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	
+	
+
+	<br><time>2020-1-11</time>
+</div>
+
+
+
 <div id="sec19-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
