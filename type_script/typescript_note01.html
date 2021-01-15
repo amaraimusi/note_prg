@@ -148,6 +148,375 @@ helloWorld.bark();
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>TypeScriptの開発環境 TypeScriptをwebpackでコンパイル | npm package.json webpack.config.js</h3>
+	
+	<p>事前条件</p>
+	<ul>
+		<li>npmコマンドが使えるようになっていること</li>
+		<li>yarnコマンドが使えるようになっていること</li>
+	</ul>
+	<br>
+	
+	<p>TypeScriptの開発環境 （webpackでコンパイルする環境）</p>
+	<ol class="list_lg">
+	
+		<li>
+			プロジェクトのルートへ移動<br>
+			例
+			<pre class="console">$cd ~/git/node_demo/demo2</pre>
+		</li>
+		
+		<li>
+			ルートに下記コマンドでpackage.jsonファイルを作成する。
+			<pre class="console">npm init</pre>
+			いくつか質問が聞かれるので適当に入力。
+			<button class="btn btn-info btn-sm" onclick="jQuery('#sec1-3b1').toggle(300)">例</button>
+			<pre id="sec1-3b1" class="console" style="display:none">
+$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (demo2) typescript_demo2
+version: (1.0.0)
+description: TypeScriptの開発環境構築その２
+entry point: (index.js)
+test command:
+git repository: https://github.com/amaraimusi/node_demo
+keywords:
+author: kenji uehara
+license: (ISC)
+About to write to C:\Users\user\git\node_demo\demo2\package.json:
+
+{
+  "name": "typescript_demo2",
+  "version": "1.0.0",
+  "description": "TypeScriptの開発環境構築その２",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaraimusi/node_demo.git"
+  },
+  "author": "kenji uehara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaraimusi/node_demo/issues"
+  },
+  "homepage": "https://github.com/amaraimusi/node_demo#readme"
+}
+
+
+Is this OK? (yes)
+			</pre>
+			<aside>/node_demo/demo2/package.json ← ルートに作成される</aside>
+		</li>
+		
+		<li>
+			package.jsonのscriptタグには独自コマンドを記述できる。<br>
+			独自コマンドにはbashを割り当てることができ、コンパイルやshellの実行に活用できる。<br>
+			<button class="btn btn-info btn-sm" onclick="jQuery('#sec1-3b2').toggle(300)">詳細を見る</button>
+			<div id="sec1-3b2" style="display:none">
+				試しに「Hello World!」と表示するだけのコマンドをpackage.jsonに記述し、実行してみる。<br>
+				package.jsonのscriptタグのtest(testコマンド)に「Hello World!」と表示するコマンドを記述する。<br>
+				<pre class="console">
+{
+  "name": "typescript_demo2",
+  "version": "1.0.0",
+  "description": "TypeScriptの開発環境構築その２",
+  "main": "index.js",
+  "scripts": {
+    <strong>"test": "echo \"Hello World!\" &amp;&amp; exit 1"</strong>
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaraimusi/node_demo.git"
+  },
+  "author": "kenji uehara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaraimusi/node_demo/issues"
+  },
+  "homepage": "https://github.com/amaraimusi/node_demo#readme"
+}
+				</pre>
+				
+				コマンドを実行
+				<pre>$ npm test</pre>
+				<pre class="console">
+$ npm test
+
+> typescript_demo2@1.0.0 test C:\Users\user\git\node_demo\demo2
+> echo "Hello World!" &amp;&amp; exit 1
+
+"Hello World!"
+npm ERR! Test failed.  See above for more details.
+				</pre>
+				
+				Yarnでも実行できる。
+				<pre>$ yarn test</pre>
+			</div>
+		</li>
+		
+		<li>
+			下記のパッケージをインストール
+			<pre class="console">$ npm install webpack</pre>
+			<pre class="console">$ npm install webpack-cli</pre>
+			<pre class="console">$ npm install typescript</pre>
+			<pre class="console">$ npm install ts-loader</pre>
+			
+			<button class="btn btn-info btn-sm" onclick="jQuery('#sec1-3b3').toggle(300)">パッケージについて</button>
+			<table id="sec1-3b3" class="tbl2" style="display:none">
+				<thead><tr><th>パッケージ名</th><th>説明</th></tr></thead>
+				<tbody>
+					<tr>
+						<td>webpack</td>
+						<td>
+							モジュールバンドラと呼ばれるツールの一つ。
+							複数のファイルをまとめてコンパイルし、一つにして出力するのが主な役割。
+							コンパイル元の場所の指定や、コンパイルパッケージの指定、出力先の指定などができる。
+							なおwebpack自身がコンパイルするわけではない。
+						</td>
+					</tr>
+					<tr>
+						<td>webpack-cli</td>
+						<td>
+							webpackをCLI（コマンドラインインターフェース）で使うためのパッケージらしい。
+						</td>
+					</tr>
+					<tr>
+						<td>typescript</td>
+						<td>
+							typescriptの基礎的なコンパイルができる。
+							このパッケージをインストールするとtscコマンドが利用できる。<br>
+						</td>
+					</tr>
+					<tr>
+						<td>ts-loader</td>
+						<td>
+							こちらもTypeScriptのコンパイルができる。
+							typescriptより高速なコンパイルができるとのこと。
+							今回のデモではこちらをwebpackのコンパイラとして指定する。
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br><br>
+			パッケージをインストールするとpackage.jsonにも記載される。
+			<button class="btn btn-info btn-sm" onclick="jQuery('#sec1-3b4').toggle(300)">package.json</button>
+			<pre id="sec1-3b4" class="console" style="display:none">
+{
+  "name": "typescript_demo2",
+  "version": "1.0.0",
+  "description": "TypeScriptの開発環境構築その２",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo &yen;"Hello World!&yen;" &amp;&amp; exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaraimusi/node_demo.git"
+  },
+  "author": "kenji uehara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaraimusi/node_demo/issues"
+  },
+  "homepage": "https://github.com/amaraimusi/node_demo#readme",
+  "dependencies": {
+    <strong>"ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"</strong>
+  }
+}
+
+			</pre>
+		</li>
+		
+		<li>
+			ソースファイル置き場としてルートにsrcフォルダを作成。<br>
+			一つにまとめたファイルの出力先としてdistフォルダを作成。<br>
+			<pre class="console">mkdir src</pre>
+			<pre class="console">mkdir dist</pre>
+		</li>
+		
+		<li>
+			webpack.config.jsをルートディレクトリに作成する。<p>
+			<strong>webpack.config.js</strong>
+			<pre><code>
+module.exports = {
+	
+  // 本番環境ならるproduction（最適化される）、開発環境ならdevelopment(デバッグしやすい)。
+  mode: 'development',
+
+  // エントリーポイント：スタートファイル
+  entry: './src/index.ts',
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/, // コンパイル対象ファイルの拡張子
+        use: 'ts-loader', // コンパイルパッケージを指定
+      },
+    ],
+  },
+  // ここで指定した拡張子は、import文で拡張子を省略できる。
+  resolve: {
+    extensions: [
+      '.ts', '.js',
+    ],
+  },
+};
+			</code></pre>
+		</li>
+		
+		<li>
+			TypeScriptのコンパイル設定ファイルであるtsconfig.jsonをルートディレクトリに作成する。<p>
+			<strong>tsconfig.json</strong>
+			<pre><code>
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es5",
+    "module": "es2015"
+  }
+}
+			</code></pre>
+		</li>
+		
+		<li>
+			srcフォルダ内にソースファイル(tsファイル)を作成する。<br>
+			今回はindex.tsとNeko.tsファイルを作成。<br>
+			<br>
+			ファイル構成<br>
+			<img src="img/typescript_note01/sec1-3a1.png" alt="" /><br>
+			<br>
+			<button onclick="jQuery('#sec1-3b5').toggle(300)" class="btn btn-info btn-sm">index.ts</button>
+			<pre id="sec1-3b5" style="display:none"><code>
+import Neko from './sub/Neko';
+
+class HelloWorld
+{
+    /** コンストラクタ
+     */
+    constructor(str1: string){
+        console.log(str1);
+    }
+
+    public bark()
+    {
+        console.log('吠える');
+        let neko = new Neko();
+        neko.bark();
+        
+    }
+
+}
+
+var helloWorld = new HelloWorld("Hello World!");
+helloWorld.bark();
+			</code></pre>
+			
+			<br><br>
+			<button onclick="jQuery('#sec1-3b6').toggle(300)" class="btn btn-info btn-sm">Neko.ts</button>
+			<pre id="sec1-3b6" style="display:none"><code>
+export default class Neko{
+	
+	public bark(){
+		console.log('サブクラスの猫がにゃーんとなく');
+	}
+}
+			</code></pre>
+		</li>
+		
+		<li>
+			<pre class="console">$ npx webpack</pre>
+			webpackでsrcに存在するtsファイル群を一つにまとめ、distフォルダにmain.jsとして出力する。
+			<aside>
+			npxコマンドはnode_modules内にインストールされているパッケージのコマンドを直接実行するコマンド。
+			npxを使わない場合、「./node_modules/.bin/webpack」として実行するがある。</aside>
+		</li>
+		
+		<li>
+			適当にhtmlページを作成し、先ほど生成したmain.jsを読み込む。<br>
+<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;title&gt;TypeScriptとwebpackのDemo2&lt;/title&gt;
+	&lt;script src="dist/main.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h3&gt;TypeScriptとwebpackのDemo2&lt;/h3&gt;
+	コンソールに出力
+	
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+			<p>表示画面</p>
+			<img src="img/typescript_note01/sec1-3a2.png" alt="" /><br>
+		</li>
+		
+		<li>
+			終わり
+		</li>
+		
+		<li>
+			<p>おまけ</p>
+			「yarn build」コマンドでコンパイルできるよう、package.jsonに設定を追加
+			<pre class="console">
+{
+  "name": "typescript_demo2",
+  "version": "1.0.0",
+  "description": "TypeScriptの開発環境構築その２",
+  "main": "index.js",
+  "scripts": {
+    <strong>"build": "npx webpack"</strong>,
+    "test": "echo \"Hello World!\" &amp;&amp; exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaraimusi/node_demo.git"
+  },
+  "author": "kenji uehara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaraimusi/node_demo/issues"
+  },
+  "homepage": "https://github.com/amaraimusi/node_demo#readme",
+  "dependencies": {
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.14.0",
+    "webpack-cli": "^4.3.1"
+  }
+}
+
+			</pre>
+			
+			<p>実行例</p>
+			<img src="img/typescript_note01/sec1-3a3.png" alt="" /><br>
+		</li>
+	</ol>
+
+
+	<br><time>2021-1-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
