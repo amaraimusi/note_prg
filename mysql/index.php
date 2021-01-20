@@ -22,10 +22,49 @@
 
 <h2 id="public">目次</h2>
 <ul>
+	<li><a href="#useful_index">よく使うコマンド一覧</a></li>
 	<li><a href="#public_note">一般</a></li>
 	<li><a href="#cmd_note_index">MySQLコマンド</a></li>
 </ul>
 <hr>
+
+<h2 id="useful_index">よく使うコマンド一覧</h2>
+<table class="table">
+	<thead><tr><th>コマンド</th><th>説明</th></tr></thead>
+	<tbody>
+		<tr>
+			<td>mysql -uユーザー名 -pパスワード</td>
+			<td>
+				ログイン<br>
+				例→<pre class="console">mysql -uroot -pxxxx</pre>
+			</td>
+		</tr>
+		<tr>
+			<td>SHOW DATABASES;</td>
+			<td>
+				データベース一覧を表示。
+			</td>
+		</tr>
+		<tr>
+			<td>USE データベース名</td>
+			<td>
+				データベースにアクセス。（データベースにアタッチ）
+				<pre class="console">USE animals</pre>
+			</td>
+		</tr>
+		<tr>
+			<td>show tables;</td>
+			<td>
+				テーブル一覧を表示する。<br>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 
 

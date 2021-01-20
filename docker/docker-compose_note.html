@@ -144,7 +144,7 @@
 
 
 <div id="sec1-3" class="sec4" >
-	<h3>docker-compose.yml 環境構築→PHP＋Apatche＋MySQL</h3>
+	<h3>docker-compose.yml 環境構築→PHP＋Apatche＋MySQL DB接続例</h3>
 	
 	ディレクトリ構造の例。
 	<aside>※EclipseとGitで開発しているときの一般的なプロジェクト構造</aside>
@@ -154,6 +154,8 @@
 		- docker_demo <span style="color:#7dcb3d">← docker制御用のプロジェクト</span>
 			- <strong>docker-compose.yml</strong>
 			- php.ini
+			- php
+				- Dockerfile
 		- animal <span style="color:#7dcb3d">←その他プロジェクト</span>
 			- neko.html <span style="color:#7dcb3d">←サンプルHTML</span>
 	</pre>
@@ -166,7 +168,7 @@ version: '3'
 
 services:
   php:
-    image: php:7.4.13-apache-buster
+    build: ./php
     volumes:
       - ../:/var/www/html
       - ./php.ini:/usr/local/etc/php/php.ini
@@ -176,9 +178,12 @@ services:
     image: mysql:5.7
     volumes:
       - ./mysql:/var/lib/mysql
+    ports: 
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=test
+      - DB_SOCKET=/var/run/mysqld/mysqld.sock
+      - MYSQL_DATABASE=cake_demo
       - MYSQL_USER=test
       - MYSQL_PASSWORD=test
   phpmyadmin:
@@ -186,15 +191,29 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mysql
-      - PMA_USER=test
-      - PMA_PASSWORD=test
+      - PMA_USER=root
+      - PMA_PASSWORD=root
     links:
       - mysql
     ports:
-      - 3306:80
+      - 8088:80
     volumes:
       - ./phpmyadmin/sessions:/sessions
 	</pre>
+	<br>
+	
+	<p>Dockerfile</p>
+	<pre>
+FROM php:7.4.13-apache-buster
+
+RUN apt-get update \
+    &amp;&amp; docker-php-ext-install pdo_mysql
+	</pre>
+	FROMの部分にはイメージ名を指定する。<br>
+	pdo_mysqlはPDOを使えるようにするモジュール（PDOはDBアクセスに必要）。
+	Dockerコンテナが立ち上がった状態から、各種モジュールをインストールすることも可能。下に記述している「GDをインストール」を参考。
+	<br>
+	<br>
 
 	<p>php.ini</p>
 	<pre>
@@ -228,9 +247,33 @@ mbstring.language = "Japanese"
 	
 	<p>phpmyadminを動かす</p>
 	phpmyadminのURL
-	<pre>http://localhost:3306</pre>
+	<pre>http://localhost:8088</pre>
 	<aside>※今回の例では「docker-compose up -d --build」を最初に実行した時、docker_demo内にmysqlディレクトリが作成され、そこにMySQL関連データが保管されている。</aside>
 	<br>
+	
+	<p>DB管理ツールへの設定例→HeidiSQLの場合</p>
+	<img src="img/docker-compose_note/sec1-3a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	<p>PHPでDB接続設定する例（PDOの例）</p>
+	<pre><code>
+$host = 'docker_demo_mysql_1'; // Dockerコンテナ名を指定
+$dbname = 'cake_demo';
+$port = '3306';
+$charset = 'utf8mb4';
+$dsn = "mysql:dbname={$dbname};host={$host};port={$port};charset={$charset};";
+$user = 'root';
+$password = 'root';
+
+global $dao;
+try {
+	$dao = new PDO($dsn, $user, $password);
+	echo "DB接続成功&lt;br&gt;";
+} catch (PDOException $e) {
+	echo "DB接続失敗&lt;br&gt; " . $e-&gt;getMessage() . "&yen;n";
+	exit();
+}
+	</code></pre><br>
 	
 	<p>php.iniを変更した場合</p>
 	php.iniを変更した場合、
@@ -256,8 +299,10 @@ e7aaa1afb467   phpmyadmin/phpmyadmin      "/docker-entrypoint.…"   35 hours ag
 	<br>
 	
 	
+	
+	
 
-	<br><br><time>2021-1-2</time>
+	<br><br><time>2021-1-2 | 2021-1-20</time>
 </div>
 
 
