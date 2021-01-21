@@ -24,6 +24,8 @@
 
 <h2 id="public">目次</h2>
 <ul>
+
+	<li><a href="#useful_index">よく使うコマンド</a></li>
 	<li><a href="#public_note">一般</a></li>
 	<li><a href="#ssh_index">SSHの覚書</a></li>
 	<li><a href="#vps_index">VPSの覚書</a></li>
@@ -44,10 +46,111 @@
 
 
 
+
+<h2 id="useful_index">よく使うコマンド</h2>
+bashを中心によく使うコマンドを挙げる。
+<div>
+<table class="table">
+	<thead><tr><th>コマンド名</th><th>説明</th></tr></thead>
+	<tbody>
+		<tr>
+			<td>$ ls</td>
+			<td>
+				カレントディレクトリ内のファイルやフォルダを一覧表示する。
+			</td>
+		</tr>
+			
+		<tr>
+			<td>$ cd</td>
+			<td>カレントディレクトリを移動する。</td>
+		</tr>
+			
+		<tr>
+			<td>$ cd ~</td>
+			<td>
+				ルートディレクトリに戻る。<br>
+				<br>
+				応用→ルートからのパスを指定して移動。
+				<pre class="console">$ cd ~/git/animal</pre>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>mkdir ディレクトリ名</td>
+			<td>
+				ディレクトリを作成する。
+				<a href="/note_prg/linux/note.html#sec1-2-1-1" class="livipage">参照</a><br>
+				
+				<pre class="console">$ mkdir animal</pre><br>
+				複数のディレクトリを一度に作成
+				<pre class="console">$ mkdir animal1 animal12</pre><br>
+				子ディレクトリも作成
+				<pre class="console">$ mkdir -p animal/neko/mike</pre><br>
+			</td>
+		</tr>
+			
+		<tr>
+			<td>$ pwd</td>
+			<td>現在のディレクトリパスを表示する。</td>
+		</tr>
+				
+		<tr>
+			<td>$ sh　シェルファイル名</td>
+			<td>
+				シェルを実行する。
+				<pre class="console">$ sh test.sh</pre>
+			</td>
+		</tr>
+			
+		<tr>
+			<td>$ ps alxw</td>
+			<td>動作中のプログラムを一覧表示する</td>
+		</tr>
+		
+		<tr>
+			<td>$ touch ファイル名</td>
+			<td>
+				空のファイルを作成する。(テキストファイル)<br>
+				<aside>touchはファイル更新日時を書き換える役割もある。</aside>
+			</td>
+		</tr>
+			
+		<tr>
+			<td>$ ss</td>
+			<td>
+				開いているポート番号を一覧表示する。<br>
+				<aside>CentOS7などでnetstatコマンドの代わりに使用できるとのこと。不具合もあるようなので注意。</aside>
+			</td>
+			
+		</tr>
+				
+		<tr>
+			<td>$ yum list installed</td>
+			<td>
+				Linuxにインストールされているプログラムを一覧表示する。<br>
+				httpで絞り込んでプログラム一覧表示↓<br>
+				<pre class="console">$ yum list installed | grep http</pre>
+				<aside>
+					※ yumは、Red Hat系ディストリビューションで使われているパッケージ管理コマンド。RPMパッケージなどと呼ばれる。
+				</aside>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<hr><br><br>
+	
+
+
+
+
+
+
+
+
 <h2 id="public_note">一般</h2>
 <ol>
 	<li><a href="note.html#sec1-1">Windows10でLINUXを使えるようにする</a></li>
-	<li><a href="note.html#sec1-2">LINUXの基本コマンド</a></li>
 	<li><a href="note.html#sec1-2-1">$ ls    カレントディレクトリ内のファイルやフォルダを一覧表示します。</a></li>
 	<li><a href="note.html#sec1-2-1-1">ディレクトリを作成 | mkdir</a></li>
 	<li><a href="note.html#sec1-2-2">$ cd    カレントディレクトリを移動する。</a></li>
