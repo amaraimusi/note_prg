@@ -128,9 +128,14 @@
 			</tr>
 		
 			<tr>
-				<td>$ docker exec -it コンテナIDもしくはコンテナ名 bash -c "任意のコマンド"</td>
+				<td>$ docker exec -it コンテナ名 bash</td>
 				<td>
-					コンテナに接続。アタッチ状態にする（コンテナ内に入る）。
+					コンテナに接続。アタッチ状態にする（コンテナ内に入る）。<br>
+					例1(Windows環境)
+					<pre class="console">$ winpty docker exec -it docker_demo_mysql_1 bash</pre>
+					例2（ついでにコマンドも実行する）
+					<pre class="console">$ docker exec -it コンテナ名 bash -c "任意のコマンド"</pre>
+					<aside>コンテナ名はコンテナIDでも可</aside>
 				</td>
 			</tr>
 		
