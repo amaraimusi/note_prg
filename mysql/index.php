@@ -52,12 +52,23 @@
 				<pre class="console">USE animals</pre>
 			</td>
 		</tr>
+		
 		<tr>
 			<td>show tables;</td>
 			<td>
 				テーブル一覧を表示する。<br>
 			</td>
 		</tr>
+		
+		<tr>
+			<td>CREATE DATABASE データベース名</td>
+			<td>
+				データベースを新しく生成する。<br>
+				下記SQLはすでに同じ名前のデータベースが存在してもエラーにならない。また文字コードも指定。
+				<pre class="console">CREATE DATABASE IF NOT EXISTS animals DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;</pre>
+			</td>
+		</tr>
+		
 		<tr>
 			<td></td>
 			<td>
