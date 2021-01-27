@@ -237,11 +237,34 @@
 
 
 
+<div id="sec8-8" class="sec4" >
+	<h3>DockerコンテナとMySQLのバックアップおよびリストア(インポート)</h3>
+	
+	<p>バックアップ</p>
+	<pre>docker exec -it コンテナ名 bash -c 'MYSQL_PWD=パスワード mysqldump -u ユーザー名 DB名' 1> バックアップファイル名</pre>
+	<pre class="console">
+$ docker exec -it docker_demo_mysql_1 bash -c 'MYSQL_PWD=root mysqldump -u root animal' 1> sql.dump
+	</pre><br>
+	<br><br>
+	
+	<p>リストア</p>
+	<pre class="console">
+$ docker cp animal.sql docker_demo_mysql_1:/tmp/animal.sql
+$ docker exec -it docker_demo_mysql_1 bash
+# mysql -u root -p animal &lt; /tmp/animal.sql
+	</pre>
+	<aside>※ docker_demo_mysql_1 はコンテナ名、animalはDB名。</aside>
+	
+	<br><time>2021-1-27</time>
+</div>
+
+
+
 <div id="sec8-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+    <h3>xxx</h3>
 
 
-	<br><time>2019-1-11</time>
+    <br><time>2019-1-11</time>
 </div>
 
 

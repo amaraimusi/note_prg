@@ -152,6 +152,7 @@
 	<li><a href="note8.html#sec8-5" >文字を置換する | REPLACE</a></li>
 	<li><a href="note8.html#sec8-6" >MySQLのスキーマ</a></li>
 	<li><a href="note8.html#sec8-7" >rootのパスワードを変更→ phpMyAdminで接続できません mysqli::real_connect(): (HY000/1045) ...</a></li>
+	<li><a href="note8.html#sec8-8" >DockerコンテナとMySQLのバックアップおよびリストア(インポート)</a></li>
 </ol>
 <hr><br><br><br>	
 			
