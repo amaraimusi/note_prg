@@ -30,14 +30,14 @@
 	最新のコミット履歴を数件表示する。
 	<pre class="console">$ git log</pre>
 	<aside>※ 「:」の状態はqキーを押して抜けることができる。</aside>
-	<img src="img/github_note3/sec1-3a1.png" class="img_compact_k" /><br>
+	<img src="img/github_note3/sec3-1a1.png" class="img_compact_k" /><br>
 	<br>
 	
 	<p>コミット履歴を独自フォーマットで表示する</p>
 	オプション値の組み合わせで独自表記でコミット履歴を表示可能。<br>
 	例：コミットID、コミット日時、メッセージを表示してみる。
 	<pre class="console">git log --pretty=format:"%h - %cd : %s"</pre>
-	<img src="img/github_note3/sec1-3a2.png" class="img_compact_k" /><br>
+	<img src="img/github_note3/sec3-1a2.png" class="img_compact_k" /><br>
 	
 	<p>git log --pretty=format | オプション表</p>
 	<table class="table">
@@ -65,6 +65,28 @@
 	</table>
 
 
+	<br><time>2021-2-9</time>
+</div>
+
+
+<div id="sec3-2" class="sec4">
+	<h3>git grep | キーワードで検索</h3>
+	
+	<pre class="console">$ git grep -e '自由意志'</pre>
+	<img src="img/github_note3/sec3-2a1.png" /><br>
+	<br>
+
+	<p>シンプルな書き方</p>
+	<pre class="console">$ git grep -e自由意志</pre><br>
+	<br>
+	
+	<p>AND検索</p>
+	<pre class="console">$ git grep -e '自由意志' --and -e 'ロボット'</pre><br>
+	<img src="img/github_note3/sec3-2a2.png" /><br>
+	<br>
+	
+	
+	
 	<br><time>2021-2-9</time>
 </div>
 
