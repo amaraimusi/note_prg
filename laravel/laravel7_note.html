@@ -25,6 +25,105 @@
 <div class="container">
 
 
+<div id="sec1-0-1" class="sec4" >
+	<h3>Laravel7をComposerでインストールおよび初期設定</h3>
+	
+	<p>事前条件</p>
+	Git Bashなどコマンドラインツールを使えるようにしておく。<br>
+	2021年1月現在、Windowsなら開発環境はxamppにしておくことが無難。
+	下手にDockerに手を出すと莫大な時間を犠牲にする。安定したDocker設定ができるまで当分待ったほうがいいかも。
+	昨今増えているmacユーザーとは敵対することにはなるが。<br>
+	mysqlにてプロジェクトのデータベースを先に作成しておく。（下記の例ではred_bookデータベースを作成）<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			php.iniをテキストエディタで開き、「;」を外して「extension=php_intl.dll」を有効にする。
+			<aside>
+			「extension=php_intl.dll」の記述がなければphp.iniの末尾にでも追記する。<br>
+			php.iniを書き換えたらApacheの再起動を忘れずに。
+			</aside>
+		</li>
+		
+		<li>
+			コマンドラインツールを立ち上げ、プロジェクトのルートへ移動する。
+			<pre class="console">$ cd ~/git/red_book</pre>
+		</li>
+		
+		<li>
+			Windows環境でGit bashのターミナルを使うとttyなんとかのエラーが出るため、それ防止用に下記コマンドを実行。
+			<pre class="console">$ exec winpty bash</pre><br>
+			
+			composer.pharをダウンロードする
+			<pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+			<aside>ルートのディレクトリにcomposer.pharが配置される。</aside>
+		</li>
+		
+		<li>
+			Laravel7をルートのディレクトリにダウンロードする。
+			<pre class="console">$ php composer.phar create-project "laravel/laravel=7.*" dev</pre>
+			<aside>
+				ルートディレクトリにdevフォルダが作成され、その中にLaravel7関連のソースコードが配置される。
+			</aside>
+			
+		</li>
+		
+		<li>
+			「http://localhost/red_book/dev/public/」にアクセスし、下記のようなLaravelのページが表示されたらとりあえずOK.<br>
+			<div style="display:inline-block;border: solid 3px #83c0ce"><img src="img/laravel7_note/sec1-0-1a1.png" class="img_compact_k" /></div>
+		</li>
+		
+		<li>
+			artisanコマンドが使えるか試しに動かしてみる。
+			<pre class="console">$ cd ~/git/red_book/<strong>dev</strong></pre>
+			<pre class="console">$ php <strong>artisan</strong> list</pre>
+			<div style="display:inline-block;border: solid 3px #83c0ce"><img src="img/laravel7_note/sec1-0-1a2.png" class="img_compact_k" /></div>
+		</li>
+		
+		<li>
+			DB接続設定
+			.envファイルにてDB接続設定をする。
+			<aside>
+				場所→/red_book/dev/.env
+			</aside>
+			<p>.env</p>
+			<aside>xamppならDB_DATABASEを該当するデータベース名部分だけ変更すればよい。</aside>
+			<pre>
+～ 略 ～
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=red_book
+DB_USERNAME=root
+DB_PASSWORD=
+～ 略 ～
+			</pre>
+			
+		</li>
+		
+		<li>
+			artisanコマンドでDB接続確認<br>
+			「$ php artisan tinker」を押してPHPプログラムをお試し実行できる状態にする。<br>
+			「DB::select('select 1');」を動かしてみて正常なレスポンスがでたらDB接続設定は上手くいっている。<br>
+			キーボードの「q」を押すと、お試し実行状態を解除できる。<br>
+			<div style="display:inline-block;border: solid 3px #83c0ce">
+				<img src="img/laravel7_note/sec1-0-1a3.png" />
+			</div>
+			
+		</li>
+		
+		<li>
+			とりあえずここまでやれば、最低限の開発環境は整う。<br>
+			終わり。
+		</li>
+	</ol>
+
+
+	<br><time>2021-2-15</time>
+</div>
+
+
 <div id="sec1-1" class="sec4">
 	<h3>Laravelの定数</h3>
 
