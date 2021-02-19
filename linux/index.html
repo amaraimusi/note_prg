@@ -26,6 +26,7 @@
 <ul>
 
 	<li><a href="#useful_index">よく使うコマンド</a></li>
+	<li><a href="#text_index">テキスト操作コマンド</a></li>
 	<li><a href="#public_note">一般</a></li>
 	<li><a href="#ssh_index">SSHの覚書</a></li>
 	<li><a href="#vps_index">VPSの覚書</a></li>
@@ -142,8 +143,80 @@ bashを中心によく使うコマンドを挙げる。
 	
 
 
-
-
+<h2 id="text_index">テキスト操作コマンド</h2>
+<table class="table">
+	<thead><tr><th>コマンド名</th><th>説明</th></tr></thead>
+	<tbody>
+		<tr>
+			<td>$ cat テキストファイル名</td>
+			<td>
+				<pre class="console">$ cat test.txt</pre>
+				テキストファイルの中身を表示する。
+			</td>
+		</tr>
+		<tr>
+			<td>echo テキスト >> テキストファイル名</td>
+			<td>
+				<pre class="console">echo ホームレス猫 >> test.txt</pre>
+				テキストファイルにテキストを追記する。
+			</td>
+		</tr>
+		<tr>
+			<td>$ file -b テキストファイル名</td>
+			<td>
+				テキストファイル内に書かれている文字コードを調べる
+				<pre class="console">
+$ file -b neko.txt
+UTF-8 Unicode text
+				</pre>
+			</td>
+		</tr>
+		<tr>
+			<td>$ cat neko.txt | grep 猫</td>
+			<td>
+				テキスト検索
+				<pre class="console">
+$ cat neko.txt | grep 猫
+猫の飼い方
+猫の野望　GX
+				</pre>
+			</td>
+		</tr>
+		<tr>
+			<td>$ cat neko.txt dog.txt > catdog.txt</td>
+			<td>
+				2つのテキストファイルのテキストを連結して、別のテキストファイルとして出力する。
+			</td>
+		</tr>
+		<tr>
+			<td>$ cat -b catdog.txt</td>
+			<td>
+				行番号も表示する。
+				<pre class="console">
+$ cat -b catdog.txt
+     1  猫の脚
+     2  猫の野望　GX
+     3  hello world
+     4  wanwan
+				</pre>
+			</td>
+		</tr>
+		<tr>
+			<td>sed -e "s/置換元/置換後/g" catdog.txt</td>
+			<td>
+				文字の置換。
+				<pre class="console">
+$ sed -e "s/猫/犬/g" catdog.txt
+犬の脚
+犬の野望　GX
+hello world
+wanwan
+				</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<hr><br><br>
 
 
 
