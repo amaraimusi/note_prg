@@ -114,15 +114,24 @@
 
 <div id="sec4-4" class="sec4" >
 	<h3>ログイン画面を作成</h3>
-		Laravel6および7でのログイン画面作成方法
-
+		Laravel6および7でのログイン画面作成方法。<br>
+		Windows10環境、Windows for bashを利用<br>
+		<br>
 
 	<ol class="list_lg">
 		<li>
+			composerコマンドをbashで使えるようにする。<br>
+			<a href="/note_prg/php/note_composer.html#s1-2" class="livipage">参考→Windows環境でcomposerコマンドを使えるようにする【2020年】</a><br>
+		</li>
+		<li>
 			下記のコマンドを実行する。（動くまで時間がかかる）
-			<pre>composer require laravel/ui --dev</pre>
-			<aside>「laravel/ui」はBootstrapなどデザイン回りの処理が関係しているようだ</aside>
+			<pre>$ composer require laravel/ui 2.*</pre>
 			<img src="img/laravel7_note4/sec4-4a1.png" />
+			
+			<aside>
+				「laravel/ui」はBootstrapなどデザイン回りの処理が関係しているようだ。<br>
+				2021年2月の時点ではLaravel8が登場しており、最新のlaravel/ui（3系）はすでにLaravel7に対応していない。<br>
+			</aside>
 		</li>
 		
 		<li>
@@ -160,7 +169,7 @@
 	<img src="img/laravel7_note4/sec4-4a7.png" class="img_compact_k" /><br>
 	<br>
 
-	<br><time>2020-7-7</time>
+	<br><time>2020-7-7 | 2021-2-22</time>
 </div>
 
 
