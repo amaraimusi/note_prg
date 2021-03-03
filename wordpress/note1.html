@@ -115,6 +115,10 @@
 			wp-config.phpを開き下記をTRUEにしてデバッグモードにする<br>
 			<pre>	define('WP_DEBUG', true);</pre>
 		</li>
+		
+		<li>
+			<a href="#sec1-5" class="livipage">役に立つプラグインをいくつかインストールする。</a>
+		</li>
 	</ol>
 	
 	
@@ -222,41 +226,98 @@
 	<a href="https://ja.wordpress.org/plugins/">https://ja.wordpress.org/plugins/</a><br>
 	<br>
 	
-	以下に代表的なプラグインを挙げる。<br>
+	以下に代表的なプラグインを必要性順に列挙する。<br>
 	<br>
 	
 	
-	<strong>Contact From 7 プラグイン</strong><br>
-	問合せフォームを作るなら「Contact From 7」が便利である。<br>
-	※メール送信する問合せフォーム<br>
-	<br>
-	
-	
-	<strong>BackWPupプラグイン</strong><br>
-	データベースのバックアップが行えるプラグイン<br>
-	<br>
-	
-	<strong>User Role Editor プラグイン</strong><br>
-	ユーザー権限を編集できる。<br>
-	<br>
-	
-	
-	<strong>Adminimizeプラグイン</strong><br>
-	権限ごとにダッシュボードの機能を制限できるプラグイン。<br>
-	<br>
-	
-	
-	<strong>Really Simple CSV Importerプラグイン</strong><br>
-	他のブログサイトからダウロードしたCSVをWordPressにインポートできる。<br>
-	<br>
-	
-	
-	<strong>Super Socializer プラグイン</strong><br>
-	TwitterやFacebookなどのSNSと連携できる。	<br>
-	<br>
-	
-	
-	<br><time>2017-4-20</time>
+	<table class="table">
+		<thead><tr><th>プラグイン名</th><th>説明</th></tr></thead>
+		<tbody>
+			
+			<tr>
+				<td>WP Multibyte Patchプラグイン</td>
+				<td>
+					日本語などマルチバイト文字列を取り扱うプラグイン。
+					とりあえずインストールすべき。
+				</td>
+			</tr>
+			
+			<tr>
+				<td>SiteGuard WP Plugin</td>
+				<td>
+					定番のセキュリティプラグイン。とりあえずインストール。主に管理画面へのログインに関してセキュリティを施す。<br>
+					有効にするとダッシュボードの左サイドに「SiteGuard」メニューが表示されるので、
+					ここをクリックするとセキュリティに関する設定画面が表示される。
+					設定画面では主にログインを中心としたセキュリティ項目が列挙されたおり、それぞれをON/OFFで切り替えられる。
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Contact From 7 プラグイン</td>
+				<td>
+					問合せフォームを作るなら「Contact From 7」が便利である。<br>
+					※メール送信する問合せフォーム<br>
+					2021年現在でも有名なプラグイン。<br>
+					寄付を募っているようなので少しでもお金を払う。<br>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Akismet</td>
+				<td>
+					Contact From 7で推奨されているアンチスパムプラグイン。
+				</td>
+			</tr>
+			
+			<tr>
+				<td>BackWPupプラグイン</td>
+				<td>
+					データベースのバックアップが行えるプラグイン<br>
+					phpMyAdminのエクスポートと同じようなDBデータエクスポートを行う。<br>
+					基本的な操作方法→BackWPup→Dashboard→「Download database backup」<br>
+					他にもいろいろ機能があるようだが...。
+				</td>
+			</tr>
+			
+			<tr>
+				<td>User Role Editor プラグイン</td>
+				<td>
+					ユーザー権限を編集できる。
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Adminimizeプラグイン</td>
+				<td>
+					権限ごとにダッシュボードの機能を制限できるプラグイン。<br>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Really Simple CSV Importerプラグイン</td>
+				<td>
+					他のブログサイトからダウロードしたCSVをWordPressにインポートできる。<br>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Super Socializer プラグイン</td>
+				<td>
+					TwitterやFacebookなどのSNSと連携できる。
+				</td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td>
+					
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+
+	<br><time>2017-4-20 | 2021-2-25</time>
 </div>
 
 
