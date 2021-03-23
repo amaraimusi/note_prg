@@ -41,6 +41,7 @@
 		<li><a href="note2.php#sec2-6" >タッチパッドの操作方法</a></li>
 		<li><a href="note2.php#sec2-7" >Windows10でドットから始まるファイルまたはフォルダ名を入力する方法</a></li>
 		<li><a href="/note_prg/php/note19.html#sec19-10">localhostで接続が拒否されました。←対策 | https SSL | Chrome</a></li>
+		<li><a href="all_ja_fonts.html" >日本語の文字一覧</a></li>
 
 	</ol>
 </div>

@@ -172,6 +172,56 @@ class Pig{
 </div>
 
 
+<div id="sec18-5" class="sec4" >
+	<h3>autocomplete オートコンプリート | 入力ごとに入力候補を表示する</h3>
+	
+	<a href="/sample/js/a014/autocomplete/">見本（目次）</a><br>
+	<br>
+	
+	html
+	<pre><code>
+&lt;input type="text" autocomplete="on" list="list1"&gt;
+&lt;datalist id="list1"&gt;
+    &lt;option value="あきはばら"&gt;&lt;/option&gt;
+    &lt;option value="あこうろうし"&gt;&lt;/option&gt;
+    &lt;option value="あまりりす"&gt;&lt;/option&gt;
+    &lt;option value="あきあかね"&gt;&lt;/option&gt;
+    &lt;option value="赤猫"&gt;&lt;/option&gt;
+    &lt;option value="あかいすいせい"&gt;&lt;/option&gt;
+    &lt;option value="あかいねこ"&gt;&lt;/option&gt;
+&lt;/datalist&gt;
+&lt;button onclick="test1(2)" class="btn btn-primary btn-sm" &gt;入力候補変更1&lt;/button&gt;
+&lt;button onclick="test1(3)" class="btn btn-primary btn-sm" &gt;入力候補変更2&lt;/button&gt;
+	</code></pre>
+	<br>
+	
+	js
+	<pre><code>
+function test1(data_no){
+	let list2 = [];
+	if(data_no == 2){
+		list2 = ['かまいたち','からす', 'かまねこ', 'かます', 'かまきり', 'かたくりこ', 'きつね', 'くま'];
+	}else{
+		list2 = ['さむらい','さむい', 'さきほこる', 'さにー'];	
+	}
+	 
+	
+	let list2_option_html = '';
+	for(i in list2){
+		let v2 = list2[i];
+		list2_option_html += `&lt;option value="${v2}"&gt;&lt;/option&gt;`;
+	}
+	//
+	
+	$('#list1').html(list2_option_html);
+}
+	</code></pre>
+
+
+	<br><time>2021-3-23</time>
+</div>
+
+
 <div id="sec18-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
