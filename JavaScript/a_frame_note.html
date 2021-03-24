@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>A-Frameの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery-3.5.1.min.js"></script>	
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>A-Frameの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>A-Frameで画像を表示 | 位置パラメータの説明</h3>
+	
+	<a href="/aframe_demo/demo1/" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>asset</p>
+	<ul>
+		<li>aframe-v1.2.0.min.js</li>
+		<li>alpha.png</li>
+		<li>imori.png</li>
+		<li>index.html</li>
+	</ul>
+	<br>
+	
+	aframe-x.x.x.min.jsの入手先<br>
+	<a href="https://github.com/aframevr/aframe/" target="_blank">https://github.com/aframevr/aframe/</a><br>
+	<br>
+	
+	<p>index.html</p>
+	<pre><code>
+&lt;body&gt;
+	&lt;a-scene&gt;
+		&lt;a-assets&gt;
+			&lt;img id="imori" src="imori.png"&gt;
+			&lt;img id="alpha" src="alpha.png"&gt;
+		&lt;/a-assets&gt;
+		&lt;a-image src="#imori" rotation="-20 0 0" scale="50 50 0" position="0 0 -50"&gt;&lt;/a-image&gt;
+		&lt;a-image src="#alpha" rotation="-20 0 0" scale="20 20 0" position="15 15 -40"&gt;&lt;/a-image&gt;
+		&lt;!-- 
+		rotation オブジェクトを回転させる。360°形式で指定する。正の値は半時計まわり、負の値は時計まわり
+			第1引数 x軸回転
+			第2引数 y軸回転
+			第3引数 z軸回転
+		scale オブジェクトの大きさ 0から100の範囲で指定(目安は50くらい）
+			第1引数 x方向の伸縮
+			第2引数 y方向の伸縮
+			第3引数 x方向の伸縮(平面画像である場合は変化なし）
+		position
+			第1引数 x方向の位置 0は中心 目安として-50から50の範囲で指定 正の値は右方向、負の値は左方向
+			第2引数 y方向の位置 0は中心 目安として-15から15の範囲で指定 正の値は上方向、負の値は下方向。 正の値である場合、下から見上げる形になるので、画像を裏から見ている形になる。（上下反転に見える）
+			第3引数 z方向の位置(奥行き） 0は中心　目安として-50から20くらいの範囲で指定 正の値は手前に、負の値は奥へ。
+		 --&gt;
+		&lt;a-sky color="#0c37c0"&gt;&lt;/a-sky&gt;
+	
+	&lt;/a-scene&gt;
+&lt;/body&gt;
+	</code></pre>
+	
+	
+	<p>表示</p>
+	<img src="img/a_frame_note/sec1-1a1.png"  /><br>
+	<br>
+	
+
+	<br><time>2021-3-24</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-3-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>A-Frameの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-1-1</div>
+</body>
+</html>
