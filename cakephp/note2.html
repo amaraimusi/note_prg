@@ -231,12 +231,36 @@
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec2-8" class="sec1">
-	<h3>パスワードを暗号化する</h3>
+	<h3>パスワードを暗号化する | ハッシュ化</h3>
+	
+	<pre><code>
+	App::uses('AuthComponent', 'Controller/Component');
+	$pw = "abcd1234";
+	$pw_hash = AuthComponent::password($pw);
+	</code></pre>
+	任意のコントローラクラスで検証。<br>
+	AppContollerを継承していれば以下のような自由に作ったクラスでも仕様可能になる。
+	<pre><code>
+	App::uses('AppController', 'Controller');
+	class NekoNeko extends AppController{
+		public function passwordToHash($pw){
+			App::uses('AuthComponent', 'Controller/Component');
+			$pw_hash = AuthComponent::password($pw);
+			return $pw_hash;
+		}
+	}
+	// ※ NekoNekoクラスは任意のコントローラクラスから呼び出す。
+	</code></pre>
 
+	
+	<hr>
+	<p>旧</p>
 	<pre>
 	$password = 'test';
 	$ango=$this->Auth->password($password);//パスワードを暗号化する。
 	</pre>
+	
+	<time>2013-9-3 | 2021-4-24</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
