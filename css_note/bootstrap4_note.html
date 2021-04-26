@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="google" content="notranslate" />
-   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bootstrap4 | ワクガンス</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
@@ -93,11 +93,11 @@
 	<br><br>
 	
 	<button type="button" class="btn btn-primary">
-	  Notifications <span class="badge badge-light">4</span>
+		Notifications <span class="badge badge-light">4</span>
 	</button>
 	<pre><code>
 	&lt;button type="button" class="btn btn-primary"&gt;
-	  Notifications &lt;span class="badge badge-light"&gt;4&lt;/span&gt;
+		Notifications &lt;span class="badge badge-light"&gt;4&lt;/span&gt;
 	&lt;/button&gt;
 	</code></pre>
 	<br><br>
@@ -285,6 +285,195 @@
 	
 
 	<br><time>2020-9-8</time>
+</div>
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>入力フォーム</h3>
+	
+	
+	<div style="text-align:center;">
+	<div class="card" style="min-width:500px;max-width:700px;display:inline-block;text-align:left;">
+		<div class="card-header">
+			<h5 class="card-title">入力フォーム</h5>
+		</div>
+		<div class="card-body">
+			
+			<p class="card-text">Bootstrap4の入力フォームデザイン</p>
+			
+			<div class="form-group">
+				<label for="email1">メールアドレス</label>
+				<input type="email" class="form-control" id="email1" aria-describedby="email1_help" placeholder="example@example.com">
+				<small id="email1_help" class="form-text text-muted">メールアドレスを入力してください。</small>
+			</div>
+			
+			<div class="form-group">
+				<label for="pw1">Password</label>
+				<input type="password" class="form-control" id="pw1" placeholder="パスワード">
+			</div>
+			
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="check1">
+				<label class="form-check-label" for="check1">猫は好きですか。</label>
+			</div>
+			
+			<div class="form-group">
+				<label for="select1">好きな猫</label>
+				<select class="form-control" id="select1">
+					<option>赤猫</option>
+					<option>ハチワレ</option>
+					<option>キジシロ</option>
+					<option>牛猫</option>
+					<option>犬</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="textarea1">メモ</label>
+				<textarea class="form-control" id="textarea1" rows="4">ノラ猫にエサをあげてはいませんと思わくもなくともなく是非に及ばず</textarea>
+			</div>
+			
+			<div class="form-group">
+				<label for="file1">ファイル</label>
+				<input type="file" class="form-control-file" id="file1">
+			</div>
+			
+			<div class="form-group">
+				<input class="form-control form-control-lg" type="text" placeholder="大きい">
+				<input class="form-control" type="text" placeholder="普通">
+				<input class="form-control form-control-sm" type="text" placeholder="小さい">
+			</div>
+			
+			<div class="form-group row">
+				<label for="text2" class="col-sm-4 col-form-label">テキスト2</label>
+				<div class="col-sm-8">
+					<input type="text" readonly class="form-control" id="staticEmail" value="猫ちゃん">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+					<label class="form-check-label" for="exampleRadios1">
+						Default radio
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+					<label class="form-check-label" for="exampleRadios2">
+						Second default radio
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+					<label class="form-check-label" for="exampleRadios3">
+						Disabled radio
+					</label>
+				</div>
+			</div>
+			
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineCheckbox1">1</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineCheckbox2">2</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+				<label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+			</div>
+			
+			
+			<div class="form-group form-row">
+				<div class="col">
+					<label for="last_name">氏</label>
+					<input type="text" id="last_name" class="form-control" placeholder="氏">
+				</div>
+				<div class="col">
+					<label for="first_name">名</label>
+					<input type="text" id="first_name" class="form-control" placeholder="名">
+				</div>
+			</div>
+			
+			<button type="button" class="btn btn-primary">OK</button>
+		</div>
+	</div>
+	
+	</div>
+
+
+	<br><time>2021-4-26</time>
+</div>
+
+
+<div id="sec1-8" class="sec4" >
+	<h3>入力フォームその2</h3>
+
+	<div style="text-align:center;">
+	<div class="card" style="min-width:640px;max-width:900px;display:inline-block;text-align:left;">
+		<div class="card-header">
+			<h5 class="card-title">入力フォーム</h5>
+		</div>
+		<div class="card-body">
+		
+			<form>
+				<div class="form-group row">
+					<label for="inputEmail3" class="col-sm-3 col-form-label">メールアドレス</label>
+					<div class="col-sm-9">
+						<input type="email" class="form-control" id="inputEmail3" placeholder="example@example.com">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="inputPassword3" class="col-sm-3 col-form-label">パスワード</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" id="inputPassword3" placeholder="パスワード">
+					</div>
+				</div>
+				<fieldset class="form-group">
+					<div class="row">
+						<legend class="col-form-label col-sm-3 pt-0">Radios</legend>
+						<div class="col-sm-9">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+								<label class="form-check-label" for="gridRadios1">
+									First radio
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+								<label class="form-check-label" for="gridRadios2">
+									Second radio
+								</label>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-group row">
+					<div class="col-sm-3">Checkbox</div>
+					<div class="col-sm-9">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="gridCheck1">
+							<label class="form-check-label" for="gridCheck1">
+								Example checkbox
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<button type="submit" class="btn btn-primary">Sign in</button>
+					</div>
+				</div>
+			</form>
+	
+			</div>
+	</div>
+	
+	</div>
+	
+	<br><time>2020-8-8</time>
 </div>
 
 
