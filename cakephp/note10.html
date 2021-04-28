@@ -313,6 +313,63 @@ Configure::write('Session', array(
 
 
 
+<div id="sec10-8" class="sec4" >
+	<h3>内ログイン | フォームなし、プログラム内部で自動ログイン</h3>
+	
+	HTMLのフォームを使わず、プログラム内部中でログインすることができる。<br>
+	新規会員登録などサインイン登録後にログイン状態にしたいときに活用できる。<br>
+	<br>
+	
+	<pre><code>
+
+App::uses('AppController', 'Controller');
+class UsersController extends AppController {
+
+	// public $components = null;// ←これするとAuthがnullになり、エラーになるので注意
+
+	public function test(){
+
+		$id = 4; // ログイン対象のユーザーID
+		
+		// ユーザーエンティティ
+		$user = $this-&gt;User-&gt;find('first', [
+				'conditions' =&gt; ['User.id' =&gt; $id],
+				'recursive' =&gt; -1
+				]
+			);
+		
+		
+		// パスワードは削除
+		unset($user['User']['password']);
+		
+		// ログインする。
+		if ($this-&gt;Auth-&gt;login($user['User'])) {
+			echo 'login success';
+		}else{
+			
+			echo 'login false';
+		}
+		die();
+	}
+	</code></pre>
+	UsersControllerコントローラクラス以外でも実現可能。<br>
+	usersのレコードと$this->Authが使えればよい。<br>
+	この方法は公式で紹介されている。→
+	<a href="https://book.cakephp.org/2/ja/core-libraries/components/authentication.html#id16" target="_blank">公式：手動でのユーザーログイン</a><br>
+	<br>
+	
+	
+	<br><time>2021-4-28</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
