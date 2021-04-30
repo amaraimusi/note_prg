@@ -50,99 +50,144 @@
 	$.ajaxを用いて、JSONデータを送受信する。<br>
 	<br>
 	実行URLの例<br>
-	http://localhost/animal/devloper/ajax_sample<br>
+	http://localhost/animal/devloper/index<br>
 	<br>
 
-	<strong>CakePHP:コントローラ:DevloperController.php</strong>
+	<p>CakePHP:コントローラ:DevloperController.php</p>
+	<aside>app/Controller/DevloperController.php</aside>
 	<pre><code>
-	class DevloperController extends AppController {
-		public $name = 'Devloper';
-		public $uses = array ('Devloper');
+class DevloperController extends AppController {
+	public $name = 'Devloper';
+	public $uses = ['Devloper'];
 
-		function index() {
+	function index() {
+		$csrf_token = CrudBaseU::getCsrfToken('developer_edit');
+		
+		$this->set([
+			'csrf_token' => $csrf_token,
+		]);
+	}
+	
 
+	/**
+	 * 〇〇 | Ajax 非同期通信
+	 * @return string
+	 */
+	public function ajax_reg(){
+		$this->autoRender = false;//ビュー(ctp)を使わない。
+		
+		// CSRFトークンによるセキュリティチェック
+		if(CrudBaseU::checkCsrfToken('developer_edit') == false){
+			return '不正なアクションを検出しました。';
 		}
-
-
-		/**
-		 * サンプル開始
-		 */
-		function ajax_sample() {
-
-		}
-
-		/**
-		 * 〇〇 | Ajax 非同期通信
-		 * @return string
-		 */
-		public function ajax(){
-			$this-&gt;autoRender = false;//ビュー(ctp)を使わない。
-
-			// 通信元から送信されてきたパラメータを取得する。
-			$param_json = $_POST['key1'];
-			$param=json_decode($param_json,true);//JSON文字を配列に戻す
-			
-			//データ加工や取得
-			$data = array('neko'=&gt;'猫','yagi'=&gt;'山羊','kani'=&gt;'蟹','same'=&gt;'鮫');
-
-			// JSONに変換し、通信元に返す。
-			$json_str = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
-			return $json_str;
-
-		}
-
+		
+		// 通信元から送信されてきたパラメータを取得する。
+		$param_json = $_POST['key1'];
+		$param=json_decode($param_json,true);//JSON文字を配列に戻す
+		
+		//データ加工や取得
+		$data = array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
+		
+		// JSONに変換し、通信元に返す。
+		$json_str = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+		return $json_str;
 
 	}
+
+
+}
 	</code></pre>
 	<hr>
 
-	<strong>CakePHP:ビュー:ajax_sample.ctp</strong>
-	<pre>
-	&lt;?php
-		$this-&gt;assign('script', $this-&gt;Html-&gt;script(array('Devloper/ajax_sample',)));
-		//※jqueryはdefalut.ctpにてインクルード済み
-	?&gt;
+	<strong>CakePHP:ビュー:index.ctp</strong>
+	<aside>app/View/Developer/index.ctp</aside>
+	<pre><code>
+&lt;?php
+	$this-&gt;assign('script', $this-&gt;Html-&gt;script(['Devloper/index',]));
+	//※jqueryはdefalut.ctpにてインクルード済み
+?&gt;
 
-	&lt;div id="err"&gt;&lt;/div&gt;
-	</pre>
+&lt;div id="err"&gt;&lt;/div&gt;
+&lt;input type="hidden" id="csrf_token" value='&lt;?php echo $csrf_token; ?&gt;' /&gt;
+	</code></pre>
 	<hr>
 
-	<strong>JS:ajax_sample.js</strong>　ES6版
+	<strong>JS:index.js</strong>
+	<aside>app/webroot/js/Developer/index.js</aside>
 	<pre><code>
+class Animal{
+
+	regAction(){
+		let sendData={neko_name:'cat&amp;dog%',same:{hojiro:'ホオジロザメ',shumoku:'シュモクザメ'}};
+		
+		// データ中の「&amp;」と「%」を全角の＆と％に一括エスケープ(&amp;記号や%記号はPHPのJSONデコードでエラーになる)
+		sendData = this._escapeAjaxSendData(sendData);
+		// sendData = this._ampTo26(sendData); // PHPのJSONデコードでエラーになるので、＆を%26に一括変換する
+		
+		let fd = new FormData();
+		
+		let send_json = JSON.stringify(sendData);//データをJSON文字列にする。
+		fd.append( "key1", send_json );
+		
+		// CSRFトークンを取得
+		let csrf_token = jQuery('#csrf_token').val();
+		fd.append( "csrf_token", csrf_token );
+		
+		let ajax_url = "developer/ajax_reg";
+		
+		// AJAX
+		jQuery.ajax({
+			type: "post",
+			url: ajax_url,
+			data: fd,
+			cache: false,
+			dataType: "text",
+			processData: false,
+			contentType : false,
+		})
+		.done((res_json, type) =&gt; {
+			let res;
+			try{
+				res =jQuery.parseJSON(res_json);//パース
+			}catch(e){
+				jQuery("#err").append(res_json);
+				return;
+			}
+			console.log(res);
+		})
+		.fail((jqXHR, statusText, errorThrown) =&gt; {
+			let errElm = jQuery('#err');
+			errElm.append('アクセスエラー');
+			errElm.append(jqXHR.responseText);
+			alert(statusText);
+		});
+	}
 	
-	var text1 = "cat&amp;dog"; // &amp;が混じった文字列
-	text1 = text1.replace(/&amp;/g, '%26'); // PHPのJSONデコードでエラーになるので、＆だけ変換しておく。
 	
-	var sendData={'neko':'ネコ','same':{'hojiro':'ホオジロザメ','shumoku':'シュモクザメ'},'text1':text1};
+	/**
+	 * データ中の「&amp;」と「%」を全角の＆と％に一括エスケープ
+	 * 
+	 * @note
+	 * PHPのJSONデコードでエラーになるので、＆記号をエスケープ。％記号も後ろに数値がつくとエラーになるのでエスケープ
+	 * これらの記号はMySQLのインポートなどでエラーになる場合があるのでその予防。
+	 * @param mixed data エスケープ対象 :文字列、オブジェクト、配列を指定可
+	 * @returns エスケープ後
+	 */
+	_escapeAjaxSendData(data){
+		if (typeof data == 'string'){
+			data = data.replace(/&amp;/g, '＆');
+			data = data.replace(/%/g, '％');
+			return data;
 
-	// data = _escapeForAjax(sendData); // Ajax送信データ用エスケープ。実体参照（&amp;lt; &amp;gt; &amp;amp; &amp;）を記号に戻す。
-	// data = _ampTo26(data); // PHPのJSONデコードでエラーになるので、＆を%26に一括変換する
-
-	var send_json = JSON.stringify(sendData);//データをJSON文字列にする。
-
-	// AJAX
-	jQuery.ajax({
-		type: "POST",
-		url: "devloper/ajax",
-		data: "key1=" + send_json,
-		cache: false,
-		dataType: "text",
-	})
-	.done((res_json, type) =&gt; {
-		var res;
-		try{
-			res =jQuery.parseJSON(res_json);//パース
-		}catch(e){
-			jQuery("#err").append(res_json);
-			return;
+		}else if (typeof data == 'object'){
+			for(var i in data){
+				data[i] = this._escapeAjaxSendData(data[i]);
+			}
+			return data;
+		}else{
+			return data;
 		}
-		console.log(res);
-	})
-	.fail((jqXHR, statusText, errorThrown) =&gt; {
-		jQuery('#err').append('アクセスエラー');
-		jQuery('#err').append(jqXHR.responseText);
-		alert(statusText);
-	});
+	}
 	
 	
 	/**
@@ -151,7 +196,7 @@
 	 * @param any data エスケープ対象 :文字列、オブジェクト、配列を指定可
 	 * @returns エスケープ後
 	 */
-	function _escapeForAjax(data){
+	_escapeForAjax(data){
 		if (typeof data == 'string'){
 			if ( data.indexOf('&amp;') != -1) {
 				data = data.replace(/&amp;lt;/g,'&lt;').replace(/&amp;gt;/g,'&gt;').replace(/&amp;amp;/g,'&amp;');
@@ -177,7 +222,7 @@
 	 * @param mixed data エスケープ対象 :文字列、オブジェクト、配列を指定可
 	 * @returns エスケープ後
 	 */
-	function _ampTo26(data){
+	_ampTo26(data){
 		if (typeof data == 'string'){
 			if ( data.indexOf('&amp;') != -1) {
 				return data.replace(/&amp;/g, '%26');
@@ -195,12 +240,85 @@
 			return data;
 		}
 	}
+}
 	</code></pre>
 	<hr>
 
 
+	
+	
+	<p>CrudBaseU.php</p>
+	<pre><code>
+class CrudBaseU{
 
-	<time>2013-9-3 | 2021-1-22</time>
+	/**
+	 * CSRFトークンを取得
+	 * セッションまわりの処理も行う。
+	 * @return string CSRFトークン
+	 */
+	public static function getCsrfToken($page_code)
+	{
+		
+		$ses_key = $page_code . '_csrf_token'; // セッションキーを組み立て
+		$csrf_token = self::random();
+		$_SESSION[$ses_key]  = $csrf_token;
+		
+		return $csrf_token;
+	}
+	
+	
+	/**
+	 * ランダム文字列を作成
+	 * @param number $length
+	 * @return string
+	 */
+	public static function random($length = 8)
+	{
+		return base_convert(mt_rand(pow(36, $length - 1), pow(36, $length) - 1), 10, 36);
+	}
+
+
+	/**
+	 * CSRFトークンによるセキュリティチェック
+	 * @return boolean true:無問題 , false:不正アクションを確認！
+	 */
+	public static function checkCsrfToken($page_code){
+		
+		// Ajaxによって送信されてきたCSRFトークンを取得。なければfalseを返す。
+		$csrf_token = null;
+		if(!empty($_POST['_token'])) $csrf_token = $_POST['_token'];
+		
+		if($csrf_token == null){
+			if(!empty($_POST['csrf_token'])) $csrf_token = $_POST['csrf_token'];
+		}
+		
+		if($csrf_token == null){
+			if(!empty($_GET['_token'])) $csrf_token = $_GET['_token'];
+		}
+		
+		if($csrf_token == null){
+			if(!empty($_GET['csrf_token'])) $csrf_token = $_GET['csrf_token'];
+		}
+		
+		if($csrf_token == null) return false;
+		
+		// セッションキーを組み立て
+		$ses_key = $page_code . '_csrf_token';
+		$ses_csrf_token = $_SESSION[$ses_key];
+
+		if($csrf_token == $ses_csrf_token){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+}
+	</code></pre>
+	<br>
+
+	<time>2013-9-3 | 2021-5-1</time>
 </div>
 <hr />
 <!-- ----------------------------------------------------------------->
