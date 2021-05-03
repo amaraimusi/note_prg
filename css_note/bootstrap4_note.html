@@ -665,6 +665,65 @@
 </div>
 
 
+<div id="sec1-9" class="sec4">
+	<h3>スマホとPCの両方に対応したグリッド</h3>
+	
+	デバイスのサイズによって適用するグリッドを指定できる。<br>
+	下記の見本はPCで見ると横並びだが、スマホで見ると立て並びなる。<br>
+	<br>
+	
+	<p>見本</p>
+	<div class="border-top border-success">
+		<div class="row" style="padding-top:5px;">
+			<div class="col-12 col-md-1"></div>
+			<div class="col-12 col-md-3">
+				<img src="img/imori.jpg" style="width:100%"/>
+			</div>
+			<div class="col-12 col-md-7">
+神の王国とは何か<br>
+神の王国とは何ですか。その王国の王はだれですか。<br>
+			</div>
+			<div class="col-12 col-md-1"></div>
+		</div>
+	</div>
+	
+	<p>HTMLソース</p>
+	<pre><code>
+	&lt;div class="border-top border-success"&gt;
+		&lt;div class="row" style="padding-top:5px;"&gt;
+			&lt;div class="col-12 col-md-1"&gt;&lt;/div&gt;
+			&lt;div class="col-12 col-md-3"&gt;
+				&lt;img src="img/imori.jpg" style="width:100%"/&gt;
+			&lt;/div&gt;
+			&lt;div class="col-12 col-md-7"&gt;
+神の王国とは何か&lt;br&gt;
+神の王国とは何ですか。その王国の王はだれですか。&lt;br&gt;
+			&lt;/div&gt;
+			&lt;div class="col-12 col-md-1"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+
+	<hr>
+	<p>グリッドとデバイスの表</p>
+	<table class="tbl2">
+		<thead>
+			<tr><th>コード</th><th>画面サイズ</th><th>デバイスの例</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>col-4</td><td>～575px</td><td>基本、または小さめスマホ</td></tr>
+			<tr><td>col-sm-4</td><td>576px～</td><td>スマホ</td></tr>
+			<tr><td>col-md-4</td><td>768px～</td><td>タブレット</td></tr>
+			<tr><td>col-lg-4</td><td>992px～</td><td>小さめのPC</td></tr>
+			<tr><td>col-xl-4</td><td>1200px～</td><td>PC</td></tr>
+	
+		</tbody>
+	</table>
+
+	<br><time>2021-5-3</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

@@ -664,6 +664,20 @@
 <div id="sec2-18" class="sec1">
 	<h3>saveとsaveAll</h3>
 	
+	<h4>コントローラからのsave</h4>
+	<pre><code>
+メンバ
+	public $uses = ['Profile','User'];
+
+メソッド
+	// DB保存
+	$this->User->save($user, ['validate'=>false]);
+	$this->Profile->save($profile, ['validate'=>false]);
+	</code></pre>
+	バリデーションが邪魔して登録できないことがあるので、validateにfalseをセットする。<br>
+	<br>
+	
+	
 	<h4>saveAllのサンプル</h4>
 	<pre><code>
 	$this-&gt;begin();//トランザクション開始
@@ -734,7 +748,7 @@
 	<br>
 	<br>
 
-	<time>2013-9-3 | 2019-6-1</time>
+	<time>2013-9-3 | 2021-5-1</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

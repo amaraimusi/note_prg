@@ -86,10 +86,10 @@ class DevloperController extends AppController {
 		$param=json_decode($param_json,true);//JSON文字を配列に戻す
 		
 		//データ加工や取得
-		$data = array('neko'=>'猫','yagi'=>'山羊','kani'=>'蟹','same'=>'鮫');
+		$res = ['success'=>1,'yagi'=>'山羊','kani'=>'蟹','same'=>'鮫'];
 		
 		// JSONに変換し、通信元に返す。
-		$json_str = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+		$json_str = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
 		return $json_str;
 
 	}
