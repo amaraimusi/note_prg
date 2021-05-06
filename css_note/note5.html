@@ -146,6 +146,73 @@
 </div>
 
 
+<div id="sec5-3" class="sec4">
+	<h3>videoタグのCSSスタイル | Youtubeなどの画面を16:9のフィットサイズに</h3>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;div class='video_w'&gt;
+	&lt;iframe src='https://www.youtube.com/embed/0EIor7Sh_Wo' frameborder='0' allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+	</code></pre>
+	
+	<p>CSS</p>
+<pre><code>
+.video_w {
+	position: relative;
+	width: 100%;
+}
+.video_w:before {
+	content:"";
+	display: block;
+	padding-top: 56.25%; /* 画面比率16:9 */
+}
+.video_w iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+</code></pre>
+<hr>
+<p>見本</p>
+<style>
+.video_w {
+	position: relative;
+	width: 100%;
+}
+.video_w:before {
+	content:"";
+	display: block;
+	padding-top: 56.25%; /* 画面比率16:9 */
+}
+.video_w iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+</style>
+<div style="width:50%">
+	<div class='video_w'>
+		<iframe src='https://www.youtube.com/embed/0EIor7Sh_Wo' frameborder='0' allowfullscreen></iframe>
+	</div>
+</div>
+
+	<br><time>2021-5-1</time>
+</div>
+
+
+<div id="sec5-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-5-1</time>
+</div>
+
+
 <div class="yohaku"></div>
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
