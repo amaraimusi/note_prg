@@ -497,6 +497,38 @@ URL → signin_x/step2?th=仮登録ハッシュコード
 </div>
 
 
+<div id="sec18-7" class="sec4" >
+	<h3>テキストエリア(textarea)の高さ自動調整</h3>
+	
+	<a href="/sample/js/a014/textarea_auto_height/textarea_auto_height.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;textarea id="textarea1" &gt;&lt;/textarea&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+jQuery(()=&gt;{
+	automateTextareaHeight('#textarea1');
+	
+});
+
+// テキストエリアの高さを自動調整する。
+function automateTextareaHeight(slt){
+
+	$(slt).attr("rows", 1).on("input", e =&gt; {
+		$(e.target).height(0).innerHeight(e.target.scrollHeight);
+	});
+}
+	</code></pre>
+
+
+	<br><time>2021-5-7</time>
+</div>
+
+
 <div id="sec18-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
