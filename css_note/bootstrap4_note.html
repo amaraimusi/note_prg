@@ -9,6 +9,7 @@
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
 	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
 	<link href="/note_prg/css/common2.css" rel="stylesheet">
 	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
@@ -721,6 +722,70 @@
 	</table>
 
 	<br><time>2021-5-3</time>
+</div>
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>アイコン表示にはICONIC</h3>
+	
+	Bootstrap3ではアイコンが用意されていたが、Bootstrap4では外部ライブラリに頼らねばならなくなった。<br>
+	いくつか候補が上げられているがICONICが便利。<br>
+	<br>
+	<p>ICONICの準備</p>
+	<ol class="list_lg">
+		<li>
+			 <a href="Git Hub https://github.com/iconic/open-iconic" target="_blank">GitHub</a>
+			や
+			<a href="https://useiconic.com/open/" target="_blank">公式サイト</a>からダウンロードする。
+		</li>
+		
+		<li>
+			パケージにはいろいろ入っているが必要なのはfontのみ。<br>
+			fontディレクトリを丸ごとbootstrapディレクトリ内にコピーする。<br>
+			<img src="img/bootstrap4_note/sec1-10a1.png" class="img_compact_k" /><br>
+			
+		</li>
+		
+		<li>
+			「open-iconic.min.css」をBoostrap4の後に読み込む。
+			<pre><code>
+	&lt;link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet"&gt;
+	&lt;link href="/note_prg/css/bootstrap-4.3.1-dist/<strong>font/css/open-iconic.min.css</strong>" rel="stylesheet"&gt;
+			</code></pre>
+		</li>
+		
+		<li>
+			以上で準備OK
+		</li>
+		
+		<li>
+			公式サイトから必要なアイコンを探すことができる。<br>
+			<a href="https://useiconic.com/open/" target="_blank">https://useiconic.com/open/</a>
+			
+		</li>
+	</ol>
+
+	<p>見本</p>
+	<span class="oi" data-glyph="arrow-circle-top"></span>
+	<pre><code>
+&lt;span class="oi" data-glyph="arrow-circle-top"&gt;&lt;/span&gt;
+	</code></pre>
+	<hr>
+	
+	<span class="oi text-success" style="font-size:1.6em" data-glyph="arrow-circle-top">AA</span>
+	<pre><code>
+&lt;span class="oi text-success" style="font-size:1.6em" data-glyph="arrow-circle-top"&gt;AA&lt;/span&gt;
+	</code></pre>
+	<hr>
+	
+	
+	<button type="button" class="btn btn-info"><span class="oi" data-glyph="arrow-circle-top"></span>テスト</button>
+	<pre><code>
+&lt;button type="button" class="btn btn-info"&gt;&lt;span class="oi" data-glyph="arrow-circle-top"&gt;&lt;/span&gt;テスト&lt;/button&gt;
+	</code></pre>
+
+
+	<br><time>2021-5-7</time>
 </div>
 
 
