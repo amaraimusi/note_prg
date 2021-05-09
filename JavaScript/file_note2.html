@@ -5,7 +5,7 @@
 	<meta name="google" content="notranslate" />
    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>テンプレート | ワクガンス</title>
+	<title>JavaScriptの覚書 | ファイル関連 | ワクガンス</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
@@ -21,23 +21,42 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-<div id="header" ><h1>テンプレート | ワクガンス</h1></div>
+<div id="header" ><h1>JavaScriptの覚書 | ファイル関連 | ワクガンス</h1></div>
 <div class="container">
 
 
-<div id="sec1-1" class="sec4">
-	<h3>xxx</h3>
+<div id="sec2-1" class="sec4">
+	<h3>ファイルパスからファイル名を取得する</h3>
+	<a href="/sample/js/a014/extract_fn_from_fp/extract_fn_from_fp.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+/**
+ * ファイルパスからファイル名を取得する
+ * 
+ * @param string fp ファイルパス
+ * @return string ファイル名
+ */
+function _extractFileNameFromFp(fp){
+	if(fp == null) return '';
+	
+	let ary = fp.split(/\/|\\/);
+	let fn = ary[ary.length-1];
+	
+	return fn;
+}
+	</code></pre>
 
 
-	<br><time>2021-5-1</time>
+	<br><time>2021-5-9</time>
 </div>
 
 
-<div id="sec1-0" class="sec4" style="display:none">
+<div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2021-5-1</time>
+	<br><time>2021-5-9</time>
 </div>
 
 
@@ -46,15 +65,10 @@
 	<li><a href="/">ホーム</a></li>
 	<li><a href="/note_prg">プログラミングの覚書</a></li>
 	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
-	<li>テンプレート</li>
+	<li>JavaScriptの覚書 | ファイル関連</li>
 </ol>
-<ol class="breadcrumb">
-	<li><a href="/">ホーム</a></li>
-	<li><a href="/sample">サンプルソースコード</a></li>
-	<li><a href="/sample/js">JavaScript ｜ サンプル</a></li>
-	<li>テンプレート</li>
-</ol>
+
 </div><!-- content -->
-<div id="footer">(C) kenji uehara 2021-5-1</div>
+<div id="footer">(C) kenji uehara 2021-5-9</div>
 </body>
 </html>
