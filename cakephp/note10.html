@@ -370,6 +370,28 @@ class UsersController extends AppController {
 
 
 
+<div id="sec10-9" class="sec4" >
+	<h3>ログイン状態が他のプロジェクトとかぶる | セッションIDがかぶる</h3>
+	
+	core.phpのSession項目に以下にcookieの情報を記述する。<br>
+	<pre><code>
+	Configure::write('Session', array(
+		<strong>'cookie'=>'neko_prj',</strong> // ← プロジェクトごとに任意の文字列を入力
+		'defaults' => 'php'
+	));
+	</code></pre><br>
+	
+	<br><time>2021-5-22</time>
+	
+</div>
+
+
+
+
+
+
+
+
 <div id="sec10-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
