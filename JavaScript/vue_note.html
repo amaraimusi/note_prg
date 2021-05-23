@@ -593,8 +593,25 @@
 
 
 <div id="sec1-8" class="sec4">
-	<h3>Vue.jsの表示切替 | v-if</h3>
-
+	<h3>Vue.jsの表示切替 | v-if | v-show</h3>
+	
+	
+	<p>v-ifとv-showの違い</p>
+	v-showは要素を見た目的に表示したり隠したりするだけ。隠しても要素そのものは実在する。(display:none)<br>
+	v-ifは実在しない実在するを切り替える。
+	v-ifで要素が非表示状態である場合、その要素は実在していない扱いになっているため、その要素を操作することができない<br>
+	<br>
+	
+	<pre><code>
+	&lt;div v-if="flg_a"&gt;flg_aが空でないなら、この要素を表示する&lt;/div&gt;
+	&lt;div v-if="flg_a==false"&gt;flg_aが空の時、この要素は存在する&lt;/div&gt;
+	&lt;div v-show="flg_a==2"&gt;flg_aが2のとき、この要素を表示する&lt;/div&gt;
+	&lt;div v-show="flg_a==false"&gt;flg_aが空の時、この要素は隠れる。（実在はする）&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	
+	<p>例</p>
 	HTML
 	<pre>
 	&lt;div id="app2"&gt;
@@ -624,7 +641,7 @@
 	});
 	</pre>
 	
-	<br><time>2019-3-5</time>
+	<br><time>2019-3-5 | 2021-5-23</time>
 </div>
 
 
