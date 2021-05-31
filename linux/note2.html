@@ -287,13 +287,21 @@ curl http://repo.msys2.org/msys/x86_64/libxxhash-0.8.0-1-x86_64.pkg.tar.zst  |ta
 
 
 <div id="sec2-7-2" class="sec4">
-	<h3>rsyncコマンドのコピーにおいてコピー除外を指定する。</h3>
+	<h3>rsyncコマンドのコピーにおいてコピー除外を指定する。 | --exclude</h3>
+	
+	例) 「database.php」というファイル名があれば、コピー除外にする。
+	<pre><code>rsync -auvz --exclude='database.php' ../app example@example.sakura.ne.jp:www/animal</code></pre>
+	<br>
+	
+	
 	例）<br>
 	aaaフォルダをbbbフォルダにコピーする際、butaフォルダだけコピー対象から除外する。<br>
 	<pre>rsync -auvz <strong>--exclude='buta/'</strong> aaa bbb</pre>
 	<img src="img/note2/sec2-7-2.png"  />
+	
+	
 
-	<br><time>2019-11-9</time>
+	<br><time>2019-11-9 | 2021-5-31</time>
 </div>
 
 
