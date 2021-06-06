@@ -530,16 +530,19 @@
 	<br>
 	ソースコード：ファイル名から拡張子を取得する関数<br>
 	<pre>
-	//ファイル名から拡張子を取得する。
-	function getExtension(fn){
-		if(fn==null){
-			return '';
-		}
+	/**
+	 * ファイル名から拡張子を取得する。
+	 * @param string fn ファイル名
+	 * @return string 拡張子
+	 */
+	function _getExtension(fn){
+		if(fn==null || fn=='') return '';
+		if(fn.indexOf('.') == -1) return '';
 
-		var ary=fn.split(".");
-		var ext=ary[ary.length-1];
+		let ary=fn.split(".");
+		let ext=ary[ary.length-1];
 
-		ext=ext.toLowerCase();//小文字化する
+		ext = ext.toLowerCase();//小文字化する
 
 		return ext;
 	}
@@ -552,6 +555,7 @@
 	var ext=getExtension(fn);//→ pdf
 	</pre>
 
+	<time>2014-6-24 | 2021-6-6</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
