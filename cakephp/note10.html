@@ -386,10 +386,29 @@ class UsersController extends AppController {
 </div>
 
 
+<div id="sec10-10" class="sec4" >
+	<h3>現在のコントローラ名、アクション名を取得する</h3>
+	
+	<pre><code>
+	echo $this->name; // コントローラ名
+	echo $this->action; // アクション名
+	</code></pre>
+	
+	<time>2021-6-15</time>
+	
+</div>
 
 
-
-
+<div id="sec10-11" class="sec4" >
+	<h3>ログアウトそしてリダイレクト</h3>
+	
+	<pre><code>
+	$this->redirect($this->Auth->logout());
+	</code></pre>
+	
+	<time>2021-6-15</time>
+	
+</div>
 
 
 <div id="sec10-0" class="sec4" style="display:none">
