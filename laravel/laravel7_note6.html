@@ -173,6 +173,34 @@
 
 
 
+<div id="sec6-7" class="sec4" >
+	<h3>共通の汎用関数、定数などのグローバルモジュールの配置先</h3>
+	
+	「プロジェクトルート/public/index.php」の下記の場所にてグローバルモジュールを組み込むことができる。<br>
+	<br>
+<pre>
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+
+<strong>require_once __DIR__. '/../sample.php'; // ←グローバルモジュール</strong>
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+	);
+
+// CrudBase設定
+
+$response->send();
+
+$kernel->terminate($request, $response);
+</pre>
+
+
+	<br><time>2021-7-21</time>
+</div>
+
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
