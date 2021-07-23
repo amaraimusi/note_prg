@@ -201,6 +201,23 @@ $kernel->terminate($request, $response);
 
 
 
+<div id="sec6-8" class="sec4" >
+	<h3>パスワードをハッシュ化する</h3>
+	
+	<pre><code>
+		$pw = 'abcd1234';
+		$hash = \Hash::make('abcd1234'); // パスワードをハッシュ化する。
+		// $hashの値をusersテーブルのpasswordフィールドにDB保存すること。
+		
+	</code></pre>
+
+
+	<br><time>2021-7-23</time>
+</div>
+
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
