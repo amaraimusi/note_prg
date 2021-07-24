@@ -234,6 +234,22 @@ $kernel->terminate($request, $response);
 
 
 
+<div id="sec6-10" class="sec4" >
+	<h3>認証チェック | ログイン状態のチェック</h3>
+	
+	<pre><code>
+		if(\Auth::id() == null ){
+			return 'Error:ログイン認証が必要です。 Login is needed';
+		}
+	</code></pre>
+
+
+	<br><time>2021-7-24</time>
+</div>
+
+
+
+
 <div id="sec6-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
