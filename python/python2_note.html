@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Python2.xの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Python2.xの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-0" class="sec4">
+	<h3>Python 2.7の環境構築とHello World （Windows向け）</h3>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			<a href="https://www.python.org/downloads/" target="blank">公式サイト</a>
+			からインストーラ(msiファイル)をダウンロードする。<br>
+			2021年7月現在の場合、Python 2.7.18 の「Windows x86-64 MSI installer」をダウンロードした。<br>
+			<img src="img/python2_note/sec1-1a1.png" alt="" class="img_compact_k" />
+			<img src="img/python2_note/sec1-1a2.png" alt="" class="img_compact_k" />
+			<img src="img/python2_note/sec1-1a3.png" alt="" class="img_compact_k" />
+			<img src="img/python2_note/sec1-1a4.png" alt="" class="img_compact_k" />
+		</li>
+		
+		<li>
+			ダウンロードしたmsiファイル(例→ python-2.7.18.msi)を実行してインストール。<br>
+			特に設定は必要なく「Next」ボタンをひたすら押し続ければよい。<br>
+			デフォルト設定のママである場合、「C:\Python27」の場所にインストールされる。
+			<br>
+		</li>
+		
+		<li>
+			次はpythonコマンドを使えるようにしたいが、Windows10にはデフォルトでPython3などが組み込まれており、それと競合してしまう。
+			なので、あらかじめWindowsに組み込まれているPythonをOFFにする必要がある。<br>
+			「Windowsの設定→アプリと機能→アプリ実行エイリアス」からデフォルトのPythonをOFFにできる。<br>
+			<img src="img/python2_note/sec1-1a5.png" alt="" class="img_compact_k" />
+			<img src="img/python2_note/sec1-1a6.png" alt="" class="img_compact_k" />
+		</li>
+		
+		<li>
+			pythonコマンドを使えるようにするため環境変数を設定する。<br>
+			まずはWindowsの「システムのプロパティ」を開く。<br>
+			「スタートメニュー」右クリック　→　システム　→　関連設定の「システムの詳細設定」　→　システムのプロパティ<br>
+		</li>
+		
+		<li>
+			「詳細設定」タブ→「環境変数」ボタン→ユーザー環境変数の「Path」をダブルクリック→新規ボタンを押し、「C:&yen;Python27&yen;python.exe」を入力。<br>
+			以上でpythonコマンドが使えるようになる。<br>
+			<img src="img/python2_note/sec1-1a7.png" alt="" class="img_compact_k" />
+		</li>
+		
+		<li>
+			pythonコマンドが効いているか調べるためバージョン表示をしてみる。<br>
+			コマンドプロンプトまたは、Git Bashなどのコマンドラインツールを新しく開き、「Python -V」と入力する。<br>
+			無事、バージョンが表示できれば成功。<br>
+			
+			<pre class="console">
+C:\Users\user>python -V
+Python 2.7.18
+			</pre>
+			
+			<br>
+			「Python -V」を実行した時、「Python」とだけ表示されバージョン番号までは表示されない場合は、デフォルトのPython3が走っている。
+			この場合、「アプリ実行エイリアス」の設定でPythonがOFFになっているか確認すること。<br>
+			<br><br>
+			
+			Git Bashで上手いくいかない場合は「winpty python -V」を試すことができる。<br>
+			<br>
+			
+		</li>
+		
+		<li>
+			続いて「Hello World」の表示をする。<br>
+			適当なディレクトリにtest.pyファイルを作成。(中身が空のテキストファイル)<br>
+			(例：C:&yen;Users&yen;user&yen;git&yen;test&yen;test.py)
+		</li>
+		
+		<li>
+			プログラムを書く。<br>
+			test.pyをメモ帳などのテキストエディタで開き、下記を記述して保存。
+			<pre><code>
+print ('Hello World!');
+			</code></pre>
+		</li>
+		
+		<li>
+			プログラムを実行する。<br>
+			cdコマンドでtest.pyが置いてあるディレクトリに移動し、「python test.py」を入力。
+			Hello World!と表示されれば成功。<br>
+			<pre class="console">
+user@DESKTOP-PE1E9IO MINGW64 ~
+$ cd git/test
+
+user@DESKTOP-PE1E9IO MINGW64 ~/git/test
+$ python test.py
+Hello World!
+			</pre>
+			
+		</li>
+		
+		<li>
+			最後に。<br>
+			Pythonの本体は「C:&yen;Python27&yen;python.exe」である。<br>
+			Eclipseなど他のIDE(統合開発環境)でPythonプログラミングしたいなら、「C:&yen;Python27&yen;python.exe」を所定の場所に設定すれば良い。<br>
+		</li>
+		
+		
+	</ol>
+
+
+	<br><time>2021-7-31</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-7-31</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Python2.xの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-7-31</div>
+</body>
+</html>
