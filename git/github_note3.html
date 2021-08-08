@@ -91,6 +91,40 @@
 </div>
 
 
+<div id="sec3-3" class="sec4" >
+	<h3>pushができない | ユーザー名とパスワードの入力が求められるが...</h3>
+	
+	SSH Keyなどの設定を行っているのにpushができなることがある。<br>
+	ユーザー名とパスワードの入力が求められるが、当然ながら入力しても解決しない。<br>
+	「.git/config」をいじると直るようである。<br>
+	<br>
+	
+	<p>修正の手順</p>
+	<aside>※プロジェクト名（リポジトリ名）が「python_sample」という名前である場合</aside>
+	対象プロジェクトの「python_sample/.git/config」をテキストエディタで開く。<br>
+	configファイルを以下のように修正する。<br>
+	<br>
+	
+	修正前
+	<pre>
+	[remote "origin"]
+		url = https://github.com/amaraimusi/python_sample.git
+	</pre><br>
+	
+	修正後
+	<pre>
+	[remote "origin"]
+		url = <strong>git@github.com:amaraimusi/python_sample.git</strong>
+	</pre>
+
+	以上でpushができるようになると思われる。<br>
+	<br>
+	
+
+
+	<br><time>2021-8-8</time>
+</div>
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
