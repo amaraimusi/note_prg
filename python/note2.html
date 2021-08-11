@@ -400,6 +400,42 @@ array(2) {
 
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>ディクショナリのダンプ</h3>
+	
+
+	<pre><code>
+	import pprint
+
+	data = [
+	    {'animal_name': 'ネコ', 'age': 3, 'place': '家の中'},
+	    {'animal_name': 'イヌ', 'age': 4, 'place': '家の外'}
+	    ]
+	
+	
+	print('print')
+	print(data)
+	
+	print('pprint')
+	pprint.pprint(data)
+	</code></pre>
+	
+	<pre class="console">
+print
+[{'animal_name': 'ネコ', 'age': 3, 'place': '家の中'}, {'animal_name': 'イヌ', 'age': 4, 'place': '家の外'}]
+pprint
+[{'age': 3, 'animal_name': 'ネコ', 'place': '家の中'},
+ {'age': 4, 'animal_name': 'イヌ', 'place': '家の外'}]
+	
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/dic_dump.py" target="_blank">ソースコード(GitHub)</a>
+
+	<br><time>2021-8-11</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
