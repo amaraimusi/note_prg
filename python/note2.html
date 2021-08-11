@@ -436,6 +436,53 @@ pprint
 
 
 
+<div id="sec2-9" class="sec4" >
+	<h3>指定ディレクトリの全階層にあるサブディレクトリとファイルの名前をすべて取得する</h3>
+	
+
+	<pre><code>
+	import os
+	
+	cur_dp = os.getcwd()
+	print (cur_dp)
+	
+	# sampleディレクトリの全階層にあるサブディレクトリとファイルの名前をすべて取得する
+	for curDir, dirs, files in os.walk('./sample'):
+	    print('---')
+	    print(curDir)
+	    print(dirs)
+	    print(files)
+	</code></pre>
+	
+	<p>sampleディレクトリ</p>
+	<img src="img/note2/sec2-9.png" />
+	<br>
+	
+	<p>出力</p>
+	<pre class="console">
+C:\Users\user\git\python_sample\a001
+---
+./sample
+['subdir']
+['f0000648_eyecatch00.png', 'sirohara.jpeg']
+---
+./sample\subdir
+['subdir2']
+['17668.jpg', 'graipfruit2.png']
+---
+./sample\subdir\subdir2
+[]
+['imori.png', 'kinobori.jpg']
+	</pre>
+	
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/os_walk.py" target="_blank">ソースコード(GitHub)</a>
+
+	<br><time>2021-8-12</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
