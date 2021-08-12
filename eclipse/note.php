@@ -72,6 +72,9 @@
 		
 		<li>ダークテーマに切り替え<a href="/note_prg/eclipse/note2.html#sec2-8" class="livipage">参照</a></li>
 		
+		<li>フォントを変更する<a href="/note_prg/eclipse/note2.html#sec2-9" class="livipage">参照</a></li>
+		
+		
 		<li>
 			Eclipse Marketplaceでインストールできる、おすすめEclipseプラグイン 
 			<ul>

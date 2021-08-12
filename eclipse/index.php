@@ -55,6 +55,7 @@
 				<li><a href="note2.html#sec2-6" >EclipseのCompareが効かなくなった | 比較 → 相互が表示されない</a></li>
 				<li><a href="note2.html#sec2-7" >PHPのタブスペース設定</a></li>
 				<li><a href="note2.html#sec2-8" >ダークテーマに切り替え</a></li>
+				<li><a href="note2.html#sec2-9" >フォントを変更する</a></li>
 			</ol>
 			</div>
 
