@@ -13,15 +13,7 @@
 		<script src="/note_prg/js/bootstrap.min.js"></script>
 		<script src="/note_prg/js/livipage.js"></script>
 		<script src="/note_prg/js/ImgCompactK.js"></script>
-		<script>
 
-
-
-		</script>
-
-		<style type="text/css">
-
-		</style>
 
 	</head>
 	<body>
@@ -77,6 +69,44 @@
 	<pre>
 	ALTER TABLE recs ADD category_id1 int AFTER note;
 	</pre>
+	<br>
+	
+	<p>応用例</p>
+	yagisテーブルに新フィールドを追加する例<br>
+	<br>
+	
+	int型<br>
+	<pre>ALTER TABLE `yagis` ADD `test_value` INT NULL DEFAULT '0' COMMENT 'テスト数値' AFTER `modified`;</pre>
+	<aside>※ modifiedフィールドの次に新フィールドであるtest_valueを追加する。</aside>
+	<br>
+	
+	varchar型<br>
+	<pre>ALTER TABLE `yagis` ADD `test_name` VARCHAR(256) CHARACTER SET utf16 COLLATE utf8mb4_general_ci NULL COMMENT 'テスト名' AFTER `test_value`;</pre>
+	<br>
+	
+	tinyint型<br>
+	<pre>ALTER TABLE `yagis` ADD `test_flg` TINYINT NULL DEFAULT '0' COMMENT 'test_flg' AFTER `test_name`;</pre>
+	<br>
+	
+	double型<br>
+	<pre>ALTER TABLE `yagis` ADD `test_amt` DOUBLE NULL DEFAULT '0' COMMENT 'テスト金額' AFTER `test_flg`;</pre>
+	<br>
+	
+	date型<br>
+	<pre>ALTER TABLE `yagis` ADD `test_date` DATE NULL COMMENT 'テスト日付' AFTER `test_amt`;</pre>
+	<br>
+	
+	datetime型<br>
+	<pre>ALTER TABLE `yagis` ADD `datetime` DATETIME NULL COMMENT 'テスト日時' AFTER `test_date`;</pre>
+	<br>
+	
+	text型<br>
+	<pre>	ALTER TABLE `yagis` ADD `test_text` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'テストテキスト' AFTER `datetime`;</pre>
+	<br>
+	
+	
+	<time>2013-9-3 | 2021-8-15</time>
+	
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
