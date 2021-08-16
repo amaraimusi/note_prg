@@ -56,6 +56,7 @@
 				<li><a href="note2.html#sec2-7" >PHPのタブスペース設定</a></li>
 				<li><a href="note2.html#sec2-8" >ダークテーマに切り替え</a></li>
 				<li><a href="note2.html#sec2-9" >フォントを変更する</a></li>
+				<li><a href="note2.html#sec2-10" >JavaScriptエディターでのコメントアウト</a></li>
 			</ol>
 			</div>
 
