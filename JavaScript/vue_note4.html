@@ -842,6 +842,67 @@ jQuery(()=&gt;{
 </div>
 
 
+<div id="sec4-7" class="sec4" >
+	<h3>文字を入力するたびにイベント | Vueのonclickとonchange | v-on:click v-on:change v-on:input</h3>
+	
+	文字を入力するたびにイベントを起こすには「v-on:input」が良い。<br>
+	<br>
+	
+	<a href="/sample/js/a014/vue_v_on/vue_v_on.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;div id="app1"&gt;
+		&lt;p&gt;v-on:clickの検証&lt;/p&gt;
+	  &lt;input v-model="message1" v-on:click="testClick('こんにちわ世界')"&gt;
+	  &lt;br&gt;
+	  
+	  &lt;p&gt;v-on:changeの検証&lt;/p&gt;
+	  &lt;input v-model="message2" v-on:change="testChange"&gt;
+	  &lt;div&gt;{{ message2 }}&lt;/div&gt;
+	  &lt;div&gt;{{ message2b }}&lt;/div&gt;
+	  &lt;br&gt;
+	  
+	  &lt;p&gt;v-on:inputの検証&lt;/p&gt;
+	  &lt;input v-model="message3" v-on:input="testInput"&gt;
+	  &lt;div&gt;{{ message3 }}&lt;/div&gt;
+	  &lt;div&gt;{{ message3b }}&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	var app; // vue.js
+	jQuery(() =&gt; {
+		app = new Vue({
+				el: '#app1',
+				data: {
+					message1: 'クリックテスト',
+					message2: 'チェンジテスト',
+					message2b: 'チェンジテスト',
+					message3: 'v-on:inputテスト',
+					message3b: 'テスト',
+				},
+				methods:{
+			        testClick: function (value) {
+						alert(value);
+			        },
+					testChange: function(){
+						app.message2b = app.message2 + '星人';
+					},
+					testInput: function(){
+						app.message3b = app.message3 + '大人';
+					}
+				}
+			})
+	});	
+	</code></pre>
+	
+	<br><time>2021-8-28</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
