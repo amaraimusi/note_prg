@@ -74,6 +74,8 @@
 		
 		<li>フォントを変更する<a href="/note_prg/eclipse/note2.html#sec2-9" class="livipage">参照</a></li>
 		
+		<li>ヒープメモリを増やす<a href="/note_prg/eclipse/note3.html#sec3-1" class="livipage">参照</a></li>
+		
 		
 		<li>
 			Eclipse Marketplaceでインストールできる、おすすめEclipseプラグイン 
