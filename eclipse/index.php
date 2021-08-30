@@ -57,6 +57,7 @@
 				<li><a href="note2.html#sec2-8" >ダークテーマに切り替え</a></li>
 				<li><a href="note2.html#sec2-9" >フォントを変更する</a></li>
 				<li><a href="note2.html#sec2-10" >JavaScriptエディターでのコメントアウト</a></li>
+				<li><a href="note3.html#sec3-1" >Eclipse 入力がもたつく、重いときの対処方法</a></li>
 			</ol>
 			</div>
 
