@@ -305,6 +305,49 @@ mp4ファイル、またはmp3ファイルの情報をダンプ
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>pydubでmp3のフェードインとフェードアウト</h3>
+	
+	WinPython3.9で検証<br>
+	<br>
+	
+	ffmpegをプロジェクトに組み込む。（<a href="note3.html#sec3-3">ffmegのインストール</a>）<br>
+	<br>
+	
+	コマンドラインツールでpydubをインストール
+	<aside>コマンドラインツールはWinPythonのWinPython Command Prompt.exeを使用</aside>
+	<pre class="console">pip install pydub</pre>
+	
+	<pre><code>
+print ('pydubでmp3のフェードインとフェードアウト')
+
+# pydubを使うにはffmpegが必要-
+
+from pydub import AudioSegment
+
+audio = AudioSegment.from_file("./test_data/test1.mp3", "mp3")
+
+# フェードイン4秒、フェードアウト3.5秒に変換したオーディオオブジェクトを作成
+audio2 = audio.fade_in(4000).fade_out(3500)
+
+# 変換したオーディオオブジェクトを出力
+audio2.export("./test_data/output02.mp3",  format="mp3")
+	</code></pre><br>
+	<br>
+	
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test02_pydub_fadeout.py">GitHub ソースコード</a><br>
+	<br><br>
+
+	「from pydub import AudioSegment」でエラーが起きる場合、<a href="note3.html#sec3-3">ffmegのインストール</a>をもう一度見直す。<br>
+	<pre>
+	RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  	warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+	</pre>
+
+	<br><time>2021-9-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
