@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ffmpegの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>ffmpegの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>mp4ファイル、またはmp3ファイルの情報をダンプ</h3>
+	
+	WinPython Command Prompt.exeなどのコマンドラインツールにてffmpeg-pythonをインストール。<br>
+	<pre class="console">pip install ffmpeg-python</pre>
+	<br>
+	
+	pyファイル（test.py)
+	<pre><code>
+print('mp4ファイル、またはmp3ファイルの情報をダンプ')
+import ffmpeg
+import pprint
+
+print('--------------mp4ファイルの情報--------------')
+video_info = ffmpeg.probe('./test_data/MVI_0887.MP4')
+pprint.pprint(video_info)
+
+print('--------------mp3ファイルの情報--------------')
+video_info = ffmpeg.probe('./test_data/MVI_0887.MP4')
+pprint.pprint(video_info)
+	</code></pre>
+
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test01_ffmpeg_probe.py">GitHub ソースコード</a>
+	<br><br>
+	
+	
+	<button type="button" onclick="$('#sec1-1a1').toggle(300)" class="btn btn-info">コンソールへの出力</button>
+	<pre id="sec1-1a1" class="console" style="display:none">
+mp4ファイル、またはmp3ファイルの情報をダンプ
+--------------mp4ファイルの情報--------------
+{'format': {'bit_rate': '16988522',
+            'duration': '4.040000',
+            'filename': './test_data/MVI_0887.MP4',
+            'format_long_name': 'QuickTime / MOV',
+            'format_name': 'mov,mp4,m4a,3gp,3g2,mj2',
+            'nb_programs': 0,
+            'nb_streams': 2,
+            'probe_score': 100,
+            'size': '8579204',
+            'start_time': '0.000000',
+            'tags': {'compatible_brands': 'mp42avc1CAEP',
+                     'creation_time': '2021-03-29T07:32:15.000000Z',
+                     'major_brand': 'mp42',
+                     'make': '',
+                     'make-eng': '',
+                     'minor_version': '1',
+                     'model': '',
+                     'model-eng': ''}},
+ 'streams': [{'avg_frame_rate': '25/1',
+              'bit_rate': '13913196',
+              'bits_per_raw_sample': '8',
+              'chroma_location': 'left',
+              'closed_captions': 0,
+              'codec_long_name': 'H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10',
+              'codec_name': 'h264',
+              'codec_tag': '0x31637661',
+              'codec_tag_string': 'avc1',
+              'codec_type': 'video',
+              'coded_height': 720,
+              'coded_width': 1280,
+              'color_primaries': 'bt709',
+              'color_range': 'pc',
+              'color_space': 'bt709',
+              'color_transfer': 'bt709',
+              'disposition': {'attached_pic': 0,
+                              'captions': 0,
+                              'clean_effects': 0,
+                              'comment': 0,
+                              'default': 1,
+                              'dependent': 0,
+                              'descriptions': 0,
+                              'dub': 0,
+                              'forced': 0,
+                              'hearing_impaired': 0,
+                              'karaoke': 0,
+                              'lyrics': 0,
+                              'metadata': 0,
+                              'original': 0,
+                              'still_image': 0,
+                              'timed_thumbnails': 0,
+                              'visual_impaired': 0},
+              'duration': '4.040000',
+              'duration_ts': 101000,
+              'film_grain': 0,
+              'has_b_frames': 0,
+              'height': 720,
+              'id': '0x1',
+              'index': 0,
+              'is_avc': 'true',
+              'level': 41,
+              'nal_length_size': '4',
+              'nb_frames': '101',
+              'pix_fmt': 'yuvj420p',
+              'profile': 'Constrained Baseline',
+              'r_frame_rate': '25/1',
+              'refs': 1,
+              'start_pts': 0,
+              'start_time': '0.000000',
+              'tags': {'creation_time': '2021-03-29T07:32:15.000000Z',
+                       'language': 'eng',
+                       'vendor_id': '[0][0][0][0]'},
+              'time_base': '1/25000',
+              'width': 1280},
+             {'avg_frame_rate': '0/0',
+              'bit_rate': '128000',
+              'bits_per_sample': 0,
+              'channel_layout': 'stereo',
+              'channels': 2,
+              'codec_long_name': 'AAC (Advanced Audio Coding)',
+              'codec_name': 'aac',
+              'codec_tag': '0x6134706d',
+              'codec_tag_string': 'mp4a',
+              'codec_type': 'audio',
+              'disposition': {'attached_pic': 0,
+                              'captions': 0,
+                              'clean_effects': 0,
+                              'comment': 0,
+                              'default': 1,
+                              'dependent': 0,
+                              'descriptions': 0,
+                              'dub': 0,
+                              'forced': 0,
+                              'hearing_impaired': 0,
+                              'karaoke': 0,
+                              'lyrics': 0,
+                              'metadata': 0,
+                              'original': 0,
+                              'still_image': 0,
+                              'timed_thumbnails': 0,
+                              'visual_impaired': 0},
+              'duration': '4.032000',
+              'duration_ts': 193536,
+              'id': '0x2',
+              'index': 1,
+              'nb_frames': '189',
+              'profile': 'LC',
+              'r_frame_rate': '0/0',
+              'sample_fmt': 'fltp',
+              'sample_rate': '48000',
+              'start_pts': 0,
+              'start_time': '0.000000',
+              'tags': {'creation_time': '2021-03-29T07:32:15.000000Z',
+                       'language': 'eng',
+                       'vendor_id': '[0][0][0][0]'},
+              'time_base': '1/48000'}]}
+--------------mp3ファイルの情報--------------
+{'format': {'bit_rate': '16988522',
+            'duration': '4.040000',
+            'filename': './test_data/MVI_0887.MP4',
+            'format_long_name': 'QuickTime / MOV',
+            'format_name': 'mov,mp4,m4a,3gp,3g2,mj2',
+            'nb_programs': 0,
+            'nb_streams': 2,
+            'probe_score': 100,
+            'size': '8579204',
+            'start_time': '0.000000',
+            'tags': {'compatible_brands': 'mp42avc1CAEP',
+                     'creation_time': '2021-03-29T07:32:15.000000Z',
+                     'major_brand': 'mp42',
+                     'make': '',
+                     'make-eng': '',
+                     'minor_version': '1',
+                     'model': '',
+                     'model-eng': ''}},
+ 'streams': [{'avg_frame_rate': '25/1',
+              'bit_rate': '13913196',
+              'bits_per_raw_sample': '8',
+              'chroma_location': 'left',
+              'closed_captions': 0,
+              'codec_long_name': 'H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10',
+              'codec_name': 'h264',
+              'codec_tag': '0x31637661',
+              'codec_tag_string': 'avc1',
+              'codec_type': 'video',
+              'coded_height': 720,
+              'coded_width': 1280,
+              'color_primaries': 'bt709',
+              'color_range': 'pc',
+              'color_space': 'bt709',
+              'color_transfer': 'bt709',
+              'disposition': {'attached_pic': 0,
+                              'captions': 0,
+                              'clean_effects': 0,
+                              'comment': 0,
+                              'default': 1,
+                              'dependent': 0,
+                              'descriptions': 0,
+                              'dub': 0,
+                              'forced': 0,
+                              'hearing_impaired': 0,
+                              'karaoke': 0,
+                              'lyrics': 0,
+                              'metadata': 0,
+                              'original': 0,
+                              'still_image': 0,
+                              'timed_thumbnails': 0,
+                              'visual_impaired': 0},
+              'duration': '4.040000',
+              'duration_ts': 101000,
+              'film_grain': 0,
+              'has_b_frames': 0,
+              'height': 720,
+              'id': '0x1',
+              'index': 0,
+              'is_avc': 'true',
+              'level': 41,
+              'nal_length_size': '4',
+              'nb_frames': '101',
+              'pix_fmt': 'yuvj420p',
+              'profile': 'Constrained Baseline',
+              'r_frame_rate': '25/1',
+              'refs': 1,
+              'start_pts': 0,
+              'start_time': '0.000000',
+              'tags': {'creation_time': '2021-03-29T07:32:15.000000Z',
+                       'language': 'eng',
+                       'vendor_id': '[0][0][0][0]'},
+              'time_base': '1/25000',
+              'width': 1280},
+             {'avg_frame_rate': '0/0',
+              'bit_rate': '128000',
+              'bits_per_sample': 0,
+              'channel_layout': 'stereo',
+              'channels': 2,
+              'codec_long_name': 'AAC (Advanced Audio Coding)',
+              'codec_name': 'aac',
+              'codec_tag': '0x6134706d',
+              'codec_tag_string': 'mp4a',
+              'codec_type': 'audio',
+              'disposition': {'attached_pic': 0,
+                              'captions': 0,
+                              'clean_effects': 0,
+                              'comment': 0,
+                              'default': 1,
+                              'dependent': 0,
+                              'descriptions': 0,
+                              'dub': 0,
+                              'forced': 0,
+                              'hearing_impaired': 0,
+                              'karaoke': 0,
+                              'lyrics': 0,
+                              'metadata': 0,
+                              'original': 0,
+                              'still_image': 0,
+                              'timed_thumbnails': 0,
+                              'visual_impaired': 0},
+              'duration': '4.032000',
+              'duration_ts': 193536,
+              'id': '0x2',
+              'index': 1,
+              'nb_frames': '189',
+              'profile': 'LC',
+              'r_frame_rate': '0/0',
+              'sample_fmt': 'fltp',
+              'sample_rate': '48000',
+              'start_pts': 0,
+              'start_time': '0.000000',
+              'tags': {'creation_time': '2021-03-29T07:32:15.000000Z',
+                       'language': 'eng',
+                       'vendor_id': '[0][0][0][0]'},
+              'time_base': '1/48000'}]}
+
+	</pre>
+	
+	<br><br>
+	
+	<aside>
+	ffmpeg-pythonパッケージとffmpegパッケージの両方をインストールすると競合してエラーが起きるようだ。<br>
+	この場合、一旦パッケージをアンインストールしてから再インストールする。<br>
+	<pre>
+	pip uninstall ffmpeg
+	pip uninstall ffmpeg-python
+	pip install ffmpeg-python
+	</pre>
+	</aside>
+	<br><time>2021-9-15</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-9-15</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/python/">Pythonの覚書</a></li>
+	<li>ffmpegの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-9-15</div>
+</body>
+</html>
