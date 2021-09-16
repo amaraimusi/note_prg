@@ -348,6 +348,42 @@ audio2.export("./test_data/output02.mp3",  format="mp3")
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>pydubでmp4からmp3を抽出（pydubでmp4を読み込み,mp3としてエクスポートする）</h3>
+	
+		WinPython3.9で検証<br>
+	<br>
+	
+	ffmpegをプロジェクトに組み込む。（<a href="note3.html#sec3-3">ffmegのインストール</a>）<br>
+	<br>
+	
+	コマンドラインツールでpydubをインストール
+	<aside>コマンドラインツールはWinPythonのWinPython Command Prompt.exeを使用</aside>
+	<pre class="console">pip install pydub</pre>
+	
+	<pre><code>
+print ('pydubでmp4からmp3を抽出: pydubでmp4を読み込み,mp3としてエクスポートする')
+
+# pydubを使うにはffmpegが必要-
+from pydub import AudioSegment
+
+# mp4ファイルの読み込み
+audio = AudioSegment.from_file("./test_data/MVI_0887.MP4", "mp4")
+
+# mp3としてエクスポートする
+audio.export("./test_data/output03.mp3", format="mp3")
+
+print('Success!')
+	</code></pre>
+	
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test03_pydub_mp4_to_mp3.py">GitHub ソースコード</a><br>
+	<br><br>
+
+
+	<br><time>2021-9-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
