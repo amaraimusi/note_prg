@@ -380,7 +380,116 @@ print('Success!')
 	<br><br>
 
 
-	<br><time>2021-9-15</time>
+	<br><time>2021-9-16</time>
+</div>
+
+
+<div id="sec1-4" class="sec4" >
+	<h3>pydubでmp3を連結する</h3>
+
+
+		WinPython3.9で検証<br>
+	<br>
+	
+	ffmpegをプロジェクトに組み込む。（<a href="note3.html#sec3-3">ffmegのインストール</a>）<br>
+	<br>
+	
+	コマンドラインツールでpydubをインストール
+	<aside>コマンドラインツールはWinPythonのWinPython Command Prompt.exeを使用</aside>
+	<pre class="console">pip install pydub</pre>
+	
+	<pre><code>
+print ('pydubでmp3を連結する')
+
+# pydubを使うにはffmpegが必要-
+from pydub import AudioSegment
+
+# mp3ファイルの読み込み
+audio1 = AudioSegment.from_file("./test_data/test1.mp3", "mp3")
+audio2 = AudioSegment.from_file("./test_data/test2.mp3", "mp3")
+audio3 = AudioSegment.from_file("./test_data/test3.mp3", "mp3")
+
+# オーディオを連結する
+audio = audio1 + audio2 + audio3
+
+# エクスポートする
+audio.export("./test_data/output04.mp3", format="mp3")
+
+print('Success!')
+
+	</code></pre>
+	
+		<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test04_pydub_mp3_join.py">GitHub ソースコード</a><br>
+	<br><br>
+
+	<br><time>2021-9-16</time>
+</div>
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>pydubでオーディオのミキシング（２つの音声を合成）</h3>
+	
+	事前にpydubをインストールしておく。<br>
+	<br>
+	
+	<pre><code>
+print ('pydubでオーディオのミキシング（２つの音声を合成）')
+
+# pydubを使うにはffmpegが必要-
+from pydub import AudioSegment
+
+# mp3ファイルの読み込み
+audio1 = AudioSegment.from_file("./test_data/test1.mp3", "mp3")
+audio2 = AudioSegment.from_file("./test_data/effect_sound1.mp3", "mp3")
+
+audio = audio2.overlay(audio1, position=0)
+
+# エクスポートする
+audio.export("./test_data/output05.mp3", format="mp3")
+
+print('Success!')
+
+
+	</code></pre>
+	
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test05_pydub_overlay.py">GitHub ソースコード</a><br>
+	<br><br>
+
+
+	<br><time>2021-9-17</time>
+</div>
+
+
+<div id="sec1-6" class="sec4">
+	<h3>pydubでmp3の音量を変更する</h3>
+	
+	事前にpydubをインストールしておく。<br>
+	<br>
+	
+	<pre><code>
+print ('pydubでmp3の音量を変更する')
+
+# pydubを使うにはffmpegが必要-
+from pydub import AudioSegment
+
+# mp3ファイルの読み込み
+audio1 = AudioSegment.from_file("./test_data/test1.mp3", "mp3")
+
+#audio = audio1 +10; #音量を大きくする
+audio = audio1 - 7; #音量を小さくする
+
+# エクスポートする
+audio.export("./test_data/output06.mp3", format="mp3")
+
+print('Success!')
+
+
+	</code></pre>
+	
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test06_pydub_volume.py">GitHub ソースコード</a><br>
+	<br><br>
+
+	<br><time>2021-9-17</time>
 </div>
 
 
