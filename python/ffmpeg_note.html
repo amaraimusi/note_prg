@@ -493,6 +493,37 @@ print('Success!')
 </div>
 
 
+<div id="sec1-7" class="sec4" >
+	<h3>mp4にmp3を合成</h3>
+	
+		事前にffmpegを導入しておく。<br>
+	<br>
+	
+<pre><code>
+print ('mp4にmp3を合成')
+
+import ffmpeg
+
+# 映像を読みこむ
+stream_video = ffmpeg.input("./test_data/MVI_0887.MP4")
+
+#オーディオを読み込む
+stream_audio = ffmpeg.input("./test_data/test1.mp3")
+
+#合成
+stream = ffmpeg.output(stream_video, stream_audio, "./test_data/output07.mp4", vcodec="copy", acodec="copy")
+ffmpeg.run(stream)
+
+print('Success!')
+</code></pre>
+
+	<a target="_blank" class="btn btn-info" href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test07_set_mp3_to_mp4.py">GitHub ソースコード</a><br>
+	<br><br>
+
+	<br><time>2021-9-17</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
