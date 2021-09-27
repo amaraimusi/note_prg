@@ -334,6 +334,58 @@ DDR3-1600 互換</pre>
 </div>
 
 
+<div id="sec1-7" class="sec4">
+	<h3>サーフェース（Surface Laptop Go）にUEFIを利用してWindowsをクリーンインストールする</h3>
+
+	BIOSでWindows10のインストールをやったことがある人向けの資料。<br>
+	UEFIモードに対し、従来のBIOSの方法をレガシーモードと呼ぶ。<br>
+	2021年時点で、店頭販売されているPCはBIOSでなくUEFIになりつつある。
+	Surface Laptop Goに関してはUEFIしか使えないようだ。
+	BIOSとUEFIの両方に対応しているPCも存在する。<br>
+	<br>
+	
+	
+
+	<ol class="list_lg">
+		<li>
+			マイクロソフトのページからWindows10のメディア作成ツールをダウンロードし、
+			このツールを使ってUSBにリカバリーメディアを書き込んでいく。<br>
+			この辺りはBIOSとなんら変わりないため割愛。<br>
+		</li>
+		<li>
+			続いてUEFIモードで開く。<br>
+			まずは、ノートPC(Surface Laptop Go)の電源を切る。
+		</li>
+		<li>
+			「音量＋」ボタンを押しっぱなしにして電源ボタンを押す。<br>
+			「Surface Laptop Go」の場合、「音量＋」ボタンはF4ボタンになっている。
+			つまりF4ボタン押しっぱなし＋電源ボタン。<br>
+			するとUEFIモードで起動する。<br>
+		</li>
+		<li>
+			
+			左メニューから「Boot configuration」を選択
+			
+		
+		</li>
+		<li>
+			先ほど作成したリカバリーメディアUSBをPCに挿す。
+		</li>
+		<li>
+			「USB Storage」の項目を横にスワイプする。（たぶん、左側にスワイプであったはず）<br>
+			するとリカバリメディアUSBをブートし始める。<br>
+			<img src="img/note/sec1-7a1.jpg" class="img_compact_k" />
+		</li>
+		<li>
+			あとは通常のWindows10のインストールと同じ流れになる
+			(BIOSでの方法と同じ)。<br>
+		</li>
+	</ol>
+
+	<br><time>2021-9-27</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
