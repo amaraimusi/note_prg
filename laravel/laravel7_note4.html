@@ -327,8 +327,14 @@
 	Hello big fish!
 	</pre>
 	<br>
+	
+	<p>テンプレートに引数追加することもできる</p>
+	<pre><code>@include('demo.edit_form', ['neko'=>'ロイヤルアナロスタン'])</code></pre>
+	demo/edit_form(ルートresources/views/layouts/demo/edit_form.php)
+	<pre><code>猫の名前は？→&lt;?php echo $neko; ?&gt;</code></pre>
+	<br>
 
-	<br><time>2020-7-17</time>
+	<br><time>2020-7-17 | 2021-10-3</time>
 </div>
 
 
