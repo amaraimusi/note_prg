@@ -164,6 +164,38 @@ Successfully installed ffmpeg-1.4
 </div>
 
 
+<div id="sec3-5" class="sec4" >
+	<h3>split 文字列の分割</h3>
+	
+	<pre><code>
+print ('split 文字列分割のテスト')
+
+str1 = 'neko inu   yagi\nSika\tTanuki';
+list = str1.split()
+
+print(list)
+
+str2 = '猫 , 犬,ヤギ,シカ,    タヌキ   X';
+list = str2.split(',')
+
+print(list)
+
+	</code></pre>
+	出力
+	<pre class="console">
+split 文字列分割のテスト
+['neko', 'inu', 'yagi', 'Sika', 'Tanuki']
+['猫 ', ' 犬', 'ヤギ', 'シカ', '    タヌキ   X']
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/split.py" target="_blank">GitHub</a><br>
+	<br>
+
+
+	<br><time>2021-11-4</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
