@@ -196,6 +196,36 @@ split 文字列分割のテスト
 </div>
 
 
+<div id="sec3-6" class="sec4" >
+	<h3>テキストファイルを読み込む</h3>
+
+	<pre><code>
+print ('テキストファイルを読み込む')
+
+f = open('./sample/sample1.txt', 'r', encoding='UTF-8')
+
+data = f.read()
+print(data)
+
+f.close()
+	</code></pre>
+	
+	出力
+	<pre class="console">
+テキストファイルを読み込む
+Hello World!
+猫のエサ
+うなぎのエサ
+カメのエサ
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/textfile_open.py" target="_blank">GitHub</a><br>
+	<br>
+
+	<br><time>2021-11-4</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
