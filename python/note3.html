@@ -248,6 +248,34 @@ https://amaraimusi.sakura.ne.jp/note_prg/a=123
 </div>
 
 
+<div id="sec3-6" class="sec4">
+	<h3>現在日時を取得 | datetime</h3>
+	
+	<pre><code>
+import datetime
+
+print ('Pythonの覚書：現在日時を取得 | datetime')
+
+dt = datetime.datetime.now()
+u = dt.strftime("%Y%m%d%H%M%S")
+print(type(dt))
+print(dt)
+print(u)
+	</code></pre>
+	
+	出力
+	<pre class="console">
+Pythonの覚書：datetime
+&lt;class 'datetime.datetime'&gt;
+2021-11-05 20:58:42.628284
+20211105205842
+	</pre>
+
+
+	<br><time>2021-11-5</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
