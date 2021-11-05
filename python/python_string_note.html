@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pythonの覚書：文字列 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery.min.js"></script>
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Pythonの覚書：文字列 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>split 文字列の分割</h3>
+	
+	<pre><code>
+print ('split 文字列分割のテスト')
+
+str1 = 'neko inu   yagi\nSika\tTanuki';
+list = str1.split()
+
+print(list)
+
+str2 = '猫 , 犬,ヤギ,シカ,    タヌキ   X';
+list = str2.split(',')
+
+print(list)
+
+	</code></pre>
+	出力
+	<pre class="console">
+split 文字列分割のテスト
+['neko', 'inu', 'yagi', 'Sika', 'Tanuki']
+['猫 ', ' 犬', 'ヤギ', 'シカ', '    タヌキ   X']
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/split.py" target="_blank">GitHub</a><br>
+	<br>
+
+
+	<br><time>2021-11-4</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>テキストファイルを読み込む</h3>
+
+	<pre><code>
+print ('テキストファイルを読み込む')
+
+f = open('./sample/sample1.txt', 'r', encoding='UTF-8')
+
+data = f.read()
+print(data)
+
+f.close()
+	</code></pre>
+	
+	出力
+	<pre class="console">
+テキストファイルを読み込む
+Hello World!
+猫のエサ
+うなぎのエサ
+カメのエサ
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/textfile_open.py" target="_blank">GitHub</a><br>
+	<br>
+
+	<br><time>2021-11-4</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>文字存在チェック | 指定文字が含まれるか</h3>
+
+	<pre><code>
+print ('Pythonの覚書：文字存在チェック | 指定文字が含まれるか')
+
+res = 'p' in 'python' 
+print(res)
+
+res = '大猫' in '臆病な大猫に目を合わせてはいけません' 
+print(res)
+
+res = '犬' in '臆病な大猫に目を合わせてはいけません' 
+print(res)
+	</code></pre>
+	
+	出力
+	<pre class="console">
+Pythonの覚書：文字存在チェック | 指定文字が含まれるか
+True
+True
+False
+
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/in_string.py" target="_blank">GitHub</a><br>
+	<br>
+
+	<br><time>2021-11-5</time>
+</div>
+
+
+<div id="sec1-4" class="sec4">
+	<h3>文字列を検索して取得</h3>
+	
+	
+		<pre><code>
+print ('Pythonの覚書：文字列を検索して取得')
+
+
+
+# 文字列を左側から印文字を検索し、左側の文字を切り出す
+# @param string s 対象文字列
+# @param $mark 印文字
+# @return 印文字から左側の文字列
+def stringLeft(s, mark):
+    a =s.find(mark)
+    res = s[0:a]
+    return res
+
+
+# 文字列を左側から印文字を検索し、右側の文字を切り出す。
+# @param string s 対象文字列
+# @param $mark 印文字
+# @return 印文字から右側の文字列
+def stringRight(s, mark):
+    a =s.find(mark)
+    res = s[a+len(mark):]
+    return res
+
+# 文字列を右側から印文字を検索し、左側の文字を切り出す
+# @param string s 対象文字列
+# @param $mark 印文字
+# @return 印文字から左側の文字列
+def stringLeftRev(s, mark):
+    a =s.rfind(mark)
+    res = s[a+len(mark):]
+    return res
+
+
+# 文字列を右側から印文字を検索し、左側の文字を切り出す
+# @param string s 対象文字列
+# @param $mark 印文字
+# @return 印文字から左側の文字列
+def stringRightRev(s, mark):
+    a =s.rfind(mark)
+    res = s[0:a]
+    return res
+
+
+
+
+
+print('-----------')
+
+print('#1 stringLeft:文字列を左側から印文字を検索し、左側の文字を切り出す')
+str= 'ブタ:ネコ:ライオン:シカ'
+res = stringLeft(str, ':')
+print(str)
+print(res)
+
+
+print('-----------')
+
+print('#2 stringRight:文字列を左側から印文字を検索し、右側の文字を切り出す。')
+str= 'ブタ:ネコ:ライオン:シカ'
+res = stringRight(str, ':')
+print(str)
+print(res)
+
+print('-----------')
+
+print('#3 stringLeftRev:文字列を右側から印文字を検索し、左側の文字を切り出す')
+str= 'ブタ:ネコ:ライオン:シカ'
+res = stringLeftRev(str, ':')
+print(str)
+print(res)
+
+print('-----------')
+
+print('#4 stringRightRev:文字列を右側から印文字を検索し、左側の文字を切り出す')
+str= 'ブタ:ネコ:ライオン:シカ'
+res = stringRightRev(str, ':')
+print(str)
+print(res)
+
+print('-----------')
+
+	</code></pre>
+	
+	出力
+	<pre class="console">
+Pythonの覚書：文字列を検索して取得
+-----------
+#1 stringLeft:文字列を左側から印文字を検索し、左側の文字を切り出す
+
+
+-----------
+#2 stringRight:文字列を左側から印文字を検索し、右側の文字を切り出す。
+ブタ:ネコ:ライオン:シカ
+ネコ:ライオン:シカ
+-----------
+#3 stringLeftRev:文字列を右側から印文字を検索し、左側の文字を切り出す
+ブタ:ネコ:ライオン:シカ
+シカ
+-----------
+#4 stringRightRev:文字列を右側から印文字を検索し、左側の文字を切り出す
+ブタ:ネコ:ライオン:シカ
+ブタ:ネコ:ライオン
+-----------
+
+	</pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/a001/string_find.py" target="_blank">GitHub</a><br>
+	<br>
+
+
+	<br><time>2021-11-5</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-11-5</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/python/">Pythonの覚書：文字列</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-11-5</div>
+</body>
+</html>
