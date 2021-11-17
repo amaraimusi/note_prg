@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CakePHP4の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>CakePHP4の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>CakePHP4をインストールする(Windows10)</h3>
+	Composerを使ってインストールする必要がある。<br>
+	<br>
+	
+	<p>前提条件</p>
+	xammppがインストールしてあること。(php8.0に対応しているバージョン。2021年11月時点での最新版）<br>
+	phpコマンドが使える状態になっていること。<br>
+	<br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			php_intlを有効にする必要がある。<br>
+			php.iniを開き、extension=intlを有効にする。(「;」をはずす)<br>
+			<img src="img/cakephp4_note/sec1-1a1.png" class="img_compact_k" /><br>
+			<br>
+			補足<br>
+			php_intlの実態はphp_intl.dllである。<br>
+			php_intl.dllはxamppのパッケージに含まれている。<br>
+			場所→ C:\xampp\php\ext\php_intl.dll<br>
+		</li>
+		
+		<li>
+			作業はコマンドラインツール（Git Bashなど）で行う。<br>
+			Git Bashを起動。
+		</li>
+		
+		<li>
+			Windows環境でGit bashのターミナルを使うと、ttyなんとかのエラーが出る。 その場合、下記のコマンドを実行すると解決する。
+			<pre class="console">$ exec winpty bash</pre>
+		</li>
+		
+		<li>
+		インストール先の作業ディレクトリを作成<br>
+		インストールとは言ってもダウンロードに近いので適当なディレクトリでよい。
+		あとで移動できる。
+		</li>
+		
+		<li>
+			cd コマンドで先ほど作成した作業ディレクトリに移動
+		</li>
+		
+		<li>
+			Composerを使えるようにする必要がある。<br>
+		下記のPHPコマンドにて、composer.pharを入手する。<br>
+		<pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		すると作業ディレクトリにcomposer.pharファイルが作成され、Composerがつかるようになる。
+		</li>
+		
+		<li>
+			CakePHP4をComposerを利用してインストール（ダウンロード）する。
+			<pre class="console">$ php composer.phar create-project --prefer-dist cakephp/app:4.* my_app_name</pre>
+			my_app_nameは任意のプロジェクト名しても良い。<br>
+			作業ディレクトリ内にmy_app_nameフォルダが作成され、その中にCakePHP4一式(開発環境)が入っている。<br>
+			パスとかは固定されないようなのでmy_app_nameフォルダは好きな場所に移動しても多分大丈夫。<br>
+		</li>
+		
+		<li>
+			xamppを利用しているのなら、my_app_nameフォルダを「C:\xampp\htdocs\」配下に移動し、下記URLにアクセス<br>
+			<pre><code>http://localhost/my_app_name</code></pre>
+			下記ページが表示されれば成功<br>
+			<img src="img/cakephp4_note/sec1-1a1.png" class="img_compact_k" /><br>
+		
+		</li>
+		
+		<li>
+			my_app_nameフォルダ内が開発環境である。<br>
+			my_app_nameの名前を任意プロジェクト名に変更し、Eclipseで開いて開発プロジェクトにしよう。<br>
+			終わり<br>
+		</li>
+		
+	</ol>
+
+	<br><time>2021-11-17</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-11-17</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/cakephp4/">CakePHP4の覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-11-17</div>
+</body>
+</html>
