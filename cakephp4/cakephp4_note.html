@@ -187,6 +187,25 @@
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>SQLを実行する</h3>
+
+	<pre><code>
+	$connection = ConnectionManager::get('default');
+    $results = $connection->execute('SELECT * FROM nekos')->fetchAll('assoc');
+	</code></pre>
+	<br>
+	
+	1行のみ
+	<pre><code>
+	$connection = ConnectionManager::get('default');
+	$row = $connection->execute('SELECT * FROM nekos')->fetch('assoc'); 
+	</code></pre>
+
+	<br><time>2021-11-18</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
