@@ -104,6 +104,32 @@
 </div>
 
 
+<div id="sec1-2" class="sec4">
+	<h3>CakePHP4のDB接続</h3>
+	<pre>xamppのMySQLである場合</pre>
+	「ルート/config/app.php」にてDB設定をする。<br>
+	app.phpを開き"Datasources"の箇所を以下のように書き換える。<br>
+	<p>localhostの場合</p>
+	<pre><code>
+    'Datasources' => [
+
+        'default' => [
+            'className' => 'Cake\Database\Connection', 
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'database' => 'crud_base_cake4',
+            'url' => env('DATABASE_URL', null),
+        ],
+        略 ...
+	</code></pre>
+	
+
+	<br><time>2021-11-18</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
