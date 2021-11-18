@@ -107,7 +107,8 @@
 <div id="sec1-2" class="sec4">
 	<h3>CakePHP4のDB接続</h3>
 	<pre>xamppのMySQLである場合</pre>
-	「ルート/config/app.php」にてDB設定をする。<br>
+	「ルート/config/app.php」と同じディレクトリにある「app_local.php」の両方にDB設定をする。（
+		<a href="#sec1-4">参考：app.phpとapp_local.phpについて</a>）<br>
 	app.phpを開き"Datasources"の箇所を以下のように書き換える。<br>
 	<p>localhostの場合</p>
 	<pre><code>
@@ -119,12 +120,68 @@
             'host' => 'localhost',
             'username' => 'root',
             'password' => '',
-            'database' => 'crud_base_cake4',
+            'database' => 'hoge',
             'url' => env('DATABASE_URL', null),
         ],
         略 ...
 	</code></pre>
 	
+
+	<br><time>2021-11-18</time>
+</div>
+
+
+<div id="sec1-3" class="sec4">
+	<h3>CakePHP4のDB接続 | さくらインターネットサーバー</h3>
+
+	app.phpではなくapp_local.phpに記述すると良い。<a href="#sec1-4">参考：app.phpとapp_local.phpについて</a>）<br>
+	
+	<pre><code>
+    'Datasources' => [
+        'default' => [
+            
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'mysql999.db.sakura.ne.jp',
+            'username' => 'hoge',
+            'password' => 'abcdefg123',
+            'database' => 'hoge_animal',
+            'url' => env('DATABASE_URL', null),
+            
+        ],
+	</code></pre>
+
+	<br><time>2021-11-18</time>
+</div>
+
+
+<div id="sec1-4" class="sec4">
+	<h3>app.phpとapp_local.phpについて</h3>
+	<p>動き</p>
+		app.phpにapp_local.phpの設定値が上書きされるという仕組みになっている。<br>
+		<br>
+	
+	<p>違い</p>
+		app.phpはすべての環境で共通する設定を記述。デフォルトでGitHubの管理対象になっている。<br>
+		app_local.phpはapp.phpの設定を上書きする。環境ごとに異なる設定を記述。こちらはGitHubの管理対象になっていない。<br>
+		<br>
+
+	<p>なぜ２つに分かれているのか？</p>
+		app.phpにはDBのパスワードも記述している。<br>
+		しかし、ばれたらまずいパスワードはGitHubで管理してはいけない。<br>
+		なので本番環境のDBのパスワードはGitHub管理対象外のapp_local.phpに記述するのである。<br>
+		app.phpにはばれても問題ないlocalhost環境のみ有効なパスワードを記述すればよいだろう。<br>
+
+	<p>応用</p>
+		【localhost環境】<br>
+			app.php→localhostのDB設定などを記述とよい。基本的に変更はしない。<br>
+			app_local.php→基本的にapp.phpと同じでよい。開発環境が自分だけ特殊なら、ここに独自の設定値を記述すると良い。<br>
+			<br>
+		【本番環境】<br>
+			app.php→localhostのDB設定などを記述とよい。基本的に変更はしない。<br>
+			app_local.php→本番環境用の設定値を記述する。本番DBのホストやパスワードなど。<br>
+			<br>
 
 	<br><time>2021-11-18</time>
 </div>
