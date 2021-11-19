@@ -238,7 +238,33 @@
 	</ol>
 
 
-	<br><time>2021-11-17</time>
+	<br><time>2021-11-19</time>
+</div>
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>セッション書込、読出、削除、存在チェック | Session</h3>
+
+	セッションに書き込む
+	<pre><code>$this->getRequest()->getSession()->write('animal_name', 'ネコ');</code></pre>
+	<br><br>
+	
+	セッションから読出し
+	<pre><code>$animal_name = $this->getRequest()->getSession()->read('animal_name');</code></pre>
+	<br><br>
+	
+	セッションから削除
+	<pre><code>$this->getRequest()->getSession()->delete('animal_name');</code></pre>
+	<br><br>
+	
+	セッションに値が存在するかチェック
+	<pre><code>
+	$res = $this->getRequest()->getSession()->check('animal_name');
+	※$resはbool型
+	</code></pre>
+	<br><br>
+	
+	<br><time>2021-11-19</time>
 </div>
 
 
