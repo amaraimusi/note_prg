@@ -206,6 +206,42 @@
 </div>
 
 
+<div id="sec1-6" class="sec4" >
+	<h3>CRUD画面を自動生成する | bake all</h3>
+	
+	下記コマンドを実行する。
+	<pre>$ bin/cake bake all テーブル名</pre>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>Git Bashなどコマンドラインツールを開く</li>
+		<li>
+			cd コマンドでプロジェクトのルートへ移動する。
+			<pre class="console">cd git/crud_base_cake4</pre>
+			<aside>※crud_base_cake4は任意のプロジェクト名</aside>
+		</li>
+		<li>
+			bakeコマンドにテーブル名を指定してCRUD画面を自動生成する。
+			<pre class="console">$ bin/cake bake all nekos</pre>
+			nekosテーブルに関連したコントローラ、モデル、ビューなどが自動生成される。<br>
+		</li>
+		<li>
+			下記URLにアクセスすると簡素なCRUD画面が作成されていることが分かる。<br>
+			<pre>http://localhost/crud_base_cake4/app/nekos</pre>
+			<img src="img/cakephp4_note/sec1-6.png" class="img_compact_k" /><br>
+		</li>
+		<li>
+			対象テーブルに○○_idというフィールドがあれば、そのフィールドのCRUD画面を自動作成する必要がある。
+			例えばen_sp_idというフィールドであれば、en_spsテーブルを作成し、「$ bin/cake bake all en_sps」を実行してEnSpのCRUD画面も自動生成する必要がある。
+		</li>
+		<li></li>
+	</ol>
+
+
+	<br><time>2021-11-17</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
