@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Laravel8の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Laravel8の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Laravel8のインストールと初期設定</h3>
+	
+	<p>インストールの概要</p>
+	Composerを利用してインストールしなければならないようだ。<br>
+	また、コマンドラインで初期設定がいろいろ必要である。<br>
+	<br>
+	
+	<p>前提条件</p>
+	<ul>
+		<li>Windows10</li>
+		<li>xampp(2021年11月時点での最新版。PHP8.0)</li>
+		<li>コマンドラインツールにGitBash（Git for windowsに含まれるツール）を利用。</li>
+		<li>GitBashでnpmコマンドが使えるようにしてあること。</li>
+		<li>GitBashでphpコマンドが使えるようにしてあること。</li>
+	</ul>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			Windows10に新しくxamppをインストールしたばかりなら、php_intlを有効にする必要がある。<br>
+			php.iniを開き、extension=intlを有効にする。(「;」をはずす)<br>
+			<br>
+			
+			<img src="img/laravel8_note/sec1-1a0.png" alt="" class="img_compact_k" /><br>
+			<aside>
+			補足
+			php_intlの実態はphp_intl.dllである。
+			php_intl.dllはxamppのパッケージに含まれている。
+			場所→ C:\xampp\php\ext\php_intl.dll
+			</aside>
+		</li>
+		<li>
+			GitBashを起動。
+			任意のプロジェクトを作成し、cdコマンドでそのプロジェクトの場所まで移動する。<br>
+			今回の手順例では,プロジェクト名を「crud_base_laravel8」としている。
+			<pre class="console">$ cd ~/git/crud_base_laravel8</pre>
+		</li>
+		
+		<li>
+			Windows環境だとttyなんとかのエラーがよく出るため、それ防止用に下記コマンドを実行。
+			<pre class="console">$ exec winpty bash</pre>
+		</li>
+		
+		<li>
+			composer.pharをダウンロードする
+			<pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		</li>
+		
+		<li>
+			Laravel8をインストール
+			<pre class="console">$ php composer.phar create-project "laravel/laravel=8.*" dev</pre>
+			<aside>
+				devディレクトリ内にインストールされる。devという名前が気に入らないかもしれないが気にする必要はない。<br>
+				どうせ本番環境ではシンボリックリンクを作ってURLを変更せざるを得ないからである。<br>
+			</aside>
+		</li>
+		
+		<li>
+			localhost環境(開発環境)でシンボリックリンクを作成する。<br>
+			「C:\xampp\htdocs」配下に直接プロジェクトを作成しているならこの処理は不要。<br>
+			<br>
+			
+			手順<br>
+			Windows Power Shellを管理者として実行する。（Windows Power Shellのアイコン右クリック→管理者として実行」<br>
+			下記コマンドでシンボリックリンクを作成する。。<br>
+			<pre style="background-color:#012456;color:white;">cmd /c mklink /D C:\xampp\htdocs\crud_base_laravel8 C:\Users\user\git\crud_base_laravel8</pre>
+			
+		</li>
+		
+		<li>
+			ブラウザにて「http://localhost/crud_base_laravel8/dev/public/」にアクセスし、エラーがでずにページが表示されたらとりあえずOK.<br>
+			
+			<img src="img/laravel8_note/sec1-1a1.png" alt="" class="img_compact_k" /><br>
+			
+		</li>
+		
+		<li>
+			xamppでphpMyAdminを起動し、新しくデータベースを作成する。<br>
+			照合順序は「utf8mb4_general_ci」を推奨。<br>
+			テーブルは作成しなくてよい。後ほど、マイグレーションでいくつかテーブルを自動生成する。<br>
+			例ではcrud_base_laravel8というデータベース名でデータベースを作成した。<br>
+		</li>
+		
+		<li>
+			DB設定をする。「.env」ファイルを開き、以下のような記述に書き換える。
+			<pre>			
+			DB_CONNECTION=mysql
+			DB_HOST=localhost
+			DB_PORT=3306
+			DB_DATABASE=crud_base_laravel8
+			DB_USERNAME=root
+			DB_PASSWORD=
+			</pre>
+			<aside>
+				※ .envファイルの場所の例→「~/git\crud_base_laravel8\dev\.env<br>
+				※ xamppの場合、特に設定していなければ、MySQLのユーザー名はroot,パスワードは空である。
+			</aside>
+
+		</li>
+		
+		<li>
+			続いていくつかの初期設定をする。<br>
+			再びGitBashに戻り、devディレクトリに移動する。
+			<pre class="console">$ cd dev</pre>
+		</li>
+		
+		<li>
+			ログインフォームなど使えるようにするため、composerで下記をインストールする。
+			<pre class="console">$ composer require laravel/ui</pre>
+			<aside>このComposerはLravel8をインストールしたComposerではない。devディレクトリ内のComposerである。間違いやすいので注意。</aside>
+		</li>
+		
+		<li>
+			sessionsテーブルを作成するために必要なコマンド。（マイグレーション情報に追加？）
+			<pre class="console">$ php artisan session:table</pre>
+			<aside>
+				※このコマンドは恐らくsessionsテーブル情報をマイグレーション情報に追加するコマンドである。試行錯誤したのでコマンドの実行順番は推測。<br>
+				ちなみにsessionsテーブルはSession情報を保存するテーブル。
+				一昔前はSession情報はテキストファイルに出力される仕様が多かった。しかし、近年はDBに保存するのが主流になっている。
+				最初からマイグレーション情報にsessionsテーブルの情報がないのはその名残だろう。
+			</aside>
+		</li>
+		
+		<li>
+			マイグレーションを実行する。DBに最低限必要なテーブルをいくつか自動生成する。
+			<pre class="console">$ php artisan migrate</pre>
+		</li>
+		
+		<li>
+			マイグレーションが成功したかどうか下記のコマンドで調べられる。
+			<pre class="console">$ php artisan migrate:status</pre>
+			成功例<br>
+			<img src="img/laravel8_note/sec1-1a2.png" alt=""  /><br>
+			<br>
+			
+			失敗例。sessionsテーブルだけ作成できていないケース<br>
+			<img src="img/laravel8_note/sec1-1a3.png" alt=""  /><br>
+			<br>
+
+		</li>
+		
+		<li>
+			続いて、jsとcssのパッケージをインストールおよびビルドする必要がある。<br>
+			Bootstrapを使いたいなら下記コマンドを実行する。
+			するとnpmのインストール情報に追加されるようだ。このタイミングではまだインストールされていない。<br>
+			<pre class="console">$ php artisan ui bootstrap</pre>
+			<aside>
+				※ 2021年11月時点ではBoostrap4になると思う。
+			</aside>
+		</li>
+		
+		<li>
+			Vue.jsを使いたい場合
+			<pre class="console">$ php artisan ui vue</pre>
+			
+			他のJSライブラリについて
+			<aside>
+				Reactも同様な方法でインストールできると思われる。
+				また、Reactの場合は頻繁にビルドが必要と思われるが詳細は不明。<br>
+				jQueryは最初から入っているか、Bootstrapのインストールの時に入ってきていると思われる。<br>
+			</aside>
+		</li>
+		
+		<li>
+			jsおよびcssのインストールおよびビルド。<br>
+			この辺りでエラーが頻発してしまい、いろいろ試行錯誤してしまった。<br>
+			なのでコマンドの実行順は推測である。<br>
+			<br>
+			
+			インストール。
+			<pre class="console">npm install</pre>
+			<br>
+			
+			アップデート。試行錯誤で試したがこれで上手くいったのかは不明。
+			<pre class="console">npm update</pre>
+			<br>
+			
+			ビルド。エラーが頻発する。エラーが出た場合、上記のコマンドをもう一度試みる。
+			<pre class="console">npm run dev</pre>
+			<br>
+		</li>
+		
+		<li>
+			再びブラウザにて「http://localhost/crud_base_laravel8/dev/public/」にアクセスし、画面右上のRegstryをクリック。<br>
+			ログインフォームが表示されるので、画面右上のRegstryから適当にユーザー登録する。<br>
+			
+			なお、レイアウトが崩れているなら、上記の「jsおよびcssのインストールおよびビルド」に失敗している。<br>
+			
+			<img src="img/laravel8_note/sec1-1a4.png" alt=""  class="img_compact_k" /><br>
+			<br>
+		</li>
+		
+		<li>
+			これで開発環境は整ったと思われる。多分。<br>
+			終わり。<br>
+		</li>
+	</ol>
+
+
+	<br><time>2021-11-23</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-11-23</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/laravel/">Laravelの覚書</a></li>
+	<li>Laravel8の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-11-23</div>
+</body>
+</html>
