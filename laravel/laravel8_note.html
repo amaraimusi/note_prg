@@ -46,7 +46,9 @@
 	<ol class="list_lg">
 		<li>
 			Windows10に新しくxamppをインストールしたばかりなら、php_intlを有効にする必要がある。<br>
-			php.iniを開き、extension=intlを有効にする。(「;」をはずす)<br>
+			php.iniを開き、下記のパラメータを有効にする。(「;」をはずす)<br>
+			extension=intl<br>
+			extension=gd<br>
 			<br>
 			
 			<img src="img/laravel8_note/sec1-1a0.png" alt="" class="img_compact_k" /><br>
@@ -221,6 +223,13 @@
 		<li>
 			これで開発環境は整ったと思われる。多分。<br>
 			終わり。<br>
+		</li>
+		
+		<li>
+			追記：DBテーブルのフィールド型がdatetime型だと空値で苦しむことになる。<br>
+			対策→<a href="laravel7_note4.html#sec4-10" class="livipage" >Larevelの日付更新エラー SQLSTATE[22007]: Invalid datetime format</a>
+			
+			Larevelの日付更新エラー
 		</li>
 	</ol>
 
