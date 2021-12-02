@@ -240,6 +240,76 @@
 </div>
 
 
+<div id="sec1-1-2" class="sec4" >
+	<h3>本番環境へlaravel8をインストール | PHPバージョンが違う環境に移植 PHP7.4 ←→PHP8</h3>
+
+	<ul>
+		<li>開発環境(localhost)はPHP8</li>
+		<li>本番環境（レンタルサーバー）はPHP7.4</li>
+	</ul>
+	上記のように開発環境と本番環境とでPHPバージョンが異なる場合。<br>
+	laravel8はphp7.3以上で動作するので開発環境のPHP8でも本番環境のPHP7.4でも問題ないはずである。
+	しかし実際アップロードしてみるとエラーがでてしまう。<br>
+	<br>
+	原因はvendor(dev/vendor)に存在するごく一部のライブラリにある。（2021年12月時点では「psr/log」ライブラリがネックになる）<br>
+	vendorはComposerでインストールされているため、composer.jsonを書き換えれば良さそうなものだが、これもまた難解と言わざるを得ない。<br>
+	しかし簡単な方法もある。
+	本番環境に適当なディレクトリを作成し、そこにlaravel8をインストールする。そのインストール先の「vendor」を使えばよいのだ。
+	このvendorを開発中のプロジェクトのvendorと置き換えればPHP8環境で開発されたプロジェクトをPHP7.4環境で動かすということが可能になる。<br>
+	<br>
+	以下に本番環境（サーバー環境）にlaravel8をインストールする手順を示す。<br>
+	<br>
+	
+	<p>手順（さくらサーバーで検証）</p>
+	<ol class="list_lg">
+		<li>
+			SSHでレンタルサーバー（本番環境）にログインする。
+			<pre class="console">$ ssh -l hoge hoge.sakura.ne.jp</pre>
+		</li>
+		<li>
+			laravel8をインストール先する場所を適当なディレクトリとして作成し、そのディレクトリに移動する。（例ではtempとする）
+			<pre class="console">
+cd www/
+mkdir temp
+cd temp
+			</pre>
+		</li>
+		<li>
+			下記コマンドでComposerをダウンロードする。tempディレクトリにcomposer.pharがダウンロード配置される。
+			<pre class="console">% php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		</li>
+		
+		<li>
+			Composerでlaravel8をインストールする。
+			<pre class="console">% php composer.phar create-project "laravel/laravel=8.*" dev</pre>
+		</li>
+		
+		<li>
+			devディレクトリに移動
+			<pre class="console">% cd dev</pre>
+		</li>
+		
+		<li>
+			devディレクトリにもComposerをダウンロード
+			<pre class="console">% php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		</li>
+		
+		<li>
+			ComposerでLaravelのUIパッケージをインストールする。
+			<pre class="console">% php composer.phar require laravel/ui</pre>
+		</li>
+		
+		<li>
+			以上。<br>
+			あとは「/temp/dev/vendor」を実際に開発しているプロジェクトに移植すればOK。
+		</li>
+	</ol>
+
+
+	<br><time>2021-12-2</time>
+</div>
+
+
 <div id="sec1-2" class="sec4" >
 	<h3>laravel7とlaravel8の大きな違い</h3>
 	
