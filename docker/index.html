@@ -37,10 +37,68 @@
 	<h2 id="useful_cmd_index">Docker | よく使うコマンド</h2>
 <div id="sec1-0-1" class="sec4" >
 	
-	
+	<strong style="color:red">
+		※Dockerは頻繁に仕様変化するため下記コマンドも古くなっている可能性がある。ひたすらエラーに苦しむ必要がある。
+		苦しまねばDockerは使えない(;´Д｀)</strong>
 	<table class="table">
 		<thead><tr><th>コマンド</th><th>説明</th></tr></thead>
 		<tbody>
+		
+			<tr>
+				<td>$ exec winpty bash</td>
+				<td>
+					CLIにGit for WindowsのGit bashを使っているならこのコマンドを実行しておくように。<br>
+					たびたび出てくるwinptyがなんたらかんたらというものを回避できる。<br>
+					<br>
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker search パッケージ名</td>
+				<td>
+					Docker Hubからイメージを検索する。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker search --filter "stars=3" --filter "is-official=true" キーワード</td>
+				<td>
+					オフィシャルのパッケージのみ検索する。<br>
+					pythonのオフィシャルイメージを検索する例
+					<pre class="console">$ docker search --filter "stars=3" --filter "is-official=true" python</pre>
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker pull phpmyadmin/phpmyadmin</td>
+				<td>
+					Docker Hubからイメージをダウンロードする。<br>
+					例ではphpMyAdminをDocker Hubからダウンロード。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker image list</td>
+				<td>
+					ダウンロードして保持しているイメージ一覧を表示。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker images</td>
+				<td>
+					保持しているイメージ一覧を表示。
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker run -t -i イメージ名もしくはイメージID</td>
+				<td>
+					イメージからコンテナを生成および実行状態にする。<br>
+					例
+					<pre class="console">$ docker run -t -i python</pre>
+				</td>
+			</tr>
 		
 			<tr>
 				<td>$ docker stop $(docker ps -a -q) </td>
@@ -67,49 +125,6 @@
 				<td>$ docker ps -a</td>
 				<td>
 					停止中のコンテナ一覧も表示。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ exec winpty bash</td>
-				<td>
-					Git for Windowsでwinptyなしで実行できるようにする。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ docker images</td>
-				<td>
-					保持しているイメージ一覧を表示。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ docker search パッケージ名</td>
-				<td>
-					Docker Hubからイメージを検索する。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ docker pull phpmyadmin/phpmyadmin</td>
-				<td>
-					Docker Hubからイメージをダウンロードする。<br>
-					例ではphpMyAdminをDocker Hubからダウンロード。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ docker image list</td>
-				<td>
-					ダウンロードして保持しているイメージ一覧を表示。
-				</td>
-			</tr>
-		
-			<tr>
-				<td>$ docker run -t -i centos</td>
-				<td>
-					イメージからコンテナを生成および実行状態にする。(例：centosのダウンロード)
 				</td>
 			</tr>
 		
@@ -168,6 +183,24 @@
 					コンテナをすべて削除する。
 				</td>
 			</tr>
+		
+			<tr>
+				<td>$ docker rmi イメージ名またはイメージID </td>
+				<td>
+					イメージを削除する。<br>
+					例
+					<pre class="console">docker rmi centos/python-36-centos7</pre>
+				</td>
+			</tr>
+		
+			<tr>
+				<td>$ docker rmi `docker images -q` </td>
+				<td>
+					イメージをまとめて削除する。<br>
+				</td>
+			</tr>
+			
+			
 		
 			<tr>
 				<td>#ip a</td>

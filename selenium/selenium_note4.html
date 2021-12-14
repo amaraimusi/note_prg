@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Selenium4の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Selenium4の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec4-1" class="sec4">
+	<h3>Selenium4の基本</h3>
+	
+	<pre><code>
+# Selenium4の基本
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome import service as fs 
+from time import sleep
+ 
+DRIVER_PATH = 'lib\\chromedriver.exe'
+ 
+# ドライバー指定でChromeブラウザを開く
+chrome_service = fs.Service(executable_path=DRIVER_PATH)
+driver = webdriver.Chrome(service=chrome_service)
+ 
+
+driver.get('https://youtu.be/Gwkx8DIWxsc') # Webサイトのページにアクセス
+print(driver.title) # 現在のページタイトルを取得する
+print(driver.current_url) #現在ページのURLを取得する
+
+sleep(5) #5秒スリープ　非推奨な方法　WebDriverWaitを使う方法が良いようだ。
+
+search_box = driver.find_element(By.NAME, 'search_query') #検索テキストボックス要素を取得
+search_box.send_keys("ナスのペットボトル実験")#検索テキストボックス要素にキーワードを入力
+sleep(2)
+
+search_btn = driver.find_element(By.ID, 'search-icon-legacy') # 検索ボタン要素を取得
+search_btn.send_keys(Keys.RETURN) # 検索ボタン要素にてEnterキーボタンの押下イベントを発動
+
+sleep(5)
+
+# タグを指定して要素リストを取得する
+textElms = driver.find_elements(By.TAG_NAME, 'yt-formatted-string')
+for e in textElms:
+    print(e.text) # 要素のテキストを取得(inner html）
+
+print('Success!')
+
+# ブラウザを閉じる
+driver.quit()
+
+	</code></pre>
+
+	<br><time>2021-12-13</time>
+</div>
+
+
+<div id="sec4-2" class="sec4" >
+	<h3>Selenium4の基本2</h3>
+
+<pre><code>
+</code></pre>
+
+	<br><time>2021-12-13</time>
+</div>
+
+
+<div id="sec4-3" class="sec4">
+	<h3>WebDriverWait 待機の種類</h3>
+	
+	<p>implicitly_wait</p>
+	<div style="margin-bottom:20px">
+		暗黙的な待機時間。
+		要素が見つかるまでの最大待機時間。秒単位で指定する。最初のドライバ読込直後に設定すると良い。
+		<pre><code>driver.implicitly_wait(10) # 要素が見つかるまで最大10秒待機する</code></pre>
+	</div>
+	
+	<p>alert_is_present</p>
+	<div style="margin-bottom:20px">
+		Alertが表示されるまで待機
+		<pre><code>WebDriverWait(driver, 15).until(EC.alert_is_present())</code></pre>
+	</div>
+	
+	<p>element_to_be_clickable</p>
+	<div style="margin-bottom:20px">
+		要素がクリック出来る状態になるまで待機する
+	</div>
+	
+	<p>visibility_of_element_located</p>
+	<div style="margin-bottom:20px">
+		指定した要素が表示されるまで待機する
+	</div>
+	
+	<p>invisibility_of_element_located</p>
+	<div style="margin-bottom:20px">
+		指定した要素が非表示になるまで待機する
+	</div>
+	
+	<p>text_to_be_present_in_element</p>
+	<div style="margin-bottom:20px">
+		指定したテキストが表示されるまで待機する
+	</div>
+	
+	<p>presence_of_element_located</p>
+	<div style="margin-bottom:20px">
+		指定した要素がDOM上に現れるまで待機
+	</div>
+	
+	<p>presence_of_all_elements_located</p>
+	<div style="margin-bottom:20px">
+		# ページ上のすべての要素が読み込まれるまで待機（15秒でタイムアウト判定）
+	</div>
+
+	<br><time>2021-12-13</time>
+</div>
+
+
+<div id="sec4-4" class="sec4" >
+	<h3>Selenium3とSelenium4の違い</h3>
+
+	<a href="https://www.selenium.dev/documentation/webdriver/getting_started/upgrade_to_selenium_4/" target="_blank">
+		https://www.selenium.dev/documentation/webdriver/getting_started/upgrade_to_selenium_4/
+	</a>
+
+
+	<br><time>2021-12-13</time>
+</div>
+
+
+<div id="sec4-4" class="sec4" >
+	<h3>ブラウザバック、 ブラウザの次へボタン、ブラウザのリロード</h3>
+	
+<pre><code>
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome import service as fs 
+from time import sleep
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
+def document_initialised(driver):
+    return driver.execute_script("return initialised")
+ 
+DRIVER_PATH = 'lib\\chromedriver.exe'
+ 
+chrome_service = fs.Service(executable_path=DRIVER_PATH)
+driver = webdriver.Chrome(service=chrome_service)
+
+driver.implicitly_wait(10) # 暗黙的待機時間(秒)。要素が見つかるまでの最大待機時間
+wait = WebDriverWait(driver, 10)
+ 
+driver.get('https://youtu.be/Gwkx8DIWxsc') # Webサイトのページにアクセス
+
+<strong style="color:red">
+driver.back() # ブラウザバック
+driver.forward() # ブラウザの次へボタン
+driver.refresh() # ブラウザを更新（ブラウザのリロード）
+</strong>
+</code></pre>
+
+
+	<br><time>2021-12-14</time>
+</div>
+
+
+<div id="sec4-5" class="sec4" >
+	<h3>Selenium4のalertダイアログ制御 | アラート待機、アラートテキスト取得</h3>
+	
+	alertダイアログが表示されるページからスクレイピング。<br>
+	alertの待機、alertダイアログのボタン押下、alertダイアログのテキストを取得。<br>
+	<br>
+
+	サンプルWEBサイト。4秒後にalertダイアログが表示される。<br>
+	<a href="/selenium_scraping_demo/a001/alert_is_present/demo.html">https://amaraimusi.sakura.ne.jp/selenium_scraping_demo/a001/alert_is_present/demo.html</a><br>
+	<br>
+	
+	<p>ソースコード</p>
+	<pre><code>
+# Selenium4のalertダイアログ制御 | アラート待機、アラートテキスト取得
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome import service as fs 
+from time import sleep
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+ 
+DRIVER_PATH = 'C:&yen;&yen;Users&yen;&yen;user&yen;&yen;git&yen;&yen;selenium_scraping_demo&yen;&yen;lib&yen;&yen;chromedriver.exe'
+ 
+# ドライバー指定でChromeブラウザを開く
+chrome_service = fs.Service(executable_path=DRIVER_PATH)
+driver = webdriver.Chrome(service=chrome_service)
+driver.implicitly_wait(10) # 暗黙的待機時間(秒)。要素が見つかるまでの最大待機時間
+
+driver.get('https://amaraimusi.sakura.ne.jp/selenium_scraping_demo/a001/alert_is_present/demo.html') # Webサイトのページにアクセス
+
+elm1 = driver.find_element(By.ID, 'test1')
+print(elm1.text)
+
+alert = WebDriverWait(driver, 15).until(EC.alert_is_present()) # アラートが表示されるまで待機（この例では最大15秒まで待機）
+alert_text = alert.text # alertのテキストを取得
+print(alert_text)
+alert.accept() # alertのボタンをクリック
+sleep(1) # alert_is_presentだけでは不十分。１秒だけスリープする必要がある。
+
+elm1 = driver.find_element(By.ID, 'test1')
+print(elm1.text)
+
+elm1 = driver.find_element(By.ID, 'test2')
+print(elm1.get_attribute('src'))
+
+print('Success!')
+
+driver.quit() # ブラウザを閉じる
+
+	</code></pre>
+
+	<br><time>2021-12-14</time>
+</div>
+
+
+<div id="sec4-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-12-13</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/python/">Pythonの覚書</a></li>
+	<li><a href="/note_prg/selenium/">Seleniumの覚書</a></li>
+	<li>Selenium4の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-12-13</div>
+</body>
+</html>
