@@ -250,6 +250,20 @@ driver.quit() # ブラウザを閉じる
 </div>
 
 
+<div id="sec4-6" class="sec4">
+	<h3>要素の属性を取得</h3>
+	
+	<pre><code>
+elm = driver.find_element(By.ID, 'neko_id')
+src = elm.get_attribute('src')
+href = elm.get_attribute('href')
+value = elm.get_attribute('value')
+	</code></pre>
+
+	<br><time>2021-12-14</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
