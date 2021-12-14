@@ -99,32 +99,34 @@ driver.quit()
 	<p>alert_is_present</p>
 	<div style="margin-bottom:20px">
 		Alertが表示されるまで待機
-		<pre><code>WebDriverWait(driver, 15).until(EC.alert_is_present())</code></pre>
+		<pre><code>elm = WebDriverWait(driver, 15).until(EC.alert_is_present())</code></pre>
+		<a href="#sec4-5" >参考：Selenium4のalertダイアログ制御 | アラート待機、アラートテキスト取得</a>
 	</div>
 	
 	<p>element_to_be_clickable</p>
 	<div style="margin-bottom:20px">
-		要素がクリック出来る状態になるまで待機する
+		ボタン要素がクリック可能になるまで待機<br>
+		未検証
 	</div>
 	
 	<p>visibility_of_element_located</p>
 	<div style="margin-bottom:20px">
-		指定した要素が表示されるまで待機する
+		指定要素が表示されるまで待機
 	</div>
 	
 	<p>invisibility_of_element_located</p>
 	<div style="margin-bottom:20px">
-		指定した要素が非表示になるまで待機する
+		指定要素が非表示になるまで待機
 	</div>
 	
 	<p>text_to_be_present_in_element</p>
 	<div style="margin-bottom:20px">
-		指定したテキストが表示されるまで待機する
+		指定要素のテキストが表示されるまで待機
 	</div>
 	
 	<p>presence_of_element_located</p>
 	<div style="margin-bottom:20px">
-		指定した要素がDOM上に現れるまで待機
+		指定要素が存在するようになるまで待機
 	</div>
 	
 	<p>presence_of_all_elements_located</p>
@@ -198,6 +200,9 @@ driver.refresh() # ブラウザを更新（ブラウザのリロード）
 	サンプルWEBサイト。4秒後にalertダイアログが表示される。<br>
 	<a href="/selenium_scraping_demo/a001/alert_is_present/demo.html">https://amaraimusi.sakura.ne.jp/selenium_scraping_demo/a001/alert_is_present/demo.html</a><br>
 	<br>
+	GitHub<br>
+	<a href="https://github.com/amaraimusi/selenium_scraping_demo/blob/main/a001/alert_is_present/demo4.py">https://github.com/amaraimusi/selenium_scraping_demo/blob/main/a001/alert_is_present/demo4.py</a>
+	<br><br>
 	
 	<p>ソースコード</p>
 	<pre><code>
