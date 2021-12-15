@@ -524,6 +524,77 @@ print('Success!')
 </div>
 
 
+<div id="sec1-8" class="sec4">
+	<h3>音声にサイレント時間を追加 | 無音の追加</h3>
+
+	<pre><code>
+import os
+import ffmpeg
+from pydub import AudioSegment
+
+audio1 = AudioSegment.from_file('example.mp3', "mp3") # 音声ファイルの読込
+audio1_duration =audio1.duration_seconds ; # 音声の再生時間を取得
+print('音声の再生時間→' + str(audio1_duration))
+
+add_silent = AudioSegment.silent(duration=10000) #１0秒の無音
+audio1 = audio1 + add_silent; // 音声の後ろに無音を追加する
+print('音声の再生時間→' + str(audio1_duration))
+	</code></pre>
+
+	音声の前に無音を挿入することもできる。<br>
+	audio1 = add_silent + audio1; <br>
+	<br>
+	
+	<br><time>2021-12-15</time>
+</div>
+
+
+<div id="sec1-9" class="sec4">
+	<h3>動画情報を取得</h3>
+	再生時間など動画ファイルの各種情報を取得できる。
+	<pre><code>
+	import ffmpeg
+	
+	probe = ffmpeg.probe('example.mp4')
+	movInfo = probe['streams'][0];
+	print(movInfo);
+	</code></pre>
+
+	<br><time>2021-12-15</time>
+</div>
+
+
+<div id="sec1-10" class="sec4">
+	<h3>動画の再生時間を取得</h3>
+	
+	<pre><code>
+	import ffmpeg
+	
+	probe = ffmpeg.probe('example.mp4')
+	movInfo = probe['streams'][0];
+	mov_duration = float(movInfo['duration']); # 動画再生時間を取得
+	</code></pre>
+
+
+	<br><time>2021-12-15</time>
+</div>
+
+
+<div id="sec1-11" class="sec4" >
+	<h3>pydubで音声の再生時間を取得</h3>
+
+<pre><code>
+import ffmpeg
+from pydub import AudioSegment
+
+audio1 = AudioSegment.from_file('example.mp3', "mp3") # 音声ファイルの読込
+audio1_duration =audio1.duration_seconds ; # 音声の再生時間を取得
+</code></pre>
+
+	<br><time>2021-9-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
