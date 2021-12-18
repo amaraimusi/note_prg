@@ -227,6 +227,98 @@ mysql> show databases;
 </div>
 
 
+<div id="sec3-4" class="sec4" >
+	<h3>docker-composeでPython環境を構築</h3>
+	
+	まだα版。なんとか動くがまだまだ改良の余地がありそう。<br>
+	あと前提条件としてDockerとdocker-composeの基礎知識が必要である。<br>
+	<br>
+	
+	
+	<p>ファイル構成</p>
+	<img src="img/docker_note3/sec3-4a1.png" alt="" /><br>
+	<br>
+	
+	
+	<p>docker-compose.yml</p>
+	<pre><code>
+version: '3'
+services:
+  app:
+    build: ./
+    volumes:
+      - ./src:/root/src
+    tty: true
+	</code></pre>
+	<br>
+	buildはDockerfileを配置しているディレクトリ。
+	「./」を指定することによりDockerfileは当docker-compose.ymlと同じディレクトリに存在していることを示している。<br>
+	volumesはPythonのソースコードファイルを配置するディレクトリ。「./src」はホストPC側のsrcディレクトリを指す。
+	「/root/src」はDockerコンテナ環境におけるディレクトリである。<br>
+	ttyはとても歴史が古い。デバイスをシリアル接続していたときの名残のようだ。Dockerコンテナをデバイス扱いにしているのだろうか？結局のところよく分からないが重要でもない。<br>
+	<br>
+	
+	
+	
+	<p>Dockerfile</p>
+	<pre><code>
+FROM python:3
+USER root
+
+RUN apt-get update
+RUN apt-get -y install locales &amp;&amp; &yen;
+    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+RUN apt-get install -y vim less
+
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+ENV TZ JST-9
+ENV TERM xterm
+
+RUN mkdir -p /root/src
+COPY ./src /root/src
+WORKDIR /root/src
+
+RUN pip install --upgrade pip
+	</code></pre>
+	<br>
+	
+	<p>hello.py</p>
+	<pre><code>
+	print ('HelloWorld2')
+	print('うさぎとネコの飼い方')
+	</code></pre>
+	<br>
+	
+	<p>コマンド</p>
+	<ol class="list_lg">
+		<li>docker-compose.ymlを配置しているディレクトリへcdコマンドで移動する</li>
+		<li>
+			インストール＆コンテナ起動<br>
+			<pre class="console">docker-compose up -d</pre>
+		</li>
+		<li>
+			コンテナにアタッチする。（コンテナ内に入る）
+			<pre class="console">docker exec -it コンテナID bash</pre>
+			※コンテナIDは「docker ps」で確認できる。<br>
+		</li>
+		
+		<li>
+			コンテナにアタッチ後、pythonコマンドを実行できる状態になるので、pythonプログラムを実行する。
+			<pre class="console">python hello.py</pre><br>
+			<img src="img/docker_note3/sec3-4a2.png" alt="" /><br>
+			アタッチ直後におけるコンテナ内のカレントディレクトリは「/root/src」になっている。<br>
+			ホストPC側とsrcディレクトリとコンテナ側のsrcディレクトリは常時マウント（接続状態）にある。
+			なのでホストPC側のsrcディレクトリでPythonのコーディングができる。
+			<aside>windowsだとwinptyなんとかのエラーがでるため,winpty python hello.pyとせねばならない。だが「exec winpty bash」コマンドを実行するとwinptyを省略可能なる。</aside>
+		</li>
+	</ol>
+
+	<br><time>2021-12-19</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
