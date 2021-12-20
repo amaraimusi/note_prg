@@ -79,7 +79,88 @@ root.mainloop() # ウィンドウを表示
 	
 
 
-	<br><time>2021-12-1</time>
+	<br><time>2021-12-20</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>tkinterのファイル選択ダイアログ</h3>
+	
+	<pre><code>
+import tkinter as tk
+from tkinter import filedialog
+
+
+root = tk.Tk() # メインウィンドウ
+root.title('tkinterのファイル選択ダイアログ')
+
+def btn_click():
+    idir = 'C:\\'
+    file = tk.filedialog.askopenfile(initialdir = idir)
+    if file:
+        fn = file.name
+        textbox.delete('1.0', 'end') # テキストボックスのクリア
+        textbox.insert('1.0', fn)
+        print(fn)
+    
+
+root.geometry('480x180')
+
+btn = tk.Button(root, text = 'フォルダ選択', command=btn_click)
+btn.grid(row= 0, column=1)
+
+textbox = tk.Text(width= 90, height= 2)
+textbox.grid(row= 0, column=2)
+textbox.insert('1.0', 'ファイルパス')
+
+root.mainloop() 
+
+	</code></pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/tkinter/file_dialog.py" target="_blank" class="btn btn-info">Git hub ソースコード</a><br>
+	<br>
+	
+
+	<br><time>2021-12-20</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>tkinterのフォルダ選択ダイアログ</h3>
+	
+	<pre><code>
+import tkinter as tk
+from tkinter import filedialog
+
+
+root = tk.Tk() # メインウィンドウ
+root.title('tkinterのフォルダ選択ダイアログ')
+
+def btn_click():
+    idir = 'C:\\'
+    dir_path = tk.filedialog.askdirectory(initialdir = idir)
+    textbox.delete('1.0', 'end') # テキストボックスのクリア
+    textbox.insert('1.0', dir_path)
+    print(dir_path)
+    
+
+root.geometry('480x180')
+
+btn = tk.Button(root, text = 'フォルダ選択', command=btn_click)
+btn.grid(row= 0, column=1)
+
+textbox = tk.Text(width= 90, height= 2)
+textbox.grid(row= 0, column=2)
+textbox.insert('1.0', 'ディレクトリパス')
+
+root.mainloop() 
+
+	</code></pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/tkinter/dir_dialog.py" target="_blank" class="btn btn-info">Git hub ソースコード</a><br>
+	<br>
+
+	<br><time>2021-12-20</time>
 </div>
 
 
