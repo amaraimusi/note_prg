@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SQLite3の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>SQLite3の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Windows10にSQLiteをインストール→テーブル作成まで | Windows向け</h3>
+
+	<p>SQLite3について</p>
+	SQLiteは2GBまでというのが定説だった。<br>
+	しかしSQLite3からは最大128TiBまで扱える。
+	ただ所詮はファイルなのでOSのファイルシステムに依存することになる。FAT32だと最大4GBないし、2GBである。
+	FAT32のPCがまだあるのか分からないが、別のPCでSQLite3を動かすには注意が必要だ。<br>
+	2021年現在、Windows搭載PCではNTFSがよく見られる。NTFSの1ファイル容量制限はない。
+	つまり128TiBまで扱えるということになる。実際のところはどうなのかは未検証。<br>
+	<aside>TiBはテビバイトといい、2の40乗を表す。TiBは1TBと近い値だが同じではない。</aside>
+	<br>
+	
+	<p>ファイルシステム</p>
+	sqliteのデータベースファイルで大きなデータを扱うこともあるかもしれない。なのでosごとのファイルシステムについて気を付ける。
+	2021年現在は動画ファイルを頻繁に扱うようになり数GBのファイルなど珍しくもない。そんなに気にする必要はないだろう。
+	<table class="tbl2">
+		<thead><tr><th>ファイルシステム</th><th>説明</th></tr></thead>
+		<tbody>
+			<tr>
+				<td>FAT32</td>
+				<td>
+					1ファイルの容量は4GB。(Windows98系は2GB)
+					2021年現在は見かけない。
+				</td>
+			</tr>
+			<tr>
+				<td>NTFS</td>
+				<td>
+					1ファイルの容量制限なし。 2021年現在使用している私のパソコンはこれだった。macOSでは読み取りのみで書き込みはできない。
+				</td>
+			</tr>
+			<tr>
+				<td>exFAT</td>
+				<td>
+					マイクロソフトのものらしいがMacでも利用可能。内臓ハードディスク向けではない。USBメモリ向けかな。
+				</td>
+			</tr>
+			<tr>
+				<td>HFS</td>
+				<td>
+					 1ファイルの最大サイズは約2GB。Mac用。2016年にサポート終了
+				</td>
+			</tr>
+			<tr>
+				<td>HFS＋ / APFS</td>
+				<td>
+					Mac用
+				</td>
+			</tr>
+		</tbody>
+	</table><br>
+	<br>
+	
+	
+	
+	
+	<p>インストールからテーブル作成まで(Windows10向け）)</p>
+	<ol class="list_lg">
+		<li>
+			SQLiteの入手<br>
+			<a href="https://www.sqlite.org/download.html" target="_blank">https://www.sqlite.org/download.html</a>
+			<br>
+			<img src="img/sqlite3_note/sec1-1a1.png" alt="" /><br>
+			<br>
+			
+		</li>
+		
+		<li>
+			ダウンロードしたzipファイルを解凍してsqlite3.exeを入手。<br>
+			<img src="img/sqlite3_note/sec1-1a2.png" alt="" /><br>
+			他の2ファイルは比較ツールと分析ツールらしい。<br>
+			<br>
+		</li>
+		
+		<li>
+			コマンドプロンプトを立ち上げる
+		</li>
+		
+		<li>
+			C:\Users\user\git\test\sqlite3.exe animal.sqlite3
+			cd C:\Users\user\git\python_sample\a002\sql_lite3
+			sqlite3.exe animal.sqlite3	create table nekos(id, neko_name);
+テーブル名まで作成するとDBファイルが作成される。
+		</li>
+	</ol>
+	
+	PHPからSQLiteを用いる場合、
+sqlite3.dll
+	
+
+
+	<br><time>2021-12-22</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-12-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/sqlite/">SQLiteの覚書</a></li>
+	<li>SQLite3の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-12-22</div>
+</body>
+</html>
