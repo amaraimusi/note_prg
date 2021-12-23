@@ -276,6 +276,46 @@ Pythonの覚書：datetime
 </div>
 
 
+<div id="sec3-7" class="sec4" >
+	<h3>PythonでSQLite3を扱う</h3>
+	
+	<pre><code>
+print ('PythonでSQLite3を扱う')
+
+import sqlite3
+
+# データベースにアクセス、データベースファイルが存在しなければ生成しつつアクセス
+dao = sqlite3.connect(
+    "test5.sqlite3", #データベースのファイル名
+    isolation_level=None, #Noneは自動コミットを表す
+)
+
+sql = """
+    CREATE TABLE nekos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        neko_name VARCHAR(50),
+        neko_age INTEGER
+    );
+"""
+dao.execute(sql)     #sql文を実行
+
+dao.execute("INSERT INTO nekos(neko_name, neko_age) VALUES ('イッパイアッテナ', 12);")  
+
+# SELECT文の実行とデータ取得
+res = dao.execute("SELECT * FROM nekos;")  
+#data = res.fetchone() # 1行だけ取得
+data = res.fetchall() # すべての行を取得
+
+print(data)
+
+dao.close()
+	</code></pre>
+
+
+	<br><time>2021-12-23</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
