@@ -396,6 +396,32 @@ class Dog:
 </div>
 
 
+<div id="sec3-9" class="sec4" >
+	<h3>外部のディレクトリにあるクラスをimportする | 絶対パスを指定してクラスをインポート</h3>
+	
+	<pre><code>
+import sys
+sys.path.append("C:\\Users\\user\\git\\python_sample\\a001\\Animal\\Insect\\")
+from Batta import Batta # from クラスファイル名 import クラス名
+
+bata = Batta()
+bata.jump('トノサマバッタ')
+	</code></pre>
+	
+	C:\Users\user\git\python_sample\a001\Animal\Insect\Batta.py
+	<pre><code>
+class Batta:
+    def __init__(self):
+        print('バッタのコンストラクタ')
+
+    def jump(self, animal_name):
+        print(f'{animal_name}が跳ねる')
+	</code></pre>
+
+	<br><time>2021-12-30</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
