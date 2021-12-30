@@ -316,6 +316,86 @@ dao.close()
 </div>
 
 
+<div id="sec3-8" class="sec4" >
+	<h3>クラスの基本的な書き方とfrom,importによるクラスの読込について</h3>
+	
+	ファイルとディレクトリの構成
+	<pre>
+	class_test.py(これをrunする)
+	Animal(フォルダ)
+		Dog.py
+	</pre>
+	
+	class_test.py
+	<pre><code>
+from Animal.Dog import Dog # from フォルダ.クラスファイル名 import クラス名
+
+	batta = Dog()
+	batta.bark('臆病な犬')
+	</code></pre>
+	Dog.py
+	<pre><code>
+class Dog:
+    
+    # コンストラクタ
+    def __init__(self):
+        print('犬のコンストラクタ')
+        self.type_a = 'xxx' # publicメンバ
+        self.__type_b = '犬科' # privateメンバ
+
+    # publicメソッド
+    def bark(self, animal_name):
+        print(f'{animal_name}がほえる')
+        print(self.type_a) # メンバにアクセス
+        print(self.__type_b)
+        print(self.__work()) # 同クラス内のメソッドの呼び出し
+        
+    # privateメソッド
+    def __work(self):
+        print('犬もあるけば棒にあたる')
+	</code></pre>
+	
+	出力
+	<pre class="console">
+犬のコンストラクタ
+哺乳類A
+犬科
+臆病な犬がほえる
+犬もあるけば棒にあたる
+	</pre>
+	<hr>
+
+
+	<h4>ディレクトリの階層が深い場合のインポート</h4>
+	ファイルとディレクトリの構成
+	<pre>
+	class_test.py(これをrunする)
+	Animal(フォルダ)
+		Insect(フォルダ)
+			Batta.py
+	</pre>
+	
+	class_test.py
+	<pre><code>
+	from Animal.Insect.Batta import Batta
+	
+	batta = Batta()
+	batta.jump('オンブバッタ')
+	</code></pre>
+	<pre><code>
+	class Batta:
+	    def __init__(self):
+	        print('バッタのコンストラクタ')
+	
+	    def jump(self, animal_name):
+	        print(f'{animal_name}が跳ねる')
+	</code></pre>
+	<hr>
+	
+	<br><time>2021-12-30</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
