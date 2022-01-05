@@ -276,6 +276,163 @@ Pythonの覚書：datetime
 </div>
 
 
+<div id="sec3-7" class="sec4" >
+	<h3>PythonでSQLite3を扱う</h3>
+	
+	<pre><code>
+print ('PythonでSQLite3を扱う')
+
+import sqlite3
+
+# データベースにアクセス、データベースファイルが存在しなければ生成しつつアクセス
+dao = sqlite3.connect(
+    "test5.sqlite3", #データベースのファイル名
+    isolation_level=None, #Noneは自動コミットを表す
+)
+
+sql = """
+    CREATE TABLE nekos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        neko_name VARCHAR(50),
+        neko_age INTEGER
+    );
+"""
+dao.execute(sql)     #sql文を実行
+
+dao.execute("INSERT INTO nekos(neko_name, neko_age) VALUES ('イッパイアッテナ', 12);")  
+
+# SELECT文の実行とデータ取得
+res = dao.execute("SELECT * FROM nekos;")  
+#data = res.fetchone() # 1行だけ取得
+data = res.fetchall() # すべての行を取得
+
+print(data)
+
+dao.close()
+	</code></pre>
+
+
+	<br><time>2021-12-23</time>
+</div>
+
+
+<div id="sec3-8" class="sec4" >
+	<h3>クラスの基本的な書き方とfrom,importによるクラスの読込について</h3>
+	
+	ファイルとディレクトリの構成
+	<pre>
+	class_test.py(これをrunする)
+	Animal(フォルダ)
+		Dog.py
+	</pre>
+	
+	class_test.py
+	<pre><code>
+from Animal.Dog import Dog # from フォルダ.クラスファイル名 import クラス名
+
+	batta = Dog()
+	batta.bark('臆病な犬')
+	</code></pre>
+	Dog.py
+	<pre><code>
+class Dog:
+    
+    # コンストラクタ
+    def __init__(self):
+        print('犬のコンストラクタ')
+        self.type_a = 'xxx' # publicメンバ
+        self.__type_b = '犬科' # privateメンバ
+
+    # publicメソッド
+    def bark(self, animal_name):
+        print(f'{animal_name}がほえる')
+        print(self.type_a) # メンバにアクセス
+        print(self.__type_b)
+        print(self.__work()) # 同クラス内のメソッドの呼び出し
+        
+    # privateメソッド
+    def __work(self):
+        print('犬もあるけば棒にあたる')
+	</code></pre>
+	
+	出力
+	<pre class="console">
+犬のコンストラクタ
+哺乳類A
+犬科
+臆病な犬がほえる
+犬もあるけば棒にあたる
+	</pre>
+	<hr>
+
+
+	<h4>ディレクトリの階層が深い場合のインポート</h4>
+	ファイルとディレクトリの構成
+	<pre>
+	class_test.py(これをrunする)
+	Animal(フォルダ)
+		Insect(フォルダ)
+			Batta.py
+	</pre>
+	
+	class_test.py
+	<pre><code>
+	from Animal.Insect.Batta import Batta
+	
+	batta = Batta()
+	batta.jump('オンブバッタ')
+	</code></pre>
+	<pre><code>
+	class Batta:
+	    def __init__(self):
+	        print('バッタのコンストラクタ')
+	
+	    def jump(self, animal_name):
+	        print(f'{animal_name}が跳ねる')
+	</code></pre>
+	<hr>
+	
+	<br><time>2021-12-30</time>
+</div>
+
+
+<div id="sec3-9" class="sec4" >
+	<h3>外部のディレクトリにあるクラスをimportする | 絶対パスを指定してクラスをインポート</h3>
+	
+	<pre><code>
+import sys
+sys.path.append("C:\\Users\\user\\git\\python_sample\\a001\\Animal\\Insect\\")
+from Batta import Batta # from クラスファイル名 import クラス名
+
+bata = Batta()
+bata.jump('トノサマバッタ')
+	</code></pre>
+	
+	C:\Users\user\git\python_sample\a001\Animal\Insect\Batta.py
+	<pre><code>
+class Batta:
+    def __init__(self):
+        print('バッタのコンストラクタ')
+
+    def jump(self, animal_name):
+        print(f'{animal_name}が跳ねる')
+	</code></pre>
+
+	<br><time>2021-12-30</time>
+</div>
+
+
+<div id="sec3-10" class="sec4" >
+	<h3>空の変数の宣言→value1 = None</h3>
+	whileやifなど空の変数を宣言せねばならないときに。もちろんオブジェクト型、プリミティブ型のどちらにも対応。
+	<pre><code>
+	value1 = None
+	</code></pre>
+
+	<br><time>2022-1-4</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

@@ -32,7 +32,7 @@
 	<p>SQLite3について</p>
 	SQLiteは2GBまでというのが定説だった。<br>
 	しかしSQLite3からは最大128TiBまで扱える。
-	ただ所詮はファイルなのでOSのファイルシステムに依存することになる。FAT32だと最大4GBないし、2GBである。
+	ただ所詮はファイルなのでOSのファイルシステムに依存することになる。ファイルシステムがFAT32だと最大容量4GBないし、2GBなのでSQLiteも2GBか4GBになってしまう。
 	FAT32のPCがまだあるのか分からないが、別のPCでSQLite3を動かすには注意が必要だ。<br>
 	2021年現在、Windows搭載PCではNTFSがよく見られる。NTFSの1ファイル容量制限はない。
 	つまり128TiBまで扱えるということになる。実際のところはどうなのかは未検証。<br>
@@ -40,8 +40,8 @@
 	<br>
 	
 	<p>ファイルシステム</p>
-	sqliteのデータベースファイルで大きなデータを扱うこともあるかもしれない。なのでosごとのファイルシステムについて気を付ける。
-	2021年現在は動画ファイルを頻繁に扱うようになり数GBのファイルなど珍しくもない。そんなに気にする必要はないだろう。
+	SQLiteのデータベースファイルで大きなデータを扱うこともあるかもしれない。なのでosごとのファイルシステムと最大ファイル容量について気にとめておく。
+	とはいえ2021年現在、動画ファイルを頻繁に扱うようになり数GBのファイルなど珍しくなくなった。そんなに気にする必要もないだろう。
 	<table class="tbl2">
 		<thead><tr><th>ファイルシステム</th><th>説明</th></tr></thead>
 		<tbody>
@@ -61,7 +61,7 @@
 			<tr>
 				<td>exFAT</td>
 				<td>
-					マイクロソフトのものらしいがMacでも利用可能。内臓ハードディスク向けではない。USBメモリ向けかな。
+					マイクロソフトのものらしいがMacでも利用可能。内臓ハードディスク向けではない。USBメモリ向けかな。2の64乗バイトまでサポートという情報がある。
 				</td>
 			</tr>
 			<tr>
@@ -89,7 +89,7 @@
 			SQLiteの入手<br>
 			<a href="https://www.sqlite.org/download.html" target="_blank">https://www.sqlite.org/download.html</a>
 			<br>
-			<img src="img/sqlite3_note/sec1-1a1.png" alt="" /><br>
+			<img src="img/sqlite3_note/sec1-1a1.png" alt="" class="img_compact_k" /><br>
 			<br>
 			
 		</li>
@@ -102,21 +102,44 @@
 		</li>
 		
 		<li>
-			コマンドプロンプトを立ち上げる
+			sqlite3.exeを任意のディレクトリに配置する。<br>
+			今回の例では「C:\Users\user\git\test」ディレクトリにsqlite3.exeを配置する。
 		</li>
 		
 		<li>
 			データベースのファイルを作成
 			cd C:\Users\user\git\hoge
+			コマンドプロンプトを立ち上げ、データベースファイル（例：animal.sqlite3）を作成およびアタッチ状態にする。すでにデータベースファイルが存在するならアタッチ状態になる。
+			アタッチ状態になるとSQLの実行が可能になる。また、データベースファイルがまだ存在しない場合、テーブルを作成したタイミングでデータベースが作成される。<br>
+			<pre class="console">
+			cd C:\Users\user\git\test
 			C:\Users\user\git\test\sqlite3.exe animal.sqlite3
-			cd C:\Users\user\git\python_sample\a002\sql_lite3
-			sqlite3.exe animal.sqlite3	create table nekos(id, neko_name);
-テーブル名まで作成するとDBファイルが作成される。
+			CREATE TABLE nekos (id INTEGER PRIMARY KEY AUTOINCREMENT, neko_name VARCHAR(50));
+			INSERT INTO nekos(neko_name) VALUES ('臆病猫');
+			SELECT * FROM nekos;
+			</pre>
+			<img src="img/sqlite3_note/sec1-1a3.png" alt="" /><br>
 		</li>
+		
+		<li>
+			データベースへのアタッチ状態は「.exit」コマンドで抜けることができる。<br>
+		</li>
+		
+		<li>
+			作成したデータベースファイルは様々なプログラム言語で動かすことができる。
+			データ編集したいなら編集ツールもあまたに存在する。私は「DB browser SQLite用」を利用している。<br>
+		</li>
+		
+		<li>終わり。</li>
+		
 	</ol>
 	
-	PHPからSQLiteを用いる場合、
-sqlite3.dll
+	<p>補足</p>
+	PHPやRubyからSQLiteを用いる場合、sqlite3.dllが必要になるようだ。
+	こちらも同じサイトからダウンロードできる。<br>
+	<a href="https://www.sqlite.org/download.html" target="_blank">https://www.sqlite.org/download.html</a><br>
+	Pythonの場合は最初からパッケージに含まれていることがある。WinPythonの場合、最初からパッケージに含まれていたので何もする必要はなかった。<br>
+	<br>
 	
 
 

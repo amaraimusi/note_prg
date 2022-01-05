@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ffmpegの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>ffmpegの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>mp4を音声なしmp4とmp3に分割する</h3>
+	
+	mp4を分割したとき音声と映像の長さ同じようになるよう、fpsを調整している。(映像側を音声の長さに合わせている)
+	
+	<pre><code>
+
+import cv2
+import glob
+from pydub import AudioSegment #音声操作用　mp3関連の処理
+import ffmpeg
+
+print('mp4を音声なしmp4とmp3に分割する。')
+
+
+# mp4を音声なしmp4とmp3に分割する。
+# @param string input_fp 入力動画ファイルパス
+# @param string output_mp4_fp 出力動画ファイルパス（音声なしmp4)
+# @param string output_mp3_fp 出力音声ファイルパス（mp3)
+# 
+def splitVideoAndSound(input_fp, output_mp4_fp, output_mp3_fp):
+    
+    sound = AudioSegment.from_file(input_fp, "mp4")
+    sound_sec = sound.duration_seconds # 再生時間
+    print(f'音声ファイルの長さ={str(sound_sec)}')
+    
+    movie = cv2.VideoCapture(input_fp)
+    width = movie.get(cv2.CAP_PROP_FRAME_WIDTH)
+    height = movie.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    video_frame_count = movie.get(cv2.CAP_PROP_FRAME_COUNT) # フレーム数を取得する
+    video_fps = movie.get(cv2.CAP_PROP_FPS) 
+    print(f'入力動画ファイルのFPS={str(video_fps)}')
+    #video_time = (video_fps * video_frame_count) / 1000
+    print(f'入力動画ファイルのフレーム数={str(video_frame_count)}')
+    
+    output_video_fps = video_frame_count / sound_sec
+    print(f'出力動画ファイルのfps={str(output_video_fps)}')
+    
+    # 出力動画ファイルの用意(mp4)
+    fourcc = cv2.VideoWriter_fourcc('m','p','4','v')
+    output = cv2.VideoWriter(output_mp4_fp, int(fourcc), output_video_fps, (int(width), int(height)))
+    print(f'{output_mp4_fp}の出力開始')
+    
+    while True:
+        ret, frame = movie.read()
+        output.write(frame)
+        if not ret:
+            break
+    
+    # 映像オブジェクトの解放
+    movie.release()
+    print(f'{output_mp4_fp}の出力完了')
+
+    # 音声ファイルの出力
+    sound.export(output_mp3_fp, format="mp3")
+    print(f'{output_mp3_fp}の出力完了')
+
+input_fp = 'test_data/MVI_0887.MP4'
+output_mp4_fp = 'test_data/output10.mp4'
+output_mp3_fp = 'test_data/output10.mp3'
+
+splitVideoAndSound(input_fp, output_mp4_fp, output_mp3_fp)
+
+
+print('Success')
+
+	</code></pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test10_cv2_split_mp4_mp3.py" target="_blank" class="btn btn-info">ソースコードGitHub</a><br>
+	<br>
+
+
+	<br><time>2021-12-30</time>
+</div>
+
+
+<div id="sec2-2" class="sec4" >
+	<h3>pydubでmp3のカット</h3>
+	
+<pre><code>
+print ('pydubでmp3のカット')
+
+# pydubを使うにはffmpegが必要-
+
+from pydub import AudioSegment
+
+
+audio = AudioSegment.from_file("./test_data/test3.mp3", "mp3")
+
+
+# 5000ms～10000ms(5～10秒)を抽出
+audio2 = audio[0:14000]
+
+
+# 変換したオーディオオブジェクトを出力
+audio2.export("./test_data/output08.mp3",  format="mp3")
+
+print('OK')
+</code></pre>
+
+
+	<br><time>2022-1-4</time>
+</div>
+
+
+<div id="sec2-3" class="sec4" >
+	<h3>pudubで再生時間、サンプリングレート(Hz)、チャンネル数を取得する</h3>
+	
+	<pre><code>
+audio = AudioSegment.from_file(movie_fn, "mp4")
+time = audio.duration_seconds # 再生時間(秒)
+rate = audio.frame_rate  # サンプリングレート(Hz)
+channel = audio.channels  # チャンネル数(1:モノラル, 2:ステレオ)
+	</code></pre>
+
+	<br><time>2022-1-4</time>
+</div>
+
+
+<div id="sec2-4" class="sec4" >
+	<h3>cv2で動画再生速度の変更 | fpsの変更</h3>
+
+	<pre><code>
+import cv2
+import glob
+from pydub import AudioSegment #音声操作用　mp3関連の処理
+import ffmpeg
+
+print('FPS変更 動画再生速度の変更を検証する')
+
+
+# 動画の再生速度を変更する
+# @param string input_fp 入力動画ファイルパス
+# @param string output_fp 出力動画ファイルパス
+# @param rete 変更後の再生速度倍率 　例:0.5→1/2のスローモーション, 2.0→2倍速再生
+# 
+def chageMovieSpeed(input_fp, output_fp, rate):
+    # mp4を設定
+    fourcc = cv2.VideoWriter_fourcc('m','p','4','v')
+    
+    movie = cv2.VideoCapture(input_fp)
+    fps = int(movie.get(cv2.CAP_PROP_FPS))  
+    print(f'変更前fps={str(fps)}')
+    
+    width = movie.get(cv2.CAP_PROP_FRAME_WIDTH)
+    height = movie.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    
+    fps2 = fps * rate
+    print(f'変更後fps={str(fps2)}')
+    output = cv2.VideoWriter(output_fp, int(fourcc), fps2, (int(width), int(height)))
+    
+    while True:
+        ret, frame = movie.read()        # フレームを取得
+        output.write(frame)               # 動画を保存する
+        # フレームが取得できない場合はループを抜ける
+        if not ret:
+            break
+        
+    # 撮影用オブジェクトとウィンドウの解放
+    movie.release()
+    
+    
+input_fp = 'test_data/MVI_0887.MP4'
+output_fp = 'test_data/output09.mp4'
+rate = 0.5 # 変更後の再生速度倍率 　例:0.5→1/2のスローモーション, 2.0→2倍速再生
+
+chageMovieSpeed(input_fp, output_fp, rate)
+
+print('Success')
+
+	</code></pre>
+	
+	<a href="https://github.com/amaraimusi/python_sample/blob/master/ffmpeg_sample/test09_cv2_change_fps.py" target="_blank" class="btn btn-info">ソースコードGitHub</a>
+
+	<br><time>2022-1-4</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2021-12-30</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/python/">Pythonの覚書</a></li>
+	<li>ffmpegの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2021-12-30</div>
+</body>
+</html>

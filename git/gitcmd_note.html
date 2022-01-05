@@ -214,6 +214,39 @@
 
 
 
+<div id="sec1-9" class="sec4">
+	<h3>履歴からファイルを削除する</h3>
+
+	下記の方法で履歴からファイルを削除できることのことだが、要検証が必要である。
+	どうにも不安がぬぐえない。
+	Githubでpublicなリポジトリにしているなら、リポジトリを作り直したほうがいいのかもしれない。
+	また、強制プッシュがあるのでチーム開発では勧められない。
+	GitHubのサポートに連絡してキャッシュを削除してもらわないといけないという。
+	<br>
+	
+	<p>database.sqlを履歴から削除する例</p>
+	コマンドを実行するまえにEclipseを閉じること。Unlink～なんとかのエラーが発生する。
+	ファイル名はパスまで指定する必要があるとのこと。
+<pre class="console">
+git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch backup/database.sql" --prune-empty -- --all
+git reflog expire --expire=now --all
+git gc --aggressive --prune=now
+git push -f
+</pre>
+「git reflog」は履歴から削除。<br>
+「git gc」はガベージコレクション。いわゆるゴミ掃除。<br>
+「git push -f」は強制push。チーム開発ではつかうべきではない。<br>
+<br>
+
+	Unlinkなんとか～というエラーが出た場合、他のアプリがファイルを使用中なので削除できないという意味。
+	Eclipseを閉じると上手くいく。
+	<pre>Unlink of file 'xxxx.html' failed. Should I try again? (y/n)</pre>
+
+	<br><time>2021-12-24</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
