@@ -52,6 +52,45 @@ function _extractFileNameFromFp(fp){
 </div>
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>画像を同期的にプリロードする</h3>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	let u = Math.floor(new Date());// UNIXタイムスタンプに変換
+	let output = $('#res');
+	output.html('読込開始&lt;br&gt;');
+	
+	const img = new Image();
+	
+	img.onload = function(){
+		// 画像のプリロード完了後に実行する処理（同期的な画像の読込）
+		let u2 = Math.floor(new Date());// UNIXタイムスタンプに変換
+		let time = u2 - u;
+		let imgElm = jQuery("#img1");
+		imgElm.attr('src',img.src);
+		output.append(time + "ミリ秒&lt;br&gt;");
+		output.append('Success&lt;br&gt;');
+	}
+	
+	// キャッシュを回避するためUNIXタイムスタンプをURLに付加している。
+	let url = 'https://amaraimusi.sakura.ne.jp/photos/halther/y2019/m03/orig/20190324184033_15534203777882106212973.jpg?v=' + u;
+	img.src = url;
+	</code></pre>
+	
+	<p>HTML</p>	
+	<pre><code>
+	&lt;div id="res" &gt;&lt;/div&gt;
+	&lt;img id="img1" src=""  /&gt;
+	</code></pre>
+	
+	<a href="/sample/js/a014/img_async_preload/img_async_preload.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	<br><time>2022-1-9</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
