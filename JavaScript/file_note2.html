@@ -91,6 +91,171 @@ function _extractFileNameFromFp(fp){
 </div>
 
 
+<div id="sec2-3" class="sec4" >
+	<h3>複数画像をすべてプリロードしたらコールバックを呼び出す</h3>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+&lt;img id="img0" src="" style="width:240px;height:auto" /&gt;
+&lt;img id="img1" src="" style="width:240px;height:auto" /&gt;
+&lt;img id="img2" src="" style="width:240px;height:auto"/&gt;
+&lt;img id="img3" src="" style="width:240px;height:auto" /&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+<pre><code>
+$(()=&gt;{
+	
+	let u = Math.floor(new Date());// UNIXタイムスタンプに変換
+	let output = $('#res');
+	output.html('読込開始&lt;br&gt;');
+	
+	let imgUrls = [
+		'https://amaraimusi.sakura.ne.jp/photos/halther/y2019/m03/orig/20190319181616_1552986941299-1867207771.jpg',
+		'https://amaraimusi.sakura.ne.jp/photos/halther/y2019/m03/orig/20190319182356_1552987380648-69218458.jpg',
+		'https://amaraimusi.sakura.ne.jp/photos/halther/y2019/m03/orig/20190319183136_15529878714601767213182.jpg',
+		'https://amaraimusi.sakura.ne.jp/photos/halther/y2019/m03/orig/err.jpg', // 存在しない画像
+	];
+	
+	// キャッシュを回避するためUNIXタイムスタンプをURLに付加する。
+	for(let i in imgUrls){
+		imgUrls[i] += '?v=' + u;
+	}
+	
+	let imgsPreload = new ImgsPreload();
+	let imgObjList = imgsPreload.preload(imgUrls, callbackTest, progress);
+	
+
+});
+
+function callbackTest(imgObjList){
+	console.log('すべての画像のプリロードした時のコールバックを呼び出しました。');
+	for(let key in imgObjList){
+		let img = imgObjList[key];
+		$('#img' + key).attr('src', img.src);
+	}
+	
+	$('#res').append('すべての画像のプリロード完了&lt;br&gt;');
+}
+
+function progress(param){
+	$('#res').append(`進捗→${param.counter}/${param.data_cnt}&lt;br&gt;`);
+}
+</code></pre>
+	
+	<button type='button' class="btn btn-info" onclick="$('#sec2-3a1').toggle(300)">ImgsPreload.js</button>
+	<pre id="sec2-3a1" style="display:none"><code>
+/**
+ * 複数画像をプリロード
+ * @note すべての画像を読み込んだらコールバックを実行（読込エラーが存在してもコールバックは実行）
+ * @since 2022-1-10
+ * @version 1.0.0
+ * @auther amaraimusi
+ * 
+ */
+class ImgsPreload{
+	
+	
+	/**
+	 * 複数画像をプリロード
+	 * @param {key} imgFns 画像ファイル名リスト（画像ファイルパスリスト）
+	 * @param function callback(画像オブジェクトリスト) すべての画像がプリロードされたら呼び出されるコールバック関数（省略可）
+	 * @param function progressCallback({}) 進捗コールバック関数（省略可）
+	 * @return {} imgObjList
+	 */
+	preload(p_imgFns, afterCallback, progressCallback){
+		
+		if (this._empty(p_imgFns)) return {};
+		
+		let imgFns;
+		if(Array.isArray(p_imgFns)){
+			imgFns = {};
+			for(let i in p_imgFns){
+				imgFns[String(i)] = p_imgFns[i];
+			}
+		}else{
+			let type_name = typeof p_imgFns;
+			if(type_name == 'object'){
+				imgFns = p_imgFns;
+			}else{
+				throw Error('システムエラー 20220111A');
+			}
+		}
+		
+		this.counter = 0;
+		this.data_cnt = Object.keys(imgFns).length;
+		this.afterPreloadCallback = afterCallback;
+		this.progressCallback = progressCallback;
+		
+		this.imgObjList = {};
+		for(let key in imgFns){
+			let img_url = imgFns[key];
+			let imgObj = new Image();
+			
+			imgObj.onload = ()=>{
+				this.counter ++;
+				if(this.data_cnt == this.counter){
+					if(this.afterPreloadCallback != null){
+						this.afterPreloadCallback(this.imgObjList);
+					}
+				}
+				
+				// 進捗コールバックの実行
+				if(this.progressCallback != null){
+					this.progressCallback({counter:this.counter, data_cnt:this.data_cnt});
+				}
+			}
+			imgObj.onerror = ()=>{
+				console.log('画像の読込に失敗');
+				this.counter ++;
+
+				if(this.data_cnt == this.counter){
+					if(this.afterPreloadCallback != null){
+						this.afterPreloadCallback(this.imgObjList);
+					}
+				}
+				
+				// 進捗コールバックの実行
+				if(this.progressCallback != null){
+					this.progressCallback({counter:this.counter, data_cnt:this.data_cnt});
+				}
+				
+			}
+			
+			imgObj.src = img_url;
+			this.imgObjList[key] = imgObj;
+			
+		}
+	
+	}
+	
+		// Check empty.
+	_empty(v){
+		if(v == null || v == '' || v=='0'){
+			return true;
+		}else{
+			if(typeof v == 'object'){
+				if(Object.keys(v).length == 0){
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+}
+	</code></pre>
+	
+	
+	<a href="http://localhost/sample/js/a014/img_async_preload/img_async_preload_mult.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+
+
+	<br><time>2022-1-11</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
