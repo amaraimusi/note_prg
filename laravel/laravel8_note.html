@@ -475,6 +475,35 @@ cd temp
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>メール送信設定 (パスワード再送信に利用。さくらレンタルサーバーを例にする)</h3>
+	
+	.envファイルにメール設定する。<br>
+	アカウント、メールアドレスはさくらコントロールパネルにて確認する。メールアドレスのパスワードを覚えていないなら再発行する。<br>
+	<br>
+	
+	<p>さくらコントロールパネル</p>
+	メール設定関連画面<br>
+	<img src="img/laravel8_note/sec1-5a1.png" class="img_compact_k" /><br>
+	<br>
+	
+	<p>ルート\.env</p>
+	<pre>
+MAIL_MAILER=smtp
+MAIL_HOST=アカウント.sakura.ne.jp
+MAIL_PORT=587
+MAIL_USERNAME=アカウント@アカウント.sakura.ne.jp
+MAIL_PASSWORD=メールのパスワード
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=アカウント@アカウント.sakura.ne.jp
+MAIL_FROM_NAME="サンプルシステム"
+	</pre>
+
+
+	<br><time>2022-1-13</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
