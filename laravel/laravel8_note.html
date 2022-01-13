@@ -365,6 +365,116 @@ cd temp
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>ユーザー名とメールアドレスの両方でログインできるようにする</h3>
+
+	修正するファイルはLoginController.phpとlogin.blade.php。
+	<aside>
+		上記の２ファイルはデフォルトのLaravel8には用意されておらず、「$ composer require laravel/ui」コマンドを実行することにより作成される。
+		「 laravel/ui」はLaravelのログイン機能。<br>
+		<a href="#sec1-1" class="livipage">「 laravel/ui」の参考→Laravel8のインストールと初期設定</a>
+	</aside>
+	
+	<br><br>
+	
+	ユーザー名はusersテーブルの「name」フィールドの値である。<br>
+	「name」は日本語名の入力が可能。さらに日本語のユーザー名によるログインも可能になる。
+	とはいえ、日本語のユーザー名は何かと問題も多そうなので半角英数字でユーザー名登録させる仕様にしたほうが良い。<br>
+	<br>
+	
+	参考サイト：<a href="https://php-archive.net/php/laravel-auth-with-username-or-email/" target="_blank">https://php-archive.net/php/laravel-auth-with-username-or-email/</a><br>
+	<br>
+	
+	<p>LoginController.php</p>
+	ルート\app\Http\Controllers\Auth\LoginController.php<br>
+	赤字のコードを追記する。
+	<pre>
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('guest')-&gt;except('logout');
+    }
+    
+    <strong>
+    public function username()
+    {
+        return 'name';
+    }
+    
+    protected function attemptLogin($request)
+    {
+        $username = $request-&gt;input($this-&gt;username());
+        $password = $request-&gt;input('password');
+        
+        if (filter_var($username, &yen;FILTER_VALIDATE_EMAIL)) {
+            $credentials = ['email' =&gt; $username, 'password' =&gt; $password];
+        } else {
+            $credentials = [$this-&gt;username() =&gt; $username, 'password' =&gt; $password];
+        }
+        
+        return $this-&gt;guard()-&gt;attempt($credentials, $request-&gt;filled('remember'));
+    }</strong>
+    
+}
+	</pre>
+
+
+<p>ルート\resources\views\auth\login.blade.php</p>
+	以下の部分だけ、emailとなっている箇所をnameに置換するだけ。
+	<pre>
+                        &lt;div class="form-group row"&gt;
+                            &lt;label for="<strong>name</strong>" class="col-md-4 col-form-label text-md-right"&gt;ユーザー名 / メールアドレス&lt;/label&gt;
+
+                            &lt;div class="col-md-6"&gt;
+                                &lt;input id="<strong>name</strong>" type="<strong>name</strong>" class="form-control @error('<strong>name</strong>') is-invalid @enderror" <strong>name</strong>="<strong>name</strong>" value="{{ old('<strong>name</strong>') }}" required autocomplete="<strong>name</strong>" autofocus&gt;
+
+                                @error('<strong>name</strong>')
+                                    &lt;span class="invalid-feedback" role="alert"&gt;
+                                        &lt;strong&gt;{{ $message }}&lt;/strong&gt;
+                                    &lt;/span&gt;
+                                @enderror
+                            &lt;/div&gt;
+
+                        &lt;/div&gt;
+	</pre>
+	<br>
+	<p>修正前：login.blade.php</p>
+	参考までにlogin.blade.phpの修正前はこうなっている。<br>
+	<pre>
+                        &lt;div class="form-group row"&gt;
+                            &lt;label for="<strong>email</strong>" class="col-md-4 col-form-label text-md-right"&gt;{{ __('E-Mail Address') }}&lt;/label&gt;
+
+                            &lt;div class="col-md-6"&gt;
+                                &lt;input id="<strong>email</strong>" type="<strong>email</strong>" class="form-control @error('<strong>email</strong>') is-invalid @enderror" name="<strong>email</strong>" value="{{ old('<strong>email</strong>') }}" required autocomplete="<strong>email</strong>" autofocus&gt;
+
+                                @error('<strong>email</strong>')
+                                    &lt;span class="invalid-feedback" role="alert"&gt;
+                                        &lt;strong&gt;{{ $message }}&lt;/strong&gt;
+                                    &lt;/span&gt;
+                                @enderror
+                            &lt;/div&gt;
+
+                        &lt;/div&gt;
+	</pre>
+
+
+	<br><time>2022-1-13</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
