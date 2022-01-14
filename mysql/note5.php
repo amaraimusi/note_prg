@@ -584,6 +584,10 @@
 <div id="sec5-9" class="sec1" >
 	<h3>最大値のレコードを取得（すべてのフィールドを取得）</h3>
 	
+	ORDERとLIMITを使えば、簡単に最大値を持つレコードを取得できる。
+	<pre>SELECT * FROM nekos ORDER BY neko_date DESC LIMIT 1</pre>
+	<hr>
+	<p>旧式</p>
 
 	nekosテーブル
 	<table class="tbl2">
@@ -648,7 +652,7 @@
 	</table>
 	<br>
 
-	<time>2016-6-29</time>
+	<time>2016-6-29 | 2022-1-14</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

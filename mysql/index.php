@@ -85,7 +85,6 @@
 	<li><a href="note.php#sec1-2" >MySQLにフィールドを追加する方法</a></li>
 	<li><a href="note.php#sec1-3" >集計と演算とソートを組みわせる</a></li>
 	<li><a href="note.php#sec1-4" >フィールドを削除する方法</a></li>
-	<li><a href="note.php#sec1-5" >グループの中の最大値のデータを取得</a></li>
 	<li><a href="note.php#sec1-6" >集計値に絞込をかける。～HAVING</a></li>
 	<li><a href="note.php#sec1-7" >Null及び空文字の検索</a></li>
 	<li><a href="note.php#sec1-8" >WHEREのIF文？</a></li>
