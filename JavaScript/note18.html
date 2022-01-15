@@ -554,6 +554,59 @@ if(window.confirm("あなたは猫を飼っていますか")){
 </div>
 
 
+<div id="sec18-9" class="sec4"  >
+	<h3>QRコード読込検証 | jsQR.jsの拡張クラスJsQrEx.js</h3>
+	
+	<a href="http://localhost/sample/js/a014/QR_read/QR_read.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;script src="./dist/jsQR.js"&gt;&lt;/script&gt;
+&lt;script src="JsQrEx.js"&gt;&lt;/script&gt;
+&lt;script src="script.js?v=1.0.1"&gt;&lt;/script&gt;
+～略～
+&lt;canvas id="qr_canvas"&gt;&lt;/canvas&gt;
+&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+
+&lt;input type="button" value="スタート" onclick="start()" class="btn btn-primary"/&gt;
+&lt;input type="button" value="停止" onclick="stop()"  class="btn btn-warning" /&gt;
+	</code></pre>
+	<br>
+	
+	<p>script.js</p>
+<pre><code>
+let jsQrEx;
+$(()=&gt;{
+	jsQrEx = new JsQrEx('qr_canvas', callback);
+});
+
+function callback(value){
+	$('#res').append(value + '&lt;br&gt;');
+	console.log(value);
+}
+
+function errFunc(err){
+	alert('カメラが不許可ですよ');
+}
+
+function start(){
+	jsQrEx.start();
+}
+
+function stop(){
+	jsQrEx.stop();
+}
+</code></pre>
+
+<a href="https://github.com/amaraimusi/sample/blob/master/js/a014/QR_read/JsQrEx.js" class="btn btn-info" target="_blank">JsQrEx.js</a><br>
+<br>
+
+
+	<br><time>2022-1-16</time>
+</div>
+
+
 <div id="sec18-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
