@@ -40,6 +40,24 @@
 </div>
 
 
+<div id="sec21-2" class="sec4">
+	<h3>トークン生成</h3>
+	
+	<a href="/sample/php/a070/token/token.php" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+	function makeToken($length = 8)
+	{
+	    return base_convert(mt_rand(pow(36, $length - 1), pow(36, $length) - 1), 10, 36);
+	}
+	</code></pre>
+
+
+	<br><time>2022-1-17</time>
+</div>
+
+
 <div id="sec21-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
