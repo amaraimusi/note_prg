@@ -607,6 +607,84 @@ function stop(){
 </div>
 
 
+<div id="sec18-10" class="sec4"  >
+	<h3>モーダル表示</h3>
+	<a href="/sample/js/a014/modal/modal.html" class="btn btn-info">Demo</a><br>
+	<br>
+	参考
+	<a href="https://webdesignday.jp/inspiration/technique/css/4680/" target="_blank">https://webdesignday.jp/inspiration/technique/css/4680/</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;button type="button" onclick="openModal()"&gt;モーダルを開く&lt;/button&gt;
+&lt;div class="modal js-modal"&gt;
+    &lt;div class="modal__bg js-modal-close"&gt;&lt;/div&gt;&lt;!-- 背景クリックによる閉じる --&gt;
+    &lt;div class="modal__content"&gt;
+        &lt;div&gt;いろはにほへとちりぬのを&lt;br&gt;わかよたれそ&lt;/div&gt;
+        &lt;a class="js-modal-close" href=""&gt;閉じる&lt;/a&gt;
+        &lt;button type="button" class="js-modal-close" onclick="closeModal()"&gt;閉じるボタン&lt;/button&gt;
+    &lt;/div&gt;&lt;!--modal__inner--&gt;
+&lt;/div&gt;&lt;!--modal--&gt;
+	</code></pre>
+	<br>
+	
+	<p>CSS</p>
+	<pre><code>
+.modal{
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.modal__bg{
+    background: rgba(0,0,0,0.8);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+.modal__content{
+    background: #fff;
+    left: 50%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+}
+	</code></pre>
+	<br>
+	
+	<p>JavaScript</p>
+	<pre><code>
+$(()=&gt;{
+    $('.js-modal-open').on('click',function(){
+        $('.js-modal').fadeIn();
+        return false;
+    });
+    $('.js-modal-close').on('click',function(){
+        $('.js-modal').fadeOut();
+        return false;
+    });
+});
+
+function closeModal(){
+	$('.js-modal').fadeOut();
+}
+
+function openModal(){
+	$('.js-modal').fadeIn();
+}
+
+	</code></pre>
+	
+	
+
+	<br><time>2022-1-18</time>
+</div>
+
+
 <div id="sec18-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
