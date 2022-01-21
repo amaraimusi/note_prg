@@ -25,7 +25,7 @@
 <div class="container">
 
 
-<div id="sec18-1" class="sec4" >
+<div id="sec19-1" class="sec4" >
 	<h3>静的テーブルのページネーション(Bootstrap4対応) | static_pagination_b4.js</h3>
 	
 	<a href="/sample/js/a014/static_pagination_b4/static_pagination_b4.html" class="btn btn-info">Demo</a><br>
@@ -190,7 +190,126 @@ class StaticPaginationB4{
 </div>
 
 
-<div id="sec18-0" class="sec4"  style="display:none">
+<div id="sec19-2" class="sec4" >
+	<h3>モーダル化ライブラリ | modal_cat.js</h3>
+	
+	<a href="/sample/js/a015/modal_cat_js/modal_cat_js.html" class="btn btn-info">Demo</a>
+	<a href="https://github.com/amaraimusi/sample/tree/master/js/a015/modal_cat_js" class="btn btn-info" target="_blank">GitHubソースコード</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;div&gt;&lt;button type="button" class="btn btn-success" onclick="openModal()"&gt;開く&lt;/button&gt;&lt;/div&gt;
+&lt;div id="sample_modal"&gt;
+	&lt;h3&gt;イエスが預言した終わりの日の前兆&lt;/h3&gt;
+	&lt;ul&gt;
+		&lt;li&gt;世界大戦&lt;/li&gt;
+		&lt;li&gt;各地で起こる食料不足&lt;/li&gt;
+		&lt;li&gt;あちこちで起こる大地震&lt;/li&gt;
+		&lt;li&gt;世界的な流行病&lt;/li&gt;
+		&lt;li&gt;恐ろしい光景&lt;/li&gt;
+		&lt;li&gt;天からの大きなしるし&lt;/li&gt;
+	&lt;/ul&gt;
+	#預言　#予言
+	&lt;div&gt;&lt;button type="button" class="btn btn-primary" onclick="closeModal()"&gt;閉じる&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+var modalCat;
+$(()=>{
+	
+	modalCat = new ModalCat();
+	modalCat.modalize('sample_modal');
+	
+});
+
+function openModal(){
+	modalCat.open();
+}
+
+function closeModal(){
+	modalCat.close();
+}
+	</code></pre>
+	
+	<p>modal_cat.js</p>
+	<pre><code>
+
+/**
+ * モーダル化ライブラリ
+ * @since 2022-1-21
+ * @version 1.0.0
+ * @auther amaraimusi
+ * @license MIT
+ */
+class ModalCat{
+	
+	modalize(xid){
+		
+		let main_xid = xid + '_js_main'; // xidで指定した要素のラップ要素（指定要素の親要素）
+		let close_xid = xid + '_js_modal_close';// id属性名：背景クリックによる閉じる
+
+		let content = jQuery('#' + xid);
+		content.wrap(`&lt;div id='${main_xid}'&gt;&lt;/div&gt;`); // モーダル化制御のためmain要素でラッピング
+		let main = jQuery('#' + main_xid);
+		
+		let bg_close_html = `&lt;div id='${close_xid}'&gt;&lt;/div&gt;`;
+		main.prepend(bg_close_html);
+		
+		let bgClose = jQuery(main.find('#' + close_xid)); // 背景クリック閉じる用要素
+		
+		main.css({
+			display: 'none',
+			height: '100vh',
+			position: 'fixed',
+			top: '0',
+			left: '0',
+			width: '100vw',
+		});
+		
+		bgClose.css({
+			background: 'rgba(0,0,0,0.8)',
+			height: '100vh',
+			position: 'absolute',
+			width: '100vw',
+		});
+		
+		content.css({
+			background: '#fff',
+			left: '50%',
+			padding: '40px',
+			position: 'absolute',
+			top: '50%',
+			transform: 'translate(-50%,-50%)',
+			width: '60%',
+		});
+
+		this.main = main;
+
+		bgClose.on('click',()=&gt;{
+			this.main.fadeOut();
+			return false;
+		});
+		
+	}
+	
+	open(){
+		this.main.fadeIn();
+	}
+	
+	close(){
+		this.main.fadeOut();
+	}
+}
+	</code></pre>
+
+	<br><time>2022-1-21</time>
+</div>
+
+
+<div id="sec19-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
 
