@@ -378,7 +378,10 @@ function test_ajax(){
 		processData: false,
 		contentType: false,
 
-	}).done((str_json, type) =&gt; {
+	}).done((str_json, status, xhr) =&gt; {
+	
+		// 419エラーならトークンの期限切れの可能性のためリロードする（トークンの期限は2時間）
+		if(xhr.status == 419)  location.reload(true);
 
 		console.log('レスポンスOK');
 		let data = null;
@@ -397,10 +400,14 @@ function test_ajax(){
 		}
 		jQuery('#test_ajax_res').html(res);
 
-	}).fail((jqXHR, statusText, errorThrown) =&gt; {
-		alert(statusText);
+	}).fail((xhr, status, errorThrown) =&gt; {
+	
+		// 419エラーならトークンの期限切れの可能性のためリロードする（トークンの期限は2時間）
+		if(xhr.status == 419)  location.reload(true);
+		
+		alert(status);
 		console.log('通信エラー');
-		jQuery('#test_ajax_res').html(jqXHR.responseText);
+		jQuery('#test_ajax_res').html(xhr.responseText);
 	});
 }
 	</pre><br>
@@ -443,7 +450,7 @@ class NekoController
 	<br>
 
 
-	<br><time>2020-7-23</time>
+	<br><time>2020-7-23 | 2022-1-21</time>
 </div>
 
 
