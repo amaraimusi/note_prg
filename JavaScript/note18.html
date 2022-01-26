@@ -566,11 +566,13 @@ if(window.confirm("あなたは猫を飼っていますか")){
 &lt;script src="JsQrEx.js"&gt;&lt;/script&gt;
 &lt;script src="script.js?v=1.0.1"&gt;&lt;/script&gt;
 ～略～
+&lt;div&gt;
+	&lt;input id="start_btn" type="button" value="スタート" onclick="start()" class="btn btn-primary"/&gt;
+	&lt;input id="stop_btn" type="button" value="停止" onclick="stop()"  style="display:none" class="btn btn-warning" /&gt;
+&lt;/div&gt;
+&lt;div&gt;QR読込URL→&lt;span id="res" class="text-success"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div id="qr_read_config"&gt;&lt;/div&gt;
 &lt;canvas id="qr_canvas"&gt;&lt;/canvas&gt;
-&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
-
-&lt;input type="button" value="スタート" onclick="start()" class="btn btn-primary"/&gt;
-&lt;input type="button" value="停止" onclick="stop()"  class="btn btn-warning" /&gt;
 	</code></pre>
 	<br>
 	
@@ -582,7 +584,7 @@ $(()=&gt;{
 });
 
 function callback(value){
-	$('#res').append(value + '&lt;br&gt;');
+	$('#res').html(value);
 	console.log(value);
 }
 
@@ -591,11 +593,16 @@ function errFunc(err){
 }
 
 function start(){
-	jsQrEx.start();
+	jsQrEx.start(()=&gt;{
+		$('#start_btn').hide();
+		$('#stop_btn').show();
+	}, errFunc);
 }
 
 function stop(){
 	jsQrEx.stop();
+	$('#start_btn').show();
+	$('#stop_btn').hide();
 }
 </code></pre>
 
@@ -603,7 +610,7 @@ function stop(){
 <br>
 
 
-	<br><time>2022-1-16</time>
+	<br><time>2022-1-16 | 2022-1-26</time>
 </div>
 
 
