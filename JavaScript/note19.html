@@ -309,6 +309,49 @@ class ModalCat{
 </div>
 
 
+<div id="sec19-3" class="sec4"  >
+	<h3>ポップアップ | PopupCat.js</h3>
+	
+	<a href="/sample/js/a015/popup_cat/popup_cat.html" class="btn btn-info">Demo</a>
+	<a href="https://github.com/amaraimusi/sample/tree/master/js/a015/popup_cat" target="_blank" class="btn btn-info">GitHub</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;script src="/note_prg/js/jquery.min.js"&gt;&lt;/script&gt;	
+	&lt;script src="PopupCat.js"&gt;&lt;/script&gt;
+	&lt;script src="script.js"&gt;&lt;/script&gt;
+
+	～略～
+	
+	&lt;div  id="example1" style="width:25vw;height:20vh;background-color:#b5cffb"&gt;あいうえお&lt;/div&gt;
+	&lt;button type="button" onclick="test1()"&gt;ポップアップを表示&lt;/button&gt;
+	</code></pre>
+	
+	<p>script.js</p>
+	<pre>
+let g_popupCat;
+$(()=>{
+
+	g_popupCat = new PopupCat();
+	g_popupCat.popupize('example1');
+	
+});
+
+function test1(){
+	
+	g_popupCat.pop(()=>{
+		alert('事後コールバック発動');
+	});
+
+}
+	</pre>
+
+
+	<br><time>2022-1-29</time>
+</div>
+
+
 <div id="sec19-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
