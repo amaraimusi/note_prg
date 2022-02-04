@@ -504,6 +504,107 @@ MAIL_FROM_NAME="サンプルシステム"
 </div>
 
 
+<div id="sec1-6" class="sec4">
+	<h3>Laravelでバッチ処理を作る | コンソール | コマンド | Command</h3>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+	
+		<li>
+			cdコマンドでプロジェクトのルートディレクトリへ移動する。
+		</li>
+	
+		<li>
+			ソースファイルを作成するコマンドを実行する。
+			<pre>php artisan make:command TestBatch</pre>
+			コマンド実行後、
+			「ルート/app/Console/Commands/TestBatch.php」が作成される。
+		</li>
+	
+		<li>
+		</li>
+	
+		<li>
+			ソースファイルを編集する<br>
+			ルート/app/Console/Commands/TestBatch.php<br>
+			<p>編集例</p>
+<pre>
+&lt;?php
+
+namespace App&yen;Console&yen;Commands;
+
+use Illuminate&yen;Console&yen;Command;
+<strong>use Illuminate¥Support¥Facades¥DB;</strong> // DBを扱えるようにする
+
+class TestBatch extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = <strong>'batch:test'</strong>; // コマンド名を定める。
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'テスト用バッチ'; // コマンド説明文
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function <strong>handle()</strong>
+    {
+        // ここに処理を記述する。
+        
+        echo 'バッチ処理を開始します。';
+        
+        // DBアクセスの例
+        <strong>$data = &yen;DB::select('select * from patients where id= 1');</strong>
+        var_dump($data);
+        
+        echo 'バッチ処理を終了しました。';
+        
+        return Command::SUCCESS;
+    }
+}
+
+</pre>
+		</li>
+	
+		<li>
+			バッチ処理を実行する。<br>
+			cdコマンドでプロジェクトのルートへ移動後、下記コマンドを実行する<br>
+			<pre>php artisan batch:test</pre>
+			
+		</li>
+	
+		<li>
+			CRONへの設定例
+			<pre>cd /home/ユーザー名/www/example/;php artisan batch:patient_reset</pre>
+			※さくらレンタルサーバーの場合
+		</li>
+		
+	</ol>
+
+	<br><time>2022-2-4</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
