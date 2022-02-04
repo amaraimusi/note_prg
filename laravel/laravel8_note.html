@@ -347,8 +347,8 @@ cd temp
 	<pre><code>
 	class Tanuki extends Model
 	{
-	    const CREATED_AT = 'created';
-	    const UPDATED_AT = 'modified';
+		const CREATED_AT = 'created';
+		const UPDATED_AT = 'modified';
 	}
 	</code></pre><br>
 	<hr>
@@ -389,45 +389,45 @@ cd temp
 	ルート\app\Http\Controllers\Auth\LoginController.php<br>
 	赤字のコードを追記する。
 	<pre>
-    use AuthenticatesUsers;
+	use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+	/**
+	 * Where to redirect users after login.
+	 *
+	 * @var string
+	 */
+	protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this-&gt;middleware('guest')-&gt;except('logout');
-    }
-    
-    <strong>
-    public function username()
-    {
-        return 'name';
-    }
-    
-    protected function attemptLogin($request)
-    {
-        $username = $request-&gt;input($this-&gt;username());
-        $password = $request-&gt;input('password');
-        
-        if (filter_var($username, &yen;FILTER_VALIDATE_EMAIL)) {
-            $credentials = ['email' =&gt; $username, 'password' =&gt; $password];
-        } else {
-            $credentials = [$this-&gt;username() =&gt; $username, 'password' =&gt; $password];
-        }
-        
-        return $this-&gt;guard()-&gt;attempt($credentials, $request-&gt;filled('remember'));
-    }</strong>
-    
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this-&gt;middleware('guest')-&gt;except('logout');
+	}
+	
+	<strong>
+	public function username()
+	{
+		return 'name';
+	}
+	
+	protected function attemptLogin($request)
+	{
+		$username = $request-&gt;input($this-&gt;username());
+		$password = $request-&gt;input('password');
+		
+		if (filter_var($username, &yen;FILTER_VALIDATE_EMAIL)) {
+			$credentials = ['email' =&gt; $username, 'password' =&gt; $password];
+		} else {
+			$credentials = [$this-&gt;username() =&gt; $username, 'password' =&gt; $password];
+		}
+		
+		return $this-&gt;guard()-&gt;attempt($credentials, $request-&gt;filled('remember'));
+	}</strong>
+	
 }
 	</pre>
 
@@ -435,39 +435,39 @@ cd temp
 <p>ルート\resources\views\auth\login.blade.php</p>
 	以下の部分だけ、emailとなっている箇所をnameに置換するだけ。
 	<pre>
-                        &lt;div class="form-group row"&gt;
-                            &lt;label for="<strong>name</strong>" class="col-md-4 col-form-label text-md-right"&gt;ユーザー名 / メールアドレス&lt;/label&gt;
+						&lt;div class="form-group row"&gt;
+							&lt;label for="<strong>name</strong>" class="col-md-4 col-form-label text-md-right"&gt;ユーザー名 / メールアドレス&lt;/label&gt;
 
-                            &lt;div class="col-md-6"&gt;
-                                &lt;input id="<strong>name</strong>" type="<strong>name</strong>" class="form-control @error('<strong>name</strong>') is-invalid @enderror" <strong>name</strong>="<strong>name</strong>" value="{{ old('<strong>name</strong>') }}" required autocomplete="<strong>name</strong>" autofocus&gt;
+							&lt;div class="col-md-6"&gt;
+								&lt;input id="<strong>name</strong>" type="<strong>name</strong>" class="form-control @error('<strong>name</strong>') is-invalid @enderror" <strong>name</strong>="<strong>name</strong>" value="{{ old('<strong>name</strong>') }}" required autocomplete="<strong>name</strong>" autofocus&gt;
 
-                                @error('<strong>name</strong>')
-                                    &lt;span class="invalid-feedback" role="alert"&gt;
-                                        &lt;strong&gt;{{ $message }}&lt;/strong&gt;
-                                    &lt;/span&gt;
-                                @enderror
-                            &lt;/div&gt;
+								@error('<strong>name</strong>')
+									&lt;span class="invalid-feedback" role="alert"&gt;
+										&lt;strong&gt;{{ $message }}&lt;/strong&gt;
+									&lt;/span&gt;
+								@enderror
+							&lt;/div&gt;
 
-                        &lt;/div&gt;
+						&lt;/div&gt;
 	</pre>
 	<br>
 	<p>修正前：login.blade.php</p>
 	参考までにlogin.blade.phpの修正前はこうなっている。<br>
 	<pre>
-                        &lt;div class="form-group row"&gt;
-                            &lt;label for="<strong>email</strong>" class="col-md-4 col-form-label text-md-right"&gt;{{ __('E-Mail Address') }}&lt;/label&gt;
+						&lt;div class="form-group row"&gt;
+							&lt;label for="<strong>email</strong>" class="col-md-4 col-form-label text-md-right"&gt;{{ __('E-Mail Address') }}&lt;/label&gt;
 
-                            &lt;div class="col-md-6"&gt;
-                                &lt;input id="<strong>email</strong>" type="<strong>email</strong>" class="form-control @error('<strong>email</strong>') is-invalid @enderror" name="<strong>email</strong>" value="{{ old('<strong>email</strong>') }}" required autocomplete="<strong>email</strong>" autofocus&gt;
+							&lt;div class="col-md-6"&gt;
+								&lt;input id="<strong>email</strong>" type="<strong>email</strong>" class="form-control @error('<strong>email</strong>') is-invalid @enderror" name="<strong>email</strong>" value="{{ old('<strong>email</strong>') }}" required autocomplete="<strong>email</strong>" autofocus&gt;
 
-                                @error('<strong>email</strong>')
-                                    &lt;span class="invalid-feedback" role="alert"&gt;
-                                        &lt;strong&gt;{{ $message }}&lt;/strong&gt;
-                                    &lt;/span&gt;
-                                @enderror
-                            &lt;/div&gt;
+								@error('<strong>email</strong>')
+									&lt;span class="invalid-feedback" role="alert"&gt;
+										&lt;strong&gt;{{ $message }}&lt;/strong&gt;
+									&lt;/span&gt;
+								@enderror
+							&lt;/div&gt;
 
-                        &lt;/div&gt;
+						&lt;/div&gt;
 	</pre>
 
 
@@ -538,49 +538,49 @@ use Illuminate&yen;Console&yen;Command;
 
 class TestBatch extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = <strong>'batch:test'</strong>; // コマンド名を定める。
+	/**
+	 * The name and signature of the console command.
+	 *
+	 * @var string
+	 */
+	protected $signature = <strong>'batch:test'</strong>; // コマンド名を定める。
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'テスト用バッチ'; // コマンド説明文
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'テスト用バッチ'; // コマンド説明文
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	/**
+	 * Create a new command instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function <strong>handle()</strong>
-    {
-        // ここに処理を記述する。
-        
-        echo 'バッチ処理を開始します。';
-        
-        // DBアクセスの例
-        <strong>$data = &yen;DB::select('select * from patients where id= 1');</strong>
-        var_dump($data);
-        
-        echo 'バッチ処理を終了しました。';
-        
-        return Command::SUCCESS;
-    }
+	/**
+	 * Execute the console command.
+	 *
+	 * @return int
+	 */
+	public function <strong>handle()</strong>
+	{
+		// ここに処理を記述する。
+		
+		echo 'バッチ処理を開始します。';
+		
+		// DBアクセスの例
+		<strong>$data = &yen;DB::select('select * from patients where id= 1');</strong>
+		var_dump($data);
+		
+		echo 'バッチ処理を終了しました。';
+		
+		return Command::SUCCESS;
+	}
 }
 
 </pre>
@@ -600,6 +600,134 @@ class TestBatch extends Command
 		</li>
 		
 	</ol>
+
+	<br><time>2022-2-4</time>
+</div>
+
+
+<div id="sec1-7" class="sec4"  >
+	<h3>Laravel8のCORS クロスドメインAJAX | 自作API</h3>
+	
+	基本的に通常のAjaxのやり方と同じ。<br>
+	通常のAjaxと異なる点
+	<ul>
+		<li>csrf_tokenは不要。</li>
+		<li>_methodをキーに値(getまたはpost)をセットしてAjax送信する必要がある。</li>
+		<li>cors.phpにパスの許可を記述。</li>
+	</ul>
+	
+	<br>
+	Laravel8からはCORSが簡単になっているとのこと。<br>
+	<br>
+	
+	<p>HTML</p>
+	<pre>
+	&lt;button type="button" class="btn btn-primary" onclick="corsTest();"&gt;CORSテスト&lt;/button&gt;
+	&lt;div id="err" class="text-danger"&gt;&lt;/div&gt;
+	&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	</pre>
+	
+	<p>JavaScript</p>
+	<pre>
+function corsTest(){
+	console.log('CORSテスト');
+	let sendData={neko_name:'cat&amp;dog%',same:{hojiro:'ホオジロザメ',shumoku:'シュモクザメ'}};
+	
+	let fd = new FormData();
+	
+	let send_json = JSON.stringify(sendData);//データをJSON文字列にする。
+	fd.append( "key1", send_json );
+	<strong>fd.append('_method','get');</strong> // Laravelでは_methodも送信しないとエラーになってしまう。
+	
+	
+	let ajax_url = "https://amaraimusi.sakura.ne.jp/crud_base_laravel8/dev/public/web_api/cors_test";
+	//let ajax_url = "http://localhost/crud_base_laravel8/dev/public/web_api/cors_test";
+	
+	// AJAX
+	jQuery.ajax({
+		type: "post",
+		url: ajax_url,
+		data: fd,
+		cache: false,
+		dataType: "text",
+		processData: false,
+		contentType : false,
+	})
+	.done((res_json, type) =&gt; {
+		let res;
+		try{
+			res =jQuery.parseJSON(res_json);//パース
+		}catch(e){
+			jQuery("#err").append(res_json);
+			return;
+		}
+		console.log(res);
+		$('#res').html(res.success);
+	})
+	.fail((jqXHR, statusText, errorThrown) =&gt; {
+		let errElm = jQuery('#err');
+		errElm.append('アクセスエラー');
+		errElm.append(jqXHR.responseText);
+		alert(statusText);
+	});
+}
+	</pre>
+	
+	<p>PHP コントローラクラス</p>
+	<pre>
+&lt;?php
+
+namespace App&yen;Http&yen;Controllers;
+use App&yen;Http&yen;Controllers&yen;AppController;
+use Illuminate&yen;Http&yen;Request;
+use App&yen;Models&yen;WebApi;
+use Illuminate¥Support¥Facades¥DB;
+
+class WebApiController extends AppController
+{
+
+	/**
+	 * APIテスト
+	 */
+	public function cors_test(){
+
+		$param_json = $_POST['key1'];
+		$param = json_decode($param_json,true);//JSON文字を配列に戻す
+		
+		$param['success'] = 'success';
+		
+		$json = json_encode($param, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+		return $json;
+
+	}
+}
+	</pre>
+	
+	<p>routes/web.php</p>
+	<pre><code>
+	Route::get('web_api/cors_test', 'App&yen;Http&yen;Controllers&yen;WebApiController@cors_test');
+	</code></pre>
+
+
+	<p>config/cors.php</p>
+	CORSにするための需要な設定。
+	<pre>
+	'paths' => ['<strong>web_api/cors_test</strong>' ,'api/*', 'sanctum/csrf-cookie'],
+
+	'allowed_methods' => ['*'],
+
+	'allowed_origins' => ['*'],
+
+	'allowed_origins_patterns' => [],
+
+	'allowed_headers' => ['*'],
+
+	'exposed_headers' => [],
+
+	'max_age' => 0,
+
+	'supports_credentials' => false,
+	</pre>
 
 	<br><time>2022-2-4</time>
 </div>
