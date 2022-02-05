@@ -413,8 +413,77 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec8-6-0" class="sec1" >
+	<h3>URLからクエリを抜き出す | GETパラメータ</h3>
+
+	<a href="/sample/js/a015/get_query_from_url/get_query_from_url.html">Demo</a><br>
+	<br>
+
+	HTML
+	<pre><code>
+&lt;input type="text" id="textbox1" value="https://example.com/animal?name=cat&amp;age=17&amp;hoge=abcd" style="width:100%"/&gt;&lt;br&gt;
+&lt;button type="button" onclick="test1()" class="btn btn-primary btn-sm"&gt;URLからクエリを抜き出す&lt;/button&gt;
+&lt;div id="res" class="text-success"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+function test1(){
+	let url = $('#textbox1').val();
+	
+	let param =getQueryFromURL(url);
+	
+	// 検証結果に出力
+	console.log(param);
+	let json_str = JSON.stringify(param);
+	$('#res').html(json_str);
+	
+}
+
+
+/**
+ * URLからクエリパラメータを抜き出す | URLからGETパラメータの取得
+ * @param url
+ * @return object URLクエリデータ
+ */
+function <strong>getQueryFromURL(url)</strong>{
+	
+	if (url==null || url==""){
+		return {};
+	}
+	
+	let a=url.indexOf('?');
+	let q_str =url.substring(a+1, url.length);
+		
+	if(q_str =='' || q_str==null) return {};
+	
+	q_str = q_str.substring(1, q_str.length);
+	let ary = q_str.split('&amp;');
+	let data = {};
+	for(let i=0 ; i&lt;ary.length ; i++){
+		let s = ary[i];
+		let prop = s.split('=');
+		data[prop[0]]=prop[1];
+	}	
+	
+	return data;
+}
+	</code></pre>
+
+	<time>2022-2-5</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec8-6" class="sec1" >
-	<h3>URLクエリを取得する | GETパラメータ</h3>
+	<h3>現在ページのURLクエリを取得する | GETパラメータ</h3>
 
 	URLクエリデータ（GETパラメータ）を取得する。
 	
