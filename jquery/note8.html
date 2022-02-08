@@ -37,6 +37,71 @@
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>jQuery要素とイベント削除、ならびにjQuery要素の再生成と再イベント登録を検証</h3>
+	
+	<a href="/sample/js/a015/delete_and_regenerate/delete_and_regenerate.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+&lt;button type="button" onclick="regenerate()" class="btn btn-success"&gt;要素生成&lt;/button&gt;
+&lt;button type="button" onclick="deleteElm()" class="btn btn-danger"&gt;要素削除&lt;/button&gt;
+&lt;div id="example"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+
+var jq_test1;
+
+function regenerate(){
+	
+	console.log('要素の生成');
+	
+	let html = `&lt;div id="test1" style="padding:20px;background-color:#d7eaf3"&gt;クリック&lt;/div&gt;`;
+	$('#example').html(html);
+	
+	jq_test1 = $('#test1');
+	
+	// 一つ目のイベントを追加
+	jq_test1.click((evt)=&gt;{
+			var elm = $(evt.currentTarget);
+			console.log('猫のエサ');
+			alert('猫のエサを犬にあげてはいけないわけではない。');
+		});
+	
+	// 二つ目のイベントを追加
+	jq_test1.click((evt)=&gt;{
+			var elm = $(evt.currentTarget);
+			console.log('ワンワン');
+			alert('ワンワン');
+		});
+	
+	
+	
+}
+
+
+function deleteElm(){
+	console.log('要素削除');
+	if(jq_test1){
+		jq_test1.remove();
+	}
+}
+	</code></pre>
+
+	<p>結論</p>
+	removeメソッドで要素を削除するとイベントも消えていると思われる。<br>
+	またhtml()メソッドで要素を再生成したときも、以前の要素はイベントごと消えているようだ。<br>
+	<br>
+	
+	
+
+	<br><time>2022-2-8</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
