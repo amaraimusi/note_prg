@@ -26,9 +26,9 @@
 
 
 <div id="sec19-1" class="sec4" >
-	<h3>静的テーブルのページネーション(Bootstrap4対応) | static_pagination_b4.js</h3>
+	<h3>ページネーション(Bootstrap4対応) | PaginationRain.js</h3>
 	
-	<a href="/sample/js/a014/static_pagination_b4/static_pagination_b4.html" class="btn btn-info">Demo</a><br>
+	<a href="/sample/js/a014/static_pagination_b4/v2/pagenation_rain.html" class="btn btn-info">Demo</a><br>
 	<br>
 	
 	<p>HTML</p>
@@ -37,7 +37,7 @@
 
 &lt;script src="jquery3.js"&gt;&lt;/script&gt;	&lt;!-- jquery-3.3.1.min.js --&gt;
 &lt;script src="bootstrap.bundle.min.js"&gt;&lt;/script&gt;
-&lt;script src="<strong>static_pagination_b4.js</strong>"&gt;&lt;/script&gt;
+&lt;script src="<strong>PaginationRain.js</strong>"&gt;&lt;/script&gt;
 &lt;script src="script.js"&gt;&lt;/script&gt;
 ～略～
 	
@@ -59,134 +59,44 @@
 		&lt;tr&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;両生類&lt;/td&gt;&lt;td&gt;サンショウウオ&lt;/td&gt;&lt;td&gt;イシヅチサンショウウオ&lt;/td&gt;&lt;td&gt;Hynobius hirosei&lt;/td&gt;&lt;td&gt;準絶滅危惧&lt;/td&gt;&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;hr&gt;
+
+&lt;button type="button" class="btn btn-warning btn-sm" onclick="remakeHtmlTbl()"&gt;テーブルを動的に作り直してからページネーションを再適用&lt;/button&gt;
+
 	</pre>
 
 	<p>JavaScript</p>
 	<pre><code>
+let paginationRain
 $(() =&gt;{
-
-	let staticPagenationB4 = new StaticPaginationB4();
-	staticPagenationB4.pagenation('tbl1',{cur_page_num:'last'});
-
+	paginationRain = new PaginationRain('tbl1',{cur_page_num:0, search_cols_str:'1,2,3'});
 });
-	</code></pre>
-	
-	<p>static_pagination_b4.js</p>
-	<pre><code>
 
-/**
- * 静的テーブルをページネーション化する。ページネーションはBootstrap4に対応
- * @since 2022-1-20
- * @license MIT
- * @auther amaraimusi
- * @version 1.0.0
- */
-class StaticPaginationB4{
-	
-	/**
-	 * 静的テーブルをページネーション化する
-	 * @param xid string テーブル要素のid属性値
-	 * @param {} param パラメータ
-	 * - visible_row_count 表示行数
-	 * - cur_page_num カレントページ番号	 0にすると先頭が初期アクティブ、任意の数値を入れるとそのぺージがアクティブ、 「last」入力すると最後のページがアクティブになる。
-	 * - pn_position ページネーションの位置 top:テーブルの上, bottom:テーブルの下(デフォルト)
-	 */
-	pagenation(xid, param){
-		
-		// パラメータにデフォルトをセット
-		if(param == null) param = {};
-		if(param.visible_row_count == null ) param.visible_row_count = 8; // 表示行数
-		if(param.cur_page_num == null) param.cur_page_num = 0; // 初期カレント行番号
-		if(param.pn_position == null ) param.pn_position = 'bottom'; // 表示行数
-		
-		param['xid'] = xid;
-		
-		let visible_row_count = param.visible_row_count;
-		let pn_position = param.pn_position;
-		
-		let tbl = jQuery('#' + xid);
-		let trs = tbl.find('tbody tr');
-		let num_rows = trs.length;
-		if(num_rows == 0) return; //行数が0件ならページネーション作成を中断
-		
-		param['num_rows'] = num_rows; // 全行数
-		param['all_page_count'] = Math.ceil(num_rows / visible_row_count); // 全ページ数
-		
-		// 初期カレントページにlast(最終ページ)が指定されている場合、最終ページ番号をセットする
-		if(param.cur_page_num == 'last'){
-			param.cur_page_num = param.all_page_count - 1;
-		}
-		let cur_page_num = param.cur_page_num;
 
-		// テーブルに適用する
-		this._applyToTable(trs, cur_page_num, visible_row_count);
-		
-		// ページネーションHTMLを作成する。
-		let pg_html = this._createPagenationHtml(param);
-		
-		tbl.after(pg_html);
-		
-		// ページネーションにクリックイベントを追加する
-		this._bindClickPagenation(param); 
-		
-		this.param = param;
-		this.trs =trs;
+function remakeHtmlTbl(){
+	let trs_html = '';
+	for(let i=0;i&lt;40;i++){
+		trs_html += `
+			&lt;tr&gt;
+				&lt;td&gt;${i}&lt;/td&gt;
+				&lt;td&gt;テスト&lt;/td&gt;
+				&lt;td&gt;種別${i}&lt;/td&gt;
+				&lt;td&gt;テストネーム${i}&lt;/td&gt;
+				&lt;td&gt;Sample&lt;/td&gt;
+				&lt;td&gt;XXX&lt;/td&gt;
+			&lt;/tr&gt;
+			`;
 	}
-	
-	/**
-	 * テーブルに適用する
-	 * @param trs TR群要素
-	 * @param cur_page_num カレントページ番号
-	 * @param visible_row_count 表示行数
-	 */
-	_applyToTable(trs, cur_page_num, visible_row_count){
-		trs.hide().slice(cur_page_num * visible_row_count, (cur_page_num + 1) * visible_row_count).show();
-	}
-	
-	
-	// ページネーションHTMLを作成する。
-	_createPagenationHtml(param){
-		
-		let items_html = '';
-		for(let page_no=0; page_no &lt; param.all_page_count; page_no++){
-			
-			let active_str = '';
-			if(page_no == param.cur_page_num) active_str = 'active';
-			items_html += `&lt;li class="page-item ${active_str}"&gt;&lt;span class="page-link"&gt;${page_no + 1}&lt;/span&gt;&lt;/li&gt;`;
-		}
-		
-		let html = `&lt;ul id="${param.xid}_pagenation" class="pagination"&gt;${items_html}&lt;/ul&gt;`;
-		
-		return html;
-	}
-	
-	// ページネーションにクリックイベントを追加する
-	_bindClickPagenation(param){
-		let pgItems = jQuery(`#${param.xid}_pagenation li`);
-		this.pgItems = pgItems;
-		pgItems.each((i,elm) =&gt; {
-			
-				// ページ番号要素をクリックしたときのイベント
-				jQuery(elm).click(evt=&gt;{
-					this.pgItems.removeClass('active');
-					let cur_page_num = this.param.cur_page_num;
-					let visible_row_count = this.param.visible_row_count;
-					cur_page_num = i;
-					this._applyToTable(this.trs, cur_page_num, visible_row_count);
-					this.param.cur_page_num = cur_page_num;
-					
-					var item = $(evt.currentTarget);
-					item.addClass('active');
-					
-				});
-			});
-		
-	}
-	
+	$('#tbl1 tbody').html(trs_html);
+	paginationRain.refresh();
 }
 	</code></pre>
+	
+	<a href="https://github.com/amaraimusi/sample/blob/master/js/a014/static_pagination_b4/v2/PaginationRain.js" target="_blank" class="btn btn-info">PaginationRain.js</a><br>
+	<br>
 
-	<br><time>2022-1-21</time>
+	<br><time>2022-1-21 | 2022-2-9</time>
 </div>
 
 
