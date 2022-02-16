@@ -416,7 +416,7 @@
 <div id="sec8-6-0" class="sec1" >
 	<h3>URLからクエリを抜き出す | GETパラメータ</h3>
 
-	<a href="/sample/js/a015/get_query_from_url/get_query_from_url.html">Demo</a><br>
+	<a href="/sample/js/a015/get_query_from_url/get_query_from_url.html" class="btn btn-info">Demo</a><br>
 	<br>
 
 	HTML
@@ -457,7 +457,6 @@ function <strong>getQueryFromURL(url)</strong>{
 		
 	if(q_str =='' || q_str==null) return {};
 	
-	q_str = q_str.substring(1, q_str.length);
 	let ary = q_str.split('&amp;');
 	let data = {};
 	for(let i=0 ; i&lt;ary.length ; i++){
@@ -470,7 +469,7 @@ function <strong>getQueryFromURL(url)</strong>{
 }
 	</code></pre>
 
-	<time>2022-2-5</time>
+	<time>2022-2-5 | 2022-2-16</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
