@@ -278,6 +278,87 @@ class Animal{
 </div>
 
 
+<div id="sec19-3-2" class="sec4" >
+	<h3>時間差ポップアップ | ポップアップを追加してブラウザリロードした後、ポップアップを表示</h3>
+	<a href="/sample/js/a015/popup_cat/popup_lion.html" class="btn btn-info">Demo</a>
+	<a href="https://github.com/amaraimusi/sample/tree/master/js/a015/popup_cat" target="_blank" class="btn btn-info">GitHub PopupLion.js</a>
+	<br><br>
+	
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;	
+&lt;script src="PopupCat.js"&gt;&lt;/script&gt;
+&lt;script src="PopupLion.js"&gt;&lt;/script&gt;
+	～ 略 ～
+	
+&lt;div&gt;
+	&lt;button type="button" onclick="addPopupCat('赤猫', 4)" class="btn btn-primary"&gt;赤猫&lt;/button&gt;
+	&lt;button type="button" onclick="addPopupCat('灰猫', 2)" class="btn btn-primary"&gt;灰猫&lt;/button&gt;
+	&lt;button type="button" onclick="addPopupCat('猫年寄り', 17)" class="btn btn-primary"&gt;猫年寄り&lt;/button&gt;
+	&lt;button type="button" onclick="addPopupCat('茶白', 5)" class="btn btn-primary"&gt;茶白&lt;/button&gt;
+	&lt;button type="button" onclick="addPopupDog('おじいさんの犬', '臭くない')" class="btn btn-primary"&gt;おじいさんの犬&lt;/button&gt;
+	&lt;button type="button" onclick="addPopupDog('きれいな犬', '臭い')" class="btn btn-primary"&gt;きれいな犬&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div style="margin-top:30px;"&gt;
+	&lt;button type="button" onclick="releasePopup()" class="btn btn-success"&gt;ポップアップを解放表示する&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div  id="example1" style="padding:20px;width:25vw;height:25vh;background-color:#b5cffb;display:none"&gt;
+	&lt;div&gt;猫名：&lt;span id="cat_name"&gt; - &lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;年齢：&lt;span id="cat_age"&gt; - &lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div  id="example2" style="padding:20px;width:30vw;height:20vh;background-color:#b0da98;display:none"&gt;
+	&lt;div&gt;イヌ名：&lt;span id="dog_name"&gt; - &lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;臭さ：&lt;span class="smell"&gt; - &lt;/span&gt;&lt;span class="smell text-primary"&gt; - &lt;/span&gt;&lt;span class="smell text-danger"&gt; - &lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+
+let g_popupLion;
+$(()=&gt;{
+
+	g_popupLion = new PopupLion();
+	
+	g_popupLion.releasePopup();
+	
+});
+
+// ポップアップを追加する
+function addPopupCat(cat_name, cat_age){
+	let data = [
+		{'jq_slt':'#cat_name','value':cat_name},
+		{'jq_slt':'#cat_age','value':cat_age},
+	];
+	g_popupLion.addPopup('example1', data);
+}
+
+
+function addPopupDog(dog_name, smell){
+	let data = [
+		{'jq_slt':'#dog_name','value':dog_name},
+		{'jq_slt':'.smell','value':smell},
+	];
+
+	g_popupLion.addPopup('example2', data);
+}
+
+// ポップアップをリリースする
+function releasePopup(){
+	g_popupLion.releasePopup();
+	
+}
+	</code></pre>
+
+
+	<br><time>20222-17</time>
+</div>
+
+
 <div id="sec19-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
