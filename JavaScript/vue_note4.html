@@ -903,6 +903,19 @@ jQuery(()=&gt;{
 </div>
 
 
+<div id="sec4-8" class="sec4" >
+	<h3>要素のインナー(innner)に値を表示 {{hoge}} v-html, v-text</h3>
+	
+	<pre><code>
+  &lt;p v-html="message"&gt;&lt;/p&gt; ← HTMLのタグを含む値表示（XSS注意）
+  &lt;p v-text="message"&gt;&lt;/p&gt; ← XSSサニタイズして表示
+  &lt;p&gt;{{message}}&lt;/p&gt; ← v-textと同じ
+	</code></pre>
+
+	<br><time>2022-2-21</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
