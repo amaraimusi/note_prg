@@ -733,6 +733,35 @@ class WebApiController extends AppController
 </div>
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>パスワードをハッシュ化する | パスワードがハッシュと一致するかの確認</h3>
+	<p>パスワードをハッシュ化する</p>
+	<pre><code>
+	$pw = 'abcd1234';
+	$hash = \Hash::make('abcd1234'); // パスワードをハッシュ化する。
+	</code></pre>
+	$hashの値をusersテーブルのpasswordフィールドにDB保存すること。<br>
+	ハッシュ化した値は実行するたびに毎回異なる。なのでパスワード一致を確認したい場合、下記の「\Hash::check」を利用すること。<br>
+	<br>
+
+	<p>パスワードがハッシュと一致するかの確認</p>
+	<pre>\Hash::check(パスワード, ハッシュ)</pre>
+	<pre><code>
+	if (\Hash::check('abcd1234', '$2y$10$deYZpmp9luNvKpxt2KN8KOED09XNPmJy4beLrJkyqyOYpS9A9Q2U.')) {
+	    echo 'YES';
+	}else{
+	    echo 'No';
+	}
+	</code></pre><br>
+	<br>
+	
+	<a href="https://readouble.com/laravel/8.x/ja/hashing.html" target="_blank" >公式資料</a><br>
+	<br>
+
+	<br><time>2022-2-23</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
