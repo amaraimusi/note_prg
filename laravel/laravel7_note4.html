@@ -347,7 +347,7 @@
 	<pre>
 	&lt;input type="button" value="test_ajax" onclick="test_ajax()" /&gt;
 	&lt;input type="hidden" id="csrf_token" value="<strong>{{ csrf_token() }}</strong>" &gt;
-	&lt;div id="test_ajax_res"&gt;&lt;/div&gt;
+	&lt;div id="err" class="text-danger" &gt;&lt;/div&gt;
 	</pre>
 	<aside>
 		※　「csrf_token()」はCSRFトークンを取得するLaravelの標準関数。CSRFトークンはAjaxに関わるセキュリティに関わるもので、Laravelでは必須である。<br>
@@ -383,31 +383,33 @@ function test_ajax(){
 		// 419エラーならトークンの期限切れの可能性のためリロードする（トークンの期限は2時間）
 		if(xhr.status == 419)  location.reload(true);
 
-		console.log('レスポンスOK');
-		let data = null;
+		let res = null;
 		try{
-			data =jQuery.parseJSON(str_json);//パース
-			console.log(data);
+			res =jQuery.parseJSON(str_json); //パース
 		}catch(e){
-			alert('データのエラー:' + str_json);
+			alert('バックエンド側のエラー');
 			console.log(str_json);
+			$('#err').text(str_json);
 			return;
 		}
 		
-		let res = '';
-		for(let field in data){
-			res += field + ' = ' + data[field] + '&lt;br&gt;';
+		if(res.err_msg == 'logout') location.reload(true); // すでにログアウトになっているならブラウザをリロードする。
+		if(res.err_msg) {
+			console.log(res.err_msg);//■■■□□□■■■□□□
+			return;
 		}
-		jQuery('#test_ajax_res').html(res);
+			
+		console.log(res);//■■■□□□■■■□□□
 
 	}).fail((xhr, status, errorThrown) =&gt; {
 	
 		// 419エラーならトークンの期限切れの可能性のためリロードする（トークンの期限は2時間）
 		if(xhr.status == 419)  location.reload(true);
+		alert('通信エラー');
+		console.log(status);
+		console.log(xhr.responseText);
+		$('#err').text(xhr.responseText);
 		
-		alert(status);
-		console.log('通信エラー');
-		jQuery('#test_ajax_res').html(xhr.responseText);
 	});
 }
 	</pre><br>
@@ -423,13 +425,16 @@ class NekoController
 
 	public function <strong>testAjax</strong>(){
 		
-		$json=$_POST['key1'];
-		$data = json_decode($json,true);
- 		$data['name'] = '新しい猫';
- 		$data['age'] = 1;
- 		$data['date'] = '2020-7-23';
+		// すでにログアウトになったらlogoutであることをフロントエンド側に知らせる。
+		if(\Auth::id() == null) return json_encode(['err_msg'=>'logout']);
 		
- 		$json = json_encode($data, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+		$json=$_POST['key1'];
+		$res = json_decode($json,true);
+ 		$res['name'] = '新しい猫';
+ 		$res['age'] = 1;
+ 		$res['date'] = '2020-7-23';
+		
+ 		$json = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
 
 		return $json;
 	}
