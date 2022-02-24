@@ -399,6 +399,32 @@
 
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>パスワードのバリデーション | password</h3>
+	
+	HTML
+	<pre><code>
+	&lt;input type="password" value="" pattern="<strong>^[0-9A-Za-z]{8,24}</strong>" required  maxlength="24"  class="valid form-control" title="8～24文字の半角英数字で入力してください。" /&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+		let err_msg = '';
+		if(!$('#old_pw')[0].checkValidity()){
+			err_msg = 'パスワードは8～24文字の半角英数字で入力してください。';
+		}
+	</code></pre>
+	
+	<br><time>2022-2-24</time>
+</div>
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
