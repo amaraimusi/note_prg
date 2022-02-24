@@ -425,6 +425,37 @@
 
 
 
+<div id="sec1-9" class="sec4">
+	<h3>8文字以上且つ空入力可能</h3>
+	
+	<a href="/sample/js/a015/any_char_more_blank_input/any_char_more_blank_input.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	HTML
+	<pre><code>
+	&lt;input type="text" id="pw1" value="" pattern="^[0-9A-Za-z]{8,24}" value=""  maxlength="24"  class="valid form-control" title="8～24文字の半角英数字で入力してください。" /&gt;
+	</code></pre>
+	
+	JavaScript
+	<pre><code>
+		let err_msg = 'エラーなし';
+		if(!$('#pw1')[0].checkValidity()){
+			err_msg = 'パスワードは8～24文字の半角英数字で入力してください。';
+		}
+		$('#res').html(err_msg);
+	</code></pre>
+	
+	<br><time>2022-2-24</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
