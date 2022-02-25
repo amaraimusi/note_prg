@@ -445,6 +445,86 @@
 <!-- --------------------------------------------------------------- -->
 
 
+<div id="sec1-12" class="sec4">
+	<h3>動的にセレクトボックスの選択肢を変更する | SELECTの動的変更</h3>
+	
+	<a href="/sample/js/a015/dynamic_select/dynamic_select.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;select  id="select1" onchange="selectChange()" &gt;&lt;/select&gt;&lt;br&gt;
+	&lt;button type="button" class="btn btn-primary" onclick="dynamicChange(1)"&gt;選択肢変更1&lt;/button&gt;
+	&lt;button type="button" class="btn btn-primary" onclick="dynamicChange(2)"&gt;選択肢変更2&lt;/button&gt;
+	&lt;div id="res"&gt;&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	let g_value;
+	
+	function dynamicChange(no){
+		
+		let options = getOptions(no);
+		
+		let options_str = '';
+		for(let key in options){
+			let name = options[key];
+			options_str += `&lt;option value='${key}'&gt;${name}&lt;/option&gt;`;
+		}
+		
+		$('#select1').html(options_str);
+		
+		$('#select1').val(g_value);
+		
+	}
+	
+	function getOptions(no){
+		let options = null;
+		if(no==1){
+			options = {
+				'kani':'カニ',
+				'neko':'ネコ',
+				'buta':'ブタ',
+				'sika':'シカ',
+				'wani':'ワニ',
+			};
+			
+		}else if(no==2){
+			options = {
+				'hiratakuwagata':'ヒラタクワガタ',
+				'miyamakuwagata':'ミヤマクワガタ',
+				'neko':'ネコ',
+			};
+			
+		}
+		
+		return options;
+		
+	}
+	
+	function selectChange(){
+		let value = $("#select1").val();
+		$('#res').html(value);
+		g_value = value;
+	}
+
+	</code></pre>
+	
+	
+
+	<time>2022-2-25</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+	<time>xxx</time>
+</div>
+
+
 
 
 
