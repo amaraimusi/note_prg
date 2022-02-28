@@ -762,6 +762,25 @@ class WebApiController extends AppController
 </div>
 
 
+<div id="sec1-9" class="sec4" >
+	<h3>ルートパス(基本URL)を取得 | cssファイルやjsファイル読み込み用</h3>
+
+	<p>Laravelにおけるcssファイルやjsファイル読込用の基本URL（ルートパス）を取得する方法</p>
+	
+	Laravelの場合、下記のindex.phpが起点になっている。このファイルに基本URL取得処理を記述すると良い。
+	/プロジェクト名/dev/public/index.php
+	<pre>$base_url = rtrim(dirname($_SERVER["SCRIPT_NAME"]), '/'); // → /プロジェクト名/dev/public</pre>
+
+	<p>補足情報</p>
+	下記はほぼ同じなのだが、PHP_SELFはWEBクエリ部分（?以降）にXSSの脆弱性があるとのこと。なのでSCRIPT_NAMEを利用する。<br>
+	$_SERVER['SCRIPT_NAME']<br>
+	$_SERVER['PHP_SELF']<br>
+	<br>
+	
+	<br><time>2022-2-28</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
