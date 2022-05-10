@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ServiceWorkerの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>ServiceWorkerの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>ServiceWorker（サービスワーカー）とは何か</h3>
+	
+	<ul class="">
+		<li>
+			サービスワーカー(Service Worker)は「サービスワーカー API」と呼ばれる技術。
+		</li>
+		
+		<li>
+			サービスワーカーはPUSH通知などの通知機能で真価を発揮する。
+		</li>
+		
+		<li>
+			サービスワーカーはフロントエンドとバックエンドの中間に位置する処理である。
+			フロントエンドはサービスワーカーと通信、サービスワーカーはバックエンドと通信という振る舞いになる。この振る舞いを利用し、オフラインでも動作するWEBアプリを作れる。
+			
+		</li>
+		
+		<li>
+			サービスワーカーは「Service Worker スクリプト」などと呼ばれるJavaScriptファイルに処理を記述する。JavaScriptファイルを指してサービスワーカーと呼ぶこともある。
+
+		</li>
+		
+		<li>
+			サービスワーカーのスクリプトファイルはJavaScriptファイルの形を取るが、通常のJavaScriptとは別物である。独自のイベントが存在する。
+
+		</li>
+		
+		<li>
+			サービスワーカーはエンドユーザー（クライアントなどの一般利用者）のPC, スマホ, タブレットで動く。正確にはモダンブラウザ（Chrome, Edgeなど）の内部でサービスワーカーは動作する。
+
+		</li>
+		
+		<li>
+			サービスワーカーのpushイベントが従来のWEB技術にはない真新しい技術。バックエンド側から発火した命令を受信してイベントを起こすという優れモノ。PUSH通知に応用される。
+
+		</li>
+		
+		<li>
+			エンドユーザーが許可しないとサービスワーカーは利用できない。エンドユーザー側で許可、不許可を制御できる。
+
+		</li>
+		
+		<li>
+			XHRなどのAjaxが使えない。代わりにfetchイベントを使う。
+
+		</li>
+		
+		<li>
+			HTTPS通信でしか動作しないが例外的にlocalhostでも動作する。これは開発に便利だ。
+
+		</li>
+		
+		<li>
+			WEBストレージは使用できない。代わりにCache、CacheStorageなるものが用意されているようだ。
+
+		</li>
+		
+		<li>
+			フロントエンド側とサービスワーカーでのデータやりとりにはmessage イベントが使われる。
+		</li>
+		
+	</ul>
+
+
+	<br><time>2022-1-4</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-1-4</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>ServiceWorkerの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-5-10</div>
+</body>
+</html>
