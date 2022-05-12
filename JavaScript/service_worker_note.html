@@ -95,6 +95,81 @@
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>ServiceWorkerの基本 | messageイベント</h3>
+	
+	<a href="/sample/js/a015/service_worker/demo1/demo1.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;button type="button" class="btn btn-primary" onclick="test1();"&gt;テスト1&lt;/button&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+$(()=&gt;{
+	if (navigator.serviceWorker) {
+	  navigator.serviceWorker.register('./sw.js', { scope: './' })
+	  .then(function(reg) {
+		console.log('Service workerの登録に成功しました。 Scope は ' + reg.scope);
+	  }).catch(function(error) {
+		console.log('Service workerの登録に失敗しました。' + error);
+	  });
+
+	  navigator.serviceWorker.addEventListener('message', event =&gt; {
+		// event は MessageEvent オブジェクトです
+		console.log(`${event.data}はおいしい`);
+	  });
+	
+	}
+	
+})
+
+
+function test1(){
+
+		// ServiceWorkerにメッセージを送信する
+	  navigator.serviceWorker.ready.then( registration =&gt; {
+		let msg1 = 'ウナギ';
+		console.log(msg1);
+		registration.active.postMessage(msg1);
+	  });
+
+}
+	</code></pre>
+	
+	<p>サービスワーカー(sw.js)</p>
+	<pre><code>
+// Service Worker インストール時に実行される
+self.addEventListener('install', (event) =&gt; {
+	console.log('service worker install');
+});
+
+// Service Worker アクティベート時に実行される
+self.addEventListener('activate', (event) =&gt; {
+  console.info('activate', event);
+});
+
+self.addEventListener('fetch', (event) =&gt; {
+	console.log('service worker fetch ... ' + event.request);
+});
+
+// サービスワーカー内
+self.addEventListener('message', event =&gt; {
+  // event は ExtendableMessageEvent オブジェクトです
+ let msg2 = `${event.data}のエサ`;
+ console.log(msg2);
+
+  event.source.postMessage(msg2);
+});
+	</code></pre>
+
+
+	<br><time>2022-5-13</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
