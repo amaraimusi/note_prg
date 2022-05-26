@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>2022年5月時点のWindows10 HOMEエディションでDockerを動かす | Laradocインストールまで | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>2022年5月時点のWindows10 HOMEエディションでDockerを動かす | Laradocインストールまで | ワクガンス</h1></div>
+<div class="container">
+
+
+<div class="text-danger">当記事は記述中... 2022-5-16</div>
+
+<p>はじめに</p>
+Docker for Windowsは何度も仕様が変わっているアプリである。
+2022年の2月頃、Windows10 HOMEエディションでDocker for Windowsを動かそうとしたが、Docker startがどうしても動いてくれず結局断念した。<br>
+そして2022年5月、再びDocker for Windowsをインストールした。なんとUIが大幅に変わっている。Docker startにも成功した。
+しかし、また使えなくなることもあるかもしれない。<br>
+<br>
+
+<p>必要な知識</p>
+DockerとDocker Composeで何度も試行錯誤をしたことがあること。<br>
+<br>
+
+<p>なぜDockerなのか。</p>
+開発環境構築を楽にしたい。というのが一般論。実際はDockerそのものに苦しめられる。<br>
+他の開発者のために開発環境構築手順書を書かねばならない時に便利。<br>
+正直、xamppで十分なのだが、2022年現在、時世がこれを許さず。<br>
+<br>
+
+
+<p>Laradockについて</p>
+LaravelだけにとどまらないPHP開発者に役立つパッケージらしい。正直こうゆうのを切望していた。
+xamppのように簡単に開発環境を構築できることを期待する。
+マウント(DockerではVolumeとか呼ばれている)とか大丈夫なのかな。<br>
+<br>
+
+
+
+
+
+
+
+<p>Docker for Windowsのインストール</p>
+
+下記のページから 「Docker Desktop for Windows」をダウンロードした。<br>
+<a href="https://docs.docker.com/desktop/windows/install/">https://docs.docker.com/desktop/windows/install/</a><br>
+<br>
+
+インストールは簡単になっている。ダウンロードした「Docker Desktop Installer.exe」を実行するだけだ。<br>
+Assept(同意）にチェックを入れるくらいで、道なりに進めていくだけ。
+
+初回のDocker startには数分の時間がかかる。（Docker starting ... という表示が数分続く）
+
+Docker start成功後、コマンドラインツールを起動し、適当なdockerコマンドを実行してエラーにならなければ成功。
+docker image list
+
+ちなみにDocker for windowsを立ち上げないで、コマンドラインツールでdockerコマンドを実行しようとすると以下のようなエラーが出る。
+<pre>
+error during connect: This error may indicate that the docker daemon is not runn
+ing.
+</pre>
+
+
+
+Laradocの入手とインストール
+
+Dockerhubのサイトで「laradoc」を検索するとたくさん出てくる。どれが公式かわからない。
+https://hub.docker.com/
+
+Laradocの公式サイトを見つけた。
+https://laradock.io/getting-started/#installation
+
+インストール方法が書かれているようだが、よく知らないやり方だ。
+ほしいのはLaradocのイメージ情報なのだが見つからない。
+とはいえ、手がかりになりそうな文字を見つけた。
+git clone https://github.com/laradock/laradock.git
+
+コマンドラインツール(Git Bash)を立ち上げ下記コマンドを実行してインストールする。
+cd /C/Users/user/git
+git clone https://github.com/laradock/laradock.git
+
+早速、インストールしたファイル群を見て手がかりがないか調べる。
+「docker-compose.yml」が見つかった。
+これは多分、Docker Composeのものだな。
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/docker/">Dockerの覚書</a></li>
+	<li>2022年5月時点のWindows10 HOMEエディションでDockerを動かす | Laradocインストールまで</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-5-16</div>
+</body>
+</html>
