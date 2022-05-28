@@ -88,10 +88,14 @@
 			フロントエンド側とサービスワーカーでのデータやりとりにはmessage イベントが使われる。
 		</li>
 		
+		<li>
+			動作検証はChromeのシークレットモードが便利。activeイベントなどを検証できる。
+		</li>
+		
 	</ul>
 
 
-	<br><time>2022-1-4</time>
+	<br><time>2022-5-10 | 2022-5-28</time>
 </div>
 
 
@@ -110,17 +114,17 @@
 	<pre><code>
 $(()=&gt;{
 	if (navigator.serviceWorker) {
-	  navigator.serviceWorker.register('./sw.js', { scope: './' })
-	  .then(function(reg) {
+	 navigator.serviceWorker.register('./sw.js', { scope: './' })
+	 .then(function(reg) {
 		console.log('Service workerの登録に成功しました。 Scope は ' + reg.scope);
-	  }).catch(function(error) {
+	 }).catch(function(error) {
 		console.log('Service workerの登録に失敗しました。' + error);
-	  });
+	 });
 
-	  navigator.serviceWorker.addEventListener('message', event =&gt; {
+	 navigator.serviceWorker.addEventListener('message', event =&gt; {
 		// event は MessageEvent オブジェクトです
 		console.log(`${event.data}はおいしい`);
-	  });
+	 });
 	
 	}
 	
@@ -129,12 +133,12 @@ $(()=&gt;{
 
 function test1(){
 
-		// ServiceWorkerにメッセージを送信する
-	  navigator.serviceWorker.ready.then( registration =&gt; {
+	// ServiceWorkerにメッセージを送信する
+	 navigator.serviceWorker.ready.then( registration =&gt; {
 		let msg1 = 'ウナギ';
 		console.log(msg1);
 		registration.active.postMessage(msg1);
-	  });
+	 });
 
 }
 	</code></pre>
@@ -146,7 +150,7 @@ self.addEventListener('install', (event) =&gt; {
 	console.log('service worker install');
 });
 
-// Service Worker アクティベート時に実行される
+// 初回の画面表示のときに表示されるようだ。2回目以降の画面表示からは実行されない。installイベントが完了後にactivateイベントが発生する。
 self.addEventListener('activate', (event) =&gt; {
   console.info('activate', event);
 });
@@ -166,7 +170,7 @@ self.addEventListener('message', event =&gt; {
 	</code></pre>
 
 
-	<br><time>2022-5-13</time>
+	<br><time>2022-5-13 | 2022-5-28</time>
 </div>
 
 
