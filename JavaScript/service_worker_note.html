@@ -89,7 +89,8 @@
 		</li>
 		
 		<li>
-			動作検証はChromeのシークレットモードが便利。activeイベントなどを検証できる。
+			動作検証はChromeのシークレットモードが便利。activeイベントなどを検証できる。<br>
+			通常モードでスーパーリロードでもactiveイベントを動かすことができるが、動作しないこともある。<br>
 		</li>
 		
 	</ul>
@@ -174,11 +175,167 @@ self.addEventListener('message', event =&gt; {
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>fetchイベント</h3>
+	
+	<a href="/sample/js/a015/service_worker/demo3/demo3.html" class="btn btn-info">Demo3</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;div&gt;
+サービスワーカーを介さず直接フロントエンドからバックエンドのFetch APIによる非同期通信をする。（いつもの非同期通信）
+するとサービスワーカー内のfetchイベントが発動する。&lt;br&gt;
+&lt;button type="button" class="btn btn-primary" onclick="test2();"&gt;テスト2:fetchのテスト&lt;/button&gt;
+&lt;aside&gt;
+（ログはブラウザのコンソールに出力。Windows+ChromeならF12キーでレスポンスを確認してね。）
+&lt;/aside&gt;
+&lt;/div&gt;
+
+&lt;div style="margin-top:2em;"&gt;
+サービスワーカーからバックエンドへFetch APIによる非同期通信を行う。
+サービスワーカーからも非同期通信ができることができる。ただし、Fetch APIしか使えず従来のXHRは使えない。&lt;br&gt;
+なお、この非同期通信を行ったときもサービスワーカー内のfetchイベントが発動する。&lt;br&gt;
+&lt;button type="button" class="btn btn-primary" onclick="test3();"&gt;テスト3:fetchのテスト&lt;/button&gt;
+&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript(script.js)</p>
+	<pre><code>
+$(()=&gt;{
+	if (navigator.serviceWorker) {
+	  navigator.serviceWorker.register('./sw.js', { scope: './' })
+	  .then(function(reg) {
+		console.log('Service workerの登録に成功しました。 Scope は ' + reg.scope);
+	 }).catch(function(error) {
+		console.log('Service workerの登録に失敗しました。' + error);
+	 });
+
+	  navigator.serviceWorker.addEventListener('message', event =&gt; {
+		// event は MessageEvent オブジェクトです
+		console.log(`${event.data}はおいしい`);
+	 });
+	
+	}
+	
+})
+
+
+function test1(){
+
+		// ServiceWorkerにメッセージを送信する
+	 navigator.serviceWorker.ready.then( registration =&gt; {
+		let msg1 = 'ウナギ';
+		console.log(msg1);
+		registration.active.postMessage(msg1);
+	  });
+
+}
+
+// fetchのテスト
+function test2(){
+	$('#res').html('abc');
+	fetch("./backend.php")
+	  .then(response =&gt; {
+		console.log('response');
+		console.log(response);
+		return response.json();
+	  })
+	  .then(data =&gt; {
+		console.log('data');
+		console.log(data);
+		$('#res').html(JSON.stringify(data));
+	  })
+	  .catch(error =&gt; {
+		console.log(error);
+		console.log("失敗しました");
+	});
+
+}
+
+function test3(){
+
+	// ServiceWorkerにメッセージを送信する
+	 navigator.serviceWorker.ready.then( registration =&gt; {
+		let msg1 = 'test3_action';
+		console.log(msg1);
+		registration.active.postMessage(msg1);
+	  });
+
+}
+	</code></pre>
+	
+	<p>サービスワーカー sw.js</p>
+	<pre><code>
+// Service Worker インストール時に実行される
+self.addEventListener('install', (event) =&gt; {
+	console.log('service worker install. demo3.');
+});
+
+// installイベント後に実行される。基本的に初回アクセスの時にのみ実行。
+self.addEventListener('activate', (event) =&gt; {
+	console.log('activate', event);
+});
+
+// cssやjsなどファイル読み込み、Fetch APIによる非同期通信時
+self.addEventListener('fetch', (event) =&gt; {
+	console.log('service worker fetch ');
+	console.log(event.request);
+});
+
+// フロントエンドとサービスワーカーでのやりとりはここで行う。
+self.addEventListener('message', event =&gt; {
+	// event は ExtendableMessageEvent オブジェクトです
+	let msg2 = `${event.data}のエサ3-2`;
+	console.log(msg2);
+	
+	if(event.data == 'test3_action'){
+		console.log('test3_action　2');
+		
+		// サービスワーカー内ではもFetch APIが使用可能である。
+		fetch("./backend.php")
+		  .then(response =&gt; {
+			console.log('response');
+			console.log(response);
+			return response.json();
+		  })
+		  .then(data =&gt; {
+			console.log('data');
+			console.log(data);
+			
+		  })
+		  .catch(error =&gt; {
+			console.log(error);
+			console.log("失敗しました");
+		});
+	}
+
+	event.source.postMessage(msg2);
+});
+	</code></pre>
+	
+	<p>バックエンド backend.php</p>
+	<pre><code>
+&lt;?php
+
+//データ加工や取得
+$res = ['success'=&gt;1,'yagi'=&gt;'山羊','kani'=&gt;'蟹','same'=&gt;'鮫'];
+
+// JSONに変換し、通信元に返す。
+$json_str = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+echo $json_str;
+	</code></pre>
+
+
+	<br><time>2022-5-28</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2022-1-4</time>
+	<br><time>2022-5-28</time>
 </div>
 
 
