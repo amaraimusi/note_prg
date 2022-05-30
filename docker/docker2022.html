@@ -26,27 +26,28 @@
 <div class="container">
 
 
-<div class="text-danger">当記事は記述中... 2022-5-16</div>
+<div class="text-danger">注意→Laradocを断念した記録になります。</div>
 
 <p>はじめに</p>
 Docker for Windowsは何度も仕様が変わっているアプリである。
 2022年の2月頃、Windows10 HOMEエディションでDocker for Windowsを動かそうとしたが、Docker startがどうしても動いてくれず結局断念した。<br>
 そして2022年5月、再びDocker for Windowsをインストールした。なんとUIが大幅に変わっている。Docker startにも成功した。
-しかし、また使えなくなることもあるかもしれない。<br>
+しかし、また使えなくなることもあるかもしれないが現時点の手順を書き記す。<br>
 <br>
 
 <p>必要な知識</p>
-DockerとDocker Composeで何度も試行錯誤をしたことがあること。<br>
+下記の記述はDockerとDocker Composeで何度も試行錯誤をしたことがある人向け。<br>
 <br>
 
 <p>なぜDockerなのか。</p>
-開発環境構築を楽にしたい。というのが一般論。実際はDockerそのものに苦しめられる。<br>
-他の開発者のために開発環境構築手順書を書かねばならない時に便利。<br>
-正直、xamppで十分なのだが、2022年現在、時世がこれを許さず。<br>
+開発環境構築を楽にしたい。というのが主な目的である。現実はDockerそのものに苦しめられる。<br>
+とはいえ、他の開発者のために開発環境構築手順を考えなければならないとき、Dockerで用意していると便利である。開発構築手順書を作成するときにも便利だ。<br>
+正直、開発環境構築を楽にしたい、という目的だけ見ればxamppで十分なのだが、2022年のご時世がこれを許さず。<br>
 <br>
 
 
 <p>Laradockについて</p>
+LaradocはDockerの数あるイメージの一つ。<br>
 LaravelだけにとどまらないPHP開発者に役立つパッケージらしい。正直こうゆうのを切望していた。
 xamppのように簡単に開発環境を構築できることを期待する。
 マウント(DockerではVolumeとか呼ばれている)とか大丈夫なのかな。<br>
@@ -65,41 +66,93 @@ xamppのように簡単に開発環境を構築できることを期待する。
 <br>
 
 インストールは簡単になっている。ダウンロードした「Docker Desktop Installer.exe」を実行するだけだ。<br>
-Assept(同意）にチェックを入れるくらいで、道なりに進めていくだけ。
+Assept(同意）にチェックを入れるくらいで、道なりに進めていくだけ。<br>
+<br>
 
-初回のDocker startには数分の時間がかかる。（Docker starting ... という表示が数分続く）
+初回のDocker startには数分の時間がかかる。（Docker starting ... という表示が数分続く）<br>
+下図のような画面が現れたらとりあえずインストール成功。<br>
+<img src="img/docker2022/docker2022a1.png" class="img_compact_k" />
+<img src="img/docker2022/docker2022a2.png" class="img_compact_k" />
+<br>
+次回からのDocker起動(Docker start)は、通常のWindowsアプリの実行と同様にただDockerアプリ実行するだけ。
+以前はWindowsのインジケーターからDockerをスタートさせる必要があったがこの手間がなくなった。<br>
+<br>
 
-Docker start成功後、コマンドラインツールを起動し、適当なdockerコマンドを実行してエラーにならなければ成功。
-docker image list
-
+<p>コマンドラインツールでDockerを動かす</p>
+次にコマンドラインツールでDockerの動作確認をする。<br>
+docker start成功後、Git Bashなどのコマンドラインツールを起動し、適当なdockerコマンドを実行してエラーにならなければ成功。<br>
+<pre class="console">docker image list</pre>
+<img src="img/docker2022/docker2022a5.png"  /><br>
+<aside>「docker image list」はDockerイメージを一覧表示するコマンド。何もインストールしてないので当然今は空。</aside>
+<br>
 ちなみにDocker for windowsを立ち上げないで、コマンドラインツールでdockerコマンドを実行しようとすると以下のようなエラーが出る。
-<pre>
+<pre class="console">
 error during connect: This error may indicate that the docker daemon is not runn
 ing.
 </pre>
+<br>
 
 
 
-Laradocの入手とインストール
 
-Dockerhubのサイトで「laradoc」を検索するとたくさん出てくる。どれが公式かわからない。
-https://hub.docker.com/
+<p>Laradocの入手とインストール</p>
 
-Laradocの公式サイトを見つけた。
-https://laradock.io/getting-started/#installation
 
-インストール方法が書かれているようだが、よく知らないやり方だ。
+<a href="https://hub.docker.com/" target="_blank">Dockerhub</a>で「laradoc」を検索するとたくさんのDockerイメージが出てくる。どれが公式かわからない。<br>
+<br>
+
+なのでLaradocの公式サイトを探した。公式サイトのURLは下記の通り。<br>
+<a href="https://laradock.io/getting-started/#installation" target="_blank">https://laradock.io/getting-started/#installation</a><br>
+<br>
+
+Laravelの公式サイトにはインストール方法が書かれているようだが、よく分からない方法ばかり書かれている。
 ほしいのはLaradocのイメージ情報なのだが見つからない。
-とはいえ、手がかりになりそうな文字を見つけた。
-git clone https://github.com/laradock/laradock.git
+とはいえ、手がかりになりそうな情報を見つけた。よく分からないがgitで何かをインストールするようだ。
+<pre>git clone https://github.com/laradock/laradock.git</pre>
+<br>
 
-コマンドラインツール(Git Bash)を立ち上げ下記コマンドを実行してインストールする。
+Dockerイメージなのかどうかよく分からないが、とりあえずコマンドラインツール(Git Bash)を立ち上げ、gitでインストールする。
+<pre class="console">
 cd /C/Users/user/git
 git clone https://github.com/laradock/laradock.git
+</pre>
+<img src="img/docker2022/docker2022a3.png"  /><br>
+<br>
 
-早速、インストールしたファイル群を見て手がかりがないか調べる。
-「docker-compose.yml」が見つかった。
-これは多分、Docker Composeのものだな。
+早速、インストールしたファイル群を見て手がかりがないか調べた。<br>
+<img src="img/docker2022/docker2022a4.png" class="img_compact_k" /><br>
+見慣れたファイルである「docker-compose.yml」が見つかった。<br>
+これはDocker Composeのものだな。Dockerイメージという形ではなくDocker Composeという形で環境を提供していたのか。<br>
+<br>
+
+早速、laradockをcdコマンドでlaradockをインストールしたディレクトリに移動し、「docker-compose up -d --build」を実行した。
+<pre class="console">
+$ cd git/laradock
+$ docker-compose up -d --build
+</pre>
+しかし、下記のメッセージで処理が止まってしまった。
+<pre class="console">services.traefik.ports value [':', ':', ':'] has non-unique elements</pre>
+
+ググると下記の解決方法が見つかった。
+<a href="https://stackoverflow.com/questions/66612657/laradock-docker-compose-yml-is-invalid-format-port-protocol-on-windows">https://stackoverflow.com/questions/66612657/laradock-docker-compose-yml-is-invalid-format-port-protocol-on-windows</a><br>
+<a href="https://github.com/laradock/laradock/issues/1437">https://github.com/laradock/laradock/issues/1437</a><br>
+<br>
+laradockフォルダ内に存在する「.env.example」ファイルを「.env」という名前に変更する必要があるらしい。<br>
+早速名前をそのように変更して再度「docker-compose up -d --build」を実行してみる。<br>
+<br>
+先ほどのエラーは解決したようだ。
+しかし、1時間ほどの長い実行が続いた挙句、以下のエラーがでて停止した。<br>
+<pre class="console">Service 'rethinkdb' failed to build : Build failed</pre>
+
+「Service 'rethinkdb' failed to build : Build failed」をググってみる。<br>
+Debian8のサポート終了が原因という情報あり。解決策も複雑そうなものばかり。<br>
+そもそもRethinkDBではなくMySQLかMariaDBでないと意味がない。<br>
+<br>
+残念だがLaradocにはここで見切りをつけることにした。他に良いDockerイメージはないものだろうか...<br>
+<div class="text-danger" >2022年5月28日 Laradocを断念。終わり。</div>
+<br>
+
+
 
 
 
