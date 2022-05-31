@@ -100,6 +100,8 @@ Youtubeも高評価ボタンと低評価ボタンの２種類。<br>
 その評価ボタンは種類ごとに複数表示しよう。<br>
 だれが返信したが、返信したユーザーのアイコンを並べて表示しよう。新しく評価した順で。<br>
 とりあえず最大１００人くらいまでのアイコン表示とし、超過分は「その他○人」と表示しようかな。<br>
+評価ボタンは評価アイコン部分と評価人数部分で分けよう。
+評価アイコンをクリックすると評価アクションになり、評価人数をクリックすると他の評価ユーザーを確認できるようにしよう。
 <br>
 </div>
 
@@ -112,7 +114,8 @@ Youtubeも高評価ボタンと低評価ボタンの２種類。<br>
 パラメータには「型コード（type_code）」と言ったプロパティを一つ用意すれば十分なはずだ。
 ロジック側で型コードを見て処理分岐するだけで特異性のある評価ボタンに対応できる。<br>
 <br>
-
+評価ボタンを押したときがある状態のときは表記を変更する必要がある。<br>
+2回目に評価ボタンを押したときは、評価をキャンセルするという処理も必要だ。<br>
 </div>
 
 
@@ -120,6 +123,8 @@ Youtubeも高評価ボタンと低評価ボタンの２種類。<br>
 <h4>DB設計</h4>
 
 「★new」と書いている場所が、今回の修正おより機能追加場所になる。<br>
+既存テーブルには手を加えない。<br>
+<br>
 
 
 <ol>
@@ -155,7 +160,7 @@ Laravelのusersテーブルと同じもの<br>
 </table>
 <br>
 
-<p>msg_board_user_evals メッセージボード・ユーザー評価テーブル</p>
+<p>msg_board_user_evals メッセージボード・ユーザー評価テーブル</p><span class="text-danger">★new</span>
 <table class="tbl2">
 	<thead>
 		<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Comment</th><th>memo</th></tr>
@@ -164,7 +169,7 @@ Laravelのusersテーブルと同じもの<br>
 		<tr><td>id</td><td>int(11)</td><td>NO</td><td>PRI</td><td></td><td></td></tr>
 		<tr><td>msg_board_id</td><td>int(11)</td><td>YES</td><td></td><td>メッセージボードID</td><td>メッセージボードＩＤ</td></tr>
 		<tr><td>user_id</td><td>int(11)</td><td>YES</td><td></td><td>ユーザーID</td><td>評価ボタンを押した人のユーザーＩＤ</td></tr>
-		<tr><td>eval_types</td><td>int(11)</td><td>YES</td><td></td><td>評価種別ID</td><td>評価の種類。</td></tr>
+		<tr><td>eval_type_id</td><td>int(11)</td><td>YES</td><td></td><td>評価種別ID</td><td>評価の種類。</td></tr>
 		<tr><td>sort_no</td><td>int(11)</td><td>YES</td><td></td><td>順番</td><td>管理画面用</td></tr>
 		<tr><td>delete_flg</td><td>tinyint(1)</td><td>YES</td><td></td><td>無効フラグ</td><td>管理画面用</td></tr>
 		<tr><td>update_user</td><td>varchar(50)</td><td>YES</td><td></td><td>更新者</td><td>管理画面用</td></tr>
@@ -174,9 +179,10 @@ Laravelのusersテーブルと同じもの<br>
 
 	</tbody>
 </table>
+msg_board_id, user_id, eval_type_idの組み合わせでユニークであること。<br>
 <br>
 
-<p>msg_board_eval_types メッセージボード・評価種別テーブル</p>
+<p>msg_board_eval_types メッセージボード・評価種別テーブル</p><span class="text-danger">★new</span>
 <table class="tbl2">
 	<thead>
 		<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Comment</th><th>memo</th></tr>
@@ -196,7 +202,139 @@ Laravelのusersテーブルと同じもの<br>
 
 	</tbody>
 </table>
+<br>
 
+<p>ER図</p>
+<img src="img/sys_design_note2/crud_base_laravel8.drawio.svg" style="width:100%" />
+<br>
+
+</div>
+
+
+
+
+<div class="sec4" >
+<h4>評価ボタン押下アクション</h4>
+	Ajaxで送信するパラメータ
+	<table class="tbl2">
+	<thead>
+		<tr><th>プロパティ</th><th>テーブル名.フィールド</th><th>フィールド名</th><th>メモ</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>msg_board_id</td><td>msg_boards.id</td><td>メッセージボードID</td><td>-</td></tr>
+		<tr><td>eval_user_id</td><td>msg_board_user_evals.user_id</td><td>評価したユーザーID</td><td>-</td></tr>
+		<tr><td>eval_type_id</td><td>msg_board_user_evals.eval_type_id</td><td>評価種別ID</td><td>-</td></tr>
+		<tr><td>eval_type_code</td><td>msg_board_eval_types.eval_type_code</td><td>評価種別コード</td><td>-</td></tr>
+		<tr><td>delete_flg</td><td>msg_board_eval_types.delete_flg</td><td>無効フラグ</td><td>未評価であれば0を送信、評価済みなら1を送信する。</td></tr>
+		<tr><td>eval_cancel_flg</td><td>なし</td><td>評価取消フラグ</td><td>0:評価, 1:評価取消</td></tr>
+	</tbody></table>
+	<br>
+	
+	<p>バックエンド側</p>
+	msg_board_id, eval_type_id, eval_user_idをWHERE条件にしてmsg_board_user_evalsテーブルから<strong>レコード</strong>を1件取得を試みる。<br>
+	<br>
+	
+	<p>レコード次第でDB登録の処理分岐を行う。</p>
+	レコードを取得できなかった場合→ DB登録は「<strong>初回評価登録</strong>」になる。<br>
+	レコード取得に成功且つ、無効フラグが0である場合→DB登録は「<strong>評価取消登録</strong>」になる。<br>
+	レコード取得に成功且つ、無効フラグが1である場合→DB登録は「<strong>再評価登録</strong>」になる。<br>
+	<br>
+	
+
+	<p>評価ボタン押下時のDB登録</p>
+	<strong>初回評価登録</strong> → msg_board_user_evalsテーブルへ下記エンティティエンティティを挿入INSERTする。
+	<table class="tbl2">
+		<thead><tr><td>プロパティ</td><td>登録する値</td></tr></thead>
+		<tbody>
+			<tr><td>msg_board_id</td><td>Ajax送信されてきた値</td></tr>
+			<tr><td>eval_type_id</td><td>Ajax送信されてきた値</td></tr>
+			<tr><td>delete_flg</td><td>0</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<strong>評価取消登録</strong>→2回目に評価ボタン押下時は評価取消登録になる。　→　msg_board_user_evalsテーブルへ下記エンティティエンティティをUPDATEする。
+	<table class="tbl2">
+		<thead><tr><td>プロパティ</td><td>登録する値</td></tr></thead>
+		<tbody>
+			<tr><td>delete_flg</td><td>1</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<strong>再評価登録</strong>→評価取消から評価状態に戻す　→　msg_board_user_evalsテーブルへ下記エンティティエンティティをUPDATEする。
+	<table class="tbl2">
+		<thead><tr><td>プロパティ</td><td>登録する値</td></tr></thead>
+		<tbody>
+			<tr><td>delete_flg</td><td>0</td></tr>
+		</tbody>
+	</table>
+
+</div>
+
+
+<div class="sec4" style="display:none">
+<h4>初期表示用にデータをDBから取得</h4>
+<p>DB</p>
+
+初期表示用のデータとその構造
+<pre>
+
+①<strong>メッセージデータ</strong>	←　メッセージエンティティの配列
+	メッセージエンティティ
+		id	メッセージボードID(別名:msg_board_id)
+		other_id	外部ID
+		user_id	ユーザーID
+		user_type	ユーザータイプ
+		masterは管理者を表し、guestは一般ユーザーを表す。	
+		管理者と一般ユーザーでは機能に違いがある。	
+		message	メッセージ
+		attach_fn	添付ファイル
+		<strong>ユーザー評価エンティティリスト</strong> ← ユーザー評価エンティティの配列（sort_no順）
+			ユーザー評価エンティティ 
+				msg_board_id	メッセージボードID
+				user_id	ユーザーID
+				eval_type_id	評価種別ID
+		評価ボタンデータ	← 評価種別エンティティの配列(sort_no順)
+			eval_type_id	評価種別ID
+			評価人数
+			評価ユーザーデータ	← 評価ユーザーエンティティの配列（評価日時が新しい順）
+				評価ユーザーエンティティ
+					ユーザーID
+					ユーザーアイコンパス
+					ユーザーニックネーム
+				
+②評価種別ハッシュマップ    キー:eval_type_id, 値:評価種別エンティティ
+	
+</pre>
+
+<p>メッセージデータの取得と構造変換</p>
+<pre>
+メッセージボードテーブルからメッセージボードデータを取得（既に存在する処理）
+
+メッセージボードデータをループ → each メッセージボードエンティティ
+
+	ユーザー評価テーブル（msg_board_user_evals ）からメッセージボードＩＤに紐づくユーザー評価データ1を取得する
+	
+	SELECT
+		id,
+		msg_board_id,
+		user_id,
+		eval_type_id,
+		delete_flg,
+		modified
+	FROM 
+		msg_board_user_evals
+	WHERE
+		msg_board_id = xxx
+		AND delete_flg = 0
+	ORDER BY modified
+	
+	空の評価ボタンデータを作成する。
+
+	評価ボタンデータにユーザー評価データ1の各値を分類しながらセットおよび追加する。
+	
+	メッセージボートデータに評価ボタンデータをセットする
+	
+</pre>
 
 
 </div>
