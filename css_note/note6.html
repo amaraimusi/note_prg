@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CSSの覚書 | アイコンに色を付ける | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+	<style>
+		.btn-base1 {
+			width: 3em;
+			height: 3em;
+			display: inline-block;
+			mask: no-repeat center/70%;
+			-webkit-mask: no-repeat center/70%;
+			background: #69b580;
+		}
+		
+		.btn-rowing{
+			mask-image: url(./img/note6/rowing_black_24dp.svg);
+			-webkit-mask-image: url(./img/note6/rowing_black_24dp.svg);
+		}
+		
+	</style>
+<body>
+<div id="header" ><h1>CSSの覚書 | アイコンに色を付ける | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+<div id="sec6-1" class="sec4" >
+	<h3>アイコン画像の色を変更する</h3>
+	
+	<div>
+		<img src="./img/note6/rowing_black_24dp.svg" alt="" />←元の画像
+	</div>
+	
+	<div>
+		アイコンに色をつける。<br>
+		<button type="button" class="btn-base1 btn-rowing"></button>
+		<button type="button" class="btn-base1 btn-rowing" style="background:red"></button>
+		<button type="button" class="btn-base1 btn-rowing" style="background:#fbc421"></button>
+	</div>
+	
+	<div>
+	CSS
+	<pre><code>
+		.btn-base1 {
+			width: 3em;
+			height: 3em;
+			display: inline-block;
+			mask: no-repeat center/70%;
+			-webkit-mask: no-repeat center/70%;
+			background: #69b580;
+		}
+		
+		.btn-rowing{
+			mask-image: url(./img/note6/rowing_black_24dp.svg);
+			-webkit-mask-image: url(./img/note6/rowing_black_24dp.svg);
+		}
+	</code></pre>
+	</div>
+	
+	
+	<div>
+	HTML
+	<pre><code>
+		&lt;button type="button" class="btn-base1 btn-rowing"&gt;&lt;/button&gt;
+		&lt;button type="button" class="btn-base1 btn-rowing" style="background:red"&gt;&lt;/button&gt;
+		&lt;button type="button" class="btn-base1 btn-rowing" style="background:#fbc421"&gt;&lt;/button&gt;
+	</code></pre>
+	</div>
+
+	<br><time>2022-6-7</time>
+</div>
+
+<br>
+<a href="https://qiita.com/ymgd-a/items/d096f360a0aa27d80f08" target="_blank">参考サイト：https://qiita.com/ymgd-a/items/d096f360a0aa27d80f08</a><br>
+<br>
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>CSSの覚書 | アイコンに色を付ける</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-6-4</div>
+</body>
+</html>
