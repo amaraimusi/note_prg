@@ -192,6 +192,8 @@ msg_board_id, user_id, eval_type_idの組み合わせでユニークであるこ
 		<tr><td>eval_type_code</td><td>varchar(12)</td><td>YES</td><td></td><td>評価タイプコード</td><td>評価ボタンの種類毎に設定する一意なコード。</td></tr>
 		<tr><td>eval_value</td><td>int(11)</td><td>YES</td><td></td><td>評価値</td><td>現在は未使用。拡張用に。</td></tr>
 		<tr><td>icon_fn</td><td>varchar(512)</td><td>YES</td><td></td><td>アイコンファイル名</td><td>アイコンファイルのパス</td></tr>
+		<tr><td>conversely_eval_type_id</td><td>int(11)</td><td>YES</td><td></td><td>反対評価種別ID</td><td>対となる評価種別ID。例えば「高評価」なら対となる評価種別IDは「低評価」になる。高評価をしたら低評価はキャンセルにする処理が必要であるため。</td></tr>
+		<tr><td>users_show_flg</td><td>int(11)</td><td>YES</td><td></td><td>ユーザー表示フラグ</td><td>評価したユーザーたちの名前を表示するかどうかのフラグ</td></tr>
 		<tr><td>note</td><td>varchar(1000)</td><td>YES</td><td></td><td>ノート</td><td>評価ボタンの種類毎ごとに説明を書く。管理画面用</td></tr>
 		<tr><td>sort_no</td><td>int(11)</td><td>YES</td><td></td><td>順番</td><td>管理画面用</td></tr>
 		<tr><td>delete_flg</td><td>tinyint(1)</td><td>YES</td><td></td><td>無効フラグ</td><td>管理画面用</td></tr>
