@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Laravel9の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Laravel9の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>Laravelの従う | なぜSPAでなくMPAか | 基本アクション</h3>
+
+	現在はSPA型の管理画面が主流だと思っていた。しかしSPA型は高レベルのプログラマーを雇わねばならない弱点がある。<br>
+	なので時代に逆行するが、保守を考えMPA型を選択しなければならない事情がある。<br>
+	<br>
+	SPA型ではindexアクションとajax用のアクションをコントローラクラスに用意するだけでよし。
+	しかし、MPA型である場合、複数のアクションが必要になる。<br>
+	アクション名は好きな名前できるが、どうやらLaravelには推奨されているお決まりのアクション名が存在するようだ。<br>
+	<br>
+	
+	アクション
+	<table class="tbl2">
+		<tbody><tr><th>アクション名</th><th>説明</th></tr></tbody>
+		<tbody>
+			<tr>
+				<td>index</td>
+				<td>
+					基本中の基本、一覧表示画面する。大抵は検索閲覧型の一覧画面になるため検索データの取り扱いが必要になる。<br>
+					<br>
+					indexアクション内の基本的流れ
+					<ol>
+						<li>検索データ（検索条件、ページ番号、一覧表示件数、並び替え情報など）をGETまたはPOSTから取得。</li>
+						<li>検索データを元にDBから一覧表示用のデータを取得する。SQLインジェクションには注意。バリデーションするなりSQLサニタイズするなり。</li>
+						<li>ビュー（○○.blead.php)にデータを渡して、ビューはデータを元に一覧を作成する。</li>
+					</ol>
+				</td>
+			</tr>
+			<tr>
+				<td>create</td>
+				<td>
+					新規入力画面を表示するだけ。新規入力画面はいわゆる新規入力フォームのことだ。<br>
+					新規入力ボタンや複製ボタンがこのアクションのトリガーになる。<br>
+					複製機能も実装するならこのアクションが該当するな。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>store</td>
+				<td>
+					
+					新規登録アクションになる。<br>
+					新規入力画面の登録ボタンを押したときのアクションだ。<br>
+					このアクションでは新規入力フォームに入力されたデータをDB保存する処理が行われる。<br>
+					<br>
+					バリデーションは重要だ。<br>
+					入力エラーがあったらDB登録せず、エラーメッセージと共に新規入力フォームを再表示。<br>
+					入力に問題がなければDB登録を実行、そして一覧画面または詳細画面にリダイレクトで移動する。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>show</td>
+				<td>
+					いわゆる詳細表示画面のことだ。
+					一覧の行にある詳細ボタンがトリガーになることがある。
+					入力確認画面もshowアクションに含まれるかな？まあ、別のアクション名にしたほうがいいだろうが。
+				</td>
+			</tr>
+			<tr>
+				<td>edit</td>
+				<td>
+					編集画面を表示するアクション。
+					一覧画面の各行に紐づく編集ボタンがトリガーになるだろう。
+				</td>
+			</tr>
+			<tr>
+				<td>update</td>
+				<td>
+						
+					いわゆる変更登録アクション。<br>
+					編集画面の変更ボタンがトリガーになる。<br>
+					編集画面の入力フォームに入力されたデータをDBに登録する処理になる。<br>
+					追加か変更かという違いだけで基本は新規入力画面と同じ。<br>
+				</td>
+			</tr>
+			<tr>
+				<td>destroy</td>
+				<td>
+					削除アクションだ。
+					削除フラグをONにするだけとDBから消去するパターンが考えるが、destroyの意味を考えるとDBからの消去かな。
+					削除フラグは単にdeleteアクションとしたほうがいいかも
+					一覧行や詳細表示画面の抹消ボタンがトリガーになる。
+				</td>
+			</tr>
+			<tr>
+				<td>delete</td>
+				<td>
+					削除フラグをONにする削除用に。
+					公式推奨ではないがよくあるアクション名。
+					一覧行や詳細表示画面の削除ボタンがトリガーになる。
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<br><time>2022-6-30</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-6-30</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/laravel/">Laravelの覚書</a></li>
+	<li>Laravel9の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-6-30</div>
+</body>
+</html>
