@@ -28,6 +28,9 @@
 <div id="sec1-1" class="sec4">
 	<h3>Laravel8のインストールと初期設定</h3>
 	
+	追記：2022年7月現在、Laravel9が登場している。インストール手順はlaravel8版とほぼ同手順でいけるようだ。ただ,npmまわりで不具合がある模様。<br>
+	<br>
+	
 	<p>インストールの概要</p>
 	Composerを利用してインストールしなければならないようだ。<br>
 	また、コマンドラインで初期設定がいろいろ必要である。<br>
@@ -140,6 +143,13 @@
 			ログインフォームなど使えるようにするため、composerで下記をインストールする。
 			<pre class="console">$ composer require laravel/ui</pre>
 			<aside>このComposerはLravel8をインストールしたComposerではない。devディレクトリ内のComposerである。間違いやすいので注意。</aside>
+			<a href="/note_prg/laravel/laravel7_note4.html#sec4-4">参考：ログイン画面を作成(Laravel7版)</a>
+		</li>
+		
+		<li>
+			下記のコマンドを実行し、ログイン画面関連のファイルを自動作成する。
+			<pre class="console">php artisan ui vue --auth</pre>
+			<aside>※laravel7版の方法。多分動作すると思うが未確認。</aside>
 		</li>
 		
 		<li>
@@ -236,7 +246,7 @@
 	</ol>
 
 
-	<br><time>2021-11-23</time>
+	<br><time>2021-11-23 | 2022-7-1</time>
 </div>
 
 
