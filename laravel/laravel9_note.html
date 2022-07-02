@@ -264,8 +264,8 @@ $ npm run dev
 		</li>
 		
 		<li>
-			これで開発環境は整ったと思われる。多分。<br>
-			終わり。<br>
+			<a href="#sec1-4" class="livipage">バリデーションのメッセージなど各種メッセージの日本語化 | 日本タイムゾーン(日本時間)</a>
+			
 		</li>
 		
 		<li>
@@ -380,9 +380,17 @@ $ npm run dev
 
 
 <div id="sec1-4" class="sec4" >
-	<h3>バリデーションの日本語化</h3>
+	<h3>バリデーションのメッセージなど各種メッセージの日本語化 | 日本タイムゾーン(日本時間)</h3>
 	
 	<ol class="list_lg">
+		<li>
+			ルート/config/app.phpを開き、下記のように書き換える。
+			<pre><code>
+    'timezone' => 'Asia/Tokyo',
+    'locale' => 'ja',
+			</code></pre>
+			
+		</li>
 		<li>
 			ルート/langディレクトリにあるenフォルダをそのままコピーしてjaというフォルダ名にする。<br>
 			<img src="img/laravel9_note/sec1-4a1.png" alt="" />
@@ -393,7 +401,7 @@ $ npm run dev
 			<p>validation.php</p>
 			<a href="https://readouble.com/laravel/9.x/ja/validation-php.html" target="_blank">公式を参考</a>
 			
-			<pre><code>
+			<pre>
 &lt;?php
 
 return [
@@ -552,7 +560,15 @@ return [
     'attributes' =&gt; [],
     
 ];
-			</code></pre>
+			</pre>
+		</li>
+		
+		<li>
+			jaフォルダ内にはvalidation.php以外にもauth.php, pagination.php, passwords.phpがあるが同様な方法で日本語化しておくとよい。<br>
+			<br>
+			参考<br>
+			https://readouble.com/laravel/9.x/ja/auth-php.html<br>
+			https://readouble.com/laravel/9.x/ja/passwords-php.html<br>
 		</li>
 	</ol>
 
