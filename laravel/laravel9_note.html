@@ -25,6 +25,262 @@
 <div class="container">
 
 
+<div id="sec1-1" class="sec4">
+	<h3>Laravel9のインストールと初期設定</h3>
+	
+	Laravel9のインストール手順はだいたいLaravel9と同じ。<br>
+	<br>
+	
+	<p>インストールの概要</p>
+	Composerを利用してインストールしなければならないようだ。<br>
+	また、コマンドラインで初期設定がいろいろ必要である。<br>
+	<br>
+	
+	<p>前提条件</p>
+	<ul>
+		<li>Windows10</li>
+		<li>xampp(PHP8.0以上に対応しているもの)</li>
+		<li>コマンドラインツールにGitBash（Git for windowsに含まれるツール）を利用。</li>
+		<li>GitBashでnpmコマンドが使えるようにしてあること。</li>
+		<li>GitBashでphpコマンドが使えるようにしてあること。</li>
+	</ul>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			npmをバージョンアップしておくこと。<br>
+			<br>
+			
+			npmのバージョン確認
+			<pre class="console">npm --version</pre>
+			
+			npmをバージョンアップ
+			<pre class="console">$ npm install -g npm </pre>
+		</li>
+		<li>
+			Windows10に新しくxamppをインストールしたばかりなら、php_intlを有効にする必要がある。<br>
+			php.iniを開き、下記のパラメータを有効にする。(「;」をはずす)<br>
+			extension=intl<br>
+			extension=gd<br>
+			<br>
+			<img src="img/laravel8_note/sec1-1a0.png" alt="" class="img_compact_k" /><br>
+			php.iniを変更したらApacheの再起動を忘れぬように。<br>
+			<aside>
+			補足
+			php_intlの実態はphp_intl.dllである。
+			php_intl.dllはxamppのパッケージに含まれている。
+			場所→ C:\xampp\php\ext\php_intl.dll<br>
+			<br>
+			「extension=gd」は画像処理関連の機能。
+			</aside>
+		</li>
+		<li>
+			GitBashを起動。
+			任意のプロジェクトを作成し、cdコマンドでそのプロジェクトの場所まで移動する。<br>
+			今回の手順例では,プロジェクト名を「crud_base_laravel9」としている。
+			<pre class="console">$ cd ~/git/crud_base_laravel9</pre>
+		</li>
+		
+		<li>
+			Windows環境だとttyなんとかのエラーがよく出るため、それ防止用に下記コマンドを実行。
+			<pre class="console">$ exec winpty bash</pre>
+		</li>
+		
+		<li>
+			composer.pharをダウンロードする
+			<pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		</li>
+		
+		<li>
+			Laravel9をインストール
+			<pre class="console">$ php composer.phar create-project "laravel/laravel=9.1.*" dev</pre>
+			補足1
+			<aside>
+				devディレクトリ内にインストールされる。devという名前が気に入らないかもしれないが気にする必要はない。<br>
+				どうせ本番環境ではシンボリックリンクを作ってURLを変更せざるを得ないからである。<br>
+			</aside>
+			<br>
+			補足2
+			<aside>
+				「laravel/laravel=9.*」とすると開発版をインストールしまうこともあるので注意すること。
+				自分はこれでハマってしまった。<br>
+				インストール元であるPackagistのサイトでバージョンをよく確認すること。<br>
+				<a href="https://packagist.org/packages/laravel/laravel" target="_blank">https://packagist.org/packages/laravel/laravel</a><br>
+			</aside>
+		</li>
+		
+		<li>
+			localhost環境(開発環境)でシンボリックリンクを作成する。<br>
+			「C:\xampp\htdocs」配下に直接プロジェクトを作成しているならこの処理は不要。<br>
+			<br>
+			
+			手順<br>
+			Windows Power Shellを管理者として実行する。（Windows Power Shellのアイコン右クリック→管理者として実行」<br>
+			下記コマンドでシンボリックリンクを作成する。。<br>
+			<pre style="background-color:#012456;color:white;">cmd /c mklink /D C:\xampp\htdocs\crud_base_laravel9 C:\Users\user\git\crud_base_laravel9</pre>
+			
+		</li>
+		
+		<li>
+			ブラウザにて「http://localhost/crud_base_laravel9/dev/public/」にアクセスし、エラーがでずにページが表示されたらとりあえずOK.<br>
+			
+			<img src="img/laravel9_note/sec1-1a1.png" alt="" class="img_compact_k" /><br>
+			
+		</li>
+		
+		<li>
+			xamppでphpMyAdminを起動し、新しくデータベースを作成する。<br>
+			照合順序は「utf8mb4_general_ci」を推奨。<br>
+			テーブルは作成しなくてよい。後ほど、マイグレーションでいくつかテーブルを自動生成する。<br>
+			例ではcrud_base_laravel9というデータベース名でデータベースを作成した。<br>
+		</li>
+		
+		<li>
+			DB設定をする。「.env」ファイルを開き、以下のような記述に書き換える。
+			<pre>			
+			DB_CONNECTION=mysql
+			DB_HOST=localhost
+			DB_PORT=3306
+			DB_DATABASE=crud_base_laravel9
+			DB_USERNAME=root
+			DB_PASSWORD=
+			</pre>
+			<aside>
+				※ .envファイルの場所の例→「~/git\crud_base_laravel9\dev\.env<br>
+				※ xamppの場合、特に設定していなければ、MySQLのユーザー名はroot,パスワードは空である。
+			</aside>
+
+		</li>
+		
+		<li>
+			続いていくつかの初期設定をする。<br>
+			再びGitBashに戻り、devディレクトリに移動する。
+			<pre class="console">$ cd dev</pre>
+		</li>
+		
+		<li>
+			ログインフォームなど使えるようにするため、composerで下記をインストールする。
+			<pre class="console">$ composer require laravel/ui</pre>
+			<aside>このComposerはLravel8をインストールしたComposerではない。devディレクトリ内のComposerである。間違いやすいので注意。</aside>
+			<a href="/note_prg/laravel/laravel7_note4.html#sec4-4">参考：ログイン画面を作成(Laravel7版)</a>
+		</li>
+		
+		<li>
+			下記のコマンドを実行し、ログイン画面関連のファイルを自動作成する。
+			<pre class="console">php artisan ui vue --auth</pre>
+			<aside>
+				このコマンドを実行すると下記ディレクトリが作成され関連ファイルが配置されるようだ。
+				<ul>
+					<li>ルート/dev/app\Http/Controllers/Auth</li>
+					<li>ルート/dev/resources/views/auth</li>
+				</ul>
+			</aside>
+		</li>
+		
+		<li>
+			sessionsテーブルを作成するために必要なコマンド。（マイグレーション情報に追加？）
+			<pre class="console">$ php artisan session:table</pre>
+			<aside>
+				※このコマンドは恐らくsessionsテーブル情報をマイグレーション情報に追加するコマンドである。試行錯誤したのでコマンドの実行順番は推測。<br>
+				ちなみにsessionsテーブルはSession情報を保存するテーブル。
+				一昔前はSession情報はテキストファイルに出力される仕様が多かった。しかし、近年はDBに保存するのが主流になっている。
+				最初からマイグレーション情報にsessionsテーブルの情報がないのはその名残だろう。
+			</aside>
+		</li>
+		
+		<li>
+			マイグレーションを実行する。DBに最低限必要なテーブルをいくつか自動生成する。
+			<pre class="console">$ php artisan migrate</pre>
+		</li>
+		
+		<li>
+			続いてjsとcssまわり。<br>
+			package.jsonをみると分かるが,Booststrap5, vue2.6のインストール準備ができているようだ。jQueryも恐らくBooststrap5に含まれている。<br>
+			本来、下記コマンドでBootstrapとVueを追加設定するが恐らく不要。
+			<pre >$ php artisan ui bootstrap</pre>
+			<pre >$ php artisan ui vue</pre>
+		</li>
+		
+		
+		<li>
+			jsおよびcssのインストールおよびビルド。<br>
+			この辺りはエラーが頻発しやすい。私はここで大いにハマってしまった。
+			結局はlaravelのバージョン選びで失敗していたことが分かった。
+			どうしようもないエラーに遭ったらPackagestで安定版のLaravelバージョンを探してインストールをやりなおそう。<br>
+			<br>
+			
+			インストール。
+			<pre class="console">npm install</pre>
+			node_modulesディレクトリが作成され、様々なパッケージがこのディレクトリにインストールされる。<br>
+			<br>
+			
+
+			<br>
+		</li>
+		
+		<li>
+			インストールしたパッケージをビルドするして,app.jsとapp.cssを生成する。<br>
+			<pre class="console">npm run dev</pre>
+			
+			2022月7月の時点で「npm run dev」のコマンド実行は最初の一回だけ失敗する。
+			<pre>
+$ npm run dev
+
+> dev
+> npm run development
+
+
+> development
+> mix
+
+        Additional dependencies must be installed. This will only take a moment.
+
+        Running: npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps
+
+        Finished. Please run Mix again.
+			</pre>
+			
+			メッセージ書かれているコマンドを実行する。
+			<pre class="console">npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps</pre>
+			
+			もう一度下記コマンドを実行する。
+			<pre class="console">npm run dev</pre>
+			「ルート/public/js/app.js」および「ルート/public/css/app.css」が作成でいたら成功。<br>
+			これらの２点のファイルをビュー(○○.blede.php)にて読み込めばBootstrap,Vue, jQueryが利用できるようになる。<br>
+			<br>
+		
+			<img src="img/laravel9_note/sec1-1a2.png" alt="" class="img_compact_k" />
+		
+		</li>
+		
+		<li>
+			再びブラウザにて「http://localhost/crud_base_laravel9/dev/public/」にアクセスし、画面右上のRegstryをクリック。<br>
+			ログインフォームが表示されるので、画面右上のRegstryから適当にユーザー登録する。<br>
+			
+			なお、レイアウトが崩れているなら、上記の「jsおよびcssのインストールおよびビルド」に失敗している。<br>
+			
+			<img src="img/laravel8_note/sec1-1a4.png" alt=""  class="img_compact_k" /><br>
+			<br>
+		</li>
+		
+		<li>
+			これで開発環境は整ったと思われる。多分。<br>
+			終わり。<br>
+		</li>
+		
+		<li>
+			追記：DBテーブルのフィールド型がdatetime型だと空値で苦しむことになる。<br>
+			対策→<a href="laravel7_note4.html#sec4-10" class="livipage" >Larevelの日付更新エラー SQLSTATE[22007]: Invalid datetime format</a>
+			
+			Larevelの日付更新エラー
+		</li>
+	</ol>
+
+
+	<br><time>2022-7-2</time>
+</div>
+
+
 <div id="sec1-2" class="sec4" >
 	<h3>Laravelの従う | なぜSPAでなくMPAか | 基本アクション</h3>
 
