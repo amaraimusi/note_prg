@@ -429,7 +429,8 @@ cd temp
 		$username = $request-&gt;input($this-&gt;username());
 		$password = $request-&gt;input('password');
 		
-		if (filter_var($username, &yen;FILTER_VALIDATE_EMAIL)) {
+		if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+		//if (filter_var($username, &yen;FILTER_VALIDATE_EMAIL)) { // Laravel8だと&yen;マークを付加しないとエラーになる場合がある。
 			$credentials = ['email' =&gt; $username, 'password' =&gt; $password];
 		} else {
 			$credentials = [$this-&gt;username() =&gt; $username, 'password' =&gt; $password];
@@ -481,7 +482,7 @@ cd temp
 	</pre>
 
 
-	<br><time>2022-1-13</time>
+	<br><time>2022-1-13 | 2022-7-2</time>
 </div>
 
 
