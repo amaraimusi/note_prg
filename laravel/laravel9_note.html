@@ -379,6 +379,44 @@ $ npm run dev
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>ログアウトの実装</h3>
+	
+	任意のコントローラにログアウト処理を記述する。
+	<pre><code>
+	class NekoController extends Controller{
+	
+		/**
+		 * ユーザーをアプリケーションからログアウトさせる
+		 *
+		 * @param  \Illuminate\Http\Request  $request
+		 * @return \Illuminate\Http\Response
+		 */
+		public function logout(Request $request)
+		{
+		    \Auth::logout();
+		    
+		    $request->session()->invalidate();
+		    
+		    $request->session()->regenerateToken();
+		    
+		    return redirect('/');
+		}
+	</code></pre>
+	
+	routes/web.phpにログアウトのパスを記載
+	<pre><code>
+	Route::get('logout', 'App\Http\Controllers\NekoController@logout');
+	</code></pre>
+	
+	あとは任意のビュー(blade.php)にて下記のような記述をするだけ。
+	<pre><code>&lt;a href="logout" class="nav-link text-light"&gt;ログアウト&lt;/a&gt;</code></pre>
+
+
+	<br><time>2022-7-2</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
