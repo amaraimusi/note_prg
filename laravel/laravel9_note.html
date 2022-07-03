@@ -615,6 +615,19 @@ return [
 </div>
 
 
+<div id="sec1-6" class="sec4" >
+	<h3>クエリビルダーで実行予定のSQLをダンプする</h3>
+
+	<pre><code>
+	    $query = DB::table('sales');
+	    $query = $query->orderBy('id');
+	    dump(<strong>$query->toSql()</strong>);
+	</code></pre>
+
+	<br><time>2022-7-4</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
