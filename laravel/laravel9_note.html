@@ -637,6 +637,23 @@ return [
 </div>
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>LaravelのSELECTボックス | セレクトボックス</h3>
+	
+	<pre>
+					&lt;select name="status" class="form-control form-control-lg"&gt;
+						@foreach ($salesStatusList as $status =&gt; $status_name)
+							&lt;option value="{{ $status }}" @selected(old('status') == $status)&gt;
+								{{ $status_name }}
+							&lt;/option&gt;
+						@endforeach
+					&lt;/select&gt;
+	</pre>
+
+	<br><time>2022-7-4</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
