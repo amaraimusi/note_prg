@@ -58,24 +58,75 @@
 </div>
 
 
-<div id="sec2-2" class="sec4" >
-	<h3>バリデーションをビュー(bladeテンプレート)に出力する</h3>
+<div id="sec2-2" class="sec4">
+	<h3>バリデーション</h3>
+	
+	<p>コントローラ</p>
+	<pre><code>
+	public function store(Request $request){
 
-	xxx.blade.php
+		$request-&gt;validate([
+			'sales_amt' =&gt; 'required|numeric', // 必須且つ、数値であること
+			'billing_date' =&gt; 'nullable|date', // 空を許容且つ、日付形式であること
+		]);
+	</code></pre>
+	
+	<p>○○.blade.php</p>
+	<pre><code>
+	&lt;!-- バリデーションエラーの表示 --&gt;
+	@if ($errors-&gt;any())
+	    &lt;div class="alert alert-danger"&gt;
+	        &lt;ul&gt;
+	            @foreach ($errors-&gt;all() as $error)
+	                &lt;li&gt;{{ $error }}&lt;/li&gt;
+	            @endforeach
+	        &lt;/ul&gt;
+	    &lt;/div&gt;
+	@endif
+	
+	&lt;form method="POST" action="{{ url('test/update') }}"&gt;
+		@csrf
+		&lt;input name="sales_amt" type="text"  class="form-control" placeholder="売上額" value="{{old('sales_amt', $ent-&gt;sales_amt)}}"&gt;
+		&lt;input name="billing_date" type="date"  class="form-control" placeholder="請求日" value="{{old('billing_date', $ent-&gt;billing_date)}}" &gt;
+	</code></pre>
+	
+	
+	<br><time>2022-7-7</time>
+</div>
+
+
+<div id="sec2-3" class="sec4">
+	<h3>requestからパラメータを取得 | GETとPOSTからパラメータ取得</h3>
+	
 	<pre>
-&lt;!-- バリデーションエラーの表示 --&gt;
-@if ($errors-&gt;any())
-	&lt;div class="alert alert-danger"&gt;
-		&lt;ul&gt;
-			@foreach ($errors-&gt;all() as $error)
-				&lt;li&gt;{{ $error }}&lt;/li&gt;
-			@endforeach
-		&lt;/ul&gt;
-	&lt;/div&gt;
-@endif
+class TestController{
+	public function index(Request $request){
+		$client_name => <strong>$request->client_name</strong>, // 顧客名
 	</pre>
 
-	<br><time>2022-7-4</time>
+
+	<br><time>2022-7-7</time>
+</div>
+
+
+<div id="sec2-4" class="sec4">
+	<h3>リクエストのパラメータをすべて取得</h3>
+	<pre>
+class TestController{
+	public function index(Request $request){
+		$params = $request-><strong>all()</strong>;
+	</pre>
+
+	<br><time>2022-7-7</time>
+</div>
+
+
+<div id="sec2-5" class="sec4">
+	<h3>セッションからの読込、および書き込み | SESSION</h3>
+		<pre>session(['test_key' => $testData]); // セッションにデータを書き込む</pre>
+		<pre>$testData = session('test_key');// セッションからデータを読取り</pre>
+
+	<br><time>2022-7-7</time>
 </div>
 
 
