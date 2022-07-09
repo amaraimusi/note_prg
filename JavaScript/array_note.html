@@ -249,6 +249,54 @@
 
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>配列の要素を入替</h3>
+	<a href="/sample/js/a016/swapElementsOfArray/swapElementsOfArray.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+/**
+ * 配列の要素を入替
+ * @param [] ary 対象の配列
+ * @param int from_index 入替元インデックス
+ * @param int to_index 入替先インデックス
+ * @return [] 要素入替後の配列
+ */
+function swapElementsOfArray(ary, from_index, to_index){
+
+	if(from_index &lt; 0) throw Error('Error:220710A');
+	if(from_index &gt;= ary.length) throw Error('Error:220710B');
+	if(to_index &lt; 0) throw Error('Error:220710C');
+	if(to_index &gt;= ary.length) throw Error('Error:220710D');
+	
+	let ary2 = [];
+	let value1 = ary[from_index];
+	let value2 = ary[to_index];
+	for(let i in ary){
+		if(i == from_index){
+			ary2.push(value2);
+		}else if(i == to_index){
+			ary2.push(value1);
+		}else{
+			ary2.push(ary[i]);
+		}
+	}
+	return ary2;
+}
+	</code></pre>
+	<br>
+
+	<br><time>2022-7-10</time>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
