@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>アーキテクチャの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>アーキテクチャの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>継続的インテグレーション CI（継続的統合）</h3>
+
+<div class="sec5">
+<h4>概要</h4>
+CIは、テスト,Lint,Build,Deployを自動化する方法(アーキテクチャ)のこと。特定の技術ではない。
+TEST,Lint,Build,Deployは従来、開発者がlocalhost環境で手動で行っていた。
+CIは、それをサーバー環境でも自動で実施するすることができる。
+ローカル環境でもテスト,Lintをすべきだが、やはり人間が行うとミスがあるので、サーバー環境でもチェックしようという意味がある。
+例えば、CIツールを使えばgithubでmainにマージを行ったタイミングで本番環境にデプロイすることができる。
+また、リポジトリにアップしたタイミングでテストやLintを行うという運用もある。
+
+<p>継続的デリバリー(CD)</p>
+デプロイの自動化に重きをおいた考え方を継続的デリバリー(CD)とも呼ぶ。
+CIとセットで呼ばれることが多く、CI/CDという呼び方も見られる。
+
+<p>CIツール</p>
+古くはJenkinsがCIツールとしては良く知られている。
+他にはTravis CI, Circle CI, GitHub Actionsなどがある。
+2022年ではGitHubが有力。
+
+CIはどこで実行されるか？
+LinuxのテストサーバーでCIをコマンド実行、
+DockerでCIコマンドを実行など。
+
+<p>Jenkins</p>
+JenkinsはCI/CDツールで有名なもの。
+Jenkins自体がテスト,Lint,Build,Deployを行うのでなくパイプ役という役目である。
+GitHub,Caven,JUnitなどをパイプラインで繋げて次々と実行する。
+
+<p>GitHub Actionsの応用例</p>
+GitHubのmainブランチにマージしたタイミングで本番環境にデプロイするという応用がある。
+
+<p>AWS</p>
+CIツールの組み込みが可能であるがややこしい。
+AWSの設定をいろいろいじるため、AWSに詳しくならねばならない。
+</div>
+
+	<br><time>2022-9-6</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>DDD ドメイン駆動設計</h3>
+	
+<div class="sec5">
+<h4>概要</h4>
+DDDとはソフトウェア開発手法の一つ。
+事業者の業務の「ある領域」における特定の課題を解決することに重きをおいた開発手法。この「ある領域」をドメインと呼ぶ。
+通常の開発手法はシステム視点であるが、DDDは業務視点とされる。
+従来の開発手法であれば業務をシステムに合わせるという感じであるが、DDDは業務にシステムを合わせるという感じである。
+
+・複雑な処理の部分の開発手法に向いている。
+・マイクロサービスと相性が良いとのこと。
+・アジャイル開発手法と似ている。というか両立できるともある。
+・DDDは過去のプロジェクトの成功をモデル化したもの。それをソフトウェアに埋め込む。
+・高い保守性、再利用性、拡張性、変化に強いとされる。
+・反対の開発手法はユースケース駆動開発
+
+
+<p>開発の流れ</p>
+ウォーターフォール開発では事前に作るべきものを設計した上で、その設計通りに開発していく。
+しかし、DDDは事業者と相談しながら更新を重ねる。
+
+
+<p>ドメインエキスパート</p>
+対象のドメインに詳しい人をドメインエキスパートと呼ぶ。
+業務からシステムとして必要な個所だけ洗いだせる人のこと。
+ドメインをモデルとして作り上げていく人
+運用してみて必要が生じたらモデルに反映させる人
+
+・DDDの開発では事業担当者と話し合いを頻繁に行う必要がある。その話し合いをする人をドメインエキスパートと呼ぶ。
+・ドメインエキスパートは事業担当者とユビキタス言語で話す。→開発者と事業者が共通で利用する言語。
+
+
+<p>ドメインモデル</p>
+DDDにはドメインモデルという用語がある。
+ドメインエキスパートは事業者から話を聞いてドメインモデルを作り上げ、プログラマはドメインモデルを見てプログラミングする。
+ドメインモデルとクラスは同じ構造になっていなければならない。
+ドメインモデルにはエンティティ、値オブジェクト、リポジトリという概念がある。
+
+・ドメインモデルは最初から決まっておらず、改善し続けるものである。
+・モデリング＝モデルを作成する活動のこと。モデルはドメインモデルとも呼ばれる。
+・プログラミングのMVCモデルはModel, View, Controllerに分かれる。DDDではそのうちのModelが活躍する。
+
+<p>リポジトリ</p>
+倉庫ようにふるまうクラス。
+倉庫から出し入れするように、DBやリソースからデータを取り出したり保存したりする。
+
+<p>エンティティ</p>
+エンティティはUMLのエンティティと大体同じ。ただエンティティのフィールド（プロパティ）にidが含まれる必要がある。
+
+<p>値オブジェクト</p>
+普通、「値」はプリミティブ型として扱う。
+値オブジェクトは「値」クラス化したもの。
+
+例えば「通貨」という値をクラス化した通貨クラスという値オブジェクトを作成できる。
+通貨クラスは加算機能、単位変更機能なのだが実装される。
+「通貨」を値オブジェクト化すると「資金」という呼び方がふさわしくなる。
+
+「年齢」を値オブジェクト化した場合、西暦表記変換機能や和暦変換などの実装が考えられる。
+</div>
+
+
+	<br><time>2022-9-6</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-9-6</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>アーキテクチャの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-9-6</div>
+</body>
+</html>

@@ -187,6 +187,39 @@ aside{
 	margin-bottom:24px;
 }
 
+
+.sec5{
+	white-space:pre-wrap; word-wrap:break-word;
+	padding-left:0.8em;
+}
+
+
+.sec5 h4{
+	border-left:double 10px #ca7b1c;
+	padding-left:4px;
+	font-size:1.6em;
+	color:#603a0d;
+	background-color:none;
+}
+
+.sec5 p{
+	font-size:1.4em;
+	color:#aa6817;
+	background-color:none;
+	padding:0px;
+	margin-top:1em;
+	margin-bottom:0.2em;
+	
+}
+
+.sec5 h5{
+	font-size:1.1em;
+	color:#1f1304;
+	background-color:none;
+	margin-top:1em;
+	margin-bottom:1em;
+}
+
 .sec_sm{
 	padding:10px;
 	font-size:0.9em;
