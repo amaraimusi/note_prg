@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHPUnitの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>PHPUnitの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>基本的なPHPUnitのインストール</h3>
+	PHPUnitは単にテストするという目的だけではない。近頃はCIやパッケージ作成の際に品質保証として組み込まれることも多くなった。<br>
+	PHPUnitはLaravelなんかのフレームワークにも組み込まれており、Laravelならではの使い方というものもある。<br>
+	しかし、ここではフレームワークなしの基本的な使い方を解説する。Laravel側も基本的なものは変わらないので覚えておくと応用が効く。<br>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			プロジェクトを作成（任意ディレクトリを作成）
+			<pre class="console">$ mkdir phpunit_demo</pre>
+		</li>
+		<li>
+			プロジェクトのディレクトリへ移動
+			<pre class="console">$ cd phpunit_demo</pre>
+		</li>
+		<li>
+			テスト対象となるソースコードを配置するディレクトリを適当に作成する。（今回はsrcとする）
+			<pre class="console">$ mkdir src</pre>
+		</li>
+		<li>
+			テストケースを配置するディレクトリを適当に作成する。(今回は「test」ディレクトリとする)
+			<pre class="console">$ mkdir test</pre>
+		</li>
+		<li>
+			Windows環境だとttyなんとかのエラーがよく出るため、それ防止用に下記コマンドを実行。
+			<pre class="console">$ exec winpty bash</pre>
+			
+		</li>
+		<li>
+			composer.pharをダウンロードする
+			<pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+
+		</li>
+		<li>
+			composer.jsonをテキストエディタで空作成し、下記を記述する。(phpunit_demoディレクトリ内にて作成)
+			<pre>
+{
+	"require-dev" : {
+		"phpunit/phpunit" : "^9.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"App\\" : "src/"
+		}
+	}
+}
+			</pre>
+			「"phpunit/phpunit" : "^9.0"」はphpunitバージョン9以上をインストール指定している。<br>
+			「"App\\" : "src/"」の「App\\」はPHPのクラスファイルに付ける名前空間こと、「src/」はテスト対象となるソースコードのディレクトリを指している。<br>
+		</li>
+		<li>
+			phpunit.xmlをテキストエディタで空作成し、下記を記述する。
+			<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+&gt;
+    &lt;testsuites&gt;
+        &lt;testsuite name="Unit"&gt;
+            &lt;directory suffix="Test.php"&gt;./test&lt;/directory&gt;
+        &lt;/testsuite&gt;
+    &lt;/testsuites&gt;
+&lt;/phpunit&gt;
+			</pre>
+			「./test」は上記で作成したテストケースの配置先である「test」ディレクトリである。<br>
+		</li>
+		<li>
+			PHPUnitをインストールする。（phpunit_demoがカレントディレクトリになっている状態で実行）
+			<pre class="console">$ php composer.phar update</pre>
+			phpunit_demoディレクトリ内にvendorディレクトリが作成され、そのなかにPHPUnitと依存モジュールがダウンロード＆配置される。<br>
+			<br>
+			
+			正しくインストールされたかどうかPHPUnitのバージョン確認する。バージョンが表示されたらOK.
+			<pre class="console">php vendor/bin/phpunit --version</pre>
+		</li>
+		<li>
+			「autoload.php」を作成する。
+			<pre class="console">php composer.phar dump-autoload</pre>
+			
+		</li>
+		<li>
+			テスト対象となるソースコードをsrcディレクトリ内に作成する。
+			例ではNeko.phpを作成
+			<pre>
+&lt;?php
+namespace App;
+
+class Neko{
+    public function bark($name){
+        return $name . 'はニャオーと吠えた';
+    }
+}
+			</pre>
+		</li>
+		<li>
+			testディレクトリにテストケース・ファイルを作成。<br>
+			Nekoクラスのテストケース・ファイル名はNekoTest.phpとなる。語尾にTestが付く。クラス名も同じ。
+			NekoTest.php
+			<pre>
+<?php 
+use PHPUnit\Framework\TestCase;
+use \App\Neko;
+
+class NekoTest extends TestCase{
+    
+    protected $obj;
+    protected function setUp() :void {
+        $this->object = new Neko();
+    }
+    
+    public function testAdd() {
+        $this->assertEquals('赤猫はニャオーと吠えた', $this->object->bark('赤猫'));
+    }
+
+}
+			</pre>
+		</li>
+		<li>
+			テスト実行する
+			<pre class="console">php ./vendor/bin/phpunit</pre>
+			「OK (1 test, 1 assertion)」ってな感じのメッセージが表示されたら、テストOK.<br>
+			エラーがある場合は、エラーメッセージが表示される。<br>
+			<br>
+		</li>
+		<li>
+			終わり。<br>
+			(っﾟ⊿ﾟ)っ あ！ → ｻ-ｯ(=^‥^) ｱｶﾈｺ
+		</li>
+	</ol>
+
+
+	<br><time>2022-9-13</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-9-13</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>PHPUnitの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-9-13</div>
+</body>
+</html>
