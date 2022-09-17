@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Composerの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Composerの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4">
+	<h3>パケージ（ライブラリ）作成およびPackagistへ登録</h3>
+	
+	<ol class="list_lg">
+		<li>
+			Githubにて新しく作成するパッケージのリポジトリを作成する。
+			パッケージリポジトリの例↓<br>
+			<a href="https://github.com/amaraimusi/CrudBase" target="blank">https://github.com/amaraimusi/CrudBase</a><br>
+		</li>
+		
+		<li>
+			コマンドラインツールを立ち上げ、プロジェクトを作成するディレクトリに移動し、
+			ローカル環境に先ほど作成したリポジトリをクローンする。(ローカル環境に開発環境を作成する)
+			<pre class="console">
+	cd git
+	git@github.com:amaraimusi/CrudBase.git
+			</pre>
+		</li>
+		
+		<li>
+		
+			<pre class="console">
+	cd CrudBase
+	mkdir src
+	mkdir tests
+			</pre>
+			プロジェクトのディレクトリ内にsrcディレクトリとtestsディレクトリを作成する。<br>
+			<br>
+			
+			srcディレクトリには作成するパッケージのソースコードを配置する。
+			testsはPHPUnitのテストケース・ファイル群を配置する。
+			これらのディレクトリの名前は何でも良いが慣習的にこのような名前にする。PHPUnitは別に必須という分けではないので使い方については割愛。<br>
+			<br>
+			
+		</li>
+		
+		<li>
+			プロジェクトのディレクトリ内にcomposer.jsonを空作成し、下記を記述する。
+			<p>composer.json</p>
+			<pre>
+{
+	"name" : "amaraimusi/crudbase",
+	"description" : "CRUD support library",
+	"keywords" : [
+		"CRUD",
+		"web service",
+		"管理画面"
+	],
+	"type" : "library",
+	"license" : "MIT",
+	"homepage" : "https://amaraimusi.sakura.ne.jp/CrudBase",
+	"authors" : [{
+			"name" : "amaraimusi",
+			"email" : "amaraimusi@gmail.com",
+			"homepage" : "https://amaraimusi.sakura.ne.jp/",
+			"role" : "Developer"
+		}
+	],
+	"minimum-stability" : "dev",
+	"require-dev" : {
+		"phpunit/phpunit" : "^9.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"CrudBase\\" : "src/crudbase/"
+		}
+	}
+}
+			</pre>
+			
+			<p>compser.jsonの解説</p>
+			<table class="tbl2">
+				<tr>
+					<td>"name" : "amaraimusi/crudbase"</td>
+					<td>"name" : "Githubでのあなたのユーザー名/新しく作成するパッケージ名（すべて小文字にすること。大文字禁止になっている）"</td>
+				</tr>
+				<tr>
+					<td>"description" : "CRUD support library",</td>
+					<td>"description" : "パッケージの説明文（任意）",</td>
+				</tr>
+				<tr>
+					<td>"keywords" : [</td>
+					<td>検索用のキーワード。他の開発者がパッケージを検索する手がかりに。省略可能。</td>
+				</tr>
+				<tr>
+					<td>"type" : "library"</td>
+					<td>パッケージのタイプ。library、metapackage、composer-installerの3種類があるが、通常はlibraryに設定しておけばよい。</td>
+				</tr>
+				<tr>
+					<td>"license" : "MIT"</td>
+					<td>ライセンスの種類を記述。フリーライセンスにするならMITとする。</td>
+				</tr>
+				<tr>
+					<td>"homepage" : "https://amaraimusi.sakura.ne.jp/CrudBase",</td>
+					<td>当パッケージの解説、デモ、サンプルなどを記述したサイトへのURLを指定すると良い。省略可能。</td>
+				</tr>
+				<tr>
+					<td>
+<pre>
+	"authors" : [{
+			"name" : "amaraimusi",
+			"email" : "amaraimusi@gmail.com",
+			"homepage" : "https://amaraimusi.sakura.ne.jp/",
+			"role" : "Developer"
+</pre>
+					</td>
+					<td>
+						開発者の情報を記述する。
+					</td>
+				</tr>
+				<tr>
+					<td>"minimum-stability" : "dev",</td>
+					<td>開発版なら「dev」をセット、安定版なら「stable」をセットする。</td>
+				</tr>
+				<tr>
+					<td>
+<pre>
+	"require-dev" : {
+		"phpunit/phpunit" : "^9.0"
+	},
+</pre>
+					</td>
+					<td>
+						開発版である場合のみ依存するパッケージを記述する。
+					</td>
+				</tr>
+				<tr>
+					<td>
+<pre>
+	"autoload" : {
+		"psr-4" : {
+			"CrudBase\\" : "src/crudbase/"
+		}
+	}
+</pre>
+					</td>
+					<td>
+						「"CrudBase\\" : "src/crudbase/"」の部分は重要。<br>
+						名前空間とパスの紐づけを行っている。
+						名前空間はクラスファイルに記述する「namespace」のこと。「namespace CrudBase;」などと記述する。
+						この辺りはハマりやすいのでスペルミスがないよう慎重に。
+						
+					</td>
+				</tr>
+
+			</table>
+			
+			<a href="https://qiita.com/suisuina/items/3fecbefc3ba2d805669d" target="blank">参考：PHP composer.jsonのプロパティ名まとめ</a>
+			
+		</li>
+		
+		<li>
+			Composerを実行する。PHPUnitなどがインストールされる。
+			<pre class="console">
+	composer update
+			</pre>
+		</li>
+		
+		<li>
+			autoload.phpなどの再生成。
+			<pre class="console">
+	composer dump-autoload
+			</pre>
+			
+		</li>
+		
+		<li>
+			パッケージを開発する。<br>
+			srcディレクトリ内に当パッケージのクラスファイルを配置し、プログラミングする。<br>
+			開発にはPHPUnitを利用すると便利。<br>
+			<br>
+			
+			<strong>開発環境のディレクトリとファイルの構成例</strong><br>
+			<img src="img/composer_note2/sec2-1a3.png" alt="" style="max-width:100%;" /><br>
+			<br>
+			
+			<strong>Neko.php</strong><br>
+			<pre><code>
+&lt;?php 
+namespace CrudBase;
+
+class Neko{
+    
+    public function bark($name){
+        return $name . 'はニャーンと吠えた';
+    }
+    
+}
+			</code></pre>
+		</li>
+		
+		<li>
+			開発が終わったらGitにてコミット＆プッシュする。
+			<pre class="console">
+	git add -a
+	git commit m="任意のコメント"
+	git push
+			</pre>
+		</li>
+		
+		<li>
+			Githubサイトにアクセスし、該当するリポジトリのページを開き、ページのURLを控え留めておく。(packagistへの登録に必要。)
+		</li>
+		
+		<li>
+			packagist.orgのサイトにアクセスし、サインインする。GitHubのアカウントでサインインできる。<br>
+			
+		</li>
+		
+		<li>
+			上段メニューにある「Submit」をクリックするとpackagistへ登録ページへアクセスできる。
+			あとはテキストボックスに控えていたURLを貼り付け、CheckボタンそしてSubmitボタンを押していくだけ。<br>
+			Check時にエラーがあれば修正しよう。<br>
+			<img src="img/composer_note2/sec2-1a1.png" alt="" style="max-width:100%;" />
+		</li>
+		
+		<li>
+			以上でパッケージの登録は終わり。<br>
+			packagist.orgの検索ボックスから先ほど登録したパッケージを検索してみよう。<br>
+			自分が登録したパッケージが表示されたらOK.<br>
+		</li>
+	</ol>
+	
+	
+	<p>登録したパッケージの使い方</p>
+	他のライブラリと使い方と基本的に同じなので詳細は割愛。一応、記述例は下記の通り。<br>
+	<br>
+	
+	開発プロジェクトのディレクトリやファイルの構成例<br>
+	<img src="img/composer_note2/sec2-1a2.png" alt="" style="max-width:100%;" /><br>
+	<br>
+
+	<p>composer.json</p>
+	<pre>
+{
+	"require-dev" : {
+		"amaraimusi/crudbase" : "dev-master"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"App\\" : "src/"
+		}
+	}
+}
+	</pre>
+	
+	<p>index.php</p>
+	<pre><code>
+&lt;?php 
+$autoloader =require_once '../vendor/autoload.php';
+require_once 'Animal.php';
+$animal = new Animal();
+$animal-&gt;test();
+	</code></pre>
+	
+	<p>Animal.php</p>
+	<pre><code>
+&lt;?php 
+use <strong>CrudBase&yen;Neko;</strong>
+
+class Animal{
+    
+    public function test(){
+        echo 'アメリカザリガニ&lt;br&gt;';
+        $neko = new Neko();
+        echo $neko-&gt;bark('黒い猫');
+    }
+}
+	</code></pre>
+	
+	
+	
+
+	<br><time>2022-9-16</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-9-16</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Composerの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2022-9-16</div>
+</body>
+</html>
