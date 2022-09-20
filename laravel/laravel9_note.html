@@ -145,6 +145,11 @@
 			DB_USERNAME=root
 			DB_PASSWORD=
 			</pre>
+			
+			セッションの保存先をfileからdatabaseに変更する。ファイルでなくDBにセッション情報が保存されるようになる。
+			<pre>
+			SESSION_DRIVER=database
+			</pre>
 			<aside>
 				※ .envファイルの場所の例→「~/git\crud_base_laravel9\dev\.env<br>
 				※ xamppの場合、特に設定していなければ、MySQLのユーザー名はroot,パスワードは空である。
