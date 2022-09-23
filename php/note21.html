@@ -58,6 +58,34 @@
 </div>
 
 
+<div id="sec21-3" class="sec4" >
+	<h3>シングルトンパターン</h3>
+	
+	<pre><code>
+&lt;?php 
+namespace CrudBase;
+
+class Neko{
+    private static $singleton;
+    public static function getInstance(){
+        if (!isset(self::$singleton)) {
+            self::$singleton = new Neko();
+        }
+        return self::$singleton;
+    }
+}
+	</code></pre>
+	
+	<p>インスタンスを取得する</p>
+	<pre><code>
+	$neko = Neko::getInstance();
+	</code></pre>
+
+
+	<br><time>2022-9-23</time>
+</div>
+
+
 <div id="sec21-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
