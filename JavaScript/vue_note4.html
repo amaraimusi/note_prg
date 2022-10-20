@@ -916,6 +916,80 @@ jQuery(()=&gt;{
 </div>
 
 
+<div id="sec4-9" class="sec4" >
+	<h3>Vue.js 繰り返しの検証 | iterator イテレータ ループ</h3>
+	
+	<a href="/sample/js/a016/vue_iterator/vue_iterator.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre>
+&lt;div id="app"&gt;
+
+	&lt;table class="tbl2"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;動物名&lt;/th&gt;&lt;th&gt;数値&lt;/th&gt;&lt;th&gt;日付&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+		  &lt;tr v-for="ent in data"&gt;
+		    &lt;td&gt;{{ ent.animal_name }}&lt;/td&gt;
+		    &lt;td&gt;{{ ent.value }}&lt;/td&gt;
+		    &lt;td&gt;{{ ent.animal_date }}&lt;/td&gt;
+		  &lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	
+	&lt;div style="margin-top:20px;"&gt;
+		&lt;p&gt;新規入力フォーム&lt;/p&gt;
+		&lt;form&gt;
+			&lt;div&gt;動物名&lt;input type="text" v-model="createEnt.animal_name" /&gt;&lt;/div&gt;
+			&lt;div&gt;数値&lt;input type="number" v-model="createEnt.value" /&gt;&lt;/div&gt;
+			&lt;div&gt;日付&lt;input type="date" v-model="createEnt.animal_date" /&gt;&lt;/div&gt;
+			&lt;div&gt;&lt;button type="button" class="btn btn-success" onclick="store()"&gt;追加&lt;/button&gt;&lt;/div&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+	
+&lt;/div&gt;
+	</pre>
+	
+	<p>JavaScript</p>
+<pre>
+let app; // vue app
+
+$(()=&gt;{
+	
+	
+	var data = [
+		{animal_name:'イモリ', value:100, animal_date:'2022-10-13'},
+		{animal_name:'ネコ', value:101, animal_date:'2022-10-14'},
+		{animal_name:'カンガルー', value:102, animal_date:'2022-10-15'},
+		{animal_name:'バイソン', value:103, animal_date:'2022-10-16'},
+	];
+	
+	var createEnt = {animal_name:'-', value:0, animal_date:''};
+		
+	
+	app = new Vue({
+			el: '#app',
+			data: {
+				'data': data,
+				'createEnt': createEnt,
+			},
+		});
+	
+})
+
+// 新規入力
+function store(){
+	app.data.push(app.createEnt);
+}
+</pre>
+
+
+	<br><time>2022-10-20</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
