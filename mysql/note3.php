@@ -622,6 +622,31 @@ GROUP BY val1
 <!-- --------------------------------------------------------------- -->
 <div id="sec3-8" class="sec1">
 	<h3>行の作成日時と更新日時を自動化する</h3>
+	
+	created_at,create_atなどの日時系フィールドの型ですがtimestamp型でなくdatetime型がよい。
+	理由は以下の通り。
+
+	<ul>
+		<li>timestamp型には2038年問題があります。</li>
+		<li>何かのタイミングでUTC/協定世界時とJST/日本標準時の間で変換されてしまうことがあります。</li>
+		<li>Laravelのマイグレーションなどでtimestamp型が原因で処理中断というケースがありました。</li>
+	</ul>
+
+	datetime型でもデフォルトで現在日時をセットする条件を付与できますので、こちらを採用するほうが無難です。
+
+	<pre>
+    CREATE TABLE animals (
+        id INT(10),
+        name VARCHAR(10),
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    )
+	</pre>
+	
+	<hr />
+	<p>旧式</p>
+	※未推奨<br>
+	<br>
 
 	作成日`created`フィールドを追加するSQLの例
 	<pre>
