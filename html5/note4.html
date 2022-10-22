@@ -159,6 +159,52 @@
 
 
 
+<div id="sec4-7" class="sec4">
+	<h3>datalistの検証: 値取得, jQueryで操作, oninput,onchange, onblur, onclickの動作確認</h3>
+	
+	<a href="/sample/js/a016/datalist/datalist.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;label for="animal_name"&gt;動物リスト:&lt;/label&gt;
+&lt;input list="animal_dlist" id="animal_name" name="animal_name" 
+	oninput="test1('oninput')" 
+	onchange="test1('onchange')" 
+	onblur="test1('onblur')" 
+	onclick="test1('onclick')"&gt;
+&lt;datalist id="animal_dlist" &gt;
+    &lt;option value="イモリ"&gt;
+    &lt;option value="カエル"&gt;
+    &lt;option value="サンショウウオ"&gt;
+    &lt;option value="ヒキガエル"&gt;
+&lt;/datalist&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+$(()=&gt;{
+	// リストに追加
+	$('#animal_dlist').append("&lt;option value='赤猫'&gt;");
+});
+
+function clickBtn1(){
+	let animal_name = $('#animal_name').val();
+	$('#res').html(animal_name);
+}
+
+
+function test1(str){
+	$('#res2').append(str + '&lt;br&gt;');
+}
+	</code></pre>
+
+
+	<br><time>2022-10-22</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
