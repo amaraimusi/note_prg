@@ -990,6 +990,120 @@ function store(){
 </div>
 
 
+<div id="sec4-10" class="sec4" >
+	<h3>Vue.js 入力フォーム動的追加 | 一覧型入力フォームの行追加</h3>
+	
+	<a href="/sample/js/a016/inp_form_dynamic_add/inp_form_dynamic_add.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+&lt;div id="app"&gt;
+
+	&lt;table class="tbl2"&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;&lt;th&gt;動物名&lt;/th&gt;&lt;th&gt;数値&lt;/th&gt;&lt;th&gt;日付&lt;/th&gt;&lt;th&gt;種類&lt;/th&gt;&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+		  &lt;tr v-for="ent in data"&gt;
+		    &lt;td&gt;{{ ent.animal_name }} &lt;input type="text" v-model="ent.animal_name" &gt;&lt;/td&gt;
+		    &lt;td&gt;{{ ent.value }}&lt;/td&gt;
+		    &lt;td&gt;{{ ent.animal_date }}&lt;/td&gt;
+		    &lt;td&gt;
+		    	&lt;select v-model="ent.animal_type"&gt;
+		    		&lt;option v-for="(value, key) in animalTypeList" v-bind:value="key"&gt;{{value}}&lt;/option&gt;
+		    	&lt;/select&gt;
+		    &lt;/td&gt;
+		  &lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	
+	&lt;div style="margin-top:20px;"&gt;
+		&lt;p&gt;新規入力フォーム&lt;/p&gt;
+		&lt;form&gt;
+			&lt;div&gt;動物名&lt;input type="text" v-model="createEnt.animal_name"/&gt;&lt;/div&gt;
+			&lt;div&gt;数値&lt;input type="number" v-model="createEnt.value" /&gt;&lt;/div&gt;
+			&lt;div&gt;日付&lt;input type="date" v-model="createEnt.animal_date" /&gt;&lt;/div&gt;
+			&lt;div&gt;
+				&lt;select v-model="createEnt.animal_type"&gt;
+					&lt;option v-for="(value, key) in animalTypeList" v-bind:value="key"&gt;{{value}}&lt;/option&gt;
+				&lt;/select&gt;
+			&lt;/div&gt;
+			&lt;div&gt;&lt;button type="button" class="btn btn-success" onclick="store()"&gt;追加&lt;/button&gt;&lt;/div&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+	
+&lt;/div&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+let app; // vue app
+
+$(()=&gt;{
+	
+	var animalTypeList = {
+		1:'哺乳類',
+		2:'爬虫類',
+		3:'鳥類',
+		4:'両生類',
+		5:'魚類',
+		6:'無脊椎動物',
+	};
+
+	var data = [
+		{animal_name:'イモリ', value:100, animal_date:'2022-10-13', animal_type:4},
+		{animal_name:'ネコ', value:101, animal_date:'2022-10-14', animal_type:1},
+		{animal_name:'カンガルー', value:102, animal_date:'2022-10-15', animal_type:1},
+		{animal_name:'バイソン', value:103, animal_date:'2022-10-16', animal_type:1},
+	];
+	
+	var createEnt = {animal_name:'ヌタウナギ', value:3000, animal_date:'2022-10-23', animal_type:5};
+
+	app = new Vue({
+			el: '#app',
+			data: {
+				'data': data,
+				'animalTypeList': animalTypeList,
+				'createEnt': createEnt,
+			},
+		});
+	
+})
+
+// 新規入力
+function store(){
+	app.data.push(app.createEnt);
+}
+	</code></pre>
+
+
+	<br><time>2022-10-23</time>
+</div>
+
+
+<div id="sec4-11" class="sec4" >
+	<h3>Vue.js バージョン表示</h3>
+
+	<pre><code>
+	console.log(Vue.version);
+	</code></pre>
+
+	<br><time>2022-10-23</time>
+</div>
+
+
+<div id="sec4-12" class="sec4" >
+	<h3>Vue.js Laravelのbladeとの競合対策 → {{}}</h3>
+	bladeの「{{}}」はVue.jsと役割が被る。その場合「@」を付与するとVue.jsの「{{}}」になる。「@」を付与していない場合はLaravelのものになる。<br>
+	<br>
+
+	<pre><code><strong>@</strong>{{vue_message1}}</code></pre>
+
+	<br><time>2022-10-23</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
