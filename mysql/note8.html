@@ -260,6 +260,26 @@ $ docker exec -it docker_demo_mysql_1 bash
 
 
 
+<div id="sec8-9" class="sec4" >
+    <h3>テストデータ作成に役立つSQL | サンプルデータ</h3>
+    
+    レコードを2倍に増やすSQL
+    <pre class="console">INSERT INTO animals (name) SELECT name FROM animals</pre>
+    <br>
+
+
+	全レコードにレコードごとに異なる数値をランダムでセットする。下記の例は1から4までの自然数をvalue1フィールドにランダムでセットします。
+    <pre class="console">UPDATE animals SET value1 = FLOOR(1 + RAND() * 4)</pre>
+	<br>
+	
+	idを利用して適当な文字列をセットする
+    <pre class="console">UPDATE animals SET name = CONCAT('ネコ' , id)</pre>
+
+    <br><time>2022-10-23</time>
+</div>
+
+
+
 <div id="sec8-0" class="sec4" style="display:none">
     <h3>xxx</h3>
 

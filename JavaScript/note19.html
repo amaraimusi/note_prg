@@ -373,6 +373,53 @@ if(/^([1-9]\d*|0)$/.test(str)){
 </div>
 
 
+<div id="sec19-6" class="sec4"  >
+	<h3>検索機能付きセレクトボックス | select2</h3>
+	
+	Vue.jsとは併用ができない。Vue.jsのテンプレートとコンポーネントによる拡張機能を利用しなくてはならない。<br>
+	<br>
+	
+	<a href="/sample/js/a016/select2/select2.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+		
+	<p>HTML</p>
+	<pre><code>
+		&lt;link href="css/select2.min.css" rel="stylesheet"&gt;
+		&lt;script src="/note_prg/js/jquery.min.js"&gt;&lt;/script&gt;	
+		&lt;script src="js/select2.min.js"&gt;&lt;/script&gt;
+	
+		～略～
+		
+		&lt;select name="" id="animal_select"&gt;
+		&lt;option &gt;-- レッドデータブック --&lt;/option&gt;
+		&lt;option value="1"&gt;アベサンショウウオ&lt;/option&gt;
+		&lt;option value="2"&gt;アカイシサンショウウオ&lt;/option&gt;
+		&lt;option value="42"&gt;リュウキュウアカガエル&lt;/option&gt;
+		&lt;option value="43"&gt;アカウミガメ&lt;/option&gt;
+		&lt;option value="44"&gt;タイマイ&lt;/option&gt;
+		&lt;option value="45"&gt;アオウミガメ&lt;/option&gt;
+		&lt;option value="47"&gt;リュウキュウヤマガメ&lt;/option&gt;
+	&lt;/select&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	$(()=>{
+		
+		$('#animal_select').select2({
+	    width: '300px',
+	    language: 'ja', // 言語
+	    tags: true
+	  });
+	});
+	</code></pre>
+
+
+	<br><time>2022-10-25</time>
+</div>
+
+
 <div id="sec19-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
