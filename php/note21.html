@@ -86,6 +86,88 @@ class Neko{
 </div>
 
 
+<div id="sec21-4" class="sec4" >
+	<h3>.envファイルから設定値を取得するオリジナル関数</h3>
+	
+	<a href="/sample/php/a080/get_env/get_env.php" class="btn btn-info">Demo</a><br>
+	<br>
+	
+<pre><code>
+
+$envs = getEnvSimple('.env');
+echo '&lt;pre&gt;';
+var_dump($envs);
+echo '&lt;/pre&gt;';
+
+function getEnvSimple($env_fn) {
+    
+    // 引数のiniファイル名が空、もしくは存在しなければ、なら、nullを返して終了
+    if (! $env_fn)  return null;
+    
+    
+    $str = null;
+    $env_fn=mb_convert_encoding($env_fn,'SJIS','UTF-8');
+    if (!is_file($env_fn)){
+        return null;
+    }
+    
+    if ($fp = fopen ( $env_fn, "r" )) {
+        $data = array ();
+        while ( false !== ($line = fgets ( $fp )) ) {
+            $str .= mb_convert_encoding ( $line, 'utf-8', 'utf-8,sjis,euc_jp,jis' );
+        }
+    }
+    fclose ( $fp );
+    
+    $ary = preg_split( "/&yen;R/", $str );
+    
+    $envs = [];
+    foreach($ary as $line_str){
+        $line_str = trim($line_str);
+        if(empty($line_str)) continue;
+        
+        $ary2 = preg_split("/=/", $line_str);
+        if(count($ary2) &lt; 2) continue;
+        
+        $key = trim($ary2[0]);
+        if(empty($key)) continue;
+        
+        $envs[$key] = trim($ary2[1]);
+        
+    }
+    
+    return $envs;
+}
+
+
+</code></pre>
+
+
+<p>.envファイルの例</p>
+<pre><code>
+ANIMAL_NAME = おキャット様
+
+
+APP_NAME=Example
+APP_ENV=local
+APP_KEY=abcd
+APP_DEBUG=true
+APP_URL=http://localhost
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+
+</code></pre>
+
+
+	<br><time>2022-11-1</time>
+</div>
+
+
 <div id="sec21-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
