@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Vue.jsの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/bootstrap.min.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Vue.jsの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec5-1" class="sec4" >
+	<h3>Vue.js 1万件データの検証 | Vue.jsの限界</h3>
+	
+	
+	<p>データ一万件の検証結結果</p>
+	一覧表の各行にテキストボックスなどが含まれている場合、どうにか動くレベルであり重い。1000件くらいが理想だ。<br>
+	しかし、表にテキストボックスが含まれていないのであれば意外と軽い。1万件でも大丈夫。それでも10万件ともなると使い物にならない。<br>
+	<br>
+	Vue.jsは1000件以内のデータ範囲で運用するのが理想。<br>
+	<br>
+
+	
+	<a href="/sample/js/a016/vue_ten_thousand/vue_ten_thousand.php" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>PHP</p>
+	<pre><code>
+$data = [];
+$data_count=10000; // データ一万件
+for($i=0; $i&lt;$data_count; $i++){
+    $id = $i + 1;
+    $name = "銀河鉄道{$i}号";
+    $value_a = $i * 100;
+    $data[] = [
+        'id'=&gt;$id,
+        'name'=&gt;$name,
+        'value_a'=&gt;$value_a,
+    ];
+}
+
+$data_json = json_encode($data,JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+	</code></pre>
+
+	<p>HTML</p>
+	<pre><code>
+&lt;div id="app1"&gt;
+  &lt;div&gt;
+  &lt;input type="text" v-model="message1" /&gt;
+  {{ message1 }}
+  &lt;/div&gt;
+
+	&lt;table class="table"&gt;
+		&lt;thead&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;名前&lt;/th&gt;&lt;th&gt;値&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr v-for="ent in data"&gt;
+				&lt;td&gt;{{ent.id}}&lt;/td&gt;
+				&lt;td&gt;&lt;span&gt;{{ent.name}}&lt;/span&gt; &lt;/td&gt;
+				&lt;td&gt;&lt;span&gt;{{ent.value_a}}&lt;/span&gt; &lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;input id="data_json" type="hidden" value='&lt;?php echo $data_json; ?&gt;' /&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+var app;
+
+$(()=&gt;{
+	
+	let data_json = $('#data_json').val();
+	let data = JSON.parse(data_json);
+	
+	app = new Vue({
+		el: '#app1',
+		data: {
+			message1: 'ゴロニャゴゴロニャゴ',
+			data:data,
+		}
+	});
+});
+	</code></pre>
+	
+	
+
+	<br><time>2022-11-3</time>
+</div>
+
+
+<div id="sec5-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2022-11-3</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Vue.jsの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) kenji uehara 2022-11-3</div>
+</body>
+</html>
