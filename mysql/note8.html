@@ -274,8 +274,15 @@ $ docker exec -it docker_demo_mysql_1 bash
 	
 	idを利用して適当な文字列をセットする
     <pre class="console">UPDATE animals SET name = CONCAT('ネコ' , id)</pre>
+	<br>
+	
+	ランダムな日付をセットする。下記の例は2022-10-01から2022-10-31の範囲でランダムな日付をセットしている。<br>
+    <pre class="console">UPDATE animals SET animal_date = ADDDATE('2022-10-01', 31*rand());</pre>
+	<br>
+    
+    
 
-    <br><time>2022-10-23</time>
+    <br><time>2022-10-23 | 2022-11-3</time>
 </div>
 
 
