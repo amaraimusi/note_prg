@@ -131,6 +131,24 @@ class TestController{
 </div>
 
 
+<div id="sec2-6" class="sec4" >
+	<h3>Laravel, bladeにおけるURLパスの記述方法 | url('/') asset('/')</h3>
+
+	○○.blade.phpでリンクであるURLを記述するにはurl()またはasset()を用いる。自動的にルートパスが付加されるので便利。<br>
+	asset()とurl()の違いは末尾に「/」が付くか付かないかである。
+	asset()は末尾に「/」が付くが、url()は末尾に「/」が付かない。<br>
+	<br>
+	記述例
+	<pre> 
+	&lt;a href="{{ url('animal/bark') }}"&gt;吠える&lt;/a&gt;
+	&lt;a href="{{ asset('animal/bark') }}"&gt;吠える2&lt;/a&gt;
+	</pre>
+	
+	
+	<br><time>2022-11-5</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
