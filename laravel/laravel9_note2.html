@@ -125,8 +125,9 @@ class TestController{
 	<h3>セッションからの読込、および書き込み | SESSION</h3>
 		<pre>session(['test_key' => $testData]); // セッションにデータを書き込む</pre>
 		<pre>$testData = session('test_key');// セッションからデータを読取り</pre>
+		<pre>session()->forget('test_key'); // セッションから削除</pre>
 
-	<br><time>2022-7-7</time>
+	<br><time>2022-7-7 | 2022-11-4</time>
 </div>
 
 
