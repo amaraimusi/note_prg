@@ -65,10 +65,14 @@
 	<pre><code>
 	public function store(Request $request){
 
-		$request-&gt;validate([
-			'sales_amt' =&gt; 'required|numeric', // 必須且つ、数値であること
-			'billing_date' =&gt; 'nullable|date', // 空を許容且つ、日付形式であること
-		]);
+	    $request-&gt;validate([
+	        'sales_amt' =&gt; 'required|numeric', // 必須且つ、数値であること
+	        'billing_date' =&gt; 'nullable|date', // 空を許容且つ、日付形式であること
+	    ],[
+	        'sales_amt.required' =&gt; '販売額は必須ですよ',
+	        'sales_amt.numeric' =&gt; '販売額は数字で入力してね。',
+	        'billing_date.billing_date' =&gt; 'うーん。日付じゃないね',
+	    ]);
 	</code></pre>
 	
 	<p>○○.blade.php</p>
@@ -91,7 +95,7 @@
 	</code></pre>
 	
 	
-	<br><time>2022-7-7</time>
+	<br><time>2022-7-7 | 2022-11-5</time>
 </div>
 
 
