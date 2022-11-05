@@ -153,6 +153,18 @@ class TestController{
 </div>
 
 
+<div id="sec2-7" class="sec4" >
+	<h3>blade 配列にキーに紐づく値が空、もしくは未セットであるときの代替表示 {{ ($errs['j_name_err'] ?? 'ぬー') }}</h3>
+	
+	<pre><code>
+	&lt;div&gt;{{ ($errs['animal_name'] ?? '') }}&lt;/div&gt;
+	</code></pre>
+
+
+	<br><time>2022-11-5</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
