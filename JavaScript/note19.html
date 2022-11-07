@@ -420,6 +420,62 @@ if(/^([1-9]\d*|0)$/.test(str)){
 </div>
 
 
+<div id="sec19-7" class="sec4" >
+	<h3>datalistによるSELECTのような使い方 | サジェスト（入力候補）と実際の入力値が異なる場合</h3>
+	
+	<a href="a016/datalist_like_select/datalist_like_select.html" class="btn btn-info">Demo</a><br>
+	<br>
+
+	<p>HTML</p>
+	<pre><code>
+&lt;input list="animal_dlist" onchange="change1(this)" &gt;
+&lt;datalist id="animal_dlist" &gt;
+    &lt;option value="イモリ"&gt;
+    &lt;option value="カエル"&gt;
+    &lt;option value="サンショウウオ"&gt;
+    &lt;option value="ヒキガエル"&gt;
+&lt;/datalist&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+let animalList = {};
+
+$(()=>{
+
+	animalList['imori'] = 'イモリ';
+	animalList['kaeru'] = 'カエル';
+	animalList['sanshou-uo'] = 'サンショウウオ';
+	animalList['hiki-gaeru'] = 'ヒキガエル';
+	
+});
+
+function change1(tb){
+	
+	let jqTb = jQuery(tb);
+	let name1 = jqTb.val();
+	
+	name1 += '';
+	name1 = name1.trim();
+
+	let value = '';
+	for(let key in animalList){
+		let name2 = animalList[key];
+		if(name1 == name2 || name1 == key){
+			value = key;
+		}
+	}
+	
+	jqTb.val(value);
+
+}
+	</code></pre>
+
+
+	<br><time>2022-11-7</time>
+</div>
+
+
 <div id="sec19-0" class="sec4"  style="display:none">
 	<h3>xxx</h3>
 
