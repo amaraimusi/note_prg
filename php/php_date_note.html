@@ -1333,10 +1333,34 @@ function isDatetime($str_dt, $req=false){
 </div>
 
 
-
-
-
-
+<div id="sec1-7" class="sec4" >
+	<h3>strtotimeをいろいろな日付文字列で試す</h3>
+	
+	<a href="/sample/php/a080/strtotime/strtotime.php" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<table class="tbl2">
+		<tbody>
+			<tr><td>strtotime('2022-11-8');</td><td>1667833200</td><td></td></tr>
+			<tr><td>strtotime('2022-11');</td><td>1667228400</td><td></td></tr>
+			<tr><td>strtotime('2022');</td><td>1667906520</td><td></td></tr>
+			<tr><td>strtotime('11');</td><td></td><td></td></tr>
+			<tr><td>strtotime('8');</td><td></td><td></td></tr>
+			<tr><td>strtotime('');</td><td></td><td></td></tr>
+			<tr><td>strtotime(0);</td><td></td><td></td></tr>
+			<tr><td>strtotime(null);</td><td></td><td></td></tr>
+			<tr><td>strtotime('2022-11-8 12:12:12');</td><td>1667877132</td></tr>
+			<tr><td>strtotime('2022-11-8 12:12');</td><td>1667877120</td></tr>
+			<tr><td>strtotime('2022-11-8 12');</td><td></td></tr>
+			<tr><td>strtotime('abc');</td><td></td></tr>
+			<tr><td>strtotime('2022/11/8 12:12:12');</td><td>1667877132</td><td>スラッシュ区切り</td></tr>
+			<tr><td>strtotime('8-11-2022 12:12:12');</td><td>1667877132</td><td>米国式の日付記述</td></tr>
+		</tbody>
+	</table>
+	
+	<br><time>2022-11-8</time>
+	
+</div>
 
 
 <div id="sec1-0" class="sec4" style="display:none">

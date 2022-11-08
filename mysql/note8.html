@@ -279,10 +279,14 @@ $ docker exec -it docker_demo_mysql_1 bash
 	ランダムな日付をセットする。下記の例は2022-10-01から2022-10-31の範囲でランダムな日付をセットしている。<br>
     <pre class="console">UPDATE animals SET animal_date = ADDDATE('2022-10-01', 31*rand());</pre>
 	<br>
+	
+	選択肢または決められた指定文字列をランダムでセットする<br>
+    <pre class="console">UPDATE animals SET animal_type = CASE FLOOR(RAND()*4) WHEN 0 THEN "哺乳類" WHEN 1 THEN "両生類" WHEN 2 THEN "魚類" WHEN 3 THEN "爬虫類" END</pre>
+	<br>
     
     
 
-    <br><time>2022-10-23 | 2022-11-3</time>
+    <br><time>2022-10-23 | 2022-11-8</time>
 </div>
 
 
