@@ -13,6 +13,13 @@
 	<script src="/note_prg/js/bootstrap.min.js"></script>
 	<script src="/note_prg/js/livipage.js"></script>
 	<script src="/note_prg/js/ImgCompactK.js"></script>
+	
+	<style>
+	.r_true{
+		color:#0daa21!important;;
+		font-weight:bold;
+	}
+	</style>
 </head>
 <body>
 <div id="header" ><h1>JavaScriptの覚書</h1></div>
@@ -50,6 +57,231 @@
 	<br>
 
 	<br><time>2014-5-6 | 2017-2-7</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="sec1-0-2" class="sec1">
+	<div class="title">数値チェックの検証 | 数字チェック</div>
+	
+	文字列が数字であるかチェックするには<strong>!isNaN</strong>と<strong>isFinite</strong>が使いやすい。undefinedはnullなど異なる判定なので注意。<br>
+	計算する前のデータチェックには、文字列型の数字をはじいてくれる<strong>Number.isFinite</strong>が便利。<br>
+	もし文字列型の数字なら下記関数で数値型にすることができる。<br>
+	<pre>
+	let f_num = Number.parseFloat('-123.456');
+	let i_num = Number.parseInt('12345');
+	</pre>
+	
+	<br>
+	NaNとは"Not a Number" 、つまり数値ではないという意味がある。<br>
+	<br>
+	
+	
+	<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank">Number型について Mozilla</a><br>
+	<br>
+
+	<p>数値チェックの検証</p>
+	<a href="/sample/js/a016/num_check/num_check.html" class="btn btn-info">Demo</a><br>
+	<table class="tbl2">
+		<thead><tr>
+			<th>ノート</th>
+			<th>値</th>
+			<th>isNaN</th>
+			<th>!isNaN</th>
+			<th>isFinite</th>
+			<th>Number.isNaN</th>
+			<th>Number.isFinite</th>
+			<th>Number.isInteger</th>
+		</tr></thead>
+		<tbody id="tbody1">
+				<tr>
+					<td>自然数</td>
+					<td>1000</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+				</tr>
+			
+				<tr>
+					<td>文字列型の数字</td>
+					<td>900</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>小数値</td>
+					<td>0.01</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>文字列型の小数値</td>
+					<td>0.01</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>負の自然数</td>
+					<td>-900</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+				</tr>
+			
+				<tr>
+					<td>文字列型の負の小数値</td>
+					<td>-0.01</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>数値型の0</td>
+					<td>0</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+				</tr>
+			
+				<tr>
+					<td>文字列型の0</td>
+					<td>0</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>空文字</td>
+					<td></td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>undefined</td>
+					<td>undefined</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>null</td>
+					<td>null</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>数字ではない</td>
+					<td>abcd</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>半角スペース</td>
+					<td> </td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>bool型のtrue</td>
+					<td>true</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>bool型のfale</td>
+					<td>false</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			
+				<tr>
+					<td>NaN</td>
+					<td>NaN</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+					<td class="r_true">true</td>
+					<td class="r_false">false</td>
+					<td class="r_false">false</td>
+				</tr>
+			</tbody>
+	</table>
+
+	<br><time>2022-11-10</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->
