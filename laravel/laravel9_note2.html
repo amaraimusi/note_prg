@@ -169,6 +169,24 @@ class TestController{
 </div>
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>bladeの@foreach</h3>
+	
+	<pre><code>
+@foreach ($items as $ent)
+&lt;tr data-item-id='{{$ent['item_id']}}'&gt;
+	&lt;td&gt;インデックス:&lt;span&gt;$loop-&gt;index&lt;/span&gt;&lt;/td&gt;
+	&lt;td&gt;{{$ent['name']}}&lt;/td&gt;
+	&lt;td&gt;{{$ent['value']}}&lt;/td&gt;
+&lt;/tr&gt;
+@endforeach
+	</code></pre>
+
+
+	<br><time>2022-11-11</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
