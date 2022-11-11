@@ -478,6 +478,17 @@ jQuery(() => {
 	<a href="/sample/js/a015/vue_get_plain_data/vue_get_plain_data.html" class="btn btn-info">Demo</a><br>
 	<br>
 	
+	<strong>無理</strong><br>
+	連想配列データをvue.jsでバインドした場合、どうしてもvue.jsによって余計な内部関数やプロパティが入ってしまう。それらを除いて一括でプレーンなデータを取得する方法は現状なさそう。<br>
+	一つ一つ丁寧にキーをしていしてデータ取得するしかない。<br>
+	<br>
+	
+	ちなみに「_data」ではなく$dataが良いとのこと。
+	<pre>let data = vueApp.$data</pre>
+	
+	<hr>
+	<p>旧・解説</p>
+	連想配列データには対応できていない。
 	<pre><code>
 
 let app;
@@ -527,7 +538,7 @@ function getPlainDataFromVue(app, key){
 	</code></pre>
 
 
-	<br><time>2019-3-14</time>
+	<br><time>2019-3-14 | 2022-11-11</time>
 </div>
 
 
