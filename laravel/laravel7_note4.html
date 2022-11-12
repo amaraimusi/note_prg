@@ -389,7 +389,7 @@ function test_ajax(){
 		}catch(e){
 			alert('バックエンド側のエラー');
 			console.log(str_json);
-			$('#err').text(str_json);
+			$('#err').html(str_json);
 			return;
 		}
 		
@@ -408,7 +408,7 @@ function test_ajax(){
 		alert('通信エラー');
 		console.log(status);
 		console.log(xhr.responseText);
-		$('#err').text(xhr.responseText);
+		$('#err').html(xhr.responseText);
 		
 	});
 }
@@ -455,7 +455,7 @@ class NekoController
 	<br>
 
 
-	<br><time>2020-7-23 | 2022-1-21</time>
+	<br><time>2020-7-23 | 2022-11-13</time>
 </div>
 
 
