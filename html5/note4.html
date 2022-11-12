@@ -205,6 +205,40 @@ function test1(str){
 
 
 
+<div id="sec4-8" class="sec4" >
+	<h3>1つのdatalistを複数のテキストボックスで使いまわす</h3>
+	
+	一つのdatalistを複数のテキストボックスで使いまわすことが可能だ。
+	ちなみにdatalistは数万件のデータにも対応できている。<br>
+	<br>
+
+	<a href="/sample/js/a016/datalist_one/datalist_one.php" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<pre><code>
+	
+	&lt;datalist id="animal_dlist" &gt;
+	&lt;?php 
+	for($i=0; $i&lt;10000; $i++){
+	    echo "&lt;option value='動物テスト{$i}'&gt;";
+	}
+	   ?&gt;
+	&lt;/datalist&gt;
+	
+	&lt;input list="animal_dlist" id="test1" &gt;
+	&lt;input list="animal_dlist" id="test2" &gt;
+	&lt;input list="animal_dlist" id="test3" &gt;
+	&lt;input list="animal_dlist" id="test4" &gt;
+	&lt;input list="animal_dlist" id="test5" &gt;
+	&lt;input list="animal_dlist" id="test6" &gt;
+	&lt;input list="animal_dlist" id="test7" &gt;
+	</code></pre>
+
+	<br><time>2022-11-12</time>
+</div>
+
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
