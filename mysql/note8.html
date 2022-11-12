@@ -283,10 +283,12 @@ $ docker exec -it docker_demo_mysql_1 bash
 	選択肢または決められた指定文字列をランダムでセットする<br>
     <pre class="console">UPDATE animals SET animal_type = CASE FLOOR(RAND()*4) WHEN 0 THEN "哺乳類" WHEN 1 THEN "両生類" WHEN 2 THEN "魚類" WHEN 3 THEN "爬虫類" END</pre>
 	<br>
-    
-    
+	
+	ランダムなコードを作成する。下記の例では8桁の半角英数字をセットする例。<br>
+    <pre class="console">UPDATE items SET item_name  = CONCAT('お酒-' , SUBSTRING(MD5(RAND()),1,8))</pre>
+	<br>
 
-    <br><time>2022-10-23 | 2022-11-8</time>
+    <br><time>2022-10-23 | 2022-11-12</time>
 </div>
 
 
