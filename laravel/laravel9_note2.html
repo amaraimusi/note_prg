@@ -187,6 +187,82 @@ class TestController{
 </div>
 
 
+<div id="sec2-9" class="sec4" >
+    <h3>INSERTとUPDATEを自動判別してDB登録 | updateOrInsert | save</h3>
+    
+    updateOrInsertメソッドはモデルクラスのメソッド。<br>
+    idの有無でUPDATEとINSERTを自動判別してDB保存できる。<br>
+    updateOrInsertは複数行のDB登録はできない。1行づつである。<br>
+    <br>
+
+    <strong>updateOrCreateメソッドとの違い</strong>
+	updateOrCreateとupdateOrInsertは名前も役割もよく似ている。<br>
+	違いとしてupdateOrCreateはテーブル名が指定できない。モデルに紐づいているテーブルで固定されている。<br>
+	updateOrInsertはテーブル名の指定が可能。<br>
+    <br>
+    
+<pre><code>
+        // 基本的記述方法 id=12に該当するレコードがあればUPDATE、なければINSERTになる。第一引数と第二引数はマージされる。
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>12], 
+                ['client_name' => 'クバガサ製造株式会社テスト10']
+        );
+        dump($res);// 正常時はtrueが返ってくるのみ。
+
+        // idをnullにするとINSERTになる。
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>null], [
+                'client_name' => 'クバガサ製造株式会社テスト11',
+        ]);
+
+        // 新規追加 第一引数を省略するとINSERTになる。
+        $res = DB::table("clients")->updateOrInsert(
+                'client_name' => 'クバガサ製造株式会社テスト11',
+        ]);
+
+
+        //トランザクションにも対応
+        DB::beginTransaction();
+        
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>null], 
+                ['client_name' => 'クバガサ製造株式会社テスト12',]
+                );
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>null],
+                ['client_name' => 'クバガサ製造株式会社テスト13',]
+                );
+        
+        DB::commit();
+        // DB::rollback();
+</code></pre>
+
+
+<p>誤り：間違えやすいパターン</p>
+<pre><code>
+
+        //誤りパターン1。 一度に複数のレコードが登録できるわけではない。情報もないため複数行に恐らく対応していない。そもそも第一引数と第二引数にはそれぞれ意味がある
+        $res = DB::table("clients")->updateOrInsert(
+                ['client_name' => 'クバガサ製造株式会社テスト4'],
+                ['client_name' => 'クバガサ製造株式会社テスト5',]
+        );
+
+        //誤りパターン2。エンティティ内にidフィールドを含めただけではUPDATEにならない。  id=12のレコードがあってもUPDATEにならずINSERTになる。
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>12,'client_name' => 'クバガサ製造株式会社テスト5',]
+        );
+
+        // 誤りパターン3。よく似た機能であるupdateOrCreateメソッドではエラーになる。updateOrCreateはテーブル指定までできないようだ。
+        $res = DB::table("clients")->updateOrCreate(
+                ['id'=>null], 
+                ['client_name' => 'クバガサ製造株式会社テスト12',]
+                );
+</code></pre>
+
+    <br><time>2022-11-20</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
