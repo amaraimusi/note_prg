@@ -235,6 +235,23 @@ class TestController{
         
         DB::commit();
         // DB::rollback();
+        
+        
+        //INSERTしたレコードのidを取得する方法。 
+        DB::beginTransaction();
+        
+        $res = DB::table("clients")->updateOrInsert(
+                ['id'=>null], 
+                ['client_name' => 'クバガサ製造株式会社テスト12',]
+                );
+        $res = DB::getPdo()->lastInsertId(); // INSERTしたレコードのidを取得する。UPDATEの場合は<strong>0</strong>が取得されるので注意
+        dump($res);
+        
+        DB::commit();
+        // DB::rollback(); // ロールバックしてもINSERTしたレコードのidは取得される。idは内部でインクリメントされているらしく、次にINSERTを試みるとidは+2になっている。
+        
+        
+        id = DB::getPdo()->lastInsertId();
 </code></pre>
 
 
