@@ -295,6 +295,42 @@
 
 
 <!-- --------------------------------------------------------------- -->
+<div id="sec1-0-3" class="sec1">
+    <div class="title">汎用的な数値変換関数 空文字やNaNにも対応</div>
+
+    <pre><code>
+    /**
+     * 数値変換
+     * 
+     * @param any value 値
+     * @return float 数値
+     */ 
+    function numConv(value){
+        if(value == null) value = 0;
+        if(isNaN(value)){
+            value = 0;
+        }else{
+            value = value * 1;
+        };
+
+        return value;
+    }
+    </code></pre>
+
+    <br><time>2022-11-27</time>
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------------------------------------------- -->
 <div id="sec1-1" class="sec1">
 	<div class="title">デバッグ方法</div>
 	FireFoxのfirebugとChromeで利用できる。
