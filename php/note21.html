@@ -168,6 +168,24 @@ DB_HOST=localhost
 </div>
 
 
+<div id="sec21-5" class="sec4" >
+    <h3>文字列を数値化（整数化）する | intval</h3>
+    
+    <pre><code>
+    $test1 = intval(null); // → 0
+    $test2 = intval(''); // → 0
+    $test3 = intval('0.01'); // → 0
+    $test4 = intval('あ'); // → 0
+    $test5 = intval('123456'); // → 123456
+    $test6= intval('-123456'); // → -123456
+    $test7= intval('-0.01'); // → 0
+    </code></pre>
+    類似関数にfloatval()、doubleval()というものもあります。
+
+    <br><time>2022-11-28</time>
+</div>
+
+
 <div id="sec21-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
