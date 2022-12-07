@@ -280,6 +280,24 @@ class TestController{
 </div>
 
 
+<div id="sec2-10" class="sec4" >
+    <h3>DB: クエリビルダで取得したデータにさらに別のフィールドを追加する | getData | select, get</h3>
+    
+    DBから取得したデータに「cat_master」フィールドを追加する例
+    <pre><code>
+    $data = ¥DB::table('nekos')
+        ->limit(5)->get();
+
+    foreach($data as $ent){
+        <strong>$ent->cat_master = 'ネコマスター';</strong>
+    }
+    </code></pre>
+
+
+    <br><time>2022-12-7</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
