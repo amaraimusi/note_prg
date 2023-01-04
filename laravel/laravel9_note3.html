@@ -45,11 +45,32 @@
 </div>
 
 
+<div id="sec3-2" class="sec4" >
+	<h3>bladeのラジオボタン</h3>
+	
+	<pre>
+			&lt;div class="d-inline-block mx-4"&gt;
+				&lt;div class="form-check d-inline-block"&gt;
+					&lt;input class="form-check-input" type="radio" name="deleted_at" id="deleted_at1" value="0"  @checked(old('deleted_at', $searches['deleted_at']) == 0) &gt;
+					&lt;label class="form-check-label" for="deleted_at1"&gt;有効&lt;/label&gt;
+				&lt;/div&gt;
+				&lt;div class="form-check d-inline-block" &gt;
+					&lt;input class="form-check-input" type="radio" name="deleted_at" id="deleted_at2" value="1"  @checked(old('deleted_at', $searches['deleted_at']) == 1) &gt;
+					&lt;label class="form-check-label" for="deleted_at2"&gt;無効(削除)&lt;/label&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+	</pre>
+
+
+	<br><time>2023-1-4</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
-    <h3>xxx</h3>
+	<h3>xxx</h3>
 
 
-    <br><time>2022-12-29</time>
+	<br><time>2022-12-29</time>
 </div>
 
 
