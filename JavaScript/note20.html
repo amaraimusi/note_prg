@@ -29,21 +29,21 @@
 <div id="sec20-1" class="sec4">
 	<h3>クラスの継承 | スーパークラス, 基本クラス, サブクラス, extends </h3>
 
-    <a href="/sample/js/a016/class_extends/class_extends.html" class="btn btn-info">Demo</a><br>
-    <br>
+	<a href="/sample/js/a016/class_extends/class_extends.html" class="btn btn-info">Demo</a><br>
+	<br>
 
 <h4>ソースコード</h4>
 <p>script.js</p>
 <pre><code>
 $(()=&gt;{
-    
-    let cat =new Cat();
-    
-    cat.bark('茶ひげ猫');
-    cat.meows('スカンピー猫');
-    cat.runAway('黒い');
-    cat.chase();
-    
+	
+	let cat =new Cat();
+	
+	cat.bark('茶ひげ猫');
+	cat.meows('スカンピー猫');
+	cat.runAway('黒い');
+	cat.chase();
+	
 });
 </code></pre>
 
@@ -51,57 +51,57 @@ $(()=&gt;{
 <pre><code>
 
 class Cat extends Animal{
-    
-    constructor(){
-        $('#res').append('茶ひげ猫と');
-        super();
-        
-        this.item = 'スリッパ';
-    }
-    
-    meows(){
-        super.bark('大きな茶ひげ'); // スーパークラスのメソッドを呼び出す
-    }
-    
-    // メソッドのオーバーライド
-    runAway(color_text){
-        
-        super.runAway(color_text);
-        
-         let text = `${color_text}子猫も一緒に逃げ出した。&lt;br&gt;`;
-        $('#res').append(text);
+	
+	constructor(){
+		$('#res').append('茶ひげ猫と');
+		super();
+		
+		this.item = 'スリッパ';
+	}
+	
+	meows(){
+		super.bark('大きな茶ひげ'); // スーパークラスのメソッドを呼び出す
+	}
+	
+	// メソッドのオーバーライド
+	runAway(color_text){
+		
+		super.runAway(color_text);
+		
+		 let text = `${color_text}子猫も一緒に逃げ出した。&lt;br&gt;`;
+		$('#res').append(text);
 
-    }
+	}
 }
 </code></pre>
 
 <p>Animal.js</p>
 <pre><code>
 class Animal{
-    
-    constructor(){
-        $('#res').append('黒猫&lt;br&gt;');
-        
-        this.master = '飼い主';
-        this.item = 'チェンソー';
-    }
-    
-    bark(name){
-        let text = `${name}が吠える&lt;br&gt;`;
-        $('#res').append(text);
-    }
-    
-    runAway(color_text){
-        let text = `${color_text}親猫は逃げ出した。&lt;br&gt;`;
-        $('#res').append(text);
-    }
-    
-    chase(){
-        let text = `${this.master}は${this.item}を持って茶ひげ猫を追いまわした。&lt;br&gt;`;
-        $('#res').append(text);
-    }
+	
+	constructor(){
+		$('#res').append('黒猫&lt;br&gt;');
+		
+		this.master = '飼い主';
+		this.item = 'チェンソー';
+	}
+	
+	bark(name){
+		let text = `${name}が吠える&lt;br&gt;`;
+		$('#res').append(text);
+	}
+	
+	runAway(color_text){
+		let text = `${color_text}親猫は逃げ出した。&lt;br&gt;`;
+		$('#res').append(text);
+	}
+	
+	chase(){
+		let text = `${this.master}は${this.item}を持って茶ひげ猫を追いまわした。&lt;br&gt;`;
+		$('#res').append(text);
+	}
 
-    
+	
 }
 </code></pre>
 
@@ -110,17 +110,108 @@ class Animal{
 
 
 <div id="sec20-2" class="sec4">
-    <h3>if文 ワンライナー let x = animals[animal_value] ?? 0;</h3>
-    
-    連想配列に値が入っていなければ0をセットする。
-    
-    <pre><code>
-    let animals = {};
-    let value = animals['red_cat'] ?? 0;
-    </code></pre>
+	<h3>if文 ワンライナー let x = animals[animal_value] ?? 0;</h3>
+	
+	連想配列に値が入っていなければ0をセットする。
+	
+	<pre><code>
+	let animals = {};
+	let value = animals['red_cat'] ?? 0;
+	</code></pre>
 
 
-    <br><time>2022-11-17</time>
+	<br><time>2022-11-17</time>
+</div>
+
+
+<div id="sec20-3" class="sec4">
+	<h3>submit時、form内に存在する全入力要素のバリデーションを検知する</h3>
+	
+	<a href="/sample/js/a017/submit_valid_in_all_form/submit_valid_in_all_form.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+<p>ソースコード</p>
+<pre><code>
+&lt;form id="form1"  action=""&gt;
+
+	&lt;div&gt;
+		動物名
+		&lt;input type="text" name="animal_name" required  title="動物名を入力してください。"/&gt;
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+		動物コード
+		&lt;input type="text" name="animal_age" pattern="^[0-9A-Za-z]+$" title="動物コードを半角英数字で入力してください。" value="abc123XYZ"&gt;
+	&lt;/div&gt;
+	
+	&lt;div&gt;
+		動物日付
+		&lt;input type="text" name="animal_date" pattern="[0-9]{4}(-|/)[0-9]{1,2}(-|/)[0-9]{1,2}" title="日付(Y-m-d)を入力してください。(例 2012-12-12)" value="2016-10-17"&gt;
+	&lt;/div&gt;
+	&lt;div id="err_msg" class="text-danger"&gt;&lt;/div&gt;
+	&lt;input type="submit" onclick="return onSubmit1()"  /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<pre><code>
+
+function onSubmit1(){
+	
+	let err_msg = onsubmitValidation('form1');
+	if(err_msg){
+		$('#err_msg').html(err_msg);
+		return false;
+	}
+	
+	return true;
+
+}
+
+/**
+ * onsubmitイベントのバリデーション
+ * @param string form_xid フォームID
+ * @return string エラーメッセージ
+ */
+function onsubmitValidation(form_xid){
+	let inputs = $('#' + form_xid + ' input');
+	let err_msg = '';
+	
+	inputs.each((i,elm) =&gt; {
+		let valid_res = elm.checkValidity();
+		
+		if(valid_res == false){
+			let title = $(elm).attr('title');
+			err_msg += `&lt;div&gt;${title}&lt;/div&gt;`;
+		}
+		
+	});
+
+	if(err_msg != '') return err_msg;
+	
+	return false;
+}
+</code></pre>
+
+	<br><time>2023-1-9</time>
+</div>
+
+
+<div id="sec20-4" class="sec4">
+    <h3>submit時、form内に存在する全入力要素のバリデーションを検知する</h3>
+    
+
+    
+<p>HTML</p>
+<pre><code>
+&lt;form id="form1"  action=""&gt; ～略
+</code></pre>
+
+<p>JavaScript</p>
+<pre><code>
+    let res = $('#form1')[0].checkValidity();
+</code></pre>
+
+    <br><time>2023-1-10</time>
 </div>
 
 
