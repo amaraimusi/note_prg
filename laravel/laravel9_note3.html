@@ -66,6 +66,24 @@
 </div>
 
 
+<div id="sec3-3" class="sec4" >
+    <h3>DBからレコードを削除する | delete | destroy</h3>
+
+    <pre><code>
+    $id = 999;
+    \DB::table('animals')->where('id', $id)->delete();
+    </code></pre>
+    
+    <p>destroyメソッドはなぜか効かなくなったので中尉</p>
+    <pre><code>
+    $id = 999;
+    Animal::destroy($id);
+    </code></pre>
+
+    <br><time>2023-1-12</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
