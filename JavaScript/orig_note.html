@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScriptの覚書 | オリジナルライブラリ | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>JavaScriptの覚書 | オリジナルライブラリ | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>datalist型テキストボックスをSELECTボックスに近い感覚で扱えるようにするクラス | 中途版 | DatalistSelectEx.js</h3>
+	
+	<a href="https://github.com/amaraimusi/DatalistSelectEx" target="_blank">GitHub DatalistSelectEx.js</a><br>
+	
+	<a href="/sample_js_k/DatalistSelectEx/example/example.html" class="btn btn-info">Demo</a><br>
+	<br>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;script src="js/DatalistSelectEx.js"&gt;&lt;/script&gt;
+	～略～
+	&lt;form action="#"&gt;
+		&lt;div class="col-6"&gt;
+			&lt;div class="input-group"&gt;
+				&lt;input type="text" id="animal_id" name="animal_id"  value="99"/&gt;
+				&lt;input list="animal_dlist" id="animal_name" name="animal_name" value="" class="form-control"&gt; 
+				&lt;div class="input-group-append"&gt;
+					&lt;button id="animal_id_clear" class="btn btn-outline-secondary" type="button"&gt;×&lt;/button&gt;
+				&lt;/div&gt;
+				&lt;span id="animal_id_err" class="text-danger"&gt;&lt;/span&gt;
+				&lt;datalist id="animal_dlist" &gt;&lt;/datalist&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;button id="submit_btn" class="btn btn-warning btn-lg" onclick="return onSubmit1()"&gt;Submit&lt;/button&gt;
+		&lt;div class="text-danger" id="valid_err_msg"&gt;&lt;/div&gt;
+	&lt;/form&gt;
+	</code></pre>
+	
+	<p>JavaScript</p>
+	<pre><code>
+	let datalistSelectEx1;
+	
+	$(()=&gt;{
+		
+		let testList = _getTestList();
+		
+		datalistSelectEx1 = new DatalistSelectEx(testList, {
+			'inp_id_xid':'animal_id',
+			'inp_name_xid':'animal_name',
+			'clear_xid':'animal_id_clear',
+			'err_xid':'animal_id_err',
+			'datalist_xid':'animal_dlist',
+		});
+		
+	});
+	
+	
+	// Submitボタン押下アクション
+	function onSubmit1(){
+		
+		$('#valid_err_msg').html('');
+		let err_msg = datalistSelectEx1.checkError();
+		
+		if(err_msg){
+			$('#valid_err_msg').html(err_msg);
+			return false;
+		}
+	
+		return true;
+		
+	}
+	
+	function _getTestList(){
+		let testList = {
+			1:'アベサンショウウオ',
+			2:'アカイシサンショウウオ',
+			1000:'赤猫',
+			1001:'赤猫',
+			1002:'赤猫',
+			3:'ハクバサンショウウオ',
+			4:'ホクリクサンショウウオ',
+			5:'オオイタサンショウウオ',
+			602:'ニライカナイボウズハゼ',
+			603:'トラフボウズハゼ',
+			604:'タイワンキンギョ',
+		};
+		return testList;
+	}
+
+	</code></pre>
+
+
+	<br><time>2023-2-5</time>
+</div>
+
+
+
+<div id="sec1-2" class="sec4">
+	<h3>CSelectLinkage.js | カテゴリ連動型SELECT | 2つのSELECTボックスの連動</h3>
+	
+	<a href="https://github.com/amaraimusi/CSelectLinkage" target="_blank" class="btn btn-info">GitHub</a>
+	<a href="/sample_js_k/CSelectLinkage/example/example.php" class="btn btn-info">Demo</a>
+	
+	<p>HTML</p>
+	<pre><code>
+～略～
+	&lt;script src="js/jquery3.js"&gt;&lt;/script&gt;   &lt;!-- jquery-3.3.1.min.js --&gt;
+	&lt;script src="js/CSelectLinkage.js"&gt;&lt;/script&gt;
+	&lt;script src="js/script.js"&gt;&lt;/script&gt;
+～略～
+
+&lt;form action="#" method="post"&gt;
+	&lt;select id="animal_id" name="animal_id"  data-value="&lt;?php echo $_POST['animal_id'] ?? 0 ?&gt;"&gt;&lt;/select&gt;
+	
+	&lt;select id="category_id" name="category_id"&gt;
+		&lt;option value=""&gt;-- すべて --&lt;/option&gt;
+		&lt;option value="1"&gt;哺乳類&lt;/option&gt;
+		&lt;option value="2"&gt;爬虫類&lt;/option&gt;
+		&lt;option value="3"&gt;両生類&lt;/option&gt;
+		&lt;option value="4"&gt;魚類&lt;/option&gt;
+		&lt;option value="5"&gt;鳥類&lt;/option&gt;
+	&lt;/select&gt;
+	&lt;button class="btn btn-success"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+	</code></pre>
+	
+	
+	<p>JavaScript script.js</p>
+	<pre><code>
+
+$(()=&gt;{
+	
+		var data = [
+					{'animal_id':1,'category_a':2,'animal_name':'トカゲ'},
+					{'animal_id':2,'category_a':1,'animal_name':'ネコ'},
+					{'animal_id':3,'category_a':1,'animal_name':'ウシ'},
+					{'animal_id':4,'category_a':2,'animal_name':'ヘビ'},
+					{'animal_id':5,'category_a':2,'animal_name':'カナヘビ'},
+					{'animal_id':6,'category_a':4,'animal_name':'タナゴ'},
+					];
+		
+		
+		var cSelectLinkage = new CSelectLinkage({
+			'main_select_slt':'#animal_id', // 主SELECTのセレクタ | リストはカテゴリSELECTの値に連動して変化します。
+			'category_select_slt':'#category_id', // カテゴリSELECTのセレクタ 
+			'main_field':'animal_id',
+			'category_field':'category_a',
+			'display_name_field':'animal_name',
+			'data':data, // 主SELECTのリストで使われるデータです。 main_field, category_field, display_name_fieldで指定されたプロパティで構成されるエンティティの配列です。
+			'empty':' --- ', // 主SELECTの未選択時の表記名	nullをセットすると未選択項目は表示されません。
+			'all_category_flg':true, //	 全カテゴリフラグ	trueにすると、カテゴリSELECTで空を選択した際、主SELECTを全カテゴリの選択肢を表示します。
+		});
+	
+});
+
+
+
+	</code></pre>
+
+	<br><time>2023-2-6</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2023-1-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>JavaScriptの覚書 | オリジナルライブラリ</li>
+</ol>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/sample">サンプルソースコード</a></li>
+	<li><a href="/sample/js">JavaScript ｜ サンプル</a></li>
+	<li>JavaScriptの覚書 | オリジナルライブラリ</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-1-1</div>
+</body>
+</html>
