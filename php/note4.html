@@ -479,6 +479,81 @@
 
 
 
+<!-- --------------------------------------------------------------- -->
+<div id="sec4-7-0" class="sec1" >
+    <h3>パスを削除する | 内部にファイルを含むディレクトリの削除、ファイル削除、失敗リストも返す</h3>
+    
+    <pre><code>
+    /**
+     * パスを削除します。
+     * @note 
+     * ディレクトリごとファイルを削除できます。
+     * 階層化のファイルまで削除可能。
+     * もちろん通常のファイルも削除可能。
+     * パスの指定先にファイルやディレクトリが無くてもエラーになりません。
+     * 
+     * @param string $path 削除対象ディレクトリ(絶対パスで指定する。セパレータはスラッシュ、バックスラッシュが混在しても良い）
+     * @return [] 削除に失敗したパス名のリスト
+     */
+    public function removePath($path){
+        $falseData = [];
+        $this->removePath0($path, $falseData);
+        return $falseData;
+    }
+    
+    /**
+     * パスを削除します。　このメソッドは再帰呼び出し処理がなされています。
+     * @note 
+     * ディレクトリごとファイルを削除できます。
+     * 階層化のファイルまで削除可能。
+     * もちろん通常のファイルも削除可能。
+     * パスの指定先にファイルやディレクトリが無くてもエラーになりません。
+     * 
+     * @param string $path 削除対象ディレクトリ(絶対パスで指定する。セパレータはスラッシュ、バックスラッシュが混在しても良い）
+     * @param [] $falseData 失敗ファイルリスト     削除に失敗したパスの情報
+     * @return [] 削除に失敗したパス名のリスト
+     */
+    private function removePath0($path, &$falseData) {
+        
+        
+        // ディレクトリでないなら即削除
+        if (!is_dir($path)) {
+            
+            if(@unlink($path) == false) $falseData[] = $path; // 「@」を付けることにより、ディレクトリやファイルが存在しなくてもWarningがでないようにする。
+
+            return $falseData;
+        }
+        if ($handle = opendir($path)) {
+            while (false !== ($item = readdir($handle))) {
+                if ($item != "." && $item != "..") {
+                    $dp = $path . '/' . $item;
+                    if (is_dir($dp)) {
+                        $this->removePath0($dp, $falseData);
+                    } else {
+                        if(@unlink($dp) == false) $falseData[] = $path; // ファイルを削除。失敗した場合は失敗リストにパス名を追加する。
+                    }
+                }
+            }
+            closedir($handle);
+            if(rmdir($path) == false) $falseData[] = $path; // ディレクトリを削除。失敗した場合は失敗リストにパス名を追加する。
+        }
+        
+        return $falseData;
+    }
+    </code></pre>
+
+    <time>2023-3-1</time>
+
+
+</div>
+<hr />
+<!-- --------------------------------------------------------------- -->
+
+
+
+
+
+
 
 <!-- --------------------------------------------------------------- -->
 <div id="sec4-7" class="sec1" >
