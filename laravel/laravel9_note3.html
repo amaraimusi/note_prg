@@ -84,6 +84,79 @@
 </div>
 
 
+<div id="sec3-4" class="sec4" >
+    <h3>Laravelのfetch | SPA</h3>
+    
+    <p>JavaScript</p>
+    <pre><code>
+    
+    let fd = new FormData(); // 送信フォームデータ
+    let data = {id:123, name:'古いねこ', age:15}; // バックエンド側に送信するデータ
+    let json = JSON.stringify(data);
+    fd.append( "key1", json );
+    
+    // CSRFトークンを送信フォームデータにセットする。
+    let token = jQuery('#csrf_token').val();
+    fd.append( "_token", token );
+
+    fetch('neko/reg_action', {
+        method: 'POST',
+        body: fd,
+    })
+    .then(response => {
+        console.log('fetchの成功時に、サーバーから返されたレスポンスをJSON形式に変換するための処理');//■■■□□□■■■□□□
+        return response.json();
+    })
+    .then(data => {
+        console.log('response後の処理。こちらに諸処理を記述します。');//■■■□□□■■■□□□
+        console.log(data);//■■■□□□■■■□□□
+
+    })
+    .catch(error => {
+        
+        console.error(error);
+        alert('通信エラー');
+        
+    });
+    </code></pre>
+    
+    <p>バックエンド</p>
+    
+    とあるコントローラのアクションメソッド。
+    
+    <pre><code>
+    /**
+     * SPA型・入力フォームの登録アクション
+     * @return string
+     */
+    public function regAction(){
+        
+        // ログアウトになっていたらログイン画面にリダイレクト
+        if(\Auth::id() == null) return redirect('login');
+        
+        $json=$_POST['key1'];
+        $res = json_decode($json, true);
+        $res['name'] = '新しい猫';
+        $res['age'] = 1;
+        $res['date'] = '2020-7-23';
+        
+        $json = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+        
+        return $json;
+    }
+    </code></pre>
+    
+    <p>web.php</p>
+    <pre><code>
+    Route::post('neko/reg_action', 'App\Http\Controllers\NekoController@regAction');
+    </code></pre>
+    
+
+
+    <br><time>2023-4-25</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
