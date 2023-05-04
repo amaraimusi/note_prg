@@ -105,7 +105,14 @@
     })
     .then(response => {
         console.log('fetchの成功時に、サーバーから返されたレスポンスをJSON形式に変換するための処理');//■■■□□□■■■□□□
-        return response.json();
+        return response.text()
+            .then(text => {
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    this.jqErr.html(`<strong>バックエンド側でエラーが起きました。</strong><br>${text}`);
+                }
+            });
     })
     .then(data => {
         console.log('response後の処理。こちらに諸処理を記述します。');//■■■□□□■■■□□□
@@ -153,7 +160,7 @@
     
 
 
-    <br><time>2023-4-25</time>
+    <br><time>2023-4-25 | 2023-5-4</time>
 </div>
 
 
