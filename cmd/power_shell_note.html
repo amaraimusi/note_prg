@@ -40,7 +40,7 @@
 </div>
 
 
-<div id="sec1-2" class="sec4" style="display:none">
+<div id="sec1-2" class="sec4">
     <h3>PowerShellを使用して、2つ以上の指定したキーワードを含むテキストファイルを検索する</h3>
 
     <pre class="console">
@@ -70,11 +70,20 @@
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>Powershellで2つのディレクトリを比較するコマンド</h3>
+
+    <pre class="console">Compare-Object -ReferenceObject (Get-ChildItem -Path "フォルダパス1" -Recurse) -DifferenceObject (Get-ChildItem -Path "フォルダパス2" -Recurse) -Property Name, Length</pre>
+    
+	<br><time>2023-5-23</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+    <h3>xxx</h3>
 
 
-	<br><time>2022-9-29</time>
+    <br><time>2022-9-29</time>
 </div>
 
 
