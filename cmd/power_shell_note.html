@@ -40,6 +40,36 @@
 </div>
 
 
+<div id="sec1-2" class="sec4" style="display:none">
+    <h3>PowerShellを使用して、2つ以上の指定したキーワードを含むテキストファイルを検索する</h3>
+
+    <pre class="console">
+ Get-ChildItem -Path "C:\Path\To\Search" -Recurse -Filter "*.txt" |
+    ForEach-Object {
+        $filePath = $_.FullName
+        $content = Get-Content -Path $filePath -Raw
+        $keywords = "keyword1", "keyword2" # 追加のキーワードをここに追記
+
+        $matchesAllKeywords = $true
+        foreach ($keyword in $keywords) {
+            if ($content -notmatch $keyword) {
+                $matchesAllKeywords = $false
+                break
+            }
+        }
+
+        if ($matchesAllKeywords) {
+            $filePath
+        }
+    }   
+    
+    </pre>
+
+
+    <br><time>2023-5-21</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
