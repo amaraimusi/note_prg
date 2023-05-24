@@ -139,6 +139,72 @@ cmd /k
 
 
 
+<div id="sec2-6" class="sec4" >
+    <h3>PowerShellのシェルファイルであるps1ファイルを実行する方法</h3>
+
+    PowerShellのシェルファイルはスクリプトファイルと呼ばれ、拡張子はps1です。<br>
+    <br>
+
+    デフォルトではPowerShellはスクリプトの実行を許可していません。そのため、スクリプトを実行する前に、実行ポリシーを変更する必要があるかもしれません。<br>
+    実行ポリシーを変更するには、管理者権限でPowerShellを開き、次のコマンドを実行します。<br>
+    <pre class="console">Set-ExecutionPolicy RemoteSigned</pre>
+    
+    <br>
+    「C:\backup_db\db_backup.ps1」スクプトファイルを実行する。<br>
+    以下のコマンドで C:\backup_db\db_backup.ps1 スクリプトを実行できます。<br>
+    <br>
+	powershell<br>
+	<pre class="console">&amp; "C:&yen;backup_db&yen;db_backup.ps1"</pre>
+	(.ps1)を実行するには、PowerShellコンソールを開き、スクリプトファイルへのパスを入力します。ただし、その際にスクリプトファイルへのパスの前に & (アンパサンド) オペレータを付けることが必要です。<br>
+	<br>
+
+
+    <br><time>2023-5-23</time>
+</div>
+
+
+
+
+<div id="sec2-7" class="sec4" >
+    <h3>PowerShellで、MySQLに登録されている、すべてのデータベースをループし、sqlファイルとしてエクスポートする方法</h3>
+    
+    <pre class="console">
+ # MySQLの設定
+$mysqlPath = "C:&yen;xampp&yen;mysql&yen;bin"
+$username = "root"
+$password = ""
+
+# バックアップディレクトリの設定
+$backupDirectory = "C:&yen;backup_db"
+
+# 現在の日付を取得
+$date = Get-Date -Format "yyyyMMdd"
+
+# MySQLのデータベース一覧を取得
+$databases = &amp; "$mysqlPath&yen;mysql.exe" --user=$username --password=$password --execute="SHOW DATABASES;"
+
+foreach ($db in $databases)
+{
+    # システムデータベースをスキップ
+    if ($db -eq "information_schema" -or $db -eq "performance_schema" -or $db -eq "mysql" -or $db.StartsWith("_"))
+    {
+        continue
+    }
+    
+    # データベースをダンプ
+    Write-Host "Dumping database: $db"
+    &amp; "$mysqlPath&yen;mysqldump.exe" --force --opt --user=$username --password=$password --databases $db &gt; "$backupDirectory&yen;$date.$db.sql"
+}
+    </pre>
+    
+    スクリプトファイル(.ps)にしておくと便利。
+
+    <br><time>2023-5-23</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

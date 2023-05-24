@@ -63,7 +63,18 @@
 
 
 <div id="sec1-1-2" class="sec4" >
-	<h3>MySQLのコマンドを動かす | Git Bash</h3>
+	<h3>MySQLのコマンドを動かす | Git Bash |Git for windowsのBash | xampp</h3>
+	
+	xamppのmysqlをGit Bashで使う方法。xamppはCドライブ直下に配置している場合。
+	<pre class="console">
+	exec winpty bash
+	export PATH=$PATH:/c/xampp/mysql/bin
+	mysql -u root -p
+	</pre>
+	
+	
+	
+	<p>方法2</p>
 	
 	Git Bashからmysqlコマンドを使うには環境変数の設定と「winpty」コマンドを使わねばならない。<br>
 	<br>
@@ -108,7 +119,7 @@
 	<span class='text-danger'>× </span>  C:rab<br>
 	<br>
 
-	<br><time>2018-9-4 | 2018-9-5</time>
+	<br><time>2018-9-4 | 2023-5-24</time>
 </div>
 
 

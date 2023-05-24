@@ -161,7 +161,7 @@
 <h2 id="cmd_note_index">MySQLコマンド</h2>
 <ol>
 	<li><a href="cmd_note.html#sec1-1" >MySQLのコマンドを動かす | ローカル</a></li>
-	<li><a href="cmd_note.html#sec1-1-2" >MySQLのコマンドを動かす | Git Bash</a></li>
+	<li><a href="cmd_note.html#sec1-1-2" >MySQLのコマンドを動かす | Git Bash |Git for windowsのBash | xampp</a></li>
 	<li><a href="cmd_note.html#sec1-1-3" >MySQLのコマンドを動かす | SHELL</a></li>
 	<li><a href="cmd_note.html#sec1-2" >MySQLをコマンドで動かす | サーバー（さくらサーバー）</a></li>
 	<li><a href="cmd_note.html#sec1-3" >DBをバックアップ（エクスポート）する | mysqldump </a></li>
@@ -182,6 +182,8 @@
 	<li><a href="cmd_note2.html#sec2-3" >ミラーDB作成シェル | データベースを複製する</a></li>
 	<li><a href="cmd_note2.html#sec2-4" >「wp_」から始まるテーブルをすべて削除するシェル</a></li>
 	<li><a href="cmd_note2.html#sec2-5" >「wp_」から始まるテーブルを列挙するシェル</a></li>
+	<li><a href="cmd_note2.html#sec2-6" >PowerShellのシェルファイルであるps1ファイルを実行する方法</a></li>
+	<li><a href="cmd_note2.html#sec2-7" >PowerShellで、MySQLに登録されている、すべてのデータベースをループし、sqlファイルとしてエクスポートする方法</a></li>
 	
 </ol>
 			
