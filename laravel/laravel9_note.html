@@ -26,9 +26,9 @@
 
 
 <div id="sec1-1" class="sec4">
-	<h3>Laravel9のインストールと初期設定</h3>
+	<h3>Laravel9のインストールと初期設定 | Laravel10にも対応</h3>
 	
-	Laravel9のインストール手順はだいたいLaravel9と同じ。<br>
+	Laravel10とLaravel9のインストール手順はだいたい同じ<br>
 	<br>
 	
 	<p>インストールの概要</p>
@@ -116,7 +116,7 @@
 			
 			手順<br>
 			Windows Power Shellを管理者として実行する。（Windows Power Shellのアイコン右クリック→管理者として実行」<br>
-			下記コマンドでシンボリックリンクを作成する。。<br>
+			下記コマンドでシンボリックリンクを作成する。<br>
 			<pre style="background-color:#012456;color:white;">cmd /c mklink /D C:\xampp\htdocs\crud_base_laravel9 C:\Users\user\git\crud_base_laravel9</pre>
 			
 		</li>
@@ -154,7 +154,7 @@
 				※ .envファイルの場所の例→「~/git\crud_base_laravel9\dev\.env<br>
 				※ xamppの場合、特に設定していなければ、MySQLのユーザー名はroot,パスワードは空である。
 			</aside>
-
+		
 		</li>
 		
 		<li>
@@ -164,10 +164,22 @@
 		</li>
 		
 		<li>
+			devディレクトリ内にcomposer.pharを用意します。<br>
+			既にdevディレクトリ内にはLaravelが用意したcomposer.pharがありますが、不具合が疑われます。<br>
+			なので以下のコマンドなどで最新のcomposer.pharを用意します。<br>
+            <pre class="console">$ php -r "readfile('https://getcomposer.org/installer');" | php</pre>
+		</li>
+		
+		<li>
 			ログインフォームなど使えるようにするため、composerで下記をインストールする。
-			<pre class="console">$ composer require laravel/ui</pre>
-			<aside>このComposerはLravel8をインストールしたComposerではない。devディレクトリ内のComposerである。間違いやすいので注意。</aside>
-			<a href="/note_prg/laravel/laravel7_note4.html#sec4-4">参考：ログイン画面を作成(Laravel7版)</a>
+			<pre class="console">$ php composer.phar require laravel/ui</pre>
+			
+			<div class="mt-1">
+				※2023年5月、laravel10.2.2では以下の方法だと正常にインストールされてない不具合があった。composer.pharを最新にし、上記のコマンドで実行すると上手くいった。<br>
+				<pre class="console">$ composer require laravel/ui</pre>
+				<aside>このComposerはLravel8をインストールしたComposerではない。devディレクトリ内のComposerである。間違いやすいので注意。</aside>
+				<a href="/note_prg/laravel/laravel7_note4.html#sec4-4">参考：ログイン画面を作成(Laravel7版)</a>
+			</div>
 		</li>
 		
 		<li>
@@ -224,37 +236,32 @@
 		</li>
 		
 		<li>
+			インストールしたパッケージをビルドする
+			<pre>npm run build</pre>
+			app.jsとapp.cssを生成する。
+			<div>
+			Laravel10の場合、以下のファイルが出来上がる。
+				<pre>
+	public/build/manifest.json              0.26 kB │ gzip:  0.14 kB
+	public/build/assets/app-3ea8b221.css  191.52 kB │ gzip: 27.24 kB
+	public/build/assets/app-2c989934.js   249.17 kB │ gzip: 88.84 kB
+				</pre>
+			</div>
+		</li>
+		
+		<li>
 			インストールしたパッケージをビルドするして,app.jsとapp.cssを生成する。<br>
 			<pre class="console">npm run dev</pre>
-			
-			2022月7月の時点で「npm run dev」のコマンド実行は最初の一回だけ失敗する。
-			<pre>
-$ npm run dev
-
-> dev
-> npm run development
-
-
-> development
-> mix
-
-        Additional dependencies must be installed. This will only take a moment.
-
-        Running: npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps
-
-        Finished. Please run Mix again.
-			</pre>
-			
-			メッセージ書かれているコマンドを実行する。
-			<pre class="console">npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps</pre>
-			
-			もう一度下記コマンドを実行する。
-			<pre class="console">npm run dev</pre>
-			「ルート/public/js/app.js」および「ルート/public/css/app.css」が作成でいたら成功。<br>
-			これらの２点のファイルをビュー(○○.blede.php)にて読み込めばBootstrap,Vue, jQueryが利用できるようになる。<br>
+			環境構築が目的なら、今は実行する必要がないコマンド。<br>
+			このコマンドを実行すると、js,cssを自動でコンパイルするツールである「Vite」が起動状態になる。<br>
+			Viteは常にファイルの状態を検知しているようで、「~/dev/resources/」ディレクトリ内のjsファイルやcssファイルを開発者が変更したり、設定系のphpファイルを変更すると勝手にコンパイルしてくれるようである。
 			<br>
-		
-			<img src="img/laravel9_note/sec1-1a2.png" alt="" class="img_compact_k" />
+			「npm run dev」を実行したら、あとはコマンドラインツールごと常時放置状態にするという使い方をする。
+			開発者がソースコードを編集すると、コマンドラインツール上で動作しているViteもなんらかの仕事をしているのが、コマンドラインツール上で確認できる。<br>
+			フロントエンドの開発時には便利そうなので、「npm run dev」コマンドでViteを起動して置くと良い。
+			
+			<br>
+
 		
 		</li>
 		
