@@ -174,12 +174,17 @@ DB_PASSWORD=
 
 
 <div id="sec1-2" class="sec4" >
-	<h3>各種パスを取得する</h3>
+	<h3>各種パスを取得する | ルートURL | 基本URL</h3>
 	<table class="tbl2">
 		<thead>
 			<tr><th>関数</th><th>説明</th></tr>
 		</thead>
 		<tbody>
+			<tr><td>url()->current();</td><td>現在のURLを取得する。ただし、クエリは含まない。</td></tr>
+			<tr><td>$full_url = url()->full();</td><td>クエリを含めた現在のURLを取得する</td></tr>
+			<tr><td>$root_url = url()->to('/');</td><td>ルートURLを取得する。ドメイン名とスキームの部分を含む。</td></tr>
+			<tr><td>$rootPath = request()->getPathInfo();</td><td>ドメイン名とスキームの部分を含まないルートURLを取得する</td></tr>
+			
 			<tr><td>app_path()</td><td>appディレクトリのパス    例：Windowsのローカル環境の場合→ C:\Users\user\git\animal\public</td></tr>
 			<tr><td>base_path()</td><td>ホームのパス（ルートパス）</td></tr>
 			<tr><td>config_path()</td><td>configディレクトリのパス</td></tr>

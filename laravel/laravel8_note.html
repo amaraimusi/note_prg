@@ -774,7 +774,18 @@ class WebApiController extends AppController
 
 
 <div id="sec1-9" class="sec4" >
-	<h3>ルートパス(基本URL)を取得 | cssファイルやjsファイル読み込み用</h3>
+	<h3>ルートパス(基本URL)を取得 | cssファイルやjsファイル読み込み用 | ルートURL</h3>
+	
+	
+	<pre><code>
+	url()->current();	// 現在のURLを取得する。ただし、クエリは含まない。
+	$full_url = url()->full();	// クエリを含めた現在のURLを取得する
+	$root_url = url()->to('/');	// ルートURLを取得する。ドメイン名とスキームの部分を含む。
+	$rootPath = request()->getPathInfo();	// ドメイン名とスキームの部分を含まないルートURLを取得する
+	</code></pre>
+	<aside>※Laravel9以上で調査</aside>
+	
+	<p>旧</p>
 
 	<p>Laravelにおけるcssファイルやjsファイル読込用の基本URL（ルートパス）を取得する方法</p>
 	
