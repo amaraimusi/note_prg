@@ -286,6 +286,19 @@
 			
 			Larevelの日付更新エラー
 		</li>
+		
+		<li>
+			ログアウト時の対策をする。<br>
+			routes/web.phpを開き、「Route::get('/logout',  ....」を追記する。<br>
+			これをしないとログアウトしたとき、「The GET method is not supported for route logout. Supported methods: POST.」のエラーが出てしまうことがある。<br>
+			<br>
+			<pre><code>
+			//ログアウト
+			Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+			
+			Auth::routes();
+			</code></pre>
+		</li>
 	</ol>
 
 
