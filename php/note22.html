@@ -127,6 +127,55 @@ port = 8080
 </div>
 
 
+<div id="sec22-3" class="sec4" >
+	<h3>SQLサニタイズ【2023年版】</h3>
+	
+SQLインジェクション対策の歴史を辿ると、以前はaddslashes関数が主に使われていました。この関数はクエリ内の特殊文字をエスケープすることで、ある程度のSQLインジェクション攻撃を防ぐことが可能でした。
+実際、私自身が開発したシステムに対してハッキングを試みた経験がありますが、全ての試みが失敗に終わったことからも、その効果は一定程度認められます。<br>
+<br>
+
+しかし、全ての攻撃を防ぐには至らず、未知の可能性に対する不安も残ります。
+特に、特定の文字列を異なるエンコーディング間で変換すると、予期せぬバックスラッシュが出現する場合があります。
+例えば、"表"という文字をUTF-8からShift-JISに変換すると、この現象が発生します。このバックスラッシュは新たなセキュリティ上のリスクを生む可能性があり、大きな懸念材料となっています。<br>
+<br>
+
+旧来の管理システムをよりセキュアなプリペアドステートメント方式へ書き換えるという対策もありますが、その修正コストは決して安価ではありません。
+そのため、私はaddslashes関数を使わない新たなSQLサニタイズ方式を考案しました。しかし、SQLサニタイズ自体が時代遅れのアプローチであるとの認識もあり、この方式を使用するべきはやむを得ない理由がある場合だけとなります。<br>
+<br>
+
+2023年現在、最先端のSQLインジェクション対策としてはプリペアドステートメント方式が主流となっています。
+この方式は、SQLのパラメータを一度に指定することで、インジェクション攻撃を防ぐことができます。そのため、既存のシステムの安全性を向上させるためには、可能な限りこのプリペアドステートメント方式を採用すべきであると強く推奨します。<br>
+<br>
+	
+	
+	<p>sqlSanitize自作関数</p>
+	<pre><code>
+	function sqlSanitize($text) {
+		$text = trim($text);
+		
+		// 文字列がUTF-8でない場合、UTF-8に変換する
+		if(!mb_check_encoding($text, 'UTF-8')){
+			$text = str_replace(['&yen;&yen;', '/', '&yen;'', '"', '`',' OR '], '', $text);
+			$text = mb_convert_encoding($text, 'UTF-8');
+		}
+			
+		// SQLインジェクションのための特殊文字をエスケープする
+		$search = array("&yen;&yen;", "&yen;x00", "&yen;n", "&yen;r", "'", '"', "&yen;x1a", "`");
+		$replace = array("&yen;&yen;&yen;&yen;", "&yen;&yen;0", "&yen;&yen;n", "&yen;&yen;r", "&yen;&yen;'", "&yen;&yen;&yen;"", "&yen;&yen;Z", "");
+		
+		$text = str_replace($search, $replace, $text);
+			
+		return $text;
+	}
+	</code></pre>
+
+	<a href="/sample/php/a080/sql_sanitaize/sqlSanitize.php" class="btn btn-info">検証</a><br>
+	<br>
+
+	<br><time>2023-2-24</time>
+</div>
+
+
 <div id="sec22-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
