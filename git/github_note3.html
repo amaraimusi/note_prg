@@ -125,11 +125,29 @@
 	<br><time>2021-8-8</time>
 </div>
 
-<div id="sec3-0" class="sec4" style="display:none">
+<div id="sec3-4" class="sec4" ">
 	<h3>xxx</h3>
 
 
 	<br><time>2021-2-9</time>
+</div>
+
+<div id="sec3-0" class="sec4" >
+	<h3>任意ディレクトリに対し、.emptyファイル以外のファイルをgitで管理したくない</h3>
+	
+	
+	.emptyファイルは配置されている同じディレクトリに.gitignoreファイルを作成。
+	.gitignoreに以下のように記述する。
+	<p>.gitignore</p>
+	<pre><code>
+# すべてのファイルを無視
+*
+
+# しかし、.emptyは無視しない
+!.empty
+	</code></pre>
+
+	<br><time>2023-6-23</time>
 </div>
 
 

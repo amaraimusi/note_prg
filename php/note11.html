@@ -392,6 +392,12 @@ class CsvDownloader{
 <div id="sec11-3" class="sec1" >
 	<h3>zipの解凍 | ZipArchive</h3>
 	
+	<p>PHP8.2の変更点</p>
+	PHP8.2からは、php.iniにて「extension=zip」を有効する必要があります。<br>
+	<br>
+	
+	<hr>
+	
 	ZipArchiveクラスでzipの解凍ができる。<br>
 	ZipArchiveクラスは少なくともPHP 5.6では標準クラスである。<br>
 	便利なクラスであるが、zip内に日本語ファイル名があると文字化けしてしまう弱点がある。<br>
@@ -412,8 +418,8 @@ class CsvDownloader{
 	</code></pre>
 	<br>
 	
-	<aside>検証：PHP 5.6</aside>
-	<time>2016-10-25</time>
+	<aside>検証：PHP 5.6 | PHP8.2</aside>
+	<time>2016-10-25 | 2023-6-23</time>
 </div>
 <hr />
 <!-- --------------------------------------------------------------- -->

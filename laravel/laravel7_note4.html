@@ -28,6 +28,12 @@
 
 <div id="sec4-1" class="sec4"  >
 	<h3>SQLを直接実行</h3>
+	
+	<p>値を返さなくてもよいSQLの実行</p>
+	<pre><code>
+	\DB::statement('DELETE FROM jobs'); // 全データを削除
+	\DB::statement('ALTER TABLE jobs auto_increment = 1'); // idの自動インクリメントをリセットする
+	</code></pre>
 
 	<p>SELECT系のSQLを直接実行 | INSERT, UPDATE, DELETE</p>
 	<pre><code>$data = \DB::select('select * from nekos where id= 4');</code></pre>
