@@ -365,6 +365,17 @@
 <div id="sec4-9" class="sec4"  >
 	<h3>LaravelのAJAX</h3>
 	
+	
+	<p >注意</p>
+	<div>
+		<strong class="text-danger">画面表示直後に行う非同期通信</strong>に注意してください。<br>
+		画面表示直後に非同期通信を行う仕組みにした場合、何回かブラウザリロードを繰り返していると「500 SERVER ERROR」、または「419 PAGE EXPIRED」エラーが時々発生します。
+		（エラーが起きない場合もあります。）
+「500 SERVER ERROR」は暗号化キーのエラー、「419 PAGE EXPIRED」はCSRFトークンのエラーのようですが、どちらもきちんと設定しても発生します。
+	原因はセッションまわりのようです。これを回避にするにはsetTimeout関数などを用いてい1秒後に実行するなど、ある程度時間差を設けるのが良いです。
+	</div>
+	<hr>
+	
 	<p>ビュー側（ブレードテンプレート/html)</p>
 	<aside>例→ルート/resources/views/neko/index.blade.php</aside>
 	<pre>
