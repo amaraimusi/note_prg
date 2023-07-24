@@ -274,11 +274,98 @@
 
 
 
-<div id="sec2-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec2-4" class="sec4" >
+	<h3>SSHでエックスサーバ（Xserver）に接続するための設定</h3>
+
+	<div class="mt-1">
+		① Xserverサーバーパネルにログインする権限が「管理者」であることを確認します。<br>
+		<br>
+		
+		SSHを利用するには、Xserverサーバーパネルにログインするアカウントの権限が「管理者」である必要がありあります。<br>
+		権限が「サイト管理者」だとSSH接続ができません。その場合、上位権限を持つ担当者に「管理者」にしていただく必要があります。<br>
+		<br>
+		
+		詳しくは下記のURLを参考にしてください。<br>
+		<a href="https://www.xserver.ne.jp/manual/man_server_adminuser.php" target="_blank">https://www.xserver.ne.jp/manual/man_server_adminuser.php</a><br>
+		<br>
+	
+	</div>
+	
+	<div class="mt-1">
+	
+		② XserverサーバーパネルにてSSH接続の設定をONにしてください。<br>
+		詳細は以下のURLを参考にしてください。<br>
+		<a href="https://www.xserver.ne.jp/manual/man_server_ssh.php" target="_blank">https://www.xserver.ne.jp/manual/man_server_ssh.php</a><br>
+	</div>
+	
+	<div class="mt-1">
+	
+		③ SSH接続には2通りの方法があります。<br>
+		
+		XServer側で認証鍵を発行する方法と、自分のローカル環境で認証鍵を発行する方法です。<br>
+		
+		今回はXServer側で認証鍵を発行し、自分のPCに設定する方法を解説します。<br>
+	</div>
+	
+	<div class="mt-1">
+		④ Xserverサーバーパネルにログインして、公開鍵認証用鍵ペアを生成します。<br>
+		
+		「SSHの設定　＞ 公開鍵認証用鍵ペアの生成」と進みます。<br>
+		
+		パスフレーズの入力が求められるので任意の文字を入力します。
+		パスフレーズはSSHに接続するたびに入力することになるので、入力しやすい文字列にすることをお勧めします。<br>
+		秘密鍵ファイル（sykzsc.key）をダウンロードし、開発PCの任意の場所へ配置します。<br>
+		<br>
+		秘密鍵ファイルの配置例<br>
+		
+		<pre>C:\Users\user\.ssh\hogehoge_x_server\sykzsc.key</pre>
+		
+
+	</div>
+	
+	<div class="mt-1">
+		⑤ 一旦、ここまでの設定でコマンドラインツールでSSH接続ができる状態になっています。接続コマンドは以下の通りです。
+		
+		<pre>ssh -l sykzsc -i ~/.ssh/hogehoge_x_server/sykzsc.key sykzsc.xsrv.jp -p 10022</pre>
+
+		上記のコマンドを入力後、先ほど入力したパスフレーズを入力するとSSH接続ができます。
+
+	</div>
+	
+	<div class="mt-1">
+		⑥ 毎回長いコマンドを入力するのは大変なので短縮入力できるようにします。
+		
+		
+		configファイルを作成
+		
+		<pre>~/.ssh/config </pre>
+		
+		configファイルをテキストエディタで開き、以下のように編集します。
+		
+		
+		<pre>
+		Host hogehoge
+		  HostName sykzsc.xsrv.jp
+		  Port 10022
+		  User sykzsc
+		  IdentityFile ~/.ssh/hogehoge_x_server/sykzsc.key
+		  ServerAliveInterval 60
+		</pre>
+		
+
+	</div>
+	
+	<div class="mt-1">
+		⑦ シンプルなコマンドでSSH接続できるなりました。以下の短いコマンドでSSH接続が可能です。<br>
+		<pre>ssh hogehoge</pre>
+	</div>
 
 
-	<br><time></time>
+
+
+
+
+	<br><time>2023-7-24</time>
 </div>
 
 

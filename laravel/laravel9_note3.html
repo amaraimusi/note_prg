@@ -164,11 +164,101 @@
 </div>
 
 
-<div id="sec3-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec3-5" class="sec4" >
+	<h3>エックスサーバーへデプロイ | 本番環境</h3>
+	
+	
+	セキュリティのため、laravelで開発したプロジェクトは、一般ユーザーがアクセスできないパスにソースコード一式を配置するようにします。
+	そしてプロジェクトのpublicディレクトリの部分だけ一般ユーザーがアクセスできる状況にする必要があります。<br>
+	<br>
+	以下の見本ではシンボリックリンクを利用して、publicディレクトリだけ一般ユーザーが見られるようにしています。<br>
+	<br>
+	こうしたことが難しく感じる場合、一般ユーザーに「.env」ファイルへアクセスさせないよう、なんとか工夫を凝らす必要があります。<br>
+	<br>
+	
+	
+	<h2>※見本設定例です。</h2>
+	参考程度の見てください。<br>
+	<br>
+	
+	
+	
+	<p>前提条件</p>
+
+	<ol>
+		<li>SSHでXserverに接続できるようにしてください。<a href="/note_prg/linux/ssh_note2.html#sec2-4">参考</a></li>
+		<li>rsyncコマンドで開発環境のソースコードを本番環境にアップしますので、ローカル環境にてrsyncコマンドを使えるよう各自で設定してください。</li>
+		<li>Xserverコントロールパネルにログインしてphpのバージョンを8.2以上に変更してください。</li>
+		<li>XserverコントロールパネルからアクセスできるphpMyAdminを利用し、DB移植を行ってください。</li>
+	</ol>
+
+	<div class="mt-1">
+		① SSHでXserverにログインし、「~/example.com/neko/」に「neko2023」ディレクトリを作成する。「~/example.com/neko/」は一般ユーザーがアクセスできないディレクトリにします。）
+		
+		<pre class="console">
+		ssh neko
+		cd ~/example.com/neko/
+		mkdir neko2023 
+		</pre>
+		
+	</div>
+
+	<div class="mt-1">
+		②　一旦、SSH接続から抜けて（ログアウト）ローカル環境に戻り、ソースコードをアップする
+		
+		<pre class="console">
+		cd ~/git/neko2023
+		rsync -auvz ./dev neko:~/example.com/neko/neko2023/
+		</pre>
+		
+		③ .envファイルをアップする。
+		 
+		.env.honbanファイルを開き、以下のDB設定を記入(~/git/neko2023/dev/.env.honban)
+		
+		<pre class="console">
+		DB_CONNECTION=mysql
+		DB_HOST=localhost
+		DB_PORT=3306
+		DB_DATABASE=sykzsc_neko
+		DB_USERNAME=sykzsc_neko
+		DB_PASSWORD=パスワード
+		
+		</pre>
+		※DBユーザーとDBパスワードはXserverのコントロールパネルで作成できます。
+	</div>
 
 
-	<br><time>2022-12-29</time>
+	<div class="mt-1">
+		④　.env.honbanファイルを.envのファイル名に変えて本番環境にアップする。
+		
+		<pre class="console">
+			rsync --force ./dev/.env.honban neko:~/example.com/neko/neko2023/dev/.env
+		</pre>
+	</div>
+
+
+	<div class="mt-1">
+		⑤ SSHでXserverにログインし、シンボリックリンクを作成する
+		
+		<pre class="console">
+		ssh neko
+		cd ~/example.com/public_html/search.example.com
+		ln -s ~/example.com/neko/neko2023/dev/public neko
+		</pre>
+		
+		「~/example.com/public_html/search.example.com」は一般ユーザーがアクセスできるパスです。
+		
+	</div>
+	
+	<div class="mt-1">
+		⑤ 以上で公開版システムの本番アップ作業は完了です。
+		
+		下記URLにアクセスし、画面が正常に表示されたら成功です。
+		
+		<a href="https://search.example.com/neko">https://search.example.com/neko</a>
+	</div>
+
+	<br><time>2023-7-24</time>
 </div>
 
 
