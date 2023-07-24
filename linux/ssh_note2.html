@@ -244,6 +244,36 @@
 
 
 
+<div id="sec2-3" class="sec4" >
+	<h3>エックスサーバー（Xserver）のSSHのPHPバージョンを変更する</h3>
+	
+	デフォルトではPHP5.4になっており、このままではLaravelがインストールできないので修正する。<br>
+	<br>
+	
+	ホームにbinディレクトリを作成
+	<pre>mkdir $HOME/bin</pre>
+	
+	シンボリックリンクを作成
+	<pre>ln -s /usr/bin/php8.2 $HOME/bin/php</pre>
+	
+	.bashrcにパスを追記するため、viで開く
+	<pre>vi ~/.bashrc</pre>
+	
+	viにて.bashrc内に下記の一行を追記する。
+	<pre>export PATH=$HOME/bin:$PATH</pre>
+	
+	適用したらOK
+	<pre>source ~/.bashrc</pre>
+	
+	確認
+	<pre>php -v	</pre>
+
+
+	<br><time>2023-7-24</time>
+</div>
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
