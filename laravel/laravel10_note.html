@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Laravel10の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Laravel10の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4" >
+	<h3>ページネーション</h3>
+	
+	<p>基本</p>
+	モデルクラス
+	<pre><code>
+	$per_page = $searches['per_page'] ?? 50; // 行制限数(一覧の最大行数) デフォルトは50行まで。
+	$data = $query->paginate($per_page);
+	</code></pre><br>
+	
+	○○.blade.php
+	<pre><code>&lt;div class="d-flex"&gt;{{$data-&gt;appends(request()-&gt;query())-&gt;links('pagination::bootstrap-4')}} &lt;/div&gt;&lt;!-- ページネーション --&gt;</code></pre>
+	
+	引数の「pagination::bootstrap-4'」は以下のテンプレートを指しています。
+	<pre>/vendor/laravel/framework/src/Illuminate/Pagination/resources/views/bootstrap-4.blade.php</pre>
+	
+	<hr>
+	
+	<p>応用</p>
+	ページネーションのテンプレートを自作して、カスタムページネーションを作成できます。
+	
+	<pre><code>&lt;div class="d-flex" style="margin-top:12px;"&gt;{{$data-&gt;appends(request()-&gt;query())-&gt;links('<strong>layouts.pagenatoin_b5</strong>')}} &lt;/div&gt;&lt;!-- ページネーション --&gt;</code></pre>
+	
+	カスタムページネーション。最初ページリンクと末尾ページリンクが追加カスタムされている。
+	resources/views/layouts/pagenatoin_b5.blade.php
+	<pre><code>
+@if ($paginator-&gt;hasPages())
+    &lt;nav class="d-flex justify-items-center justify-content-between"&gt;
+        &lt;div class="d-flex justify-content-between flex-fill d-sm-none"&gt;
+            &lt;ul class="pagination"&gt;
+                {{-- Previous Page Link --}}
+                @if ($paginator-&gt;onFirstPage())
+                    &lt;li class="page-item disabled" aria-disabled="true"&gt;
+                        &lt;span class="page-link"&gt;@lang('pagination.previous')&lt;/span&gt;
+                    &lt;/li&gt;
+                @else
+                    &lt;li class="page-item"&gt;
+                        &lt;a class="page-link" href="{{ $paginator-&gt;previousPageUrl() }}" rel="prev"&gt;@lang('pagination.previous')&lt;/a&gt;
+                    &lt;/li&gt;
+                @endif
+
+                {{-- Next Page Link --}}
+                @if ($paginator-&gt;hasMorePages())
+                    &lt;li class="page-item"&gt;
+                        &lt;a class="page-link" href="{{ $paginator-&gt;nextPageUrl() }}" rel="next"&gt;@lang('pagination.next')&lt;/a&gt;
+                    &lt;/li&gt;
+                @else
+                    &lt;li class="page-item disabled" aria-disabled="true"&gt;
+                        &lt;span class="page-link"&gt;@lang('pagination.next')&lt;/span&gt;
+                    &lt;/li&gt;
+                @endif
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between"&gt;
+            &lt;div&gt;
+                &lt;p class="small text-muted"&gt;
+                    &lt;span class="fw-semibold"&gt;{{ $paginator-&gt;total() }}&lt;/span&gt;件 &amp;nbsp
+                    &lt;span class="fw-semibold"&gt;{{ $paginator-&gt;firstItem() }}&lt;/span&gt;
+                    -
+                    &lt;span class="fw-semibold"&gt;{{ $paginator-&gt;lastItem() }}&lt;/span&gt;行 &amp;nbsp
+
+                &lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+                &lt;ul class="pagination"&gt;
+                    {{-- First Page Link --}}
+                    @if ($paginator-&gt;onFirstPage())
+                        &lt;li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')"&gt;
+                            &lt;span class="page-link" aria-hidden="true"&gt;&amp;laquo;&lt;/span&gt;
+                        &lt;/li&gt;
+                    @else
+                        &lt;li class="page-item"&gt;
+                            &lt;a class="page-link" href="{{ $paginator-&gt;url(1) }}" rel="prev" aria-label="@lang('pagination.previous')"&gt;&amp;laquo;&lt;/a&gt;
+                        &lt;/li&gt;
+                    @endif
+                    
+                    {{-- Previous Page Link --}}
+                    @if ($paginator-&gt;onFirstPage())
+                        &lt;li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')"&gt;
+                            &lt;span class="page-link" aria-hidden="true"&gt;&amp;lsaquo;&lt;/span&gt;
+                        &lt;/li&gt;
+                    @else
+                        &lt;li class="page-item"&gt;
+                            &lt;a class="page-link" href="{{ $paginator-&gt;previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')"&gt;&amp;lsaquo;&lt;/a&gt;
+                        &lt;/li&gt;
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @foreach ($elements as $element)
+                        {{-- "Three Dots" Separator --}}
+                        @if (is_string($element))
+                            &lt;li class="page-item disabled" aria-disabled="true"&gt;&lt;span class="page-link"&gt;{{ $element }}&lt;/span&gt;&lt;/li&gt;
+                        @endif
+
+                        {{-- Array Of Links --}}
+                        @if (is_array($element))
+                            @foreach ($element as $page =&gt; $url)
+                                @if ($page == $paginator-&gt;currentPage())
+                                    &lt;li class="page-item active" aria-current="page"&gt;&lt;span class="page-link"&gt;{{ $page }}&lt;/span&gt;&lt;/li&gt;
+                                @else
+                                    &lt;li class="page-item"&gt;&lt;a class="page-link" href="{{ $url }}"&gt;{{ $page }}&lt;/a&gt;&lt;/li&gt;
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($paginator-&gt;hasMorePages())
+                        &lt;li class="page-item"&gt;
+                            &lt;a class="page-link" href="{{ $paginator-&gt;nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')"&gt;&amp;rsaquo;&lt;/a&gt;
+                        &lt;/li&gt;
+                    @else
+                        &lt;li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')"&gt;
+                            &lt;span class="page-link" aria-hidden="true"&gt;&amp;rsaquo;&lt;/span&gt;
+                        &lt;/li&gt;
+                    @endif
+
+                    {{-- Last Page Link --}}
+                    @if ($paginator-&gt;hasMorePages())
+                        &lt;li class="page-item"&gt;
+                            &lt;a class="page-link" href="{{ $paginator-&gt;url($paginator-&gt;lastPage()); }}" rel="next" aria-label="@lang('pagination.next')"&gt;&amp;raquo;&lt;/a&gt;
+                        &lt;/li&gt;
+                    @else
+                        &lt;li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')"&gt;
+                            &lt;span class="page-link" aria-hidden="true"&gt;&amp;raquo;&lt;/span&gt;
+                        &lt;/li&gt;
+                    @endif
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+@endif
+
+	</code></pre>
+	
+
+
+	<br><time>2023-8-15</time>
+</div>
+
+
+<div id="sec1-1" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+
+
+	<br><time>2023-8-15</time>
+</div>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/laravel/">Laravelの覚書</a></li>
+	<li>Laravel10の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-8-15</div>
+</body>
+</html>
