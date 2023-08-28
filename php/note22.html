@@ -176,6 +176,64 @@ SQLインジェクション対策の歴史を辿ると、以前はaddslashes関�
 </div>
 
 
+<div id="sec22-4" class="sec4" >
+	<h3>require_onceを省略する | spl_autoload_register</h3>
+	
+	
+spl_autoload_registerを使用することで、MVC（Model-View-Controller）モデルにおいてもrequire_onceを省略することが可能です。以下に、簡単な例を示します。<br>
+<br>
+まず、オートローダーを設定するためのPHPファイル（たとえばautoload.php）を作成します。<br>
+<br>
+
+php
+<pre><code>
+// autoload.php
+spl_autoload_register(function ($class) {
+    // プレフィックスまたは名前空間を置き換える（もし必要な場合）
+    $prefix = 'App\\';
+    $base_dir = __DIR__ . '/';
+
+    // クラスにプレフィックスがある場合
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+
+    // 名前空間やクラス名の残りの部分を取得
+    $relative_class = substr($class, $len);
+
+    // クラスファイルのパスを取得（ここで適切なディレクトリ構造に変更する）
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    // クラスファイルが存在する場合は読み込む
+    if (file_exists($file)) {
+        require $file;
+    }
+});
+</code></pre>
+このautoload.phpをプロジェクトのエントリポイント（通常はindex.php）で読み込むことで、必要なクラスが自動的に読み込まれるようになります。<br>
+<br>
+
+php
+<pre><code>
+// index.php
+require 'path/to/autoload.php';
+
+// 以下は自動で読み込まれる
+$controller = new App\Controller\MyController();
+$model = new App\Model\MyModel();
+$view = new App\View\MyView();
+</code></pre>
+上記のautoload.phpでは、クラスの名前空間がApp\で始まり、それに続く部分（Controller\MyController、Model\MyModelなど）がそのクラスが存在するディレクトリ構造と一致していることを前提としています。<br>
+<br>
+この方法を適用すると、require_onceを各ファイルで書く手間が省けます。ただし、クラスとディレクトリ構造が一致している必要があります。それが確保できるならば、このオートロードの方法は非常に便利です。<br>
+<br>
+
+
+	<br><time>2023-8-28</time>
+</div>
+
+
 <div id="sec22-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
