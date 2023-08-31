@@ -239,6 +239,26 @@
 
 
 
+<div id="sec2-10" class="sec4" >
+	<h3>特定のディレクトリ内（階層化）にする指定拡張子のファイルを一カ所に集める</h3>
+	
+	<pre><code>
+	for /r "特定のディレクトリパス" %i in (*.txt *.srt) do copy "%i" "ファイルを一カ所に集める先のディレクトリ" /Y
+	</code></pre>
+	
+	
+	<p>例</p>
+	「C:\Users\user\Videos\movie_edit」ディレクトリ内（すべての階層も含む）に存在するすべてのtxtとsrtファイルを「C:\Users\user\OneDrive\mp4\movie_doc」にコピーする。コピーする際、上書き確認はしません。
+	<pre><code>
+	for /r "C:\Users\user\Videos\movie_edit" %i in (*.txt *.srt) do copy "%i" "C:\Users\user\OneDrive\mp4\movie_doc" /Y
+	</code></pre>
+	
+	<br><time>2023-8-30</time>
+</div>
+
+
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

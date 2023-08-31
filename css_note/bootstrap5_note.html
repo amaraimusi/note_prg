@@ -99,6 +99,42 @@
 </div>
 
 
+<div id="sec1-7" class="sec4" >
+	<h3>アイコン | Bootstrap Icons</h3>
+
+
+	Bootstarap5にはアイコン関連のパッケージが含まれていない。
+	なので、追加で「Bootstrap Icons」をインストールしなければならない。<br>
+	<br>
+	
+	<p>インストール方法</p>
+	「package.json」が配置されているディレクトリへcdコマンドで移動し、以下のコマンドを実行する。
+	<pre class="console">npm i bootstrap-icons</pre>
+	<br>
+	
+	<p>読み込み</p>
+	<pre>
+	&lt;link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+	<strong>&lt;link href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet"&gt;</strong>
+	
+	&lt;script src="/note_prg/js/jquery3.js"&gt;&lt;/script&gt;	&lt;!-- jquery-3.3.1.min.js --&gt;
+	&lt;script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+	</pre>
+	
+	<p>使用例</p>
+	<pre><code>
+		&lt;button type="button" class ="btn btn-info"&gt;&lt;span class="text-light"&gt;<strong>&lt;i class="bi bi-0-circle"&gt;</strong>&lt;/i&gt;&lt;/span&gt;&lt;/button&gt;
+	</code></pre>
+	<br>
+	
+	<p>アイコンを探すサイト</p>
+	<a href="https://icons.getbootstrap.jp/" terget="_blank">https://icons.getbootstrap.jp/</a><br>
+	<br>
+
+	<br><time>2023-8-31</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
