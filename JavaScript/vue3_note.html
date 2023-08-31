@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Vue3の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Vue3の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Vue.jsをnpmでインストールして、&lt;script&gt;で読み込む</h3>
+	
+	package.jsonの配置されているディレクトリへ移動し、npmでインストールする
+	<pre class="console">npm install vue</pre><br>
+	<br>
+	
+	<p>HTMLへの読み込み</p>
+	<pre><code>&lt;script src="/CrudBaseBulk2/public/node_modules/vue/dist/vue.global.prod.js"&gt;&lt;/script&gt;</code></pre>
+	<br>
+	
+	<p>distディレクトリの各ビルドを説明</p>
+	
+	<div>
+
+		Vue.jsのdistディレクトリ内にはいくつかのビルド形式があり、それぞれ異なる目的や環境で使用されます。以下は、主要なビルド形式とその一般的な使用ケースです。<br>
+		<br>
+		<h4>CommonJSビルド（サーバーサイドやツールで使用）</h4>
+		vue.cjs.js: 開発環境でのCommonJSビルド。<br>
+		vue.cjs.prod.js: 本番環境でのCommonJSビルド（最適化済み）。<br>
+		<br>
+		<h4>ESM（ECMAScriptモジュール）ビルド</h4>
+		vue.esm-bundler.js: バンドラ（WebpackやRollupなど）とともに使うためのESMビルド。<br>
+		vue.runtime.esm-bundler.js: 上記のランタイム限定版。テンプレートコンパイラは含まれていません。<br>
+		<br>
+		
+		<h4>グローバルビルド（&lt;script&gt;タグで直接ブラウザに読み込む）</h4>
+		vue.global.js: 開発環境でのグローバルビルド。<br>
+		vue.global.prod.js: 本番環境でのグローバルビルド（最適化済み）。<strong class="text-danger">←基本的にはこちらを使うことになると思います。</strong><br>
+		<br>
+		
+		<h4>ブラウザのESMビルド（type="module"を使用する場合）</h4>
+		vue.esm-browser.js: 開発環境でのブラウザESMビルド。<br>
+		vue.esm-browser.prod.js: 本番環境でのブラウザESMビルド（最適化済み）。<br>
+		<br>
+		
+		<h4>ランタイム限定ビルド</h4>
+		これらのビルドは、テンプレートコンパイラが含まれていません。したがって、これらのビルドを使用する場合は、Vueテンプレートを事前にコンパイルするか、レンダリング関数を直接使用する必要があります。</h4>
+		
+		vue.runtime.global.js: 開発環境でのランタイム限定グローバルビルド。</h4>
+		vue.runtime.global.prod.js: 本番環境でのランタイム限定グローバルビルド（最適化済み）。</h4>
+		</h4>
+		TypeScript定義</h4>
+		vue.d.ts, vue.d.mts: TypeScriptでVue.jsを使用する際に利用する型定義ファイル。</h4>
+		選択するビルドは、プロジェクトの必要性や環境に依存します。
+		たとえば、Webpackを使用している場合は、vue.esm-bundler.jsが一般的に推奨されます。直接ブラウザでVue.jsを読み込む場合は、vue.global.js（開発）またはvue.global.prod.js（本番）を使用することが多いでしょう。</h4>
+		</h4>
+	
+	
+	</div>
+
+
+	<br><time>2023-8-31</time>
+</div>
+
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2023-9-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Vue3の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-9-1</div>
+</body>
+</html>
