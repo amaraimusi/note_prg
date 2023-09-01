@@ -130,14 +130,27 @@
 
 <div id="sec1-3" class="sec4">
 	<h3>パッケージをインストール</h3>
-
+	
+	Vueをインストールする場合
+	<pre class="console">$ npm install vue</pre>
+	以下のような省略版ある。
+	<pre class="console">$ npm i vue</pre>
+	<br>
+	
+	メジャーバージョンを指定し、その中で最新バージョンをインストールする方法。<br>
+	vue2系の最新バージョンをインストールする場合
+	<pre class="console">$ npm install vue@^2.0.0</pre>
+	「^」がメジャーバージョンの固定を意味している。
+	<br>
+	
+	<p>旧</p>
 	jQueryをインストールする場合
 	<pre class="console">$ npm install jquery --save</pre>
 	パッケージのモジュールがカレントディレクトのnode_modulesディレクトリ配下にインストールされる。<br>
 	また、package.jsonにもインストールしたパッケージの情報が記述される。<br>
 	<br>
 
-	<br><time>2018-12-20</time>
+	<br><time>2018-12-20 | 2023-9-1</time>
 </div>
 
 
@@ -145,14 +158,43 @@
 
 <div id="sec1-4" class="sec4">
 	<h3>パッケージをアンインストール</h3>
+	
+	Vueをアンインストールする
+	<pre class="console">npm uninstall vue</pre>
 
+
+	<p>旧</p>
 	jQueryをアンインストールする場合
 	<pre class="console">$ npm uninstall jquery --save</pre>
 	パッケージのモジュールがカレントディレクトのnode_modulesディレクトリ配下からアンインストールされる。<br>
 	また、package.jsonのパッケージ情報からもjQueryに関する記述が削除される。<br>
 	<br>
 
-	<br><time>2018-12-20</time>
+	<br><time>2018-12-20 | 2023-9-1</time>
+</div>
+
+
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>パッケージを一覧表示</h3>
+	
+	cdコマンドで、package.jsonは配置されているディレクトリに移動し、下記コマンドを実行する。パッケージのバージョンも確認できる。
+	
+	
+	<pre class="console">npm ls</pre>
+
+	<p>例</p>
+	<pre class="console">
+$ npm ls
+public@ C:\Users\user\git\CrudBaseBulk2\public
++-- bootstrap-icons@1.10.5
++-- bootstrap@5.3.1
++-- jquery@3.7.1
+`-- vue@2.7.14
+	</pre>
+
+	<br><time>2023-9-1</time>
 </div>
 
 
