@@ -234,6 +234,113 @@ $view = new App\View\MyView();
 </div>
 
 
+<div id="sec22-5" class="sec4">
+	<h3>セッション(session)のデータをDBで管理するオリジナルクラス | PDOSessionHandler</h3>
+	
+PDO (PHP Data Objects) とネイティブの PHP セッションハンドリング機能を使ってセッション情報をデータベースに保存する方法を以下に示します。<br>
+<br>
+
+<p>データベーステーブルの作成</p>
+まず、セッションデータを保存するためのデータベーステーブルを作成します。<br>
+
+<pre>
+CREATE TABLE sessions (
+    id VARCHAR(128) NOT NULL PRIMARY KEY,
+    data TEXT,
+    timestamp TIMESTAMP NOT NULL
+);
+</pre>
+
+<p>カスタムセッションハンドラの作成</p>
+次に、カスタムセッションハンドラを作成します。この例では、PDO を使用しています。<br>
+<pre><code>
+class PDOSessionHandler
+{
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function open($savePath, $sessionName)
+    {
+        return true;
+    }
+
+    public function close()
+    {
+        return true;
+    }
+
+    public function read($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT data FROM sessions WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            return $row['data'];
+        }
+
+        return '';
+    }
+
+    public function write($id, $data)
+    {
+        $timestamp = time();
+        $stmt = $this->pdo->prepare("REPLACE INTO sessions (id, data, timestamp) VALUES (:id, :data, :timestamp)");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':data', $data);
+        $stmt->bindParam(':timestamp', $timestamp, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function destroy($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM sessions WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function gc($maxLifetime)
+    {
+        $old = time() - $maxLifetime;
+        $stmt = $this->pdo->prepare("DELETE FROM sessions WHERE timestamp < :old");
+        $stmt->bindParam(':old', $old, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+}
+</code></pre>
+
+
+<p>使用方法</p>
+session_start()を実行する前に上記のクラスPDOSessionHandlerで設定処理を施します。<br>
+<pre><code>
+$pdo = new PDO("mysql:host=localhost;dbname=mydatabase", "username", "password");
+
+$handler = new PDOSessionHandler($pdo);
+
+session_set_save_handler(
+    [$handler, 'open'],
+    [$handler, 'close'],
+    [$handler, 'read'],
+    [$handler, 'write'],
+    [$handler, 'destroy'],
+    [$handler, 'gc']
+);
+
+// セッションを開始する
+session_start();
+これで、PDO を使用してセッションデータをデータベースに保存できるようになりました。$_SESSION変数を通常通り使用することで、そのデータは自動的にデータベースに保存されます。
+
+この例は簡単なものであり、本番環境で使用する場合にはさまざまな点（エラーハンドリング、トランザクション処理、セキュリティなど）を考慮に入れる必要があります。
+</code></pre>
+
+	<br><time>2023-9-2</time>
+</div>
+
+
 <div id="sec22-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
