@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CSSの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>CSSの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec8-1" class="sec4">
+	<h3>flexの基本</h3>
+	
+	flexは横並びのレイアウトに対して効果を発揮する。垂直ならびも可能だが割愛。<br>
+	基本的に親要素にだけ設定すれば良いのでfloatやdisplay:inline-blockよりも使いやすい。<br>
+	<br>
+	
+	<div style="display:flex;justify-content:space-around;flex-wrap:wrap;background-color:#ffd764">
+		<div style="width:200px;background-color:#cde8ff">ネコ</div>
+		<div style="width:200px;background-color:#cde8ff">イヌ</div>
+		<div style="width:200px;background-color:#cde8ff">カワウソ</div>
+		<div style="width:200px;background-color:#cde8ff">イグアナ</div>
+	</div>
+	
+	<p>HTML</p>
+	<pre><code>
+	&lt;div style="display:<strong>flex</strong>strong>;<strong>justify-content</strong>:space-around;<strong>flex-wrap</strong>:wrap;background-color:#ffd764"&gt;
+		&lt;div style="width:200px;background-color:#cde8ff"&gt;ネコ&lt;/div&gt;
+		&lt;div style="width:200px;background-color:#cde8ff"&gt;イヌ&lt;/div&gt;
+		&lt;div style="width:200px;background-color:#cde8ff"&gt;カワウソ&lt;/div&gt;
+		&lt;div style="width:200px;background-color:#cde8ff"&gt;イグアナ&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+	
+	
+	<p>justify-content</p>
+	<table class="tbl2">
+		<tbody>
+			<tr><td>justify-content:flex-start;</td><td>子要素を左寄せで配置する（デフォルト）</td></tr>
+			<tr><td>justify-content:flex-end;</td><td>子要素を右寄せで配置する</td></tr>
+			<tr><td>justify-content:center;</td><td>子要素を中央寄せで配置する。</td></tr>
+			<tr><td>justify-content:space-between;</td><td>子要素を両端から均等に配置する</td></tr>
+			<tr><td><strong>justify-content:space-around;</strong></td><td>子要素を均等間隔に配置する</td></tr>
+			
+		</tbody>
+	</table>
+	
+	
+	<p>flex-wrap</p>
+	<table class="tbl2">
+		<tbody>
+			<tr><td>flex-wrap:nowrap</td><td>子要素を縮めてでも1行に収める。（デフォルト）</td></tr>
+			<tr><td>flex-wrap:wrap</td><td>子要素が1行に収まらないなら改行する。</td></tr>
+			<tr><td>flex-wrap:wrap-reverse</td><td>子要素が1行に収まらないなら改行する。順番は逆になる。</td></tr>
+			
+		</tbody>
+	</table>
+
+
+	<br><time>2023-9-16</time>
+</div>
+
+
+<div id="sec8-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2023-9-16</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/css/">CSSの覚書</a></li>
+	<li>CSSの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-9-16</div>
+</body>
+</html>
