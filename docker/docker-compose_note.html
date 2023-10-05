@@ -306,12 +306,212 @@ e7aaa1afb467   phpmyadmin/phpmyadmin      "/docker-entrypoint.…"   35 hours ag
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>Docker desktopを使わずWSL上で動作するUbuntuでDockerとdocker-composeを動かす</h3>
+	
+	「Docker desktop」は不具合がとても多い。Docker desktopをアップデートするたびに何らかの不具合が発生する。
+	しかし、WindowsでDockerを使うのに「Docker desktop」は必要ではない。<br>
+	WSL(Windows Subsystem for Linux)が正常に動作しているのであれば、WSL上でUbuntuを動かし、Ubuntuを通してDocker環境を構築することが可能である。<br>
+	<br><br>
+	
+	<p>手順</p>
+	<ol class="list_lg">
+		<li>
+			 wslを有効化されていることを確認、および有効化します。<br>
+			 【有効化する方法】<br>
+			 Windowsのコントロールパネルから［プログラムと機能］をクリックします。 ［Windows の機能の有効化または無効化］をクリックします。 ［Windows Subsystem for Linux］にチェックを入れ、［OK］をクリックします。
+		</li>
+		
+		<li>
+			Microsft Storeから Ubuntu アプリをインストールします。<br>
+			いくつかバージョンがあるようですが、インストール件数が多いバージョンを選べばよいと思います。私は無印のUbuntuを選択しました。<br>
+		</li>
+		
+		<li>
+			Ubuntuを管理者権限で実行します。<br>
+			管理者権限で実行するにはWindows上のUbuntuのアイコンを右クリックし、"その他" → ”管理者として実行"を選択すると、管理者権限でUbuntuが起動します。<br>
+			初回アクセス時に、アカウントやパスワード作成が求められますのでその通りにします。パスワードは初回以降のUbuntu起動の際、入力を求めれます。<br>
+			<br>
+			管理者権限で実行しないとC:\ドライブ以下にあるファイルやディレクトリにアクセスできないです。<br>
+			<br>
+		</li>
+		
+		<li>
+			wsl上でUbuntuが動いているか Windows PowerShell で確認します。
+			Windows PowerShellを管理者権限で開き(Windows PowerShellのアイコンを右クリックし、”管理者として実行する"を選択)、 以下のコマンドを実行します。
+			<pre>wsl -l -v</pre>
+			
+			以下の感じで出力されればOKです。下記の例では私が試行錯誤したせいで、Debianやdocker-desctopも存在してしまっています。<br>
+			<pre class="console">
+PS C:\Windows\system32> wsl -l -v
+  NAME                   STATE           VERSION
+* Ubuntu                 Running         2
+  docker-desktop-data    Stopped         2
+  Debian                 Stopped         2
+  docker-desktop         Stopped         2
+			</pre>
+			<br><br>
+			
+			以下の状態になっている場合、コマンドで修正してください。<br>
+			<br>
+			
+			「*」がUbuntuについていない場合、
+			<pre>wsl --set-default Ubuntu</pre>
+			
+			バージョンが1になっている場合
+			<pre>wsl --set-version Ubuntu 2</pre>
+			
+			
+		</li>
+		
+		
+		<li>
+			Dockerをインストールします。<br>
+			再び、Ubuntuに戻り、Ubuntuで以下のコマンドを一つずつ実行します。
+			<pre>
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt update
+sudo apt install docker-ce
+			</pre>
+		</li>
+		
+		<li>
+			Dockerの動作確認をします。
+			<pre>docker --version</pre>
+			以下のような出力がされればOKです。
+			<pre class="console">Docker version 24.0.6, build ed223bc</pre>
+		</li>
+		
+		<li>
+			続いてdocker-composeもインストールします。以下のコマンドを一つずつ実行します。
+			<pre >
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+			</pre>
+		</li>
+		
+		<li>
+			docker-composeの動作確認をします。
+			<pre>docker-compose --version</pre>
+			以下のような出力がされればOKです。
+			<pre class="console">docker-compose version 1.29.2, build 5becea4c</pre>
+			
+		</li>
+
+		<li>
+			Dockerサービスを動かします。(Dockerを稼働状態にする)
+			<pre>sudo service docker start</pre>
+			
+			ちなみにDockerサービスを停止させる場合は以下のコマンドを実行します。<br>
+			sudo service docker stop<br>
+			<br>
+		
+		</li>
+		
+		<li>
+			最低限な「docker-compose.yml」を作成し、Dockerで開発環境を構築してみます。<br>
+			任意のディレクトリに「docker-compose.yml」ファイルをテキストエディタなどで作成し、以下を記述します。<br>
+			<br>
+			私は「C:\Users\user\git\docker_demo2」のディレクトリにdocker-compose.ymlを作成しました。この例で以下の手順を説明します。<br>
+			<br>
+			docker-compose.ymlの内容<br>
+			<pre><code>
+version: '3'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+			</code></pre>
+			
+			
+		</li>
+		
+		<li>
+			Ubuntuでdocker-compose.ymlを配置したディレクトリへ移動し、docker-compose.ymlをdocker-composeで動かします。
+			<pre>
+cd /mnt/c/Users/user/git/docker_demo2
+docker-compose up -d --build
+			</pre>
+			
+			<p>「docker-compose up -d --build」の実行例</p>
+			<pre class="console">
+amaraimusi@DESKTOP-PE1E9IO:/mnt/c/Users/user/git/docker_demo2$ docker-compose up -d --build
+Creating network "docker_demo2_default" with the default driver
+Pulling web (nginx:latest)...
+latest: Pulling from library/nginx
+a803e7c4b030: Pull complete
+8b625c47d697: Pull complete
+4d3239651a63: Pull complete
+0f816efa513d: Pull complete
+01d159b8db2f: Pull complete
+5fb9a81470f3: Pull complete
+9b1e1e7164db: Pull complete
+Digest: sha256:32da30332506740a2f7c34d5dc70467b7f14ec67d912703568daff790ab3f755
+Status: Downloaded newer image for nginx:latest
+Creating docker_demo2_web_1 ... done
+			</pre>
+		</li>
+		
+		<li>
+		ブラウザで「http://localhost:8080/」にアクセスし、以下のようなサイトが表示されれば成功です。
+		<pre class="console">
+			Welcome to nginx!
+			If you see this page, the nginx web server is successfully installed and working. Further configuration is required.
+			
+			For online documentation and support please refer to nginx.org.
+			Commercial support is available at nginx.com.
+			
+			Thank you for using nginx.
+		</pre>
+		</li>
+		
+	</ol>
+	
+	
+	<p>エラーが出た場合どうするか？</p>
+	エラーログをしらべて、エラーメッセージを探してください。
+	そのエラーメッセージをChat GPTで解説してもらうと良いです。
+	
+	エラーログを表示するコマンド
+	<pre>$ sudo cat /var/log/docker.log</pre>
+	
+	正常にdockerを動かせること稀です。私もdockerを動かすのに試行錯誤しました。<br>
+	<br>
+	例として以下のようなエラーがあるようです。<br>
+	<pre>
+iptablesのバージョンとモード:
+
+エラーメッセージには iptables v1.8.7 (nf_tables) と表示されています。これは、iptables が nftables モードで動作していることを示しています。
+Dockerは、以前の iptables モードである legacy モードとの互換性がより高いです。nftables モードと legacy モードの間で競合が発生することがあります。
+対処法: iptables を legacy モードに切り替えてみることをおすすめします。
+
+bash
+Copy code
+sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+	
+	</pre>
+	こんなこと全然知りませんでしたし、Chat GPTがあったこそスムーズに解決できた問題です。<br>
+	<br>
+
+
+
+	<br><time>2023-10-05</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
 	<br><time>2021-1-1</time>
 </div>
+
 
 
 <div class="yohaku"></div>
