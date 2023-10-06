@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Laravel10の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Laravel10の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>開発環境構築→ Laravel10 Sail Vite React TypeScript</h3>
+	
+	2023年の時点における、LaravelでReactとTypeScriptの開発環境は、Laravel/Sail による環境がふさわしいようです。
+	<a href="sec2-2" class='livipage'>（参考:Laravel/Sailとは）</a><br>
+	フロントエンドはgulpやwebpackを用いられていましが、それらは時代遅れになりVite.jsを使うようになりました。
+	今回、ReactとTypeScriptの開発環境にVite.jsを導入します。<br>
+	<br>
+	
+	<p>開発環境構築の手順</p>
+	<ol class="list_lg">
+		<li>
+			事前にDocker環境を構築する必要があります。<br>
+			Docker desktopは、すぐ動作不能になるので下記の方法が採用します。<br>
+			<a href="/note_prg/docker/docker-compose_note.html#sec1-4">Docker desktopを使わずWSL上で動作するUbuntuでDockerとdocker-composeを動かす</a><br>
+			Ubuntuは以降の手順で必要になります。
+		</li>
+		
+		<li>
+			Ubuntuアプリを管理者権限として実行"します。以下のコマンドはUbuntuで実行します。
+		</li>
+		
+		<li>
+			Dockerサービスを起動します。
+			<pre>sudo service docker start</pre>
+		</li>
+		
+		<li>
+			cdコマンドでプロジェクトをインストールしているディレクトリへ移動します。
+			<pre>cd /mnt/c/Users/user/git/react_demo2</pre>
+		</li>
+		
+		<li>
+			Laravelをインストールします。
+			<pre>curl -s "https://laravel.build/dev" | bash</pre>
+			時間がかかります。「dev」になっている箇所は任意です。<br>
+		</li>
+		
+		<li>
+			Laravelが配置されているディレクトリへ移動します。
+			<pre>cd dev</pre>
+		</li>
+		
+		<li>
+			Laravel/Sailを起動します。 
+			<pre>./vendor/bin/sail up -d</pre>
+			これはdocker-compose.ymlを実行することを意味しています。複数のdockerコンテナが立ち上がります。<br>
+			また、sailを通してphp, npm, composer コマンドを実行できるようになります。
+		</li>
+		
+		<li>
+			ブラウザに以下のURLを入力するとLaravelのwelcomeページが表示されます。
+			<pre>http://localhost</pre>
+			<img src="img/laravel10_note2/sec2-1a1.png" alt="" />
+		</li>
+		
+		<li>
+			まずはnpm をアップデートします。
+			<pre>./vendor/bin/sail npm update</pre>
+			これをしておかないと、バージョン違いによるエラーが多発します。
+		</li>
+		
+		<li>
+			laravel/uiをインストールします。
+			<pre>./vendor/bin/sail composer require laravel/ui</pre>
+			ログイン機能や、bootstrapなどが作成されます。
+		</li>
+		
+		<li>
+			reactとreact-domをインストールします。
+			<pre>./vendor/bin/sail npm install -D react react-dom @types/react @types/react-dom</pre>
+		</li>
+		
+		<li>
+			vite用のreactのプラグインをインストールします。
+			<pre>./vendor/bin/sail npm install -D @vitejs/plugin-react</pre>
+		</li>
+		
+		<li>
+			TypeScriptをインストールします。
+			<pre>./vendor/bin/sail npm install -D typescript</pre>
+		</li>
+		
+		<li>
+			TypeScriptのコンパイラを設定を初期化および生成します。
+			<pre>./vendor/bin/sail npx tsc --init --jsx react-jsx</pre>
+			tsconfig.json という設定ファイルが生成されます。
+			この設定ファイルを使用して、TypeScriptのコンパイルオプションや挙動をカスタマイズできます。
+		</li>
+		
+		<li>
+			一旦ビルドします。
+			<pre>./vendor/bin/sail npm run build</pre>
+		</li>
+		
+		<li>vite.config.js拡張子を変更してvite.config.tsにします。</li>
+		
+		<li>
+			vite.config.tsを開き、以下のように書き換えます。
+			<pre><code>
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import react from '@vitejs/plugin-react'; 
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: ['resources/css/app.css', 'resources/ts/index.tsx'],
+            refresh: true,
+        }),
+        react(), 
+    ],
+    server: {
+        hmr: {
+            host: 'localhost', 
+        },
+    },
+});
+			</code></pre>
+		</li>
+		
+		<li>
+			「resources/ts/index.tsx」ファイルを新規作成します。<br>
+			その際、tsディレクトリは手動で作成してください。
+		</li>
+		
+		<li>
+			resources/ts/index.tsx にReactとTypeScriptで最低限なサンプルコードを記述します。
+			<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => {
+  return (
+	&lt;div&gt;Hello World! 今日の天気はいかがですか？&lt;/div&gt;
+  );
+}
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
+			</code></pre>
+		</li>
+		
+		<li>
+			ビルド（コンパイル）します。
+			<pre>./vendor/bin/sail npm run build</pre>
+			tsxファイルを修正した場合、その都度、上記コマンドでビルドします。
+		</li>
+		
+		<li>
+		resources/views/welcome.blade.php にReactの処理を埋め込んでみます。
+		
+		<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+        &lt;title&gt;Laravel&lt;/title&gt;
+        <strong>@viteReactRefresh</strong>
+         <strong>@vite('resources/ts/index.tsx')</strong>
+        ～略～
+        
+            &lt;body class="antialiased"&gt;
+    	<strong>&lt;div id="react_app"&gt;&lt;/div&gt;&lt;!-- Reactの埋め込み部分 --&gt;</strong>
+			</code></pre>
+		</li>
+		
+		<li>
+			「http://localhost」にアクセスし、サンプルコードの出力が表示ができれば成功せす。
+			<img src="img/laravel10_note2/sec2-1a2.png" alt="" />
+		</li>
+		
+		<li>以上でとりあえず環境構築は終わりです。</li>
+		
+		<li>
+			一旦、Dockerコンテナを止める場合は以下のコマンドを実行します。
+			<pre>./vendor/bin/sail stop</pre>
+			
+			再スタートするときは以下の通りです。
+			<pre>./vendor/bin/sail up -d</pre>
+			
+			Dockerサービスまで止める場合は以下の通りです。
+			<pre>sudo service docker stop</pre>
+			
+			<aside>
+				Dockerコンテナを止めても、
+				Widowsのタスクマネージャを見るとvmmemというタスクが多くのメモリを使用している状態のままです。
+				このメモリを解放するにはコマンドプロンプトを開き、「wsl --shutdown」を実行します。
+			</aside>
+		</li>
+	</ol>
+	
+	
+
+	<br><time>2023-10-6</time>
+</div>
+
+
+<div id="sec2-2" class="sec4" >
+	<h3>Laravel/Sailとは</h3>
+	
+	従来docker-compose.ymlは自前で作成してきました。Laravel/sailはLaravelが用意する「docker-compose.yml」という考え方です。<br>
+
+	 Sailのdocker-compose.ymlには、PHP、MySQL、Redis、Seleniumなど、Laravelアプリケーションの開発に通常必要なサービスが包括的に含まれています。<br>
+	
+	プロジェクトの要件に合わせてLaravel/sailのdocker-compose.ymlをカスタマイズすることもできます。<br>
+	<br>
+	
+	phpコマンド、composerコマンド、nmpコマンドはsailを通して実行します。
+	以下のような感じです。<br>
+	<pre>
+	./vendor/bin/sail npm npmのコマンド
+	./vendor/bin/sail composer composerのコマンド
+	./vendor/bin/sail php PHPのコマンド
+	</pre>
+	
+	Dockerの停止、開始も「./vendor/bin/sail」コマンドで行います。<br>
+	<br>
+	
+	Laravel/Sailはdocker上で動作します。<br>
+	Windowsならdocker環境はdocker desktopが有名ですが不具合も多いので、UbuntuアプリをMicrosoftストアからWindowsにインストールし、UbuntuのコマンドラインでDockerとdocker-composeをインストールする方法が良いです。<br>
+	<a href="/note_prg/docker/docker-compose_note.html#sec1-4">Docker desktopを使わずWSL上で動作するubuntuでDockerとdocker-composeを動かす</a><br>
+	<br>
+
+
+	<br><time>2023-10-6</time>
+</div>
+
+
+<div id="sec2-3" class="sec4" >
+	<h3>Laravel/SailでDockerコンテナを一時停止する方法と再開する方法 | Dockerサービスの停止と開始</h3>
+	
+	コンテナの一時停止:
+	<pre>./vendor/bin/sail pause</pre>
+
+
+	コンテナの再開（一時停止解除）:
+	<pre>./vendor/bin/sail unpause</pre>
+	
+	
+	コンテナを停止:
+	<pre>./vendor/bin/sail stop</pre>
+	<aside>Docker コンテナを停止しますが、コンテナ自体やネットワークは削除されません。後で再度起動したい場合は、以下のコマンドを使用してコンテナを再起動することができます：docker-compose stop と同等</aside>
+	<br>
+	
+	コンテナを起動:
+	<pre>./vendor/bin/sail up -d</pre>
+	
+	Dockerサービスを停止します。(Dockerそのものを停止させます。)
+	<pre>sudo service docker stop</pre>
+
+	
+	Dockerサービスを起動します。
+	<pre>sudo service docker start</pre>
+
+	Vmmemプロセスを停止する。
+	コマンドプロプトで以下を実行
+	<pre class="console">wsl --shutdown</pre>
+	
+	全ての Docker コンテナを停止し、ネットワークを削除します。
+	<pre>./vendor/bin/sail down</pre>
+	
+	
+	
+	
+
+
+	<br><time>2023-10-6</time>
+</div>
+
+
+<div id="sec2-1" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+
+
+	<br><time>2023-10-6</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/laravel/">Laravelの覚書</a></li>
+	<li>Laravel10の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-10-6</div>
+</body>
+</html>
