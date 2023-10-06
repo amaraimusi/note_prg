@@ -517,6 +517,55 @@ export default class Neko{
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>TypeScriptのクラス</h3>
+	
+	<p>見本クラス</p>
+	/react_demo2/dev/resources/ts/test/Person.ts
+	<pre><code>
+// Person.ts
+
+export class Person {
+    private name: string;
+    private age: number;
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    greet(): string {
+        return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+    }
+}
+	</code></pre>
+	※exportはjsxのお決まりの書き方のようで、importと対をなす考えのようである。<br>
+	
+	<p>見本クラスのインスタンス化</p>
+	<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Person } from './test/Person';
+
+
+const App = () =&gt; {
+	
+  const john = new Person('John', 25);
+　const msg = john.greet();
+		
+  return (
+	&lt;div&gt;${msg}&lt;/div&gt;
+  );
+}
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
+	</code></pre>
+
+
+	<br><time>2023-10-7</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
