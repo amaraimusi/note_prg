@@ -58,7 +58,7 @@
 		</li>
 		
 		<li>
-			Laravelをインストールします。
+			Laravelをインストールします。「dev」はプロジェクト名なので任意の名前を付けられます。
 			<pre>curl -s "https://laravel.build/dev" | bash</pre>
 			時間がかかります。「dev」になっている箇所は任意です。<br>
 		</li>
@@ -82,15 +82,37 @@
 		</li>
 		
 		<li>
+			.envファイルを開き、セッションをDBに保存するようにSESSION_DRIVERの項目を書き換える。（ファイルにセッションのデータを保存するならこの処理は不要）
+			<pre>
+			SESSION_DRIVER=database
+			</pre>
+			※.envファイルの場所はLaravelをインストールしたディレクトリである、プロジェクトのディレクトリの直下に存在する。<br>
+			また、DB_USERNAMEなどデータベースの設定も特に必要にない。<br>
+		</li>
+		
+		<li>
+			マイグレーションを実行する
+			<pre>./vendor/bin/sail artisan migrate</pre>
+			マイグレーションを実行するとデータベースにテーブル群が作成されれる。ちなみにテーブル名はプロジェクト名と同じである。今回の例でいえば「dev」になる。
+		</li>
+		
+		
+		<li>
 			まずはnpm をアップデートします。
 			<pre>./vendor/bin/sail npm update</pre>
 			これをしておかないと、バージョン違いによるエラーが多発します。
 		</li>
 		
 		<li>
-			laravel/uiをインストールします。
+			laravel/uiをダウンロードします。
 			<pre>./vendor/bin/sail composer require laravel/ui</pre>
+		</li>
+		
+		<li>
+			laravel/uiをインストールします。
+			<pre>./vendor/bin/sail artisan ui bootstrap --auth</pre>
 			ログイン機能や、bootstrapなどが作成されます。
+			bootstrapを指定することによりbootstrapによるデザインになるようです。
 		</li>
 		
 		<li>
@@ -216,6 +238,11 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 				このメモリを解放するにはコマンドプロンプトを開き、「wsl --shutdown」を実行します。
 			</aside>
 		</li>
+		
+		<li>
+			DBにアクセスする場合は、以下のコマンドでアクセスできます。
+			<pre>./vendor/bin/sail mysql</pre>
+		</li>
 	</ol>
 	
 	
@@ -297,6 +324,81 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 </div>
 
 
+<div id="sec2-4" class="sec4" >
+	<h3>MySQLにアクセスする</h3>
+	
+	<pre>./vendor/bin/sail mysql</pre>
+
+	<br><time>2023-10-8</time>
+</div>
+
+
+<div id="sec2-5" class="sec4" >
+	<h3>ボリュームをすべて削除する。（MySQLのデータベースを初期化する）</h3>
+	
+	Dockerまわりと思われる不具合が多発するときに試すことができる。
+	データベースもすべて削除されるので注意する。<br>
+	<br>
+	
+	<pre>sail down --rmi all -v</pre>
+
+	<br><time>2023-10-8</time>
+</div>
+
+
+<div id="sec2-6" class="sec4" >
+	<h3>PHPMyAdminをインストールする</h3>
+	
+	「docker-compose.yml」に下記を記述し、「./vendor/bin/sail up -d --build」を実行する。<br>
+	<br>
+	ブラウザで「http://localhost:8080」にアクセスするとphpMyAdminが開く。<br>
+	phpMyAdminのログインに必要なユーザー名とパスワードは .envに記述されているDB_USERNAMEとDB_PASSWORDにセットしている値と同じである。<br>
+	<br>
+	
+	<p>docker-compose.yml</p>
+	<pre>
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+    <strong>phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - 8080:80
+        depends_on:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+        networks:
+            - sail</strong>
+	</pre>
+	
+
+
+	<br><time>2023-10-8</time>
+</div>
+
+
 <div id="sec2-1" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
@@ -304,7 +406,6 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 
 	<br><time>2023-10-6</time>
 </div>
-
 
 <div class="yohaku"></div>
 <ol class="breadcrumb">
