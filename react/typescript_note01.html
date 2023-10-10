@@ -688,7 +688,70 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 
 <div id="sec1-7" class="sec4" >
 	<h3>クラスのメソッドの基本：public, private, protectedなどのアクセス修飾についても説明</h3>
+	
+	<p>アクセス修飾子</p>
+	TypeScriptには、public, private, protected の3つのアクセス修飾子があります。<br>
+	これらのアクセス修飾子によりTypeScriptは、オブジェクト指向プログラミングの基本をしっかりとサポートしており、JavaやC#などの他のオブジェクト指向言語に慣れている方にとっては、非常に馴染みやすい機能となっています。
+	<br><br>
 
+	<p>クラスのメソッドの基本</p>
+	TypeScriptのクラスは、ES6のクラスの仕様をベースに、静的型チェックやアクセス修飾子などの追加機能を持っています。以下は、クラスとそのメソッドの基本的な例です。<br>
+	<pre><code>
+	class Animal {
+	    constructor(private name: string) {}
+	
+	    move(distance: number): void {
+	        console.log(`${this.name} moved ${distance} meters.`);
+	    }
+	}
+	上記の例では、Animalというクラスにmoveというメソッドが定義されています。また、コンストラクタ内でnameというプライベートプロパティを定義しています。
+	</code></pre>
+	<br>
+
+	
+	<p>public (デフォルト):</p>
+	メンバーに何も指定しない場合、そのメンバーはデフォルトでpublicとなります。つまり、クラスの外からでもアクセス可能です。
+	<pre><code>
+	class Animal {
+	    public name: string;
+	    constructor(name: string) {
+	        this.name = name;
+	    }
+	}
+	</code></pre>
+	<br>
+	
+	
+	<p>private:</p>
+	privateが指定されたメンバーは、そのクラスの中からのみアクセスできます。
+	<pre><code>
+	class Animal {
+	    private name: string;
+	    constructor(name: string) {
+	        this.name = name;
+	    }
+	}
+	</code></pre>
+	<br>
+	
+	<p>protected:</p>
+	protectedが指定されたメンバーは、そのクラスおよびサブクラスの中からアクセスできます。
+	<pre><code>
+	class Animal {
+	    protected name: string;
+	    constructor(name: string) {
+	        this.name = name;
+	    }
+	}
+	
+	class Dog extends Animal {
+	    bark(): void {
+	        console.log(`Woof! Woof! My name is ${this.name}`);
+	    }
+	}
+	</code></pre>
+	<br>
+	
 
 	<br><time>2023-10-10</time>
 </div>
