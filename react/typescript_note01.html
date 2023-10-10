@@ -566,6 +566,134 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>TypeScriptの基本: 文字列型やint型などプリミティブ型の変数宣言</h3>
+	
+	boolean型:
+	<pre><code>
+	let isDone: boolean = false;
+	</code></pre>
+	<br>
+	
+	
+	number型: TypeScriptでは整数も浮動小数点もnumber型を使用します。
+	<pre><code>
+	let decimal: number = 6;
+	let hex: number = 0xf00d;
+	let binary: number = 0b1010;
+	let octal: number = 0o744;
+	</code></pre>
+	<br>
+	
+	string型:
+	<pre><code>
+	let color: string = "blue";
+	color = 'red';  // シングルクォートも使用可能
+	</code></pre>
+	また、テンプレート文字列も利用できます。
+	<pre><code>
+	let fullName: string = `Bob Bobbington`;
+	let age: number = 37;
+	let sentence: string = `Hello, my name is ${fullName}. I'll be ${age + 1} years old next month.`;
+	</code></pre>
+	<br>
+	
+	symbol型: (ES2015からの機能)
+	<pre><code>
+	let uniqueSymbol: symbol = Symbol();
+	</code></pre>
+	この型は一意の値を取り扱うときに利用します。重複が合ってはならないキーなどに。<br>
+	<br>
+	
+	void型: 値を持たないことを示す特別な型です。通常、関数が何も返さない場合に使用されます。
+	<pre><code>
+	function warnUser(): void {
+	    console.log("This is a warning message");
+	}
+	</code></pre>
+	<br><br>
+	
+	これらは基本的なプリミティブ型です。TypeScriptには、これらの基本型を組み合わせたり、拡張したりするための高度な型システムがあります。
+	独自の型定義や、ユニオン型、インターフェース、型エイリアスなどの機能を学ぶことで、さらに強力な型安全性を持つコードを書くことができます。<br>
+	<br>
+	
+
+	<br><time>2023-10-9</time>
+</div>
+
+
+<div id="sec1-6" class="sec4" >
+	<h3>関数の基本</h3>
+
+	TypeScriptはJavaScriptを拡張した言語なので、関数の基本的な書き方はJavaScriptと同じですが、型が存在するという点で大きな違いがあります。
+	型を付けることでコードのバグの早期発見ができ、品質や保守性を向上させるされています。<br>
+	<br>
+	
+	関数の基本形
+	<pre><code>
+	function add(x: number, y: number): number {
+	    return x + y;
+	}
+	</code></pre>
+	上記のTypeScript版では、引数xとyの型をnumberに、返り値の型をnumberに指定しています。<br>
+	<br>
+	
+	関数式<br>
+	通常のJavaScriptの関数式<br>
+	<pre>
+	const add = function(x, y) {
+	    return x + y;
+	};
+	</pre>
+	TypeScriptの関数式
+	<pre><code>
+	const add: (x: number, y: number) => number = function(x, y) {
+	    return x + y;
+	};
+	</code></pre>
+	<br>
+
+	
+	オプショナルな引数（省略可能な引数）
+	<pre><code>
+	function greet(name?: string): void {
+	    if (name) {
+	        console.log(`Hello, ${name}!`);
+	    } else {
+	        console.log('Hello!');
+	    }
+	}
+	</code></pre>
+	<br>
+	
+	関数の引数にはデフォルト値を設定することもできます。
+	<pre><code>
+	function greet(name: string = "User"): void {
+	    console.log(`Hello, ${name}!`);
+	}
+	</code></pre>
+	<br>
+	
+	レストパラメータ<br>
+	複数の引数を配列として受け取るためには、レストパラメータを使用します。
+	<pre><code>
+	function getSum(...numbers: number[]): number {
+	    return numbers.reduce((prev, current) => prev + current, 0);
+	}
+	</code></pre>
+
+	<br><time>2023-10-10</time>
+</div>
+
+
+<div id="sec1-7" class="sec4" >
+	<h3>クラスのメソッドの基本：public, private, protectedなどのアクセス修飾についても説明</h3>
+
+
+	<br><time>2023-10-10</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
