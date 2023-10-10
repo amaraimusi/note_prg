@@ -757,11 +757,73 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 </div>
 
 
+<div id="sec1-8" class="sec4">
+	<h3>クラス内における、privateメンバとpublicメンバについて</h3>
+	
+	<p>public (デフォルト)</p>
+	publicアクセス修飾子は、メンバーが外部からアクセス可能であることを示します。TypeScriptでは、アクセス修飾子を指定しない場合、メンバーはデフォルトでpublicとなります。
+	<pre><code>
+	class Person {
+	    public name: string;  // 明示的にpublicを指定している
+	
+	    constructor(name: string) {
+	        this.name = name;
+	    }
+	
+	    public greet(): void {  // 明示的にpublicを指定している
+	        console.log(`Hello, my name is ${this.name}.`);
+	    }
+	}
+	</code></pre>
+	
+	<p>private</p>
+	privateアクセス修飾子は、メンバーがそのクラス内からのみアクセス可能であることを示します。
+	<pre><code>
+	class Person {
+	    private name: string;
+	
+	    constructor(name: string) {
+	        this.name = name;
+	    }
+	
+	    public greet(): void {
+	        console.log(`Hello, my name is ${this.getName()}.`);
+	    }
+	
+	    private getName(): string {  // privateメソッド
+	        return this.name;
+	    }
+	}
+	上記の例では、nameプロパティとgetNameメソッドはprivateであり、クラスの外部からは直接アクセスできません。しかし、greetメソッドはpublicなので、外部から呼び出すことができ、その中でgetNameメソッドを使っているのが分かります。
+	</code></pre>
+	
+	また、TypeScript 3.8以降では、「#」をプロパティ名の前に付けることで、そのプロパティをプライベートフィールドとして定義することもできます。
+	<pre><code>
+	class Person {
+	    #name: string;
+	
+	    constructor(name: string) {
+	        this.#name = name;
+	    }
+	
+	    public greet(): void {
+	        console.log(`Hello, my name is ${this.#name}.`);
+	    }
+	}
+	</code></pre>
+	このプライベートフィールドは、通常のprivateメンバよりも厳格にプライベートであり、サブクラスからもアクセスすることができません。	<br>
+	<br>
+
+
+	<br><time>2023-10-10</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2021-1-1</time>
+	<br><time>2023-10-10</time>
 </div>
 
 
