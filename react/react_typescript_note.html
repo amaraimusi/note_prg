@@ -108,6 +108,74 @@ export default Demo;
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>表示切替ボタン | 閉じるボタン</h3>
+	
+	id属性で要素を指定して、表示/非表示を切り替える汎用的な関数コンポーネントの見本です。<br>
+	<br>
+	
+	<p>resources/ts/cmn/ToggleButton.tsx</p>
+	<pre><code>
+// ToggleButton.tsx
+import React, { useState } from 'react';
+
+type ToggleButtonProps = {
+  targetId: string;
+  label: string;
+};
+
+const ToggleButton: React.FC&lt;ToggleButtonProps&gt; = ({ targetId, label }) =&gt; {
+  const [isVisible, setIsVisible] = useState&lt;boolean&gt;(false);
+
+  const toggleVisibility = () =&gt; {
+    const element = document.getElementById(targetId);
+    if (element) {
+      if (isVisible) {
+        element.style.display = 'none';
+      } else {
+        element.style.display = 'block';
+      }
+      setIsVisible(!isVisible);
+    }
+  };
+
+  return &lt;button onClick={toggleVisibility} class="btn btn-info"&gt;{isVisible ? `${label}(閉じる)` : `${label}`}&lt;/button&gt;;
+};
+
+export default ToggleButton;
+	</code></pre>
+
+	<p>resources/ts/demo.tsx(クライアント側へToggleButton関数コンポーネントを実装)</p>
+	<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ToggleButton from './cmn/ToggleButton';
+
+const Demo: React.FC = () =&gt; {
+  return &lt;div&gt;Demo Page!&lt;button type="button" class='btn btn-success'&gt;テスト&lt;/button&gt;&lt;/div&gt;;
+};
+
+ReactDOM.render(&lt;ToggleButton targetId="cat_contents" label="コンテンツ1" /&gt;, document.getElementById('toggle-button'));
+
+export default Demo;
+	</code></pre>
+	
+	<p>resources/views/demo/index.blade.php</p>
+	<pre><code>
+  		    &lt;div id="toggle-button"&gt;&lt;/div&gt; &lt;!-- ボタンをこの要素に埋め込みます --&gt;
+
+   			 &lt;div id="cat_contents" style="display:none;"&gt;
+				秋の初めごろはバッタやコオロギなどの虫たちが活発に活動します。&lt;br&gt;
+				キュウリの苗のほとんどは、それらの虫たちに食べつくされてしまいます。&lt;br&gt;
+				しかし、雑草の側で育つキュウリは、虫の被害が半分で済みます。&lt;br&gt;
+				#自然 #農業
+   			 &lt;/div&gt;
+	</code></pre>
+	
+	<br><time>2023-10-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
