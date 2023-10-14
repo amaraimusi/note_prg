@@ -154,7 +154,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/ts/index.tsx'],
+            input: ['resources/sass/app.scss', 'resources/ts/index.tsx'],
             refresh: true,
         }),
         react(), 
@@ -207,7 +207,7 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 
         &lt;title&gt;Laravel&lt;/title&gt;
         <strong>@viteReactRefresh</strong>
-         <strong>@vite('resources/ts/index.tsx')</strong>
+         <strong> @vite(['resources/sass/app.scss', 'resources/ts/index.tsx'])</strong>
         ～略～
         
             &lt;body class="antialiased"&gt;
@@ -247,7 +247,7 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 	
 	
 
-	<br><time>2023-10-6</time>
+	<br><time>2023-10-6 | 2023-10-15</time>
 </div>
 
 
