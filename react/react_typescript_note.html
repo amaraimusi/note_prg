@@ -176,6 +176,76 @@ export default Demo;
 </div>
 
 
+<div id="sec1-3" class="sec4" >
+	<h3>配列データから一覧を生成する</h3>
+	
+	<p>resources/ts/demo/ItemList.tsx</p>
+	<pre><code>
+import React from 'react';
+
+interface Item {
+  id: number;
+  name: string;
+}
+
+const ItemList: React.FC = () =&gt; {
+  const items: Item[] = [
+    { id: 1, name: "アイテム1" },
+    { id: 2, name: "アイテム2" },
+    { id: 3, name: "アイテム3" },
+  ];
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;アイテム一覧の見本&lt;/h1&gt;
+      &lt;ul&gt;
+        {items.map((item) =&gt; (
+          &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default ItemList;
+	</code></pre>
+	
+	<p>resources/ts/demo.tsx</p>
+	<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ItemList from './demo/ItemList';
+
+ReactDOM.render(&lt;ItemList /&gt;, document.getElementById('item_list'));
+
+export default Demo;
+	</code></pre>
+	
+	<p>resources/views/demo/index.blade.php</p>
+	<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Laravel&lt;/title&gt;
+        @viteReactRefresh
+        @vite(['resources/sass/app.scss', 'resources/ts/index.tsx'])
+    &lt;/head&gt;
+    &lt;body&gt;
+
+  		&lt;div id="item_list"&gt;&lt;/div&gt;
+  		
+    &lt;/body&gt;
+&lt;/html&gt;
+
+	</code></pre>
+
+
+	<br><time>2023-10-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
