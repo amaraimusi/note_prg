@@ -348,6 +348,69 @@ export default Demo;
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>Hooks: useEffectについて</h3>
+	
+	
+	<p>useEffect とは</p>
+	useEffect は React Hooks の一部として React 16.8 で導入されました。
+	クラスコンポーネントのライフサイクルメソッド（例：componentDidMount, componentDidUpdate, componentWillUnmount）に相当する機能を、関数コンポーネント内で使えるように提供するものです。<br>
+	<br>
+	主に３つの使い方があります。コンポーネントのマウント時に一度だけ実行、変数の変更時に実行、非同期処理のクリーンアップ時に実行があります。<br>
+	<br>
+	
+	<p>コンポーネントのマウント時に一度だけ実行:</p>
+	<pre><code>
+	useEffect(() => {
+	    console.log("Component did mount!");
+	}, []);
+	</code></pre><br>
+	
+	<p>特定の変数の変更時に実行:</p>
+	<pre><code>
+	const [count, setCount] = useState(0);
+	
+	useEffect(() => {
+	    console.log("Count has changed!", count);
+	}, [count]);
+	</code></pre><br>
+	
+	<p>非同期処理のクリーンアップ時に実行:</p>
+	<pre><code>
+	useEffect(() => {
+	    const timerId = setInterval(() => {
+	        console.log("This runs every second!");
+	    }, 1000);
+	
+	    return () => {
+	        clearInterval(timerId); // クリーンアップ関数
+	    };
+	}, []);
+	</code></pre>
+	注意点<br>
+	<aside>
+	useEffect の中で非同期処理を行う場合、直接 async を使うのではなく、非同期関数を定義してその中で await を使う方法が推奨されます。
+	依存配列に指定されていない値を副作用関数内で使用すると、予期しない挙動や無限ループを引き起こす可能性があります。TypeScript と ESLint の組み合わせを使用すると、このようなミスを防ぐのに役立ちます。
+	以上が、useEffect の基本的な概要と使用方法です。この Hook を効果的に使用することで、関数コンポーネント内で様々なライフサイクルイベントや副作用の管理を行うことができます。
+	</aside>
+	<hr>
+	
+
+	<p>useEffectの詳細解説</p>
+	<pre><code>
+	useEffect(() => {
+	    // 何らかの副作用を起こすコード
+	}, [依存配列]);
+	</code></pre>
+	副作用の関数: useEffect の第1引数として渡される関数の中には、副作用を伴うコードを書きます。これにはデータの取得、DOM の更新、タイマーの設定などが含まれます。<br>
+	
+	依存配列: useEffect の第2引数として渡される配列は、副作用関数が依存する値のリストを示します。この配列内のどれかの値が変わるたびに、副作用関数は再実行されます。<br>
+	<br>
+	
+	<br><time>2023-10-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
