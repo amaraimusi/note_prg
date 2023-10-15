@@ -246,11 +246,113 @@ export default Demo;
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>テキストボックスで入力した値を一覧に追加する</h3>
+	
+	<p>resources/ts/demo/itemListAdd.tsx</p>
+	<pre><code>
+import React, { useState } from 'react';
+
+interface Item {
+  id: number;
+  name: string;
+}
+
+const ItemListAdd: React.FC = () =&gt; {
+  const [inputValue, setInputValue] = useState&lt;string&gt;('');
+  const [items, setItems] = useState&lt;Item[]&gt;([]);
+
+  const handleInputChange = (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+    setInputValue(event.target.value);
+  };
+
+  const handleAddItem = () =&gt; {
+    if (inputValue.trim() === '') return;
+
+    const newItem: Item = {
+      id: new Date().getTime(),
+      name: inputValue,
+    };
+
+    setItems([...items, newItem]);
+    setInputValue('');
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;アイテム一覧・追加&lt;/h1&gt;
+      &lt;input
+        type="text"
+        placeholder="アイテム名を入力してください"
+        value={inputValue}
+        onChange={handleInputChange}
+      /&gt;
+      &lt;button onClick={handleAddItem}&gt;追加&lt;/button&gt;
+      &lt;ul&gt;
+        {items.map((item) =&gt; (
+          &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default ItemListAdd;
+	</code></pre>
+	<br>
+	
+	<div >
+		このコードでは、useStateフックを使用して、inputValue（テキストボックスの値）とitems（アイテムの一覧）の状態を管理しています。テキストボックスの値が変更されたときには、handleInputChange関数が呼ばれてinputValueを更新します。<br>
+		<br>
+		また、追加ボタンをクリックすると、handleAddItem関数が呼ばれ、新しいアイテムがitemsに追加されます。アイテムは一意のID（ここではタイムスタンプを使用）とテキストボックスから取得した名前で作成されます。<br>
+		<br>
+		最後に、&lt;ul&gt;内でitemsをマッピングしてリストアイテムを表示します。それぞれのリストアイテムには一意のkeyが設定されています。<br>
+		<br>
+		このコンポーネントをルートコンポーネントに追加し、テキストボックスで入力した値を一覧に追加するシンプルなToDoリストのようなアプリケーションができあがります。必要に応じてスタイリングや他の機能を追加できます。
+	</div>
+	
+	<p>resources/ts/demo.tsx</p>
+	<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ItemListAdd from './demo/ItemListAdd';
+
+ReactDOM.render(&lt;ItemListAdd /&gt;, document.getElementById('item_list_add'));
+
+export default Demo;
+	</code></pre>
+	<br>
+	
+	<p>resources/views/demo/index.blade.php</p>
+	<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Laravel&lt;/title&gt;
+        @viteReactRefresh
+        @vite(['resources/sass/app.scss', 'resources/ts/index.tsx'])
+    &lt;/head&gt;
+    &lt;body&gt;
+
+  		&lt;div id="item_list_add" class="mt-3"&gt;&lt;/div&gt;
+  		
+    &lt;/body&gt;
+&lt;/html&gt;
+
+	</code></pre>
+	<br>
+
+	<br><time>2023-10-15</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2023-10-14</time>
+	<br><time>2023-10-15</time>
 </div>
 
 
