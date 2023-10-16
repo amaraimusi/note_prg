@@ -411,11 +411,93 @@ export default Demo;
 </div>
 
 
+<div id="sec1-6" class="sec4" >
+	<h3>hidden要素からjson文字列を取得し、パースしてデータを取得</h3>
+	
+	以下の例では、useEffect内で隠し要素の値を取得し、それをパースしてステートに保存しています。<br>
+	useEffectを関数コンポーネントのマウント時に一回だけ実行するのに利用しています。<br>
+	<br>
+	また、直接DOMを操作するのはReactのアンチパターンになる場合があるため、この方法はサーバー側でレンダリングされたHTMLを操作する必要がある場合など、特定のシナリオでのみ推奨されます。<br>
+	可能であれば、データをpropsやcontextを通して渡すなどのReactの"idiomatic"な方法を使用することをおすすめします。<br>
+	<br>
+
+
+	<p>resources/ts/demo/GetJsonTest.tsx</p>
+	<pre><code>
+import React, { useEffect, useState } from 'react';
+
+type HiddenData = {
+  key: string;
+  // 他の必要な型情報も追加できます
+};
+
+const GetJsonTest: React.FC = () =&gt; {
+  const [data, setData] = useState&lt;HiddenData | null&gt;(null);
+
+  useEffect(() =&gt; {
+    const rawData = document.getElementById("data_json") as HTMLInputElement;
+
+    if (rawData) {
+      const parsedData: HiddenData = JSON.parse(rawData.value);
+      setData(parsedData);
+    }
+  }, []); // このeffectはコンポーネントのマウント時に一度だけ実行されます
+
+  if (!data) return null; // データがまだロードされていないか、データが存在しない場合のハンドリング
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{data.key}&lt;/h1&gt;
+      {/* 他のデータの表示も行えます */}
+    &lt;/div&gt;
+  );
+};
+
+export default GetJsonTest;
+	</code></pre><br>
+	
+	<p>resources/ts/demo.tsx</p>
+	<pre><code>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import GetJsonTest from './demo/GetJsonTest';
+
+ReactDOM.render(&lt;GetJsonTest /&gt;, document.getElementById('get_json_test'));
+
+export default Demo;
+	</code></pre><br>
+	
+	<p>resources/views/demo/index.blade.php</p>
+	<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Laravel&lt;/title&gt;
+        @viteReactRefresh
+        @vite(['resources/sass/app.scss', 'resources/ts/index.tsx'])
+    &lt;/head&gt;
+    &lt;body&gt;
+
+  		&lt;input type="hidden" id="data_json" value='{"key": "猫にエサを与えなかったが、イヌがエサを猫に与えた。"}' /&gt;
+  		&lt;div id="get_json_test"&gt;&lt;/div&gt;
+  		
+    &lt;/body&gt;
+&lt;/html&gt;
+
+	</code></pre><br>
+
+
+	<br><time>2023-10-16</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2023-10-15</time>
+	<br><time>2023-10-16</time>
 </div>
 
 
