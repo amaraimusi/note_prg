@@ -470,6 +470,72 @@ Creating docker_demo2_web_1 ... done
 		</pre>
 		</li>
 		
+		<li>
+			追記：
+			<p>permissionの設定: Windowsの場合のみ</p>
+			この段階でもある程度Dockerは動きますが、2023年時点のWindowsの場合、ボリュームのマウントで不具合が起きます。この不具合はMySQLの関連では致命的になります。
+			ディレクトリへのアクセス権、つまりpermissionまわりの問題のようですあり、エラーログを見ると以下のようなエラーメッセージが確認されます。<br>
+			<pre>mysqld: Cannot change permissions of the file 'private_key.pem' (OS errno 1 - Operation not permitted)</pre>
+			<br>
+			以下にディレクトリのpermissionの設定をwslで行う手順を示します。
+			<a href="https://qiita.com/n-jun-k2/items/f8f36cebc7312df8bc31">(参考サイト)</a><br>
+			
+			<ol>
+				<li>
+					Ubuntuを起動します。
+				</li>
+				
+				<li>
+					root権限でログインする。
+					<pre>sudo -i</pre>
+				</li>
+				
+				<li>
+					wslの設定ファイルwsl.confが存在しなければ作成する。
+					<pre>sudo touch /etc/wsl.conf</pre>
+				</li>
+				
+				<li>
+					viでwsl.confを開き、iキーを押して挿入モードにする。
+					<pre>vi /etc/wsl.conf</pre>
+				</li>
+				
+				<li>
+					wsl.confに下記を記述する。
+					<pre class="console">
+[automount]
+options = "metadata"
+					</pre>
+					<aside>入力が終わったらESCキーを押し、:wqを入力して上書き保存する。</aside>
+				</li>
+				
+				<li>
+				root権限を抜ける
+				<pre>exti</pre>
+				</li>
+				
+				<li>
+				user権限を抜ける
+				<pre>exti</pre>
+				</li>
+				
+				<li>
+					管理者権限でPowerShellを起動します。<br>
+					→Powrshellアイコンで右クリックして「管理者として起動する」を選択
+				</li>
+				
+				<li>
+					wslを再起動するため、一旦シャットダウンして再スタートする。PowerShellで以下のコマンドを実行する。
+					<pre class="console">
+wsl --shutdown
+wsl
+					</pre>
+				</li>
+
+			</ol>
+			
+		</li>
+		
 	</ol>
 	
 	
