@@ -26,6 +26,34 @@
 <div class="container">
 
 
+<div id="sec1-0" class="sec4" >
+	<h3>よく使うコマンド | ビルド/コンパイル | Dockerの起動など</h3>
+	
+	<p>Sail版</p>
+	Dockerサービス起動とDockerコンテナ起動
+	<pre>
+cd /mnt/c/Users/user/git/react_demo2/dev
+sudo service docker start
+./vendor/bin/sail up -d
+	</pre>
+	
+	ビルド/コンパイル
+	<pre>
+./vendor/bin/sail up -d
+	</pre>
+	
+	Dockerコンテナ停止とDockerサービス終了
+	<pre>
+./vendor/bin/sail stop
+sudo service docker stop
+	</pre>
+	
+
+
+	<br><time>2023-10-20</time>
+</div>
+
+
 <div id="sec1-1" class="sec4">
 	<h3>ルーティング: 画面毎にtsxファイルを割り当てる</h3>
 	
