@@ -521,6 +521,171 @@ export default Demo;
 </div>
 
 
+<div id="sec1-7" class="sec4" >
+	<h3>React + TypeScriptでのSPA | 旧Ajax、バックエンドはLaravel10</h3>
+	
+	axiosにてSPA通信を行います。axiosのインストールについては割愛します。<br>
+	<br>
+	
+	<p>フロントエンド：resources/ts/demo/SpaDemo.tsx</p>
+	<pre><code>
+import React, { useState, useEffect } from 'react';
+import axios from '../cmn/Spa';
+
+const SpaDemo: React.FC = () =&gt; {
+	const [data, setData] = useState&lt;any&gt;(null);
+	const [errorHtml, setErrorHtml] = useState&lt;string | null&gt;(null);
+
+	useEffect(() =&gt; {
+		const fetchData = async () =&gt; {
+			try {
+
+				let postData = {'buta':'豚の高級住宅'};
+				const response = await axios.post('demo/spa_demo',postData);
+
+				if(typeof response.data === 'string'){
+					setErrorHtml(response.request.responseText);
+				}
+				setData(response.data);
+
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
+
+		fetchData();
+	}, []);
+
+	if (!data) return &lt;p&gt;Loading...&lt;/p&gt;;
+
+	return (
+		&lt;div&gt;
+			&lt;h1&gt;SPA Demo&lt;/h1&gt;
+		{errorHtml &amp;&amp; &lt;div dangerouslySetInnerHTML={{ __html: errorHtml }} /&gt;}
+			&lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;
+		&lt;/div&gt;
+	);
+}
+
+export default SpaDemo;
+	</code></pre>
+	
+	<p>フロントエンド：resources/ts/cmn/Spa.ts</p>
+	<pre><code>
+
+import axios from 'axios';
+
+let baseURL = `${window.location.protocol}//${window.location.hostname}`;
+
+if (window.location.port) {
+  baseURL += `:${window.location.port}`;
+}
+
+const instance = axios.create({
+  baseURL: baseURL,
+  timeout: 10000,
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
+});
+
+
+const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+if (token) {
+  instance.defaults.headers.common['X-CSRF-TOKEN'] = token;
+} else {
+  console.error('CSRF token not found');
+}
+
+export default instance;
+	</code></pre>
+	
+	<p>バックエンド：app/Http/Controllers/DemoController.php</p>
+	<pre><code>
+class DemoController extends Controller
+{
+
+	public function spa_demo(Request $request){
+		
+// 		// すでにログアウトになったらlogoutであることをフロントエンド側に知らせる。
+// 		if(&yen;Auth::id() == null) return json_encode(['err_msg'=&gt;'logout']);
+		
+		$buta = $request-&gt;buta;
+
+		$res = [];
+		
+		$res['buta'] = $buta;
+		$res['name'] = '新しい猫2';
+		$res['age'] = 1;
+		$res['date'] = '2020-7-23';
+		
+		$json = json_encode($res, JSON_HEX_TAG | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_APOS);
+		
+		return $json;
+	}
+	
+}
+	</code></pre>
+	
+	<p>バックエンド：resources/views/demo/index.blade.php</p>
+	<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;meta name="csrf-token" content="{{ csrf_token() }}"&gt;
+        &lt;title&gt;Laravel&lt;/title&gt;
+        @viteReactRefresh
+        @vite(['resources/sass/app.scss', 'resources/ts/index.tsx'])
+    &lt;/head&gt;
+    &lt;body&gt;
+  		
+  		&lt;div id="spa_demo" class="mt-3"&gt;&lt;/div&gt;
+  		
+    &lt;/body&gt;
+&lt;/html&gt;
+
+	</code></pre>
+	
+	<p>バックエンド：routes/web.php</p>
+	<pre><code>
+&lt;?php
+
+use Illuminate&yen;Support&yen;Facades&yen;Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('demo', 'App&yen;Http&yen;Controllers&yen;DemoController@index');
+<strong>Route::post('demo/spa_demo', 'App&yen;Http&yen;Controllers&yen;DemoController@spa_demo');</strong>
+
+Auth::routes();
+
+Route::get('/home', [App&yen;Http&yen;Controllers&yen;HomeController::class, 'index'])-&gt;name('home');
+
+	</code></pre>
+	
+	
+	
+
+
+	<br><time>2023-10-23</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
