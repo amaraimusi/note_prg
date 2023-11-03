@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AWS Cloud9の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>AWS Cloud9の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+
+<div id="sec1-0-1" class="sec4">
+	<h3>AWS Cloud9の基本</h3>
+	AWS Cloud9 は、EC2 環境およびSSH 環境の 2 つのタイプが用意されています。<br>
+	<br>
+</div>
+
+<div id="sec1-1" class="sec4">
+	<h3>AWS Cloud9におけるEC2環境について</h3>
+	
+		AWS Cloud9におけるEC2環境でBashは利用できますか？→YES<br>
+		<br>
+
+		AWS Cloud9におけるEC2環境で標準で利用できるDBはありますか？<br>
+		Amazon RDS：リレーショナルデータベースサービスで、MySQL、PostgreSQL、MariaDB、Oracle、SQL Server などのデータベースエンジンをサポートしています。
+		Amazon DynamoDB：フルマネージドの NoSQL データベースサービス。
+		Amazon Redshift：データウェアハウスサービス。
+
+		また、Cloud9 の EC2 インスタンス上に直接、MySQLやPostgreSQLなどのデータベースをインストールして利用することも技術的には可能です。ただ、この方法はパーシステントなデータ保持を期待する本番環境としては推奨されませんが、開発やテスト目的であれば十分に機能します。
+
+
+		AWS Cloud9におけるEC2環境でGitHubと連携することはできますか？
+
+		はい、AWS Cloud9 の EC2 環境で GitHub と連携することは十分に可能です。Cloud9 はクラウドベースの統合開発環境 (IDE) であり、git クライアントがプリインストールされていますので、GitHub などの git リポジトリと簡単に連携できます。
+
+		以下は、AWS Cloud9 から GitHub と連携する基本的なステップです：
+
+		SSH キーの生成: まず、Cloud9 のターミナルで SSH キーを生成します。
+
+		css
+		Copy code
+		ssh-keygen -t rsa -b 4096
+		SSH キーを GitHub に追加: 上記のコマンドで生成された公開鍵（デフォルトでは ~/.ssh/id_rsa.pub に保存される）の内容をコピーして、GitHub のアカウント設定の SSH と GPG キーのセクションに追加します。
+
+		リポジトリのクローン: キーの設定が完了したら、Cloud9 のターミナルから GitHub リポジトリを clone することができます。
+
+		bash
+		Copy code
+		git clone git@github.com:your-username/your-repository.git
+		通常の git 操作: これ以降は、通常の git コマンド（git add, git commit, git push など）を使用して、コードの変更を行ったり GitHub にプッシュすることができます。
+
+		Cloud9 と GitHub の連携により、リモートでの開発作業やチームとの共同作業が大変スムーズに行えます。	
+	
+
+
+	<br><time>2023-10-27</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>AWS CodeStarとは何ですか？</h3>
+
+	EC2は運用で使われることが多い事に対し、AWS CodeStarはシステム開発で利用されます。<br>
+	AWS CodeStarはソフトウェア開発のプロセスとワークフローの管理に焦点を当てているのに対し、EC2はアプリケーションやワークロードを実際に実行するためのコンピューティングリソースを提供するサービスです。
+	一般的には、CodeStar で開発されたアプリケーションは、EC2 インスタンスや他のAWSサービス上で実行・運用されることが多いです。<br>
+	<br>
+	
+	AWS CodeStar は、AWS が提供するクラウドベースの開発サービスで、プロジェクトの始めから終わりまでのソフトウェア開発プロセスを効率的に管理、追跡するための統合された環境を提供します。CodeStar を使用することで、開発、ビルド、デプロイのプロセスを迅速にセットアップし、AWS のさまざまなツールとサービスとの統合を容易に実現できます。<br>
+	<br>
+	AWS CodeStar の主な特徴は以下の通りです：<br>
+	<br>
+		プロジェクトテンプレート: CodeStar は多数のテンプレートを提供しており、これによって Web アプリケーション、Web サービス、Alexa スキルなどのプロジェクトを簡単に開始できます。<br>
+	<br>
+		統合開発環境 (IDE) の統合: CodeStar は AWS Cloud9 や他の一般的な IDE（IntelliJ, Visual Studio, Eclipse など）と統合できます。<br>
+	<br>
+		ソースコード管理: AWS CodeCommit との統合により、ソースコードの保存、トラック、バージョン管理が可能です。<br>
+	<br>
+		ビルド & デプロイ: AWS CodeBuild と AWS CodeDeploy との統合により、コードのビルドとデプロイメントを自動化できます。<br>
+	<br>
+		継続的インテグレーション/継続的デリバリー (CI/CD): AWS CodePipeline との統合により、ソフトウェアリリースプロセスを自動化する CI/CD パイプラインを簡単にセットアップできます。<br>
+	<br>
+		プロジェクトダッシュボード: コードの変更、ビルドのステータス、デプロイメントの進行状況など、プロジェクトに関連するすべての活動を一目で確認できる中央のダッシュボードを提供します。<br>
+	<br>
+		チームアクセス管理: AWS Identity and Access Management (IAM) との統合により、プロジェクトのメンバーや役割に対するアクセス権を簡単に管理できます。<br>
+	<br>
+		AWS サービスとの統合: さまざまな AWS サービス（Lambda, EC2, S3 など）との統合を容易に行うことができます。<br>
+	<br>
+		AWS CodeStar は、新しいプロジェクトの開始からデプロイメントまでの一連の作業をシンプルにし、効率的にソフトウェア開発プロセスを進めるためのツールを提供します。<br>
+	<br>
+
+	<br><time>2023-10-27</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>AWS CodePipelineとは何ですか？</h3>
+
+
+	<div class="sec5">
+AWS CodePipeline は、Amazon Web Services (AWS) が提供する継続的インテグレーション (CI) および継続的デリバリー (CD) サービスです。CodePipeline を使用すると、ソフトウェアリリースプロセスの各ステージを自動化し、コードの変更がプロダクションに安全にデプロイされるようにすることができます。
+
+AWS CodePipeline の主な特徴と機能は以下の通りです：
+
+ワークフローの視覚化: CodePipeline はワークフローの各ステージ（ソース、ビルド、テスト、デプロイなど）を視覚的に表示することで、ユーザーがリリースプロセスの進行状況を簡単に追跡できるようにします。
+
+ソースステージ: ソースコードの変更を検出すると、CodePipeline は自動的にリリースプロセスを開始します。このステージでは、GitHub、AWS CodeCommit、Amazon S3 などのリポジトリからソースコードを取得します。
+
+ビルドステージ: AWS CodeBuild などのビルドツールと統合して、コードのコンパイルやパッケージング、テストの実行を自動化します。
+
+デプロイステージ: AWS CodeDeploy、AWS Elastic Beanstalk、Amazon ECS などのサービスと統合して、アプリケーションを自動的にデプロイします。
+
+カスタムアクション: 既存のツールやサードパーティのサービスを統合するためのカスタムアクションを定義することができます。
+
+拡張性: CodePipeline は、AWS Lambda、AWS CloudFormation などの他の AWS サービスや Jenkins などのサードパーティツールとも統合できます。
+
+セキュリティ: AWS Identity and Access Management (IAM) と統合して、パイプラインや関連リソースへのアクセスを管理・制限できます。
+
+高い耐障害性: CodePipeline は AWS の高い耐障害性を持つインフラストラクチャ上で動作するため、信頼性が高い。
+
+CodePipeline を使用すると、開発者や運用チームはソフトウェアのリリースプロセスを迅速かつ一貫して行うことができ、新しい機能や修正をより頻繁に、かつ安全にプロダクション環境にデプロイすることが可能になります。
+
+
+
+
+
+<p>AWS CodePipelineの役割を分かりやすく要約</p>
+
+
+
+AWS CodePipelineは、AWSが提供する継続的インテグレーション (CI) および継続的デリバリー (CD) サービスです。ソフトウェアのリリースプロセスの各ステージ（例: ソースコードの取得、ビルド、テスト、デプロイ）を自動化し、コードの変更を迅速かつ一貫してプロダクション環境にデプロイするためのワークフローを管理します。
+
+
+
+
+
+<p>継続的インテグレーション (CI) とは何ですか？</p>
+
+継続的インテグレーション（Continuous Integration、略してCI）は、ソフトウェア開発のプラクティスの1つで、開発者たちが日常的（しばしば1日に複数回）に自分たちのコード変更を共有リポジトリに統合することを意味します。この統合は自動的にテストされ（これを「ビルド」とも言います）、エラーやバグを早期に検出・修正することを目的としています。
+
+CIの主な利点や特徴は以下のとおりです：
+
+早期のバグ検出: 頻繁にコードを統合することで、問題や不整合を早期に検出し、修正コストを削減します。
+
+自動テスト: 変更がリポジトリにプッシュされるたびに自動的にテストが実行され、品質の確保を助けます。
+
+迅速なフィードバック: 開発者は自分のコード変更に関するフィードバックを迅速に受け取ることができ、問題があればすぐに対応することができます。
+
+一貫性の保持: すべての変更が同じテストスイートを通過するため、コードベースの一貫性が保たれます。
+
+開発速度の向上: バグやエラーの修正が迅速に行われるため、開発プロセス全体がスムーズになります。
+
+CIを実践するためには、特定のツール（例：Jenkins、Travis CI、CircleCI、AWS CodeBuildなど）がしばしば使用されます。これらのツールは、コードの変更を自動的に検出し、テストを実行し、結果を報告する役割を果たします。
+
+継続的インテグレーションは、継続的デリバリー（CD）や継続的デプロイメント（もCDとして参照されることがある）とともに、効率的かつ迅速なソフトウェア開発とデリバリーのプラクティスの一部として認識されています。
+
+
+
+
+
+<p>継続的デリバリー (CD)とは何ですか？</p>
+
+継続的デリバリー（Continuous Delivery、略してCD）は、ソフトウェア開発のプラクティスの1つで、コードの変更を自動的にテストし、プロダクション環境にデプロイする準備を常にしておくことを意味します。継続的デリバリーの主な目的は、リリースをより予測可能で信頼性のあるものにすることです。
+
+継続的デリバリーの主な特徴と利点は以下の通りです：
+
+リリースの容易さ: CDを実践することで、新しいコード変更をいつでもプロダクション環境に安全にリリースすることが可能になります。
+
+リスクの低減: 頻繁に小規模なリリースを行うことで、大きな問題やバグが生じるリスクを低減します。
+
+迅速なフィードバック: すぐにリリースできる状態を保つことで、顧客やステークホルダーからのフィードバックを迅速に受け取り、必要な調整を行うことができます。
+
+効率的なプロセス: マニュアルな手順や介入を減少させ、自動化を増やすことで、デプロイメントプロセスが効率的になります。
+
+品質の向上: 継続的なテストとフィードバックのループにより、ソフトウェアの品質が向上します。
+
+継続的デリバリーは、継続的インテグレーション（CI）と密接に関連しており、CIがコードの統合とテストに焦点を当てるのに対し、CDはソフトウェアのデリバリーとデプロイメントに焦点を当てます。継続的デプロイメント（これもCDとして参照されることがある）は、継続的デリバリーのさらに進んだステップで、コード変更を自動的にプロダクション環境にデプロイします。
+
+継続的デリバリーを実践するためには、特定のツール（例：Jenkins、GoCD、Spinnaker、AWS CodePipelineなど）が使用されることが多いです。これらのツールは、変更のデプロイメントを自動化し、リリースの品質と速度を向上させる役割を果たします。
+	</div>
+
+
+	<br><time>2023-10-27</time>
+</div>
+
+<div id="sec1-4" class="sec4">
+	<h3>AWS CodeCommitとは何ですか？</h3>
+	
+	AWSが提供するGitHubのようなサービスです。<br>
+	<br>
+	
+
+
+	<br><time>2023-10-27</time>
+</div>
+
+<div id="sec1-4" class="sec4" style="display:none">
+	<h3>AWS CloudFormation スタックとは何ですか？</h3>
+	
+	AWS CloudFormation は、Amazon Web Services (AWS) のリソースをモデル化し、プロビジョニングするためのサービスです。<br>
+	<br>
+「プロビジョニング」とは、システムやアプリケーション、サービスなどのリソースや環境を設定、準備、提供するプロセスのことを指します。この用語は、ITのコンテキストで幅広く使用されており、特にクラウドコンピューティング、仮想化、ネットワーク管理などの分野で一般的です。
+<br>
+プロビジョニングとOS（オペレーティングシステム）が行っている一部のタスクとには共通点があります。両方とも、システムやアプリケーションが適切に動作するためのリソースや設定を管理しています。しかし、彼らの焦点と範囲には重要な違いがあります。
+OSはコンピュータのハードウェアとソフトウェアの間の中核的なインターフェースとして動作し、リソースを継続的に管理します。一方、プロビジョニングは特定のニーズや要件に基づいてリソースや環境を初期設定・準備するタスクを指します。これらのタスクは相互に関連していることが多いため、混同されることがありますが、彼らの目的と範囲は異なります。
+<br>
+	<br><time>2023-10-27</time>
+</div>
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2023-10-27</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>AWS Cloud9の覚書</li>
+</ol>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/sample">サンプルソースコード</a></li>
+	<li><a href="/sample/js">JavaScript ｜ サンプル</a></li>
+	<li>AWS Cloud9の覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-10-27</div>
+</body>
+</html>
