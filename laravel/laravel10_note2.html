@@ -445,6 +445,87 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 </div>
 
 
+<div id="sec2-8" class="sec4" >
+	<h3>マイグレーション：シーダーファイルでサンプルデータを生成する。</h3>
+	
+	Laravelでは、データベースのテーブル構造を設定するためのマイグレーションファイルと、テーブルに初期データやテストデータを挿入するためのシーダーファイルという２種類のファイルがあります。ここでのポイントは、サンプルデータはマイグレーションファイルではなく、シーダーファイルに記述するべきだということです。開発の流れとしては、まずマイグレーションを実行してデータベーステーブルを作成し、その後シーダーファイルを使用してサンプルデータをデータベースに追加します。
+	<br><br>
+	シーダーファイルは、必要に応じて開発者が自らコードを記述する必要があります。これにより、アプリケーション開発中やテスト時に、簡単にデータベースにデータを追加できるようになります。
+	<br><br>
+
+	補足事項：
+	<ul>
+		<li>シーダーファイルは database/seeders ディレクトリ内にあります。</li>
+		<li>シーダーファイルを作成するには、php artisan make:seeder SeederName コマンドを使用します。</li>
+		<li>シーディングを実行するには、php artisan db:seed コマンドを使用します。特定のシーダーを実行するには、--class オプションにシーダーの名前を指定します。</li>
+		<li>シーディングは、テストデータの挿入や開発中の初期データ設定に非常に役立ちますが、本番環境のデータベースには実行しないよう注意してください。</li>
+	</ul>
+
+	<p>シーダーファイルを作成するコマンド</p>
+	<pre>php artisan make:seeder RichmenusTableSeeder</pre>
+	コマンドを実行すると空の「database/seeders/RichmenusTableSeeder.php」ファイルが生成される。
+	<br>
+	
+	<p>シーダーファイルの記述例</p>
+	database/seeders/RichmenusTableSeeder.php
+	<pre><code>
+&lt;?php
+
+namespace Database&yen;Seeders;
+
+use Illuminate&yen;Database&yen;Console&yen;Seeds&yen;WithoutModelEvents;
+use Illuminate&yen;Database&yen;Seeder;
+use Illuminate&yen;Support&yen;Facades&yen;DB;
+use Illuminate&yen;Support&yen;Str;
+
+class RichmenusTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+    	$sampleData = [];
+    	for ($i = 0; $i &lt; 12; $i++) {
+    		$sampleData[] = [
+    				'id'                =&gt; Str::random(26), // 26文字のランダム文字列を生成
+    				'line_account_id'   =&gt; Str::random(26),
+    				'size_w'            =&gt; rand(800, 1200),
+    				'size_h'            =&gt; rand(400, 800),
+    				'default_selected'  =&gt; rand(0, 1),
+    				'name'              =&gt; 'Sample Rich Menu ' . $i,
+    				'chat_bar_text'     =&gt; 'Chat with us!',
+    				'line_rich_menu_id' =&gt; Str::random(26),
+    				'rich_menu_img'     =&gt; 'https://example.com/img/' . $i . '.jpg',
+    				'review_svg'        =&gt; 'https://example.com/svg/' . $i . '.svg',
+    				'start_time'        =&gt; now()-&gt;toDateTimeString(),
+    				'end_time'          =&gt; now()-&gt;addDays(rand(1, 30))-&gt;toDateTimeString(),
+    				'segment'           =&gt; null, // 適宜必要な値に設定してください。
+    				'rich_menu_category'=&gt; null, // 適宜必要な値に設定してください。
+    				'delete_flg'        =&gt; 0,
+    				'created_at'        =&gt; now(),
+    				'updated_at'        =&gt; now(),
+    		];
+    	}
+    	
+    	DB::table('richmenus')-&gt;insert($sampleData);
+    }
+}
+
+	</code></pre>
+	
+	
+	<p>シーダーファイルを実行する</p>
+	<pre>php artisan db:seed --class=RichmenusTableSeeder</pre>
+
+
+	<p>おまけ：マイグレーションとシーダーを同時に実行する場合</p>
+	<pre><code>php artisan migrate --seed</code></pre>
+
+	<br><time>2023-11-7</time>
+</div>
+
+
 <div id="sec2-1" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
