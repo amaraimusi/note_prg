@@ -446,7 +446,7 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 
 
 <div id="sec2-8" class="sec4" >
-	<h3>マイグレーション：シーダーファイルでサンプルデータを生成する。</h3>
+	<h3>マイグレーション：シーダーファイルでサンプルデータを生成する</h3>
 	
 	Laravelでは、データベースのテーブル構造を設定するためのマイグレーションファイルと、テーブルに初期データやテストデータを挿入するためのシーダーファイルという２種類のファイルがあります。ここでのポイントは、サンプルデータはマイグレーションファイルではなく、シーダーファイルに記述するべきだということです。開発の流れとしては、まずマイグレーションを実行してデータベーステーブルを作成し、その後シーダーファイルを使用してサンプルデータをデータベースに追加します。
 	<br><br>
@@ -518,6 +518,28 @@ class RichmenusTableSeeder extends Seeder
 	<p>シーダーファイルを実行する</p>
 	<pre>php artisan db:seed --class=RichmenusTableSeeder</pre>
 
+
+	<p>一括でシーダーファイルを実行できるようにする</p>
+	「database/seeders/DatabaseSeeder.php」にシーダーファイルを記述する。
+	<pre>
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+    	// 各シーダークラスを実行する順序で呼び出す
+    	$this->call([
+    			RichmenusTableSeeder::class,
+    			RichmenuAreasTableSeeder::class,
+    	]);
+    }
+}
+	</pre>
+	すべてのシードを実行するには、以下のコマンドを使います。
+	<pre>php artisan db:seed</pre>
+	
 
 	<p>おまけ：マイグレーションとシーダーを同時に実行する場合</p>
 	<pre><code>php artisan migrate --seed</code></pre>
