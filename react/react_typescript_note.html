@@ -794,6 +794,59 @@ function ExampleComponent() {
 </div>
 
 
+<div id="sec1-9" class="sec4" >
+	<h3>useCallbackについて</h3>
+
+	useCallbackフックはReactのフックの一つで、主にパフォーマンス最適化のために使用されます。
+	
+	useCallbackは、メモ化されたコールバック関数を返します。
+	メモ化とは関数を何度も作り直さないように記憶する仕組みです。
+	これによりコンポーネントが再レンダリングされたときに同じ関数のインスタンスを再利用することができます。<br>
+	<br>
+	
+	useCallbackはuseEffectやuseMemoなどと一緒に使われることが多いようです。<br>
+	一覧用のデータをフェッチするときにuseEffectと合わせてuseCallbackを用いるのが定番です。
+	<br>
+	
+	見本
+	<pre><code>
+import React, { useState, useCallback } from 'react';
+
+// React.memoでメモ化された子コンポーネント
+const Button = React.memo(({ onClick, children }) =&gt; {
+  console.log(`Rendering button: ${children}`);
+  return (
+    &lt;button onClick={onClick}&gt;{children}&lt;/button&gt;
+  );
+});
+
+const App = () =&gt; {
+  const [count, setCount] = useState(0);
+  
+  // useCallbackを使用してhandleClick関数をメモ化
+  const handleClick = useCallback(() =&gt; {
+    // 何らかの処理を実行（この例ではカウントを増やす）
+    setCount((prevCount) =&gt; prevCount + 1);
+  }, []); // 依存関係配列が空なので、コンポーネントが再レンダリングされても新しい関数は作成されない
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;Button onClick={handleClick}&gt;Increase Count&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default App;
+	</code></pre>
+	この例では、handleClick関数はAppコンポーネントが再レンダリングされても再作成されません。React.memoによってメモ化されたButtonコンポーネントは、propsとして渡されたonClick関数が同一の参照である限り再レンダリングされません。useCallbackの依存配列が空なので、handleClickは一度作成されると再作成されることはありません。
+	
+
+
+	<br><time>2023-11-8</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
