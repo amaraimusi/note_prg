@@ -686,6 +686,114 @@ Route::get('/home', [App&yen;Http&yen;Controllers&yen;HomeController::class, 'in
 </div>
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>useEffectについて</h3>
+	
+	ReactのuseEffectは、コンポーネントのライフサイクルにおいて副作用（side effects）を扱うためのフックです。<br>
+	デフォルトでは、useEffect内の副作用はコンポーネントのマウント後（初回レンダリング後）と、コンポーネントのどの値が更新された後でも実行されます。<br>
+	<br>
+	
+	<p>useEffectはどのような場面で仕様されるか？</p>
+	
+	useEffectフックは多様な用途で使用されますが、一般的によく行われる処理をいくつか挙げます：<br>
+	<br>
+	
+	<ol>
+		<li>
+			<strong>データフェッチング: </strong>
+			コンポーネントがマウントされた後にAPIからデータを取得し、そのデータをコンポーネントの状態にセットします。
+			いわゆるSPAやAjaxで利用されます。
+		</li>
+		<li>
+			<strong>イベントリスナーの設定/解除: </strong>
+			コンポーネントのライフサイクルに応じてイベントリスナーを追加し、コンポーネントのアンマウント時にそれをクリーンアップします。
+		</li>
+		<li>
+			<strong>外部データの購読および解除: </strong>
+			WebSocketやFirebaseのリスナーのような外部データソースへの購読をセットアップし、不要になったら解除します。
+		</li>
+		<li>
+			<strong>DOMの直接操作: </strong>
+			ライブラリ（D3.jsなど）を使用してDOMを直接操作する場合、またはフォーカスの管理、ウィンドウサイズの監視、アニメーションの実行など、DOMに対する副作用を行います。
+			
+		</li>
+		<li>
+			<strong>タイマーのセットアップ/解除: </strong>
+			setTimeoutやsetIntervalを使用したタイマーの設定と、それを適切にクリーンアップします。
+			
+		</li>
+		<li>
+			<strong>副作用がある関数の呼び出し: </strong>
+			ローカルストレージへのアクセス、カスタムフックからの副作用関数の呼び出しなど、副作用を伴う任意の関数を実行します。
+			
+		</li>
+		<li>
+			<strong>パフォーマンスの最適化: </strong>
+			メモ化された値やコールバックを依存関係として持ち、それらが変わった時だけ計算を行うようにして、不要なレンダリングを避けます。
+		</li>
+		<li>
+			<strong>状態の同期: </strong>
+			プロップスやグローバルな状態の変化に応じて、ローカルの状態を更新します。
+			
+		</li>
+	</ol>
+	
+	これらはuseEffectの一般的な使用例ですが、副作用として分類される幅広いタスクを実行するために使われます。ただし、副作用が発生するたびにコンポーネントが再レンダリングされることを避けるために、依存配列の管理には注意が必要です。<br>
+	<br>
+	
+	<p>使用例</p>
+	<pre><code>
+import React, { useState, useEffect } from 'react';
+
+function ExampleComponent() {
+  const [count, setCount] = useState(0);
+
+  // マウント時とcountが変わるたびに実行される
+  useEffect(() =&gt; {
+    document.title = `You clicked ${count} times`;
+  }, [count]); // 依存関係配列にcountを指定
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+	</code></pre>
+	
+	
+	<p>使用例2:データのフェッチ (SPA, 旧AJAX)</p>
+	<pre><code>
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+
+				let postData = {'buta':'豚の高級住宅'};
+				const response = await axios.post('demo/spa_demo',postData);
+
+				if(typeof response.data === 'string'){
+					setErrorHtml(response.request.responseText);
+				}
+				setData(response.data);
+
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
+
+		fetchData();
+	}, []);
+	</code></pre>
+		
+
+
+	<br><time>2023-11-8</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
