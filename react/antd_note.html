@@ -723,7 +723,46 @@ Dropdown コンポーネントのいくつかの重要なプロパティは以�
 	<h3>Spaceコンポーネント</h3>
 
 <div class="sec5">
+Space コンポーネントは、コンポーネントや要素間の間隔（スペース）を均一に管理するために使用されます。
+これにより、CSSを直接記述することなく要素のレイアウトを簡単に制御でき、コードの整理と一貫性を保つことができます。
 
+Space コンポーネントを使用すると、内包される子要素は指定されたサイズのスペースによって分離されます。
+デフォルトでは、子要素は水平方向に配置されますが、垂直方向に配置することもできます。
+
+基本的な使用方法は以下のとおりです：
+
+jsx
+<pre><code>
+import React from 'react';
+import { Space, Button } from 'antd';
+
+const App = () =&gt; (
+  &lt;Space&gt;
+    &lt;Button&gt;Button 1&lt;/Button&gt;
+    &lt;Button&gt;Button 2&lt;/Button&gt;
+    &lt;Button&gt;Button 3&lt;/Button&gt;
+  &lt;/Space&gt;
+);
+
+export default App;
+</code></pre>
+この例では、Space コンポーネントは3つのボタン間に均等な間隔を提供します。
+
+<p>Space コンポーネントの主なプロパティは以下の通りです：</p>
+
+<strong>size: </strong>子要素間のスペースの大きさを指定します。
+数値またはスペースの大きさを表す文字列（small, middle, large など）を指定できます。
+
+<strong>direction: </strong>要素の並び方向を指定します。
+vertical か horizontal を指定でき、デフォルトは horizontal です。
+
+<strong>align: </strong>垂直方向のアラインメント(一列に整列)を指定します。
+start, end, center, baseline のいずれかを指定できます。
+
+<strong>wrap: </strong>要素が折り返すかどうかを指定します。
+true に設定すると、親要素の幅に合わせて子要素が折り返します。
+
+Space コンポーネントはフォーム、カード、ページレイアウトなど、さまざまな場面で利用されます。
 
 </div>
 
