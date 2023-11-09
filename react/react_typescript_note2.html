@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>React + TypeScriptの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>React + TypeScriptの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec2-1" class="sec4" >
+	<h3>デストラクチャリング | 配列やオブジェクトからデータを展開する</h3>
+
+	デストラクチャリングは、配列やオブジェクトからデータを展開し、それを新しい変数に割り当てる便利な方法を提供します。
+
+
+	<pre>const <strong>{ data: resData }</strong> =  AnimalService.list(params)></pre>
+	    
+	
+	AnimalService.list(params) のレスポンスから data プロパティを取り出します。<br>
+	その data プロパティの値を新しい変数 resData に割り当てます。<br>
+	つまり、以下とと同じ意味です。<br>
+	<br>
+	
+	<pre><code>
+	const response = AnimalService.list(params);
+	const resData = response.data;
+	</code></pre>
+	
+	<aside>{ data: resData } は TypeScript 特有の構文ではなく、JavaScript におけるデストラクチャリング代入（Destructuring assignment）の一種です。</aside>
+	
+	
+	<p>複数の引数に展開するタイプ</p>
+	<pre><code>
+	const object = { data: 'value', anotherProp: 123 };
+	const { data, anotherProp } = object;
+	
+	console.log(data); // 'value'
+	console.log(anotherProp); // 123
+	</code></pre>
+	
+	<br><time>2023-11-9</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2023-11-9</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li>React + TypeScriptの覚書</li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2023-11-9</div>
+</body>
+</html>
