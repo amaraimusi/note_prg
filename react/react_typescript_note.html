@@ -847,6 +847,49 @@ export default App;
 </div>
 
 
+<div id="sec1-10" class="sec4">
+	<h3>useStateについて</h3>
+	
+	ReactのuseStateは、関数コンポーネントで状態を持たせるためのフックです。
+	
+	<p>useStateの見本</p>
+	<pre><code>
+import React, { useState } from 'react';
+
+function MyComponent() {
+  // useStateフックにより、count状態を初期値0で作成します。
+  // setCountはその状態を更新する関数です。
+ <strong> const [count, setCount] = useState(0);</strong>
+
+  // この関数は、ボタンがクリックされるたびに呼ばれます。
+  // これは、新しいcount値をReactに通知し、Reactはコンポーネントを再レンダリングします。
+  function handleClick() {
+    setCount(count + 1); // count状態を更新します。
+  }
+
+  // このUIは、コンポーネントが再レンダリングされるたびに更新されたcount値を表示します。
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={handleClick}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+	</code></pre>
+	
+	上記のサンプルの場合、countとsetCountはMyComponent関数内の複数処理に対して共有される変数のようにふるまう。ローカルスコープのようなもの。<br>
+	<br>
+	useStateの有効範囲（スコープの範囲）は、サブコンポーネントにまで及びますか？→いいえ<br>
+	<br>
+	
+
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
