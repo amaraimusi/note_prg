@@ -61,6 +61,88 @@
 </div>
 
 
+<div id="sec2-2" class="sec4" >
+	<h3>React Router の Link コンポーネント</h3>
+	
+<div class="sec5">
+
+React そのものに "Link" コンポーネントは標準では含まれていません。
+Web アプリケーションでナビゲーションを実現するために広く使用されているライブラリ「React Router」には Link コンポーネントがあります。
+この Link コンポーネントは、ユーザーがアプリケーション内の異なるパスにナビゲートする際に使用されます。
+
+React Router の Link コンポーネントは、ブラウザのデフォルトのページ再読み込みを引き起こす代わりに、SPA（シングルページアプリケーション）に適しています。
+通常、この Link コンポーネントは &lt;a&gt; タグを内部的にレンダリングしますが、ページをリロードするのではなく、指定された to プロパティの URL にアプリケーションのビューを切り替えます。
+
+Link コンポーネントの基本的な使用方法は以下の通りです：
+
+jsx
+<pre><code>
+import { Link } from 'react-router-dom';
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Link to="/about"&gt;About Us&lt;/Link&gt;
+      &lt;Link to="/contact"&gt;Contact&lt;/Link&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+ここでの to プロパティは、リンク先のパスを指定します。&lt;Link to="/about"&gt; は /about パスへのリンクを作成し、ユーザーがこのリンクをクリックすると About Us コンポーネントが表示されます（もちろん、/about パスに対して適切なルート設定がされている必要があります）。
+
+
+React RouterのLinkコンポーネントはいくつかのプロパティ（属性）を持っており、それらはリンクの振る舞いをカスタマイズするために使われます。
+以下はLinkコンポーネントの主要なプロパティです：
+
+<strong>to: </strong>ナビゲートするパスまたはロケーションオブジェクトを指定します。文字列でパスを直接指定するか、パス名、検索クエリ、ステートを持つオブジェクトを渡すことができます。
+<pre><code>
+&lt;Link to="/about"&gt;About&lt;/Link&gt;
+// または
+&lt;Link to={{ pathname: "/about", search: "?sort=name", state: { fromDashboard: true } }}&gt;
+  About
+&lt;/Link&gt;
+</code></pre>
+
+
+<strong>replace:</strong> trueの場合、ナビゲートするときに履歴スタックの現在のエントリを新しいエントリで置き換えます。デフォルトはfalseで、新しいエントリが履歴スタックに追加されます。
+<pre><code>
+&lt;Link to="/about" replace&gt;About&lt;/Link&gt;
+</code></pre>
+
+
+<strong>state:</strong> ナビゲーション時に履歴エントリに保存されるステートオブジェクトを指定します。これは、目的のルートに追加の状態を渡すのに便利です。
+<pre><code>
+&lt;Link to={{
+  pathname: '/about',
+  state: { fromDashboard: true }
+}}&gt;About&lt;/Link&gt;
+</code></pre>
+
+
+<strong>onClick: </strong>リンクがクリックされたときに実行される関数を指定します。デフォルトのナビゲーションを防ぐためにevent.preventDefault()を呼び出すことができます。
+<pre><code>
+&lt;Link to="/about" onClick={(event) =&gt; {
+  // カスタムの振る舞いやチェック
+  event.preventDefault();
+}}&gt;About&lt;/Link&gt;
+</code></pre>
+
+
+<strong>innerRef: </strong>リンクの実際の&lt;a&gt;タグに対するrefを取得するために使います（React v16.3以降はforwardRefを使用します）。
+<pre><code>
+&lt;Link to="/about" innerRef={node =&gt; {
+  // `&lt;a&gt;`タグの参照を使う
+}}&gt;About&lt;/Link&gt;
+aria-current: ナビゲーションの現在のページを示すためのARIA属性です。リンクが現在アクティブなルートを指している場合に、スクリーンリーダーなどのアシスティブテクノロジーに追加情報を提供します。
+</code></pre>
+
+</div>
+
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
