@@ -689,6 +689,16 @@ Route::get('/home', [App&yen;Http&yen;Controllers&yen;HomeController::class, 'in
 <div id="sec1-8" class="sec4" >
 	<h3>useEffectについて</h3>
 	
+	<p>応用</p>
+	<pre><code>
+  useEffect(() => {
+    testRefresh(params) // params配列に変化があれば更新処理を発動させる。testRefreshはuseCallbackでメモ化してある。
+  }, [params])
+	</code></pre>
+	
+	<hr>
+	
+	
 	ReactのuseEffectは、コンポーネントのライフサイクルにおいて副作用（side effects）を扱うためのフックです。<br>
 	デフォルトでは、useEffect内の副作用はコンポーネントのマウント後（初回レンダリング後）と、コンポーネントのどの値が更新された後でも実行されます。<br>
 	<br>
@@ -787,6 +797,8 @@ function ExampleComponent() {
 		fetchData();
 	}, []);
 	</code></pre>
+	
+	
 		
 
 
