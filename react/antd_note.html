@@ -330,6 +330,95 @@ Ant Designの Select コンポーネントは、多くのプロパティ（属�
 </div>
 
 
+<div id="sec1-5" class="sec4" >
+	<h3>Inputコンポーネント</h3>
+
+<div class="sec5">
+
+
+Ant Design（antd）の Input コンポーネントは、ユーザーがテキスト情報を入力するための基本的なUIです。
+このコンポーネントはさまざまなプロパティを使用してカスタマイズが可能で、フォーム内で広く使用されます。
+
+name属性はForm.Item側に記述するので注意です。
+
+Input コンポーネントの基本的な使用法は次のとおりです：
+
+jsx
+<pre><code>
+import { Input } from 'antd';
+
+// 省略
+
+&lt;Form.Item label="猫名" name="cat_name"&gt;
+  &lt;Input style={{width: '200px'}} /&gt;
+&lt;/Form.Item&gt;
+</code></pre>
+
+
+
+<p>Input コンポーネントの主なプロパティ</p>
+
+<strong>value: </strong>インプットフィールドの現在の値。
+
+<strong>defaultValue: </strong>コンポーネントの初期値。
+
+<strong>onChange: </strong>テキストが変更されたときに呼び出される関数。
+イベントオブジェクトを引数として受け取ります。
+
+<strong>placeholder:</strong> インプットフィールドが空のときに表示されるプレースホルダーテキスト。
+
+<strong>disabled: </strong>入力不可にするかどうかのブール値。
+
+<strong>size: </strong>インプットフィールドのサイズ（large, default, small）。
+
+<strong>prefix: </strong>インプットフィールドの前に表示される接頭語のコンポーネント。
+
+<strong>suffix: </strong>インプットフィールドの後に表示される接尾語のコンポーネント。
+
+<strong>type: </strong>HTML5の type 属性と同様に、インプットタイプ（例えば text, password）。
+
+
+<p>Input コンポーネントにはいくつかの内蔵されたタイプがあります：</p>
+<strong>Input.TextArea:</strong> 複数行のテキスト入力が可能なテキストエリア。
+
+<strong>Input.Search: </strong>検索機能を持ったインプットフィールド。enterButton プロパティで検索ボタンを追加することができます。
+
+<strong>Input.Password: </strong>パスワード入力用のフィールド。目アイコンでパスワードの表示/非表示を切り替えることができます。
+
+<strong>Input.Group: </strong>複数のインプットフィールドをグループ化するためのコンテナ。
+例えば、接頭語や接尾語を持つインプットフィールドを一緒に表示するときなどに使用します。
+
+
+<p>見本2 jsx</p>
+<pre><code>
+import { Input } from 'antd';
+
+// ...
+
+// テキストエリア
+&lt;Input.TextArea rows={4} placeholder="Type your message here" /&gt;
+
+// 検索インプット
+&lt;Input.Search placeholder="Search something" onSearch={value =&gt; console.log(value)} enterButton /&gt;
+
+// パスワードインプット
+&lt;Input.Password placeholder="Input password" /&gt;
+
+// インプットグループ
+&lt;Input.Group compact&gt;
+  &lt;Input style={{ width: '50%' }} defaultValue="0571" /&gt;
+  &lt;Input style={{ width: '50%' }} defaultValue="26888888" /&gt;
+&lt;/Input.Group&gt;
+</code></pre>
+
+
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
