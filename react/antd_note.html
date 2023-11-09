@@ -88,6 +88,60 @@
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>antdのRowコンポーネントについて</h3>
+	
+	<div class="sec5">
+	antdのRowコンポーネントは、Ant Designのグリッドシステムの一部であり、柔軟なレイアウトを実現するために使用されます。
+	これは、ウェブデザインを簡単に実装するためのもので、内部的にはCSSのFlexboxレイアウトを使用しています。
+
+	Rowコンポーネントは、一連のColコンポーネントを子要素として取り、それらを水平方向に並べるコンテナとして機能します。以下の特徴を持っています：
+	
+	<strong>Flexboxレイアウト:</strong>
+	Rowはその下にあるCol要素に対してFlexboxレイアウトを適用しています。
+	
+	<strong>グリッドシステム: </strong>
+	Ant Designのグリッドシステムは、24の等しい分割を基本としています。
+	24の値を振り分けてCol要素を幅を決めます。
+	Bootstrapにも同様なグリッドシステムがありますが、Bootstrapは12を振り分けてレイアウトします。
+	
+	<strong>レスポンシブデザイン: </strong>
+	RowとColはレスポンシブデザインに対応しています。
+	レスポンシブデザインとは、画面のサイズに応じて自動的にレイアウトを調整することです。
+	Colにはxs, sm, md, lg, xl, xxlといったプロパティを使用して、異なる画面サイズでの振る舞いを指定できます。Bootstrap5を知っている人ならお同じみの機能です。
+	
+	<strong>ガッター: </strong>
+	Rowコンポーネントはgutterプロパティを持っており、これを使用して隣接するColコンポーネント間の間隔（ガッター）を指定することができます。
+	
+	
+	以下は、RowとColを使った基本的な例です：
+
+	<pre><code>
+	function MyGridComponent() {
+	  return (
+	    &lt;Row gutter={16}&gt;
+	      &lt;Col span={12}&gt;
+	        &lt;div&gt;左側のコンテンツ&lt;/div&gt;
+	      &lt;/Col&gt;
+	      &lt;Col span={12}&gt;
+	        &lt;div&gt;右側のコンテンツ&lt;/div&gt;
+	      &lt;/Col&gt;
+	    &lt;/Row&gt;
+	  );
+	}
+	</code></pre>
+
+	この例では、Rowコンポーネントは2つのColコンポーネントを含んでおり、各Colは24のうち12の幅を占めています。
+	gutter={16}は、Col要素間に16ピクセルのガッター（間隔）を設けることを意味しています。
+	これにより、左右のColコンテンツの間に適切なスペースが生まれ、レイアウトが整います。
+		
+	</div>
+
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
