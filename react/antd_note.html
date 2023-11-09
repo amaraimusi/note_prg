@@ -473,6 +473,58 @@ import { Input } from 'antd';
 </div>
 
 
+<div id="sec1-6" class="sec4">
+	<h3>Buttonコンポーネント</h3>
+
+<div class="sec5">
+Ant Design (antd) の Button コンポーネントは、Reactのプロジェクトにおいて簡単に使用できるようにスタイルが施されたボタン要素を提供します。
+このコンポーネントは、様々なサイズ、タイプ、状態を持ち、クリックイベントのハンドリング、アイコンの統合、ローディング状態の表示などの機能をサポートしています。
+
+以下はantdの Button コンポーネントの基本的な使用法です。
+
+<pre><code>
+import React from 'react';
+import { Button } from 'antd';
+
+const App = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;Button type="primary"&gt;Primary Button&lt;/Button&gt;
+      &lt;Button&gt;Default Button&lt;/Button&gt;
+      &lt;Button type="dashed"&gt;Dashed Button&lt;/Button&gt;
+      &lt;Button type="text"&gt;Text Button&lt;/Button&gt;
+      &lt;Button type="link"&gt;Link Button&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default App;
+</code></pre>
+
+
+<p>主なプロパティ（属性）は以下の通りです：</p>
+
+<strong>type:</strong> ボタンのスタイルタイプを指定します。例えば 'primary', 'ghost', 'dashed', 'link', 'text', 'default' などがあります。
+
+<strong>onClick: </strong>ボタンがクリックされたときに呼ばれるコールバック関数を指定します。
+
+<strong>disabled:</strong> ボタンを無効にするかどうかを指定します。
+
+<strong>loading:</strong> ボタンにローディング状態を表示するかどうかを指定します。
+
+<strong>icon:</strong> ボタン内に表示するアイコンを指定します。
+
+<strong>shape: </strong>ボタンの形状を指定します。例えば 'circle' や 'round' などがあります。
+
+<strong>size: </strong>ボタンのサイズを指定します。'large', 'middle', 'small' の中から選べます。
+
+</div>
+
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
