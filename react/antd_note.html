@@ -655,6 +655,94 @@ export default App;
 </div>
 
 
+<div id="sec1-9" class="sec4" >
+	<h3>Dropdownコンポーネント</h3>
+
+<div class="sec5">
+Dropdown コンポーネントは、指定された要素をクリックまたはホバーすることで表示される追加のコンテンツや機能を提供するためのものです。
+ドロップダウンメニューはオプションやアクションのリストを提示するのに適しており、スペースを節約しながらユーザーインターフェイスのクリーンさを保持できます。
+
+基本的な使い方は次のとおりです：
+
+<pre><code>
+import React from 'react';
+import { Menu, Dropdown, Button } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
+const menu = (
+  &lt;Menu&gt;
+    &lt;Menu.Item key="0"&gt;
+      &lt;a href="http://www.alipay.com/"&gt;1st menu item&lt;/a&gt;
+    &lt;/Menu.Item&gt;
+    &lt;Menu.Item key="1"&gt;
+      &lt;a href="http://www.taobao.com/"&gt;2nd menu item&lt;/a&gt;
+    &lt;/Menu.Item&gt;
+    &lt;Menu.Divider /&gt;
+    &lt;Menu.Item key="3" disabled&gt;
+      3rd menu item（disabled）
+    &lt;/Menu.Item&gt;
+  &lt;/Menu&gt;
+);
+
+const App = () =&gt; (
+  &lt;Dropdown overlay={menu}&gt;
+    &lt;Button&gt;
+      Button &lt;DownOutlined /&gt;
+    &lt;/Button&gt;
+  &lt;/Dropdown&gt;
+);
+
+export default App;
+</code></pre>
+上記のコードでは、Dropdown コンポーネントの overlay プロパティに Menu コンポーネントを指定しています。
+これにより、ボタンをクリックすると指定したメニューが表示されます。
+
+Dropdown コンポーネントのいくつかの重要なプロパティは以下の通りです：
+
+<strong>overlay:</strong> ドロップダウンで表示するコンテンツを定義します。
+通常は Menu コンポーネントを渡しますが、他の React ノードも使用できます。
+
+<strong>trigger: </strong>ドロップダウンを表示するトリガーとなるアクションを指定します。
+例えば ['click'] はクリック時に、['hover'] はマウスオーバー時にドロップダウンを表示します。
+
+<strong>placement: </strong>ドロップダウンメニューが表示される位置を指定します。
+例えば bottomLeft, bottomRight, topLeft, topRight などがあります。
+
+<strong>visible: </strong>ドロップダウンの表示状態を制御するためのプロパティです。
+このプロパティを使うことで、ドロップダウンの表示/非表示を手動で制御できます。
+
+<strong>onVisibleChange: </strong>ドロップダウンの表示状態が変わるたびに呼ばれるコールバック関数を指定します。
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>Spaceコンポーネント</h3>
+
+<div class="sec5">
+
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
+<div id="sec1-11" class="sec4" >
+	<h3>MenuPropsコンポーネント</h3>
+
+<div class="sec5">
+
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
