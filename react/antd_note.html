@@ -571,6 +571,102 @@ Divider コンポーネントはいくつかのプロパティを持っており
 </div>
 
 
+<div id="sec1-8" class="sec4" >
+	<h3>Tag コンポーネント</h3>
+
+<div class="sec5">
+Ant Designの Tag コンポーネントは、ラベルやキーワードを表示するための小さなラベル要素です。
+Tag は情報のカテゴリー分けや、項目のマーキング、ステータスの表示などに使用されます。
+
+以下は Tag コンポーネントの基本的な使用法です：
+
+jsx
+<pre><code>
+import React from 'react';
+import { Tag } from 'antd';
+
+const App = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;Tag color="magenta"&gt;magenta&lt;/Tag&gt;
+      &lt;Tag color="red"&gt;red&lt;/Tag&gt;
+      &lt;Tag color="volcano"&gt;volcano&lt;/Tag&gt;
+      &lt;Tag color="orange"&gt;orange&lt;/Tag&gt;
+      &lt;Tag color="gold"&gt;gold&lt;/Tag&gt;
+      &lt;Tag color="lime"&gt;lime&lt;/Tag&gt;
+      // 他にも色々な色が用意されています。
+    &lt;/div&gt;
+  );
+};
+export default App;
+</code></pre>
+
+
+<p>Tag コンポーネントには以下のような主なプロパティがあります：</p>
+
+<strong>color:</strong> タグの色を指定します。Ant Designはプリセットの色を提供していますが、カスタムカラーを使用することも可能です。
+
+<strong>closable:</strong> これを true にすると、タグの横に閉じるボタンが表示され、ユーザーがタグを削除できるようになります。
+
+<strong>visible: </strong>タグの表示/非表示を制御します。
+
+<strong>onClose: </strong>タグの閉じるボタンがクリックされた時に実行されるコールバック関数を指定します。
+また、Tag コンポーネントは CheckableTag というバリエーションも提供しており、これによって選択可能なタグを作成することができます。
+CheckableTag はチェックボックスのような振る舞いをし、ユーザーがタグを選択したり選択解除したりできるようになります。
+
+jsx
+<pre><code>
+import React, { useState } from 'react';
+import { Tag } from 'antd';
+
+const { CheckableTag } = Tag;
+
+const App = () =&gt; {
+  const [selectedTags, setSelectedTags] = useState(['Tag1']);
+
+  const handleChange = (tag, checked) =&gt; {
+    const nextSelectedTags = checked
+      ? [...selectedTags, tag]
+      : selectedTags.filter(t =&gt; t !== tag);
+    setSelectedTags(nextSelectedTags);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;CheckableTag
+        key="Tag1"
+        checked={selectedTags.indexOf('Tag1') &gt; -1}
+        onChange={checked =&gt; handleChange('Tag1', checked)}
+      &gt;
+        Tag1
+      &lt;/CheckableTag&gt;
+      // 他のタグも同様に追加できます。
+    &lt;/div&gt;
+  );
+};
+
+export default App;
+
+</code></pre>
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+<div class="sec5">
+
+
+</div>
+
+	<br><time>2023-11-9</time>
+</div>
+
+
 <div class="yohaku"></div>
 <ol class="breadcrumb">
 	<li><a href="/">ホーム</a></li>
