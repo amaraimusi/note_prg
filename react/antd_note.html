@@ -525,9 +525,47 @@ export default App;
 </div>
 
 
-<div id="sec1-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec1-7" class="sec4">
+	<h3>Divider コンポーネント | 区切り線</h3>
 
+<div class="sec5">
+Divider コンポーネントは、セクション間に線を引くための区切り線を提供するものです。
+これは視覚的にコンテンツを分割して、区別しやすくするために使われます。
+
+以下は、Ant Designの Divider コンポーネントの基本的な使い方です。
+
+jsx
+<pre><code>
+import React from 'react';
+import { Divider } from 'antd';
+
+const App = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;p&gt;テキスト1&lt;/p&gt;
+      &lt;Divider /&gt;
+      &lt;p&gt;テキスト2&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default App;
+</code></pre>
+
+
+Divider コンポーネントはいくつかのプロパティを持っており、それを通じてさまざまなカスタマイズが可能です：
+
+<strong>dashed: </strong>この属性が指定されると、区切り線は点線になります。
+
+<strong>orientation: </strong>区切り線のテキストの位置を決めます。
+デフォルトでは中央になりますが、left や right を指定することで、左寄せや右寄せにできます。
+
+<strong>type:</strong> 区切り線が水平（horizontal、デフォルト）か垂直（vertical）かを指定します。
+
+<strong>plain:</strong> 区切り線のテキストをより目立たなくするためのものです。
+テキストがセマンティックな重要性を持たない場合に使われます。
+
+</div>
 
 	<br><time>2023-11-9</time>
 </div>
