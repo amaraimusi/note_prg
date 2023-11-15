@@ -247,11 +247,27 @@ git push -f
 
 
 
-<div id="sec1-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec1-10" class="sec4" >
+	<h3>作業中に誤ったブランチで作業を行ったことに気づいた場合の対応 | スタッシュ | git stash</h3>
 
+<div class="sec5">
+# ステージを取り消す（git add）
+git reset ファイル名
 
-	<br><time>2019-2-6</time>
+# すべてのステージを取り消す
+git reset 
+
+# スタッシュする
+git stash
+
+# ブランチを切り替える
+git checkout orign/neko
+
+# 先ほど避けたスタッシュを今いるブランチに適用する
+$ git stash apply
+</div>
+
+	<br><time>2023-11-15</time>
 </div>
 
 
