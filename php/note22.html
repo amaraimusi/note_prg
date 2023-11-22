@@ -341,6 +341,146 @@ session_start();
 </div>
 
 
+<div id="sec22-6" class="sec4" >
+	<h3>LINE Message API: リッチメニューをCURLで登録</h3>
+	
+	<ol class="list_lg">
+	
+		<li>
+			事前にLINE Developerのサイトでチャネルを作成し、さらに検証用のLINE公式アカウントを解説しておく。<br>
+			検証用のLINE公式アカウントをスマホのLINEアプリで登録し、そのLINE公式アカウントととのトーク画面を開くとリッチメニューを確認する準備が整う。
+		</li>
+		<li>
+			<a href="https://developers.line.biz/console/" target="_blank">LINE Developerコンソール</a>にログインする。
+		</li>
+		
+		<li>
+			対象のチャネルを選択
+		</li>
+		
+		<li>
+			「Messaging API」タブをクリックすると画面下側にチャンネルアクセストークン（Channel access token）があるのでコピペで控える。<br>
+			<img src="img/note22/sec22_6.png" alt="「Messaging API」タブをクリックすると画面下側に「Channel access token」がある" class="img_compact_k" /><br>
+			<br>
+		</li>
+		
+		<li>適当なコマンドラインツールを開く。（今回の検証ではWindows for Gitに付属するGit Bashを用いた）</li>
+		
+		<li>
+			以下のコマンドのチャンネルアクセストークンを上記で控えていたものに書き換えて実行する。環境によっては日本語が使いないこともありようです。私のGitBash環境では日本語をコマンドに記述するとエラーになりました。
+	<pre><code>
+	
+curl -v -X POST https://api.line.me/v2/bot/richmenu \
+-H 'Authorization: Bearer lPdXJ1j4doZCNpA8xxxxxxxxxxxxxxxチャンネルアクセストークンxxxxxxxxxxxxijoqzvjjocigrg7oPCwCmUZXpXSXpXvi2GqIlV5QBSagUHTzrmKLSAdB04t89/1O/w1cDnyilFU=' \
+-H 'Content-Type: application/json' \
+-d \
+'{
+    "size": {
+        "width": 2500,
+        "height": 843
+    },
+    "selected": false,
+    "name": "Animal Rich",
+    "chatBarText": "Tap to open",
+    "areas": [
+        {
+            "bounds": {
+                "x": 0,
+                "y": 0,
+                "width": 1250,
+                "height": 843
+            },
+            "action": {
+                "type": "uri",
+                "label": "Cat Tap",
+                "uri": "https://www.line-community.me/ja/"
+            }
+        },
+        {
+            "bounds": {
+                "x": 1250,
+                "y": 0,
+                "width": 1250,
+                "height": 843
+            },
+            "action": {
+                "type": "uri",
+                "label": "Dog Tap",
+                "uri": "https://techblog.lycorp.co.jp/ja/"
+            }
+        }
+    ]
+}'
+	</code></pre>
+		</li>
+		
+		<li>
+			以下のようなレスポンスが得られたら成功です。リッチメニューID（richMenuId）が発行されるので控えておきます。
+<pre class="console">
+{ [58 bytes data]
+100   900  100    58  100   842    195   2844 --:--:-- --:--:-- --:--:--  3050{"richMenuId":"richmenu-xxxリッチメニューIDxxxxb217e75d78d5fba09b254"}
+* Connection #0 to host api.line.me left intact
+
+</pre>
+		</li>
+		
+		
+		
+		<li>
+			リッチメニューの背景に表示する画像を用意し、任意のディレクトリに配置します。<br>
+			画像の幅サイズは上記のコマンドの設定値と整合性を取るようにしたほうが無難です。原因不明なエラーが起こることがあるので。
+			<br>
+			
+			例→ ~/git/tmp/rich_menu_green_2.png 横幅2500px,縦幅843pxの画像です。<br>
+			<img src="img/note22/rich_menu_green_2.png" alt="" style="width:400px"/>
+		</li>
+		
+		<li>
+			rich_menu_green_2.pngを配置しているディレクトリにcdコマンドで移動します。
+			<pre><code>cd ~/git/tmp</code></pre>
+		</li>
+		
+		<li>
+			背景画像をLINEプラットフォームのリッチメニューに送信します。<br>
+			下記コマンドのリッチメニューIDとチャンネルアクセストークンを書き換えてから実行すると送信されます。<br>
+<pre><code>
+$ curl -v -X POST https://api-data.line.me/v2/bot/richmenu/richmenu-xxxリッチメニューIDxxxxb217e75d78d5fba09b254/content \
+ -H "Authorization: Bearer lPdXJ1j4doZCNpA8xxxxxxxxxxxxxxxチャンネルアクセストークンxxxxxxxxxxxxijoqzvjjocigrg7oPCwCmUZXpXSXpXvi2GqIlV5QBSagUHTzrmKLSAdB04t89/1O/w1cDnyilFU=" \
+ -H "Content-Type: image/png" \
+ -T rich_menu_green_2.png
+
+</code></pre>		
+			特に、エラーがでなければ成功です。
+		
+		</li>
+		
+		<li>
+			上記のリッチメニューをデフォルトにします。つまり、一般ユーザーのスマホのトーク画面にリッチメニューを表示するよう設定します。。
+			<pre><code>
+$ curl -v -X POST https://api.line.me/v2/bot/user/all/richmenu/richmenu-xxxリッチメニューIDxxxxb217e75d78d5fba09b254 \
+ -H "Authorization: Bearer lPdXJ1j4doZCNpA8xxxxxxxxxxxxxxxチャンネルアクセストークンxxxxxxxxxxxxijoqzvjjocigrg7oPCwCmUZXpXSXpXvi2GqIlV5QBSagUHTzrmKLSAdB04t89/1O/w1cDnyilFU="
+			</code></pre>
+		</li>
+		
+		
+		<li>
+			スマホのLINEアプリを開き、検証用のLINE公式アカウントととのトーク画面を開いてください。<br>
+			上記で登録したリッチメニューが表示されるはずです。<br>
+			ちなみに現時点（2023年11月）ではリッチメニューの挙動をスマホで確認するしかないようです。
+			LINE公式アカウントの設定画面には、CURLで登録したリッチメニューは表示されません。
+		</li>
+		
+		
+		
+	</ol>
+	
+
+
+
+	<br><time>2023-11-21</time>
+</div>
+
+
 <div id="sec22-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
