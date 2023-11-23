@@ -1,0 +1,6 @@
+<svg baseProfile="tiny" height="200" width="200" xmlns="http://www.w3.org/2000/svg">
+  <rect height="200" width="200" fill="lightgray" stroke="black"/>
+  <line x1="0" y1="100" x2="200" y2="100" stroke="black"/>
+  <line x1="66.66" y1="0" x2="66.66" y2="200" stroke="black"/>
+  <line x1="133.33" y1="0" x2="133.33" y2="200" stroke="black"/>
+</svg>

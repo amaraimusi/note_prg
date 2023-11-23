@@ -1,0 +1,7 @@
+<svg baseProfile="full" height="200" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <image height="100%" width="100%" xlink:href="/note_prg/svg/img/svg_note2/sec2-1.jpg"/>
+  <rect fill="lightgray" fill-opacity="0.5" height="200" stroke="black" width="200" x="0" y="0"/>
+  <line stroke="black" x1="0" x2="200" y1="100" y2="100"/>
+  <line stroke="black" x1="66.66" x2="66.66" y1="0" y2="200"/>
+  <line stroke="black" x1="133.33" x2="133.33" y1="0" y2="200"/>
+</svg>
