@@ -548,6 +548,21 @@ class DatabaseSeeder extends Seeder
 </div>
 
 
+<div id="sec2-9" class="sec4" >
+	<h3>UUID形式のidを生成する</h3>
+	
+	重複の可能性が気になりそうだが、現実として重複の可能性は極めて低確率であり気にするレベルではないそうだ。
+	<pre><code>
+	$uuid = Str::uuid()->toString(); // UUIDを生成　36桁
+	$uuid = str_replace('-', '', $uuid); // ハイフンを削除
+	$uuid = substr($uuid, 0, 26); // 26文字に短縮
+	</code></pre>
+
+
+	<br><time>2023-11-24</time>
+</div>
+
+
 <div id="sec2-1" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
