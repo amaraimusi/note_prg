@@ -106,6 +106,88 @@
 </div>
 
 
+<div id="sec2-3" class="sec4" >
+	<h3>正しいSVG画像</h3>
+	
+	SVGファイルはwidthとheightを正確に記述しないと不具合が生じます。<br>
+	<br>
+	
+	<p>SVG画像ファイルのコード（ img/svg_note2/sec2-3a1.svgのコード）</p>
+	<pre>
+&lt;svg baseProfile="full" <strong>width="160" height="120"</strong> xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" &gt;
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="0" y="0"&gt;&lt;/rect&gt;
+    &lt;text x="15.667" y="31" fill="#ffffff" font-size="24"&gt;A&lt;/text&gt;
+    &lt;text x="14.667" y="30" fill="#408055" font-size="24"&gt;A&lt;/text&gt;
+
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="53.333" y="0"&gt;&lt;/rect&gt;
+    &lt;text x="69" y="31" fill="#ffffff" font-size="24"&gt;B&lt;/text&gt;
+    &lt;text x="68" y="30" fill="#408055" font-size="24"&gt;B&lt;/text&gt;
+
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="106.667" y="0"&gt;&lt;/rect&gt;
+    &lt;text x="122.333" y="31" fill="#ffffff" font-size="24"&gt;C&lt;/text&gt;
+    &lt;text x="121.333" y="30" fill="#408055" font-size="24"&gt;C&lt;/text&gt;
+
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="0" y="60"&gt;&lt;/rect&gt;
+    &lt;text x="15.667" y="91" fill="#ffffff" font-size="24"&gt;D&lt;/text&gt;
+    &lt;text x="14.667" y="90" fill="#408055" font-size="24"&gt;D&lt;/text&gt;
+
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="53.333" y="60"&gt;&lt;/rect&gt;
+    &lt;text x="69" y="91" fill="#ffffff" font-size="24"&gt;E&lt;/text&gt;
+    &lt;text x="68" y="90" fill="#408055" font-size="24"&gt;E&lt;/text&gt;
+
+    &lt;rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="106.667" y="60"&gt;&lt;/rect&gt;
+    &lt;text x="122.333" y="91" fill="#ffffff" font-size="24"&gt;F&lt;/text&gt;
+    &lt;text x="121.333" y="90" fill="#408055" font-size="24"&gt;F&lt;/text&gt;
+&lt;/svg&gt;
+	</pre>
+	
+	<p>見本1</p>
+	<img src="img/svg_note2/sec2-3a1.svg" alt="" />
+	<pre><code>
+		&lt;img src="img/svg_note2/sec2-3a1.svg" alt="" /&gt;
+	</code></pre>
+	<hr>
+	
+	<p>見本2</p>
+	正しいSVG画像は幅サイズをCSSスタイルで変更できます。<br>
+	<img src="img/svg_note2/sec2-3a1.svg" alt=""  style="width:320px;height:auto;" />
+	<pre><code>
+		&lt;img src="img/svg_note2/sec2-3a1.svg" alt=""  style="width:320px;height:auto;" /&gt;
+	</code></pre>
+	<hr>
+	
+	<p>見本3</p>
+	<div style="width:80px;height:auto;" >
+		<img src="img/svg_note2/sec2-3a1.svg" alt=""  style="width:100%;height:100%;" />
+	</div>
+	<pre><code>
+	&lt;div style="width:80px;height:auto;" &gt;
+		&lt;img src="img/svg_note2/sec2-3a1.svg" alt=""  style="width:100%;height:100%;" /&gt;
+	&lt;/div&gt;
+	</code></pre>
+	<br>
+	
+	
+	<p>見本4 失敗ケース</p>
+	SVGファイルから「width="160" height="120" 」の部分を抜くと、画像表示はされるものの、widthやheightで幅サイズを変えることができなくなります。<br>
+	<br>
+	widthとheightを抜いたsvgファイル。
+	<pre><code>
+		&lt;svg baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" &gt;
+		～省略～
+	</code></pre>
+	<img src="img/svg_note2/sec2-3a2.svg" alt=""  style="width:400px;height:auto;" /><br>
+	widthが効かなくなり幅サイズが変わりません。
+	<pre><code>
+	&lt;img src="img/svg_note2/sec2-3a2.svg" alt=""  style="width:400px;height:auto;" /&gt;
+	</code></pre>
+
+	
+	<time>2023-11-23</time>
+	
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	
