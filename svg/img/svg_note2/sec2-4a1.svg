@@ -1,0 +1,25 @@
+<svg baseProfile="full" width="160" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="0" y="0"></rect>
+    <text x="15.667" y="31" fill="#ffffff" font-size="24">A</text>
+    <text x="14.667" y="30" fill="#408055" font-size="24">A</text>
+
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="53.333" y="0"></rect>
+    <text x="69" y="31" fill="#ffffff" font-size="24">B</text>
+    <text x="68" y="30" fill="#408055" font-size="24">B</text>
+
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="106.667" y="0"></rect>
+    <text x="122.333" y="31" fill="#ffffff" font-size="24">C</text>
+    <text x="121.333" y="30" fill="#408055" font-size="24">C</text>
+
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="0" y="60"></rect>
+    <text x="15.667" y="91" fill="#ffffff" font-size="24">D</text>
+    <text x="14.667" y="90" fill="#408055" font-size="24">D</text>
+
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="53.333" y="60"></rect>
+    <text x="69" y="91" fill="#ffffff" font-size="24">E</text>
+    <text x="68" y="90" fill="#408055" font-size="24">E</text>
+
+    <rect fill="lightgray" fill-opacity="0.5" stroke="#788187" width="53.333" height="60" x="106.667" y="60"></rect>
+    <text x="122.333" y="91" fill="#ffffff" font-size="24">F</text>
+    <text x="121.333" y="90" fill="#408055" font-size="24">F</text>
+</svg>
