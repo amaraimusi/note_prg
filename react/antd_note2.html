@@ -354,6 +354,54 @@ export default App;
 </div>
 
 
+<div id="sec2-4" class="sec4">
+	<h3>antdのTextコンポーネント: カラーバリエーションが用意されている</h3>
+	
+	<p>既定の文字色を使う</p>
+	<pre><code>
+import React from 'react';
+import { Typography } from 'antd';
+
+const { Text } = Typography;
+
+const TypographyDemo = () =&gt; (
+  &lt;div&gt;
+    &lt;Text&gt;デフォルトのテキスト&lt;/Text&gt;
+    &lt;br /&gt;
+    &lt;Text type="secondary"&gt;セカンダリーのテキスト&lt;/Text&gt;
+    &lt;br /&gt;
+    &lt;Text type="success"&gt;成功のテキスト&lt;/Text&gt;
+    &lt;br /&gt;
+    &lt;Text type="warning"&gt;警告のテキスト&lt;/Text&gt;
+    &lt;br /&gt;
+    &lt;Text type="danger"&gt;危険のテキスト&lt;/Text&gt;
+    &lt;br /&gt;
+    &lt;Text disabled&gt;非活性のテキスト&lt;/Text&gt;
+  &lt;/div&gt;
+);
+
+export default TypographyDemo;
+	</code></pre>
+	
+	<p>色を指定</p>
+	<pre><code>
+import React from 'react';
+import { Typography } from 'antd';
+
+const { Text } = Typography;
+
+const GrayText = () =&gt; (
+  &lt;Text style={{ color: 'lightgray' }}&gt;薄いグレーのテキスト&lt;/Text&gt;
+);
+
+export default GrayText;
+	</code></pre>
+
+
+	<br><time>2023-12-06</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
