@@ -402,6 +402,37 @@ export default GrayText;
 </div>
 
 
+<div id="sec2-5" class="sec4" >
+	<h3>Spin | アップロード中やSPA通信通の待機に使えるアニメーション</h3>
+	
+	<pre><code>
+import React, { useState } from 'react';
+import { Spin, Alert } from 'antd';
+
+const LoadableComponent = () =&gt; {
+  const [loading, setLoading] = useState(true);
+
+  // ローディング状態のシミュレーション
+  setTimeout(() =&gt; setLoading(false), 3000);
+
+  return (
+    &lt;Spin spinning={loading}&gt;
+      &lt;Alert
+        message="Alert message title"
+        description="Further details about the context of this alert."
+        type="info"
+      /&gt;
+    &lt;/Spin&gt;
+  );
+};
+
+	</code></pre>
+
+
+	<br><time>2023-11-10</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
