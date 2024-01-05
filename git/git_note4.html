@@ -26,7 +26,7 @@
 <div class="container">
 
 
-<div id="sec1-1" class="sec4">
+<div id="sec4-1" class="sec4">
 	<h3>現在のブランチが壊れたので新しいブランチをローカルとリモートに作成する</h3>
 
 	以下のコマンドは、新しいブランチを作成し、そのブランチにチェックアウトし、リモートにも新しいブランチを追加するという流れ。
@@ -42,11 +42,28 @@ git push --set-upstream neko demo_branch
 </div>
 
 
-<div id="sec1-0" class="sec4" style="display:none">
+<div id="sec4-2" class="sec4" >
+	<h3>GitHubで不要になったリモートのブランチを削除する方法</h3>
+	
+	「git branch -r」コマンドでリモートのブランチを一覧表示し、削除するブランチを確認する。<br>
+	<br>
+	「animal/neko_branch」ブランチを削除する場合、以下のコマンドを実行する
+	<pre>git push animal --delete neko_branch</pre>
+	
+	もう一度「git branch -r」コマンド実行し、上記のブランチが消えていれば成功。<br>
+	削除したブランチは元に戻せないのでくれぐれも慎重に。<br>
+	<br>
+
+
+	<br><time>2024-1-5</time>
+</div>
+
+
+<div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2023-11-18</time>
+	<br><time>2024-1-1</time>
 </div>
 
 
