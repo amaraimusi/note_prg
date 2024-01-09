@@ -42,12 +42,25 @@
 </div>
 
 
+<div id="sec3-2" class="sec4" >
+	<h3>AWS s3 ファイルパスを指定してURLを取得する</h3>
+	
+	<pre><code>
+		$disk = Storage::disk('s3');
+		$fp = 'animals/neko.jpg';
+		$url = $disk->url($fp);
+	</code></pre>
+
+	<br><time>2024-1-10</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
 
 
-	<br><time>2023-10-6</time>
+	<br><time>2024-1-10</time>
 </div>
 
 <div class="yohaku"></div>
