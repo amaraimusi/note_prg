@@ -86,6 +86,19 @@
 </div>
 
 
+<div id="sec3-5" class="sec4" >
+	<h3>s3でURLのパスを取得 | Laravelでs3にディレクトリパスを指定し、URLを取得する</h3>
+	
+	<pre><code>
+		$disk = Storage::disk('s3');
+		$fp = 'animals/';
+		$url = $disk->url($fp); //例  → https://amaraimusi.s3.ap-northeast-1.amazonaws.com/animals/
+	</code></pre>
+
+	<br><time>2024-1-10</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
