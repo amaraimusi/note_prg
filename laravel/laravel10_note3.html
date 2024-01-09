@@ -55,6 +55,37 @@
 </div>
 
 
+<div id="sec3-3" class="sec4">
+	<h3>AWS s3 ファイルパスを指定してs3から削除する</h3>
+	
+	<pre><code>
+	$disk = Storage::disk('s3');
+	$del_fp = 'rich_menu/01HKQE8BV5N7MPWNAZ3Z71G0W5_thum.jpg';
+	$disk->delete($del_fp);
+	</code></pre>
+
+
+	<br><time>2024-1-10</time>
+</div>
+
+
+<div id="sec3-4" class="sec4">
+	<h3>AWS s3に画像ファイルをアップする</h3>
+	
+	<pre><code>
+	$disk = Storage::disk('s3');
+	$localFilePath = "rsc/img/aws/img1.jpg"; // ローカルのファイルパス
+	$s3_path = 'uploads/rich_menu/img1.jpg';
+	
+	$fileContents = file_get_contents($localFilePath);
+	$res = $disk->put($s3_path, $fileContents);// レスポンス true:成功, false:失敗
+	</code></pre>
+
+
+	<br><time>2024-1-10</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
