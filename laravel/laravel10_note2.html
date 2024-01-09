@@ -563,6 +563,40 @@ class DatabaseSeeder extends Seeder
 </div>
 
 
+<div id="sec2-10" class="sec4" >
+	<h3>Laravelのコントローラクラスの共通初期化 | コンストラクタではない</h3>
+	
+	<pre><code>
+	public function __construct(RichMenuTemplateService $service) {
+		$this-&gt;service = $service;
+		
+        $this-&gt;middleware(function ($request, $next) {
+            $this-&gt;boot();
+
+            return $next($request);
+        });
+		
+	}
+	
+	
+	/**
+	 * 共通の初期化クラス
+ 	*/
+	protected function boot()
+    {
+        // ここに共通の初期化ロジックを書きます。
+        // この段階でセッションや認証情報にアクセス可能です。
+        
+    	$user_id = auth()-&gt;user()-&gt;id;
+		$this-&gt;tmp_img_dir = 'tmp/rich_menu/' . $user_id;
+    }
+	</code></pre>
+
+
+	<br><time>2024-1-9</time>
+</div>
+
+
 <div id="sec2-1" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
