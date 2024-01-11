@@ -99,6 +99,31 @@
 </div>
 
 
+<div id="sec3-6" class="sec4" >
+	<h3>Laravel s3の画像ファイルをローカルへダウンロード</h3>
+	
+	<pre><code>
+	$contents = $disk-&gt;get($s3_file_path);
+	file_put_contents($local_path, $contents);
+	</code></pre>
+	
+	<br><time>2024-1-11</time>
+</div>
+
+
+<div id="sec3-7" class="sec4" >
+	<h3>Laravel s3に指定したファイルが存在するか調べる</h3>
+	
+	<pre><code>
+	if(Storage::disk('s3')-&gt;exists($filePath)){
+		info('ファイルは存在する');
+	}
+	</code></pre>
+
+	<br><time>2024-1-11</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
