@@ -59,6 +59,45 @@ git push --set-upstream neko demo_branch
 </div>
 
 
+<div id="sec4-3" class="sec4" >
+	<h3>最終コミット日を取得する</h3>
+	
+	<pre><code>git log -1 --format=%cd ブランチ名</code></pre>
+
+	<pre><code>git log -1 --format=%cd branch1</code></pre>
+
+
+	<br><time>2024-2-7</time>
+</div>
+
+
+<div id="sec4-4" class="sec4" >
+	<h3>リモートブランチを新しく作成する(Git Hub)</h3>
+	
+	現在のブランチの状態を確認するため、ローカルとリモートのブランチ一覧を表示する。
+	<pre><code>
+	git branch
+	git branch -r
+	</code></pre>
+	
+	一旦、メインのブランチに切り替えて最新状態にする
+	<pre><code>
+	git checkout main
+	git pull
+	</code></pre>
+	
+	新しくブランチを作成、およびリモートブランチとして登録する
+	<pre><code>
+	git branch new_branch
+	git checkout new_branch
+	git push --set-upstream animal new_branch
+	</code></pre>
+
+
+	<br><time>2024-2-7</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
