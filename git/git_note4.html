@@ -108,10 +108,55 @@ git push --set-upstream neko demo_branch
 </div>
 
 
-<div id="sec4-6" class="sec4" style="display:none">
+<div id="sec4-6" class="sec4" >
 	<h3>間違ってディレクトリを削除してしまったのコミットから元に戻す</h3>
 	
 	<pre><code>git checkout HEAD -- animal</code></pre>
+
+
+	<br><time>2024-2-14</time>
+</div>
+
+
+<div id="sec4-7" class="sec4" >
+	<h3>現在のブランチを確認する</h3>
+	
+	現在のブランチを確認する方法はいくつか存在する。<br>
+	<br>
+	
+	ローカルブランチ群から確認
+	<pre><code>git branch</code></pre>
+	
+	ブランチリストを表示しつつ確認
+	<pre><code>git branch -a</code></pre>
+	
+	リモートブランチ群から確認
+	<pre><code>git branch -r</code></pre>
+	
+
+
+	<br><time>2024-2-14</time>
+</div>
+
+
+<div id="sec4-8" class="sec4" >
+	<h3>ローカルに存在しないブランチに切り替える（リモートからブランチをダウンロードしつつ、切り替えを行う)</h3>
+
+	<pre><code>git checkout -b ローカルブランチ名 リモートブランチ名</code></pre>
+	<br>
+	
+	例
+	<pre><code>git checkout -b neko origin/neko</code></pre>
+
+
+	<br><time>2024-2-14</time>
+</div>
+
+
+<div id="sec4-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<pre><code>xxx</code></pre>
 
 
 	<br><time>2024-1-1</time>
