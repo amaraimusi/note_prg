@@ -153,6 +153,29 @@ git push --set-upstream neko demo_branch
 </div>
 
 
+<div id="sec4-9" class="sec4" >
+	<h3>ローカルには存在せずリモートにのみ存在するブランチに変更する</h3>
+	
+	<pre><code>git checkout -b yagi origin/yagi</code></pre>
+
+
+	<br><time>2024-2-19</time>
+</div>
+
+
+<div id="sec4-10 class="sec4" >
+	<h3>指定のディレクトリを削除してから、gitで再び取り直したい</h3>
+	
+	<pre><code>
+	rm -rf frontend/src
+	git checkout HEAD -- frontend/src
+	</code></pre>
+
+
+	<br><time>2024-2-19</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
