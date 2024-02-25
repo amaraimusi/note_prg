@@ -124,6 +124,52 @@
 </div>
 
 
+<div id="sec3-8" class="sec4" >
+	<h3>Axiosとcsrf-cookieにおけるSPAの不具合対策 | GETリクエストは正常なのにPOSTリクエストが419エラーになる | Laravel | sunctum</h3>
+	
+以下の条件にあるとき、SPAはGETリクエストは上手くいくのに、POSTリクエストだけ419エラー発生する状態になる。
+<ol>
+	<li>csrf-cookieを使用（sunctumというのも関係している）</li>
+	<li>httpsでなくhttp。（例：http://localhost:8080)</li>
+	<li>バックエンドとフロントエンドでポート番号が分かれている。（例：フロントエンドはhttp://localhost:8080、バックエンドはhttp://localhost:8081など）</li>
+	<li>same_site="lax"(config/session.php内の設定)</li>
+</ol>
+
+	【対策】<br>
+	「VerifyCsrfToken.php」でCSRF保護を無効にすることができます。本番環境では元に戻しましょう。
+
+	app/Http/Middleware/VerifyCsrfToken.php
+	<pre><code>
+	namespace App\Http\Middleware;
+
+	use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+	
+	class VerifyCsrfToken extends Middleware
+	{
+	  protected $except = [
+	  		<strong>'*', // CSRF保護を無効にする</strong>
+	  ];
+	}
+	</code></pre>
+
+
+	memo
+	<pre>
+React+TypeScript+Laravel9で開発しています。
+フロントエンドはhttp://localhost:8080、バックエンドはhttp://localhost:8081という構成になってます。
+CSRFトークンはcsrf-cookieを使用し、SPA通信にはAxiosが利用されています。
+現在、GETリクエストのSPA通信は正常に動いているのですが、POSTリクエストのSPA通信で419エラーがでます。
+config/session.phpにてsame_site="lax"を設定しています。sameSiteがlaxだとpostリクエストが使えないとのことですが、sameSiteをlaxでもPOSTリクエストを使えるようにする方法はありますか？
+なお、環境設定が複雑ですのでhttpからhttpsに変更するのは困難です。httpsにする方法は除外して考えてください。
+
+SameSite=Laxで設定されている場合、POSTリクエスト（特にクロスオリジンのリクエスト）で419エラー（CSRFトークン不一致）が発生することがあります。これは、SameSite=Lax設定のために、ブラウザがクロスオリジンのPOSTリクエストに対してCSRFトークン（セッションクッキーを含む）を送信しないためです。ただし、環境をHTTPSに変更しない限り、SameSite=None; Secureオプションは使用できません。したがって、以下の方法で問題に対処できるかもしれません。
+	</pre>
+
+
+	<br><time>2024-2-25</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
