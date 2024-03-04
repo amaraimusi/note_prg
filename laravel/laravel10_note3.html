@@ -170,6 +170,62 @@ SameSite=Laxで設定されている場合、POSTリクエスト（特にクロ�
 </div>
 
 
+<div id="sec3-3" class="sec4" >
+	<h3>既存のDBテーブルに新フィールドを作成するマイグレーション</h3>
+	
+	bashでマイグレーションファイルの骨組みを作成する。
+	<pre class="console">php artisan make:migration add_tag_category_id_to_tags_table --table=tags</pre>
+	<br>
+	
+	上記を実行すると下記のようなマイグレーションファイルが作成される。<br>
+	database/migrations/2024_03_01_214045_add_tag_category_id_to_tags_table.php<br>
+	<br>
+	
+	マイグレーションファイル（2024_03_01_214045_add_tag_category_id_to_tags_table.php）に新フィールドを記述する。<br>
+	<pre><code>
+&lt;?php
+
+use Illuminate&yen;Database&yen;Migrations&yen;Migration;
+use Illuminate&yen;Database&yen;Schema&yen;Blueprint;
+use Illuminate&yen;Support&yen;Facades&yen;Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+    	Schema::table('tags', function (Blueprint $table) {
+    		$table-&gt;char('tag_category_id', 26)-&gt;after('name')-&gt;comment('タグカテゴリID');
+    	});
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+    	Schema::table('tags', function (Blueprint $table) {
+    		$table-&gt;dropColumn('tag_category_id');
+    	});
+    }
+};
+	</code></pre>
+	<br>
+	
+	bashでマイグレーションを実行する
+	<pre class="console">php artisan migrate</pre>
+	<br>
+
+	<br><time>2024-3-4</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	

@@ -439,8 +439,9 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('react_app'));
 	現在、どのマイグレーションファイルまで実行したのか確認する。「php artisan migrate:rollback」でどこまで戻ったか分からなくなった時に下記コマンドを実行し、現在どのマイグレーションまで適用しているか確認します。
 	<pre>php artisan migrate:status</pre>
 	
-
-
+	既存のテーブルに新しいフィールドを追加するマイグレーションファイルを作成する例。（実際にDBに新フィールドを追加する処理は下記コマンドで作成されたファイルを手動で修正する）
+	<pre>php artisan make:migration add_cat_category_id_to_cats_table --table=cats</pre>
+	
 	<br><time>2023-11-3</time>
 </div>
 
