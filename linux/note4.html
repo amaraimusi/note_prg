@@ -69,6 +69,27 @@
 </div>
 
 
+<div id="sec4-3" class="sec4" >
+	<h3>さくらインターネット 溜ったメールをbashから削除する方法 | CRONの設定ミスでメールが9万件になってしまった</h3>
+
+	CRONの設定ミスでpostmaster@ドメインのメールが9万件になってしまった 
+	コントロールパネルから削除するには無理があるのでbashから削除する。
+	「MailBox/postmaster/maildir/cur」にメールデータが大量に入っているので丸ごとcurディレクトリを削除すると良い。
+	maildirsizeファイルも削除する。maildirsizeファイルも削除しないとコントロールパネルでファイル件数が9万件のままになってしまう。
+	<br>
+	
+	<p>手順例</p>
+	<pre><code>
+	cd MailBox/postmaster/maildir
+	rm -rf cur
+	mkdir cur
+	rm maildirsize
+	</code></pre>
+
+	<br><time>2024-3-5</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

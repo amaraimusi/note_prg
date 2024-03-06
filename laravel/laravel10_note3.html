@@ -226,6 +226,54 @@ return new class extends Migration
 </div>
 
 
+<div id="sec3-10" class="sec4" >
+	<h3>LaravelのマイグレーションでMySQLの指定フィールドにindexを適応する</h3>
+	
+	<pre><code>
+use Illuminate&amp;yen;Support&amp;yen;Facades&amp;yen;Schema;
+use Illuminate&amp;yen;Database&amp;yen;Schema&amp;yen;Blueprint;
+use Illuminate&amp;yen;Database&amp;yen;Migrations&amp;yen;Migration;
+
+class CreateAudiencesFriendsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('audiences_friends', function (Blueprint $table) {
+            // テーブルのカラムを定義
+            $table-&amp;gt;char('audience_id', 26);
+            $table-&amp;gt;string('friend_line_user_id', 255);
+            $table-&amp;gt;timestamps();
+
+            // audience_id にインデックスを適用
+            $table-&amp;gt;index('audience_id');
+
+            // friend_line_user_id にインデックスを適用
+            $table-&amp;gt;index('friend_line_user_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('audiences_friends');
+    }
+}
+	</code></pre>
+
+
+	<br><time>2024-3-6</time>
+</div>
+
+
 <div id="sec3-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
