@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LINE Message APIの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>LINE Message APIの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>LINEオーディエンスの一覧表示、登録、削除 | CURL | LINE Developer API</h3>
+	
+	LINEオーディエンスを操作するbashコマンドです。(2024年3月の時点で動作確認済み)<br>
+	シークレットキーはLINE Develoerにログインし、任意のチャネル選択→Message APIタブ→「Channel access token」と記載されている場所で取得可能です。<br>
+	LINEオーディエンス一覧は下記のbashコマンドでも確認できますが、LINE公式アカウントにログインし、左メニューの「データ管理>オーディエンス」からも確認可能です。bashで登録したオーディエンスも表示されます。<br>
+	<br>
+
+	<p>LINEオーディエンスを登録する</p>
+	<pre class="console">
+curl -v -X POST https://api.line.me/v2/bot/audienceGroup/upload \
+-H 'Authorization: Bearer シークレットキー' \
+-H 'Content-Type: application/json' \
+-d '{
+    "description": "tanosii_nekochan"
+}'
+	</pre>
+
+	<p>LINEオーディエンス一覧を表示する</p>
+	<pre class="console">
+curl -X GET \
+     -H 'Authorization: Bearer シークレットキー' \
+     https://api.line.me/v2/bot/audienceGroup/list
+	</pre>
+
+	<p>オーディエンスID（audienceGroupId）を指定してLINEオーディエンスを削除する</p>
+	<pre class="console">
+curl -X DELETE \
+     -H 'Authorization: Bearer シークレットキー' \
+     https://api.line.me/v2/bot/audienceGroup/7672845312615
+	</pre>
+
+	<br><time>2024-3-15</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2024-3-15</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/php/">PHPの覚書</a></li>
+	<li>LINE Message APIの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2024-3-15</div>
+</body>
+</html>
