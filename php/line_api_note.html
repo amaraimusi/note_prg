@@ -62,6 +62,32 @@ curl -X DELETE \
 </div>
 
 
+<div id="sec1-2" class="sec4" >
+	<h3>LINE: メッセージ送信とリクエストIDの取得</h3>
+	
+	リクエストIDは「メッセージ」をLINEに送信したときのレスポンスでなく、レスポンスのヘッダー情報に含まれるリクエストIDのようです。
+	リクエストIDのキーと値は「x-line-request-id: f53a8de0-39ea-4b21-b868-070ff3d88d54」という感じでレスポンスヘッダーから取得可能です。<br>
+	<br>
+
+	LINEメッセージ送信とリクエストIDの表示をするコマンド例。
+	このコマンドを実行すると全友だちユーザーにメッセージが送信されます。<br>
+	<pre><code>
+curl -i -X POST https://api.line.me/v2/bot/message/broadcast \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer アクセスキー' \
+-d '{
+    "messages":[
+        {
+            "type":"text",
+            "text":"Hello, world"
+        }
+    ]
+	</code></pre>
+
+	<br><time>2024-3-23</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
