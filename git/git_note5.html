@@ -89,6 +89,14 @@ git remote set-url origin git@github.com:your_username/repository_name.git
 <div id="sec5-4" class="sec4">
 	<h3>Git スタッシュ→ブランチを変えてもファイル内容を変化させない | 自分の開発環境独自の記述をする必要があるときに</h3>
 
+
+
+	Gitのstash機能は、作業中のディレクトリとステージングエリア（インデックス）の変更を一時的に保存して後で再び利用できるようにするものです。
+	これにより、現在のブランチから他の作業に切り替える際に、未完了の変更が他の作業に影響を与えることなく、クリーンな状態（最後のコミットの状態）で別の作業を始めることができます。<br>
+	<br>
+	特定のファイルを管理対象外とするには不向きです。PCを再起動する度にファイルのスタッシュ状態は解除されるからです。あくまでブランチ切り替えの際の補助として利用すべきです。<br>
+	<br>
+
 	一時的に自分の開発環境のみ有効な設定やコードを記述したいことがあります。この場合、スタッシュが便利です。<br>
 	ファイルをスタッシュ状態にすると、このファイルはブランチを切り替えても置き変わらなくなります。<br>
 	<br>
@@ -97,9 +105,6 @@ git remote set-url origin git@github.com:your_username/repository_name.git
 	ファイル単体にスタッシュを適用という概念ではなく、複数のファイル群にスタッシュを適用するという感じです。<br>
 	ステージングされているファイルと、ワーキングで変更されたファイルががスタッシュの対象になります。
 	ワーキングの未変更ファイルと新規ファイルはスタッシュの対象外になります。
-	<br>
-	
-	スタッシュには複数回実施するという概念があるようです。１つのスタッシュに複数のファイルが紐づくという感じです。<br>
 	<br>
 	
 	スタッシュの適用
@@ -130,7 +135,7 @@ git remote set-url origin git@github.com:your_username/repository_name.git
 	使用例：
 	<pre class="console">git stash apply</pre>
 
-	<br><time>2024-4-5</time>
+	<br><time>2024-4-5　| 2024-4-12</time>
 </div>
 
 
@@ -149,11 +154,45 @@ git remote set-url origin git@github.com:your_username/repository_name.git
 </div>
 
 
+<div id="sec5-6" class="sec4">
+	<h3>リモートリポジトリで管理されているファイルを自分の開発環境だけ管理対象外にする | git update-index</h3>
+	
+	<pre>
+	git update-index --assume-unchanged backend/config/cors.php
+	</pre>
+	
+	解除も同じ？（未検証）
+	<pre>
+	git update-index --assume-unchanged backend/config/cors.php
+	</pre>
+
+
+	<br><time>2024-4-12</time>
+</div>
+
+
+<div id="sec5-7" class="sec4" >
+	<h3>現在のブランチを複製してローカルに新しいブランチを作成、同時にリモートブランチも作成</h3>
+	
+	リモートにある「origin/yagi」をチェックアウトし、それを複製して新しいブランチを作り、リモートブランチとして登録する。
+		
+	<pre>
+	git checkout -b yagi origin/yagi
+	git branch new_branch
+	git checkout new_branch
+	git push --set-upstream origin new_branch
+	</pre>
+
+
+	<br><time>2024-4-12</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2024-2-21</time>
+	<br><time>2024-4-12</time>
 </div>
 
 
