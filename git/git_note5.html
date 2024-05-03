@@ -188,11 +188,67 @@ git remote set-url origin git@github.com:your_username/repository_name.git
 </div>
 
 
+<div id="sec5-8" class="sec4" >
+	<h3>競合ファイルを修正：コミットしてプッシュしたら競合ファイルエラーが発生しまった場合</h3>
+	
+
+	Gitで競合が発生した場合の修正手順は以下のようになります。
+	
+	<ol class="list_lg">
+		<li>git pullを実行します。</li>
+	
+		<li>
+			競合を確認する:<br>
+			まずは、git status コマンドで競合しているファイルを特定します。<br>
+			競合しているファイルを開く:<br>
+			競合しているファイルをテキストエディタで開きます。ファイル内では、Gitが競合箇所を特定するために &lt;&lt;&lt;&lt;&lt;&lt;&lt;、=======、&gt;&gt;&gt;&gt;&gt;&gt;&gt; のマーカーを使用しています。例えば以下のような形です：：
+			<pre><code>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+// このブランチでの変更
+const newFeature = () =&gt; {
+  // コード
+};
+=======
+// リモートブランチでの変更
+const updatedFeature = () =&gt; {
+  // 別のコード
+};
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/20240425_test_branch
+			</code></pre>
+		</li>
+
+		<li>
+				競合の解決:<br>
+	競合している部分を確認し、どちらの変更を保持するかを決めます。場合によっては、両方の変更を組み合わせることもあります。必要な変更を行った後、&lt;&lt;&lt;&lt;&lt;&lt;&lt;、=======、&gt;&gt;&gt;&gt;&gt;&gt;&gt; のマーカーを削除します。
+		</li>
+
+		<li>
+			競合を解決したファイルをステージングに追加します。
+			<pre>git add -A</pre>
+			または、
+			<pre>git add 競合を解決したファイルパス</pre>
+		</li>
+
+		<li>
+			コミットを完了する:
+			<pre>git commit -m '競合を修正したよ'</pre>
+		</li>
+		
+		<li>
+			プッシュする
+			<pre>git push</pre>
+		</li>
+	</ol>
+
+	<br><time>2024-5-3</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2024-4-12</time>
+	<br><time>2024-5-3</time>
 </div>
 
 
