@@ -24,7 +24,7 @@
 <div class="container">
 
 
-<div id="sec1-1" class="sec4" >
+<div id="sec2-1" class="sec4" >
 	<h3>データやリストをuseStateで型宣言する</h3>
 	
 	any型エンティティの配列形式データ
@@ -42,7 +42,7 @@
 </div>
 
 
-<div id="sec1-2" class="sec4" >
+<div id="sec2-2" class="sec4" >
 	<h3>子コンポーネントの基本</h3>
 	
 	
@@ -79,13 +79,13 @@ const Neko = ({p_nekoName, callback1}) =&gt; {
 		setNekoName(p_nekoName);
 		console.log('リフレッシュ');//■■■□□□■■■□□□
 		console.log('p_nekoName =&gt;' + p_nekoName);//■■■□□□■■■□□□
-		console.log('nekoName =&gt;' + nekoName);// この時点でnekoNameに値はセットされていないので注意
+		console.log('nekoName =&gt;' + nekoName);
 	}
 
 
 	useEffect(() =&gt; {
 		init();
-	}, []);
+	}, [p_nekoName]); // コンポーネントの引数をセットしておいた方がよい。空だと恐らく非同期処理の関係でコンポーネントの引数が取得できない時もある。
 
 
 	const testFunction = () =&gt; {
@@ -118,11 +118,90 @@ export default Neko;
 </div>
 
 
-<div id="sec1-0" class="sec4" style="display:none">
-	<h3>xxx</h3>
+<div id="sec2-3" class="sec4" >
+	<h3>配列データのループ | JSX</h3>
+
+	<pre><code>
+	&lt;div&gt;
+		{termData.map((orData, index) =&gt; (
+			&lt;div key={index}&gt;
+				ハロー{index}
+			&lt;/div&gt;
+			
+			{index === termData.length - 1 ? (
+				&lt;div&gt;
+					&lt;strong&gt;ラスト行:&lt;/strong&gt;
+				&lt;/div&gt;
+			) : (
+				&lt;div&gt;中間行&lt;/div&gt;
+			)}
+		))}
+	&lt;/div&gt;	
+	</code></pre>
+	
+	フィルタリングしながらループ
+	<pre><code>
+	{animalData.filter(row =&gt; row.inUseAnimal === 1).map((row, index) =&gt; (
+		&lt;tr key={`key-${index}`}&gt;
+			&lt;td&gt;{row.id}&lt;/td&gt;
+			&lt;td&gt;{row.customTagId}&lt;/td&gt;
+		&lt;/tr&gt;
+	))}
+	</code></pre>
 
 
 	<br><time>2024-5-11</time>
+</div>
+
+
+<div id="sec2-4" class="sec4" >
+	<h3>通常ボタン</h3>
+	
+	<pre><code>
+	const testFunction = () =&gt; {
+		console.log('はろーわーるど');
+
+	};
+	</code></pre>
+	
+	<pre><code>
+	&lt;Button onClick={testFunction}&gt;テスト猫ボタン&lt;/Button&gt;
+	</code></pre>
+
+
+	<br><time>2024-5-11</time>
+</div>
+
+
+<div id="sec2-5" class="sec4" >
+	<h3>リスト内のキーをキャメル記法からスネーク記法に変換する</h3>
+	
+	<pre><code>
+	// リスト内のキーをキャメル記法からスネーク記法に変換する
+	const convKeyCamelToSnake = (list) =&gt; {
+		const newList = {};
+		for(let key in list){
+			const snakeKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+			console.log(`Converting ${key} to ${snakeKey}`);
+			newList[snakeKey] = list[key];
+		}
+		return newList;
+	};
+	</code></pre>
+
+
+	<br><time>2024-5-12</time>
+</div>
+
+
+<div id="sec2-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+	<pre><code>
+	</code></pre>
+
+
+	<br><time>2024-5-12</time>
 </div>
 
 
