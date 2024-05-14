@@ -295,6 +295,40 @@ required, min, max, pattern などの標準ルールや、カスタムバリデ�
 
 <div id="sec1-4" class="sec4">
 	<h3>Selectコンポーネント</h3>
+	
+	見本
+<pre><code>
+</code></pre>
+<pre><code>
+&lt;Select
+	value={row.termTag}
+	style={{ width: '100%' }}
+	onChange={(value) =&gt; updateTerm(and_index, or_index, 'termTag', value)}
+&gt;
+	{Object.entries(termTagList).map(([key, value]) =&gt; (
+		&lt;Option key={key} value={key}&gt;{value}&lt;/Option&gt;
+	))}
+&lt;/Select&gt;
+</code></pre>
+termTagListの構造
+<pre><code>
+{
+    "eq": "次に等しい( = )",
+    "like": "含む",
+    "over": "次の値より大きい( > )",
+    "under": "次の値より小さい( < )",
+    "or_over": "以上( >= )",
+    "or_under": "以下( <= )"
+}
+</code></pre>
+
+値をセットするプロパティは「defaultValue」と「value」がある。
+valueにすると他の要素で値を変更したとき、セレクトボックスの選択も連動して変化する。
+defaultValueの場合は連動して変化することはない。
+
+
+<hr>
+
 
 <div class="sec5">
 Select コンポーネントは、ユーザーがドロップダウンリストからオプションを選択するためのUIコントロールです。
@@ -319,7 +353,8 @@ tagsモードでは、新しいオプションを入力して追加すること�
 
 
 
-基本的な使い方:jsx
+
+見本2
 <pre><code>
 import { Select } from 'antd';
 
@@ -403,6 +438,40 @@ Ant Designの Select コンポーネントは、多くのプロパティ（属�
 
 <div id="sec1-5" class="sec4" >
 	<h3>Inputコンポーネント</h3>
+
+
+
+<pre><code>
+const Neko = ({p_nekoName, p_nekoEnt, cbUpdateNekoEnt}) =&gt; {
+
+	const [nekoEnt, setNekoEnt] = useState&lt;any&gt;({});
+	
+	useEffect(() =&gt; {
+		setNekoEnt(p_nekoEnt);
+	}, [p_nekoEnt]);
+	
+	const updateNekoEnt = (key, value) =&gt; {
+		p_nekoEnt[key] = value;
+		
+		const newEnt = {...nekoEnt, [key]: value};
+		setNekoEnt(newEnt);
+		
+		p_nekoEnt[key] = value;
+		//cbUpdateNekoEnt(key, value); // コールバックを実行
+	};
+</code></pre>
+
+<pre><code>
+～略～
+&lt;Input
+	placeholder="Neko name"
+	value={nekoEnt.name}
+	onChange={(e) =&gt; updateNekoEnt('name', e.target.value)}
+/&gt;
+～略～
+</code></pre>
+
+<hr>
 
 <div class="sec5">
 

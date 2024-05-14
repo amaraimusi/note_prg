@@ -52,16 +52,13 @@ import Neko from './Neko';
 
 const List = () =&gt; {
 
-	const [nekoName, setNekoName] = useState&lt;string&gt;('ロイヤルアナロスタン'); 
+	const [nekoName, setNekoName] = useState&lt;string&gt;('ロイヤルアナロスタン');
+	const [nekoEnt, setNekoEnt] = useState&lt;any&gt;({});
 
-	const callback1 = (any) =&gt; {
-		console.log('クライアント側callback1');
-		console.log(any);
-	};
 
 	return (
 		&lt;div&gt;
-			&lt;Neko p_nekoName={nekoName} callback1={callback1} /&gt;
+			&lt;Neko nekoName={nekoName} setNekoName={setNekoName} nekoEnt={nekoEnt} setNekoEnt={setNekoEnt} /&gt;
 
 	</code></pre>
 	
@@ -70,39 +67,47 @@ const List = () =&gt; {
 import { useEffect, useState } from 'react';
 import {Button, Input,} from 'antd';
 
-const Neko = ({p_nekoName, callback1}) =&gt; {
+const Neko = ({nekoName, setNekoName, nekoEnt, setNekoEnt}) =&gt; {
 
-	const [nekoName, setNekoName] = useState&lt;string&gt;('');
+	const [nekoBark, setNekoBark] = useState&lt;string&gt;('猫の吠え方');
+	//const [nekoEnt, setNekoEnt] = useState&lt;any&gt;({});//■■■□□□■■■□□□ useStateは親で適用しているので不要。
 
-
-	const init = () =&gt; {
-		setNekoName(p_nekoName);
-		console.log('リフレッシュ');//■■■□□□■■■□□□
-		console.log('p_nekoName =&gt;' + p_nekoName);//■■■□□□■■■□□□
-		console.log('nekoName =&gt;' + nekoName);
-	}
 
 
 	useEffect(() =&gt; {
-		init();
-	}, [p_nekoName]); // コンポーネントの引数をセットしておいた方がよい。空だと恐らく非同期処理の関係でコンポーネントの引数が取得できない時もある。
+		setNekoBark('アオーアオー');
+		console.log('初期化イベント');//■■■□□□■■■□□□
+	}, []);
+	
+	
+	useEffect(() =&gt; {
+		console.log('他のコンポーネントでnekoEntが変更された時、発動するイベント');//■■■□□□■■■□□□
+	}, [nekoEnt]);
 
 
 	const testFunction = () =&gt; {
 		console.log(nekoName);//■■■□□□■■■□□□
-		callback1(nekoName);
 		
 	};
   
+  	const updateNekoEnt = (key, value) =&gt; {
+
+
+		const newEnt = {...nekoEnt, [key]: value};
+		setNekoEnt(newEnt); // 親のsetメソッドを用いて変更したエンティティをセットする。
+		
+		nekoEnt[key] = value; // 推奨されていないがこの方法も可能■■■□□□■■■□□□
+
+	};
   
 	return (
 
 			&lt;div&gt;
-				&lt;Button onClick={testFunction}&gt;テスト猫ボタン&lt;/Button&gt;
+				&lt;Button onClick={testFunction}&gt;テスト猫が吠える&lt;/Button&gt;
 				&lt;Input
 					placeholder="Neko name"
-					value={nekoName}
-					onChange={(e) =&gt; setNekoName(e.target.value)}
+					value={nekoEnt.name}
+					onChange={(e) =&gt; updateNekoEnt('name', e.target.value)}
 				/&gt;
 			&lt;/div&gt;		
 
@@ -111,10 +116,12 @@ const Neko = ({p_nekoName, callback1}) =&gt; {
 
 export default Neko;
 
+
+
 	</code></pre>
 
 
-	<br><time>2024-5-11</time>
+	<br><time>2024-5-11 | 2024-5-14</time>
 </div>
 
 
