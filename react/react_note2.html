@@ -201,6 +201,148 @@ export default Neko;
 </div>
 
 
+<div id="sec2-6" class="sec4" >
+	<h3>日付テキストボックス | 日付ピッカー | DatePicker</h3>
+	日付テキストボックスとしてantdにはDatePickerが用意されている。
+	しかし、このままでは使いづらいためラップして使う。
+	ラッパーとしてDatePickerExコンポーネントを用意した。親コンポーネントからの使い方と合わせて紹介する。
+	
+	
+	親コンポーネント
+	<pre><code>
+	import DatePickerEx from './DatePickerEx';
+	
+	～略～
+	
+	const updateDatePickerEx = (value) => {
+
+		// 入力日付のvalueをデータへ反映する処理
+	}
+	
+	～略～
+	
+	&lt;div style={{display:friendAddDateDisplay}}&gt;
+		&lt;DatePickerEx 
+			dateValue={animalDate}
+			updateDatePickerEx={updateDatePickerEx} 
+		/&gt;
+	&lt;/div&gt;	
+	</code></pre>
+	
+	DatePickerEx.tsx
+	<pre><code>
+import { useEffect, useState } from 'react';
+import {DatePicker ,} from 'antd';
+import moment, { Moment } from 'moment';
+
+interface DatePickerExProps {
+	dateValue: string;
+	updateDatePickerEx: (dateString: string) =&gt; void;
+}
+
+const DatePickerEx = ({ dateValue, updateDatePickerEx }: DatePickerExProps) =&gt; {
+
+	const [date, setDate] = useState&lt;Moment | null&gt;(null);
+
+	useEffect(() =&gt; {
+		// dateValue が日付として有効な場合に moment オブジェクトに変換
+		if (moment(dateValue, 'YYYY-MM-DD', true).isValid()) {
+			setDate(moment(dateValue, 'YYYY-MM-DD'));
+		} else {
+			setDate(null); // 無効な日付の場合は null をセット
+		}
+	}, [dateValue]);
+	
+	const handleDateChange = (date: Moment | null, dateString: string) =&gt; {
+		setDate(date);
+		updateDatePickerEx(dateString);
+	};
+	
+	return (
+
+			&lt;div&gt;
+				&lt;DatePicker 
+					value={date}
+					onChange={handleDateChange}
+					format="YYYY-MM-DD"
+				/&gt;
+			&lt;/div&gt;		
+
+	);
+};
+
+export default DatePickerEx;
+
+	</code></pre>
+
+
+	<br><time>2024-5-12</time>
+</div>
+
+
+<div id="sec2-7" class="sec4" >
+	<h3>TSXのIF文による分岐処理</h3>
+	
+	<pre><code>
+	{and_index === termData.length - 1 ? (
+		&lt;div&gt;
+			イワシ
+		&lt;/div&gt;
+	) : (
+		&lt;div&gt;
+			サバ
+		&lt;/div&gt;
+	)}
+	</code></pre>
+
+
+	<br><time>2024-5-12</time>
+</div>
+
+
+<div id="sec2-8" class="sec4" >
+	<h3>本日の日時を取得 | 現在日時 | 日時フォーマット</h3>
+	
+	<pre><code>
+	
+	const nowDatetime = formatDate(new Date()); // 現在の日時を取得する
+	
+	～略～
+	
+	const formatDate = (date: Date): string =&gt; {
+		const padZero = (num: number) =&gt; num.toString().padStart(2, '0');
+		return `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+	};
+	</code></pre>
+
+
+	<br><time>2024-5-16</time>
+</div>
+
+
+<div id="sec2-9" class="sec4" >
+	<h3>TSX データをループする</h3>
+	まずデータの構造に注意しないといけない。
+	データのキーは必ずインデックスである必要がある。
+	連想配列型のデータだと失敗する。
+	インデックスは0から順に自然数の連番を割り当てる事。例えば「0,1,2,3,,」という感じ。「0,5,9,,」などのように飛び番にするとインデックスでなく連想配列扱いになり、ループに失敗するので注意すること。
+	<br><br>
+	最初のタグに必ずkey属性を記述し、インデックスをセットすること。必ず最初の要素にkeyを指定すべきだがタグの種類はdivでなくても良い。<br>
+	<br>
+	
+	<pre><code>
+	{termData.map((termEnt, index) =&gt; (
+		&lt;div key={index} &gt;
+
+		&lt;/div&gt;
+	))}
+	</code></pre>
+
+
+	<br><time>2024-5-16</time>
+</div>
+
+
 <div id="sec2-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
@@ -208,7 +350,7 @@ export default Neko;
 	</code></pre>
 
 
-	<br><time>2024-5-12</time>
+	<br><time>2024-5-16</time>
 </div>
 
 
