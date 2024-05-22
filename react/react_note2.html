@@ -329,7 +329,10 @@ export default DatePickerEx;
 	<br><br>
 	最初のタグに必ずkey属性を記述し、インデックスをセットすること。必ず最初の要素にkeyを指定すべきだがタグの種類はdivでなくても良い。<br>
 	<br>
-	
+	正しいデータの型→ [{}]<br>
+	誤ったデータの型→ {{}}<br>
+	<br>
+
 	<pre><code>
 	{termData.map((termEnt, index) =&gt; (
 		&lt;div key={index} &gt;
@@ -340,6 +343,34 @@ export default DatePickerEx;
 
 
 	<br><time>2024-5-16</time>
+</div>
+
+
+<div id="sec2-10" class="sec4" >
+	<h3>ボタン形式のリンク</h3>
+	
+	<pre><code>
+	import {Link,} from 'react-router-dom';
+	import {Button,} from 'antd';
+
+	～ 略 ～
+	
+	&lt;Button
+		type="primary"
+		icon={&lt;PlusOutlined /&gt;}
+		onClick={() =&gt; {
+		// ボタンクリック時の処理（ここでは特に何もしない）
+		}}
+		style={{ marginRight: '10px' }}
+	&gt;
+		&lt;Link to={`/custom_tag_term/list`}&gt;
+		カスタムタグ作成
+		&lt;/Link&gt;
+	&lt;/Button&gt;
+	</code></pre>
+
+
+	<br><time>2024-5-22</time>
 </div>
 
 

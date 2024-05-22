@@ -295,11 +295,13 @@ required, min, max, pattern などの標準ルールや、カスタムバリデ�
 
 <div id="sec1-4" class="sec4">
 	<h3>Selectコンポーネント</h3>
-	
 	見本
 <pre><code>
-</code></pre>
-<pre><code>
+import {Select} from 'antd';
+const { Option, OptGroup } = Select; // インポートする際、Optionまたは、OptGroupの宣言も忘れずに。忘れるとなぞの警告エラーが出まくる。
+	
+～略～
+	
 &lt;Select
 	value={row.termTag}
 	style={{ width: '100%' }}

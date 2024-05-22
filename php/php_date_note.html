@@ -1373,6 +1373,55 @@ function isDatetime($str_dt, $req=false){
 </div>
 
 
+<div id="sec1-9" class="sec4">
+	<h3>phpで取り扱える日時や日付形式であるかチェックする</h3>
+	
+	<pre><code>
+	// 日時チェック→ trueなら日付形式ですが、空文字もtrueと判定されます。
+	private function checkDateTime($dateString) {
+		// 日付と時刻を解析し、DateTimeオブジェクトを作成
+		try {
+			// 日付と時刻を解析してDateTimeオブジェクトを作成
+			$dateTime = new &yen;DateTime($dateString);
+			return true;
+		} catch (&yen;Exception $e) {
+			// 日付形式が不正な場合は例外をスロー
+			return false;
+		}
+
+	}
+	</code></pre>
+	
+	<br><time>2024-5-22</time>
+	
+</div>
+
+
+<div id="sec1-10" class="sec4">
+	<h3>phpで取り扱える日時や日付形式を指定フォーマットに変換する</h3>
+
+	<pre><code>
+	// 日時変換
+	private function convertToMySQLDateTime($dateString) {
+		// 日付と時刻を解析し、DateTimeオブジェクトを作成
+		try {
+			// 日付と時刻を解析してDateTimeオブジェクトを作成
+			$dateTime = new &yen;DateTime($dateString);
+		} catch (&yen;Exception $e) {
+			// 日付形式が不正な場合は例外をスロー
+			return false;
+		}
+
+		// MySQLのDATETIME形式に変換
+		return $dateTime-&gt;format('Y-m-d H:i:s');
+	}
+	</code></pre>
+	
+	<br><time>2024-5-22</time>
+	
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>XXX</h3>
 	

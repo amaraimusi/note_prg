@@ -220,6 +220,27 @@ const updatedFeature = () =&gt; {
 		<li>
 				競合の解決:<br>
 	競合している部分を確認し、どちらの変更を保持するかを決めます。場合によっては、両方の変更を組み合わせることもあります。必要な変更を行った後、&lt;&lt;&lt;&lt;&lt;&lt;&lt;、=======、&gt;&gt;&gt;&gt;&gt;&gt;&gt; のマーカーを削除します。
+	
+			<br>
+			HEADは自分が行ったローカル環境の修正です。
+			
+			<pre><code>
+<<<<<<< HEAD
+		
+		let big_cat = 'マーオ';
+=======
+
+		const dog = 'キャインキャイン';
+		let small_cat = 'ミー';
+		
+>>>>>>> 22dc1a1485cf1fda1ad63ca5bff737bd8922cdaa
+
+			</code></pre>
+			
+			以下のコマンドで競合を起こしたコミットを調べることができます。<br>
+			（例）
+			<pre>git show 22dc1a1485cf1fda1ad63ca5bff737bd8922cdaa</pre>
+			
 		</li>
 
 		<li>
