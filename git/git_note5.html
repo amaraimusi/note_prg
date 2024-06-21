@@ -265,6 +265,26 @@ const updatedFeature = () =&gt; {
 </div>
 
 
+<div id="sec5-9" class="sec4" >
+	<h3>指定ファイルのコミット履歴を調べたい | git log</h3>
+
+	<pre>$ git log -- frontend/src/lib/pages/animal/BigCat.tsx</pre>
+	ログ表示モードになるので、そこから抜けるにはqキーを押す。
+
+	<br><time>2024-5-28</time>
+</div>
+
+
+<div id="sec5-10" class="sec4" >
+	<h3>Git pullしたとき他の人によって修正されてしまったファイルを調べる | 指定ファイルに対し、任意のコミットIDとHEADを比較</h3>
+
+	<pre>git diff  コミットID HEAD -- frontend/src/lib/pages/animal/BigCat.tsx</pre>
+	<pre>git diff  abcd1234 HEAD -- frontend/src/lib/pages/animal/BigCat.tsx</pre>
+
+	<br><time>2024-5-28</time>
+</div>
+
+
 <div id="sec5-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 

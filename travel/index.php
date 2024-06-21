@@ -49,7 +49,7 @@
 		<li><a href="katu_dake2016.html" >嘉津宇岳へ登山・2016年春</a></li>
 		<li><a href="iheya2016.html" >伊平屋島の旅記録</a></li>
 		
-		<li><a href="kusakariki_mem2300u.html" >草刈機の修理 | マキタMEM2300U</a></li>
+		<li style="display:none"><a href="kusakariki_mem2300u.html" >草刈機の修理 | マキタMEM2300U</a></li>
 
 
 		
