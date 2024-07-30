@@ -149,14 +149,19 @@ bashを中心によく使うコマンドを挙げる。
 		</tr>
 				
 		<tr>
-			<td>$ ln -s シンボリック元パス</td>
+			<td>$ ln -s シンボリック元パス シンボリックリンク名</td>
 			<td>
 				シンボリックリンクを作成する。<br>
 				<br>
 				
-				シンボリックリンクの作成先にcdコマンドで移動する。<br>
-				その後、シンボリック元パスを指定してシンボリックリンクコマンドを実行する。
-				<pre class="console">$ ln -s /home/example/www/animal</pre>
+				cd シンボリックリンクを作成するディレクトリ<br>
+				ln -s  大元のパス シンボリックリンク<br>
+				<br>
+				
+				<pre class="console">
+				cd www
+				ln -s  /home/amaraimusi/www/mng/crud_base_l/dev/public crud_base_l
+				</pre>
 			</td>
 		</tr>
 	</tbody>
