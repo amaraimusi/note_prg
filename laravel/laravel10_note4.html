@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Laravel10の覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/js/popper.js"></script><!-- ポップアップ機能およびBootstrapの補助ライブラリ -->
+	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Laravel10の覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec4-1" class="sec4">
+	<h3>拡張デバッグ関数infoEx:リレーションやモデルからなるコンポーネントに対応</h3>
+	
+	
+<p>app\Helpers\CommonFunctions.php</p>
+<pre><code>
+
+&lt;?php
+use Illuminate&yen;Database&yen;Eloquent&yen;Model;
+
+// 共通関数の記述場所
+
+
+
+
+/**
+ * カスタムデータダンプ関数
+ *
+ * @note
+ * この関数は開発用で、複雑で多重構造のデータのダンプに利用できます。
+ * 標準のinfo()関数のように使用できます。標準のinfo()関数では、値がエンコードされて読みづらくなったり、長すぎる文字列によってデータ構造が把握しにくくなる問題があります。
+ * infoEx()関数は、これらの問題を解決し、データ構造を視覚的に理解しやすくするために設計されています。
+ * 特に、長い文字列を最大30文字にトリムして表示することで、構造を把握しやすくしています。開発時のデバッグにご活用ください。
+ */
+if (!function_exists('infoEx')) {
+	function infoEx($data) {
+		$log_text = _infoEx0($data);
+		info($log_text);
+	}
+}
+
+if (!function_exists('_infoEx0')) {
+	function _infoEx0($value, $indent = 0, $p_key = 'なし', $all_text = '', $deep = 0) {
+		$indentation = str_repeat(' ', $indent);
+		
+		if (is_array($value) || is_object($value)) {
+			$class_name = '';
+			if(is_array($value)) $class_name = 'Array';
+			if(is_object($value)) $class_name = get_class($value);
+			
+			$all_text .= "{$indentation} 階層{$deep}: キー=&gt;{$p_key}: クラス名=&gt;" . $class_name . "&yen;n";
+			$deep ++;
+			
+			if ($value instanceof Model) {
+				
+				$dataArray = $value-&gt;toArray();
+				foreach ($dataArray as $key =&gt; $value2) {
+					$all_text = _infoEx0($value2, $indent + 4, $key, $all_text, $deep);
+				}
+			}else{
+				foreach ($value as $key =&gt; $value2) {
+					$all_text = _infoEx0($value2, $indent + 4, $key, $all_text, $deep);
+				}
+			}
+			
+			
+		} else {
+			$valueString = (string)$value;
+			$shortenedValue = strlen($valueString) &gt; 30 ? substr($valueString, 0, 30) . '...' : $valueString;
+			$all_text .= "{$indentation}{$p_key}: " . gettype($value) . "=&gt;" . $shortenedValue . "&yen;n";
+		}
+		
+		
+		return $all_text;
+		
+	}
+}
+
+</pre></code>
+
+
+<p>app\Helpers\CommonFunctions.phpを組み込む場所</p>
+config/app.phpの末尾付近に以下のコードを記述する。
+<pre><code>
+    'autoload_files' =&gt; [
+            base_path('app/Helpers/CommonFunctions.php'),
+    ],
+</code></pre>
+
+
+	<br><time>2024-8-17</time>
+</div>
+
+
+<div id="sec4-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+	
+
+
+	<br><time>2024-8-17</time>
+</div>
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/laravel/">Laravelの覚書</a></li>
+	<li>Laravel10の覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2024-8-17</div>
+</body>
+</html>
