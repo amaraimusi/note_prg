@@ -109,6 +109,32 @@ config/app.phpの末尾付近に以下のコードを記述する。
 </div>
 
 
+<div id="sec4-2" class="sec4" >
+	<h3>シンプルなINSERTとUPDATE</h3>
+	
+	<p>シンプルなINSERT</p>
+	<pre><code>
+	$ent = [
+			'monitor_updated' => '2024-08-27 21:50:23',
+			'monitor_data_count' => 218,
+			'monitor_counter' => 0,
+			'memo' => 'none',
+			'sort_no' => 0,
+			'updated_at' => date('Y-m-d H:i:s'),
+	];
+
+	DB::table('monitors')->insert($ent);
+	</code></pre>
+	
+	<p>シンプルなUPDATE</p>
+	<pre><code>
+	DB::table('monitors')->update((array)$latestMonitor);
+	</code></pre>
+
+	<br><time>2024-8-28</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
