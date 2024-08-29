@@ -128,7 +128,9 @@ config/app.phpの末尾付近に以下のコードを記述する。
 	
 	<p>シンプルなUPDATE</p>
 	<pre><code>
-	DB::table('monitors')->update((array)$latestMonitor);
+	DB::table('monitors')
+		->where('id', $latestMonitor->id) // ここでidを指定
+		->update((array)$latestMonitor);
 	</code></pre>
 
 	<br><time>2024-8-28</time>
