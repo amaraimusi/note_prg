@@ -17,6 +17,7 @@
 <div class="list1">
 	<h2>目次</h2>
 	<ol>
+		<li><a href="chrome_remote_desctop.html" >Chromeリモートデスクトップの使い方</a></li>
 		<li><a href="boosting.php#sec1-1" >ブースティング</a></li>
 		<li><a href="selenium_note/selenium_note.html" >Seleniumについて</a></li>
 		<li><a href="../apache/apache_note.html" >Apache</a></li>
