@@ -506,6 +506,7 @@ URL → signin_x/step2?th=仮登録ハッシュコード
 	<p>HTML</p>
 	<pre><code>
 &lt;textarea id="textarea1" &gt;&lt;/textarea&gt;
+&lt;button id="fitButton"&gt;フィットさせる&lt;/button&gt;
 	</code></pre>
 	
 	<p>JavaScript</p>
@@ -513,6 +514,10 @@ URL → signin_x/step2?th=仮登録ハッシュコード
 jQuery(()=&gt;{
 	automateTextareaHeight('#textarea1');
 	
+	// ボタンを押したときに高さをフィットさせる処理
+    $('#fitButton').on('click', () => {
+        fitTextareaHeight('#textarea1');
+    });
 });
 
 // テキストエリアの高さを自動調整する。
@@ -529,6 +534,13 @@ function automateTextareaHeight(slt){
 		taElm.attr("rows", 1).click("input", e => {
 			$(e.target).height(0).innerHeight(e.target.scrollHeight);
 		});
+}
+
+// ボタンを押した時にテキストエリアの高さをフィットさせる
+// 注意：display:noneなどでテキストエリアが非表示になっているとき（親要素ごとテキストエリアが隠れているときも含む）は自動フィットできない。高さが最小になる。
+function fitTextareaHeight(slt) {
+    let taElm = $(slt);
+    taElm.height(0).innerHeight(taElm[0].scrollHeight);
 }
 	</code></pre>
 
