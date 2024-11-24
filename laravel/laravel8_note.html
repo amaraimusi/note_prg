@@ -545,54 +545,41 @@ MAIL_FROM_NAME="サンプルシステム"
 namespace App&yen;Console&yen;Commands;
 
 use Illuminate&yen;Console&yen;Command;
-<strong>use Illuminate¥Support¥Facades¥DB;</strong> // DBを扱えるようにする
+use Illuminate¥Support¥Facades¥DB; // DBを扱えるようにする
+use App&yen;Models&yen;Neko;
 
 class TestBatch extends Command
 {
-	/**
-	 * The name and signature of the console command.
-	 *
-	 * @var string
-	 */
-	protected $signature = <strong>'batch:test'</strong>; // コマンド名を定める。
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'batch:test';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'テスト用バッチ'; // コマンド説明文
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        echo 'バッチ処理を開始します。';
+        
+        $model = new Neko();
+        $ent = $model-&gt;find(77);
+        dump($ent);//■■■□□□■■■□□□)
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return int
-	 */
-	public function <strong>handle()</strong>
-	{
-		// ここに処理を記述する。
-		
-		echo 'バッチ処理を開始します。';
-		
-		// DBアクセスの例
-		<strong>$data = &yen;DB::select('select * from patients where id= 1');</strong>
-		var_dump($data);
 		
 		echo 'バッチ処理を終了しました。';
-		
-		return Command::SUCCESS;
-	}
+    }
 }
+
 
 </pre>
 		</li>
@@ -612,7 +599,7 @@ class TestBatch extends Command
 		
 	</ol>
 
-	<br><time>2022-2-4</time>
+	<br><time>2022-2-4 | 2024-11-25</time>
 </div>
 
 

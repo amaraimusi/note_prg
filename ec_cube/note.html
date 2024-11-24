@@ -27,6 +27,59 @@
 
 <div id="sec1-1" class="sec4">
 	<h3>EC-CUBE4をローカル環境に導入する手順</h3>
+	
+		<p>2024年10月時点の方法</p>
+		
+		バージョン情報<br>
+		EC-CUBE 4.3<br>
+		xampp(PHP 8.2)<br>
+		<br>
+		
+		<br>
+		
+		手順
+		<ol>
+			<li>
+				公式サイトからEC-CUBEのzipファイル（4.3バージョン）をダウンロードし、通常のweb開発のプロジェクト作成場所と同じ場所にzipファイルを解凍して展開する。
+			</li>
+			<li>
+				xamppのコントロールパネルからapacheのphp.iniを開き、以下のように修正する。<br>
+				openssl.cafile="C:/xampp/apache/conf/openssl.cnf"<br>
+				<br>
+				別の方法<br>
+				phpinfo()で出力されるリストから「Openssl default config」の項目を確認する。<br>
+				デフォルトだと「Openssl default config	C:\Program Files\Common Files\SSL/openssl.cnf」なっているかもしれない。<br>
+				その場所に「C:/xampp/apache/conf/openssl.cnf」のopenssl.cnfをコピペする。<br>
+				<br>
+				
+				上記の設定がなされていないと以下のエラーが発生する。
+				<pre>
+				Warning: openssl_pkey_export(): Cannot get key from parameter 1 in C:\xampp\htdocs\ec-cube\app\Plugin\Api42\DependencyInjection\Compiler\ApiCompilerPass.php on line 111
+
+				Fatal error: Uncaught TypeError: openssl_pkey_get_details(): Argument #1 ($key) must be of type OpenSSLAsymmetricKey, bool given in C:\xampp\htdocs\ec-
+				</pre>
+			</li>
+			
+			<li>
+				php.iniで以下を有効にします。
+				<pre>
+				extension=sodium
+				extension=wincache
+				</pre>
+			</li>
+		
+			<li>
+				「http://localhost/プロジェクトのパス/」にアクセス。<br>
+				「ようこそ」の画面が出れば成功。
+			</li>
+			<li>
+				あとは道なり<br>
+				失敗したときはいろいろ設定をいじるよりも最初からやりなおすと解決することがある。<br>
+			</li>
+		</ol>
+		<br><br>
+		<hr>
+		
 		バージョン情報<br>
 		EC-CUBE 4.0.3<br>
 		PHP 7.1<br>
