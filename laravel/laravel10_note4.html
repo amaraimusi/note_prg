@@ -137,6 +137,164 @@ config/app.phpの末尾付近に以下のコードを記述する。
 </div>
 
 
+<div id="sec4-3" class="sec4" >
+	<h3>Google Custom Search JSON API でGoogle検索結果を取得する方法</h3>
+	
+	
+<script async src="https://cse.google.com/cse.js?cx=75318d372d5e94f5b"></script>
+
+
+
+
+コンソールコマンドにサンプル
+	<ol>
+		<li>Google Cloud Platformにログインします。</li>
+		
+		<li>
+			<a href="https://programmablesearchengine.google.com/controlpanel/all" target="blank">プログラム可能な検索エンジン</a>
+			のページを開き、新しい「検索エンジン」を作成します。</li>
+			<br>
+			<img src="img/laravel10_note4/sec4-3a1.png" alt="" class="img_compact_k"/>
+		</li>
+		
+		<li>
+			検索エンジン作成時に発行される検索エンジンIDを控えておきます。<br>
+			<pre>&lt;script async src="https://cse.google.com/cse.js?cx=<strong>7531省略4f5b</strong>"&gt;&lt;/script&gt;</pre>
+			
+		</li>
+		
+		<li>
+			作成した検索エンジンの設定ページをもう一度開き、
+			「Custom Search JSON API」の箇所からAPIキーを取得しにいきます。<br>
+			<img src="img/laravel10_note4/sec4-3a2.png" alt="" class="img_compact_k"/>
+		</li>
+		
+		<li>
+			Windowsでxamppを仕様している場合、SSL関連のファイルを配置する必要があります。<br>
+			
+			cacert.pemのダウンロード(
+			<a href="https://curl.se/ca/cacert.pem" target="blank">https://curl.se/ca/cacert.pem</a>)
+			し、「C:/xampp/php/extras/ssl」ディレクトリに配置します。
+			
+		</li>
+		
+		<li>
+			xamppのコントロールパネルからphp.iniを開き、下記の記述を行います。
+			<pre>
+	curl.cainfo = "C:/xampp/php/extras/ssl/cacert.pem"
+	openssl.cafile = "C:/xampp/php/extras/ssl/cacert.pem"
+			</pre>
+			記述したらApatchを再起動します。
+
+		</li>
+		
+		<li>
+		
+			LaravelのコンソールコマンドでGoogle検索結果を取得するサンプルを作成します。
+			まずはLaravelのプロジェクトを用意します。
+		</li>
+		
+		<li>
+			作成したLravelのプロジェクトに専用パッケージをcomposerで追加します。
+			<pre>composer require google/apiclient</pre>
+		
+			(php composer.phar require google/apiclient)
+		</li>
+		
+		<li>
+			Laravelのコンソールコマンドとして処理を作成します。<br>
+			app/Console/Commands/GoogleCustomSearchDemo.php
+			<pre><code>
+&lt;?php
+
+namespace App&yen;Console&yen;Commands;
+
+use Illuminate&yen;Console&yen;Command;
+use Google&yen;Client; // Google API Clientのクラスをインポート
+use Google&yen;Service&yen;CustomSearchAPI; // CustomSearchAPIのクラスをインポート
+use Exception; // Exceptionクラスもインポート
+
+class TestBatch extends Command
+{
+	/**
+	 * The name and signature of the console command.
+	 *
+	 * @var string
+	 */
+	protected $signature = 'batch:gcs';
+	
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Command description';
+	
+	/**
+	 * Execute the console command.
+	 */
+	public function handle()
+	{
+		echo 'バッチ処理を開始します。' . PHP_EOL;
+		
+		$API_KEY = 'AIza 省略 IM8XKs'; // 取得したAPIキーを入力
+		$SEARCH_ENGINE_ID = '7531 省略 f5b'; // 取得した検索エンジンIDを入力
+		
+		try {
+			// Google API Clientを設定
+			$client = new Client();
+			$client-&gt;setApplicationName('Your Application Name');
+			$client-&gt;setDeveloperKey($API_KEY);
+			
+			$service = new CustomSearchAPI($client);
+			
+			// 本日と昨日の日付を取得
+			$today = date('Y-m-d');
+			$yesterday = date('Y-m-d', strtotime('-1 day'));
+			
+			$query = 'トレンド商品 ニュース';
+			
+			// クエリに期間指定を追加
+			$query = $query . " after:$yesterday before:$today";
+			
+			$optParams = [
+					'cx' =&gt; $SEARCH_ENGINE_ID,
+					'q' =&gt; $query,
+					'num' =&gt; 10, // 取得する結果の数
+			];
+			
+			$results = $service-&gt;cse-&gt;listCse($optParams);
+			foreach ($results-&gt;getItems() as $item) {
+				echo 'タイトル: ' . $item['title'] . PHP_EOL;
+				echo 'リンク: ' . $item['link'] . PHP_EOL;
+				echo '概要: ' . $item['snippet'] . PHP_EOL . PHP_EOL;
+			}
+		} catch (Exception $e) {
+			echo 'エラーが発生しました: ' . $e-&gt;getMessage() . PHP_EOL;
+		}
+		
+		echo 'バッチ処理を終了しました。' . PHP_EOL;
+	}
+}
+
+			</code></pre>
+		</li>
+		<li>
+			bashで上記のコマンドを実行する
+			<pre>php artisan batch:gcs</pre>
+		</li>
+		
+		<li>
+			検索結果が取得できれば成功です。<br>
+			<img src="img/laravel10_note4/sec4-3a2.png" alt="" class="img_compact_k"/>
+		</li>
+	</ol>
+
+
+	<br><time>2024-11-27</time>
+</div>
+
+
 <div id="sec4-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 	
