@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wordpressの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Wordpressの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec7-1" class="sec4">
+	<h3>ダッシュボート（管理画面）へのURL</h3>
+
+
+	http://localhost/wordpress_demo/wp-admin/<br>
+	<br>
+	もしくは<br>
+	http://localhost/wordpress_demo/admin/<br>
+	
+	
+	<br><time>2024-12-7</time>
+</div>
+
+
+<div id="sec7-2" class="sec4">
+	<h3>初回のDBテーブル作成 | プラグイン有効化時に実行されるフック</h3>
+	
+	<pre><code>
+// プラグイン有効化時に実行されるフック
+register_activation_hook(__FILE__, 'crudbase_wp_activate');
+
+/**
+ * プラグイン有効化時の処理
+ * @note プラグインを再度、無効化にして有効化してもエラーにならず、DBテーブルのデータも消えることはない。
+ */
+function crudbase_wp_activate() {
+    global $wpdb;
+    $table_name = $wpdb-&gt;prefix . 'crudbase_wp'; // テーブル名を定義（wp_のプレフィックスを考慮）
+    $charset_collate = $wpdb-&gt;get_charset_collate();
+
+    // SQLでテーブルを作成
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    // WordPressのdbDelta関数を利用してテーブルを作成
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+	</code></pre>
+
+
+	<br><time>2024-12-7</time>
+</div>
+
+
+<div id="sec7-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2024-2-1</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>Wordpressの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2024-12-7</div>
+</body>
+</html>
