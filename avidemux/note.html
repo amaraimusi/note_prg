@@ -320,11 +320,48 @@
 
 
 
+<div id="sec1-9" class="sec4" >
+	<h3>1枚のpng画像から5秒間の動画を作るには？</h3>
+	
+	Avidemuxでもできないことはないが1枚ずつ画像を読み込む非現実てきな手段しかない。
+	ffmpegコマンドを利用したほうが楽である。ffmpegのインストール方法については省略。
+	
+	
+	<pre><code>
+ffmpeg -loop 1 -i input.png -c:v libx264 -t 5 -pix_fmt yuv420p output.png
+	</code></pre>
+	
+	上記のコマンドでした動画は音声ファイルがないのでAvidemuxで扱いにくい。
+	
+	「<a href="#sec1-10">音声ファイルなしの動画に無音の音声ファイルを追加する</a>」方法があるのでそちらも行うと良い。
+
+
+	<br><time>2025-1-4</time>
+</div>
+
+
+
+<div id="sec1-10" class="sec4" >
+	<h3>音声ファイルなしの動画に無音の音声ファイルを追加する</h3>
+	
+	Avidemuxで無音の音声ファイルをセットする手段もあるが、ffmpegのほうが楽かもしれないので、こちらを紹介。
+	<pre><code>
+ffmpeg -i input.mp4 -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -shortest -c:v copy -c:a aac output.mp4
+	</code></pre>
+	
+
+
+
+	<br><time>2025-1-4</time>
+</div>
+
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
 
 
-	<br><time>2020-5-19</time>
+	<br><time>2025-1-4</time>
 </div>
 
 
