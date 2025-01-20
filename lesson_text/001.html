@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 001 システム開発はデータベースからスタート | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<style>
+		.container{
+			font-size:1.5em;
+		}
+		h2{
+			margin-top:2em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 001 システム開発はデータベースからスタート | ワクガンス</h1></div>
+<div class="container">
+
+
+    <h1>データベース設計の基礎：お小遣い帳を作ってみよう！</h1>
+
+        <p>こんにちは！<br>
+        今日は、データベースの一番大切な部分、「テーブル」について学びます。テーブルは、情報を整理して保存するための箱のようなものです。この「箱」の中にどんな情報を入れるかを考えるのが、データベース設計の最初のステップです。</p>
+
+        <h2>テーブルって何？</h2>
+        <p>テーブルは、データを「行」と「列」で管理します。</p>
+        <ul>
+            <li><strong>行</strong>：一つ一つのデータです（例：1回のお小遣いの記録）</li>
+            <li><strong>列</strong>：データの項目（例：日付、金額、使い道）</li>
+        </ul>
+        <p>例えるなら、ノートにお小遣いを記録する「表（ひょう）」のようなものです。</p>
+
+        <h2>お小遣い帳をデータベースにする</h2>
+        <p>では、みんなが使ったことがあるかもしれない「お小遣い帳」を例に考えてみましょう。お小遣い帳には、次のような情報を記録することができます。</p>
+
+        <h3>お小遣い帳の項目（＝テーブルの列に相当）：</h3>
+        <ol>
+            <li><strong>日付</strong>：お金をもらった日、使った日</li>
+            <li><strong>収入/支出</strong>：お金をもらったのか、使ったのか</li>
+            <li><strong>金額</strong>：いくらのお金だったか</li>
+            <li><strong>使い道</strong>：何に使ったのか、または、どこからもらったのか</li>
+        </ol>
+
+        <h3>お小遣い帳テーブルの見本</h3>
+        <table class="tbl2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>日付</th>
+                    <th>収入/支出</th>
+                    <th>金額</th>
+                    <th>使い道</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2025-01-01</td>
+                    <td>収入</td>
+                    <td>500</td>
+                    <td>お年玉</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2025-01-02</td>
+                    <td>支出</td>
+                    <td>200</td>
+                    <td>お菓子</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>2025-01-05</td>
+                    <td>支出</td>
+                    <td>300</td>
+                    <td>文房具</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>2025-01-10</td>
+                    <td>収入</td>
+                    <td>1000</td>
+                    <td>お小遣い</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>レッスンのまとめ</h2>
+        <ol>
+            <li><strong>テーブルの意味を理解する</strong>：テーブルは情報を整理して保存するための「箱」！</li>
+            <li><strong>お小遣い帳の情報を考える</strong>：どんな情報が必要かを考えることが、データベース設計の第一歩です。</li>
+        </ol>
+
+        <p>次回は、このテーブルを使って、実際にどんな情報が保存できるか、そしてどう使えるかを学びましょう！分からないことがあれば、いつでも聞いてくださいね😊</p>
+		
+		
+		
+        <h2>課題</h2>
+		商品テーブルを作成してみましょう!
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-19</div>
+</body>
+</html>
