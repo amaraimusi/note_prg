@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 001 システム開発はデータベースからスタート | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<style>
+		.container{
+			font-size:1.5em;
+		}
+		h2{
+			margin-top:2em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 002 データベースの「型」を学ぼう | ワクガンス</h1></div>
+<div class="container">
+
+
+         <h1>データベースの「型」を学ぼう</h1>
+
+        <p>こんにちは！<br>
+        前回は「お小遣い帳」のテーブルを見ながら、データベースの基本を学びましたね。今回は、テーブルの各フィールド（列）が持つ「型」について学びます。</p>
+
+        <h2>フィールドの「型」とは？</h2>
+        <p>データベースで扱う情報は、いろいろな「型」（データの種類）を持っています。たとえば、数字や日付、文字列などです。型を決めることで、データベースに「どんなデータを入れるか」を教えることができます。</p>
+
+        <h3>型を指定する理由</h3>
+        <ul>
+            <li><strong>データの管理を簡単にするため</strong>：適切な型を使うことで、データを正しく整理できます。
+			整理されたデータは人間にとっても、"データベース"にとっても理解しやすいものになります。</li>
+            <li><strong>エラーを防ぐため</strong>：型が決まっていれば、間違ったデータ（例：文字列のフィールドに数字を入れるなど）が入力されるのを防げます。</li>
+            <li><strong>効率的なデータ処理ができるため</strong>："データベースが型を知っている"と、検索や計算が効率的に行えます。つまりデータベース内で高速な処理ができます。</li>
+        </ul>
+
+        <h2>お小遣い帳の例で考える「型」</h2>
+        <table class="tbl2">
+            <thead>
+                <tr>
+                    <th>フィールド名</th>
+                    <th>説明</th>
+                    <th>型の例</th>
+                    <th>理由</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>データの識別子</td>
+                    <td>INT</td>
+                    <td>重複しない番号です。</td>
+                </tr>
+                <tr>
+                    <td>日付</td>
+                    <td>お金をもらった日や使った日</td>
+                    <td>DATE</td>
+                    <td>日付を扱うための専用の型を使うと計算やソートが簡単。</td>
+                </tr>
+                <tr>
+                    <td>収入/支出</td>
+                    <td>お金をもらったか使ったかの区別</td>
+                    <td>VARCHAR</td>
+                    <td>文字列（例：「収入」「支出」）を保存するため</td>
+                </tr>
+                <tr>
+                    <td>金額</td>
+                    <td>金額の数値</td>
+                    <td>INT</td>
+                    <td>数字として計算（合計や平均など）ができるようにするため。</td>
+                </tr>
+                <tr>
+                    <td>使い道</td>
+                    <td>何に使ったか、どこからもらったか</td>
+                    <td>VARCHAR</td>
+                    <td>自由に記述できる文字列を保存するため</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>主なデータ型の説明</h2>
+        <h3>1. INT（整数型）</h3>
+        <p><strong>用途例</strong>：数量、人数、ID(商品ID,日誌ID、顧客IDなど)、種類、分類など</p>
+        <p><strong>説明</strong>：
+			数値系(整数)に指定する基本的な型です。<br>
+			数量や人数をはじめ、種別や分類、ＩＤ関係でよく使われます。
+			INT型はプログラマーとして働くことになった時、何度も目にすることでしょう。
+		</p>
+
+        <h3>2. VARCHAR（可変長文字列）</h3>
+        <p><strong>用途例</strong>：名前、住所、短いメッセージ、コードなど</p>
+        <p><strong>説明</strong>：
+			文字列に指定する型です。<br>
+			こちらの型も頻繁に使われます。
+			名前や住所など、短めの文字列ならこの型を指定しましょう。目安としては255文字以内くらいです。
+			文字列の長さを指定しながら設定します（例：<code>VARCHAR(50)</code>なら最大50文字まで保存可能）。</p>
+
+        <h3>3. DATE（日付型）</h3>
+        <p><strong>用途例</strong>：入金日、締切日、期限、予約日など</p>
+        <p><strong>説明</strong>：
+			日付に指定する型です。<br>
+			<code>2025-01-01</code>のような形式です。
+			日付同士の計算（例：「2つの日付の差を求める」など）ができます。</p>
+
+        <h3>4. DATETIME（日時型）</h3>
+        <p><strong>用途例</strong>：更新日時、作成日時、投稿日時など</p>
+        <p><strong>説明</strong>：
+			日時に指定する型です。<br>
+			<code>2025-01-01 12:01:30</code>のような年月日時分秒の形式になります。
+
+        <h3>5. DECIMAL（通貨型）</h3>
+        <p><strong>用途例</strong>：単価、入金額、支払額など</p>
+        <p><strong>説明</strong>：
+			数値型の一種ですがお金に特化した型です。
+			数字系でも金額関係ならINT型でなくDECIMAL型を指定してください。<br>
+			日本円で最大でも1億円未満の金額しか扱わないと確定しているなら<code>DATETIME(9,0)</code>という型指定になります。
+			米ドルなら（100万ドル未満、小数点２桁）<code>DATETIME(7,2)</code>という感じです。
+			現場によってはDECIMAL型でなくNUMERIC型を使うこともあります。
+
+        <h3>6. TEXT（テキスト型）</h3>
+        <p><strong>用途例</strong>：記事内容、説明文、備考、メモなど</p>
+        <p><strong>説明</strong>：
+			数千文字くらいの長い文字列専用の型です。<br>
+			処理の負担が大きいため、短い文字列ならVARCHARを指定しましょう。
+
+        <h3>7. FLOAT/DOUBLE(浮動小数点型)</h3>
+        <p><strong>用途例</strong>：測定値、計算値、緯度経度、図形の長さ</p>
+        <p><strong>説明</strong>：
+			少数を含む数値に指定する型です。<br>
+			高速に処理できますが、桁数が長くなると丸め処理（四捨五入など）が自動で施されるので注意です。厳密な正確さが求めれるお金関係に指定すべきでありません。
+
+        <h3>8. TINYINT（フラグ型)</h3>
+        <p><strong>用途例</strong>：ON/OFF、有効/無効</p>
+        <p><strong>説明</strong>：
+			整数型の一種ですが、ON/OFFのように1と0しか入力しない場合はTINYINT型が適切です。
+			
+		<h3>その他の型について</h3>
+		大きな数字を扱うBIGINT,時間だけを扱うTIMEなど他にも多数の型が存在しますが、実際の現場に頻出する型は上記の型になります。
+		その他の型については使用する機会も稀ですので、学習は後回しで良いでしょう。<br>
+		<br>
+
+        <h2>練習課題</h2>
+        <p>次の項目を含む「商品テーブル」を作成するとしたら、どんな型が合うでしょうか？理由も考えてみましょう！</p>
+
+        <table class="tbl2">
+            <thead>
+                <tr>
+                    <th>フィールド名</th>
+                    <th style="width:200px">型の例</th>
+                    <th style="width:600px">理由</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>商品名</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>価格</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>在庫数</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>カテゴリー</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>自分で考えた回答をもとに、テーブルを完成させてみてください！</p>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-19</div>
+</body>
+</html>
