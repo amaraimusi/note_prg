@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 003 マスタテーブルとトランザクションテーブルを見分けよう | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<style>
+		.container{
+			font-size:1.5em;
+		}
+		h2{
+			margin-top:2em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 003 マスタテーブルとトランザクションテーブルを見分けよう | ワクガンス</h1></div>
+<div class="container">
+
+
+<h2>マスタテーブルとトランザクションテーブルの見分けられるようになろう</h2>
+<p>
+前回、お小遣い帳テーブルや商品テーブルなどいくつかのテーブルを設計しました。
+これらのテーブルは、実際の現場では、データベースを設計する際、<strong>マスタテーブル</strong>と<strong>トランザクションテーブル</strong>の２つのグループに分けて考えます。<br>
+<br>
+もしこの分類が曖昧だと、後々、プログラミング工程で様々な問題に直面することになります。
+今回はマスタテーブルとトランザクションテーブルの役割を正しく理解し、データベース設計をする上での基本的な知識を習得しましょう。
+</p>
+
+<h2>マスタテーブルの概要</h2>
+<p>実際の現場では、マスタテーブルに分類されるテーブルを「<strong>○○マスタ</strong>」と呼ぶことが多いです。この言葉は現場で頻繁に耳にするでしょう。たとえば、商品情報を管理する商品テーブルは、通常「商品マスタ」や「商品マスタデータ」などと呼ばれます。よく覚えておきましょう。</p>
+
+<h2>トランザクションテーブルの概要</h2>
+<p>一方、トランザクションテーブルは、マスタテーブルに対する用語ですが、現場では「マスタ以外のテーブル」という感覚で使われます。なので実際の現場ではトランザクションテーブルという言い方をしないかもしれません。ただし、トランザクションテーブルで管理されるデータはシステムの中心的な役割を果たすことが多いです。</p>
+<aside>※トランザクションには別の意味もありますので混同に注意です。</aside>
+<hr />
+
+<h2>1. マスタテーブルとは</h2>
+<p>マスタテーブルに該当するテーブルは<strong>基本データ</strong>を扱います。
+基本データは<strong>更新頻度の低い</strong>データであることが特徴です。
+例えば、商品データや顧客データが基本データの代表例です。商品データでは「商品ID」「商品名」「価格」などの情報が管理され、顧客データでは「顧客ID」「顧客名」「住所」などが登録されます。
+これらのデータは日々の業務で頻繁に変更されることは少ないです。（全く変更がないわけではありません。）</p>
+<h3>定義</h3>
+<p>マスタテーブルは、システムで利用される固定的なデータや参照用のデータを格納するテーブルです。これらのデータは比較的変更頻度が低く、システム全体で共有されます。</p>
+<h3>特徴</h3>
+<ul>
+<li><strong>固定的なデータ</strong>: 商品情報や顧客情報、分類名など。</li>
+<li><strong>変更頻度が低い</strong>: 新規作成や更新は運用上のイベントに限定されることが多い。</li>
+<li><strong>参照されることが多い</strong>: 他のテーブルから外部キーとして参照される。（※別のレッスンで解説します）</li>
+</ul>
+<h3>例</h3>
+<p>以下は「商品マスタ」の例です：</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>カテゴリ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>りんご</td>
+      <td>100</td>
+      <td>果物</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>バナナ</td>
+      <td>150</td>
+      <td>果物</td>
+    </tr>
+  </tbody>
+</table>
+<aside>※要件によっては価格は頻繁に変わるケースもあります。この場合、上記は商品マスタと呼ぶにはふさわしくないと判断され、設計を見直します。</aside>
+<hr />
+<h2>2. トランザクションテーブルとは</h2>
+<p>トランザクションテーブルは<strong>更新頻度の高いデータ</strong>を扱います。
+例えば、売上データやチャットデータがトランザクションテーブルの典型例です。売上データでは「売上ID」「商品ID」「数量」「金額」「売上日」などが記録され、日々の取引が追加され続けます。
+一方、チャットデータでは「メッセージID」「送信者ID」「受信者ID」「送信日時」「内容」などが格納され、リアルタイムで<strong>頻繁に更新や追加</strong>が行われます。このように、トランザクションテーブルは日常的な業務やユーザーの活動によって大量のデータが継続的に生成される特徴があります。</p>
+<p>トランザクションテーブルはシステムの動的な部分を支える中核的な存在であり、設計・運用・開発のすべての段階で頻繁に関わることになるでしょう。</p>
+<h3>定義</h3>
+<p>トランザクションテーブルは、日々の業務で発生する処理データを格納するテーブルです。これらのデータは<strong>頻繁に追加・更新</strong>されます。</p>
+<h3>特徴</h3>
+<ul>
+<li><strong>動的なデータ</strong>: 売上データや注文履歴など。</li>
+<li><strong>変更頻度が高い</strong>: 日々の業務で追加や更新が頻繁に行われる。</li>
+<li><strong>大量のデータ</strong>: 長期間運用するほど、膨大なデータが蓄積される。</li>
+</ul>
+<h3>例</h3>
+<p>以下は「注文テーブル」の例です：</p>
+<table class='tbl2'>
+  <thead>
+    <tr>
+      <th>注文ID</th>
+      <th>商品ID</th>
+      <th>数量</th>
+      <th>注文日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1001</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2025-01-20</td>
+    </tr>
+    <tr>
+      <td>1002</td>
+      <td>2</td>
+      <td>3</td>
+      <td>2025-01-21</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h2>3. まとめ</h2>
+<p>以下のポイントを確認することで、マスタテーブルとトランザクションテーブルを見分けることができます。</p>
+<h3>見分けるための質問</h3>
+<ol>
+<li><strong>データの性質は静的か動的か？</strong></li>
+</ol>
+<ul>
+<li>静的データであればマスタテーブル。</li>
+<li>動的に変化するデータであればトランザクションテーブル。</li>
+</ul>
+<ol>
+<li><strong>データの変更頻度はどれくらいか？</strong></li>
+</ol>
+<ul>
+<li>変更頻度が低ければマスタテーブル。</li>
+<li>変更頻度が高ければトランザクションテーブル。</li>
+</ul>
+<ol>
+<li><strong>データは他のテーブルから参照されるか、もしくは参照する側か？</strong></li>
+</ol>
+<ul>
+<li><p>参照される側であればマスタテーブル。</p></li>
+<li><p>参照する側であればトランザクションテーブル。</p>
+<p>※ 詳細は次回、解説します!</p></li>
+</ul>
+<h3>判断基準のまとめ</h3>
+<table class="tbl2">
+<thead>
+<tr>
+<th>質問</th>
+<th>マスタテーブル</th>
+<th>トランザクションテーブル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>データの性質</td>
+<td>静的</td>
+<td>動的</td>
+</tr>
+<tr>
+<td>変更頻度</td>
+<td>低い</td>
+<td>高い</td>
+</tr>
+<tr>
+<td>他テーブルとの関係性</td>
+<td>参照されることが多い</td>
+<td>参照することが多い</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. 例題：テーブルを分類してみよう</h2>
+<p>以下のテーブルを見て、それぞれがマスタテーブルかトランザクションテーブルかを判断してください。</p>
+<h3>例1: 顧客テーブル</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>顧客ID</th>
+      <th>顧客名</th>
+      <th>メールアドレス</th>
+      <th>住所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>山田 太郎</td>
+      <td>yamada@example.com</td>
+      <td>東京都新宿区</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>田中 花子</td>
+      <td>tanaka@example.com</td>
+      <td>大阪府大阪市</td>
+    </tr>
+  </tbody>
+</table>
+<h3>例2: 売上テーブル</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>売上ID</th>
+      <th>顧客ID</th>
+      <th>商品ID</th>
+      <th>金額</th>
+      <th>売上日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5001</td>
+      <td>1</td>
+      <td>2</td>
+      <td>450</td>
+      <td>2025-01-22</td>
+    </tr>
+    <tr>
+      <td>5002</td>
+      <td>2</td>
+      <td>1</td>
+      <td>500</td>
+      <td>2025-01-23</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h2>5. 練習問題</h2>
+<ol>
+<li>以下は求人システムにおいてよく見られるテーブルです。これらのテーブルの構造をイメージしながら、マスタテーブルかトランザクションテーブルかを判断してください。
+なお、絶対これだ！という答えではありません。要件の説明次第で答えは変わりますので、なぜそのように判断したか理由も説明してください。</li>
+</ol>
+<ul class="list_lg">
+<li>
+	<strong>ユーザーアカウントテーブル</strong><br>
+	ユーザー名、メールアドレスなどのデータが格納されます。
+</li>
+<li>
+<strong>求職者テーブル</strong><br>
+求職者の名前や年齢などのデータが格納されます。
+</li>
+<li>
+	<strong>求人テーブル</strong><br>
+	求人システムの求人情報です。会社名や募集要項などのデータです。
+</li>
+<li>
+	<strong>職種テーブル</strong><br>
+	様々な職種名をデータとして管理。</li>
+<li>
+	<strong>求人問い合わせテーブル</strong><br>
+	求職者と採用担当者のメッセージが主なデータです
+</li>
+<li>
+	<strong>都道府県テーブル</strong><br>
+	北海道から沖縄までの名称がデータとして格納されています。
+</li>
+
+</ul>
+<hr />
+<h2>6. おわりに...</h2>
+<p>今回はマスタテーブルとトランザクションテーブルを正しく区別するだけ？と思うかもしれません。
+しかし、データベースを設計していく上で非常に大切な知識です。今後のシステム開発をしていく上で常に頭に入れておかねばならない基本概念だからです。</p>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-19</div>
+</body>
+</html>

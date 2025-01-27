@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 005 データベースの設計図であるER図を作成しよう | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("img/005_a1.drawio.svg", "#svg1");
+  loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+		}
+		h2{
+			margin-top:2em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 005 データベースの設計図であるER図を作成しよう  | ワクガンス</h1></div>
+<div class="container">
+
+
+<h2>ER図とは？</h2>
+<p>建物を建てる際に設計図が必要なように、システムを開発する際にもデータの設計図が必要です。その1つがER図（Entity-Relationship Diagram）です。<br />
+ER図とは、データベースの設計図のようなもので、システムが扱うデータがどのように関連し合っているかを図で表したものです。</p>
+<hr />
+<h2>ER図で分かること</h2>
+<p>ER図では以下のことを知ることができます。</p>
+<ol>
+<li><p><strong>どんなデータが必要か？</strong><br />
+（例：顧客データ、商品データ、注文データなど）</p></li>
+<li><p><strong>データ同士がどのように関連しているか？</strong><br />
+（例：顧客は注文を行う、商品は注文に含まれるなど）</p></li>
+</ol>
+<hr />
+<h2>実際の開発現場でのER図の用途</h2>
+<h3>1. 関係者間の共通言語として</h3>
+<p>システム開発には、プログラマー、デザイナー、営業担当者など、様々な立場の人が関わります。<br />
+ER図は、これらの関係者がデータベースの構造について共通の認識を持つための、<strong>共通言語</strong>として機能します。<br />
+図を見ることで、言葉だけでは伝わりにくい複雑なデータ構造も、簡単に理解できるようになります。<br />
+ER図を見ながらミーティングするということもしばしば行われます。</p>
+<hr />
+<h3>2. 設計のミスを防ぐ</h3>
+<p>ER図を作成することで、設計段階でデータの矛盾や不備を発見しやすくなります。</p>
+<ul>
+<li>「データが重複している」</li>
+<li>「必要なデータが不足している」</li>
+<li>「データの関連付けが間違っている」</li>
+</ul>
+<p>といった問題点を早期に発見し、修正することで、後工程での手戻りを減らし、開発効率を高めることができます。</p>
+<hr />
+<h3>3. 開発後の保守・運用を容易にする</h3>
+<p>システムは開発して終わりではありません。その後も長く使われ、必要に応じて修正や機能追加が行われます。<br />
+ER図があれば、データベースの構造が明確になるため、保守・運用作業がスムーズに進みます。  </p>
+<p>例えば、<br />
+「顧客の住所を変更する場合、どのデータに影響があるか？」<br />
+といったことを容易に把握できます。</p>
+<hr />
+<h3>4. システムの拡張時にも便利</h3>
+<p>ER図を見れば、どこにどのデータがあるのか分かるため、新しい機能を開発するときにも役に立ちます。</p>
+
+<h2>ER図の作り方</h2>
+<p>
+	それぞれのテーブルの関連を
+	以下の3つのテーブルを用いたサンプル元に、ER図の作成方法について学びます。
+</p>
+<ol>
+<li><p><strong>売上テーブル (sales)</strong><br />
+<li><p><strong>商品テーブル (items)</strong><br />
+<li><p><strong>商品カテゴリマスタ (item_categories)</strong><br />
+</ol>
+<hr />
+<p>それぞれのテーブル構造は以下通りです。</p>
+
+<h3>売上テーブル (sales)</h3>
+商品ごとの売上データを管理します。</p></li>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>売上ID (ユニーク識別子)</td>
+</tr>
+<tr>
+<td>item_id</td>
+<td>INT</td>
+<td>NOT NULL, FOREIGN KEY</td>
+<td>商品ID (itemsテーブルへの外部キー)</td>
+</tr>
+<tr>
+<td>sale_date</td>
+<td>DATE</td>
+<td>NOT NULL</td>
+<td>売上日</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>INT</td>
+<td>NOT NULL</td>
+<td>売上数量</td>
+</tr>
+<tr>
+<td>total_price</td>
+<td>DECIMAL(10,2)</td>
+<td>NOT NULL</td>
+<td>売上金額</td>
+</tr>
+</tbody>
+</table>
+<h3>商品テーブル (items)</h3>
+商品情報を管理します。</p></li>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>商品ID (ユニーク識別子)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(100)</td>
+<td>NOT NULL</td>
+<td>商品名</td>
+</tr>
+<tr>
+<td>category_id</td>
+<td>INT</td>
+<td>FOREIGN KEY</td>
+<td>カテゴリID (item_categoriesテーブルへの外部キー)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>DECIMAL(10,2)</td>
+<td>NOT NULL</td>
+<td>商品価格</td>
+</tr>
+<tr>
+<td>stock_quantity</td>
+<td>INT</td>
+<td>NOT NULL</td>
+<td>在庫数量</td>
+</tr>
+</tbody>
+</table>
+<h3>商品カテゴリマスタ (item_categories)</h3>
+商品のカテゴリ情報を管理します。</p></li>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>カテゴリID (ユニーク識別子)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(50)</td>
+<td>NOT NULL</td>
+<td>カテゴリ名</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+
+<h3>上記の３つのテーブルからER図を作成します。</h3>
+<div  id='svg3' style="width:100%;"></div >
+<br>
+
+<h2>ER図の解説図</h2>
+<div  id='svg1' style="width:100%;"></div >
+<hr>
+<h4>シンプルなER図の薦め</h4>
+<p>
+	ER図は厳密な書き方というものがなく、人によって書き方に差が出てきます。
+	見本ではsales,items,item_idなど名称を使っていますが、「売上テーブル」、「商品マスタ」、「商品ID」といった日本語の名称で書いてもOKです。
+	詳細に意味を伝えるため、もっと細かく、様々な記号が用いたER図も存在します。
+	とはいえ、大抵はシンプルなER図で十分です。現場でもあまり細かい部分を記述することはしないことがほとんどです。
+	
+</p>
+
+<h4>外部キーについて</h4>
+<p>
+	注目のポイントは<strong>外部キー</strong>です。
+	前回のレッスンの"正規化"で、２つのテーブルをIDで結び付けていました。
+	これらのIDはしばしば外部キーと呼ばれます。
+	sales(売上テーブル)のitem_idや、itemsテーブルのcategory_idがそうです。<br>
+
+</p>
+	<ul>
+	<li><strong>売上テーブル</strong>の<strong>item_id</strong>は、<strong>商品テーブル</strong>の<code>id</code>を外部キーとして参照します 。</li>
+	<li><strong>商品テーブル</strong>の<strong>category_id</strong>は、<strong>商品カテゴリマスタ</strong>の<code>id</code>を外部キーとして参照します 。</li>
+	</ul>
+	<br>
+	
+<hr>
+	
+
+
+<h2>「1:多」、「多:1」について説明</h2>
+
+<h3> 多:1 の関係（売上テーブルから見た商品テーブル）</h3>
+<ul>
+<li><p><strong>説明</strong>:<br />
+売上テーブルの各レコード（行）は、<strong>1つの特定の商品</strong>に関連付けられます。<br />
+つまり、<strong>売上テーブルから見ると、多くの売上データが1つの商品に紐づく</strong>関係です。</p>
+「N:1」とも書き表されます。
+</li>
+<li>
+	
+	<p><strong>リレーション:</strong></p>
+	<strong>売上テーブル</strong>の<code>item_id</code>は、<strong>商品テーブル</strong>の<code>id</code>を参照します。  
+</li>
+<li>
+	<p><strong>実例</strong>:</p>
+	<p>商品テーブルの商品 <code>リンゴ</code> が販売され、売上テーブルに3件記録されている場合、<code>リンゴ</code> は売上テーブル内で複数回参照されます。</p>
+</li>
+</ul>
+<h3>テーブル構造</h3>
+<ul>
+<li><p><strong>商品テーブル (items)</strong>  </p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>id (商品ID)</th>
+<th>name</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>100</strong></td>
+<td>リンゴ</td>
+<td>100.00</td>
+</tr>
+<tr>
+<td>200</td>
+<td>バナナ</td>
+<td>50.00</td>
+</tr>
+</tbody>
+</table></li>
+
+<li>
+<p><strong>売上テーブル (items)</strong>  </p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>id (売上ID)</th>
+<th>item_id(商品ID)</th>
+<th>sale_date</th>
+<th>quantity</th>
+<th>total_price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>100</strong></td>
+<td>2025-01-01</td>
+<td>3</td>
+<td>300.00</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>100</strong></td>
+<td>2025-01-02</td>
+<td>2</td>
+<td>200.00</td>
+</tr>
+<tr>
+<td>3</td>
+<td>200</td>
+<td>2025-01-01</td>
+<td>5</td>
+<td>250.00</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>100</strong></td>
+<td>2025-01-05</td>
+<td>3</td>
+<td>300.00</td>
+</tr>
+</tbody>
+</table>
+
+</li>
+</ul>
+
+
+<hr />
+<h3>1:多 の関係（商品テーブルから見た売上テーブル）</h3>
+<ul>
+<li><p><strong>説明</strong>:<br />
+商品テーブルの1つの商品に対して、売上テーブルには<strong>複数の売上データ</strong>が存在します。<br />
+つまり、<strong>商品テーブルから見ると、1つの商品が複数の売上に紐づく</strong>関係です。</p>
+「1:N」とも書き表されることもあります。
+</li>
+<li><p><strong>実例</strong>:<br />
+商品 <code>リンゴ</code> は、複数の日に販売されており、その売上が売上テーブルに複数回記録されています。</p></li>
+</ul>
+<h3>リレーション（1:多）</h3>
+<ul>
+<li><strong>商品テーブル</strong>の<code>id</code>は、<strong>売上テーブル</strong>の<code>item_id</code>に関連します。  </li>
+<li>1つの商品 (<code>id=100</code>) が複数の売上 (<code>id=1, 2, 4</code>) に紐づくため、「1:多」の関係になります。</li>
+</ul>
+<hr />
+<h3>4. まとめ</h3>
+<ul>
+<li><p><strong>多:1</strong> → 売上テーブルから商品テーブルを見る場合<br />
+売上データは特定の1つの商品に紐づく。</p></li>
+<li><p><strong>1:多</strong> → 商品テーブルから売上テーブルを見る場合<br />
+商品は複数の売上データに紐づく。</p></li>
+</ul>
+<hr />
+<p>このように「1:多」や「多:1」の関係性を考えることで、データベース設計時に各テーブル間のつながりを明確にし、効率的なクエリやリレーションの設計が可能になります。</p>
+
+
+---
+
+<h2>補足: 特殊な関係について</h2>
+多くのテーブル同士の関係は「1:多」、「多:1」ですが、以下のような特殊な関係になることもたまにあります。
+<ol>
+<li><p><strong>1:1 の関係</strong><br />
+1つのレコードが他のテーブルの1つのレコードとだけ関連する関係。<br />
+例: ユーザーとプロフィール。</p></li>
+<li><p><strong>多:多 の関係</strong><br />
+複数のレコード同士が相互に関連する関係。<br />
+中間テーブルを使用して表現する。<br />
+例: 学生と授業。</p></li>
+<li><p><strong>0:1 の関係</strong><br />
+テーブルAのレコードがテーブルBのレコードに関連する場合もあれば、関連しない場合もある関係。<br />
+例: 顧客と会員情報。</p></li>
+</ol>
+
+
+
+<h2>ER図作成ツールについて</h2>
+<p>
+ER図を作成するためのツールはたくさんあります。中にはExcelを使って作成する人や、紙に手書きで描く人もいます。それぞれに特徴があるので、自分に合った方法を気軽に試してみてください。
+以下は有名なER図作成ツールです。</p>
+
+
+
+<table class="table">
+<thead>
+<tr>
+<th>ツール名</th>
+<th>特徴</th>
+<th>対応</th>
+<th>おすすめポイント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dbdiagram.io</td>
+<td>シンプルで使いやすい。テキストベースでER図を作成可能。</td>
+<td>テーブル構造の定義やエクスポート（SQL/画像）。</td>
+<td>開発者向けのシンプルなツール。</td>
+</tr>
+<tr>
+<td>draw.io (diagrams.net)</td>
+<td>無料で使える汎用的な図作成ツール。ER図専用テンプレート有。</td>
+<td>オフライン版やGoogle Drive/OneDrive連携可。</td>
+<td>汎用性が高く、他の図表も同時に作成可能。</td>
+</tr>
+<tr>
+<td>Lucidchart (無料版)</td>
+<td>ドラッグ＆ドロップで簡単にER図を作成可能。</td>
+<td>無料版は図作成に制限があるが個人利用に十分。</td>
+<td>直感的な操作性で初心者にもおすすめ。</td>
+</tr>
+<tr>
+<td>SQLDBM</td>
+<td>SQLベースでER図を作成可能。データベース設計に特化。</td>
+<td>MySQL、PostgreSQL、SQL Serverをサポート。</td>
+<td>SQL開発者向け。機能が豊富。</td>
+</tr>
+<tr>
+<td>DbDesigner.net</td>
+<td>クラウドベースのER図作成ツール。UIが洗練されている。</td>
+<td>MySQLやPostgreSQLのエクスポート対応。</td>
+<td>チームでのコラボレーションが可能。</td>
+</tr>
+<tr>
+<td>QuickDBD</td>
+<td>テキスト記述で即座にER図を生成可能。</td>
+<td>テキストベースで効率的に作業可能。</td>
+<td>シンプルで軽量。</td>
+</tr>
+<tr>
+<td>Vertabelo (無料版)</td>
+<td>Webブラウザで直接ER図作成可能。</td>
+<td>SQLスクリプトのインポート/エクスポート対応。</td>
+<td>データベース設計に特化したプロ向けツール。</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+私個人としては、さまざまな設計図が作成できる <a href="https://www.draw.io/" target="brank" >draw.io </a>を利用しています。特に、作成したER図をSVG形式でエクスポートできる点が魅力です。
+エクスポートしたSVG形式のER図は、取引先やチームに共有し、ブラウザで簡単に確認してもらえるため、非常に便利です。
+</p>
+
+<h2>ER図作成練習問題</h2>
+<p>以下の４つのテーブルからER図を作成してください。</p>
+<hr />
+<h3>1. 求人テーブル (jobs)</h3>
+<p>求人情報を管理するテーブル。</p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>求人ID（ユニーク識別子）</td>
+</tr>
+<tr>
+<td>title</td>
+<td>VARCHAR(255)</td>
+<td>NOT NULL</td>
+<td>求人タイトル</td>
+</tr>
+<tr>
+<td>description</td>
+<td>TEXT</td>
+<td>NOT NULL</td>
+<td>求人の詳細情報</td>
+</tr>
+<tr>
+<td>salary</td>
+<td>DECIMAL(10,2)</td>
+<td>NOT NULL</td>
+<td>給与</td>
+</tr>
+<tr>
+<td>prefecture_id</td>
+<td>INT</td>
+<td>NOT NULL, FOREIGN KEY</td>
+<td>都道府県ID（都道府県テーブルへの外部キー）</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>DATETIME</td>
+<td>NOT NULL</td>
+<td>求人作成日時</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2. 応募テーブル (applications)</h3>
+<p>求職者が求人に応募した情報を管理するトランザクションテーブル。</p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>応募ID（ユニーク識別子）</td>
+</tr>
+<tr>
+<td>job_id</td>
+<td>INT</td>
+<td>NOT NULL, FOREIGN KEY</td>
+<td>求人ID（求人テーブルへの外部キー）</td>
+</tr>
+<tr>
+<td>job_seeker_id</td>
+<td>INT</td>
+<td>NOT NULL, FOREIGN KEY</td>
+<td>求職者ID（求職者テーブルへの外部キー）</td>
+</tr>
+<tr>
+<td>application_date</td>
+<td>DATE</td>
+<td>NOT NULL</td>
+<td>応募日時</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. 求職者テーブル (job_seekers)</h3>
+<p>求職者の情報を管理するテーブル。</p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>求職者ID（ユニーク識別子）</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(255)</td>
+<td>NOT NULL</td>
+<td>求職者名</td>
+</tr>
+<tr>
+<td>email</td>
+<td>VARCHAR(255)</td>
+<td>NOT NULL, UNIQUE</td>
+<td>求職者のメールアドレス</td>
+</tr>
+<tr>
+<td>phone_number</td>
+<td>VARCHAR(15)</td>
+<td>NOT NULL</td>
+<td>電話番号</td>
+</tr>
+<tr>
+<td>prefecture_id</td>
+<td>INT</td>
+<td>NOT NULL, FOREIGN KEY</td>
+<td>都道府県ID（都道府県テーブルへの外部キー）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>4. 都道府県テーブル (prefectures)</h3>
+<p>都道府県情報を管理するテーブル。</p>
+<table class='tbl2'>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>データ型</th>
+<th>制約</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>INT</td>
+<td>PRIMARY KEY, AUTO_INCREMENT</td>
+<td>都道府県ID（ユニーク識別子）</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(50)</td>
+<td>NOT NULL</td>
+<td>都道府県名</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4>リレーションの要件</h4>
+<ol>
+<li><strong>求人テーブル (jobs)</strong>  </li>
+</ol>
+<ul>
+<li>都道府県テーブル (prefectures) の <code>id</code> を外部キーとして参照します。</li>
+</ul>
+<ol>
+<li><strong>応募テーブル (applications)</strong>  </li>
+</ol>
+<ul>
+<li>求人テーブル (jobs) の <code>id</code> を外部キーとして参照します。</li>
+<li>求職者テーブル (job_seekers) の <code>id</code> を外部キーとして参照します。</li>
+</ul>
+<ol>
+<li><strong>求職者テーブル (job_seekers)</strong>  </li>
+</ol>
+<ul>
+<li>都道府県テーブル (prefectures) の <code>id</code> を外部キーとして参照します。</li>
+</ul>
+<hr />
+
+<h4>ヒント</h4>
+<ul>
+<li>求職者と都道府県が「多:1」の関係。</li>
+<li>求人と都道府県が「多:1」の関係。</li>
+<li>応募と求人、求職者が「多:1」の関係。</li>
+</ul>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-24</div>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 004 "正規化"をマスターしてデータベース設計ができるようになろう | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<style>
+		.container{
+			font-size:1.5em;
+		}
+		h2{
+			margin-top:2em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 004 "正規化"をマスターしてデータベース設計ができるようになろう | ワクガンス</h1></div>
+<div class="container">
+
+<h2>なぜ正規化が必要なのか？</h2>
+
+<p>システム化とは「間違えないようにすること」と「作業を効率化すること」です。そのために、正規化によるデータベース設計が欠かせません。</p>
+
+<p>以下の仕入れ表を見てください。Excelなどで管理されることが多いこのような表は、一見すると問題なく運用できているように見えます。確かにExcelでの運用ならこれで問題ありません。
+しかし、システム化するとなると以下のような問題が潜んでいます。</p>
+
+<h2><strong>仕入れ表</strong></h2>
+
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>仕入れ先</th>
+      <th>住所</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品の種類</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>山田商事</td>
+      <td>東京都新宿区1-1-1</td>
+      <td>冷蔵庫</td>
+      <td>50,000</td>
+      <td>家電</td>
+    </tr>
+    <tr>
+      <td>佐藤水産</td>
+      <td>北海道札幌市中央区2-2-2</td>
+      <td>サーモンフィレ</td>
+      <td>2,000</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>佐藤水産</td>
+      <td>北海道札幌市中央区2-2-2</td>
+      <td>タラバガニ</td>
+      <td>3,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>高橋園芸</td>
+      <td>静岡県静岡市4-4-4</td>
+      <td>観葉植物</td>
+      <td>5,500</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>高橋園芸</td>
+      <td>静岡県静岡市4-4-4</td>
+      <td>園芸スコップ</td>
+      <td>25,000</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>高橋園芸</td>
+      <td>静岡県静岡市4-4-4</td>
+      <td>トラクター</td>
+      <td>480,000</td>
+      <td>農機</td>
+    </tr>
+    <tr>
+      <td>伊藤工業</td>
+      <td>愛知県名古屋市7-7-7</td>
+      <td>工業用ポンプ</td>
+      <td>45,000</td>
+      <td>工業用品</td>
+    </tr>
+    <tr>
+      <td>渡辺フーズ</td>
+      <td>福岡県福岡市8-8-8</td>
+      <td>明太子</td>
+      <td>1,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>上原食品</td>
+      <td>神奈川県横浜市9-9-9</td>
+      <td>ラーメン</td>
+      <td>100</td>
+      <td>食品</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2><strong>この表の問題点</strong></h2>
+
+<h3><strong>1. データの重複</strong></h3>
+<ul>
+  <li><strong>問題：</strong>同じ仕入れ先（例：佐藤水産、高橋園芸）の「住所」情報が何度も繰り返されています。</li>
+  <li><strong>発生する問題：</strong>
+    <ul>
+      <li><strong>無駄なデータ量：</strong>同じ情報が何度も保存され、ストレージが無駄に使用されます。</li>
+      <li><strong>更新の困難さ：</strong>例えば、「佐藤水産」の住所を変更する場合、全ての行を修正しなければなりません。修正漏れがあると、不整合が生じます。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3><strong>2. データの不整合</strong></h3>
+<ul>
+  <li><strong>問題：</strong>誤って「佐藤水産」の1つの行だけ違う住所にしてしまった場合、どの住所が正しいのか判断できなくなります。</li>
+  <li><strong>影響：</strong>信頼性が低下し、正確な情報を管理することが困難になります。</li>
+</ul>
+
+<h3><strong>3. 柔軟性の欠如</strong></h3>
+<ul>
+  <li><strong>問題：</strong>新しい情報（例：仕入れ先の電話番号）を追加したい場合、全ての行に新しい列を追加する必要があります。</li>
+  <li><strong>影響：</strong>作業量が増え、エラーのリスクも高まります。</li>
+</ul>
+
+<hr />
+
+<h2>正規化の必要性</h2>
+
+<p>このような表をシステム化する際には、「正規化」が必要です。正規化を行うことで：</p>
+<ul>
+  <li>データの重複が排除され、ストレージの無駄がなくなります。</li>
+  <li>データの一貫性が保たれ、不整合が発生しにくくなります。</li>
+  <li>情報の追加や変更が簡単になり、柔軟性が向上します。</li>
+</ul>
+
+<p>実際の現場でも、必ず正規化を行います。絶対に必要になるスキルなのでしっかり学びましょう。</p>
+
+
+
+<h2><strong>正規化をやってみる</strong></h2>
+
+<p>
+	実際に正規化をやってみましょう。
+	仕入れ表の"<strong>仕入れ先</strong>"を正規化してみます。<br>
+	正規化後、<strong>仕入れ先の情報</strong>が新たなテーブルとして<strong>仕入れ先マスタ</strong>にまとめられ、
+	元の仕入れ表の"仕入れ先"は仕入れ先マスタの<strong>仕入れ先ID</strong>に置き換わっています。
+	これが正規化です。
+</p>
+
+<h3>仕入れ先マスタ</h3>
+
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>仕入れ先ID</th>
+      <th>仕入れ先</th>
+      <th>住所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>100</td>
+      <td>山田商事</td>
+      <td>東京都新宿区1-1-1</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td>佐藤水産</td>
+      <td>北海道札幌市中央区2-2-2</td>
+    </tr>
+    <tr>
+      <td>300</td>
+      <td>高橋園芸</td>
+      <td>静岡県静岡市4-4-4</td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>伊藤工業</td>
+      <td>愛知県名古屋市7-7-7</td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>渡辺フーズ</td>
+      <td>福岡県福岡市8-8-8</td>
+    </tr>
+    <tr>
+      <td>600</td>
+      <td>上原食品</td>
+      <td>神奈川県横浜市9-9-9</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>仕入れテーブル（仕入れ表）</h3>
+
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>仕入れ先ID</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品の種類</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>100</td>
+      <td>冷蔵庫</td>
+      <td>50,000</td>
+      <td>家電</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>200</td>
+      <td>サーモンフィレ</td>
+      <td>2,000</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>200</td>
+      <td>タラバガニ</td>
+      <td>3,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>300</td>
+      <td>観葉植物</td>
+      <td>5,500</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>300</td>
+      <td>園芸スコップ</td>
+      <td>25,000</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>300</td>
+      <td>トラクター</td>
+      <td>480,000</td>
+      <td>農機</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>400</td>
+      <td>工業用ポンプ</td>
+      <td>45,000</td>
+      <td>工業用品</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>500</td>
+      <td>明太子</td>
+      <td>1,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>600</td>
+      <td>ラーメン</td>
+      <td>100</td>
+      <td>食品</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3><strong>まとめ 正規化とは？</strong></h3>
+<p>
+	もう一度、思い出しましょう。正規化とは、「データを効率的に管理しやすく整理すること」です。
+	同じ情報を何度も保存するのを避け、データの一貫性や更新のしやすさを保つための方法です。
+	実際の現場でもデータベースを設計する際には必ずと言っていいほど正規化が行われます。<br>
+</p>
+<br>
+復習 正規化のメリット
+<ul>
+  <li><strong>データの重複がなくなる:</strong> 仕入れ先の住所などの情報を1回だけ保存するので、無駄なデータがなくなります。</li>
+  <li><strong>更新が簡単:</strong> 仕入れ先の住所を変更する場合、仕入れ先マスタの該当する1行を修正するだけで済みます。</li>
+  <li><strong>一貫性が保たれる:</strong> データの整合性が向上し、不整合が発生しにくくなります。</li>
+</ul>
+
+
+<hr />
+
+
+<h2>練習問題：商品の種類を正規化しよう</h2>
+
+<p>以下の「仕入れテーブル」をさらに正規化する練習をしましょう。現在、このテーブルには「<strong>商品の種類</strong>」がそのまま文字列で保存されています。このような設計には、以下のような問題があります：</p>
+
+<ul>
+  <li><strong>データの重複：</strong>「食品」や「園芸用品」といった種類が複数行で繰り返されています。</li>
+  <li><strong>更新の手間：</strong>「園芸用品」から「園芸商品」という名称に変更したい場合、すべての行を修正する必要があります。</li>
+  <li><strong>一貫性の欠如：</strong>誤って「えんげい用品」のように入力すると、不整合が生じます。</li>
+</ul>
+
+<p>正規化を行い、「商品の種類」を別のテーブルに分けて整理しましょう。</p>
+
+<p>
+	<strong>問題.1</strong>
+</p>
+<p>以下の「仕入れテーブル」の「商品の種類」を正規化し、正規化後の「仕入れテーブル」と「商品種類マスタ」を作成してください。</p>
+<hr />
+
+
+<h3>仕入れテーブル</h3>
+
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>仕入れ先ID</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品の種類</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>100</td>
+      <td>冷蔵庫</td>
+      <td>50,000</td>
+      <td>家電</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>200</td>
+      <td>サーモンフィレ</td>
+      <td>2,000</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>200</td>
+      <td>タラバガニ</td>
+      <td>3,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>300</td>
+      <td>観葉植物</td>
+      <td>5,500</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>300</td>
+      <td>園芸スコップ</td>
+      <td>25,000</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>300</td>
+      <td>トラクター</td>
+      <td>480,000</td>
+      <td>農機</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>400</td>
+      <td>工業用ポンプ</td>
+      <td>45,000</td>
+      <td>工業用品</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>500</td>
+      <td>明太子</td>
+      <td>1,800</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>600</td>
+      <td>ラーメン</td>
+      <td>100</td>
+      <td>食品</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<button type="button" class="btn btn-danger" onclick="jQuery('#kotae1').toggle(300)">答えを見る</button>
+
+<div id="kotae1" style="display:none">
+<h2>正規化後のテーブル（完成例）</h2>
+
+<h3>商品種類マスタ（商品種類テーブル）</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>商品種類ID</th>
+      <th>商品の種類</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>家電</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>食品</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>園芸用品</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>農機</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>工業用品</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>仕入れテーブル（正規化後）</h3>
+
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>仕入れ先ID</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>商品種類ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>100</td>
+      <td>冷蔵庫</td>
+      <td>50,000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>200</td>
+      <td>サーモンフィレ</td>
+      <td>2,000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>200</td>
+      <td>タラバガニ</td>
+      <td>3,800</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>300</td>
+      <td>観葉植物</td>
+      <td>5,500</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>300</td>
+      <td>園芸スコップ</td>
+      <td>25,000</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>300</td>
+      <td>トラクター</td>
+      <td>480,000</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>400</td>
+      <td>工業用ポンプ</td>
+      <td>45,000</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>500</td>
+      <td>明太子</td>
+      <td>1,800</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>600</td>
+      <td>ラーメン</td>
+      <td>100</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+
+<h2><strong>おわりに</strong></h2>
+正規化ができましたか？
+おめでとうございます ! 正規化ができるようになったということはデータベース設計ができるようになったことを意味します。
+<br>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-24</div>
+</body>
+</html>
