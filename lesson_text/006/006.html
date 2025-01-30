@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 006 xamppでMySQLを動かしてみる | データベースの作成からSQLを実行まで | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:3em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 006 xamppでMySQLを動かしてみる | データベースの作成からSQLを実行まで  | ワクガンス</h1></div>
+<div class="container">
+
+
+<h2>XAMPPについて</h2>
+<p>XAMPPは、Windowsで簡単にWeb開発環境を構築できる初心者向けのパッケージです。
+Apache（Webサーバー）、<strong>MySQL（データベース）</strong>、PHPなどが含まれ、手軽にインストールするだけで開発環境を構築できるのが特徴です。
+XAMPPをインストールすると、MySQLも利用可能になります。MySQLはXAMPP内に同梱するphpMyAdminというツールでデータベースを操作できます。</p>
+<p>近年、XAMPPの代わりにDockerを使う開発者も増えています。Dockerは動作環境を統一するという意味で使われ、実際の現場でもDockerを採用するケースも増えてきました。
+ただ、Dockerの構築は難易度高めですので、今回はXAMPPを使用して解説します。</p>
+
+<h2>XAMPPの入手先</h2>
+<p>以下のサイトからXAMPPパッケージ（Apache ディストリビューション）をダウンロードできます。
+OS別にパッケージが用意されています。自分のパソコンのOSに対応したパッケージをダウンロードしましょう。</p>
+<p><a href="https://www.apachefriends.org/jp/download.html" target="_blank">https://www.apachefriends.org/jp/download.html</a></p>
+<h2>XAMPPパッケージの選び方</h2>
+<p>XAMPPは、使用する<strong>PHPのバージョンに合わせて選ぶ</strong>のがポイントです。</p>
+<ul>
+<li><strong>既存システムの保守</strong> を行う場合は、そのシステムで使用されているPHPのバージョンを確認した上で、そのPHPバージョンに対応したXAMPPパッケージを選びます。互換性を保つことで、動作不良を防げます。</li>
+<li><strong>学習用や新規プロジェクト</strong> では、最新の機能やセキュリティ対策が施された<strong>最新版のXAMPP</strong>をインストールするのがおすすめです。</li>
+</ul>
+<p>用途に応じて適切なバージョンを選ぶことで、よりスムーズな開発が可能になります。</p>
+<h2>XAMPPのインストール</h2>
+<ol>
+<li>ダウンロードしたインストーラー（例：<code>xampp-windows-x64-8.2.12-0-VS16-installer.exe</code>）を<strong>ダブルクリックして実行</strong>。  </li>
+<li>インストールの流れは画面の指示に従って進めるだけでOK（「Next」をクリックしてインストールを進める）。  </li>
+<li><strong>インストール先はデフォルトの <code>C:\xampp</code> のままで問題なし</strong>。  </li>
+<li><strong>コンポーネントの選択画面</strong> で、以下の必要なものだけを選択：  </li>
+</ol>
+<ul>
+<li>Apache  </li>
+<li>MySQL  </li>
+<li>PHP  </li>
+<li>phpMyAdmin  </li>
+<li><strong>その他はチェックを外してもOK</strong>。  </li>
+</ul>
+<h2>XAMPPのコントロールパネルを開き、ApacheとMySQLを起動しよう</h2>
+<p>XAMPPのコントロールパネルは、<strong>Windowsのスタートメニュー</strong>にあるので、そこから開くことができます。  
+	<p>
+		<img src="006a1.png" class="img_compact_k"  alt="" />
+		<img src="006a2.png"  class="img_compact_k" alt="" />
+	</p>
+</p>
+<p>また、以下の実行ファイルからもコントロールパネルを起動できます。（C:\xamppにインストールした場合）
+<pre>C:\xampp\xampp-control.exe</pre></p>
+
+<h3>1. XAMPPコントロールパネルが開けたらApacheとMySQLを起動しましょう。</h3>
+<ol>
+<li><strong>Apacheの「Start」ボタン</strong>をクリック。  </li>
+<li><strong>MySQLの「Start」ボタン</strong>をクリック。  </li>
+<li>
+	数秒待ち、ラベルが<strong>緑色</strong>になれば正常に起動。  
+	<p><img src="006a3.png" class="img_compact_k" alt="" /></p>
+</li>
+<li>パソコンを再起動した時、XAMPPのApacheとMySQLは自動で起動しません。再びXAMPPコントロールパネルを開き、「Start」ボタンを押して手動で起動しましょう。</li>
+</ol>
+<h3>2. 起動に失敗した場合の対処</h3>
+<ul>
+<li>起動に失敗すると、<strong>下側のテキストエリアに赤文字のエラーメッセージ</strong>が表示される。  </li>
+<li>エラーメッセージをコピーして<strong>Googleで検索</strong>したり、AIに質問したりする。  </li>
+<li>身近に詳しい人がいる場合、<strong>エラーメッセージを見せて相談</strong>してみよう。  </li>
+</ul>
+<h3>3. よくある原因</h3>
+<ul>
+<li><strong>別のXAMPPがすでに起動している</strong>。  </li>
+<li><strong>Dockerが動作中</strong>で、ポートが競合している。  </li>
+<li>(詳細な解決方法は割愛しますが、ポート番号の変更が必要になることがあります)  </li>
+</ul>
+
+<h2>phpMyAdminを起動しよう。</h2>
+<p>コントロールパネルのMySQL側の「<strong>Admin</strong>」ボタンを押すだけで、phpMyAdminを起動できます。</p>
+<p><img src="006a4.png" class="img_compact_k" alt="" /></p>
+<p>また、ブラウザで「<strong> http://localhost/phpmyadmin/</strong> 」にアクセスして起動することもできます。</p>
+<p>phpMyAdminは、XAMPPに含まれるデータベース管理ツールです。MySQLのデータベースをGUIで操作できます。テーブルの作成やデータの追加・削除、SQLの実行も簡単に行えます。初心者でも直感的に使える便利なツールです。</p>
+
+
+
+<h2>phpMyAdminでデータベースを作成してみよう</h2>
+<p>今回は、phpMyAdminを使って 
+  <code>hello_db</code>という名前のデータベースを作成してみます。
+</p>
+<ol class="list_lg">
+	<li><p><img src="006a5.png" class="img_compact_k" alt="" /></p></li>
+  <li>
+    「<strong>データベース</strong>」タブを選択します。
+  </li>
+  <li>作成する
+    <strong>データベース名を入力</strong>します。
+		<ul>
+		  <li>慣例として、データベース名は 
+		    <strong>アルファベットの小文字のみ</strong>を使用し、
+		    記号は "<strong>_</strong>" （アンダースコア）のみを使うのが一般的です。
+		  </li>
+		  <li>例: 
+		    <code>yamada_job_search</code>,
+		    <code>tanaka_sale_sys</code>など。
+		  </li>
+		</ul>
+  </li>
+  <li>
+    文字コードは<strong>「utf8mb4_general_ci」</strong>を選択します。 
+
+	<ul>
+	  <li>
+	    <strong>間違えると日本語が文字化けする</strong>ため、注意が必要です。
+	  </li>
+	  <li>
+	    <code>utf8mb4_general_ci</code>は、日本語や絵文字を扱える現在推奨される文字コードです。
+	  </li>
+	</ul>
+  </li>
+  <li>
+    <strong>「作成」ボタン</strong>をクリックすると、データベースが作成されます。
+  </li>
+</ol>
+
+
+<h2>テーブルを作成しよう</h2>
+
+<p>
+テーブルを設計する際、共通してよく使われるフィールドがあります。
+例えば、ID、フラグ系、更新日時、生成日時などです。これらのフィールドは、特別な設定が必要になる場合があります。
+以下の作成例を通して、テーブルの作成方法とともに、これらの頻出するフィールドの設定方法を学びましょう。
+
+	</p>
+<hr>
+<p>まずはテーブルの情報を<strong>表</strong>として作成します。いきなりphpMyAdminでフィールド情報を考えながら作るのでなく、最初は表として作成しておくことをおきます。その理由は次回、解説します。</p>
+<strong>jobs(求職テーブル)</strong>
+<table class="tbl2">
+<thead>
+  <tr>
+    <th>フィールド</th>
+    <th>型</th>
+    <th>Null</th>
+    <th>主キー</th>
+    <th>デフォルト値</th>
+    <th>コメント</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>id</td>
+    <td>int(11)</td>
+    <td>NO</td>
+    <td>PRI</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Auto Increment</td>
+  </tr>
+  <tr>
+    <td>job_name</td>
+    <td>varchar(50)</td>
+    <td>YES</td>
+    <td></td>
+    <td>NULL</td>
+    <td>職名</td>
+  </tr>
+  <tr>
+    <td>job_date</td>
+    <td>date</td>
+    <td>YES</td>
+    <td></td>
+    <td>NULL</td>
+    <td>求人掲載日</td>
+  </tr>
+  <tr>
+    <td>delete_flg</td>
+    <td>tinyint(4)</td>
+    <td>NO</td>
+    <td></td>
+    <td>0</td>
+    <td>削除フラグ</td>
+  </tr>
+  <tr>
+    <td>updated</td>
+    <td>datetime</td>
+    <td>NO</td>
+    <td></td>
+    <td>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>更新日時</td>
+  </tr>
+  <tr>
+    <td>created</td>
+    <td>datetime</td>
+    <td>NO</td>
+    <td></td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>生成日時</td>
+  </tr>
+  </tbody>
+</table>
+
+
+<h3>phpMyAdminでテーブルを作成します。</h3>
+
+<p>phpMyAdminで先ほど作成した<strong>hello_db</strong>のページへアクセスします。</p>
+
+<p><img src="006a7.png" class="img_compact_k" alt="" /></p>
+
+
+<h3>フィールドの作成</h3>
+
+<p>
+先ほど作成したテーブル情報の表をもとに、手入力でフィールド情報を作成してみましょう。現在では、より効率的な方法もありますが、それについては次回説明します。まずは、実際に手を動かしながら、テーブル作成に必要な情報を理解していきましょう。
+</p>
+
+<p>
+	<object id="svg1"></object>
+</p>
+
+
+    <div class="section">
+        <h4>1. オートインクリメントの <code>id</code> について</h4>
+        <p><code>id</code> は、テーブル内の各レコード（行）を一意に識別するためのフィールドです。通常は整数型（<code>int</code>）として定義し、<code>AUTO_INCREMENT</code> を指定することで、新しいレコードが追加されるたびに番号が自動的に振られます。</p>
+        <pre><code>id INT AUTO_INCREMENT PRIMARY KEY</code></pre>
+    </div>
+
+    <div class="section">
+        <h4>2. <code>varchar</code> 型について</h4>
+        <p><code>varchar</code> は、文字列を格納するデータ型です。最大長を指定し、効率的にストレージを利用できます。</p>
+        <pre><code>job_name VARCHAR(50)</code></pre>
+    </div>
+
+    <div class="section">
+        <h4>3. <code>date</code> 型について</h4>
+        <p><code>date</code> 型は、日付情報（YYYY-MM-DD）を格納するために使用します。</p>
+        <pre><code>job_date DATE</code></pre>
+    </div>
+
+    <div class="section">
+        <h4>4. フラグ系について（0か1だけにするコツ）</h4>
+        <p>フラグ系のカラムは <code>0</code> か <code>1</code> で管理することが一般的です。NULL の使用は避けるべきです。</p>
+        <pre><code>delete_flg TINYINT(1) NOT NULL DEFAULT 0</code></pre>
+    </div>
+
+    <div class="section">
+        <h4>5. 更新日時と生成日時の指定方法</h4>
+        <p><code>created</code> は作成時のタイムスタンプ、<code>updated</code> は更新されるたびに最新の日時を記録します。</p>
+        <pre><code>
+created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        </code></pre>
+    </div>
+
+<h3>jobsテーブルの作成に成功しましたか？</h3>
+<p>最後に「保存する」ボタンを押すとテーブルが生成されます。以下の感じのテーブルが作成できればOKです。</p>
+<p><img src="006a8.png" class="img_compact_k" alt="" /></p>
+
+
+
+<h3>おわりに</h3>
+<p>
+XAMPP をインストールし、Apache や MySQL を起動することで、ローカル開発環境を整える方法を学びました。これは、Webアプリ開発の基本となる、とても大切なスキルです。</p>
+
+<p>今回は、XAMPP のインストールからデータベース・テーブルの作成までを実践しました。スムーズに進められましたか？ それとも思わぬところでつまずいてしまいましたか？ 
+実は、<strong>開発環境の構築はベテランプログラマーでも苦労することが多く</strong>、何時間も試行錯誤するのが普通です。
+</p><p>
+それでも、今回あなたは XAMPP をインストールし、起動し、データベースを作成し、テーブルまで作れました。これは、本当にすごいことです！ 初めての環境構築に成功したことで、プログラミングの第一歩を踏み出しました。次回は、作成したデータベースを活用して、さらに実践的な操作を学んでいきます。一緒に、楽しみながらステップアップしていきましょう！
+</p>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-1-29</div>
+</body>
+</html>
