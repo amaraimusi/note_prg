@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 007 SQLとは | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:3em;
+		}
+		h3{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 007 SQLとは | データベースの作成からSQLを実行まで  | ワクガンス</h1></div>
+<div class="container">
+
+<h2>1. データベースとSQLとは？</h2>
+<p>
+
+SQLは、データベースを操作するための言語です。
+データベースにはMySQLをはじめ、Oracle、SQLiteなどさまざまな種類があります。SQLの構文はデータベースごとに若干の違いがありますが、基本的な書き方はほぼ共通しています。
+</p>
+<p>
+SQLは、開発やデータベースのメンテナンス時にエンジニアが直接実行することもあれば、PHPなどのプログラミング言語に組み込まれ、プログラムがSQLを実行する形で使われることもあります。
+</p>
+<hr>
+<p>
+実際のシステム開発では、以下の5つのSQL文が特によく使われます。
+</p>
+<ul>
+  <li>
+    <strong>CREATE</strong>: 新しいテーブルを作成する
+  </li>
+  <li>
+    <strong>SELECT</strong>: データを取得する
+  </li>
+  <li>
+    <strong>INSERT</strong>: データを追加する
+  </li>
+  <li>
+    <strong>UPDATE</strong>: データを更新する
+  </li>
+  <li>
+    <strong>DELETE</strong>: データを削除する
+  </li>
+</ul>
+<p>これらは、データベースを管理する上で最も重要な操作です。他にも多くのSQL文がありますが、使用頻度は比較的低いため、必要になったタイミングで学習していけば問題ありません。まずは基本の5つをしっかり理解し、実践できるようになりましょう。</p>
+<hr />
+<h2>2. CREATE文（テーブルの作成）</h2>
+<p>テーブルはデータを保存するための構造です。以下のSQLでテーブルを作成できます。</p>
+<h4>CREATEどのように使われるか？</h4>
+<p>システム開発では、エンジニアが新しいデータ構造を定義する際にCREATE文を使ってテーブルを作成します。これにより、ユーザー情報や商品データなどの保存場所が確保されます。</p>
+<p>また、WordPressプラグインやスマートフォンアプリの開発でもCREATE文が頻繁に使用されます。インストール時や初回起動時に自動的にデータ保存先として、必要なテーブルを生成します。具体的には、プラグインやアプリが最初にアクセスされた際に、設定データやユーザーの利用状況を保存するためのテーブルが自動的に作成されることが一般的です。</p>
+<h4>例</h4>
+<pre><code class="sql language-sql">CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    age INT
+);
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>id</code>は主キー（PRIMARY KEY）で、自動的に番号が増える（AUTO_INCREMENT）
+  </li>
+  <li>
+    <code>name</code>は文字列（VARCHAR）で最大50文字
+  </li>
+  <li>
+    <code>email</code>は文字列で最大100文字
+  </li>
+  <li>
+    <code>age</code>は整数（INT）
+  </li>
+</ul>
+<hr />
+<h2>3. SELECT文（データの取得）</h2>
+<p>登録されたデータを取得するために
+  <code>SELECT</code>文を使用します。
+</p>
+<h4>SELECTどのように使われるか？</h4>
+<p>SELECT文は非常によく使われるSQL文です。 PHPでSELECT文を実行して指定した条件のデータを取得するとう使い方をします。</p>
+<ul>
+  <li>
+    <strong>ユーザーログイン・認証</strong>
+  </li>
+  <li>例: 
+    <code>SELECT * FROM users WHERE email = 'test@example.com'</code>でログイン情報を確認。
+  </li>
+  <li>
+    <strong>一覧表示機能</strong>
+  </li>
+  <li>例: 商品リスト、注文履歴、会員一覧の取得。</li>
+  <li>
+    <strong>検索機能</strong>
+  </li>
+  <li>例: ユーザーが入力したキーワードに一致する記事を検索。</li>
+</ul>
+<h4>例</h4>
+<pre><code class="sql language-sql">SELECT * FROM users;
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>*</code>は全ての列を選択する
+  </li>
+  <li>
+    <code>FROM users</code>は
+    <code>users</code>テーブルからデータを取得する
+  </li>
+</ul>
+<p>特定のデータを取得するには、
+  <code>WHERE</code>を使います。
+</p>
+<pre><code class="sql language-sql">SELECT name, email FROM users WHERE age &gt; 20;
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>name, email</code>は取得する列を指定
+  </li>
+  <li>
+    <code>WHERE age &gt; 20</code>で年齢が20歳より大きいユーザーを取得
+  </li>
+</ul>
+<hr />
+<h2>4. INSERT文（データの追加）</h2>
+<p>新しいデータを追加するには
+  <code>INSERT</code>文を使用します。
+</p>
+<h4>INSERT文はどのようなときに使われるか？</h4>
+<p>INSERT文はSELECT文の次のよく使うSQLです。 販売システムなら顧客の新規登録、注文の登録、購入、メッセージ投稿など多くの用途で使用されます。</p>
+<h4>例</h4>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age) VALUES ('Taro', 'taro@example.com', 25);
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>INSERT INTO users</code>で
+    <code>users</code>テーブルにデータを追加
+  </li>
+  <li>
+    <code>(name, email, age)</code>は追加するカラム
+  </li>
+  <li>
+    <code>VALUES ('Taro', 'taro@example.com', 25)</code>で具体的な値を指定
+  </li>
+</ul>
+<hr />
+<h2>5. UPDATE文（データの更新）</h2>
+<p>既存のデータを更新するには
+  <code>UPDATE</code>文を使用します。
+</p>
+<h4>UPDATE文はどのようなときに使われるか？</h4>
+<p>INSERT文ほど多くは使われません。 プロフィールの変更、誤入力の修正更新などで使われます。</p>
+<p>また、エンジニアがデータをメンテナンスしたり修正するときUPDATE文を用いることも多々あります。</p>
+<pre><code class="sql language-sql">UPDATE users SET age = 30 WHERE name = 'Taro';
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>UPDATE users</code>で
+    <code>users</code>テーブルのデータを変更
+  </li>
+  <li>
+    <code>SET age = 30</code>で
+    <code>age</code>を 30 に変更
+  </li>
+  <li>
+    <code>WHERE name = 'Taro'</code>で特定のレコードのみ更新
+  </li>
+</ul>
+<hr />
+<h2>6. DELETE文（データの削除）</h2>
+<p>データを削除するには
+  <code>DELETE</code>文を使用します。
+</p>
+<h4>DELETE文はどのようなときに使われるか？</h4>
+<p>DELETE文は、システム内で慎重に扱われる機能です。 その理由の一つは、誤ってDELETE文を実行するとデータが完全に削除され、復旧が困難になる可能性があるためです。そのため、多くのシステムでは、データを直接削除するのではなく、削除フラグ（論理削除） をONにして「削除済み」とみなす方法が一般的に採用されています。</p>
+<p>また、エンジニアがシステムのメンテナンスやデータ整理のためにDELETE文を実行することがありますが、その際に誤って重要なデータをすべて削除してしまう事故が発生することもあります。そのようなリスクを避けるため、削除前にバックアップを取る、トランザクションを利用する、削除対象を慎重に確認するなどの対策が重要です。</p>
+<pre><code class="sql language-sql">DELETE FROM users WHERE name = 'Taro';
+</code></pre>
+<p>
+  <strong>解説</strong>
+</p>
+<ul>
+  <li>
+    <code>DELETE FROM users</code>で
+    <code>users</code>テーブルからデータを削除
+  </li>
+  <li>
+    <code>WHERE name = 'Taro'</code>で特定のレコードのみ削除
+  </li>
+</ul>
+<p>
+  <strong>注意</strong>:
+  <code>WHERE</code>を指定しないと、すべてのデータが削除されます！
+</p>
+<pre><code class="sql language-sql">DELETE FROM users;
+</code></pre>
+<p>これは
+  <code>users</code>テーブル内の全データを削除するので、使用する際は慎重に！
+</p>
+<hr />
+<h2>7. まとめ</h2>
+<p>今回のレッスンでは、基本的なSQLについて学びました。 </p>
+<p>「そろそろPHPの学習に進みたい」と思うかもしれませんが、実践レベルでデータベースを扱うには、もう少し基礎知識を深めることが重要です。データベースの仕組みをしっかり理解することで、より効率的で安全なシステム開発が可能になります。 </p>
+<p>今後、以下の重要な概念についても学んでいきます。 </p>
+<ul>
+  <li>
+    <strong>SELECTの様々な使い方</strong>（実際な使われ方をするか？）
+  </li>
+  <li>
+    <strong>JOIN</strong>（複数のテーブルを結合してデータを取得する）
+  </li>
+  <li>
+    <strong>INDEX</strong>（検索速度を向上させる仕組み）
+  </li>
+  <li>
+    <strong>トランザクション</strong>（複数の処理をまとめて実行し、データの整合性を保つ）
+  </li>
+</ul>
+<p>これらを習得することで、より実践的なスキルを身につけ、データベースを活用したシステム開発がスムーズに行えるようになります。引き続き、しっかりと学んでいきましょう！</p>
+
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-1</div>
+</body>
+</html>
