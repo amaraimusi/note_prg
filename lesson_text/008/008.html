@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 008 時短テクニック：AIを使ってテーブルを作成する | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 008 時短テクニック：AIを使ってテーブルを作成する  | ワクガンス</h1></div>
+<div class="container">
+
+
+<h1>AIを使ってテーブルをCREATE文を作成しよう</h1>
+<h3>1. はじめに</h3>
+<p>以前は手作業でデータベースにテーブル情報を入力して作成していましたが、現在はAIを活用することで、簡単に正確なSQLの 
+  <code>CREATE TABLE</code>文を作成できます。
+</p>
+<p>本レッスンでは、AIを利用して 
+  <code>items</code>（商品テーブル）の
+  <code>CREATE TABLE</code>文を生成し、XAMPP の phpMyAdmin で実行する流れを学びます。
+</p>
+<h3>2. 商品テーブルのテーブル情報表</h3>
+<p>以下のような 
+  <code>items</code>テーブルを作成します。
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>フィールド</th>
+      <th>型</th>
+      <th>Null</th>
+      <th>主キー</th>
+      <th>デフォルト値</th>
+      <th>コメント</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>int(11)</td>
+      <td>NO</td>
+      <td>PRI</td>
+      <td>AUTO_INCREMENT</td>
+      <td>Auto Increment</td>
+    </tr>
+    <tr>
+      <td>item_name</td>
+      <td>varchar(255)</td>
+      <td>NO</td>
+      <td></td>
+      <td>NULL</td>
+      <td>商品名</td>
+    </tr>
+    <tr>
+      <td>price</td>
+      <td>int(11)</td>
+      <td>YES</td>
+      <td></td>
+      <td>NULL</td>
+      <td>価格（円）</td>
+    </tr>
+    <tr>
+      <td>release_date</td>
+      <td>date</td>
+      <td>YES</td>
+      <td></td>
+      <td>NULL</td>
+      <td>発売日</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>text</td>
+      <td>YES</td>
+      <td></td>
+      <td>NULL</td>
+      <td>商品説明</td>
+    </tr>
+    <tr>
+      <td>delete_flg</td>
+      <td>tinyint(4)</td>
+      <td>NO</td>
+      <td></td>
+      <td>0</td>
+      <td>削除フラグ（0: 有効, 1: 削除）</td>
+    </tr>
+    <tr>
+      <td>updated</td>
+      <td>datetime</td>
+      <td>NO</td>
+      <td></td>
+      <td>CURRENT
+        <em>TIMESTAMP ON UPDATE CURRENT</em>TIMESTAMP
+      </td>
+      <td>更新日時</td>
+    </tr>
+    <tr>
+      <td>created</td>
+      <td>datetime</td>
+      <td>NO</td>
+      <td></td>
+      <td>CURRENT_TIMESTAMP</td>
+      <td>生成日時</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3. AIで 
+  <code>CREATE TABLE</code>文を作成する
+</h3>
+<p>AI でテーブルを作成するSQLを作成してみましょう。</p>
+
+<p>Chat GPTやGeminiを起動し、以下の命令をしてみてください。CREATE文が生成されるはずです。</p>
+
+<p><strong>AIへの命令</strong></p>
+<pre class="console">
+
+以下のテーブル情報からCREATE文を作成してください。
+
+items(商品テーブル）
+フィールド        | 型            | Null | 主キー | デフォルト値                                                        | コメント               
+------------ | ------------ | ---- | --- | ------------------------------------------------------------- | -------------------
+id           | int(11)      | NO   | PRI | AUTO_INCREMENT                                                | Auto Increment     
+item_name    | varchar(255) | NO   |     | NULL                                                          | 商品名                
+price        | int(11)      | YES  |     | NULL                                                          | 価格（円）              
+release_date | date         | YES  |     | NULL                                                          | 発売日                
+description  | text         | YES  |     | NULL                                                          | 商品説明               
+delete_flg   | tinyint(4)   | NO   |     | 0                                                             | 削除フラグ（0: 有効, 1: 削除）
+updated      | datetime     | NO   |     | CURRENT
+        _TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+       | 更新日時               
+created      | datetime     | NO   |     | CURRENT_TIMESTAMP                                             | 生成日時               
+
+</pre>
+<aside>※ 上記の例ではitems(商品テーブル）の表をmdテキストに変換していますが、Excelやスプレットシートで作成したテーブル表をコピペしても大丈夫です。</aside>
+
+<p><strong>生成されたSQL（ CREATE TABLE）</strong></p>
+<pre class="console">CREATE TABLE items (
+    id INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Auto Increment',
+    item_name VARCHAR(255) NOT NULL COMMENT '商品名',
+    price INT(11) DEFAULT NULL COMMENT '価格（円）',
+    release_date DATE DEFAULT NULL COMMENT '発売日',
+    description TEXT DEFAULT NULL COMMENT '商品説明',
+    delete_flg TINYINT(4) NOT NULL DEFAULT 0 COMMENT '削除フラグ（0: 有効, 1: 削除）',
+    updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+    created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '生成日時',
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+</pre>
+<h3>4. XAMPP の phpMyAdmin で SQL を実行する</h3>
+<h4>4.1. XAMPP の起動</h4>
+<ol>
+  <li>XAMPP を起動し、
+    <code>Apache</code>と
+    <code>MySQL</code>を開始します。
+  </li>
+  <li>ブラウザで 
+    <code>http://localhost/phpmyadmin/</code>にアクセスします。
+  </li>
+  <li>前回のレッスンで作成したhello_dbをクリック。</li>
+</ol>
+
+<h4>4.2. SQLの実行</h4>
+<ol>
+  <li>「SQL」タブを開き、生成した 
+    <code>CREATE TABLE</code>文をコピー＆ペースト。
+  </li>
+  <li>「実行」ボタンをクリック。</li>
+  <li>
+    <code>items</code>テーブルが作成されたことを確認。
+  </li>
+</ol>
+
+
+<h3>5. 次にAIで サンプルデータを生成するSQLを作ってもらいましょう</h3>
+
+<p>先ほどの命令の続きで、以下を追加命令してみてください。</p>
+<p><strong>AIへの命令</strong></p>
+<pre class="console">
+	サンプルデータを10件登録するINSERT文を作成してください。
+</pre>
+
+<p><strong>生成されたSQL</strong></p>
+<pre class="console">INSERT INTO items (item_name, price, release_date, description, delete_flg, updated, created) VALUES
+('スマートフォンX', 98000, '2024-01-15', '最新のスマートフォンX。高性能カメラ搭載。', 0, NOW(), NOW()),
+('ノートパソコンY', 150000, '2023-11-25', '軽量で持ち運びに便利なノートパソコンY。', 0, NOW(), NOW()),
+('ワイヤレスイヤホンZ', 12000, '2024-02-05', '高音質のワイヤレスイヤホンZ。', 0, NOW(), NOW()),
+('ゲーミングマウス', 8000, '2023-09-10', 'RGBライト付きのゲーミングマウス。', 0, NOW(), NOW()),
+('スマートウォッチA', 22000, '2024-03-01', '健康管理機能付きのスマートウォッチA。', 0, NOW(), NOW()),
+('タブレットB', 45000, '2023-12-18', '大画面で動画視聴に最適なタブレットB。', 0, NOW(), NOW()),
+('ポータブルスピーカーC', 9000, '2024-01-30', '防水仕様のポータブルスピーカーC。', 0, NOW(), NOW()),
+('デジタルカメラD', 78000, '2023-10-05', '高画質撮影が可能なデジタルカメラD。', 0, NOW(), NOW()),
+('ワイヤレスキーボードE', 6000, '2023-11-08', '静音設計のワイヤレスキーボードE。', 0, NOW(), NOW()),
+('モニターF', 55000, '2024-02-20', '4K解像度対応の高品質モニターF。', 0, NOW(), NOW());
+</pre>
+<h4>5.1. SQLの実行</h4>
+<ol>
+  <li>
+    <code>hello_db</code>データベースを選択。
+  </li>
+  <li>「SQL」タブを開き、上記の 
+    <code>INSERT INTO</code>文をコピー＆ペースト。
+  </li>
+  <li>「実行」ボタンをクリック。</li>
+  <li>
+    <code>items</code>テーブルにデータが登録されたことを確認。
+  </li>
+  <li>
+  </li>
+</ol>
+<h3>6. まとめ</h3>
+<p>AIの登場により、CREATE文の詳細を暗記する必要はなくなりましたが、処理の全体像を理解しておくことは依然として重要です。AIを活用する際は、エンジニアが上司、AIが部下のような関係であると考えると分かりやすいです。上司が適切な指示を出し、それに従って部下が作業を進めるように、AIには明確で具体的な指示を与えることが重要です。
+
+適切にAIを活用できれば、複数のテーブルを一度に作成したり、より効率的にテーブル情報を設計することが可能になります。AIの力を最大限に引き出し、効率よくデータベースを設計しましょう！
+</p>
+
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
