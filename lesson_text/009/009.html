@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 009 SELECT文の基本  | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 009 SELECT文の基本  | ワクガンス</h1></div>
+<div class="container">
+
+
+<h2>1. SELECT文とは</h2>
+<p>
+  <code>SELECT</code>文はデータベースからデータを取得するためのSQL文です。基本的な構文は以下の通りです。
+</p>
+<pre><code class="sql language-sql">SELECT 列名 FROM テーブル名;
+</code></pre>
+<p>すべての列を取得する場合は 
+  <code>*</code>を使用できます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users;
+</code></pre>
+<h2>2. WHERE句の基本</h2>
+<p>
+  <code>WHERE</code>句を使用すると、特定の条件に合致するデータのみを取得できます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE age = 30;
+</code></pre>
+<h3>2.1 LIKEを使った部分一致検索</h3>
+<p>
+  <code>LIKE</code>を使うと、部分一致検索ができます。例えば、ユーザーの名前に特定の文字列が含まれているデータを検索する場合に使用されます。
+</p>
+<h4>基本構文</h4>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE name LIKE '田中%';
+</code></pre>
+<h4>ワイルドカードの説明</h4>
+<ul>
+  <li>
+    <code>%</code>は0文字以上の任意の文字列にマッチします。
+  </li>
+  <li>
+    <code>_</code>は1文字の任意の文字にマッチします。
+  </li>
+</ul>
+<h4>使用例</h4>
+<ol>
+  <li>
+    <strong>特定の文字列で始まる名前を検索</strong>
+  </li>
+</ol>
+<pre><code class="sql language-sql">   SELECT * FROM users WHERE name LIKE '田中%';
+</code></pre>
+<ul>
+  <li>"田中" で始まるすべての名前を検索します。</li>
+  <li>例: "田中一郎", "田中太郎" など。</li>
+</ul>
+<ol>
+  <li>
+    <strong>特定の文字列で終わる名前を検索</strong>
+  </li>
+</ol>
+<pre><code class="sql language-sql">   SELECT * FROM users WHERE name LIKE '%一郎';
+</code></pre>
+<ul>
+  <li>"一郎" で終わるすべての名前を検索します。</li>
+  <li>例: "田中一郎", "佐藤一郎" など。</li>
+</ul>
+<ol>
+  <li>
+    <strong>特定の文字列を含む名前を検索</strong>
+  </li>
+</ol>
+<pre><code class="sql language-sql">   SELECT * FROM users WHERE name LIKE '%田中%';
+</code></pre>
+<ul>
+  <li>"田中" を含むすべての名前を検索します。</li>
+  <li>例: "佐藤田中", "田中山田" など。</li>
+</ul>
+<ol>
+  <li>
+    <strong>特定の文字を含む名前を検索</strong>
+  </li>
+</ol>
+<pre><code class="sql language-sql">   SELECT * FROM users WHERE name LIKE '田_%';
+</code></pre>
+<ul>
+  <li>"田" の後に1文字だけ続く名前を検索します。</li>
+  <li>例: "田中", "田村" など。</li>
+</ul>
+<h4>使用シーン</h4>
+<ul>
+  <li>
+    <strong>ユーザー検索機能</strong>: 名前の一部を入力して該当するユーザーを検索する場合。
+  </li>
+  <li>
+    <strong>商品検索</strong>: 商品名の一部を検索窓に入力して該当する商品を表示する場合。
+  </li>
+  <li>
+    <strong>ログ検索</strong>: ログの一部の文字列を検索して特定の記録を探す場合。
+  </li>
+</ul>
+<p>
+  <code>LIKE</code>を使うことで、完全一致ではなく柔軟な検索が可能になります。ただし、大量のデータを対象に
+  <code>LIKE '%文字列%'</code>を使用するとパフォーマンスが低下します。あまりにもパフォーマンスが悪くなるようでしたら
+  <code>FULLTEXT</code>インデックスなどを検討しましょう。<aside>実際、そこまでやるケースは稀ですので、FULLTEXTについての詳細は割愛します。そういうのがあるとだけ覚えていてください。</aside>
+</p>
+<h3>2.2 大なり、小なり、AND条件</h3>
+<p>
+  <code>WHERE</code>では比較演算子を使うことで条件を指定できます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE age &gt; 20;
+SELECT * FROM users WHERE age &lt; 30;
+SELECT * FROM users WHERE age &gt;= 20 AND age &lt;= 30;
+</code></pre>
+<ul>
+  <li>
+    <code>=</code>：等しい
+  </li>
+  <li>
+    <code>!=</code>または
+    <code>&lt;&gt;</code>：等しくない
+  </li>
+  <li>
+    <code>&gt;</code>：より大きい
+  </li>
+  <li>
+    <code>&lt;</code>：より小さい
+  </li>
+  <li>
+    <code>&gt;=</code>：以上
+  </li>
+  <li>
+    <code>&lt;=</code>：以下
+  </li>
+</ul>
+<p>
+  <strong>AND条件の使用</strong>
+  <code>AND</code>を使うと複数の条件を組み合わせることができます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE age &gt; 20 AND gender = 'male';
+</code></pre>
+<p>
+  <strong>注意：OR条件はなるべく使わない</strong><br>
+  条件式が複雑で理解しにくくなる上に、
+  <code>OR</code>はインデックスが効きにくくなり、パフォーマンスが落ちます。
+  どうしてもORを使うような場面になったら、<code>UNION</code>などを使うことを検討してください。
+</p>
+<h3>2.3 日付検索（特定の月のデータを取得）</h3>
+<p>日付型のカラムに対して 
+  <code>WHERE</code>で条件を指定することで、特定の日付や月のデータを検索できます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM orders WHERE order_date = '2024-02-01';
+</code></pre>
+<p>
+  <strong>特定の月のデータを取得する</strong>
+</p>
+<pre><code class="sql language-sql">SELECT * FROM orders WHERE DATE_FORMAT(order_date, '%Y-%m') = '2024-02';
+</code></pre>
+<h2>3. LIMIT句（取得件数の制限）</h2>
+<p>
+  <code>LIMIT</code>を使うと、取得する件数を制限できます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users LIMIT 10;
+</code></pre>
+<h2>4. OFFSETとLIMIT（ページネーション）</h2>
+<p>ページネーション（ページごとのデータ取得）では 
+  <code>LIMIT</code>と
+  <code>OFFSET</code>を組み合わせます。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users LIMIT 10 OFFSET 20;
+</code></pre>
+<ul>
+  <li>
+    <code>OFFSET 20</code>は20件目から取得（1ページ10件の場合、3ページ目のデータ）
+  </li>
+</ul>
+<p>Laravel では 
+  <code>offset</code>を直接使わず、ページネーション機能を利用することが一般的です。
+</p>
+<p>例えばLaravelでは以下のようにページネーションを実装します。offsetはLaravelが内部的に使用するので、エンジニアがoffsetを見ることはありません</p>
+<pre><code class="php language-php">$users = DB::table('users')-&gt;paginate(10);
+</code></pre>
+<h2>5. ORDER BY（並び順の指定）</h2>
+<p>データを並び替えるには 
+  <code>ORDER BY</code>を使います。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users ORDER BY age ASC;
+</code></pre>
+<p>降順にする場合は 
+  <code>DESC</code>を使います。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users ORDER BY age DESC;
+</code></pre>
+<p>複数のカラムで並び替えも可能です。</p>
+<pre><code class="sql language-sql">SELECT * FROM users ORDER BY age ASC, name DESC;
+</code></pre>
+<h2>6. まとめ</h2>
+<ul>
+  <li>
+    <code>WHERE</code>で条件指定ができる（
+    <code>LIKE</code>,
+    <code>AND</code>,
+    <code>&gt;</code>などを活用）
+  </li>
+  <li>
+    <code>WHERE</code>の
+    <code>AND</code>条件が多く使われる（
+    <code>OR</code>はなるべく使わない）
+  </li>
+  <li>日付検索には 
+    <code>DATE_FORMAT</code>などを活用
+  </li>
+  <li>
+    <code>LIMIT</code>と
+    <code>OFFSET</code>でページネーション
+  </li>
+  <li>
+    <code>ORDER BY</code>でデータの並び順を変更
+  </li>
+</ul>
+<p>
+  <code>SELECT</code>文の基本を押さえることで、データの取得を効率よく行えるようになります！
+</p>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
