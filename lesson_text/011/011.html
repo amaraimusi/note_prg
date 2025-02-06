@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 011 GROUP BY 句について学ぼう</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 011 GROUP BY 句について学ぼう</h1></div>
+<div class="container">
+
+
+<h1></h1>
+<h2>1. GROUP BY とは？</h2>
+<p>集計作業は、日々の業務でよく行われる作業の一つです。</p>
+<p>例えば、月ごとの売上合計を計算したり、カテゴリごとに売れた商品の件数を数えたりします。</p>
+<p>Excelで売上を管理している人なら、ピボットテーブルを使って自動的に集計することもありますね。</p>
+<p>データベースでは、このような集計作業を「グルーピング」または、「
+  <strong>集約</strong>」と呼び、
+  <strong>GROUP BY</strong>句を使って実行します。
+</p>
+<p>
+  <code>GROUP BY</code>句は、
+  <code>SELECT</code>文でデータを特定の列ごとにグループ化するために使用されます。グループごとに集計関数（
+  <code>SUM</code>、
+  <code>AVG</code>、
+  <code>COUNT</code>など）を適用することで、統計的な集計を行うことができます。
+</p>
+<h3>見本データベースの表</h3>
+<p>以下の 
+  <code>sales_data</code>テーブルを例に考えてみましょう。
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>category</th>
+      <th>sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>食品</td>
+      <td>1500</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>家電</td>
+      <td>3000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>食品</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>家具</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>家電</td>
+      <td>2500</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>家具</td>
+      <td>3000</td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<h3>例：売上データのカテゴリごとの合計を求める</h3>
+<pre><code class="sql language-sql">SELECT category, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<p>このクエリは 
+  <code>sales_data</code>テーブルの
+  <code>category</code>ごとに
+  <code>sales</code>の合計 (
+  <code>SUM</code>) を計算します。
+</p>
+<h3>集計後の表</h3>
+<p>このクエリを実行すると、以下のような集計結果が得られます。</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>category</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>食品</td>
+      <td>3500</td>
+    </tr>
+    <tr>
+      <td>家電</td>
+      <td>5500</td>
+    </tr>
+    <tr>
+      <td>家具</td>
+      <td>8000</td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<h2>2. よく使われる集約関数</h2>
+<p>
+  <code>GROUP BY</code>句では、さまざまな集約関数を利用してデータを集計できます。以下に代表的な関数を紹介します。
+</p>
+<h3>1. SUM() - 合計値の計算</h3>
+<p>
+  <code>SUM()</code>関数は、特定の列の合計を計算する際に使用します。
+</p>
+<pre><code class="sql language-sql">SELECT category, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<h3>2. AVG() - 平均値の計算</h3>
+<p>
+  <code>AVG()</code>関数は、特定の列の平均値を求めるために使用します。
+</p>
+<pre><code class="sql language-sql">SELECT category, AVG(sales) AS average_sales
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<h3>3. MAX() - 最大値の取得</h3>
+<p>
+  <code>MAX()</code>関数は、特定の列の最大値を取得する際に使用します。実際の現場でもよく使われる集計関数です。
+</p>
+<pre><code class="sql language-sql">SELECT category, MAX(sales) AS max_sales
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<h3>4. MIN() - 最小値の取得</h3>
+<p>
+  <code>MIN()</code>関数は、特定の列の最小値を取得する際に使用します。
+</p>
+<pre><code class="sql language-sql">SELECT category, MIN(sales) AS min_sales
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<h3>5. COUNT() - データ件数のカウント</h3>
+<p>
+  <code>COUNT()</code>関数は、特定のグループ内のデータ件数を取得する際に使用します。データの件数を数えることは、システムの基本ですので当然ながら頻繁に使われます。
+</p>
+<pre><code class="sql language-sql">SELECT category, COUNT(*) AS total_items
+FROM sales_data
+GROUP BY category;
+</code></pre>
+<h2>6. WHERE と HAVING の違い</h2>
+<p>
+  <strong>GROUP BY句</strong>でもフィルタリング(絞り込み)が可能です。ただ、２種類あるので注意しましょう。
+</p>
+<p>
+  <code>GROUP BY</code>句とともに条件を指定する場合、
+  <code>WHERE</code>句と
+  <code>HAVING</code>句の違いを理解することが重要です。
+</p>
+<h3>WHERE 句</h3>
+<ul>
+  <li>
+    <code>WHERE</code>句は
+    <code>GROUP BY</code>の前に適用され、グループ化される前のデータに対してフィルタリングを行います。
+  </li>
+</ul>
+<pre><code class="sql language-sql">SELECT category, SUM(sales) AS total_sales
+FROM sales_data
+WHERE sales &gt; 1000
+GROUP BY category;
+</code></pre>
+<p>→ 
+  <code>sales</code>が 1000 を超えるデータのみを
+  <code>GROUP BY</code>の対象とします。
+</p>
+<h3>HAVING 句</h3>
+<ul>
+  <li>
+    <code>HAVING</code>句は
+    <code>GROUP BY</code>の後に適用され、集約後のデータに対してフィルタリングを行います。
+  </li>
+</ul>
+<pre><code class="sql language-sql">SELECT category, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY category
+HAVING SUM(sales) &gt; 5000;
+</code></pre>
+<p>→ 
+  <code>category</code>ごとの
+  <code>SUM(sales)</code>が 5000 を超えるグループのみを取得します。
+</p>
+<h3>WHERE と HAVING の違いまとめ</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th></th>
+      <th>WHERE</th>
+      <th>HAVING</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>適用タイミング</td>
+      <td>グループ化前</td>
+      <td>グループ化後</td>
+    </tr>
+    <tr>
+      <td>使える条件</td>
+      <td>単純な列の条件</td>
+      <td>集約関数を含む条件</td>
+    </tr>
+    <tr>
+      <td>例</td>
+      <td>
+        <code>WHERE sales &gt; 1000</code>
+      </td>
+      <td>
+        <code>HAVING SUM(sales) &gt; 5000</code>
+      </td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<h2>7. 月ごとの売上集計</h2>
+<p>業務では、月ごとの売上を集計するケースがよくあります。こちらのやり方も覚えておきましょう。</p>
+<h3>見本データベースの表（
+  <code>sales_data</code>）
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>sale_date</th>
+      <th>sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>2024-01-05</td>
+      <td>1500</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2024-01-15</td>
+      <td>3000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>2024-02-10</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>2024-02-20</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2024-03-05</td>
+      <td>2500</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>2024-03-25</td>
+      <td>3000</td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<h3>例：月ごとの売上合計を求める</h3>
+<pre><code class="sql language-sql">SELECT DATE_FORMAT(sale_date, '%Y-%m') AS sale_month, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY sale_month;
+</code></pre>
+<h3>集計後の表</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>sale_month</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2024-01</td>
+      <td>4500</td>
+    </tr>
+    <tr>
+      <td>2024-02</td>
+      <td>7000</td>
+    </tr>
+    <tr>
+      <td>2024-03</td>
+      <td>5500</td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<p>応用で年別の集計、週別の集計も可能です。</p>
+<h2>8. 複数のフィールドでグルーピングする</h2>
+<p>データをより詳細に分析するために、
+  <code>GROUP BY</code>句で複数のフィールドを指定してグルーピングすることが可能です。
+</p>
+<h3>例：カテゴリごと、かつ月ごとの売上合計を求める</h3>
+<pre><code class="sql language-sql">SELECT category, DATE_FORMAT(sale_date, '%Y-%m') AS sale_month, SUM(sales) AS total_sales
+FROM sales_data
+GROUP BY category, sale_month;
+</code></pre>
+<p>このクエリを実行すると、
+  <code>category</code>と
+  <code>sale_month</code>の組み合わせごとに
+  <code>SUM(sales)</code>を集計します。
+</p>
+<h3>集計後の表</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>category</th>
+      <th>sale_month</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>食品</td>
+      <td>2024-01</td>
+      <td>1500</td>
+    </tr>
+    <tr>
+      <td>家電</td>
+      <td>2024-01</td>
+      <td>3000</td>
+    </tr>
+    <tr>
+      <td>食品</td>
+      <td>2024-02</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <td>家具</td>
+      <td>2024-02</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <td>家電</td>
+      <td>2024-03</td>
+      <td>2500</td>
+    </tr>
+    <tr>
+      <td>家具</td>
+      <td>2024-03</td>
+      <td>3000</td>
+    </tr>
+  </tbody>
+</table class="tbl2">
+<p>このように、
+  <code>GROUP BY</code>で複数のカラムを指定することで、より詳細なデータ分析が可能になります。
+</p>
+<h2>9. まとめ</h2>
+<ul>
+  <li>
+    <code>GROUP BY</code>句はデータをグループ化して集計する際に使用する。
+  </li>
+  <li>
+    <code>WHERE</code>はグループ化前のデータをフィルタリングし、
+    <code>HAVING</code>はグループ化後のデータをフィルタリングする。
+  </li>
+  <li>
+    <code>GROUP BY</code>の
+    <code>SELECT</code>で取得できるのは、グループ化した列と集約関数を適用した列のみ。
+  </li>
+  <li>集約と無関係のフィールドを取得するには、サブクエリを利用する必要がある。</li>
+</ul>
+<p>この知識を活用し、効率的なクエリを作成できるようになりましょう！</p>
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 010 SQLの集約関数（SUM, MAX, MIN, COUNT, AVG）の解説</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 010 SQLの集約関数（SUM, MAX, MIN, COUNT, AVG）の解説</h1></div>
+<div class="container">
+
+<h1></h1>
+<h2>1. 集約関数とは？</h2>
+<p>SQLの集約関数（Aggregate Functions）は、複数の行に対して計算を行い、単一の値を返す関数です。データの統計的な集計や分析に使用されます。</p>
+<p>代表的な集約関数には以下のものがあります：</p>
+<ul>
+  <li>
+    <code>SUM()</code>: 数値の合計を求める
+  </li>
+  <li>
+    <code>MAX()</code>: 最大値を求める
+  </li>
+  <li>
+    <code>MIN()</code>: 最小値を求める
+  </li>
+  <li>
+    <code>COUNT()</code>: 行数を数える
+  </li>
+  <li>
+    <code>AVG()</code>: 平均値を求める
+  </li>
+</ul>
+
+
+<h2>2. 各集約関数の基本的な使い方</h2>
+
+<p>商品テーブル</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>product_id</th>
+      <th>product_name</th>
+      <th>category</th>
+      <th>price</th>
+      <th>stock</th>
+      <th>order_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Laptop</td>
+      <td>Electronics</td>
+      <td>100000</td>
+      <td>5</td>
+      <td>2024-01-05</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Smartphone</td>
+      <td>Electronics</td>
+      <td>70000</td>
+      <td>10</td>
+      <td>2024-01-10</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Tablet</td>
+      <td>Electronics</td>
+      <td>50000</td>
+      <td>7</td>
+      <td>2024-02-01</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Refrigerator</td>
+      <td>Home Appliance</td>
+      <td>120000</td>
+      <td>3</td>
+      <td>2024-03-15</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Washing Machine</td>
+      <td>Home Appliance</td>
+      <td>90000</td>
+      <td>4</td>
+      <td>2024-03-20</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Microwave</td>
+      <td>Home Appliance</td>
+      <td>40000</td>
+      <td>6</td>
+      <td>2024-04-10</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>3.1 
+  <code>SUM()</code>: 合計を求める
+</h3>
+<pre><code class="sql language-sql">SELECT SUM(price) AS total_price FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>total_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>470000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3.2 
+  <code>MAX()</code>: 最大値を求める
+</h3>
+<pre><code class="sql language-sql">SELECT MAX(price) AS max_price FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>max_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>120000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3.3 
+  <code>MIN()</code>: 最小値を求める
+</h3>
+<pre><code class="sql language-sql">SELECT MIN(price) AS min_price FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>min_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>40000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3.4 
+  <code>COUNT()</code>: 行数を数える
+</h3>
+<pre><code class="sql language-sql">SELECT COUNT(*) AS product_count FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>product_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+<p>特定のカラムに値がある行だけをカウントする場合は、
+  <code>COUNT(カラム名)</code>を使います。
+</p>
+<pre><code class="sql language-sql">SELECT COUNT(price) AS price_count FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>price_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3.5 
+  <code>AVG()</code>: 平均値を求める
+</h3>
+<pre><code class="sql language-sql">SELECT AVG(price) AS average_price FROM products;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>average_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>78333.33</td>
+    </tr>
+  </tbody>
+</table>
+<h2>4. 
+  <code>WHERE</code>条件と組み合わせた集約関数の使い方
+</h2>
+<h3>4.1 条件付きの合計（SUM）</h3>
+<pre><code class="sql language-sql">SELECT SUM(price) AS total_price FROM products WHERE category = 'Electronics';
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>total_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>220000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>4.2 最大値を特定の条件で取得（MAX）</h3>
+<pre><code class="sql language-sql">SELECT MAX(price) AS max_price FROM products WHERE stock &gt; 0;
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>max_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>120000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>4.3 特定の期間のデータを集計（COUNT）</h3>
+<pre><code class="sql language-sql">SELECT COUNT(*) AS recent_orders FROM products WHERE order_date &gt;= '2024-01-01';
+</code></pre>
+<p>結果：</p>
+<table>
+  <thead>
+    <tr>
+      <th>recent_orders</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+<h2>5. まとめ</h2>
+<ul>
+  <li>
+    <code>SUM()</code>,
+    <code>MAX()</code>,
+    <code>MIN()</code>,
+    <code>COUNT()</code>,
+    <code>AVG()</code>などの集約関数を使うと、データの集計が容易になる。
+  </li>
+  <li>
+    <code>WHERE</code>を使うことで、特定の条件を満たすデータの集約が可能。
+  </li>
+</ul>
+<p>これらのテクニックを組み合わせることで、実践的なデータ分析が可能になります。</p>
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
