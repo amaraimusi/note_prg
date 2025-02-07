@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 012 テーブル結合 | LEFT JOINの基本と活用</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 012 テーブル結合 | LEFT JOINの基本と活用</h1></div>
+<div class="container">
+
+
+<h2>1. テーブル結合とは？</h2>
+<p>テーブル結合（JOIN）とは、
+  <strong>複数のテーブルを組み合わせてデータを取得する方法</strong>です。
+</p>
+<p>
+  <code>JOIN</code>は
+  <code>SELECT</code>文で指定できる句の一つで、実際の開発現場では頻繁に使われます。むしろ、JOIN を使わずにデータを取得するケースのほうが少ないほどです。
+</p>
+<p>JOIN にはいくつかの種類がありますが、特に 
+  <strong>使用頻度が高いのは 
+    <code>LEFT JOIN</code>
+  </strong>です。
+</p>
+<p>他にも 
+  <code>CROSS JOIN</code>や
+  <code>RIGHT JOIN</code>などがありますが、利用する機会は少ないため、必要になったときに覚えれば問題ありません。
+</p>
+<p>それでは、
+  <code>LEFT JOIN</code>の仕組みを
+  <strong>実際の例を使って</strong>見ていきましょう。
+</p>
+<hr />
+<h2>2. LEFT JOINの基本構文</h2>
+<p>以下がLEFT JOINの基本的なSQL構文です。</p>
+<pre><code class="sql language-sql">SELECT
+    A.列名1, A.列名2, B.列名3
+FROM
+    テーブルA AS A
+LEFT JOIN
+    テーブルB AS B
+ON
+    A.共通カラム = B.共通カラム;
+</code></pre>
+<ul>
+  <li>
+    <code>テーブルA</code>（左のテーブル）のすべての行が返されます。
+  </li>
+  <li>
+    <code>テーブルB</code>（右のテーブル）に対応するデータがない場合は、
+    <code>NULL</code>が入ります。
+  </li>
+</ul>
+<hr />
+<h2>3. LEFT JOINの実行例</h2>
+<p>たとえば、「顧客（customers）」テーブルと「注文（orders）」テーブルがあり、各顧客が過去に注文をしたかどうかを取得したい場合、以下のようにLEFT JOINを使用できます。</p>
+<h3>
+  <strong>テーブル構成</strong>
+</h3>
+<h4>
+  <strong>customers（顧客情報）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <strong>orders（注文情報）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>1</td>
+      <td>ノートPC</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>2</td>
+      <td>スマホ</td>
+    </tr>
+  </tbody>
+</table>
+<h3>
+  <strong>LEFT JOINを使ったクエリ</strong>
+</h3>
+<pre><code class="sql language-sql">SELECT
+    customers.customer_id,
+    customers.name,
+    orders.product
+FROM
+    customers
+LEFT JOIN
+    orders
+ON
+    customers.customer_id = orders.customer_id;
+</code></pre>
+<h3>
+  <strong>実行結果</strong>
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>ノートPC</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>スマホ</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>NULL</td>
+    </tr>
+  </tbody>
+</table>
+<p>この結果から、佐藤さん（customer_id=3）は注文履歴がないことが分かります。</p>
+<hr />
+<h2>5. 似ているINNER JOINとの違い</h2>
+<p>
+  <code>INNER JOIN</code>と
+  <code>LEFT JOIN</code>の違いに注意しましょう。
+</p>
+<h3>
+  <strong>INNER JOINの結果</strong>（共通データのみ取得）
+</h3>
+<pre><code class="sql language-sql">SELECT
+    customers.customer_id,
+    customers.name,
+    orders.product
+FROM
+    customers
+INNER JOIN
+    orders
+ON
+    customers.customer_id = orders.customer_id;
+</code></pre>
+<h3>
+  <strong>INNER JOINの実行結果</strong>
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>ノートPC</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>スマホ</td>
+    </tr>
+  </tbody>
+</table>
+<p>INNER JOINでは、「一致するデータのみ」が返るため、注文がない佐藤さん（customer_id=3）のデータは含まれません。</p>
+<p>
+  <strong>→ LEFT JOINは、関連データがない場合でも左側のテーブルのデータを維持し、NULLを返すのが特徴です。</strong>
+</p>
+<p>このようによく似ているため、LEFT JOINでなくINNER JOINを採用するエンジニアもいます。</p>
+<hr />
+<h2>6. 複数のテーブルをLEFT JOINする例</h2>
+<p>LEFT JOINは1つのテーブルだけでなく、
+  <strong>複数のテーブルを結合する</strong>ことも可能です。というより実際、このような使われ方をされることの方が多いです。たとえば、顧客（customers）、注文（orders）、配送情報（shipments）の3つのテーブルを結合し、各顧客の注文と配送状況を取得するケースを考えます。
+</p>
+<h3>
+  <strong>テーブル構成</strong>
+</h3>
+<h4>
+  <strong>customers（顧客情報）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <strong>orders（注文情報）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>1</td>
+      <td>ノートPC</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>2</td>
+      <td>スマホ</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <strong>shipments（配送情報）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>shipment_id</th>
+      <th>order_id</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>201</td>
+      <td>101</td>
+      <td>配送済み</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td>102</td>
+      <td>配送中</td>
+    </tr>
+  </tbody>
+</table>
+<h3>
+  <strong>クエリの例</strong>
+</h3>
+<pre><code class="sql language-sql">SELECT
+    customers.customer_id,
+    customers.name,
+    orders.product,
+    shipments.status
+FROM
+    customers
+LEFT JOIN
+    orders
+ON
+    customers.customer_id = orders.customer_id
+LEFT JOIN
+    shipments
+ON
+    orders.order_id = shipments.order_id;
+</code></pre>
+<h3>
+  <strong>テーブル構成と結果</strong>
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>product</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>ノートPC</td>
+      <td>配送済み</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>スマホ</td>
+      <td>配送中</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>NULL</td>
+      <td>NULL</td>
+    </tr>
+  </tbody>
+</table>
+<p>このクエリでは、</p>
+<ul>
+  <li>顧客ごとの注文情報を取得</li>
+  <li>注文があれば、さらに配送情報を取得</li>
+  <li>注文がない場合や、配送情報がない場合は
+    <code>NULL</code>が入る
+  </li>
+</ul>
+<p>このように、複数のLEFT JOINを使うことで、必要なデータを組み合わせることができます。</p>
+<hr />
+<p>（以下省略）</p>
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
