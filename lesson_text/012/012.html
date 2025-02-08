@@ -421,7 +421,231 @@ ON
 </ul>
 <p>このように、複数のLEFT JOINを使うことで、必要なデータを組み合わせることができます。</p>
 <hr />
-<p>（以下省略）</p>
+
+
+<h2>練習問題：LEFT JOINの基本と活用</h2>
+<h4>
+  <strong>問題 1: LEFT JOINの基本</strong>
+</h4>
+<p>以下のテーブル 
+  <code>employees</code>と
+  <code>departments</code>を元に、LEFT JOINを使用して全社員の部署情報を取得する<strong>SQL</strong>を作成してください。
+</p>
+<p>
+  <strong>employees（社員情報）</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>employee_id</th>
+      <th>name</th>
+      <th>department_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>NULL</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <strong>departments（部署情報）</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>department_id</th>
+      <th>department_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>営業部</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>開発部</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <strong>期待される結果</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>employee_id</th>
+      <th>name</th>
+      <th>department_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>営業部</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>開発部</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>NULL</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h4>
+  <strong>問題 2: LEFT JOINのNULLの扱い</strong>
+</h4>
+<p>LEFT JOINを使用すると、右側のテーブルに対応するデータがない場合 
+  <code>NULL</code>になります。
+  <br />
+  <code>employees</code>テーブルに所属部署がない社員（department_idがNULL）のみを取得するSQLを作成してください。
+</p>
+<hr />
+<h4>
+  <strong>問題 3: INNER JOINとの違い</strong>
+</h4>
+<p>
+  <code>employees</code>テーブルと
+  <code>departments</code>テーブルを
+  <strong>INNER JOIN</strong>を使って結合した場合、どのような結果になりますか？
+  <br />
+  <strong>LEFT JOINとの違いを説明してください。</strong>
+</p>
+<hr />
+<h4>
+  <strong>問題 4: 複数のテーブルをLEFT JOIN</strong>
+</h4>
+<p>次の 
+  <code>orders</code>テーブルと
+  <code>shipments</code>テーブルを
+  <code>customers</code>テーブルと結合し、各顧客の注文情報と配送状況を取得するSQLを作成してください。
+</p>
+<p>
+  <strong>customers（顧客情報）</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <strong>orders（注文情報）</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>1</td>
+      <td>ノートPC</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>2</td>
+      <td>スマホ</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <strong>shipments（配送情報）</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>shipment_id</th>
+      <th>order_id</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>201</td>
+      <td>101</td>
+      <td>配送済み</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td>102</td>
+      <td>配送中</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <strong>期待される結果</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>product</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>ノートPC</td>
+      <td>配送済み</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>スマホ</td>
+      <td>配送中</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>NULL</td>
+      <td>NULL</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
 
 
 
