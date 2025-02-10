@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 013 テーブル結合 | LEFT JOINの基本と活用</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>レッスンテキスト | 013 テーブル結合 | LEFT JOINの基本と活用</h1></div>
+<div class="container">
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
