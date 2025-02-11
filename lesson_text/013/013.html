@@ -238,7 +238,255 @@
 
 
 
-
+<h2>練習問題：IN 句と NOT IN 句の理解</h2>
+<p>以下の問題に回答してください。各問題には、必要な見本のテーブルを用意しています。</p>
+<hr />
+<h4>
+  <strong>問題 1: IN 句の基本</strong>
+</h4>
+<p>以下の 
+  <code>users</code>テーブルがあります。
+</p>
+<p>
+  <strong>users テーブル</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Alice</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Bob</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Charlie</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>David</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Eve</td>
+      <td>45</td>
+    </tr>
+  </tbody>
+</table>
+<p>以下の SQL を実行したときに、どのような結果になるか答えてください。</p>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE id IN (2, 4);
+</code></pre>
+<hr />
+<h4>
+  <strong>問題 2: NOT IN 句</strong>
+</h4>
+<p>以下の 
+  <code>users</code>テーブルを使い、
+  <code>id</code>が
+  <code>1, 3, 5</code>以外のデータを取得する SQL を記述してください。
+</p>
+<p>
+  <strong>users テーブル</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Alice</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Bob</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Charlie</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>David</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Eve</td>
+      <td>45</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h4>
+  <strong>問題 3: 文字列データの IN 句</strong>
+</h4>
+<p>以下の 
+  <code>products</code>テーブルを使い、
+  <code>category</code>が
+  <code>'Electronics'</code>または
+  <code>'Clothing'</code>のデータを取得する SQL を記述してください。
+</p>
+<p>
+  <strong>products テーブル</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Laptop</td>
+      <td>Electronics</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>T-shirt</td>
+      <td>Clothing</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Book</td>
+      <td>Books</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Headphones</td>
+      <td>Electronics</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Jacket</td>
+      <td>Clothing</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h4>
+  <strong>問題 4: OR と IN 句</strong>
+</h4>
+<p>以下の SQL 文を 
+  <code>IN</code>句を使って簡潔に書き直してください。
+</p>
+<pre><code class="sql language-sql">SELECT * FROM users WHERE id = 1 OR id = 3 OR id = 5;
+</code></pre>
+<p>
+  <strong>users テーブル</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Alice</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Bob</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Charlie</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>David</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Eve</td>
+      <td>45</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h4>
+  <strong>問題 5: NOT IN 句の使用</strong>
+</h4>
+<p>以下の 
+  <code>products</code>テーブルを使用し、
+  <code>category</code>が
+  <code>'Books'</code>以外のデータを取得する SQL を記述してください。
+</p>
+<p>
+  <strong>products テーブル</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Laptop</td>
+      <td>Electronics</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>T-shirt</td>
+      <td>Clothing</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Book</td>
+      <td>Books</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Headphones</td>
+      <td>Electronics</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Jacket</td>
+      <td>Clothing</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<p>
+  終わりに：
+  <br />この問題を解くことで、IN 句と NOT IN 句の理解が深まるはずです。
+</p>
 
 
 <div class="yohaku"></div>

@@ -5,7 +5,7 @@
 	<meta name="google" content="notranslate" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>レッスンテキスト | 013 テーブル結合 | LEFT JOINの基本と活用</title>
+	<title>レッスンテキスト | 014 サブクエリその1 | WHEREに指定するサブクエリ</title>
 	<link rel='shortcut icon' href='/home/images/favicon.ico' />
 	
 	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -84,8 +84,324 @@
 
 </head>
 <body>
-<div id="header" ><h1>レッスンテキスト | 013 テーブル結合 | LEFT JOINの基本と活用</h1></div>
+<div id="header" ><h1>014 サブクエリその1 | WHEREに指定するサブクエリ</h1></div>
 <div class="container">
+
+
+<h2>1. サブクエリとは？</h2>
+
+<p>SQLは「クエリ」とも呼ばれます。
+  <strong>サブクエリ（副問い合わせ）</strong>とは、
+  <strong>SQL文の内部に含まれる別のSQL文</strong>のことを指します。サブクエリを活用することで、通常のSQLでは取得しにくい複雑な条件のデータを効率的に取得できます。
+</p>
+<p>実際の開発現場では、
+  <strong>複数のサブクエリが組み合わさった複雑なSQL</strong>を保守（修正や管理）する必要がある場面が度々あります。
+  新人プログラマにとっては困難な作業です。
+</p>
+<p>しかし、サブクエリの基本を理解すれば、複雑なSQLに対処できるようになります。今回のレッスンでは、サブクエリの読み解き方を学べます。まずは"その1"、WHERE句にサブクエリを指定するケースです。</p>
+
+
+
+
+<h2>2. サブクエリの基本構文</h2>
+<pre><code class="sql language-sql">SELECT カラム名 FROM テーブル名
+WHERE カラム名 = (SELECT カラム名 FROM 別のテーブル WHERE 条件);
+</code></pre>
+<h2>3. サブクエリの使用例</h2>
+<h3>3.1 WHERE句での利用</h3>
+
+<p>最も高い給与を持つ従業員を情報を取得する、よくある要件ですが、実はこれはサブクエリを使わねば取得できないケースです。</p>
+
+<h4>
+  <strong>従業員テーブル (employees)</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>department_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>500000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>600000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>700000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>高橋</td>
+      <td>550000</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>山本</td>
+      <td>700000</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <strong>最も高い給与を持つ従業員を検索</strong>
+</h4>
+<pre><code class="sql language-sql">SELECT * FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees);
+</code></pre>
+まず、内側のクエリである、サブクエリ「SELECT MAX(salary) FROM employees」で<strong>最大給与を取得</strong>します。
+そして外側のクエリで<strong>最大給与に一致する給与の従業員情報を取得</strong>します。
+<p>
+  <strong>結果:</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>department_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>700000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>山本</td>
+      <td>700000</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3.2 複数のサブクエリからなる複雑なSQLを読み解く</h3>
+
+<p>実務ではいくつかのサブクエリが紐づいた複雑なSQLに直面することが度々あります。次の例のSQLクエリは、<strong>3つの入れ子になったサブクエリ</strong>を持っている、やや複雑なSQLです。初心者は複雑のSQLを見ると圧倒されるものですが、
+  <strong>最も内側のSQLから順番に見ていけば大丈夫です</strong>。
+</p>
+<pre style="margin-top:3em;margin-bottom:3em;"><code class="sql language-sql" style="color:green;font-size:1.5em;">SELECT * FROM employees
+WHERE id IN (
+  <span style="color:#0d559d">SELECT id FROM employees WHERE salary IN(
+    <span style="color:#e74133">SELECT MAX(salary) FROM employees GROUP BY department_id</span>)</span>);
+</code></pre>
+
+<p>
+	<strong>1.最も内側のサブクエリ:</strong>
+</p>
+
+<pre><code class="sql language-sql">   <span style="color:#e74133"> SELECT MAX(salary) FROM employees GROUP BY department_id</span>
+</code></pre>
+
+  <p>まずは一番内側のクエリから読み解きます。このサブクエリは、各部署ごとの最大給与リストを取得しているだけです。複雑なSQLも単体で見ると分かりやすいですね。</p>
+<ul>
+  <li><p>結果例:<strong>各部署ごとの最大給与リスト</strong> </p>
+      <table class="tbl2">
+        <thead>
+            <tr>
+                <th>max_salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>700000</td>
+            </tr>
+            <tr>
+                <td>700000</td>
+            </tr>
+            <tr>
+                <td>550000</td>
+            </tr>
+        </tbody>
+    </table>
+</ul>
+<br>
+  <p>
+    <strong>2.中間のサブクエリ:</strong>
+  </p>
+<pre><code class="sql language-sql">
+  <span style="color:#0d559d">SELECT id FROM employees WHERE salary IN(
+    <span style="color:#e74133">...各部署ごとの最大給与リスト</span>)</span>);
+</code></pre>
+<ul>
+  <li>
+    <code>salary</code>が上記で取得した<strong>各部署ごとの最大給与リスト</strong>と一致する従業員の
+    <code>id</code>リストを取得します。
+  </li>
+  <li><p>結果例: <strong>従業員のidリスト</strong></p>
+     <table class="tbl2">
+        <thead>
+            <tr>
+                <th>id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+  </li>
+</ul>
+
+
+  <p>
+    <strong>3.最も外側のクエリ:</strong>
+  </p>
+<pre><code class="sql language-sql">   <span style="color:green">SELECT * FROM employees WHERE id IN (<span style="color:#0d559d">...従業員のidリスト</span>)</span>
+</code></pre>
+<ul>
+  <li>
+	上記で取得した<strong>従業員のidリスト</strong>に紐づく、従業員の情報を最終結果として取得します。
+  </li>
+</ul>
+<p>
+  <strong>最終的な結果:</strong>
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>salary</th>
+      <th>department_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>700000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>山本</td>
+      <td>700000</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>高橋</td>
+      <td>550000</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. まとめ</h2>
+<p>サブクエリが多数含まれる複雑なSQLは最も内側のサブクエリから順番に読み解きましょう。</p>
+
+<p>💡 
+  <strong>補足</strong>
+  <br />サブクエリを使用せず、PHPなどのプログラミング言語側でロジックを組むことで対応することも可能です。サブクエリを使用するか、プログラムで処理するかの判断はプログラマに委ねられています。
+  <br />もしサブクエリが苦手な場合は、プログラミング言語でカバーする方法を検討するのも一つの選択肢です。
+</p>
+
+
+
+<hr>
+
+<h2>練習問題：サブクエリの理解と実践</h2>
+<p>以下の売上テーブル（sales）を使用して、サブクエリを活用したSQLを学習しましょう。</p>
+<h4>
+  <strong>売上テーブル（sales）</strong>
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>customer_name</th>
+      <th>sales_amount</th>
+      <th>sales_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>15000</td>
+      <td>2024-01-10</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>22000</td>
+      <td>2024-01-12</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>18000</td>
+      <td>2024-02-05</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>高橋</td>
+      <td>25000</td>
+      <td>2024-02-10</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>山本</td>
+      <td>20000</td>
+      <td>2024-03-15</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<h3>
+  <strong>問題1：最も高い売上額の取引を取得</strong>
+</h3>
+<p>最も高い売上額を持つ取引（id, customer
+  <em>name, sales</em>amount, sales_date）を取得するSQLを記述してください。
+</p>
+<hr />
+<h3>
+  <strong>問題2：特定の売上額を超える取引を取得</strong>
+</h3>
+<p>2月の売上の平均額よりも高い売上を記録した取引を取得するSQLを記述してください。</p>
+<hr />
+<h3>
+  <strong>問題3：特定の日付以前の最大売上</strong>
+</h3>
+<p>2024年2月1日以前に発生した取引の中で、最も高い売上額を持つ取引を取得するSQLを記述してください。</p>
+<hr />
+<h3>
+  <strong>問題4：最も古い取引を持つ顧客</strong>
+</h3>
+<p>最も古い取引を行った顧客の情報を取得するSQLを記述してください。</p>
+<hr />
+<p>
+  <strong>解答例</strong>を考えながらSQLを実践してみましょう！
+</p>
+
+
+
+
 
 
 <div class="yohaku"></div>
