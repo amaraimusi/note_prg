@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 015 サブクエリその2 | サブクエリをJOIN</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+			hljs.initHighlightingOnLoad();
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>015 サブクエリその2 | サブクエリをJOIN</h1></div>
+<div class="container">
+
+
+<h2>サブクエリをJOINして用いる</h2>
+<h3>1. サブクエリとJOINの基本</h3>
+<p>データベースのクエリを最適化し、複雑なデータの取得を行うために、サブクエリをJOINして使用する手法を学びます。サブクエリをJOINすることで、パフォーマンスを向上させ、コードの可読性を高めることができます。</p>
+<p>サブクエリとJOINの組み合わせは実務でも頻繁に使われる重要なスキルです。しっかりと理解し、使いこなせるようにしておきましょう。繰り返し学習し、実際にクエリを書いて試すことで、確実に身につけていきましょう！</p>
+<h3>2. 見本のテーブル構成</h3>
+<p>以下の3つのテーブルを使用します。</p>
+<h4>
+  <code>orders</code>（注文情報）
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>101</td>
+      <td>2024-02-01</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>102</td>
+      <td>2024-02-02</td>
+      <td>7000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>101</td>
+      <td>2024-02-05</td>
+      <td>3000</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <code>customers</code>（顧客情報）
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>田中 太郎</td>
+      <td>関東</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>山田 花子</td>
+      <td>関西</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td>鈴木 次郎</td>
+      <td>東北</td>
+    </tr>
+  </tbody>
+</table>
+<h4>
+  <code>regions</code>（地域情報）
+</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>region_id</th>
+      <th>region_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>関東</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>関西</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>東北</td>
+    </tr>
+  </tbody>
+</table>
+<h3>3. サブクエリをJOINして使用する例</h3>
+<h4>3-1. 顧客の注文合計金額を取得する</h4>
+<p>複雑なクエリに圧倒されてしまうでしょうか？ でも安心してください。<strong>内側のSQL（サブクエリ）から考えていけば</strong>簡単です。</p>
+<p>内側のクエリでは、まず
+  <code>orders</code>テーブルの
+  <code>customer_id</code>ごとに
+  <code>SUM(total_amount)</code>を集計しています。
+</p>
+<p><strong>外側のSQLは、内側の集計結果をJOINすることで、顧客ごとの合計注文金額を取得しています。</strong></p>
+<p>このように内側のSQLから順に考えていくと、
+  <code>orders</code>テーブルのデータがどのように集計され、最終的に
+  <code>customers</code>テーブルと結合されるのかが理解しやすくなります。
+</p>
+<pre><code class="sql language-sql">SELECT c.customer_id, c.name, total_orders.total_amount
+FROM customers c
+JOIN (
+    SELECT customer_id, SUM(total_amount) AS total_amount
+    FROM orders
+    GROUP BY customer_id
+) total_orders
+ON c.customer_id = total_orders.customer_id;
+</code></pre>
+<h5>クエリ結果</h5>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>田中 太郎</td>
+      <td>8000</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>山田 花子</td>
+      <td>7000</td>
+    </tr>
+  </tbody>
+</table>
+<h4>3-2. 地域ごとの売上を取得する</h4>
+<pre><code class="sql language-sql">SELECT r.region_name, region_sales.total_sales
+FROM regions r
+JOIN (
+    SELECT c.region, SUM(o.total_amount) AS total_sales
+    FROM customers c
+    JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.region
+) region_sales
+ON r.region_name = region_sales.region;
+</code></pre>
+<p>このクエリでは、
+  <code>customers</code>と
+  <code>orders</code>をJOINして<strong>地域ごとの売上を計算し</strong>、その結果を
+  <code>regions</code>テーブルとJOINすることで、各地域の売上を取得しています。
+</p>
+<h5>クエリ結果</h5>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>region_name</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>関東</td>
+      <td>8000</td>
+    </tr>
+    <tr>
+      <td>関西</td>
+      <td>7000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>4. 複数のサブクエリをJOINする多重構造の解読方法</h3>
+<h4>4-1. 複雑なクエリの例</h4>
+<pre><code class="sql language-sql">SELECT c.name, r.region_name, customer_orders.total_orders, region_sales.total_sales
+FROM customers c
+JOIN (
+    SELECT customer_id, COUNT(order_id) AS total_orders
+    FROM orders
+    GROUP BY customer_id
+) customer_orders
+ON c.customer_id = customer_orders.customer_id
+JOIN (
+    SELECT c.region, SUM(o.total_amount) AS total_sales
+    FROM customers c
+    JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.region
+) region_sales
+ON c.region = region_sales.region;
+</code></pre>
+<p>このクエリでは、</p>
+<ol>
+  <li>
+    <code>customer_orders</code>サブクエリで顧客ごとの注文数を取得。
+  </li>
+  <li>
+    <code>region_sales</code>サブクエリで地域ごとの売上を計算。
+  </li>
+  <li>これらを
+    <code>customers</code>テーブルとJOINして、顧客の名前・地域・注文数・地域の売上を取得。
+  </li>
+</ol>
+<h5>クエリ結果</h5>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>region_name</th>
+      <th>total_orders</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>田中 太郎</td>
+      <td>関東</td>
+      <td>2</td>
+      <td>8000</td>
+    </tr>
+    <tr>
+      <td>山田 花子</td>
+      <td>関西</td>
+      <td>1</td>
+      <td>7000</td>
+    </tr>
+  </tbody>
+</table>
+<h4>4-2. 解読のポイント</h4>
+<ul>
+  <li>
+    <strong>サブクエリごとに意味を理解する</strong>
+  </li>
+  <li>
+    <code>customer_orders</code>は「顧客ごとの注文数」
+  </li>
+  <li>
+    <code>region_sales</code>は「地域ごとの売上」
+  </li>
+  <li>
+    <strong>JOINの関係を確認する</strong>
+  </li>
+  <li>
+    <code>customers</code>→
+    <code>customer_orders</code>は
+    <code>customer_id</code>で結合
+  </li>
+  <li>
+    <code>customers</code>→
+    <code>region_sales</code>は
+    <code>region</code>で結合
+  </li>
+  <li>
+    <strong>集約関数の適用範囲を意識する</strong>
+  </li>
+  <li>
+    <code>SUM(total_amount)</code>や
+    <code>COUNT(order_id)</code>が適切なレベルで計算されているか確認
+  </li>
+</ul>
+<h3>5. まとめ</h3>
+<p>サブクエリをJOINすることで、より柔軟かつ効率的にデータを取得できます。ただし、</p>
+<ul>
+  <li>クエリの構造を分解して考える</li>
+  <li>集約関数の適用範囲を把握する</li>
+  <li>JOINの関係を明確にする といったポイントを意識すると、複雑なクエリも理解しやすくなります。</li>
+</ul>
+<hr />
+<h3>6. 練習問題</h3>
+<p>以下の練習問題に挑戦し、学んだ内容を定着させましょう。</p>
+<h4>問題1: 各顧客の最新の注文を取得するクエリを作成せよ</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>order_id</th>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>101</td>
+      <td>2024-02-05</td>
+      <td>3000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>102</td>
+      <td>2024-02-02</td>
+      <td>7000</td>
+    </tr>
+  </tbody>
+</table>
+<h4>問題2: 各地域の平均注文金額を取得するクエリを作成せよ</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>region_name</th>
+      <th>avg_total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>関東</td>
+      <td>4000</td>
+    </tr>
+    <tr>
+      <td>関西</td>
+      <td>7000</td>
+    </tr>
+  </tbody>
+</table>
+<h4>問題3: 注文数が2件以上の顧客を取得するクエリを作成せよ</h4>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>name</th>
+      <th>order_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>田中 太郎</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<p>解答を考えたら、実際にSQLを実行して正しい結果が得られるか確認してみましょう！</p>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
