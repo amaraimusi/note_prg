@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 016 INSERT文</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+			hljs.initHighlightingOnLoad();
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>016 INSERT文</h1></div>
+<div class="container">
+
+<h2>1. INSERT文とは？</h2>
+<p>
+  <code>INSERT</code>文は、データベースのテーブルに新しいデータを追加するために使用します。INSERTにも様々な使い方がありますが、今回も実務で使用頻度の高いものに絞ってレクチャーします。
+</p>
+<hr />
+<h2>2. 1行ずつデータを挿入する</h2>
+<p>1行ずつデータのINSERTはデータベース操作の基本であり、特にPHPなどのプログラム内で頻繁に使用されます。ほとんどのアプリケーションでは、新しいデータを追加するたびにこの方法が活用されるため、最も一般的であり、広く実践されている手法です。</p>
+<h3>基本構文</h3>
+<pre><code class="sql language-sql">INSERT INTO テーブル名 (カラム1, カラム2, ...)
+VALUES (値1, 値2, ...);
+</code></pre>
+<h3>例：
+  <code>users</code>テーブルに1件のデータを追加
+</h3>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age)
+VALUES ('田中 太郎', 'tanaka@example.com', 30);
+</code></pre>
+<hr />
+<h2>3&nbsp;
+  <code>INSERT</code>の応用
+</h2>
+<h3>3.1 
+  <code>ON DUPLICATE KEY UPDATE</code>（MySQL）
+</h3>
+<p>
+  <strong>INSERT … ON DUPLICATE KEY UPDATE</strong>は、主キーまたは一意キーが同じデータがすでに存在する場合に、該当するレコードを更新できる構文です。
+</p>
+<p>存在しない場合は新規にINSERTされ、存在する場合はUPDATEされる動作を行います。</p>
+
+<pre><code class="sql language-sql">INSERT INTO users (id, name, email, age)
+VALUES (1, '田中 一郎', 'tanaka@example.com', 40)
+ON DUPLICATE KEY UPDATE name = '田中 一郎', age = 40;
+</code></pre>
+
+<h4>INSERTとUPDATEは分けて書くべき？</h4>
+<div style="font-size:0.8em">
+<p>PHPなどのロジックで、
+  <strong>INSERT</strong>と
+  <strong>UPDATE</strong>を明確に処理分けして記述するプログラマもいれば、
+  <strong>ON DUPLICATE KEY UPDATE</strong>を用いるプログラマもいます。
+</p>
+<p>ロジックでINSERTとUPDATEを明確に処理分けた方が、処理内容が明確になり可読性が高まるため推奨される場合もあります。しかし、
+  <strong>上書きの意味合いが強い場合や、処理を簡潔に記述したい場合</strong>には、ON DUPLICATE KEY UPDATE を用いることが有効です。
+</p>
+</div>
+
+
+<h3>3.2 
+  <code>INSERT IGNORE</code>（MySQL）
+</h3>
+<p>
+  <code>INSERT IGNORE</code>は、データを追加するときに、
+  <strong>すでに同じデータがある場合でもエラーを発生させずに処理を続ける</strong>ための方法です。
+</p>
+<p>例えば、
+  <code>id</code>や
+  <code>email</code>に
+  <strong>主キー（PRIMARY KEY）や一意制約（UNIQUE）</strong>が設定されていると、同じ値のデータを追加しようとしたときにエラーになります。 しかし、
+  <code>INSERT IGNORE</code>を使うと、
+  <strong>そのレコードを無視して処理を続ける</strong>ことができます。
+</p>
+<p>これは、バッチ処理（大量のデータを一度に処理する場合）などで、
+  <strong>途中でエラーが発生しても処理を止めたくない場合</strong>に役立ちます。
+</p>
+<pre>INSERT IGNORE INTO users (id, name, email, age) VALUES (1, '田中 一郎', '<a href="mailto:tanaka@example.com">tanaka@example.com</a>', 40);</pre>
+<hr />
+<h2>4. オートインクリメントされたIDを取得する</h2>
+<p>データベースの 
+  <code>id</code>カラムを オートインクリメント（自動で連番を振る仕組み） にしている場合、データを新しく登録すると、その
+  <code>id</code>が自動的に決まります。
+</p>
+<p>実務では、新しくデータを登録したあと、そのデータの 
+  <code>id</code>を知りたい場面 がよくあります。 例えば、登録したユーザーの
+  <code>id</code>を取得し、そのまま別の処理で使いたい場合などです。
+</p>
+<p>データベースの種類によって 
+  <code>id</code>の取得方法が異なるので、よく使うデータベースの方法を覚えておくと便利です。
+</p>
+<p>
+  以下の方法で、<code>id</code>カラムがオートインクリメントになっている場合、
+  <code>INSERT</code>実行後に自動生成されたIDを取得することができます。
+</p>
+<h3>MySQL / MariaDB</h3>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age) VALUES ('佐藤 健', 'sato@example.com', 29);
+SELECT LAST_INSERT_ID();
+</code></pre>
+<h3>PostgreSQL</h3>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age) VALUES ('佐藤 健', 'sato@example.com', 29) RETURNING id;
+</code></pre>
+<h3>SQLite</h3>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age) VALUES ('佐藤 健', 'sato@example.com', 29);
+SELECT last_insert_rowid();
+</code></pre>
+<p>この方法を使用することで、新しく追加されたレコードの
+  <code>id</code>を取得し、後続の処理に活用できます。
+</p>
+<hr />
+<h2>5. 一括で複数行のデータを挿入する</h2>
+<p>
+一括で複数行のデータを挿入する方法は、プログラム内で直接埋め込まれて実行されることは少ないです。エラーハンドリングの難しさ（不備のデータでエラーが起きた場合、どこの行でエラーがおきたか分からない）がその要因の一つです。 しかし、大量のデータを一括でインポート・エクスポートする際には非常に有用であり、手動でデータを管理する場面では頻繁に使用されます。</p>
+<p>複数のデータを一度に追加する場合は、
+  <code>VALUES</code>の後にカンマで区切ってデータを記述します。
+</p>
+<h3>例：
+  <code>users</code>テーブルに複数のデータを一括挿入
+</h3>
+<pre><code class="sql language-sql">INSERT INTO users (name, email, age)
+VALUES
+    ('佐藤 花子', 'sato@example.com', 25),
+    ('鈴木 次郎', 'suzuki@example.com', 28),
+    ('高橋 三郎', 'takahashi@example.com', 35);
+</code></pre>
+<p>
+  <strong>メリット</strong>:
+</p>
+<ul>
+  <li>1回のクエリで複数行を挿入できるため、パフォーマンスが向上する。</li>
+</ul>
+<p>
+  <strong>デメリット</strong>:
+</p>
+<ul>
+  <li>エラーハンドリングが難しい</li>
+</ul>
+<hr />
+<h2>6. 
+  バックアップで活用:<code>SELECT</code>と組み合わせてデータを挿入する
+</h2>
+<p>
+システム開発においてデータのバックアップはとても大切な作業です。データを誤って削除したり、壊れたりしても元に戻せるためです。
+<strong>INSERTとSELECTの組み合わせの構文</strong>はバックアップやデータコピーするときによく使われる方法です。別のテーブルからデータを取得して新しいテーブルに挿入する場合、
+  <code>INSERT INTO ... SELECT</code>を使用します。
+</p>
+<h3>見本テーブル</h3>
+<h4>
+  <code>users</code>テーブル
+</h4>
+<pre><code class="sql language-sql">CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    age INT
+);
+</code></pre>
+<h4>
+  <code>users_backup</code>テーブル
+</h4>
+<pre><code class="sql language-sql">CREATE TABLE users_backup (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(100),
+    age INT
+);
+</code></pre>
+<h3>例：
+  <code>users_backup</code>テーブルに
+  <code>users</code>のデータをコピー
+</h3>
+<pre><code class="sql language-sql">INSERT INTO users_backup (id, name, email, age)
+SELECT id, name, email, age FROM users;
+</code></pre>
+<p>この方法は、バックアップやテーブル間のデータ移動に便利です。</p>
+<p>
+  <strong>注意点</strong>:
+</p>
+<ul>
+  <li>
+    <code>users_backup</code>のカラム構造が
+    <code>users</code>と一致している必要があります。
+  </li>
+  <li>
+    <code>WHERE</code>句を加えることで特定の条件のデータのみコピー可能です。
+  </li>
+</ul>
+<h3>例：
+  <code>age</code>が30以上のユーザーのみバックアップ
+</h3>
+<pre><code class="sql language-sql">INSERT INTO users_backup (id, name, email, age)
+SELECT id, name, email, age FROM users WHERE age &gt;= 30;
+</code></pre>
+<hr />
+<h2>7. まとめ</h2>
+<ul>
+  <li>
+    <code>INSERT</code>文はデータベースにデータを追加するために使用する。
+  </li>
+  <li>1行ずつの挿入と、一括挿入の方法がある。</li>
+  <li>
+    <code>SELECT</code>と組み合わせることでデータのバックアップやコピーが可能。
+  </li>
+  <li>
+    <code>ON DUPLICATE KEY UPDATE</code>や
+    <code>INSERT IGNORE</code>などの応用テクニックも存在する。
+  </li>
+  <li>オートインクリメントされたIDは
+    <code>LAST_INSERT_ID()</code>や
+    <code>RETURNING</code>を用いて取得できる。
+  </li>
+</ul>
+<p>
+  <strong>次のステップ:</strong>
+  <code>UPDATE</code>文について学びましょう！
+</p>
+
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
