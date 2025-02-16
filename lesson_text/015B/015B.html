@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>レッスンテキスト | 015B サブクエリをJOINをより詳しく解説</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>
+	
+		jQuery(() => {
+		
+			hljs.initHighlightingOnLoad();
+		
+  /**
+   * SVGをロードし、指定した要素に挿入する共通関数
+   * @param {string} filePath - SVGファイルのパス
+   * @param {string} targetSelector - 挿入先のセレクタ
+   */
+  const loadSvg = (filePath, targetSelector) => {
+    $.get(filePath, function (data) {
+      // SVGの内容を取得して挿入
+      const svgContent = $(data).find("svg"); // SVGタグのみを抽出
+      $(targetSelector).html(svgContent);
+
+      // 必要なスタイルを直接適用
+      $(`${targetSelector} svg`).css({
+        filter: "none", // 色反転を防ぐ
+        colorScheme: "light", // ライトモードで固定
+      });
+
+      // fill属性を必要に応じて明示的に指定
+      $(`${targetSelector} svg *`).each(function () {
+        const fillColor = $(this).attr("fill");
+        if (!fillColor || fillColor === "currentColor") {
+          $(this).attr("fill", "#000000"); // 任意の色（例: 黒）
+        }
+      });
+    });
+  };
+
+  // SVGファイルのロード
+  loadSvg("006a6.svg", "#svg1");
+  //loadSvg("img/005_a3.drawio.svg", "#svg3");
+	
+	
+	
+		});
+	
+	</script>
+	
+	
+	
+	<style>
+		.container{
+			font-size:1.5em;
+			line-height:1.5em;
+		}
+		h2{
+			margin-top:4em;
+		}
+		h3{
+			margin-top:3em;
+		}
+		h4{
+			margin-top:1.5em;
+		}
+		p{
+			color:#453d3e;
+			font-weight: normal;
+			font-size:1.1em;
+		}
+	</style>
+
+</head>
+<body>
+<div id="header" ><h1>015B サブクエリをJOINをより詳しく解説</h1></div>
+<div class="container">
+
+<h1>サブクエリをJOINで使う</h1>
+<h2>1. はじめに</h2>
+<p>データベースのクエリを最適化する方法の一つに「サブクエリをJOINで使う」という手法があります。サブクエリ（副問合せ）は、SELECT文の中で別のSELECT文を使うことを指します。今回は、サブクエリをJOINに組み込む方法について、初心者にも分かりやすいように解説していきます。</p>
+<h2>2. サンプルテーブル</h2>
+<p>まず、シンプルな2つのテーブルを用意します。</p>
+<h3>
+  <code>employees</code>（従業員テーブル）
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>department_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>田中</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>鈴木</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>佐藤</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>山本</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>高橋</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<h3>
+  <code>departments</code>（部署テーブル）
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>department_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>営業部</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>開発部</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>人事部</td>
+    </tr>
+  </tbody>
+</table>
+<h2>3. サブクエリを使った例</h2>
+<p>例えば、各部署に所属する従業員の数を取得し、<strong>部署名と一緒に表示する</strong>場合を考えます。まず、サブクエリを使って各部署の従業員数を取得します。</p>
+<h3>サブクエリで従業員数を取得</h3>
+<pre><code class="sql language-sql">SELECT department_id, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department_id;
+</code></pre>
+<p>このクエリの結果は次のようになります。
+このクエリだけではGROUP BY句の特性のため、<strong>部署名（department_name）が取得できない</strong>ことに注目してください。
+サブクエリをJOINに組み込む必要があります。
+</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>department_id</th>
+      <th>employee_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<h2>4. サブクエリをJOINに組み込む</h2>
+<p>部署名もなんとか取得しないといけませんね。
+部署名を取得するには、上記の<strong>サブクエリの結果</strong>と
+  <code>departments</code>テーブルとJOINさせて、部署名と従業員数を組み合わせたデータを取得します。<br>
+</p>
+<p>
+  この<strong>JOIN</strong>は「<a href="../012/012.html" >012 テーブル結合 | LEFT JOINの基本と活用」</a>の回で学んだものと同じものです。
+  その回では２つのテーブルをJOIN（連結）しましたが、今回は<code>departments</code>テーブルと<strong>サブクエリ</strong>の結果をJOINします。
+  
+</p>
+<pre><code class="sql language-sql">SELECT d.department_name, sub.employee_count
+FROM departments d
+JOIN (
+    SELECT department_id, COUNT(*) AS employee_count
+    FROM employees
+    GROUP BY department_id
+) sub
+ON d.id = sub.department_id;
+</code></pre>
+<aside>※上記のSQLの<strong>JOIN</strong>は<strong>INNER JOIN</strong>を省略した書き方です。</aside>
+<p>このクエリの結果は次のようになります。<strong>部署名</strong>もできていますね。</p>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>department_name</th>
+      <th>employee_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>営業部</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>開発部</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>人事部</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<h2>5. サブクエリをJOINで使うメリット</h2>
+<ul>
+  <li>
+    <strong>コードが分かりやすくなる</strong>: サブクエリを分離することで、データの処理が段階的に整理される。
+  </li>
+  <li>
+    <strong>パフォーマンスが向上する場合がある</strong>: 一部のデータベースでは、サブクエリをJOINとして扱うことで最適化が行われる。
+  </li>
+  <li>
+    <strong>複数のデータソースを結合しやすい</strong>: 集計したデータを他のテーブルと結びつけるのが容易になる。
+  </li>
+</ul>
+<h2>6. まとめ</h2>
+<p>サブクエリをJOINに組み込むことで、データを整理しながら取得することができます。今回は、部署ごとの従業員数を取得する例を通じて、サブクエリの使い方とJOINの利点を学びました。</p>
+<p>この技術を活用することで、より柔軟で効率的なSQLの書き方を習得しましょう！</p>
+<h2>7. 練習問題</h2>
+<p>以下の売上データをもとに、各顧客の合計購入金額を計算し、顧客名とともに表示するSQLを完成させてください。</p>
+
+<p>
+<strong>ヒント</strong>：各顧客の合計購入金額を取得するSQLです。でもこのSQLだけでは顧客名まで取得できません。
+</p>
+<pre>
+    SELECT customer_id, SUM(amount) AS total_amount
+    FROM sales
+    GROUP BY customer_id
+</pre>
+<h3>
+  <code>sales</code>（売上テーブル）
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>customer_id</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>101</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>102</td>
+      <td>7000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>101</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>103</td>
+      <td>8000</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>102</td>
+      <td>3000</td>
+    </tr>
+  </tbody>
+</table>
+<h3>
+  <code>customers</code>（顧客テーブル）
+</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>佐藤</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>鈴木</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td>田中</td>
+    </tr>
+  </tbody>
+</table>
+<h3>期待する結果</h3>
+<table class="tbl2">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>total_amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>佐藤</td>
+      <td>7000</td>
+    </tr>
+    <tr>
+      <td>鈴木</td>
+      <td>10000</td>
+    </tr>
+    <tr>
+      <td>田中</td>
+      <td>8000</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="display:none">
+<h3>SQLを完成させてください</h3>
+<pre><code class="sql language-sql">SELECT c.name, sub.total_amount
+FROM customers c
+JOIN (
+    SELECT customer_id, SUM(amount) AS total_amount
+    FROM sales
+    GROUP BY customer_id
+) sub
+ON c.id = sub.customer_id;
+</code></pre>
+</div>
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/lesson_text/">レッスンテキストの目次</a></li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-2-3</div>
+</body>
+</html>
