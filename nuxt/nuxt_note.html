@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nuxt.js | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>Nuxt.js | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>Nuxt.jsのローカル開発環境の構築 Windows</h3>
+	
+	
+	
+	<a href="https://qiita.com/A-Kira/items/5ce3e1bff34e179ebbc2" tgarget="_blank">参考：Nuxt3 × Docker環境構築（正式版）</a>
+	<br>
+	
+	<ol class="list_lg">
+		<li>
+			Dockerの準備を行います。
+			Windowsでしたら下記のリンク先を参考にDocker環境をご用意ください。<br>
+			<a href="/note_prg/docker/docker-compose_note.html#sec1-4">Docker desktopを使わずWSL上で動作するUbuntuでDockerとdocker-composeを動かす</a>
+		</li>
+		
+		<li>
+			適当なコマンドラインツールで、任意の場所にディレクトリを作成
+			<pre class="console">mkdir nuxt_demo</pre>
+			
+			<aside>今回はこの場所にディレクトリを作成した。→C:\Users\user\git\nuxt_demo</aside>
+			
+		</li>
+		
+		<li>
+			Ubuntuアプリを右クリックから管理者権限で実行し、Ubuntuのターミナル画面を起動する<br>
+		</li>
+		
+		<li>
+			Ubuntuのターミナルで上記で作成したディレクトリに移動する(以後はUbuntuターミナルでコマンド実行）
+			<pre class="console">cd /mnt/c/Users/user/git/nuxt_demo</pre>
+		</li>
+		
+		<li>
+			空のdocker-compose.ymlを作成<br>
+			<pre class="console">touch docker-compose.yml</pre>
+		</li>
+		<li>
+			docker-compose.ymlをテキストエディタで開き、下記を記述。
+			<pre>
+version: '3.9'
+
+services:
+  nuxt:
+    container_name: nuxt
+    build: docker/nuxt
+    volumes:
+      - ./front:/app:cached
+      - nuxt_node_modules:/app/node_modules
+    ports:
+      - "80:3000"
+      - "24678:24678"
+    tty: true
+    environment:
+      - HOST=0.0.0.0
+      - port=80
+      - CHOKIDAR_USEPOLLING=true
+#    command: sh -c "yarn && yarn dev"
+volumes:
+  nuxt_node_modules:
+			</pre>
+		</li>
+		<li>
+			空のDockerfileを作成する
+			<pre class="console">
+				mkdir docker/nuxt
+				touch docker/nuxt/Dockerfile
+			</pre>
+		</li>
+		<li>
+			Dockerfileをテキストエディタで開き、以下を記述する。
+			<pre>
+FROM node:18-slim
+
+ENV TZ Asia/Tokyo
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y \
+    git \
+    vim
+			</pre>
+			<button type="button" class="btn btn-info" onclick="$('#sec1-1a1').toggle(300)">解説</button>
+
+
+			<div id="sec1-1a1" class="mt-5" style="border:solid 4px #2cc2d5;padding:10px;display:none">
+				<h2 class="text-center mb-4">Dockerfile の解説</h2>
+
+				<div class="card shadow">
+					<div class="card-body">
+						<h5 class="card-title">Dockerfile</h5>
+						<pre class="bg-dark text-light p-3 rounded">
+FROM node:18-slim
+
+ENV TZ Asia/Tokyo
+
+WORKDIR /app
+
+RUN apt-get update \
+	&& apt-get install -y \
+	git \
+	vim \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+						</pre>
+					</div>
+				</div>
+
+				<h3 class="mt-4">各行の説明</h3>
+				<table class="table table-striped table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th>コマンド</th>
+							<th>説明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>FROM node:18-slim</code></td>
+							<td>軽量な Node.js 18 イメージをベースにする。</td>
+						</tr>
+						<tr>
+							<td><code>ENV TZ Asia/Tokyo</code></td>
+							<td>環境変数を設定し、コンテナ内のタイムゾーンを日本時間にする。</td>
+						</tr>
+						<tr>
+							<td><code>WORKDIR /app</code></td>
+							<td>作業ディレクトリを `/app` に設定し、以降の操作をこのディレクトリで実行。</td>
+						</tr>
+						<tr>
+							<td><code>RUN apt-get update \</code><br>
+								<code>&amp;&amp; apt-get install -y git vim \</code><br>
+								<code>&amp;&amp; apt-get clean \</code><br>
+								<code>&amp;&amp; rm -rf /var/lib/apt/lists/*</code>
+							</td>
+							<td>
+								<ul>
+									<li>`apt-get update` でパッケージリストを最新に更新。</li>
+									<li>`apt-get install -y git vim` で Git と Vim をインストール。</li>
+									<li>`apt-get clean` でキャッシュを削除し、コンテナサイズを削減。</li>
+									<li>`rm -rf /var/lib/apt/lists/*` で不要なファイルを削除。</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+
+		</li>
+		<li>
+			Dockerの起動
+			<pre class="console">
+sudo service docker start
+docker-compose up -d
+			</pre>
+		</li>
+		<li>
+			無事Dockerを起動できたらコンテナに入る
+			<pre class="console">docker-compose exec nuxt bash</pre>
+		</li>
+		<li>
+			nodeのコマンドでnuxtの初期化を行う。初期化には時間がかかる。また途中で選択入力が求められる。
+			<pre class="console">npx nuxi init . --force</pre>
+			<button type="button" class="btn btn-info" onclick="$('#sec1-1a2').toggle(300)">解説</button>
+			<div id="sec1-1a2" style="border:solid 4px #2cc2d5;padding:10px;display:none">
+				<div class="card">
+
+					<div class="card-body">
+						<pre class="bg-dark text-white p-3 rounded"><code>npx nuxi init . --force</code></pre>
+						<p>このコマンドは、Nuxt 3 のプロジェクトを現在のディレクトリ (<code>.</code>) に強制的に初期化するためのものです。</p>
+						
+						<h5>各部分の意味:</h5>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<strong>npx</strong>: Node.js のパッケージ実行コマンド。ローカルまたはリモートの npm パッケージをインストールせずに一時的に実行できる。
+							</li>
+							<li class="list-group-item">
+								<strong>nuxi</strong>: Nuxt 3 の公式 CLI ツール。プロジェクトの初期化 (<code>init</code>) やビルド (<code>build</code>) などを行う。
+							</li>
+							<li class="list-group-item">
+								<strong>init</strong>: Nuxt プロジェクトの初期化を行うコマンド。
+							</li>
+							<li class="list-group-item">
+								<strong>.</strong>: 初期化するディレクトリを指定。<code>.</code> は現在のディレクトリを意味する。
+							</li>
+							<li class="list-group-item">
+								<strong>--force</strong>: 既存のファイルがあっても強制的に上書きするオプション。
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="ml-4 mt-4">
+				「npx nuxi init」を実行中、以下の選択が求められるので無難にyarnを選択しておきます。<br>
+				<img src="img/nuxt_note/sec1_1a1.png" />
+			</div>
+			
+			
+			<div class="ml-4 mt-4">
+				どれをインストールするか求められます。とりあえず全部にチェックします。チェックはスペースキーで、決定はEnterキーです。<br>
+				<img src="img/nuxt_note/sec1_1a2.png" />
+				
+			</div>
+		
+		
+			<div class="ml-4 mt-4">
+				以下を聞かれた「NO」を選択します。
+
+				<pre class="console">
+Install failed for @nuxt/content@3.3.0, @nuxt/eslint@1.2.0, @nuxt/fonts@0.11.0, @nuxt/icon@1.11.0, @nuxt/image@1.9.0, @nuxt/scripts@0.11.1,
+@nuxt/test-utils@3.17.2, @nuxt/ui@3.0.0. Do you want to continue adding the modules to nuxt.config?
+				</pre>
+				<div class="margin-left:4em;">
+					「No (いいえ)」が無難な理由
+					<ul>
+						<li>インストールに失敗したモジュールが nuxt.config に追加されても、実際には使えない。</li>
+						<li>後で手動で必要なモジュールを再インストールできる。</li>
+						<li>不要なエントリを nuxt.config.ts に追加すると、後でエラーの原因になる可能性がある。</li>
+					</ul>
+				</div>
+			</div>
+		
+			
+			<div class="ml-4 mt-4">
+				「npx nuxi init」の実行が完了するとfrontディレクトリとその直下に以下のファイルとディレクトリが生成されます。
+				<pre>
+.gitignore  README.md      nuxt.config.ts  server/
+.nuxt/      app.vue        package.json    tsconfig.json
+.git/  .output/    node_modules/  public/         yarn.lock
+
+				</pre>
+			</div>
+			
+			
+
+
+		</li>
+		<li>
+			Nuxtをインストールします。
+			<pre class="console">yarn install</pre>
+		</li>
+		
+		<li>
+			Nuxtを起動します。
+			<pre class="console">yarn dev</pre>
+			以下のが表示されればOKです。開発モードになります。<br>
+			<img src="img/nuxt_note/sec1_1a3.png" class="img_compact_k"/>
+		</li>
+		
+		<li>
+			ブラウザにて「http://localhost」にアクセスします。以下のような画面が表示されれば成功です。<br>
+			<img src="img/nuxt_note/sec1_1a4.png" class="img_compact_k" />
+		</li>
+		
+		<li>
+			「Ctrl + C」で開発モードを解除できる。<br>
+			<br>
+			
+			
+			<a href = "#sec1-2">停止と再開方法</a>
+		</li>
+		
+		
+	</ol>
+	
+
+
+
+	<br><time>2025-3-12</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>停止と再開方法</h3>
+	
+	<p>停止方法</p>
+	「Cntl + C」で開発モード解除
+	<pre class="console" >
+exit
+docker-compose stop
+sudo service docker stop
+	</pre>
+	
+	
+	<h4>再開方法</h4>
+	<pre class="console" >
+cd /mnt/c/Users/user/git/nuxt_demo
+sudo service docker start
+docker-compose up -d
+docker-compose exec nuxt bash
+yarn dev
+	</pre>
+	
+
+	<br><time>2025-3-16</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2025-3-12</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/nuxt/">Nuxt.jsの覚書</a></li>
+	<li>Nuxt.js</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-3-12</div>
+</body>
+</html>
