@@ -83,9 +83,10 @@ yarn install
 
 
 <div id="sec1-1" class="sec4">
-	<h3>Nuxt.jsのローカル開発環境の構築 Windows</h3>
+	<h3>Nuxt.jsのローカル開発環境の構築 Docker版</h3>
 	
 	
+	<div class="color:red">動作不安定なので参考程度に。最新のPCで試したほうがいいかも</div>
 	
 	<a href="https://qiita.com/A-Kira/items/5ce3e1bff34e179ebbc2" tgarget="_blank">参考：Nuxt3 × Docker環境構築（正式版）</a>
 	<br>
@@ -380,6 +381,73 @@ yarn dev
 	
 
 	<br><time>2025-3-16</time>
+</div>
+
+
+<div id="sec1-3" class="sec4" >
+	<h3>SPAの基本</h3>
+	
+	プロジェクトディレクトリnuxt_demo3のディレクトリとファイル構成
+	<pre class="console">
+├── backend
+│   └── api1.php
+└── my-nuxt-app
+    ├── .gitignore
+    ├── .nuxt
+    ├── .output
+    ├── README.md
+    ├── app.vue.tmp
+    ├── node_modules
+    ├── nuxt.config.ts
+    ├── package.json
+    ├── pages
+│        └── index.vue
+    ├── public
+    ├── server
+    ├── tsconfig.json
+    └── yarn.lock
+	</pre>
+
+	<hr>
+	app.vueはapp.vue.tmpにしておく<br>
+	<br>
+	
+	<p>nuxt_demo3/backend/api1.php</p>
+	<pre><code>
+&lt;?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+
+echo json_encode(["message" =&gt; "Hello from PHP API"]);
+	</code></pre>
+	
+	<p>nuxt_demo3/my-nuxt-app/pages/index.vue</p>
+	<pre><code>
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Nuxt.js + XAMPP&lt;/h1&gt;
+    &lt;p&gt;{{ message }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { ref, onMounted } from 'vue';
+
+const message = ref('');
+
+onMounted(async () =&gt; {
+  const res = await fetch('http://localhost/api/index.php');
+  const data = await res.json();
+  message.value = data.message;
+});
+&lt;/script&gt;
+	</code></pre>
+	
+	<br>
+	「http://localhost」にアクセスしてバックエンドから取得したデータが取得できていればＯＫ．<br>
+	
+
+	<br><time>2025-3-19</time>
 </div>
 
 
