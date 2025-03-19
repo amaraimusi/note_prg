@@ -26,6 +26,62 @@
 <div class="container">
 
 
+<div id="sec1-0-1" class="sec4">
+	<h3>Nuxt.jsのローカル開発環境の構築 Windows版</h3>
+
+	<ol class="list_lg">
+	
+		<li>
+			すでにnodeがインストールされているならGit Bashなどターミナルを開き、node.jsのバージョンを確認し、公式サイトの最新バージョンと見比べる。nodeのバージョンが古いと失敗するため。
+			もし既存のnodeが古ければ、Windowsのアプリインストールでnodeアプリを一旦、アンインストールし、新たに公式サイトからnode.jsアプリをインストールする。<br>
+			<br>
+			
+			nodeのバージョン確認コマンド
+			<pre class="console">node -v</pre>
+
+			<a href="https://nodejs.org/ja" target="blank">https://nodejs.org/ja(Node.jsの公式サイト)</a><br>
+			<br>
+
+		</li>
+	
+		<li>
+			作業ディレクトリを作成し、そのディレクトリに入る。
+				<pre class="console">
+mkdir nuxt_demo
+cd nuxt_demo
+				</pre>
+		</li>
+	
+		<li>
+			Nuxt.js のプロジェクトを作成します。
+			<pre class="console">npx nuxi init my-nuxt-app</pre>
+			my-nuxt-appはプロジェクト名。好きな名前を入れてください。
+		</li>
+	
+		<li>
+			プロジェクトディレクトリに移動し、yarnをインストールする。とくにエラーがなければOK.
+			<pre class="console">
+cd my-nuxt-app
+yarn install
+			</pre>
+		</li>
+	
+		<li>
+			以下のコマンドで開発モードになります。
+			<pre class="console">yarn dev</pre>
+			デフォルトでは、http://localhost:3000/ で Nuxt.js のアプリケーションが動作します。
+			<br>
+			開発モードの解除はCtrl + Cです。
+		</li>
+	
+
+	</ol>
+	
+
+	<br><time>2025-3-12</time>
+</div>
+
+
 <div id="sec1-1" class="sec4">
 	<h3>Nuxt.jsのローカル開発環境の構築 Windows</h3>
 	
