@@ -451,8 +451,132 @@ onMounted(async () =&gt; {
 </div>
 
 
+<div id="sec1-4" class="sec4" >
+	<h3>次回からの開発環境起動方法</h3>
+	
+	nuxtをインストールしたディレクトリに移動し「yarn dev」を実行するだけ。
+	<pre class="console">cd git/nuxt_demo3/my-nuxt-app && yarn dev</pre>
+	<br>
+	
+	なお、止める場合はCtrl + C 。<br>
+	<br>
+
+
+	<br><time>2025-3-22</time>
+</div>
+
+
+<div id="sec1-5" class="sec4" >
+	<h3>基本：テキストボックスとボタンとSPA通信</h3>
+	
+	ファイル構成
+	<pre>
+C:\Users\user\git\nuxt_demo3\my-nuxt-app\pages
+├── form1.vue
+└── index.vue
+	</pre>
+
+	<pre>	
+C:\Users\user\git\nuxt_demo3\backend
+└── api1.php
+	</pre>
+	
+	form1.vue
+	<pre><code>
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Nuxt.js + XAMPP FORM1&lt;/h1&gt;
+    
+    &lt;!-- API から取得したメッセージを表示 --&gt;
+    &lt;p&gt;{{ message }}&lt;/p&gt;
+
+    &lt;!-- テキストボックスと送信ボタン --&gt;
+    &lt;input v-model="inputValue" type="text" placeholder="Enter text" /&gt;
+    &lt;button @click="sendData"&gt;Send&lt;/button&gt;
+
+    &lt;!-- 送信結果の表示 --&gt;
+    &lt;p&gt;{{ responseMessage }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { ref, onMounted } from 'vue';
+
+const message = ref('');
+const inputValue = ref('');
+const responseMessage = ref('');
+
+onMounted(async () =&gt; {
+  const res = await fetch('http://localhost/nuxt_demo3/backend/api1.php');
+  const data = await res.json();
+  message.value = data.message;
+});
+
+const sendData = async () =&gt; {
+  try {
+    const res = await fetch('http://localhost/nuxt_demo3/backend/api1.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: inputValue.value })
+    });
+    
+    const data = await res.json();
+    responseMessage.value = data.response;
+  } catch (error) {
+    responseMessage.value = "Error sending data";
+  }
+};
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+input {
+  margin: 10px 0;
+  padding: 5px;
+}
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+&lt;/style&gt;
+
+	</code></pre>
+	
+	api1.php
+	<pre><code>
+&lt;?php
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: POST, GET");
+header("Access-Control-Allow-Headers: Content-Type");
+
+// JSON 形式のリクエストを受け取る
+$input = json_decode(file_get_contents("php://input"), true);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $text = isset($input['text']) ? $input['text'] : 'No input received';
+    echo json_encode(["response" =&gt; "Received: " . htmlspecialchars($text)]);
+} else {
+    echo json_encode(["message" =&gt; "Hello from PHP API"]);
+}
+
+
+
+	</code></pre>
+	
+	URL
+	<pre>http://localhost:3000/form1</pre>
+	
+
+
+	<br><time>2025-3-12</time>
+</div>
+
+
 <div id="sec1-0" class="sec4" style="display:none">
 	<h3>xxx</h3>
+	
+
 
 
 	<br><time>2025-3-12</time>
