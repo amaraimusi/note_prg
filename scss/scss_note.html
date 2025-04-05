@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SCSSの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>SCSSの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>SCSSのxamppによる基本的な開発環境構築</h3>
+	
+	<ol class="list_lg">
+		任意のプロジェクトディレクトリを作成する。
+		<li>
+			<pre class="console">
+mkdir scss-test
+cd scss-test
+			</pre>
+		</li>
+		
+		<li>
+			
+			yarnでフロントエンドまわりを初期化する。
+			<pre class="console">yarn init -y</pre>
+		</li>
+		
+		<li>
+			scssとcssディレクトリを作成する。
+			<pre class="console">mkdir scss && mkdir css</pre>
+			
+		</li>
+		
+		<li>
+			見本scssファイルを作成。今回は_variables.scssと、それをインポートしたstyle.scssを作成する。
+			<pre class="console">
+echo '$main-color: #007bff;' > scss/_variables.scss
+echo '@import "variables"; body { color: $main-color; }' > scss/style.scss
+			</pre>
+		</li>
+		
+		<li>
+		package.jsonに以下を追記する。
+			<pre>
+{
+  "name": "scss-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.86.3"
+  },
+	<strong>"scripts": {
+  		  "dev": "sass scss:css --watch",
+  		  "build": "sass scss:css --style=compressed"
+  		}</strong>
+}</pre>
+		</li>
+		
+		<li>
+			見本のindex.htmlを作成。（プロジェクトディレクトリ直下に）
+			<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;SCSS Test&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;SCSSテスト&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+			</pre>
+		</li>
+		
+		<li>
+			Sassを起動!
+			<pre class="console">yarn dev</pre>
+		</li>
+		
+		<li>
+			xamppをコンパネからスタートし、ブラウザでアクセス。
+			<pre>http://localhost/scss-test/index.html</pre>
+			
+			
+			<aside>C:\xampp\htdocsと異なるディレクトリにプロジェクトを作成しているなら、管理者権限で起動したWindows Power shellでシンボリックリンクを作成するのを忘れずに。cmd /c mklink /D C:\xampp\htdocs\scss-test C:\Users\user\git\scss-test</aside>
+			ページが表示されれば成功
+		</li>
+		
+		<li>
+			ファイルとディレクトリの構成
+<pre>
+C:\Users\user\git\scss-test
+├── css
+│   ├── style.css
+│   └── style.css.map
+├── index.html
+├── node_modules
+│   ├── .bin
+│   ├── .yarn-integrity
+│   ├── @parcel
+│   ├── braces
+│   ├── chokidar
+│   ├── detect-libc
+│   ├── fill-range
+│   ├── immutable
+│   ├── is-extglob
+│   ├── is-glob
+│   ├── is-number
+│   ├── micromatch
+│   ├── node-addon-api
+│   ├── picomatch
+│   ├── readdirp
+│   ├── sass
+│   ├── source-map-js
+│   └── to-regex-range
+├── package.json
+├── scss
+│   ├── _variables.scss
+│   └── style.scss
+└── yarn.lock
+</pre>
+		</li>
+	</ol>
+	
+
+
+	<br><time>2025-4-5</time>
+</div>
+
+
+<div id="sec1-2" class="sec4" >
+	<h3>よく使う記法について</h3>
+
+  <p>SCSS（Sassy CSS）は、従来のCSSに便利な機能を追加したプリプロセッサです。ここでは<strong>実務で特によく使われる構文</strong>を、例付きでわかりやすく解説します。</p>
+
+  <h2>1. 変数（<code>$variable</code>）</h2>
+  <p><strong>色、余白、フォントサイズなどを変数にして再利用</strong>できます。</p>
+  <pre><code>$primary-color: #007bff;
+$padding-base: 16px;
+
+.button {
+  background-color: $primary-color;
+  padding: $padding-base;
+}</code></pre>
+
+  <h2>2. ネスト（Nesting）</h2>
+  <p>セレクタを入れ子にすることで、<strong>構造を整理して読みやすく</strong>なります。</p>
+  <pre><code>nav {
+  ul {
+    list-style: none;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: blue;
+      }
+    }
+  }
+}</code></pre>
+
+  <h2>3. ミックスイン（<code>@mixin</code> / <code>@include</code>）</h2>
+  <p><strong>再利用可能なテンプレート</strong>を定義し、引数付きで柔軟に使い回せます。</p>
+  <pre><code>@mixin flex-center($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+.container {
+  @include flex-center;
+}
+
+.column-container {
+  @include flex-center(column);
+}</code></pre>
+
+  <h2>4. 継承（<code>@extend</code>）</h2>
+  <p>別のクラスやプレースホルダーのスタイルを<strong>引き継ぐ</strong>ことができます。</p>
+  <pre><code>%btn-base {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  @extend %btn-base;
+  background-color: blue;
+  color: white;
+}</code></pre>
+
+  <h2>5. 条件分岐（<code>@if</code>, <code>@else if</code>, <code>@else</code>）</h2>
+  <p><strong>変数の値でスタイルを切り替える</strong>ときに使います。</p>
+  <pre><code>$theme: dark;
+
+body {
+  @if $theme == dark {
+    background-color: #000;
+    color: #fff;
+  } @else {
+    background-color: #fff;
+    color: #000;
+  }
+}</code></pre>
+
+  <h2>6. 繰り返し（<code>@for</code>, <code>@each</code>）</h2>
+  <p><strong>パターン化されたクラスを自動生成</strong>できます。</p>
+
+  <h3>@for の例：</h3>
+  <pre><code>@for $i from 1 through 3 {
+  .mt-#{$i} {
+    margin-top: $i * 10px;
+  }
+}</code></pre>
+
+  <h3>@each の例：</h3>
+  <pre><code>$colors: red, green, blue;
+
+@each $color in $colors {
+  .text-#{$color} {
+    color: $color;
+  }
+}</code></pre>
+
+  <h2>7. 関数（<code>@function</code>）</h2>
+  <p><strong>カスタム計算処理</strong>を定義して、必要な場所で呼び出せます。</p>
+  <pre><code>@function px-to-rem($px) {
+  @return $px / 16 * 1rem;
+}
+
+h1 {
+  font-size: px-to-rem(24);
+}</code></pre>
+
+  <h2>8. モジュール読み込み（<code>@use</code>, <code>@forward</code>）</h2>
+  <p><strong>ファイルを分割して管理</strong>しやすくなります。</p>
+  <pre><code>// _variables.scss
+$main-color: #333;
+
+// style.scss
+@use 'variables';
+
+h1 {
+  color: variables.$main-color;
+}</code></pre>
+
+  <h2>✅ まとめ</h2>
+  <table class="tbl2">
+    <thead>
+      <tr>
+        <th>機能</th>
+        <th>キーワード</th>
+        <th>主な用途</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>変数</td>
+        <td>$変数名</td>
+        <td>色・サイズ・共通値の管理</td>
+      </tr>
+      <tr>
+        <td>ネスト</td>
+        <td>セレクタ入れ子</td>
+        <td>階層構造を見やすく整理</td>
+      </tr>
+      <tr>
+        <td>ミックスイン</td>
+        <td>@mixin, @include</td>
+        <td>テンプレートスタイルの再利用</td>
+      </tr>
+      <tr>
+        <td>継承</td>
+        <td>@extend</td>
+        <td>クラスのスタイル継承</td>
+      </tr>
+      <tr>
+        <td>条件分岐</td>
+        <td>@if, @else</td>
+        <td>テーマ・状態で切り替え</td>
+      </tr>
+      <tr>
+        <td>繰り返し</td>
+        <td>@for, @each</td>
+        <td>パターン生成</td>
+      </tr>
+      <tr>
+        <td>関数</td>
+        <td>@function</td>
+        <td>自作計算</td>
+      </tr>
+      <tr>
+        <td>モジュール化</td>
+        <td>@use, @forward</td>
+        <td>ファイル管理と再利用</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>このSCSS構文の活用により、スタイルの保守性・再利用性・開発効率が大きく向上します。</p>
+	<br><time>2025-4-5</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2025-4-5</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/scss/">SCSSの覚書</a></li>
+</ol>
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-4-5</div>
+</body>
+</html>
