@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript の static（静的メソッド・プロパティ）</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔷 TypeScript の <code>static</code>（静的メソッド・プロパティ）</h1>
+
+  <h2>✅ 静的メソッド（static method）</h2>
+  <ul>
+    <li>インスタンス化せずに呼び出せる</li>
+    <li>クラス名を使って直接アクセス</li>
+  </ul>
+
+  <h2>✅ 静的プロパティ（static property）</h2>
+  <ul>
+    <li>すべてのインスタンスで共有される</li>
+    <li>定数や共通値の定義に便利</li>
+  </ul>
+
+  <h2>🧪 使用例</h2>
+  <pre><code>class MathUtil {
+  static PI: number = 3.14159;
+
+  static square(x: number): number {
+    return x * x;
+  }
+}
+
+console.log(MathUtil.PI);          // 3.14159
+console.log(MathUtil.square(5));  // 25
+
+// const util = new MathUtil();
+// console.log(util.square(5)); // ❌ エラー：インスタンスからは呼べない</code></pre>
+
+  <h2>🛠 特徴と使いどころ</h2>
+  <table>
+    <thead>
+      <tr><th>機能</th><th>使いどころ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>static</code> プロパティ</td><td>定数や共有設定</td></tr>
+      <tr><td><code>static</code> メソッド</td><td>ユーティリティ関数やツール系の処理</td></tr>
+    </tbody>
+  </table>
+
+  <h2>❗ 注意点</h2>
+  <ul>
+    <li><code>static</code> メンバ内では <code>this</code> はクラス自身を指す</li>
+    <li>インスタンスのメンバ（非<code>static</code>）にはアクセス不可</li>
+  </ul>
+
+  <pre><code>class Demo {
+  static sayHello(): void {
+    // console.log(this.name); // 🔴 インスタンスの name は使えない
+    console.log("Hello!");
+  }
+
+  name = "Kenji";
+}</code></pre>
+
+  <h2>✅ まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>要素</th><th>アクセス方法</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>static プロパティ</td>
+        <td><code>クラス名.プロパティ名</code></td>
+        <td>共有定数や設定などに利用</td>
+      </tr>
+      <tr>
+        <td>static メソッド</td>
+        <td><code>クラス名.メソッド名()</code></td>
+        <td>ユーティリティ・計算処理などに最適</td>
+      </tr>
+      <tr>
+        <td>非 static</td>
+        <td><code>インスタンス.メソッド名()</code></td>
+        <td>インスタンス固有の処理に使用</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Vite + TypeScript：main.ts を HTML に組み込む方法</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚀 Vite + TypeScript：<code>main.ts</code> を HTML に組み込む方法</h1>
+
+  <h2>✅ ファイル構成例</h2>
+  <pre><code>my-app/
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── src/
+│   ├── main.ts ← エントリーポイント
+│   └── style.css（任意）</code></pre>
+
+  <h2>✅ HTML 側での読み込み方法</h2>
+  <p><strong>index.html</strong></p>
+  <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;Vite + TypeScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="app"&gt;&lt;/div&gt;
+  &lt;script type="module" src="/src/main.ts"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+  <h2>✅ main.ts の例</h2>
+  <pre><code>// src/main.ts
+
+const msg: string = 'こんにちは、Vite + TypeScript！';
+document.getElementById('app')!.innerHTML = `&lt;h1&gt;${msg}&lt;/h1&gt;`;
+</code></pre>
+
+  <h2>✅ Vite の特徴</h2>
+  <ul>
+    <li><code>yarn dev</code> で起動 → 開発サーバーがリアルタイムで `.ts` を JS に変換</li>
+    <li><strong>ビルド不要</strong>（開発中は）</li>
+    <li>ホットリロードあり</li>
+  </ul>
+
+  <h2>✅ Vite プロジェクト初期化コマンド</h2>
+  <pre><code>yarn create vite my-app --template vanilla-ts
+cd my-app
+yarn
+yarn dev</code></pre>
+
+  <h2>✅ まとめ表</h2>
+  <table>
+    <thead>
+      <tr><th>項目</th><th>内容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ビルド必要？</td>
+        <td>❌ 必要なし。<code>yarn dev</code> で即反映</td>
+      </tr>
+      <tr>
+        <td>HTMLから TypeScript を使うには</td>
+        <td><code>&lt;script type="module" src="/src/main.ts"&gt;</code> を使用</td>
+      </tr>
+      <tr>
+        <td>エントリーポイント</td>
+        <td><code>src/main.ts</code></td>
+      </tr>
+      <tr>
+        <td>本番ビルド</td>
+        <td><code>yarn build</code> → <code>dist/</code> に出力される</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>開発モード中は TypeScript ファイルをそのまま HTML に読み込めて、トランスパイルやリロードも自動。効率的な開発ができます！</p>
+
+</body>
+</html>

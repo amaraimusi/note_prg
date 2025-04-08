@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript のメソッドのアクセス修飾子</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔐 TypeScript のメソッドのアクセス修飾子</h1>
+
+  <h2>✅ 基本ルール</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>修飾子</th>
+        <th>説明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>public</code></td><td>どこからでも呼び出せる（デフォルト）</td></tr>
+      <tr><td><code>private</code></td><td>同じクラス内からのみ呼び出せる</td></tr>
+      <tr><td><code>protected</code></td><td>同じクラスとそのサブクラス内から呼び出せる</td></tr>
+    </tbody>
+  </table>
+
+  <h2>🔧 サンプルコード</h2>
+  <pre><code>class Machine {
+  public start(): void {
+    console.log("スタートします");
+    this.checkSystem(); // ✅ OK: 同じクラス内から呼び出し
+  }
+
+  private checkSystem(): void {
+    console.log("システムをチェック中... ✅");
+  }
+
+  protected shutdown(): void {
+    console.log("シャットダウンします");
+  }
+}
+
+const m = new Machine();
+m.start();          // ✅ OK
+// m.checkSystem(); // ❌ エラー: private メソッドは外部から呼べない
+// m.shutdown();    // ❌ エラー: protected メソッドも外部からは呼べない</code></pre>
+
+  <h2>👨‍🏫 継承クラスからの protected メソッド利用</h2>
+  <pre><code>class SmartMachine extends Machine {
+  finish(): void {
+    console.log("処理完了");
+    this.shutdown(); // ✅ OK: protected は継承先で使える
+  }
+}</code></pre>
+
+  <h2>🛠 アクセス修飾子を使う意味</h2>
+  <ul>
+    <li><strong>private:</strong> クラス内の内部処理を隠す（カプセル化）</li>
+    <li><strong>protected:</strong> 継承先にだけ公開</li>
+    <li><strong>public:</strong> 外部 API として公開</li>
+  </ul>
+
+  <h

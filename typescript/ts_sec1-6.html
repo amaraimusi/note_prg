@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript クラスの import / export</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔄 TypeScript のクラスの import / export</h1>
+
+  <p>TypeScript では、クラスを別ファイルに分けて <code>import</code> / <code>export</code> を使って管理できます。</p>
+
+  <h2>✅ クラスを export（エクスポート）する</h2>
+  <p><strong>Animal.ts</strong></p>
+  <pre><code>export class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  speak(): void {
+    console.log(`${this.name} が鳴いています`);
+  }
+}</code></pre>
+
+  <h2>✅ クラスを import（インポート）する</h2>
+  <p><strong>main.ts</strong></p>
+  <pre><code>import { Animal } from './Animal';
+
+const dog = new Animal("ポチ");
+dog.speak(); // ポチ が鳴いています</code></pre>
+
+  <h2>📦 export default の使い方</h2>
+  <p><strong>Cat.ts</strong></p>
+  <pre><code>export default class Cat {
+  meow(): void {
+    console.log("にゃーん");
+  }
+}</code></pre>
+
+  <p><strong>main.ts</strong></p>
+  <pre><code>import Cat from './Cat';
+
+const cat = new Cat();
+cat.meow(); // にゃーん</code></pre>
+
+  <h2>💡 補足ポイント</h2>
+  <ul>
+    <li><code>.ts</code> 拡張子は省略してもよい（環境による）</li>
+    <li><code>import type { MyType }</code> で型だけを読み込む（TS 3.8〜）</li>
+    <li><code>tsconfig.json</code> の <code>baseUrl</code> や <code>paths</code> を使うと import が短くできる</li>
+  </ul>
+
+  <h2>🛠 tsconfig.json の例</h2>
+  <pre><code>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext", 
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src"
+  }
+}</code></pre>
+
+  <h2>✅ import/export まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>操作</th><th>方法</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>クラスのエクスポート</td><td><code>export class クラス名 {}</code></td></tr>
+      <tr><td>デフォルトエクスポート</td><td><code>export default クラス名</code></td></tr>
+      <tr><td>インポート</td><td><code>import { クラス名 } from 'パス'</code></td></tr>
+      <tr><td>デフォルトインポート</td><td><code>import 任意名 from 'パス'</code></td></tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript の基本</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🟦 TypeScript の基本ガイド</h1>
+
+  <h2>1. TypeScript とは？</h2>
+  <ul>
+    <li>Microsoft が開発したオープンソースの言語。</li>
+    <li>JavaScript に「型」を加えたスーパーセット。</li>
+    <li><code>.ts</code> 拡張子を使用し、JavaScript に変換して実行。</li>
+  </ul>
+
+  <h2>2. 型アノテーション</h2>
+  <pre><code>let message: string = "こんにちは";
+let age: number = 30;
+let isHappy: boolean = true;</code></pre>
+  <p>型が違う値を代入するとエラーになります。</p>
+  <pre><code>age = "30"; // ❌ エラー</code></pre>
+
+  <h2>3. 配列とオブジェクトの型</h2>
+  <h3>配列</h3>
+  <pre><code>let numbers: number[] = [1, 2, 3];
+let names: string[] = ["Ken", "Jin"];</code></pre>
+
+  <h3>オブジェクト</h3>
+  <pre><code>let user: { name: string; age: number } = {
+  name: "Kenji",
+  age: 46
+};</code></pre>
+
+  <h2>4. 関数の型</h2>
+  <pre><code>function greet(name: string): string {
+  return "こんにちは、" + name;
+}</code></pre>
+
+  <h2>5. 型の種類</h2>
+  <table>
+    <thead>
+      <tr><th>型</th><th>説明</th><th>例</th></tr>
+    </thead>
+    <tbody>

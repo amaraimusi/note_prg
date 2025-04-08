@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScriptの export は必須？</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📤 TypeScript の <code>export</code> は必須？</h1>
+
+  <h2>✅ 結論</h2>
+  <ul>
+    <li><strong>他のファイルから使いたい → <code>export</code> は必須</strong></li>
+    <li>同じファイル内だけで使う → <code>export</code> は省略可能</li>
+  </ul>
+
+  <h2>📋 要否まとめ表</h2>
+  <table>
+    <thead>
+      <tr><th>使い方</th><th><code>export</code> 必要？</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>別ファイルから使う</td>
+        <td>✅ 必須</td>
+        <td><code>export</code> しないと <code>import</code> できない</td>
+      </tr>
+      <tr>
+        <td>同じファイル内のみで使用</td>
+        <td>❌ 不要</td>
+        <td>モジュールの外に出さないなら省略可能</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>❌ export がない場合のエラー例</h2>
+  <p><strong>Animal.ts</strong>（<code>export</code> を忘れている）</p>
+  <pre><code>class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}</code></pre>
+
+  <p><strong>main.ts</strong></p>
+  <pre><code>import { Animal } from './Animal'; // ❌ エラー：Animal はエクスポートされていない</code></pre>
+
+  <h2>✅ 正しい export の例</h2>
+  <p><strong>Animal.ts</strong></p>
+  <pre><code>export class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}</code></pre>
+
+  <p><strong>main.ts</strong></p>
+  <pre><code>import { Animal } from './Animal'; // ✅ OK</code></pre>
+
+  <h2>💡 よくある注意点</h2>
+  <ul>
+    <li>クラス、関数、変数、型（<code>type</code> や <code>interface</code>）も同様に <code>export</code> が必要</li>
+    <li>複数まとめて <code>export</code> することも可能：</li>
+  </ul>
+  <pre><code>export { A, B, C };</code></pre>
+
+  <h2>📌 まとめ</h2>
+  <ul>
+    <li><strong>別ファイルから使うには export は必須！</strong></li>
+    <li><strong>同じファイル内で完結するなら省略可能</strong></li>
+  </ul>
+
+</body>
+</html>

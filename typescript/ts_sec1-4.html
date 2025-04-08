@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript のオブジェクト指向入門</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 2em;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🟦 TypeScript のオブジェクト指向入門</h1>
+
+  <h2>1. クラス（Class）</h2>
+  <pre><code>class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  speak(): void {
+    console.log(`${this.name} が鳴いています`);
+  }
+}
+
+const dog = new Animal("ポチ");
+dog.speak(); // ポチ が鳴いています</code></pre>
+
+  <h2>2. 継承（Inheritance）</h2>
+  <pre><code>class Dog extends Animal {
+  bark(): void {
+    console.log(`${this.name} がワンワンと吠えました`);
+  }
+}
+
+const shiba = new Dog("しば");
+shiba.speak(); // しば が鳴いています
+shiba.bark();  // しば がワンワンと吠えました</code></pre>
+
+  <h2>3. アクセス修飾子（Access Modifier）</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>修飾子</th><th>意味</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>public</code></td><td>どこからでもアクセス可能（デフォルト）</td></tr>
+      <tr><td><code>private</code></td><td>クラス内からのみアクセス可能</td></tr>
+      <tr><td><code>protected</code></td><td>クラス内と継承先からアクセス可能</td></tr>
+    </tbody>
+  </table>
+
+  <pre><code>class User {
+  public name: string;
+  private password: string;
+
+  constructor(name: string, password: string) {
+    this.name = name;
+    this.password = password;
+  }
+
+  checkPassword(pw: string): boolean {
+    return this.password === pw;
+  }
+}
+
+const u = new User("Kenji", "1234");
+console.log(u.name);           // OK
+// console.log(u.password);    // ❌ エラー: privateプロパティ</code></pre>
+
+  <h2>4. インターフェースとクラスの連携</h2>
+  <pre><code>interface Speakable {
+  speak(): void;
+}
+
+class Parrot implements Speakable {
+  speak(): void {
+    console.log("こんにちは！オウムです");
+  }
+}</code></pre>
+
+  <h2>5. 抽象クラス（abstract class）</h2>
+  <pre><code>abstract class Creature {
+  abstract makeSound(): void;
+
+  move(): void {
+    console.log("生き物が動きました");
+  }
+}
+
+class Cat extends Creature {
+  makeSound(): void {
+    console.log("にゃーん");
+  }
+}
+
+const neko = new Cat();
+neko.makeSound(); // にゃーん
+neko.move();      // 生き物が動きました</code></pre>
+
+  <h2>6. Getter / Setter</h2>
+  <pre><code>class Product {
+  private _price: number = 0;
+
+  set price(value: number) {
+    if (value >= 0) {
+      this._price = value;
+    }
+  }
+
+  get price(): number {
+    return this._price;
+  }
+}
+
+const p = new Product();
+p.price = 100;
+console.log(p.price); // 100</code></pre>
+
+  <h2>🎓 オブジェクト指向まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>機能</th><th>目的</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>クラス</td><td>設計図としてオブジェクトの構造を定義</td></tr>
+      <tr><td>継承</td><td>コードの再利用や共通化</td></tr>
+      <tr><td>アクセス修飾子</td><td>情報の隠蔽</td></tr>
+      <tr><td>インターフェース</td><td>クラスが従うべき構造を定義</td></tr>
+      <tr><td>抽象クラス</td><td>共通処理＋処理の実装を強制</td></tr>
+      <tr><td>getter/setter</td><td>値への安全なアクセスや加工</td></tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
