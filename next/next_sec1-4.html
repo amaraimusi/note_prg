@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Next.js と PHP を連携して SPA 通信する方法</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.8; padding: 2em; background: #f8f8f8; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre { background: #eee; padding: 1em; border-radius: 6px; overflow-x: auto; }
+    code { background: #e0e0e0; padding: 2px 6px; border-radius: 4px; }
+    ul { margin-left: 1.5em; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.js で PHP バックエンドと SPA 通信する方法</h1>
+
+  <p>Next.js（フロントエンド）と PHP（バックエンド）を連携させて、ボタンクリックでデータを取得するSPA的な通信処理を構築します。</p>
+
+  <h2>📌 構成イメージ</h2>
+  <ul>
+    <li>Next.js（開発サーバー）：<code>http://localhost:3000</code></li>
+    <li>PHP（XAMPPなどApache）：<code>http://localhost/next_demo2/backend/backend1.php</code></li>
+  </ul>
+
+  <h2>✅ Next.js側のコード例（app/dog/page.tsx）</h2>
+
+  <pre><code>'use client';
+
+import { useState } from 'react';
+
+export default function DogPage() {
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('http://localhost/next_demo2/backend/backend1.php');
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+      setResponse(JSON.stringify(data, null, 2));
+    } catch (error) {
+      setResponse('エラーが発生しました: ' + error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    &lt;main className="p-6"&gt;
+      &lt;h1 className="text-2xl font-bold mb-4"&gt;PHPと通信するNext.jsデモ&lt;/h1&gt;
+      &lt;button
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        onClick={fetchData}
+        disabled={loading}
+      &gt;
+        {loading ? '通信中...' : 'PHPからデータ取得'}
+      &lt;/button&gt;
+      &lt;pre className="mt-4 bg-gray-100 p-4 rounded text-sm"&gt;{response}&lt;/pre&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+
+  <h2>✅ PHP側のコード例（backend/backend1.php）</h2>
+
+  <pre><code>&lt;?php
+// CORS（クロスオリジン）対応
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+
+// ダミーデータを返す
+$response = [
+  'message' =&gt; 'こんにちは、Next.jsからのアクセスです！',
+  'time' =&gt; date('Y-m-d H:i:s')
+];
+
+echo json_encode($response);
+</code></pre>
+
+  <h2>🔒 CORS対応について</h2>
+  <p>Next.jsとPHPは別ポートで動いているため、<code>fetch()</code>で通信するにはPHP側で CORS を許可する必要があります。</p>
+  <p><strong>開発中は <code>Access-Control-Allow-Origin: *</code> でOK</strong>ですが、本番環境では許可するドメインを限定しましょう。</p>
+
+  <h2>🧪 実行手順</h2>
+  <ol>
+    <li>Next.js側で <code>yarn dev</code> を実行し、<code>http://localhost:3000/dog</code> にアクセス</li>
+    <li>「PHPからデータ取得」ボタンを押す</li>
+    <li>PHPのレスポンス（JSON）が画面に表示されれば成功</li>
+  </ol>
+
+  <h2>💡 応用のヒント</h2>
+  <ul>
+    <li>POSTメソッドを使ってデータを送信する</li>
+    <li>フォームからの送信処理に応用</li>
+    <li>PHPでDBと連携し、Next.jsで結果表示</li>
+  </ul>
+
+</body>
+</html>

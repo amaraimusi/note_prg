@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.jsはReact + Next.jsと呼ばない理由</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.8; padding: 2em; background: #f9f9f9; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre, code { background: #eee; padding: 0.2em 0.4em; border-radius: 4px; }
+    ul { margin-left: 1.5em; }
+    table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.js はなぜ「React + Next.js」と呼ばれないのか？</h1>
+
+  <p>
+    Next.js は React をベースに作られたフレームワークです。にもかかわらず、開発者たちは「React + Next.js」と言わず、
+    単に「Next.js」と呼ぶことが多いですよね。その理由をわかりやすく解説します。
+  </p>
+
+  <h2>✅ 結論：Next.js は React を内包しているため、単独で呼ばれる</h2>
+  <p>
+    Next.js は React を内部で利用しており、Next.js を使っている時点で React を使っていることが前提になっています。
+    だからこそ「React + Next.js」とわざわざ言わず、「Next.js」で十分通じるのです。
+  </p>
+
+  <h2>🧠 それぞれの役割の違い</h2>
+  <table>
+    <thead>
+      <tr><th>種類</th><th>名前</th><th>役割</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🔧 ライブラリ</td><td>React</td><td>UIコンポーネントを作る</td></tr>
+      <tr><td>🏗 フレームワーク</td><td>Next.js</td><td>ルーティング・SSR・ビルドなどアプリ全体の構成</td></tr>
+    </tbody>
+  </table>
+
+  <h2>🚀 実際の使われ方</h2>
+  <ul>
+    <li>✅「Next.jsでアプリ開発してます」← よく使われる</li>
+    <li>❌「React + Next.jsで開発してます」← あまり使われない</li>
+  </ul>
+
+  <h2>🧱 ReactとNext.jsの例え</h2>
+  <p>
+    Reactが「高性能エンジン」なら、Next.jsは「そのエンジンを活かした車（フレーム・装備・ナビ付き）」です。
+  </p>
+
+  <h2>⚙️ React単体で開発する場合の違い</h2>
+  <ul>
+    <li>ルーティング → 自分で <code>react-router</code> を設定</li>
+    <li>ビルド構成 → WebpackやViteを自分で構築</li>
+    <li>SSR対応 → Expressなどを使って自力で構築</li>
+  </ul>
+  <p>Next.jsではこれらがすべて「最初から入っている」ため、開発が非常に楽になります。</p>
+
+  <h2>✅ まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>観点</th><th>内容</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>呼び方</td><td>通常「Next.js」でOK（Reactが含まれている前提）</td></tr>
+      <tr><td>Next.jsの正体</td><td>Reactを拡張したフルスタックフレームワーク</td></tr>
+      <tr><td>「React + Next.js」と言わない理由</td><td>Next.jsにReactが内包されているから</td></tr>
+      <tr><td>開発体験</td><td>Next.jsを使うだけでReactアプリが一気に整う</td></tr>
+    </tbody>
+  </table>
+
+  <p>Next.jsは、React開発者にとって「環境構築・ページ構成・ビルド・API開発」まで全部整った便利なスターターキットのような存在です！</p>
+
+</body>
+</html>
