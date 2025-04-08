@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" content="notranslate" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>React/Nextの覚書 | ワクガンス</title>
+	<link rel='shortcut icon' href='/home/images/favicon.ico' />
+	
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/note_prg/css/bootstrap-5.0.2-dist/font/css/open-iconic.min.css" rel="stylesheet">
+	<link href="/note_prg/css/highlight/default.css" rel="stylesheet">
+	<link href="/note_prg/css/common2.css" rel="stylesheet">
+	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
+	<script src="/note_prg/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+	<script src="/note_prg/js/vue.min.js"></script>
+	<script src="/note_prg/js/highlight.pack.js"></script>
+	<script src="/note_prg/js/livipage.js"></script>
+	<script src="/note_prg/js/ImgCompactK.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header" ><h1>React/Nextの覚書 | ワクガンス</h1></div>
+<div class="container">
+
+
+<div id="sec1-1" class="sec4">
+	<h3>環境構築：Windows環境のXAMPP | 2025年4月</h3>
+
+	この手順では、Windows環境でReactベースのNext.js開発環境を構築します。<br>
+	node.js はすでにインストール済みとし、パッケージ管理は npm ではなく yarn を使用します。<br>
+	目標は、yarn dev コマンドで開発サーバーが立ち上がる状態を作ることです。<br>
+	<br>
+	なお、ここでは「XAMPP環境」としていますが、Next.jsはフロントエンド側のフレームワークなので、XAMPP（Apache＋PHP）は直接は関係ありません。XAMPPはバックエンドがPHPの場合に利用します。<br>
+	<br>
+	<ol class="list_lg">
+		<li>プロジェクトを作成するディレクトリに移動</li>
+		<li>
+			プロジェクトディレクトリを作成および移動
+			<pre>mkdir next_demo2 && cd next_demo2</pre>
+		</li>
+		<li>
+			next.jsをインストール
+			<pre>yarn create next-app .</pre>
+		セットアップ中にいくつか質問されますが、基本は <strong>Enter連打</strong>で問題ありません。 <br>
+		※「Installing devDependencies:」で止まったように見える場合は、<br> <strong>Ctrl + C</strong> を押して一度処理を中断します。 
+			
+		</li>
+		<li>
+			けて、依存パッケージのインストールを実行します 
+			<pre>yarn install</pre>
+		</li>
+		<li>
+			開発サーバーを起動します。
+			<pre>yarn dev</pre>
+			※次回からはプロジェクトディレクトリに移動したあと上記コマンドを実行するだけです。
+		</li>
+		<li>
+			ブラウザで以下のURLにアクセスし、Next.jsの初期画面が表示されれば成功です
+			<pre>http://localhost:3000</pre>
+		</li>
+	</ol>
+	
+	<p>上手く行ったときのディレクトリの構成</p>
+	<pre>
+C:\Users\user\git\next_demo2
+├── .gitignore
+├── .next
+│   ├── app-build-manifest.json
+│   ├── build-manifest.json
+│   ├── cache
+│   ├── fallback-build-manifest.json
+│   ├── package.json
+│   ├── server
+│   ├── static
+│   └── types
+├── README.md
+├── app
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── next-env.d.ts
+├── next.config.ts
+├── node_modules
+│   ├── .bin
+│   ├── .yarn-integrity
+│   ├── @alloc
+│   ├── @img
+│   ├── @next
+│   ├── @swc
+│   ├── @tailwindcss
+│   ├── @types
+│   ├── busboy
+│   ├── caniuse-lite
+│   ├── client-only
+│   ├── color
+│   ├── color-convert
+│   ├── color-name
+│   ├── color-string
+│   ├── csstype
+│   ├── detect-libc
+│   ├── enhanced-resolve
+│   ├── graceful-fs
+│   ├── is-arrayish
+│   ├── jiti
+│   ├── lightningcss
+│   ├── lightningcss-win32-x64-msvc
+│   ├── nanoid
+│   ├── next
+│   ├── picocolors
+│   ├── postcss
+│   ├── react
+│   ├── react-dom
+│   ├── scheduler
+│   ├── semver
+│   ├── sharp
+│   ├── simple-swizzle
+│   ├── source-map-js
+│   ├── streamsearch
+│   ├── styled-jsx
+│   ├── tailwindcss
+│   ├── tapable
+│   ├── tslib
+│   ├── typescript
+│   └── undici-types
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── tsconfig.json
+└── yarn.lock
+	</pre>
+
+	<br><time>2025-4-7</time>
+</div>
+
+
+<div id="sec1-0" class="sec4" style="display:none">
+	<h3>xxx</h3>
+
+
+	<br><time>2025-4-7</time>
+</div>
+
+
+<div class="yohaku"></div>
+<ol class="breadcrumb">
+	<li><a href="/">ホーム</a></li>
+	<li><a href="/note_prg">プログラミングの覚書</a></li>
+	<li><a href="/note_prg/js/">JavaScriptの覚書</a></li>
+	<li>React/Nextの覚書</li>
+</ol>
+
+</div><!-- content -->
+<div id="footer">(C) amaraimusi 2025-4-7</div>
+</body>
+</html>
