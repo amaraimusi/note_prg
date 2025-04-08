@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.js テキスト入力＋ボタン 解説</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.8;
+      padding: 2em;
+      background: #f8f8f8;
+      color: #333;
+    }
+    pre {
+      background: #eee;
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    code {
+      background: #e0e0e0;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+    }
+    th {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Next.js：テキストボックス＋ボタンの動作サンプル解説</h1>
+
+  <p>以下は、Next.js（App Router構成）とTailwind CSSを使って「テキストを入力 → ボタンを押して表示」するシンプルなUIを構成したコードです。</p>
+
+  <h2>📄 コンポーネントコード</h2>
+
+  <pre><code>'use client'; // ← イベント処理を使うので必須
+
+import { useState } from 'react';
+
+export default function NekoInputPage() {
+  const [inputValue, setInputValue] = useState('');
+  const [output, setOutput] = useState('');
+
+  const handleClick = () => {
+    setOutput(inputValue);
+  };
+
+  return (
+    &lt;main className="min-h-screen flex flex-col items-center justify-center bg-blue-50 p-6"&gt;
+      &lt;h1 className="text-3xl font-bold text-blue-700 mb-6"&gt;テキスト入力デモ&lt;/h1&gt;
+
+      &lt;input
+        type="text"
+        className="border border-gray-300 rounded p-2 w-64 mb-4 text-black"
+        placeholder="名前を入力してください"
+        value={inputValue}
+        onChange={(e) =&gt; setInputValue(e.target.value)}
+      /&gt;
+
+      &lt;button
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        onClick={handleClick}
+      &gt;
+        表示する
+      &lt;/button&gt;
+
+      &lt;div className="mt-6 text-xl text-blue-800"&gt;
+        {output &amp;&amp; &lt;&gt;こんにちは、&lt;strong&gt;{output}&lt;/strong&gt; さん！&lt;/&gt;}
+      &lt;/div&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+
+  <h2>🧠 各部の解説</h2>
+
+  <h3>1. <code>'use client'</code> とは？</h3>
+  <p>Next.js（App Router）では、状態管理やイベント（onClickなど）を使いたい場合、この宣言で「このコンポーネントはブラウザ側で動かす」と指定する必要があります。</p>
+
+  <h3>2. useStateの利用</h3>
+  <pre><code>const [inputValue, setInputValue] = useState('');
+const [output, setOutput] = useState('');</code></pre>
+  <ul>
+    <li><code>inputValue</code>：テキストボックスの現在の内容</li>
+    <li><code>output</code>：表示用の文字列（ボタンを押した後に表示）</li>
+  </ul>
+
+  <h3>3. イベント処理：handleClick</h3>
+  <pre><code>const handleClick = () => {
+  setOutput(inputValue);
+};</code></pre>
+  <p>ボタンがクリックされたとき、入力値を出力用の状態にセットします。</p>
+
+  <h3>4. JSX構成</h3>
+  <ul>
+    <li><strong>input</strong>：テキスト入力欄、<code>value</code>と<code>onChange</code>で状態管理</li>
+    <li><strong>button</strong>：押すと <code>handleClick</code> が発動</li>
+    <li><strong>div</strong>：<code>output</code>があれば挨拶文を表示</li>
+  </ul>
+
+  <h2>📊 状態の流れ（イメージ）</h2>
+  <pre>
+[入力欄] → (onChange) → inputValue（状態） 
+            ↓
+       [ボタンを押す]
+            ↓
+        output に反映
+            ↓
+     [出力エリアに表示]
+  </pre>
+
+  <h2>🎨 Tailwindのスタイルまとめ</h2>
+  <table>
+    <thead>
+      <tr><th>クラス名</th><th>意味</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>text-black</td><td>テキストの色を黒に</td></tr>
+      <tr><td>bg-blue-50</td><td>背景を薄い青に</td></tr>
+      <tr><td>rounded</td><td>角を丸く</td></tr>
+      <tr><td>hover:bg-blue-700</td><td>ボタンにホバー時の色を追加</td></tr>
+    </tbody>
+  </table>
+
+  <h2>📌 応用例（発展編）</h2>
+  <ul>
+    <li>空のときは「入力してください」と表示</li>
+    <li>Enterキーでも送信できるようにする</li>
+    <li>複数のフィールド（年齢・性別など）を扱う</li>
+  </ul>
+
+</body>
+</html>

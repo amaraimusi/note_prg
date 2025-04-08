@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Next.jsのルーティング：/neko/tama の作り方</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; padding: 2em; background: #f9f9f9; }
+    code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+    pre { background: #eee; padding: 1em; border-radius: 6px; overflow-x: auto; }
+    h1, h2, h3 { color: #333; }
+    ul { margin-left: 1em; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.jsで <code>/neko/tama</code> に対応するページを作る方法</h1>
+
+  <h2>✅ パターン1：<code>tama</code> が固定の場合</h2>
+  <p><code>/neko/tama</code> のようなURLが毎回決まっている場合、以下のようなディレクトリ構成にします：</p>
+
+  <pre>
+app/
+└── neko/
+    └── tama/
+        └── page.tsx
+  </pre>
+
+  <p>これで <code>http://localhost:3000/neko/tama</code> にアクセスすると対応するページが表示されます。</p>
+
+  <h2>✅ パターン2：<code>tama</code> が動的（変化する値）の場合</h2>
+  <p>URLが <code>/neko/123</code> や <code>/neko/mike</code> のように毎回変わる場合、<strong>動的ルーティング</strong>を使います。</p>
+
+  <p>以下のような構成になります：</p>
+
+  <pre>
+app/
+└── neko/
+    └── [name]/
+        └── page.tsx
+  </pre>
+
+  <p><code>[name]</code> フォルダ名がポイントで、任意の文字列にマッチします。</p>
+
+  <h3>📄 page.tsx のサンプルコード</h3>
+  <pre><code>import { useParams } from 'next/navigation';
+
+export default function NekoDetailPage() {
+  const params = useParams();
+  const name = params.name;
+
+  return (
+    &lt;main className="min-h-screen flex items-center justify-center bg-yellow-100"&gt;
+      &lt;h1 className="text-4xl font-bold text-yellow-700"&gt;
+        こんにちは、{name}ちゃん！
+      &lt;/h1&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+
+  <h2>🧠 まとめ</h2>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>ディレクトリ構成</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/neko/tama</code></td>
+        <td><code>app/neko/tama/page.tsx</code></td>
+        <td>静的ルーティング</td>
+      </tr>
+      <tr>
+        <td><code>/neko/[任意]</code></td>
+        <td><code>app/neko/[name]/page.tsx</code></td>
+        <td>動的ルーティング</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
