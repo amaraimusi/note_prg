@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript 開発環境構築手順（Yarn使用・Windows）</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9f9f9;
+      padding: 2em;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✅ TypeScript 開発環境構築手順（Yarn使用・Windows）</h1>
+
+  <p><strong>前提：</strong>Node.js はインストール済み</p>
+
+  <h2>1. Yarn のインストール（まだの場合）</h2>
+  <pre><code>npm install --global yarn</code></pre>
+
+  <h2>2. プロジェクトディレクトリの作成</h2>
+  <pre><code>mkdir my-typescript-app
+cd my-typescript-app</code></pre>
+
+  <h2>3. package.json の作成</h2>
+  <pre><code>yarn init -y</code></pre>
+
+  <h2>4. TypeScript のインストール（開発依存）</h2>
+  <pre><code>yarn add typescript --dev</code></pre>
+
+  <h2>5. TypeScript 設定ファイルの作成</h2>
+  <pre><code>npx tsc --init</code></pre>
+
+  <p>以下のように <code>tsconfig.json</code> を編集（必要に応じて）：</p>
+  <pre><code>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  }
+}</code></pre>
+<a href="ts_sec1-2.html">tsconfig.json の compilerOptions 解説</a><br>
+
+  <h2>6. src ディレクトリを作成してコードを書く</h2>
+  <pre><code>mkdir src</code></pre>
+
+  <p><code>src/index.ts</code> の例：</p>
+  <pre><code>const message: string = "Hello, TypeScript!";
+console.log(message);</code></pre>
+
+  <h2>7. ビルド用スクリプトの追加</h2>
+  <p><code>package.json</code> に以下を追加：</p>
+  <pre><code>"scripts": {
+  "build": "tsc",
+  "start": "node dist/index.js"
+}</code></pre>
+
+  <h2>8. コンパイルと実行</h2>
+  <pre><code>yarn build
+yarn start</code></pre>
+
+  <hr>
+
+  <p>🎉 これで開発環境は完成です！</p>
+  <p>必要があれば、ESLintやPrettier、Reactなどの導入方法も紹介できます。</p>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>tsconfig.json の compilerOptions 解説</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      background-color: #f9f9f9;
+      padding: 2em;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #eee;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 2em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>tsconfig.json の compilerOptions 解説</h1>
+
+  <pre><code>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  }
+}</code></pre>
+
+  <h2>各プロパティの解説</h2>
+
+  <h3>"target": "ES2020"</h3>
+  <p>TypeScript が変換する JavaScript のバージョンを指定。ES2020 を指定すると最新の構文（optional chaining など）をそのまま出力。</p>
+
+  <h3>"module": "commonjs"</h3>
+  <p>モジュールの出力形式を指定。Node.js でよく使われる CommonJS 形式（require / module.exports）を使う。</p>
+
+  <h3>"strict": true</h3>
+  <p>すべての厳格な型チェックを有効にする。コードの安全性が上がり、バグを防ぎやすくなる。</p>
+
+  <h3>"esModuleInterop": true</h3>
+  <p>CommonJS モジュールを ES モジュールのように扱えるようにする。<br>
+     例えば <code>import express from 'express'</code> のように書ける。</p>
+
+  <h3>"outDir": "dist"</h3>
+  <p>コンパイルされた JavaScript ファイルの出力
