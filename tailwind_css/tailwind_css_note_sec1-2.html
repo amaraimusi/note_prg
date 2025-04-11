@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tailwind CSS 基本スタイル解説</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      line-height: 1.7;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0f2fe;
+    }
+    .example {
+      background-color: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border-left: 4px solid #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS 基本スタイル解説</h1>
+
+  <h2>1. 余白（マージン・パディング）</h2>
+  <table>
+    <tr><th>内容</th><th>クラス例</th><th>意味</th></tr>
+    <tr><td>パディング</td><td><code>p-4</code></td><td>四辺すべてに1rem</td></tr>
+    <tr><td>上だけパディング</td><td><code>pt-2</code></td><td>padding-top: 0.5rem</td></tr>
+    <tr><td>マージン</td><td><code>m-4</code></td><td>margin: 1rem</td></tr>
+    <tr><td>横方向マージン</td><td><code>mx-2</code></td><td>左右に0.5rem</td></tr>
+    <tr><td>縦方向マージン</td><td><code>my-6</code></td><td>上下に1.5rem</td></tr>
+  </table>
+
+  <h2>2. 文字スタイル</h2>
+  <table>
+    <tr><th>内容</th><th>クラス例</th><th>意味</th></tr>
+    <tr><td>文字サイズ</td><td><code>text-lg</code></td><td>大きめの文字</td></tr>
+    <tr><td>文字色</td><td><code>text-red-500</code></td><td>赤系の文字</td></tr>
+    <tr><td>太字</td><td><code>font-bold</code></td><td>太字</td></tr>
+    <tr><td>文字位置</td><td><code>text-center</code></td><td>中央寄せ</td></tr>
+  </table>
+
+  <h2>3. 背景とボーダー</h2>
+  <table>
+    <tr><th>内容</th><th>クラス例</th><th>意味</th></tr>
+    <tr><td>背景色</td><td><code>bg-yellow-100</code></td><td>薄い黄色の背景</td></tr>
+    <tr><td>ボーダー</td><td><code>border border-red-500</code></td><td>赤枠</td></tr>
+    <tr><td>角丸</td><td><code>rounded-lg</code></td><td>角を大きく丸く</td></tr>
+  </table>
+
+  <h2>4. レイアウト系</h2>
+  <table>
+    <tr><th>内容</th><th>クラス例</th><th>意味</th></tr>
+    <tr><td>幅</td><td><code>w-1/2</code></td><td>幅50%</td></tr>
+    <tr><td>高さ</td><td><code>h-64</code></td><td>高さ16rem</td></tr>
+    <tr><td>フレックス</td><td><code>flex items-center</code></td><td>Flexboxで中央寄せ</td></tr>
+    <tr><td>グリッド</td><td><code>grid grid-cols-2 gap-4</code></td><td>2カラムグリッド</td></tr>
+    <tr><td>表示切替</td><td><code>hidden</code></td><td>非表示にする</td></tr>
+  </table>
+
+  <h2>5. レスポンシブ用プレフィックス</h2>
+  <table>
+    <tr><th>画面サイズ</th><th>プレフィックス</th><th>使用例</th></tr>
+    <tr><td>モバイル</td><td>なし</td><td><code>text-sm</code></td></tr>
+    <tr><td>640px以上</td><td>sm:</td><td><code>sm:text-base</code></td></tr>
+    <tr><td>768px以上</td><td>md:</td><td><code>md:text-lg</code></td></tr>
+    <tr><td>1024px以上</td><td>lg:</td><td><code>lg:text-xl</code></td></tr>
+    <tr><td>1280px以上</td><td>xl:</td><td><code>xl:text-2xl</code></td></tr>
+  </table>
+
+  <h2>6. 状態系（hover, focus など）</h2>
+  <table>
+    <tr><th>状態</th><th>クラス例</th><th>意味</th></tr>
+    <tr><td>ホバー</td><td><code>hover:bg-blue-700</code></td><td>ホバー時に背景が濃くなる</td></tr>
+    <tr><td>フォーカス</td><td><code>focus:ring-2</code></td><td>フォーカスで輪郭表示</td></tr>
+    <tr><td>アクティブ</td><td><code>active:scale-95</code></td><td>クリック時に縮小</td></tr>
+  </table>
+
+  <h2>7. Tailwind の基本クラス例</h2>
+  <div class="example">
+    <code>
+      &lt;div class="p-4 m-2 bg-gray-100 rounded-lg text-center text-blue-600 font-bold"&gt;<br>
+      &nbsp;&nbsp;これは Tailwind の基本例です<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>8. おすすめ練習法</h2>
+  <ul>
+    <li>✅ <a href="https://play.tailwindcss.com/" target="_blank">Tailwind Playground</a> で試す</li>
+    <li>✅ 実際のデザインをTailwindで再現する</li>
+    <li>✅ よく使うクラスをスニペット化する</li>
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tailwind CSS Formスタイル解説</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.7;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .example {
+      background: #fff;
+      padding: 10px;
+      border-left: 4px solid #0ea5e9;
+      margin: 10px 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #e0f2fe;
+    }
+    a {
+      color: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS - フォーム要素のスタイル指定</h1>
+
+  <h2>📥 input（テキストなど）</h2>
+  <div class="example">
+    <code>
+      &lt;input type="text" class="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="お名前"&gt;
+    </code>
+  </div>
+
+  <h2>⬇️ select のスタイル</h2>
+  <div class="example">
+    <code>
+      &lt;select class="border border-gray-300 rounded px-3 py-2 w-full focus:ring-2 focus:ring-green-500"&gt;<br>
+      &nbsp;&nbsp;&lt;option&gt;選択してください&lt;/option&gt;<br>
+      &nbsp;&nbsp;&lt;option&gt;選択肢 1&lt;/option&gt;<br>
+      &nbsp;&nbsp;&lt;option&gt;選択肢 2&lt;/option&gt;<br>
+      &lt;/select&gt;
+    </code>
+  </div>
+
+  <h2>✅ checkbox のスタイル</h2>
+  <div class="example">
+    <code>
+      &lt;label class="inline-flex items-center"&gt;<br>
+      &nbsp;&nbsp;&lt;input type="checkbox" class="form-checkbox text-blue-600 mr-2"&gt;<br>
+      &nbsp;&nbsp;同意する<br>
+      &lt;/label&gt;
+    </code>
+  </div>
+
+  <h2>🔘 radio ボタンのスタイル</h2>
+  <div class="example">
+    <code>
+      &lt;label class="inline-flex items-center mr-4"&gt;<br>
+      &nbsp;&nbsp;&lt;input type="radio" name="option" class="form-radio text-purple-600 mr-2"&gt;<br>
+      &nbsp;&nbsp;オプション1&lt;/label&gt;<br>
+      &lt;label class="inline-flex items-center"&gt;<br>
+      &nbsp;&nbsp;&lt;input type="radio" name="option" class="form-radio text-purple-600 mr-2"&gt;<br>
+      &nbsp;&nbsp;オプション2&lt;/label&gt;
+    </code>
+  </div>
+
+  <h2>📝 textarea のスタイル</h2>
+  <div class="example">
+    <code>
+      &lt;textarea class="border border-gray-300 rounded px-3 py-2 w-full h-32 resize-none focus:ring-2 focus:ring-indigo-400" placeholder="ご意見をご記入ください"&gt;&lt;/textarea&gt;
+    </code>
+  </div>
+
+  <h2>📦 よく使うクラス一覧</h2>
+  <table>
+    <tr><th>分類</th><th>クラス例</th><th>説明</th></tr>
+    <tr><td>外観</td><td><code>border, rounded, shadow</code></td><td>枠線・角丸・影</td></tr>
+    <tr><td>パディング</td><td><code>px-3, py-2</code></td><td>内側の余白</td></tr>
+    <tr><td>サイズ</td><td><code>w-full, h-12</code></td><td>幅・高さの調整</td></tr>
+    <tr><td>状態</td><td><code>focus:ring, focus:outline-none</code></td><td>フォーカス時の見た目</td></tr>
+    <tr><td>色</td><td><code>text-blue-600, bg-gray-100</code></td><td>テキストや背景色</td></tr>
+    <tr><td>フォント</td><td><code>text-sm, text-lg</code></td><td>文字サイズ</td></tr>
+    <tr><td>配置</td><td><code>flex, inline-flex, items-center</code></td><td>レイアウト調整</td></tr>
+  </table>
+
+  <h2>🧩 Tailwind Formsプラグイン（推奨）</h2>
+  <p>
+    より自然でモダンなフォームスタイルを使うには、<strong>@tailwindcss/forms</strong> プラグインの導入がおすすめです。
+  </p>
+
+  <h3>インストール</h3>
+  <div class="example">
+    <code>yarn add -D @tailwindcss/forms</code><br>
+    または<br>
+    <code>npm install -D @tailwindcss/forms</code>
+  </div>
+
+  <h3>tailwind.config.js の設定</h3>
+  <div class="example">
+    <code>
+      plugins: [<br>
+      &nbsp;&nbsp;require('@tailwindcss/forms'),<br>
+      ]
+    </code>
+  </div>
+
+  <p>これにより、`form-checkbox`, `form-radio`, `input`, `select`, `textarea` などに自然なデフォルトスタイルが適用されます。</p>
+
+</body>
+</html>

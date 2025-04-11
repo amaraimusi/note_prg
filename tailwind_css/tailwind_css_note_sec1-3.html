@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind CSS Grid 解説</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.7;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0f2fe;
+    }
+    .example {
+      background: #fff;
+      padding: 10px;
+      border-left: 4px solid #0ea5e9;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS - Grid の使い方</h1>
+
+  <h2>📦 Gridとは？</h2>
+  <p>
+    Gridは、要素を行（row）と列（column）で構成されたグリッド状に配置できるCSSレイアウトです。
+    Tailwindではユーティリティクラスで簡単に利用できます。
+  </p>
+
+  <h2>🔰 基本クラス</h2>
+  <table>
+    <tr><th>クラス</th><th>説明</th></tr>
+    <tr><td><code>grid</code></td><td>グリッドレイアウトを有効にする</td></tr>
+    <tr><td><code>grid-cols-N</code></td><td>N列に分ける</td></tr>
+    <tr><td><code>grid-rows-N</code></td><td>N行に分ける</td></tr>
+    <tr><td><code>gap-N</code></td><td>縦横の間隔を統一</td></tr>
+    <tr><td><code>gap-x-N / gap-y-N</code></td><td>横/縦方向だけの間隔</td></tr>
+    <tr><td><code>col-span-N</code></td><td>N列ぶんの幅を取る</td></tr>
+    <tr><td><code>row-span-N</code></td><td>N行ぶんの高さを取る</td></tr>
+  </table>
+
+  <h2>💡 基本的な使用例</h2>
+  <div class="example">
+    <code>
+      &lt;div class="grid grid-cols-3 gap-4"&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;1&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;2&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;3&lt;/div&gt;<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>📏 行（row）の指定</h2>
+  <div class="example">
+    <code>
+      &lt;div class="grid grid-rows-2 h-48 gap-2"&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;上段&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;下段&lt;/div&gt;<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>🧩 列の合成（col-span）</h2>
+  <div class="example">
+    <code>
+      &lt;div class="grid grid-cols-3 gap-2"&gt;<br>
+      &nbsp;&nbsp;&lt;div class="col-span-2"&gt;左2列&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;右1列&lt;/div&gt;<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>📱 レスポンシブなグリッド</h2>
+  <div class="example">
+    <code>
+      &lt;div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Item 1&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Item 2&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Item 3&lt;/div&gt;<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>🧠 自由なグリッドサイズ</h2>
+  <div class="example">
+    <code>
+      &lt;div class="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4"&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Auto 1&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Auto 2&lt;/div&gt;<br>
+      &nbsp;&nbsp;&lt;div&gt;Auto 3&lt;/div&gt;<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>🔄 その他便利なクラス</h2>
+  <table>
+    <tr><th>クラス</th><th>説明</th></tr>
+    <tr><td><code>place-items-center</code></td><td>中央寄せ（縦横）</td></tr>
+    <tr><td><code>justify-items-center</code></td><td>水平方向の中央寄せ</td></tr>
+    <tr><td><code>items-center</code></td><td>垂直方向の中央寄せ</td></tr>
+    <tr><td><code>grid-flow-col</code></td><td>列方向に並べる</td></tr>
+  </table>
+
+  <h2>✅ まとめ</h2>
+  <table>
+    <tr><th>やりたいこと</th><th>クラス例</th></tr>
+    <tr><td>グリッドレイアウト</td><td><code>grid</code></td></tr>
+    <tr><td>列数指定</td><td><code>grid-cols-3</code></td></tr>
+    <tr><td>隙間</td><td><code>gap-4</code></td></tr>
+    <tr><td>幅を拡張</td><td><code>col-span-2</code></td></tr>
+    <tr><td>レスポンシブ</td><td><code>sm:grid-cols-2</code></td></tr>
+    <tr><td>柔軟レイアウト</td><td><code>grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]</code></td></tr>
+  </table>
+
+  <h2>🌐 公式ドキュメント</h2>
+  <p>
+    <a href="https://tailwindcss.com/docs/grid-template-columns" target="_blank">
+      https://tailwindcss.com/docs/grid-template-columns
+    </a>
+  </p>
+
+</body>
+</html>

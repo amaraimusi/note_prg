@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind CSS と Bootstrap・通常のCSS（バニラCSS）の違い</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0e7490;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f9ff;
+    }
+    code {
+      background-color: #f3f3f3;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .example {
+      background: #fff;
+      padding: 10px;
+      border-left: 4px solid #0e7490;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS と Bootstrap・通常のCSS（バニラCSS）の違い</h1>
+
+  <h2>1. 概要比較</h2>
+  <table>
+    <tr>
+      <th>特徴</th>
+      <th>Tailwind CSS</th>
+      <th>Bootstrap</th>
+      <th>通常のCSS</th>
+    </tr>
+    <tr>
+      <td>設計思想</td>
+      <td>ユーティリティファースト</td>
+      <td>コンポーネントファースト</td>
+      <td>自由設計</td>
+    </tr>
+    <tr>
+      <td>初期スタイル</td>
+      <td>なし</td>
+      <td>あり（整ったUIを提供）</td>
+      <td>自作する必要あり</td>
+    </tr>
+    <tr>
+      <td>クラスの意味</td>
+      <td><code>p-4</code>, <code>text-center</code></td>
+      <td><code>btn</code>, <code>card</code></td>
+      <td>自由に命名（例：<code>.my-box</code>）</td>
+    </tr>
+    <tr>
+      <td>カスタマイズ性</td>
+      <td>非常に高い（configで調整）</td>
+      <td>そこそこ（変数で制御）</td>
+      <td>完全自由</td>
+    </tr>
+    <tr>
+      <td>レスポンシブ対応</td>
+      <td>ユーティリティで簡単</td>
+      <td>クラスで制御</td>
+      <td>メディアクエリを書く必要あり</td>
+    </tr>
+    <tr>
+      <td>JavaScript依存</td>
+      <td>ほぼなし</td>
+      <td>多くのコンポーネントがJS依存</td>
+      <td>必要に応じて自作</td>
+    </tr>
+    <tr>
+      <td>習得難易度</td>
+      <td>最初はやや取っつきにくい</td>
+      <td>すぐに使える</td>
+      <td>CSSの基礎が必要</td>
+    </tr>
+  </table>
+
+  <h2>2. 実装例比較</h2>
+
+  <h3>ボタンの実装</h3>
+
+  <div class="example">
+    <strong>Tailwind CSS</strong><br>
+    <code>&lt;button class="bg-blue-500 text-white py-2 px-4 rounded"&gt;送信&lt;/button&gt;</code>
+  </div>
+
+  <div class="example">
+    <strong>Bootstrap</strong><br>
+    <code>&lt;button class="btn btn-primary"&gt;送信&lt;/button&gt;</code>
+  </div>
+
+  <div class="example">
+    <strong>通常のCSS</strong><br>
+    <code>
+      &lt;style&gt;<br>
+      &nbsp;.btn { background: blue; color: white; padding: 8px 16px; border-radius: 4px; }<br>
+      &lt;/style&gt;<br>
+      &lt;button class="btn"&gt;送信&lt;/button&gt;
+    </code>
+  </div>
+
+  <h2>3. Tailwind CSS の主なメリット</h2>
+  <ul>
+    <li>✅ 開発スピードが速い（HTMLに直接スタイルを記述）</li>
+    <li>✅ CSSが肥大化しにくい（JITビルドで不要なクラスは省かれる）</li>
+    <li>✅ 一貫したデザイン（デザインルールが統一されている）</li>
+    <li>✅ レスポンシブや状態変化（ホバーなど）もクラスで簡単に制御</li>
+    <li>✅ 命名ルールに悩まない（クラス名に意味がある）</li>
+    <li>✅ JavaScriptフレームワーク（React, Vueなど）と相性抜群</li>
+  </ul>
+
+  <h2>4. Tailwind の注意点（デメリット）</h2>
+  <ul>
+    <li>⚠ クラスが長くなりがち</li>
+    <li>⚠ 初心者には少し難しい</li>
+    <li>⚠ 完全にTailwindに依存するのでCSSの基本は必要</li>
+  </ul>
+
+  <h2>5. 結論</h2>
+  <p>
+    Tailwind CSS は、UIを素早く柔軟に組み立てたい開発者向け。<br>
+    Bootstrapは、すぐに整った見た目のプロトタイプを作りたい人向け。<br>
+    通常のCSSは、自由度が高い分、構造やルール作りが大切。
+  </p>
+
+</body>
+</html>

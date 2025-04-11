@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.jsでデータ一覧を生成する見本と初期実行の仕組み</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.8; padding: 2em; background: #f8f8f8; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    code, pre { background: #eee; padding: 0.2em 0.4em; border-radius: 4px; }
+    pre { padding: 1em; overflow-x: auto; }
+    ul { margin-left: 1.5em; }
+    table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.jsでデータから一覧を生成する見本と仕組み解説</h1>
+
+  <h2>✅ サンプル：ネコ一覧を表示するページ</h2>
+  <p>以下は、配列データを元に Tailwind CSS を使って一覧表示をする Next.js（App Router構成）の見本です。</p>
+
+  <h3>📁 ファイル構成</h3>
+  <pre>app/
+└── neko-list/
+    └── page.tsx</pre>
+
+  <h3>📄 コード（app/neko-list/page.tsx）</h3>
+  <pre><code>'use client';
+
+type Cat = {
+  id: number;
+  name: string;
+};
+
+const catData: Cat[] = [
+  { id: 1, name: 'たま' },
+  { id: 2, name: 'みけ' },
+  { id: 3, name: 'しろ' },
+];
+
+export default function NekoListPage() {
+  return (
+    &lt;main className="p-6 bg-gray-50 min-h-screen"&gt;
+      &lt;h1 className="text-2xl font-bold mb-4 text-blue-700"&gt;ネコ一覧&lt;/h1&gt;
+
+      &lt;ul className="space-y-2"&gt;
+        {catData.map((cat) =&gt; (
+          &lt;li key={cat.id} className="bg-white shadow p-4 rounded border border-gray-200"&gt;
+            &lt;span className="font-medium text-gray-800"&gt;ID: {cat.id}&lt;/span&gt; / 名前: {cat.name}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+
+  <h3>📝 表示される内容（例）</h3>
+  <ul>
+    <li>ID: 1 / 名前: たま</li>
+    <li>ID: 2 / 名前: みけ</li>
+    <li>ID: 3 / 名前: しろ</li>
+  </ul>
+
+  <h2>🧠 質問：「どこが初期読み込み時のトリガーなの？」</h2>
+  <p>次のコードのこの部分が、ページ表示時に自動で実行されるトリガーです。</p>
+
+  <pre><code>export default function NekoListPage() {
+  return (...);
+}
+</code></pre>
+
+  <h3>🔍 仕組みの説明</h3>
+  <p>
+    Next.js（App Router構成）では、ページにアクセスすると、対応する <code>page.tsx</code> ファイル内の
+    <code>export default</code> 関数が自動で実行され、返された JSX が画面に描画されます。
+  </p>
+
+  <h3>📈 処理の流れ</h3>
+  <pre>
+ユーザーが /neko-list にアクセスする
+   ↓
+Next.js が app/neko-list/page.tsx を読み込む
+   ↓
+export default された NekoListPage 関数を実行
+   ↓
+return 内のJSXを描画
+  </pre>
+
+  <h3>💡 React的なポイント</h3>
+  <ul>
+    <li>Reactは「関数を実行してJSX（UI）を返す」構造</li>
+    <li>Next.jsはページごとにその関数を自動で呼び出す仕組みを持っている</li>
+    <li><code>useEffect()</code>を使えば「マウント後の副作用処理」も書ける</li>
+  </ul>
+
+  <h2>✅ 応用例のアイデア</h2>
+  <ul>
+    <li>API（PHPやNode）からデータを取得して一覧を生成</li>
+    <li><code>&lt;Link&gt;</code> を使って詳細ページに飛ぶ</li>
+    <li>テーブル表示やカード表示にする</li>
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tailwind CSS の色一覧と使い方</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.7;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0f2fe;
+    }
+    .example {
+      background: #fff;
+      padding: 10px;
+      border-left: 4px solid #0ea5e9;
+      margin: 10px 0;
+    }
+    a {
+      color: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS の色の種類と使い方</h1>
+
+  <h2>🎨 カラー指定の基本ルール</h2>
+  <p>
+    Tailwind では <code>色名-階調</code> という形式で色を指定します。<br>
+    例：<code>bg-blue-500</code>, <code>text-red-200</code>, <code>border-gray-800</code>
+  </p>
+
+  <h2>🟦 主な色グループ</h2>
+  <table>
+    <tr><th>色名</th><th>説明</th></tr>
+    <tr><td><code>gray</code></td><td>グレー系（UI全般に）</td></tr>
+    <tr><td><code>red</code></td><td>赤系（警告やエラー）</td></tr>
+    <tr><td><code>yellow</code></td><td>黄色系（警告など）</td></tr>
+    <tr><td><code>green</code></td><td>緑系（成功・安定）</td></tr>
+    <tr><td><code>blue</code></td><td>青系（リンク・動作）</td></tr>
+    <tr><td><code>indigo</code></td><td>藍色（少し深みのある青）</td></tr>
+    <tr><td><code>purple</code></td><td>紫系（高級感や印象的）</td></tr>
+    <tr><td><code>pink</code></td><td>ピンク系（やわらかい印象）</td></tr>
+    <tr><td><code>orange</code></td><td>オレンジ系（目立たせる）</td></tr>
+    <tr><td><code>lime</code>, <code>teal</code>, <code>cyan</code></td><td>明るい黄緑〜青緑系</td></tr>
+    <tr><td><code>sky</code>, <code>emerald</code>, <code>amber</code>, <code>rose</code></td><td>自然やエレガントな色合い</td></tr>
+    <tr><td><code>neutral</code>, <code>zinc</code>, <code>stone</code>, <code>slate</code></td><td>グレーに近い中性色系</td></tr>
+  </table>
+
+  <h2>🧱 カラーの階調（shade）</h2>
+  <p>各色は次のような階調が用意されています：</p>
+  <p><code>50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950</code></p>
+  <ul>
+    <li><strong>50〜200：</strong>薄い色（背景や淡い表現）</li>
+    <li><strong>300〜500：</strong>中間色（ボタンや見出しに）</li>
+    <li><strong>600〜950：</strong>濃い色（アクセントや強調）</li>
+  </ul>
+
+  <h2>🔧 使用例</h2>
+  <div class="example">
+    <code>&lt;div class="bg-blue-500 text-white p-4"&gt;青の背景&lt;/div&gt;</code>
+  </div>
+  <div class="example">
+    <code>&lt;p class="text-red-600"&gt;エラーメッセージ&lt;/p&gt;</code>
+  </div>
+  <div class="example">
+    <code>&lt;div class="border border-gray-300 p-2"&gt;枠線付き&lt;/div&gt;</code>
+  </div>
+  <div class="example">
+    <code>&lt;button class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"&gt;実行&lt;/button&gt;</code>
+  </div>
+
+  <h2>🌗 ダークモードへの対応</h2>
+  <div class="example">
+    <code>
+      &lt;div class="bg-white dark:bg-gray-800 text-black dark:text-white"&gt;<br>
+      &nbsp;&nbsp;ダークモード対応テキスト<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>🌐 カラー一覧（公式）</h2>
+  <p>
+    Tailwindの色一覧は以下から確認できます：<br>
+    <a href="https://tailwindcss.com/docs/customizing-colors" target="_blank">
+      https://tailwindcss.com/docs/customizing-colors
+    </a>
+  </p>
+
+  <h2>💡 カスタムカラーの追加</h2>
+  <div class="example">
+    <code>
+      // tailwind.config.js<br>
+      theme: {<br>
+      &nbsp;&nbsp;extend: {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;colors: {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brand: {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;light: '#3abff8',<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT: '#0ea5e9',<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dark: '#0284c7',<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;}<br>
+      }
+    </code>
+  </div>
+  <p>HTMLでの使用例：</p>
+  <div class="example">
+    <code>&lt;div class="bg-brand text-white p-4"&gt;オリジナルカラー&lt;/div&gt;</code>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.jsにUIコンポーネントはあるの?  |  Next.jsのページネーションの考え方と選択肢</title>
+  
+  <style>
+    body { font-family: sans-serif; line-height: 1.8; padding: 2em; background: #f8f8f8; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    code, pre { background: #eee; padding: 0.3em 0.5em; border-radius: 4px; }
+    pre { padding: 1em; overflow-x: auto; }
+    ul { margin-left: 1.5em; }
+    table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.jsにUIコンポーネントはあるの?  | Next.js にページネーション用コンポーネントはある？</h1>
+
+  <h2>✅ 結論</h2>
+  <table>
+    <thead>
+      <tr><th>質問</th><th>回答</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Next.jsにページネーション専用コンポーネントはある？</td>
+        <td>❌ ありません（UI部品は提供していない）</td>
+      </tr>
+      <tr>
+        <td>Antdを使わないとページネーションできない？</td>
+        <td>❌ 必要なし。自作や他ライブラリでも可能</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>🧠 理由</h2>
+  <p>Next.js はルーティングやSSR/SSGなどアプリ構築の基盤を提供するフレームワークであり、UIコンポーネント（ボタンやページネーションなど）は自前で用意するか、UIライブラリを使う必要があります。</p>
+
+  <h2>✅ ページネーションの選択肢</h2>
+  <table>
+    <thead>
+      <tr><th>方法</th><th>特徴</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ant Design (Antd)</td><td>高機能・デザイン済みで楽に導入可</td></tr>
+      <tr><td>自作</td><td>完全自由・軽量・Tailwindとの相性良し</td></tr>
+      <tr><td>他のUIライブラリ</td><td>MUI, Bootstrapなど</td></tr>
+      <tr><td>ヘッドレスライブラリ</td><td>react-paginate などロジック専用</td></tr>
+    </tbody>
+  </table>
+
+  <h2>✅ 自作ページネーションの最小例（Tailwind対応）</h2>
+  <pre><code>'use client';
+
+import { useState } from 'react';
+
+const items = Array.from({ length: 50 }, (_, i) =&gt; `アイテム ${i + 1}`);
+const itemsPerPage = 10;
+
+export default function Page() {
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  const start = (page - 1) * itemsPerPage;
+  const visibleItems = items.slice(start, start + itemsPerPage);
+
+  return (
+    &lt;div className="p-4"&gt;
+      &lt;ul className="mb-4 space-y-1"&gt;
+        {visibleItems.map((item, i) =&gt; (
+          &lt;li key={i} className="p-2 bg-white shadow rounded"&gt;{item}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+
+      &lt;div className="flex gap-2"&gt;
+        &lt;button onClick={() =&gt; setPage((p) =&gt; Math.max(1, p - 1))} disabled={page === 1}&gt;← 前へ&lt;/button&gt;
+        &lt;span&gt;ページ {page} / {totalPages}&lt;/span&gt;
+        &lt;button onClick={() =&gt; setPage((p) =&gt; Math.min(totalPages, p + 1))} disabled={page === totalPages}&gt;次へ →&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+  <h2>✅ Ant Design（Antd）を使う例</h2>
+  <pre><code>import { Pagination } from 'antd';
+
+export default function Page() {
+  const onChange = (page: number) =&gt; {
+    console.log('選択されたページ:', page);
+  };
+
+  return &lt;Pagination defaultCurrent={1} total={50} pageSize={10} onChange={onChange} /&gt;;
+}</code></pre>
+
+  <h2>✅ まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>使い方</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>自作</td><td>最も自由で軽量。Tailwindと相性抜群</td></tr>
+      <tr><td>Ant Design</td><td>短時間で見た目も整ったUIが作れる</td></tr>
+      <tr><td>react-paginateなど</td><td>ロジックだけ任せて、デザインは自由にできる</td></tr>
+    </tbody>
+  </table>
+
+  <h2>📌 応用したいときは？</h2>
+  <ul>
+    <li><code>?page=2</code> のようなクエリパラメータでルーティングしたい</li>
+    <li>APIからデータを取得してページごとに表示したい</li>
+    <li>詳細ページへのリンクを含めたい</li>
+  </ul>
+  <p>そのような構成もNext.jsで柔軟に対応できます。必要であれば応用サンプルも作成できます！</p>
+
+</body>
+</html>

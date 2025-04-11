@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Next.jsでロジック処理を分離して利用する見本 | Next.jsでクラスファイルってどうなの？</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.8; padding: 2em; background: #f9f9f9; color: #333; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre, code { background: #eee; padding: 0.3em 0.5em; border-radius: 4px; }
+    pre { padding: 1em; overflow-x: auto; }
+    ul { margin-left: 1.5em; }
+    table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <h1>Next.jsでロジック処理を分離して利用する見本 | Next.jsでクラスファイルってどうなの？</h1>
+
+  <p>ここでは、Next.js（App Router構成）+ TypeScriptを使い、データ加工のロジックを別ファイルにまとめて利用する方法を解説します。</p>
+
+  <h2>✅ 目的</h2>
+  <ul>
+    <li>データ加工などの処理を <code>utils/logic.ts</code> に分離</li>
+    <li>コンポーネント（<code>page.tsx</code>）でロジック関数やクラスを呼び出して使う</li>
+  </ul>
+
+  <h2>📁 ディレクトリ構成</h2>
+  <pre>project-root/
+├── app/
+│   └── neko-list/
+│       └── page.tsx ← 表示ページ
+├── utils/
+│   └── logic.ts     ← ロジックファイル</pre>
+
+  <h2>✅ ロジック関数で処理する例（関数型）</h2>
+
+  <h3><code>utils/logic.ts</code></h3>
+  <pre><code>export type Cat = {
+  id: number;
+  name: string;
+};
+
+export function formatCatList(cats: Cat[]): Cat[] {
+  return cats.map((cat) =&gt; ({
+    ...cat,
+    name: cat.name.toUpperCase(),
+  }));
+}</code></pre>
+
+  <h3><code>app/neko-list/page.tsx</code></h3>
+  <pre><code>'use client';
+
+import { formatCatList, Cat } from '@/utils/logic';
+
+const rawCatData: Cat[] = [
+  { id: 1, name: 'たま' },
+  { id: 2, name: 'みけ' },
+  { id: 3, name: 'しろ' },
+];
+
+const formattedCatData = formatCatList(rawCatData);
+
+export default function NekoListPage() {
+  return (
+    &lt;main className="p-6 bg-gray-50 min-h-screen"&gt;
+      &lt;h1 className="text-2xl font-bold mb-4 text-blue-700"&gt;加工済みネコ一覧&lt;/h1&gt;
+
+      &lt;ul className="space-y-2"&gt;
+        {formattedCatData.map((cat) =&gt; (
+          &lt;li key={cat.id} className="bg-white shadow p-4 rounded border border-gray-200"&gt;
+            ID: {cat.id} / 名前: {cat.name}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+
+  <h2>✅ クラス形式でロジックを定義する例</h2>
+
+  <h3><code>utils/CatService.ts</code></h3>
+  <pre><code>export type Cat = {
+  id: number;
+  name: string;
+};
+
+export class CatService {
+  private cats: Cat[];
+
+  constructor(cats: Cat[]) {
+    this.cats = cats;
+  }
+
+  toUpperCaseNames(): Cat[] {
+    return this.cats.map((cat) =&gt; ({
+      ...cat,
+      name: cat.name.toUpperCase(),
+    }));
+  }
+
+  filterByName(keyword: string): Cat[] {
+    return this.cats.filter((cat) =&gt; cat.name.includes(keyword));
+  }
+}</code></pre>
+
+  <h3><code>app/neko-list/page.tsx</code>（クラス利用）</h3>
+  <pre><code>'use client';
+
+import { CatService, Cat } from '@/utils/CatService';
+
+const rawCats: Cat[] = [
+  { id: 1, name: 'たま' },
+  { id: 2, name: 'みけ' },
+  { id: 3, name: 'しろ' },
+];
+
+const service = new CatService(rawCats);
+const cats = service.toUpperCaseNames();
+
+export default function NekoListPage() {
+  return (
+    &lt;main className="p-6 bg-gray-50 min-h-screen"&gt;
+      &lt;h1 className="text-2xl font-bold mb-4 text-blue-700"&gt;ネコ一覧（クラス加工）&lt;/h1&gt;
+      &lt;ul className="space-y-2"&gt;
+        {cats.map((cat) =&gt; (
+          &lt;li key={cat.id} className="bg-white shadow p-4 rounded border border-gray-200"&gt;
+            ID: {cat.id} / 名前: {cat.name}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+
+  <h2>🧠 Reactではクラスって使うの？</h2>
+  <ul>
+    <li>現在のReactでは <strong>関数コンポーネント＋Hooks</strong> が主流</li>
+    <li><strong>UI（JSX）の定義は関数</strong>で書くのが一般的</li>
+    <li><strong>ロジック部分だけ</strong>クラス形式で書くのはOK（型・責務の分離に役立つ）</li>
+  </ul>
+
+  <h2>✅ まとめ</h2>
+  <table>
+    <thead>
+      <tr><th>ポイント</th><th>内容</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ロジックの分離</td><td>関数またはクラスにして <code>utils/</code> に置く</td></tr>
+      <tr><td>クラス利用の是非</td><td>Reactコンポーネントには不要。ロジックだけならOK</td></tr>
+      <tr><td>設計メリット</td><td>責務の分離、再利用性、保守性アップ</td></tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

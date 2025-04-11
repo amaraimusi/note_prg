@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tailwind CSS - border解説</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.7;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .example {
+      background: #fff;
+      padding: 10px;
+      border-left: 4px solid #0ea5e9;
+      margin: 10px 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #e0f2fe;
+    }
+    a {
+      color: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tailwind CSS - border（枠線）のスタイル指定</h1>
+
+  <h2>🧱 基本構文</h2>
+  <p><code>border-[方向]-[太さ] [色] [スタイル] [丸み]</code></p>
+
+  <h2>✅ 1. 枠線の表示・非表示</h2>
+  <table>
+    <tr><th>クラス名</th><th>説明</th></tr>
+    <tr><td><code>border</code></td><td>全体に枠線（1px）</td></tr>
+    <tr><td><code>border-0</code></td><td>枠線を非表示</td></tr>
+    <tr><td><code>border-2</code>, <code>border-4</code></td><td>太さ指定</td></tr>
+    <tr><td><code>border-t</code>, <code>border-b</code></td><td>上下左右ごとの枠線</td></tr>
+  </table>
+
+  <div class="example">
+    <code>&lt;div class="border border-gray-400"&gt;全方向に枠線&lt;/div&gt;</code><br>
+    <code>&lt;div class="border-t-2 border-blue-500"&gt;上だけ太い青の枠線&lt;/div&gt;</code>
+  </div>
+
+  <h2>🎨 2. 枠線の色</h2>
+  <div class="example">
+    <code>&lt;div class="border border-red-500"&gt;赤い枠線&lt;/div&gt;</code><br>
+    <code>&lt;div class="border-t border-green-300"&gt;上だけ薄緑色&lt;/div&gt;</code>
+  </div>
+
+  <h2>🌀 3. 枠線のスタイル</h2>
+  <table>
+    <tr><th>クラス</th><th>説明</th></tr>
+    <tr><td><code>border-solid</code></td><td>実線（デフォルト）</td></tr>
+    <tr><td><code>border-dashed</code></td><td>破線</td></tr>
+    <tr><td><code>border-dotted</code></td><td>点線</td></tr>
+    <tr><td><code>border-double</code></td><td>二重線</td></tr>
+    <tr><td><code>border-none</code></td><td>非表示</td></tr>
+  </table>
+
+  <div class="example">
+    <code>&lt;div class="border-2 border-dashed border-red-400"&gt;破線の枠線&lt;/div&gt;</code>
+  </div>
+
+  <h2>📏 4. 角丸（rounded）</h2>
+  <table>
+    <tr><th>クラス</th><th>説明</th></tr>
+    <tr><td><code>rounded</code></td><td>全体を少し丸く</td></tr>
+    <tr><td><code>rounded-lg</code></td><td>より大きく丸く</td></tr>
+    <tr><td><code>rounded-full</code></td><td>完全な円形に</td></tr>
+    <tr><td><code>rounded-t-lg</code></td><td>上だけ丸み</td></tr>
+  </table>
+
+  <div class="example">
+    <code>&lt;div class="border p-4 rounded-lg"&gt;角が丸い枠線&lt;/div&gt;</code>
+  </div>
+
+  <h2>📐 5. 枠線の位置</h2>
+  <table>
+    <tr><th>クラス</th><th>効果</th></tr>
+    <tr><td><code>border-t</code></td><td>上だけ枠線</td></tr>
+    <tr><td><code>border-r</code></td><td>右だけ枠線</td></tr>
+    <tr><td><code>border-b</code></td><td>下だけ枠線</td></tr>
+    <tr><td><code>border-l</code></td><td>左だけ枠線</td></tr>
+    <tr><td><code>border-x</code></td><td>左右だけ</td></tr>
+    <tr><td><code>border-y</code></td><td>上下だけ</td></tr>
+  </table>
+
+  <div class="example">
+    <code>&lt;div class="border-x-2 border-blue-400"&gt;左右だけに枠線&lt;/div&gt;</code>
+  </div>
+
+  <h2>🌗 6. ダークモード対応</h2>
+  <div class="example">
+    <code>
+      &lt;div class="border border-gray-300 dark:border-gray-600"&gt;<br>
+      &nbsp;&nbsp;ダークモード対応の枠線<br>
+      &lt;/div&gt;
+    </code>
+  </div>
+
+  <h2>🧩 7. 応用例：フォーム</h2>
+  <div class="example">
+    <code>
+      &lt;input type="text" class="border border-gray-400 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500" placeholder="入力してください"&gt;
+    </code>
+  </div>
+
+  <h2>🎯 まとめ</h2>
+  <table>
+    <tr><th>カテゴリ</th><th>クラス例</th><th>説明</th></tr>
+    <tr><td>基本表示</td><td><code>border, border-2</code></td><td>枠線を表示、太さ変更</td></tr>
+    <tr><td>方向指定</td><td><code>border-t, border-x</code></td><td>特定方向のみ枠線</td></tr>
+    <tr><td>色</td><td><code>border-blue-500</code></td><td>色を指定</td></tr>
+    <tr><td>スタイル</td><td><code>border-dashed</code></td><td>点線や破線など</td></tr>
+    <tr><td>丸み</td><td><code>rounded-lg</code></td><td>角を丸く</td></tr>
+    <tr><td>ダークモード</td><td><code>dark:border-gray-600</code></td><td>暗色テーマに対応</td></tr>
+  </table>
+
+  <h2>🌐 公式ドキュメント</h2>
+  <p>
+    <a href="https://tailwindcss.com/docs/border-width" target="_blank">
+      https://tailwindcss.com/docs/border-width
+    </a>
+  </p>
+
+</body>
+</html>
