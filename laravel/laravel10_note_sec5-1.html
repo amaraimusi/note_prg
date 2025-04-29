@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laravel10で従来の開発環境を構築 | XAMPP, jQuery, ログインまわり（Breeze）</title>
+<style>
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #0056b3;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  border-bottom: 2px solid #0056b3;
+  padding-bottom: 0.3rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  color: #007bff;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Laravel10で従来の開発環境を構築 | XAMPP, jQuery, ログインまわり（Breeze）</h1>
+
+<h2>前提</h2>
+<ul>
+<li>Windows 環境</li>
+<li>XAMPPがインストールされ、Apacheが使用できる状態</li>
+<li>Composerがインストール済み</li>
+<li>Node.jsは今回の手順では不要</li>
+<li>データベースはsqliteまたはMySQLが利用可能</li>
+</ul>
+
+<h2>手順詳細</h2>
+
+<h3>1. XAMPPでApacheを起動しておく</h3>
+<p>XAMPPのコントロールパネルから「Apache」をStartします。これでローカルサーバーが使える状態になります。</p>
+
+<h3>2. 任意の場所にプロジェクトのディレクトリを作成</h3>
+<pre><code>mkdir minisched
+cd minisched</code></pre>
+<p>プロジェクトのベースディレクトリを作成し、ここにLaravelファイルを配置します。</p>
+
+<h3>3. Laravel10.3.3のプロジェクトを作成</h3>
+<pre><code>composer create-project laravel/laravel:^10.3.3 dev
+cd dev</code></pre>
+<p>"dev"というサブディレクトリにLaravelをインストールします。</p>
+
+<h3>4. Breezeパッケージをインストール（ログイン機能）</h3>
+<pre><code>composer require laravel/breeze --dev</code></pre>
+<p>シンプルなログイン・登録機能を持つBreezeを導入します。</p>
+
+<h3>5. 最初のマイグレーションを実行</h3>
+<pre><code>php artisan migrate</code></pre>
+<p>標準のusersテーブルなどを作成します。</p>
+
+<h3>6. BreezeをBlade版でインストール</h3>
+<pre><code>php artisan breeze:install blade</code></pre>
+<p>Bladeテンプレートエンジンを利用したシンプルな認証UIをインストールします。</p>
+
+<h3>7. Breeze導入後、再度マイグレーション</h3>
+<pre><code>php artisan migrate</code></pre>
+<p>認証関連のテーブルをDBに反映させます。</p>
+
+<h3>8. データベース設定について</h3>
+<ul>
+<li><strong>sqliteを使う場合</strong>：.env編集不要</li>
+<li><strong>MySQLを使う場合</strong>：.envに以下を記述
+<pre><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=データベース名
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
+</li>
+</ul>
+
+<h3>9. シンボリックリンクを作成してXAMPP配下にパスを通す（必要な場合）</h3>
+<pre><code>cmd /c mklink /D C:\xampp\htdocs\minisched C:\Users\user\git\minisched</code></pre>
+<p>管理者モードのPowerShellで実行します。仮想的にリンクを作り、localhostからアクセスできるようにします。</p>
+
+<h3>10. ブラウザでトップページにアクセス</h3>
+<p><a href="http://localhost/minisched/dev/public/" target="_blank">http://localhost/minisched/dev/public/</a> にアクセスし、Laravelの初期画面が表示されれば成功です。</p>
+
+<h3>11. 登録画面からユーザー登録・ログイン</h3>
+<p><a href="http://localhost/minisched/dev/public/register" target="_blank">http://localhost/minisched/dev/public/register</a> にアクセスして、ユーザー登録＆ログインを確認します。</p>
+
+<h2>まとめ図</h2>
+<pre><code>[XAMPP起動]
+      ↓
+[プロジェクト作成 → minisched/dev]
+      ↓
+[Breezeインストール → migrate2回]
+      ↓
+[シンボリックリンク設定（必要時）]
+      ↓
+[http://localhost/minisched/dev/public/ にアクセス]
+      ↓
+[registerからユーザー登録＆ログイン確認]</code></pre>
+
+<h2>メモ</h2>
+<ul>
+<li>Breezeは簡単なサンプル認証には最適。</li>
+<li>シンボリックリンクは複数案件対応に便利。</li>
+<li>php artisan migrateは頻繁に使うので習得必須。</li>
+</ul>
+
+</div>
+</body>
+</html>
