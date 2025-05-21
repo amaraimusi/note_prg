@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>XAMPP MySQL 起動エラー対処法</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; margin: 2em; }
+    h1, h2, h3 { color: #2c3e50; }
+    code, pre { background: #f4f4f4; padding: 0.5em; display: inline-block; border-radius: 4px; }
+    ul { padding-left: 1.5em; }
+    li { margin-bottom: 0.5em; }
+  </style>
+</head>
+<body>
+
+  <h1>🛠 XAMPP MySQL起動エラー「MySQL shutdown unexpectedly」の対処法</h1>
+
+  <h2>🔴 エラーメッセージの例</h2>
+  <pre><code>
+5:57:28  [mysql] 	Error: MySQL shutdown unexpectedly.
+5:57:28  [mysql] 	This may be due to a blocked port, missing dependencies, 
+5:57:28  [mysql] 	improper privileges, a crash, or a shutdown by another method.
+5:57:28  [mysql] 	Press the Logs button to view error logs and check
+5:57:28  [mysql] 	the Windows Event Viewer for more clues
+5:57:28  [mysql] 	If you need more help, copy and post this
+5:57:28  [mysql] 	entire log window on the forums
+  </code></pre>
+
+  <h2>【原因】</h2>
+  <p>
+    XAMPPのコントロールパネルでMySQLを <strong>「Stop」せずにWindowsをシャットダウン</strong>した場合、
+    MySQLが正しく終了せず、内部ファイルが破損してエラーが起こることがあります。
+  </p>
+
+  <h2>【復旧手順】</h2>
+  <ol>
+    <li><strong>XAMPPを起動</strong><br>コントロールパネルを開きます。</li>
+    <li><strong>XAMPPのインストールフォルダを開く</strong><br>「Explorer」ボタン（「Quit」ボタンの3つ上）をクリック。</li>
+    <li><strong><code>mysql/data</code> フォルダをバックアップ</strong><br>フォルダをデスクトップなどにコピーして保存。</li>
+    <li><strong><code>data</code> フォルダ内のファイルをすべて削除</strong></li>
+    <li><strong><code>mysql/backup</code> フォルダの中身をコピー</strong><br>中身すべてを <code>data</code> フォルダへ貼り付け。</li>
+    <li><strong>バックアップから <code>ibdata1</code> を戻す</strong><br>
+      コピーしておいた <code>data</code> フォルダから <code>ibdata1</code> をコピーし、上書き。
+    </li>
+    <li><strong>バックアップからデータベースフォルダを戻す</strong><br>
+      復元したいデータベース名のフォルダを <code>data</code> に戻す。
+    </li>
+    <li><strong>MySQLを起動</strong><br>XAMPPコントロールパネルからMySQLを起動。</li>
+    <li><strong>phpMyAdminで確認</strong><br>「Admin」ボタンからphpMyAdminを開き、データベースが復元されているか確認。</li>
+  </ol>
+
+  <h2>✅ 注意点</h2>
+  <ul>
+    <li><code>ibdata1</code> にはInnoDB型のデータがすべて保存されているため、これを失うと復旧は困難です。</li>
+    <li>削除・操作前には必ず <strong>dataフォルダ全体をバックアップ</strong> してください。</li>
+  </ul>
+
+</body>
+</html>

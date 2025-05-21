@@ -153,6 +153,8 @@
 	<li><a href="note8.html#sec8-7" >rootのパスワードを変更→ phpMyAdminで接続できません mysqli::real_connect(): (HY000/1045) ...</a></li>
 	<li><a href="note8.html#sec8-8" >DockerコンテナとMySQLのバックアップおよびリストア(インポート)</a></li>
 	<li><a href="note8.html#sec8-9" >テストデータ作成に役立つSQL | サンプルデータ</a></li>
+	<li><a href="note9/note9-1.html" >XAMPP MySQL起動エラー「MySQL shutdown unexpectedly」の対処法</a></li>
+	
 </ol>
 <hr><br><br><br>	
 			
