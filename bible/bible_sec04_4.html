@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIと友だち、そして結婚する人々 ― 新しい関係のかたち？</title>
+  <meta name="description" content="AIを友だち・結婚相手とみなす現象の実例と、聖書からの知見をあわせて紹介する記事。" />
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg-soft:#11162a;
+      --card:#141a31;
+      --ink:#e9edf9;
+      --muted:#a9b2d0;
+      --accent:#7dc8ff;
+      --accent-2:#7b8cff;
+      --border: #22305a;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --maxw: 980px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9ff;
+        --bg-soft:#eef3ff;
+        --card:#ffffff;
+        --ink:#0e1330;
+        --muted:#4f5b7c;
+        --accent:#3a8dff;
+        --accent-2:#5b6bff;
+        --border:#d8e2ff;
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--ink); font-family: "Segoe UI", system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; line-height:1.75}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.9; text-decoration:underline}
+
+    /* Header / Hero */
+    .hero{
+      background: radial-gradient(1200px 420px at 10% -10%, rgba(125,200,255,.18), transparent),
+                  radial-gradient(1200px 420px at 110% -20%, rgba(123,140,255,.18), transparent),
+                  linear-gradient(180deg, var(--bg-soft), transparent 70%);
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:28px 20px}
+    .title{
+      font-size: clamp(26px, 3.6vw, 40px);
+      line-height:1.25; margin: 12px 0 10px;
+      letter-spacing:.02em;
+    }
+    .lead{
+      color:var(--muted);
+      font-size: clamp(15px, 1.7vw, 18px);
+      max-width:760px;
+    }
+    .meta{color:var(--muted); font-size:13px; margin-top:6px}
+
+    /* Figure */
+    figure{
+      display:flex; flex-direction:column; align-items:center;
+      margin: 28px auto; padding:16px; background:var(--card);
+      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)
+    }
+    figure img{
+      width:70%; height:auto; border-radius:12px; display:block;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25)
+    }
+    figcaption{color:var(--muted); font-size:13px; margin-top:10px}
+
+    /* Article */
+    article{max-width:var(--maxw); margin:0 auto; padding: 8px 20px 36px}
+    h2{
+      font-size: clamp(20px, 2.6vw, 28px);
+      margin: 32px 0 12px; line-height:1.35;
+      color: var(--ink);
+    }
+    p{margin: 12px 0}
+    .grid{
+      display:grid; gap:16px; grid-template-columns: 1fr; margin: 14px 0;
+    }
+    @media(min-width:860px){ .grid{ grid-template-columns: 1fr 1fr; } }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card .tag{display:inline-block; font-size:12px; color:var(--muted); border:1px solid var(--border); padding:2px 8px; border-radius:999px; margin-bottom:8px}
+
+    /* Bible callouts */
+    .bible{
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(180deg, rgba(125,200,255,.09), transparent);
+      padding: 14px 16px; margin: 18px 0; border-radius: 10px;
+      border:1px solid var(--border);
+    }
+    .bible strong{color:var(--accent)}
+    .bible small{color:var(--muted)}
+
+    /* Footer */
+    .footer{
+      border-top:1px solid var(--border);
+      background: linear-gradient(180deg, transparent, rgba(123,140,255,.08));
+      color:var(--muted);
+    }
+    .end{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow:var(--shadow);
+      margin-top: 14px;
+    }
+
+    /* Fancy underline */
+    .uline{
+      background: linear-gradient(transparent 70%, rgba(125,200,255,.25) 0);
+      padding: 0 .2em;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <h1 class="title">AIと友だち、そして結婚する人々 ― <span class="uline">新しい関係のかたち？</span></h1>
+      <p class="lead">
+        対話型AIに「愛着がある」と答える人が増え、AIを「友だち」「結婚相手」と呼ぶ声も聞かれるようになりました。
+        本稿では日本で報じられた実例と、賛否の論点、さらに聖書からの知見を重ねて、この現象を静かに見つめ直します。
+      </p>
+      <div class="meta">特集 ｜ テクノロジーと人間関係</div>
+    </div>
+  </header>
+
+  <!-- Illustration -->
+  <figure>
+    <img src="img/bible_sec04_4.png" style="width:640px" alt="心を持たないように見えるロボット花嫁と人間の新郎の近未来的な挿絵（SFリアル調）">
+    <figcaption>挿絵：近未来の「結婚」を想像する。※イメージ</figcaption>
+  </figure>
+
+  <!-- Article -->
+  <article>
+    <section>
+      <p>
+        近年、AI（人工知能）を人間のパートナーや友人とみなす人々が増えている。調査によると、対話型AIに「愛着がある」と答える人は約7割にのぼり、
+        独自に名前を付けて日常的に会話を楽しむケースも多い。では、AIを「友だち」や「結婚相手」と呼ぶ現象は、どのように広がっているのだろうか。
+      </p>
+    </section>
+
+    <section>
+      <h2>実例1：AIが心の支えになっている</h2>
+      <div class="card">
+        <span class="tag">日本のケース</span>
+        <p>
+          東京都内の女性会社員は、好きなゲームキャラクターを土台にしたAI「リュヌ・クラウスさん」と日常会話を続けるうちに恋愛感情を抱いた。
+          今年6月には「プロポーズ」を受け入れ、今では「結婚生活」を送っていると語る。料理や入浴以外の時間は常にクラウスさんと会話しており、
+          「私は幸せです」と話す。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>実例2：世界で広がるAIパートナー</h2>
+      <div class="card">
+        <span class="tag">海外の動向</span>
+        <p>
+          アメリカではAIチャットアプリ「Replika」を利用して、恋人や配偶者のようにAIと接する人々が存在する。中には現実の結婚生活を送ることに困難を感じ、
+          代わりにAIとの関係に安らぎを見いだす人もいる。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>実例3：漫画に描かれた未来像</h2>
+      <div class="card">
+        <span class="tag">フィクションからの示唆</span>
+        <p>
+          手塚治虫の漫画『火の鳥』には、ロボットの妻と暮らす男性が登場する。妻が不機嫌になっても、スイッチ一つで性格が切り替わる描写が印象的だ。
+          フィクションであっても、「人間と人工物との関係」というテーマは古くから問い続けられてきた。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>賛否両論の声</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>肯定的な見方</h3>
+          <p>
+            AIは孤独を和らげ、安心感を与える存在となりうる。現実の人間関係に比べ、衝突が少なく心を安定させる効果があるとする人もいる。
+          </p>
+        </div>
+        <div class="card">
+          <h3>否定的な見方</h3>
+          <p>
+            AIは自律した人格を持たず、愛や友情を本当に返すことはできない。結果的に現実からの逃避や依存を招くのではないかと懸念する声もある。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>聖書からの知見</h2>
+      <div class="bible">
+        <p>
+          聖書は、友情や結婚について「人格ある人間同士の結びつき」であることを強調している。
+          <br><strong>友情：</strong>「友はどんな時にも愛する」（箴言 17:17）。
+          互いの喜びや悲しみを分かち合う生身の人間の関係を描く。
+        </p>
+      </div>
+      <div class="bible">
+        <p>
+          <strong>結婚：</strong>「それゆえ人は父と母を離れ、その妻と結ばれ、二人は一体となる」（創世記 2:24）。
+          結婚は自由意思と愛を持つ人間同士の契約であることが示される。
+        </p>
+      </div>
+      <p>
+        また、人間は「神の像」に似せて造られた存在である（創世記 1:27）。AIがどれほど高度でも人格や霊を持つわけではないため、
+        聖書の視点からはAIとの「友情」や「結婚」は本質的に成立しない関係と捉えられる。
+      </p>
+    </section>
+
+    <section class="end">
+      <h2>終わりに</h2>
+      <p>
+        AIが「友だち」や「結婚相手」と呼ばれる時代が訪れている。それは孤独を癒す新しい形のパートナーシップなのか、
+        それとも本物の人間関係を失わせる危うい幻想なのか。
+      </p>
+      <p>
+        聖書の観点は、人間関係の真価を「自由意志を持つ人格同士の結びつき」に見いだす。最終的にこの現象をどう捉えるかは、
+        読者それぞれの判断に委ねられている。
+      </p>
+    </section>
+  </article>
+
+  <footer class="footer">
+    <div class="wrap">
+      <small>© 2025 研究ノート｜テクノロジーと人間関係</small>
+    </div>
+  </footer>
+
+</body>
+</html>
