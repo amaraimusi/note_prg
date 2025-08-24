@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>箴言25:28｜怒りと城壁</title>
+  <style>
+    :root{
+      --brand:#0195b7;          /* キーカラー（既存資料に合わせて） */
+      --brand-ink:#035b6c;
+      --gold:#e5b80b;           /* 差し色（王冠/盾のイメージ） */
+      --ink:#0f172a;            /* 文字色 */
+      --muted:#6b7280;          /* 補助文字 */
+      --bg:#f5f7fb;             /* ページ背景 */
+      --card:#ffffff;           /* カード背景 */
+      --line:#e5e7eb;           /* 枠線/罫線 */
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1220;
+        --card:#0f172a;
+        --ink:#e5e7eb;
+        --muted:#9aa3b2;
+        --line:#1f2937;
+        --brand-ink:#7cd6e7;
+      }
+      .bg-pattern{opacity:.15}
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+      color:var(--ink);
+      background:radial-gradient(1200px 600px at 10% -20%, #dff6fc 0, transparent 55%),
+                 radial-gradient(800px 400px at 110% 10%, #eaf7ff 0, transparent 60%),
+                 var(--bg);
+      line-height:1.9;
+    }
+    .wrap{max-width:980px; padding:32px 20px 64px; margin:auto;}
+
+    /* ── ヒーロー（見出し＋引用） ─────────────────────────── */
+    .hero{ position:relative; border-radius:18px; overflow:hidden; background:linear-gradient(135deg, #ffffff, #f2fbff); box-shadow:0 10px 30px rgba(1,149,183,.12);}
+    .hero-inner{ display:grid; grid-template-columns: 1.1fr .9fr; gap:0; }
+    @media (max-width:860px){ .hero-inner{grid-template-columns:1fr} }
+    .hero-copy{ padding:32px 28px 28px; }
+    .kicker{ font-weight:700; letter-spacing:.16em; font-size:.82rem; color:var(--brand-ink); text-transform:uppercase; }
+    .quote{
+      margin:12px 0 0; padding:22px 22px 22px 22px; border-left:6px solid var(--brand); background:linear-gradient(90deg, rgba(1,149,183,.09), transparent 55%);
+      font-size:1.25rem; font-weight:700; line-height:1.7;
+    }
+    .hero-sub{ margin:14px 4px 0; color:var(--muted); font-size:.98rem; }
+    .hero-illust{ position:relative; background:linear-gradient(180deg, rgba(1,149,183,.09), rgba(1,149,183,.03)); min-height:240px; display:flex; align-items:center; justify-content:center; }
+
+    /* 砕けた城壁の簡易SVG（装飾） */
+    .bg-pattern{ position:absolute; inset:0; opacity:.18; pointer-events:none }
+    .crown{ width:72px; height:72px; display:inline-grid; place-items:center; border:2px solid var(--gold); color:var(--gold); border-radius:16px; }
+
+    /* ── セクション共通 ─────────────────────────── */
+    section{ margin-top:28px; }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 22px; box-shadow:0 6px 18px rgba(2, 20, 30, .06); }
+    h2{ margin:0 0 12px; font-size:1.2rem; letter-spacing:.02em }
+    .lead{ color:var(--ink); }
+
+    /* 箇条書き（アイコン付き） */
+    .list{ display:grid; gap:14px; margin:14px 0 0; padding:0; list-style:none }
+    .li{ display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:start }
+    .li .ico{ width:28px; height:28px; border-radius:8px; background:rgba(1,149,183,.11); display:grid; place-items:center; }
+
+    /* フッター引用 */
+    .footer{ margin-top:24px; padding:16px 18px; border-radius:14px; border:1px dashed var(--line); background:linear-gradient(180deg, rgba(1,149,183,.06), transparent 45%)}
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px }
+    .tag{ font-size:.8rem; padding:.26rem .56rem; border-radius:999px; border:1px solid var(--line); background:rgba(1,149,183,.08) }
+
+    /* 印刷向けの軽い調整 */
+    @media print{
+      body{ background:#fff }
+      .hero{ box-shadow:none; border:1px solid var(--line) }
+      .card{ box-shadow:none }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- ── HERO: タイトル＆メイン引用 ───────────────────── -->
+    <article class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="kicker">箴言 25:28</div>
+          <div class="quote">「怒りを抑えられない人は，城壁のない打ち破られた町のようだ」</div>
+          <p class="hero-sub">古代の町は城壁がなければ外敵に侵入され放題で、すぐ破壊されました。感情の抑制を欠くことは、その城壁を失うのと同じ危うさをもたらします。</p>
+        </div>
+        <div class="hero-illust">
+          <!-- 背景パターン（崩れた城壁） -->
+          <svg class="bg-pattern" viewBox="0 0 800 460" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0195b7"/>
+                <stop offset="100%" stop-color="#0195b7" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- 簡易ブロック（割れ目のある城壁風） -->
+            <g fill="url(#g1)">
+              <rect x="40"  y="60" width="110" height="40" rx="6"/>
+              <rect x="165" y="60" width="140" height="40" rx="6"/>
+              <rect x="320" y="60" width="170" height="40" rx="6"/>
+              <rect x="40"  y="110" width="140" height="40" rx="6"/>
+              <rect x="190" y="110" width="120" height="40" rx="6"/>
+              <rect x="320" y="110" width="210" height="40" rx="6"/>
+              <rect x="40"  y="160" width="180" height="40" rx="6"/>
+              <rect x="230" y="160" width="140" height="40" rx="6"/>
+              <rect x="380" y="160" width="130" height="40" rx="6"/>
+              <rect x="40"  y="210" width="150" height="40" rx="6"/>
+              <rect x="200" y="210" width="180" height="40" rx="6"/>
+              <rect x="390" y="210" width="140" height="40" rx="6"/>
+            </g>
+            <!-- ひび割れ線 -->
+            <path d="M70,100 l45,26 l-30,18 l40,20 l-20,18 l62,22 l-14,20" stroke="#0195b7" stroke-opacity=".45" stroke-width="3" fill="none"/>
+          </svg>
+          <div class="crown" aria-hidden="true">
+            <!-- 王冠アイコン -->
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7l4 3 5-6 5 6 4-3v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── SECTION 1: 説明 ─────────────────────────── -->
+    <section class="card">
+      <h2>感情に城壁がないと何が起きるか</h2>
+      <p class="lead">
+        同様に、自分の感情や欲望を抑えられない人は、心に防御がなく、外からの悪影響に無防備になります。結果として、怒りや衝動に支配され、人間関係を壊したり、自分自身を傷つける行動を取ってしまいます。
+      </p>
+    </section>
+
+    <!-- ── SECTION 2: 危うさ ─────────────────────────── -->
+    <section class="card">
+      <h2>感情を抑えられない人の危うさ</h2>
+      <p class="lead">温和さを欠く人は不安や欲求不満、希望の欠如、さらには絶望から反応してしまうことがあります。こうした状態では「ふさわしくない考え」が心に入り込みやすく、誤った行動につながります。まさに「城壁が打ち破られた都市」のように、無防備で脆いのです。</p>
+      <ul class="list">
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 握手が壊れるアイコン（関係の崩壊イメージ） -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11l-2 2 4 4 3-3"/><path d="M16 13l2-2-4-4-3 3"/><path d="M4 20l5-5"/><path d="M20 4l-5 5"/></svg>
+          </span>
+          <div><strong>人間関係の崩壊：</strong>怒りに任せた言葉で、信頼も友情も壊れやすい。</div>
+        </li>
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 砂時計アイコン（損失/後悔） -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12"/><path d="M6 22h12"/><path d="M6 2v4a6 6 0 0 0 12 0V2"/><path d="M6 22v-4a6 6 0 0 1 12 0v4"/></svg>
+          </span>
+          <div><strong>人生の損失：</strong>冷静さを失うと判断を誤り、大きな後悔を残す。</div>
+        </li>
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 稲妻と雲（信仰の弱体化） -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 13a4 4 0 1 0-7.7-1.5A3 3 0 1 0 6 18h5"/><path d="M13 12l-2 5h3l-2 5"/></svg>
+          </span>
+          <div><strong>信仰の弱体化：</strong>絶望しやすく、悪い影響を受けやすくなる。</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ── SECTION 3: 温和さと信仰 ─────────────────────────── -->
+    <section class="card">
+      <h2>温和さと信仰との関係</h2>
+      <p class="lead">温和さは<strong>弱さではなく強さの証し</strong>。信仰と神への信頼から来る精神的な力によって支えられます。自分を抑制できる人は、外からの挑発や内なる衝動に左右されず、冷静さを保つ――それが人生における<strong>盾</strong>となり、自分や周囲を守ります。</p>
+    </section>
+
+    <!-- ── SECTION 4: 適用点 ─────────────────────────── -->
+    <section class="card">
+      <h2>適用点</h2>
+      <ul class="list">
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 城壁 -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18"/><path d="M6 10V5h3v5"/><path d="M15 10V5h3v5"/><rect x="3" y="10" width="18" height="9" rx="2"/></svg>
+          </span>
+          <div><strong>感情の防御を築く：</strong>心に「城壁」を持つとは、祈りや聖書の原則で心を守ること。</div>
+        </li>
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 盾 -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg>
+          </span>
+          <div><strong>冷静さは盾：</strong>怒りや激しい感情に支配される代わりに、冷静さを選んで損失を防ぐ。</div>
+        </li>
+        <li class="li">
+          <span class="ico" aria-hidden="true">
+            <!-- 祈りの手（簡略） -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12l-2 3 6 6 6-6-2-3"/><path d="M9 9l3 3 3-3"/></svg>
+          </span>
+          <div><strong>信仰の強化：</strong>神との関係を深め、精神的な強さを養い、怒りや欲求不満に振り回されない。</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ── FOOTER: 出典とタグ ─────────────────────────── -->
+    <footer class="footer card">
+      <div>📖 聖書の格言 25:28より：</div>
+      <blockquote style="margin:6px 0 0; font-weight:700">怒りを抑えられない人は，城壁のない打ち破られた町のようだ。</blockquote>
+      <div class="tags" aria-label="タグ">
+        <span class="tag">#怒り</span>
+        <span class="tag">#温和</span>
+        <span class="tag">#強さ</span>
+        <span class="tag">#感情</span>
+      </div>
+    </footer>
+    
+    <img src ="img/bible_sec04_2.png" style="width:50%"; />
+  </div>
+</body>
+</html>
