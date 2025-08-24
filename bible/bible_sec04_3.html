@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>自制心 ― 人生を導く精神的なブレーキ</title>
+<style>
+  :root{
+    --accent:#0195b7;
+    --accent-2:#0ea5a8;
+    --ink:#1b1f24;
+    --muted:#5b6875;
+    --paper:#ffffff;
+    --bg:#f6fafb;
+    --shadow: 0 8px 24px rgba(1,149,183,.15);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e9eef2;
+      --muted:#b8c2cc;
+      --paper:#0f1317;
+      --bg:#07090c;
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font: 16px/1.8 "Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  .wrap{
+    max-width: 980px; margin: 40px auto; padding: 0 20px;
+  }
+  .card{
+    background:var(--paper);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding: clamp(20px,3vw,36px);
+  }
+  header h1{
+    margin:.2em 0 .6em; font-size: clamp(24px,3.6vw,40px);
+    line-height:1.25;
+    letter-spacing:.02em;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-weight:800;
+  }
+  .hero{
+    margin: 18px 0 26px; text-align:center;
+  }
+  .hero img{
+    width:70%; max-width:100%; height:auto; border-radius:14px;
+    box-shadow:0 10px 30px rgba(1,149,183,.25);
+  }
+  .lead{
+    font-size:1.05rem; color:var(--muted);
+  }
+  h2{
+    font-size: clamp(20px,2.4vw,28px);
+    margin: 34px 0 12px;
+    padding-left:14px; border-left:6px solid var(--accent);
+  }
+  .divider{
+    height:1px; border:0; margin:26px 0;
+    background:linear-gradient(90deg,transparent,var(--accent) 20%, var(--accent-2) 80%, transparent);
+    opacity:.4;
+  }
+  ul{padding-left:1.2em; margin:.3em 0 1em}
+  li{margin:.25em 0}
+  .hint{
+    margin:.3em 0 1.2em; color:var(--muted);
+    padding:.6em .9em; border-left:4px solid var(--accent); background:rgba(1,149,183,.06); border-radius:10px;
+  }
+  .keylist{list-style:"🪙  ";}
+  .checklist{list-style:"✅  ";}
+  .dotlist{list-style:"・  ";}
+  .tag{display:inline-block; padding:.18em .55em; border:1px solid rgba(1,149,183,.35); color:var(--accent); border-radius:999px; font-size:.85rem; margin:.15em .25em .15em 0}
+  .conclusion{
+    margin-top: 30px;
+    padding: 20px 18px;
+    border:1px dashed rgba(1,149,183,.5);
+    border-radius:14px;
+    background: linear-gradient(180deg, rgba(1,149,183,.06), rgba(14,165,168,.05));
+  }
+  .foot{
+    margin-top:22px; color:var(--muted); font-size:.92rem;
+    display:flex; flex-wrap:wrap; gap:.4rem;
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <article class="card">
+      <header>
+        <h1>自制心 ― 人生を導く精神的なブレーキ</h1>
+        <div class="hero">
+          <img src="img/bible_sec04_3.png" alt="自制心のイメージ" />
+        </div>
+        <p class="lead">
+          自制とは「衝動、感情、欲望に対する抑制力」です。いっときは「我慢」と感じられても、長期的には自由と幸福をもたらします。
+        </p>
+      </header>
+
+      <section>
+        <h2>🔑 自制とは何か？その定義と重み</h2>
+        <p>
+          自制とは「衝動、感情、欲望に対する抑制力」です。 一時的には「我慢」と感じられるかもしれませんが、長期的には自由と幸福をもたらす重要な力です。
+        </p>
+        <p>
+          聖書もその価値を強調しています。ペテロ第二 1:5-7では「信仰に徳を、徳に知識を、知識に自制を加えるように」と述べられており、自制は信仰生活の成熟に欠かせないステップとされています。 古代から「人間の業績の極致」とも呼ばれるほど、高く評価されてきた美徳です。
+        </p>
+      </section>
+
+      <hr class="divider" />
+
+      <section>
+        <h2>🧠 自制が必要な場面</h2>
+        <p>自制心は、次のような場面で特に求められます。</p>
+
+        <ol>
+          <li><strong>誘惑に打ち勝つとき</strong>
+            <ul class="dotlist">
+              <li>ダイエット中のケーキ</li>
+              <li>節約中の不要な買い物</li>
+            </ul>
+            <p class="hint">→ 短期的な欲望に流されない力。</p>
+          </li>
+
+          <li><strong>怒りやイライラを抑えるとき</strong>
+            <ul class="dotlist">
+              <li>侮辱されたとき</li>
+              <li>思い通りにいかないとき</li>
+            </ul>
+            <p class="hint">→ 冷静に対処することで人間関係や信頼を守れる。</p>
+          </li>
+
+          <li><strong>言いたいことを抑えるとき</strong>
+            <ul class="dotlist">
+              <li>傷つけそうな発言を思いとどまる</li>
+              <li>タイミングを見て話す</li>
+            </ul>
+            <p class="hint">→ 思慮深い発言につながり、争いを防ぐ。</p>
+          </li>
+
+          <li><strong>時間や生活を管理するとき</strong>
+            <ul class="dotlist">
+              <li>SNSやゲームに没頭しそうなとき</li>
+              <li>締め切り前の集中</li>
+            </ul>
+            <p class="hint">→ 生産性と生活リズムの要。</p>
+          </li>
+
+          <li><strong>信仰や価値観を守るとき</strong>
+            <ul class="dotlist">
+              <li>圧力の中でも正しい行いを貫く</li>
+              <li>信念に反する行為を拒む</li>
+            </ul>
+            <p class="hint">→ 行動に信仰と価値観を反映できる。</p>
+          </li>
+        </ol>
+      </section>
+
+      <hr class="divider" />
+
+      <section>
+        <h2>⚠️ 自制を欠いたときの危険</h2>
+        <p>
+          聖書には、自制を失った人々の例が数多くあります。 アダムは欲望に負け、カインは怒りを抑えられず、ロトの妻は執着から命を落としました。ダビデやモーセの失敗も、自制を欠いた一瞬から起こりました。
+        </p>
+        <p>
+          現代でも、自制を欠くと社会的信用の喪失や会衆からの除名といった深刻な結果を招くことがあります。 自制は知識や才能のブレーキであり、それを失うと人生そのものが暴走しかねません。
+        </p>
+      </section>
+
+      <hr class="divider" />
+
+      <section>
+        <h2>💥 自制が難しい理由</h2>
+        <ul class="keylist">
+          <li><strong>サタンの影響</strong>：悪魔は誘惑や怒りを利用して自制を崩そうとします。</li>
+          <li><strong>世の風潮</strong>：享楽主義や物質主義が「自制なんて不要」と思わせます。</li>
+          <li><strong>人間の本性</strong>：利己性や欲望が絶えず内面で衝突します。</li>
+        </ul>
+        <p>
+          パウロも「自分の体を打ちたたき、奴隷として引いていく」と語り、自制を戦いにたとえました。それは精神的な努力であり、肉体的限界との闘いでもあります。
+        </p>
+      </section>
+
+      <hr class="divider" />
+
+      <section>
+        <h2>🧭 自制を鍛える実生活の方法</h2>
+        <p>現代心理学や生活習慣にも応用できる工夫があります。</p>
+        <ul class="checklist">
+          <li><strong>5分だけやる（ツァイガルニク効果）</strong>：<br>「5分だけ掃除」と始めると、途中でやめたくなくなる心理が働く。</li>
+          <li><strong>習慣のトリガーを作る</strong>：<br>「朝起きたら机を片付ける」など、行動を自動化。</li>
+          <li><strong>誘惑を遠ざける環境づくり</strong>：<br>スマホを別室に置く、SNSをブロック。</li>
+          <li><strong>報酬の先延ばし</strong>：<br>「終わったら30分ゲームOK」と決める。</li>
+          <li><strong>公開アカウンタビリティ</strong>：<br>「今日は○○をやる」と周囲に宣言して自制を強める。</li>
+          <li><strong>欲求の波をやり過ごす</strong>：<br>衝動は10～15分で弱まる。深呼吸や散歩でずらす。</li>
+          <li><strong>自己暗示の活用</strong>：<br>
+            <span class="tag">言葉</span>「今の集中が未来の自分を助ける」　
+            <span class="tag">視覚</span>掲示やイメージで成功を描く　
+            <span class="tag">行動</span>背筋を伸ばす・タイマーを押す「スイッチON」　
+            <span class="tag">役割演技</span>「今は掃除のプロ」と演じる
+          </li>
+        </ul>
+        <p class="hint">これらは意志の力を消耗せずに自制を発揮する実践的テクニックです。</p>
+      </section>
+
+      <hr class="divider" />
+
+      <section class="conclusion">
+        <h2>🚘 まとめ ― 自制は信仰者に不可欠な美徳</h2>
+        <p>
+          自制は単なる我慢ではありません。 それは人生を安全で有意義に導く<strong>「精神的なブレーキとハンドル」</strong>です。
+        </p>
+        <p>
+          信仰・徳・知識・愛と並ぶ重要な価値であり、欠けるとどんな立派な行いも虚しくなります。 一方で、自制を訓練し育てるなら、誘惑や怒りに振り回されず、自由で満ち足りた人生を歩むことができます。
+        </p>
+        <p><strong>✨ 自制は「束縛」ではなく「本当の自由」への道なのです。</strong></p>
+      </section>
+
+      <div class="foot">
+        <span class="tag">#自制</span><span class="tag">#徳</span><span class="tag">#時間管理</span><span class="tag">#信仰</span>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
