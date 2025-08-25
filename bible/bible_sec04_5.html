@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>世界に満ちる暴力 ─ 根本原因と終わりの希望</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#ef4444;      /* red */
+      --accent-2:#f59e0b;    /* amber */
+      --callout-bg:#fff7ed;  /* amber-50 */
+      --callout-line:#fbbf24;/* amber-300 */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN",
+                   "Hiragino Sans",Meiryo,"Noto Sans JP",sans-serif;
+      line-height:1.85;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 400px at 10% -10%, #fde68a55 0, transparent 60%),
+        radial-gradient(900px 380px at 110% -10%, #fca5a555 0, transparent 60%),
+        var(--bg);
+    }
+    .container{
+      max-width: 980px;
+      margin: 40px auto 72px;
+      padding: 0 20px;
+    }
+    .header{
+      color:#fff;
+      border-radius: 18px;
+      padding: 28px 26px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+      background:
+        radial-gradient(1200px 360px at -10% 0%, #fde68a88 0, transparent 40%),
+        linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .header h1{
+      margin:0 0 8px;
+      font-weight: 800;
+      letter-spacing:.02em;
+      font-size: clamp(1.6rem, 2.2vw + 1rem, 2.4rem);
+    }
+    .header p{
+      margin:0;
+      opacity:.95;
+    }
+    .figure{
+      margin: 26px auto 18px;
+      text-align:center;
+    }
+    .figure img{
+      width: min(100%, 760px);
+      aspect-ratio: 1 / 1;               /* 1024×1024想定 */
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(0,0,0,.25);
+      border: 1px solid var(--line);
+      background:#000;
+    }
+    .figure figcaption{
+      font-size:.92rem;
+      color:var(--muted);
+      margin-top:10px;
+    }
+    .section{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 22px;
+      margin: 18px 0;
+      box-shadow: 0 8px 28px rgba(0,0,0,.06);
+    }
+    .section h2{
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      display:flex;
+      align-items: center;
+      gap:.6rem;
+    }
+    .section h2::before{
+      content:"";
+      inline-size: 11px;
+      block-size: 11px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 6px rgba(239,68,68,.12);
+    }
+    .callout{
+      border-left: 6px solid var(--callout-line);
+      background: var(--callout-bg);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 12px 0;
+    }
+    .ref{ color:var(--muted); font-size:.95rem; }
+    ol{ margin-left: 1.2rem; }
+    hr.div{
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 24px 0 6px;
+    }
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:.92rem;
+      margin-top: 22px;
+    }
+    /* small-screen tweaks */
+    @media (max-width:520px){
+      .section{ padding:18px }
+      .header{ padding:22px }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="header" role="banner">
+      <h1>世界に満ちる暴力 ─ 根本原因と終わりの希望</h1>
+      <p>
+        世界は今、戦争・テロ・殺人・虐待・いじめ、そして国家レベルの核兵器にまで及ぶ暴力で満ちています。
+        聖書はその根本原因を「悪魔サタン」と示し、イエスはサタンを
+        「その始まりから人殺し」（ヨハネ 8:44）と呼びました。
+      </p>
+    </header>
+
+    <figure class="figure">
+      <img src="img/bible_sec04_5.png" alt="現在の世界に見られる暴力を象徴する1024×1024のイメージ（戦争・いじめ・家庭内暴力・核の脅威など）" />
+      <figcaption>現在の社会に点在する多様な暴力を象徴するイメージ</figcaption>
+    </figure>
+
+    <section class="section" id="intro">
+      <p>
+        これは単に「最初の殺人者」という意味ではなく、
+        <strong>死と暴力を人間社会に導入した張本人</strong>
+        という広い意味を持っています。
+      </p>
+      <hr class="div" />
+    </section>
+
+    <section class="section" id="part1">
+      <h2>1. 人類が神から離れた結果としての“殺人者”</h2>
+      <p>
+        聖書の物語は、創世記3章に登場する「蛇」から始まります。サタンは神のことばを曲げ、
+        人に「神に従わなくても大丈夫だ」と不信を植え付けました（創世記 3:1–5）。
+        その結果、人間は命の源である神から離れました（詩編 36:9）。
+      </p>
+      <div class="callout">
+        <strong>ローマ 5:12 の要点</strong><br />
+        「一人の人によって罪が世界に入り、罪によって死が入り込んだ」──
+        本来、人は永遠に生きるはずでしたが、罪のため死ぬ存在となりました。
+        もし罪人が永遠に生き続けるなら、世界は理不尽で耐え難いものになります。
+      </div>
+      <p>
+        ですからサタンは刃物を握らずとも、
+        <strong>虚偽と誘惑によって人類全体を死に巻き込んだ張本人</strong>であり、
+        「始まりから人殺し」と呼ばれるのです。
+      </p>
+    </section>
+
+    <section class="section" id="part2">
+      <h2>2. 暴力の文化を広めたサタン</h2>
+      <p>
+        神から離れると、人は自制心や愛よりも、自己中心・嫉妬・支配欲に傾きます（テモテ第二 3:3）。
+        その結果、創世記4章ではカインが弟アベルを殺しました。聖書は
+        「カインは邪悪な者に属していた」と記し（1ヨハネ 3:12）、
+        背後にサタンの影響があったことを示します。
+      </p>
+      <p>サタンが作った流れ：</p>
+      <ol>
+        <li>神との断絶を誘発</li>
+        <li>罪と死の支配を開始</li>
+        <li>暴力を人間関係の“普通の選択肢”にする</li>
+      </ol>
+      <p>
+        こうして<strong>暴力の文化が社会に根付いた</strong>のです。
+      </p>
+    </section>
+
+    <section class="section" id="part3">
+      <h2>3. この世の支配者としてのサタン</h2>
+      <p>
+        聖書は「全世界は邪悪な者の支配下にある」（1ヨハネ 5:19）と述べます。
+        サタンは“この世の支配者”（ヨハネ 12:31）として人々の価値観と欲望の流れを操り、
+        暴力は制度化・娯楽化され、ときに英雄視されるようになりました。
+        映画やスポーツでの過度な暴力描写に惹かれてしまう現象も、その一部と言えるでしょう。
+      </p>
+      <p>
+        この意味でサタンの“殺人”は、単発の事件ではなく、
+        <strong>人類の歴史全体を死と暴力の文脈に置いた行為</strong>なのです。
+      </p>
+    </section>
+
+    <section class="section" id="part4">
+      <h2>4. 現代社会に表れる暴力の極み</h2>
+      <p>
+        家庭内の虐待や学校のいじめ、街頭犯罪、国家間の戦争まで、暴力はあらゆる層に存在します。
+        さらに人類は「核兵器」という、人類そのものを滅ぼしかねない究極の暴力を生み出しました。
+        これは、サタンが根付かせた暴力文化の行き着いた先だと言えるでしょう。
+      </p>
+    </section>
+
+    <section class="section" id="part5">
+      <h2>5. 暴力は終わる希望がある</h2>
+      <p>
+        聖書は、終わりの日にこれらの暴力がすべて一掃されると約束しています。
+        詩編11:5には「エホバは暴力を愛する人を憎む」とあります。
+        神は暴力そのものを容認なさらず、サタンが築いた暴力の世界は長続きしません。
+        神によって必ず終わりが来るのです。
+      </p>
+    </section>
+
+    <p class="footer">© 暴力のない平和を望むすべての人へ</p>
+  </main>
+</body>
+</html>
