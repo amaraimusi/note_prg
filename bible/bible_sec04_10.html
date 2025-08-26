@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お金もあまりないのに仕事を辞めてしまった友人を助ける</title>
+  <style>
+    :root{
+      --bg:#0b1b26;
+      --card:#0f2533;
+      --ink:#0f172a;
+      --text:#0f1f2e;
+      --brand:#0195b7;
+      --brand-weak:#c8eef6;
+      --muted:#6b7280;
+      --paper:#ffffff;
+    }
+    html,body{
+      margin:0;
+      padding:0;
+      background:linear-gradient(180deg,#f6fbff 0%, #eef7fb 60%, #ffffff 100%);
+      color:#12222f;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN",
+                   "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, Arial, sans-serif;
+      line-height:1.85;
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:24px 18px 80px;
+    }
+    header.hero{
+      background: radial-gradient(1200px 600px at 20% -10%, #dff6fb 0, transparent 60%),
+                  radial-gradient(1000px 500px at 110% -20%, #e9fbff 0, transparent 60%),
+                  linear-gradient(180deg,#ffffff77,#ffffff);
+      border:1px solid #e6f3f7;
+      border-radius:20px;
+      padding:28px 24px;
+      box-shadow:0 10px 30px rgba(1,149,183,.12);
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-size: clamp(1.6rem, 2.4vw + 1rem, 2.2rem);
+      color:#053746;
+      letter-spacing:.02em;
+    }
+    .hero p{
+      margin:0;
+      color:#305463;
+    }
+    .figure-wide{
+      margin:20px auto 10px;
+      text-align:center;
+    }
+    .figure-wide img{
+      width:min(100%,900px);
+      height:auto;
+      border-radius:16px;
+      box-shadow:0 16px 40px rgba(5,55,70,.2);
+      border:1px solid #e2f1f6;
+    }
+    .figure-wide figcaption{
+      margin-top:10px;
+      font-size:.92rem;
+      color:#56707a;
+    }
+    hr.sep{
+      border:none;
+      height:2px;
+      background:linear-gradient(90deg, transparent, #bfe9f3 15%, #0195b7 50%, #bfe9f3 85%, transparent);
+      margin:34px 0 26px;
+      opacity:.7;
+    }
+    section{
+      background:#fff;
+      border:1px solid #e6eef2;
+      border-radius:16px;
+      padding:22px 20px;
+      margin:18px 0;
+      box-shadow:0 6px 20px rgba(1,149,183,.08);
+    }
+    section h2{
+      margin:0 0 12px;
+      font-size:1.32rem;
+      color:#084254;
+      display:flex; align-items:center; gap:.55rem;
+    }
+    section h2::before{
+      content:"";
+      width:12px; height:12px; border-radius:4px;
+      background:conic-gradient(from 0deg, #0195b7, #74d8ea, #0195b7);
+      box-shadow:0 0 0 3px #e3f7fb;
+    }
+    ul{
+      margin:.4rem 0 .2rem 1.2rem;
+      padding:0;
+      list-style:none;
+    }
+    ul > li{
+      margin:.35rem 0;
+      padding-left:1.4rem;
+      position:relative;
+    }
+    ul > li::before{
+      content:"✔";
+      position:absolute; left:0; top:.05rem;
+      color:#0195b7; font-weight:700;
+    }
+    .example{
+      font-size:.95rem;
+      color:#57707e;
+      margin:.1rem 0 .4rem 1.4rem;
+      border-left:3px solid #cceef6;
+      padding-left:.7rem;
+    }
+    blockquote{
+      margin:.8rem 0 .8rem 0;
+      padding:.8rem 1rem;
+      border-left:6px solid #0195b7;
+      background:#f3fbfe;
+      color:#0f3855;
+      border-radius:10px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media (min-width:880px){
+      .grid-2{ grid-template-columns:1.1fr .9fr; }
+    }
+    .note{
+      background:linear-gradient(180deg,#f7fdff,#fefefe);
+      border:1px dashed #9edce9;
+      border-radius:14px;
+      padding:14px 14px;
+      color:#124050;
+    }
+    .badge{
+      display:inline-block;
+      font-size:.78rem;
+      padding:.16rem .5rem;
+      border-radius:999px;
+      background:#0195b7;
+      color:#fff;
+      vertical-align:middle;
+      margin-left:.3rem;
+    }
+    .figure-tall{
+      text-align:center;
+    }
+    .figure-tall img{
+      width:min(100%,560px);
+      height:auto;
+      border-radius:14px;
+      box-shadow:0 14px 36px rgba(5,55,70,.18);
+      border:1px solid #e2f1f6;
+    }
+    footer{
+      margin-top:28px;
+      color:#5b7280;
+      font-size:.92rem;
+      text-align:center;
+    }
+    /* print */
+    @media print{
+      body{ background:#fff; }
+      header.hero, section{ box-shadow:none; }
+      .figure-wide img, .figure-tall img{ box-shadow:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <h1>お金もあまりないのに仕事を辞めてしまった友人を助ける <span class="badge">Guide</span></h1>
+      <p>必要なのは <strong>感情面での支え</strong> と <strong>現実的な生活支援</strong> の両輪。寄り添いながら、小さな一歩を一緒に。</p>
+    </header>
+
+    <figure class="figure-wide" aria-describedby="cap-hope">
+      <img src="img/bible_sec04_10.png" alt="アクアリウム水槽と未来感ある楽園：友人に希望を与える絵（1024×1024）" width="1024" height="1024" />
+      <figcaption id="cap-hope">アクアリウムと緑に満ちた未来的な楽園のイメージ。心に“希望の景色”を思い描くことが回復の助けに。</figcaption>
+    </figure>
+
+    <hr class="sep" />
+
+    <article>
+
+      <section class="grid-2">
+        <div>
+          <h2>精神的な支え</h2>
+          <ul>
+            <li><strong>話を聴く存在になる</strong> — すぐに助言よりも「気持ちを吐き出せる相手」になることが大切です。否定せず共感を意識すると孤立感を減らせます。</li>
+          </ul>
+          <p class="example">例：「大変だったね」「すごく不安なんだね」と気持ちに寄り添う。</p>
+
+          <ul>
+            <li><strong>自責を和らげる</strong> — 「辞めたこと＝失敗」ではなく、「一度立ち止まることも人生の一部」と伝えると心が軽くなります。</li>
+            <li><strong>小さな行動を一緒に</strong> — 気分転換の散歩や短時間のお茶など、負担の少ない活動に付き合うのも有効です。</li>
+          </ul>
+        </div>
+
+        <figure class="figure-tall">
+          <img src="img/bible_sec04_10_2.png" alt="警備員バイトのカバと清掃バイトのサイの絵（1024×1536）" width="1024" height="1536" />
+          <figcaption>働く等身大のイメージは、現実に戻る勇気をそっと後押しします。</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>現実的な生活の助け</h2>
+        <ul>
+          <li><strong>生活費や制度を一緒に確認</strong> — 失業保険、生活福祉資金、生活保護、地域の支援窓口など、公的支援を調べてあげると大きな助けになります。</li>
+          <li><strong>出費の見直しをサポート</strong> — 家計を一緒に整理し「まずは固定費を抑える」など優先順位を決める。</li>
+          <li><strong>短期的な収入源を探す</strong> — アルバイトや在宅ワークなど、ハードルの低い仕事を調べる。再びフルタイムを探す前のつなぎに。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>助言の仕方</h2>
+        <ul>
+          <li><strong>押し付けない</strong> — 精神的に弱っているときの「こうすべき！」は逆効果。選択肢を示し「どれならやれそう？」と尋ねる。</li>
+          <li><strong>小さなゴールを勧める</strong> — いきなり「再就職」ではなく、「明日は役所に電話」「履歴書を一行」など段階的に。</li>
+          <li><strong>専門的な助けへつなぐ</strong> — うつや不眠が続く場合は、心療内科やカウンセリングを勧める。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>現実的なアドバイス ― 仕事の辞め癖と収入不満への対応</h2>
+
+        <h3>1. すぐに辞めないための視点</h3>
+        <ul>
+          <li><strong>短所だけでなく長所も書き出す</strong>：学べるスキル、人間関係、安定した面などを整理し、気持ちの偏りを防ぐ。</li>
+          <li><strong>最低ラインを決める</strong>：「ここまで耐えたら次を探す」と期限を決めて衝動的に辞めるのを防ぐ。</li>
+        </ul>
+
+        <h3>2. 収入の不満への対応</h3>
+        <ul>
+          <li><strong>副収入やスキルアップの模索</strong>：資格や副業、小さなスキル習得を進める。</li>
+          <li><strong>生活コストの調整</strong>：収入を増やすだけでなく、出費も見直す。</li>
+        </ul>
+
+        <h3>3. 感情の整理</h3>
+        <ul>
+          <li><strong>「辞めたい」は一時的な感情か、本質的な問題かを区別する</strong>。人間関係の摩擦はどこでも起きやすい。解決できる問題と環境を変えるべき問題を分けて考える。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>聖書からのアドバイス</h2>
+
+        <h3>1. 忍耐の価値</h3>
+        <blockquote>「忍耐を持っている人は力強い人にまさる」（箴言 16:32）</blockquote>
+        <p>耐えることで内面的な強さが培われます。</p>
+
+        <h3>2. 働く目的を再確認</h3>
+        <blockquote>「食べたり飲んだりするのはすべて，神からの贈り物である」（伝道の書 3:13）</blockquote>
+        <p>仕事は単なる収入源ではなく、生活を支え、人に良い影響を与えるもの。</p>
+
+        <h3>3. お金への態度</h3>
+        <blockquote>「富を愛する人は富に満足しない」（伝道の書 5:10）</blockquote>
+        <p>収入が多くても不足を感じ続ける可能性があります。大切なのは「満足する心」。</p>
+
+        <h3>4. 心を休ませる</h3>
+        <blockquote>「すべて疲れた人，重荷を負っている人は，わたしのところに来なさい。休ませてあげます」（マタイ 11:28）</blockquote>
+        <p>「今は休むことも大事」と伝える励ましに。</p>
+
+        <h3>5. 不安を神にゆだねる</h3>
+        <blockquote>「自分の重荷をエホバにゆだねよ」（詩編 55:22）</blockquote>
+        <p>祈りによって重荷を神にゆだねられます。</p>
+
+        <h3>6. 励まし合う</h3>
+        <blockquote>「互いに励まし合い，築き上げ合いなさい」（テサロニケ第一 5:11）</blockquote>
+        <p>共に過ごし、励まし合うこと自体が愛の実践です。</p>
+
+        <h3>7. 小さな一歩を大切にする</h3>
+        <blockquote>「義なる人は七度倒れてもまた起き上がる」（箴言 24:16）</blockquote>
+        <p>失敗しても立ち上がれる、と伝えられます。</p>
+      </section>
+
+      <section class="note">
+        <h2>まとめ</h2>
+        <p>友人を助けるためにできることは、</p>
+        <ul>
+          <li>そばにいて気持ちを受け止めること</li>
+          <li>公的制度や小さな行動への橋渡しをすること</li>
+          <li>忍耐や満足する心を養う助けをすること</li>
+          <li>聖書の言葉を通して安心と希望を伝えること</li>
+        </ul>
+        <p>大きな問題を一気に解決しようとせず、<strong>「一緒に少しずつ」</strong> を意識することが、友人を立ち直らせる力になります。</p>
+      </section>
+
+    </article>
+
+    <footer>
+      © 2025 Hopeful Guides. Design by ChatGPT — palette: <span style="color:#0195b7;font-weight:700;">#0195b7</span>
+    </footer>
+  </div>
+</body>
+</html>
