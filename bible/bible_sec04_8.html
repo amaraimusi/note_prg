@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>危険な人物を見抜くには — タイプ別ガイド</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111a2b;
+      --ink:#e9eef9;
+      --muted:#a9b6d3;
+      --accent:#6aa7ff;
+      --accent-2:#87f0c8;
+      --warn:#ffbd6a;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --gap:18px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f6f8fc;
+        --card:#ffffff;
+        --ink:#0e1726;
+        --muted:#4b5b7c;
+        --accent:#2164ff;
+        --accent-2:#0dbb8c;
+        --warn:#ff8a00;
+        --shadow:0 10px 30px rgba(32,64,128,.12);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(106,167,255,.15), transparent 55%),
+                  radial-gradient(900px 500px at 110% 10%, rgba(13,187,140,.12), transparent 55%),
+                  var(--bg);
+      color:var(--ink);
+      line-height:1.75;
+      letter-spacing:.2px;
+    }
+    .container{
+      width:min(1080px, 92vw);
+      margin:32px auto 80px;
+    }
+    header.hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:var(--gap);
+      align-items:center;
+      margin-bottom:32px;
+    }
+    .hero-card{
+      background:var(--card);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    h1{
+      font-size: clamp(24px, 3.2vw, 38px);
+      line-height:1.3;
+      margin:0 0 14px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size: clamp(14px, 1.7vw, 17px);
+    }
+    .tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 12px;
+      border-radius:999px;
+      background:linear-gradient(90deg, rgba(106,167,255,.15), rgba(13,187,140,.15));
+      color:var(--muted);
+      font-weight:600;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+    .hero img{
+      width:100%;
+      height:auto;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      display:block;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    nav.toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 18px 0 0;
+    }
+    nav.toc a{
+      text-decoration:none;
+      color:var(--ink);
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:13px;
+    }
+    section{
+      margin-top:28px;
+    }
+    .card{
+      background:var(--card);
+      padding:24px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    h2{
+      margin:.2rem 0 1rem;
+      font-size: clamp(18px, 2.2vw, 24px);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    h2 .badge{
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#fff;
+      font-weight:700;
+      font-size:12px;
+      padding:4px 10px;
+      border-radius:999px;
+      letter-spacing:.5px;
+    }
+    h3{margin:1.2rem 0 .3rem; font-size:16px; color:var(--muted)}
+    ul{margin:.4rem 0 0 1.1rem; padding:0}
+    li{margin:.35rem 0}
+    .hint{
+      margin-top:12px;
+      padding:12px 14px;
+      border-left:4px solid var(--accent);
+      background:linear-gradient(90deg, rgba(106,167,255,.08), transparent 70%);
+      border-radius:10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .summary{
+      border:1px dashed rgba(255,255,255,.25);
+      background:linear-gradient(180deg, rgba(135,240,200,.08), transparent);
+    }
+    .warn{
+      border-left:4px solid var(--warn);
+      background:linear-gradient(90deg, rgba(255,189,106,.12), transparent 70%);
+    }
+    footer{
+      margin-top:36px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+    a.anchor{
+      color:inherit; text-decoration:none; position:relative;
+    }
+    a.anchor::after{
+      content:"#"; position:absolute; left:-18px; opacity:0; transition:.2s; color:var(--accent);
+    }
+    h2:hover a.anchor::after{opacity:.8}
+    @media (max-width: 900px){
+      header.hero{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-card">
+        <span class="tag">人間関係の安全ガイド</span>
+        <h1>危険な人物を見抜くには — 代表タイプと見抜き方</h1>
+        <p class="lead">
+          「あの人と関わると、なぜか心が疲れる…」そんな相手は、もしかすると危険なタイプかもしれません。
+          人を振り回したり支配したりする人物には共通パターンがあります。ここでは代表的タイプを掘り下げ、
+          特徴・行動パターン・見抜き方を整理します。あわせて、<strong>自分自身に同様の傾向がないか</strong>振り返るきっかけにも。
+        </p>
+        <nav class="toc" aria-label="目次">
+          <a href="#narcissist">① ナルシスト</a>
+          <a href="#machiavellian">② マキャベリスト</a>
+          <a href="#psychopath">③ サイコパス</a>
+          <a href="#sadist">④ サディスト</a>
+          <a href="#darkempath">⑤ ダーク・エンパス</a>
+          <a href="#summary">総まとめ</a>
+        </nav>
+      </div>
+      <img src="img/bible_sec04_8.png" alt="弱い立場の人に取り入る危険人物の象徴イラスト" width="1024" height="1024" loading="lazy">
+    </header>
+
+    <!-- ① -->
+    <section id="narcissist" class="card">
+      <h2><span class="badge">TYPE ①</span><a class="anchor" href="#narcissist">ナルシスト（自己愛型）</a></h2>
+
+      <h3>特徴的なタイプ分け</h3>
+      <ul>
+        <li><strong>顕示型ナルシスト</strong>：常に目立ちたがり、称賛を強要。SNSでの自己アピールが多い。</li>
+        <li><strong>脆弱型ナルシスト</strong>：内心は自信がなく、批判で激しく落ち込むが、表向きは強がる。</li>
+        <li><strong>特権意識型</strong>：自分だけ特別扱いされるのが当然と考える。</li>
+      </ul>
+
+      <h3>周囲への影響</h3>
+      <ul>
+        <li>会話が一方通行になり、他者をサポートしない。</li>
+        <li>批判に過剰反応し、関係がギクシャクする。</li>
+      </ul>
+
+      <h3>見抜き方</h3>
+      <ul>
+        <li>話題を共有しても、すぐ自分の話にすり替える。</li>
+        <li>「私ってすごいでしょ？」という態度・言動が多い。</li>
+      </ul>
+
+      <div class="hint">メモ：<em>一度の自慢ではなく、日常的に繰り返されるか</em>に注目。</div>
+    </section>
+
+    <!-- ② -->
+    <section id="machiavellian" class="card">
+      <h2><span class="badge">TYPE ②</span><a class="anchor" href="#machiavellian">マキャベリスト（策略型）</a></h2>
+
+      <h3>特徴的なタイプ分け</h3>
+      <ul>
+        <li><strong>計算型</strong>：長期目的のために人をコマのように扱う。</li>
+        <li><strong>冷徹型</strong>：感情を表に出さず、淡々と相手を利用する。</li>
+        <li><strong>仮面型</strong>：表面上は誠実だが、裏で人を操作する。</li>
+      </ul>
+
+      <h3>周囲への影響</h3>
+      <ul>
+        <li>仲間同士を分断し、都合よく操る。</li>
+        <li>信頼関係を壊すが、本人は罪悪感を感じにくい。</li>
+      </ul>
+
+      <h3>見抜き方</h3>
+      <ul>
+        <li>提案・誘導がいつも<strong>本人だけ得をする形</strong>で終わっていないか。</li>
+        <li>過去を振り返ると、裏切りやごまかしが繰り返されている。</li>
+      </ul>
+
+      <div class="hint warn">注意：利害が絡む場面で本性が出やすい。<strong>記録を残す・第三者を交える</strong>と安全。</div>
+    </section>
+
+    <!-- ③ -->
+    <section id="psychopath" class="card">
+      <h2><span class="badge">TYPE ③</span><a class="anchor" href="#psychopath">サイコパス（反社会型）</a></h2>
+
+      <h3>特徴的なタイプ分け</h3>
+      <ul>
+        <li><strong>衝動型サイコパス</strong>：怒鳴る、暴力的、リスクを恐れない。</li>
+        <li><strong>知的サイコパス</strong>：感情に無関心だが知能が高く、冷静に人を利用。</li>
+        <li><strong>隠れサイコパス</strong>：普段は魅力的だが、弱者へ攻撃的。</li>
+      </ul>
+
+      <h3>周囲への影響</h3>
+      <ul>
+        <li>職場や家庭で恐怖と不安をまき散らす。</li>
+        <li>ルール・道徳を軽視し、トラブルが絶えない。</li>
+      </ul>
+
+      <h3>見抜き方</h3>
+      <ul>
+        <li>嘘が多いが、表情・声色だけでは見抜きにくい。</li>
+        <li>他人の苦痛を笑う態度。</li>
+        <li>「恐れがない」ため危険な選択を繰り返す。</li>
+      </ul>
+
+      <div class="hint">対策：境界線を明確にし、<strong>高リスクの単独行動を避ける</strong>。必要なら専門家・上長へ相談。</div>
+    </section>
+
+    <!-- ④ -->
+    <section id="sadist" class="card">
+      <h2><span class="badge">TYPE ④</span><a class="anchor" href="#sadist">サディスト（加虐型）</a></h2>
+
+      <h3>特徴的なタイプ分け</h3>
+      <ul>
+        <li><strong>日常型サディスト</strong>：嫌味・マウンティングを日常的に楽しむ。</li>
+        <li><strong>攻撃型サディスト</strong>：直接的な暴言・嫌がらせで快感を得る。</li>
+        <li><strong>観察型サディスト</strong>：他人の失敗・不幸を見聞きするだけで喜ぶ。</li>
+      </ul>
+
+      <h3>周囲への影響</h3>
+      <ul>
+        <li>職場の雰囲気を悪化させ、集団を萎縮させる。</li>
+        <li>SNSで炎上・中傷の火付け役になりやすい。</li>
+      </ul>
+
+      <h3>見抜き方</h3>
+      <ul>
+        <li>不幸話に過剰に盛り上がる。</li>
+        <li>「いじり」で相手が本気で嫌がる様子を楽しむ。</li>
+      </ul>
+
+      <div class="hint warn">シグナル：<strong>笑いの対象が常に誰かの痛み</strong>になっていないかを確認。</div>
+    </section>
+
+    <!-- ⑤ -->
+    <section id="darkempath" class="card">
+      <h2><span class="badge">TYPE ⑤</span><a class="anchor" href="#darkempath">ダーク・エンパス（操作型共感者）</a></h2>
+
+      <h3>特徴的なタイプ分け</h3>
+      <ul>
+        <li><strong>カメレオン型</strong>：相手に合わせて態度を変え、最も効果的に操る。</li>
+        <li><strong>ご都合型</strong>：メリットがある時だけ優しく、不要になれば冷淡。</li>
+        <li><strong>依存誘導型</strong>：共感のフリで精神的依存を作る。</li>
+      </ul>
+
+      <h3>周囲への影響</h3>
+      <ul>
+        <li>初対面は非常に「いい人」。信用を集めやすい。</li>
+        <li>時間が経つと操作され、孤立するケースがある。</li>
+      </ul>
+
+      <h3>見抜き方</h3>
+      <ul>
+        <li>態度が急に変わる（優しい → 冷たい）。</li>
+        <li>他人の弱み・悩みを後で利用する。</li>
+        <li>「親切さ」が不自然なほどタイミング良く現れる。</li>
+      </ul>
+
+      <div class="hint">コツ：<strong>言葉ではなく一貫性</strong>を見る。親切の「持続性」と「見返りの要求」を点検。</div>
+    </section>
+
+    <!-- 総まとめ -->
+    <section id="summary" class="card summary">
+      <h2><span class="badge">SUMMARY</span><a class="anchor" href="#summary">総まとめ</a></h2>
+      <ul>
+        <li><strong>ナルシスト</strong>：自己中心・承認欲求が強い。</li>
+        <li><strong>マキャベリスト</strong>：策略で人を道具にする。</li>
+        <li><strong>サイコパス</strong>：感情に無関心、恐れ・罪悪感が薄い。</li>
+        <li><strong>サディスト</strong>：他人の苦痛に快感を覚える。</li>
+        <li><strong>ダーク・エンパス</strong>：共感を装い人を操る。</li>
+      </ul>
+      <p class="hint"><strong>共通ポイント：</strong>一度の行動ではなく、<strong>繰り返されるパターン</strong>に注目。これが早期察知の近道です。<br>
+        さらに、<em>自分自身に同様の兆候がないか</em>定期的にセルフチェックを。</p>
+    </section>
+
+    <footer>© 危険人物タイプ・見抜き方ガイド</footer>
+  </div>
+</body>
+</html>
