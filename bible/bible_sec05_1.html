@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>貧しくても幸福に生きる ― 聖書と人生の視点から</title>
+  <style>
+    :root{
+      --bg:#0f172a;           /* 背景（濃紺） */
+      --panel:#0b1228;        /* パネル濃色 */
+      --ink:#e6f1ff;          /* 文字色 */
+      --muted:#b6c2d3;        /* 補助文字 */
+      --brand:#53d4b0;        /* アクセント */
+      --brand-2:#7aa9ff;      /* サブアクセント */
+      --line:#26314f;         /* 罫線 */
+      --card:#121a35;         /* カード背景 */
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 600px at 15% -10%, #1e2a54 0%, #0f172a 60%), var(--bg); color:var(--ink); font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; line-height:1.75}
+    a{color:var(--brand)}
+    img{max-width:100%; height:auto; display:block}
+    .wrap{max-width:1050px; margin:0 auto; padding:28px 18px 80px}
+    header.hero{
+      position:relative; overflow:hidden;
+      border-radius: calc(var(--radius) + 8px);
+      background:
+        radial-gradient(800px 300px at 85% -10%, rgba(122,169,255,.25), rgba(122,169,255,0) 70%),
+        linear-gradient(135deg, rgba(83,212,176,.15), rgba(122,169,255,.12));
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 5vw, 42px);
+      display:grid;
+      grid-template-columns: 1.2fr .9fr;
+      gap: 22px;
+      align-items:center;
+    }
+    @media (max-width: 900px){
+      header.hero{grid-template-columns: 1fr}
+    }
+    .hero h1{
+      margin:0 0 10px; line-height:1.2;
+      font-size: clamp(26px, 3.6vw, 42px);
+      letter-spacing:.02em;
+    }
+    .lead{color:var(--muted); font-size:clamp(15px, 1.7vw, 18px)}
+    .tag{display:inline-block; padding:4px 10px; border:1px solid var(--line); border-radius:999px; color:var(--brand); background:rgba(83,212,176,.08); margin-bottom:10px; font-size:13px}
+    .hero figure{margin:0; position:relative}
+    .hero figcaption{
+      position:absolute; right:10px; bottom:10px;
+      background:rgba(10,16,34,.65); backdrop-filter: blur(4px);
+      border:1px solid var(--line); color:var(--muted);
+      padding:6px 10px; border-radius:10px; font-size:12px
+    }
+    /* セクション */
+    section{margin-top:42px}
+    .sec-title{
+      font-size: clamp(20px, 2.4vw, 28px);
+      margin: 0 0 14px; letter-spacing:.02em
+    }
+    .grid{
+      display:grid; gap:18px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    @media (max-width: 880px){ .grid{grid-template-columns:1fr} }
+    .card{
+      background:linear-gradient(180deg, rgba(18,26,53,.9), rgba(18,26,53,.75));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:22px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{margin-top:0; font-size:20px}
+    ul.clean{margin:10px 0 0 1.2em}
+    ul.clean li{margin:.35em 0}
+    hr.split{border:none; height:1px; background:linear-gradient(90deg, transparent, var(--line), transparent); margin:34px 0}
+    /* イラスト・インライン */
+    .figure-wide{
+      margin: 20px 0; border:1px solid var(--line); border-radius: var(--radius);
+      overflow:hidden; box-shadow: var(--shadow);
+      background: var(--panel)
+    }
+    .figure-wide figcaption{padding:10px 14px; color:var(--muted); border-top:1px solid var(--line); font-size:13px}
+    /* まとめ */
+    .summary{
+      background:linear-gradient(135deg, rgba(83,212,176,.12), rgba(122,169,255,.10));
+      border:1px solid var(--line); border-radius: var(--radius);
+      padding:24px; box-shadow: var(--shadow)
+    }
+    .summary ul{columns:2; column-gap:26px; margin:0; padding-left:1.2em}
+    @media (max-width:700px){ .summary ul{columns:1} }
+    .summary li{margin:.45em 0}
+    .small{color:var(--muted); font-size:13px}
+    /* トップに戻る */
+    .to-top{
+      position:fixed; right:16px; bottom:18px; z-index:10;
+      background:linear-gradient(180deg, var(--brand), #2ccaa0);
+      color:#052b20; border:none; padding:10px 14px; border-radius:11px; font-weight:700; cursor:pointer;
+      box-shadow:0 10px 25px rgba(83,212,176,.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Hero -->
+    <header class="hero" id="top">
+      <div>
+        <span class="tag">心の豊かさを積み重ねる</span>
+        <h1>貧しくても幸福に生きる ― 聖書と人生の視点から</h1>
+        <p class="lead">
+          お金がなければ幸せになれないと思い込んでいませんか。<br/>
+          しかし実際には、心の持ち方や人との関わり方を工夫することで、貧しくても深い幸福を得られることがあります。ここでは日常生活の観点と聖書の視点の両面から、<strong>「幸福になる方法」と「不幸に陥る考え方」</strong>を整理します。
+        </p>
+      </div>
+      <figure>
+        <img src="img/bible_sec05_1.png" alt="川沿いの道を幸福そうな顔で散歩するカエルのイラスト">
+        <figcaption>川沿いの道を幸福そうな顔で散歩するカエル（挿絵）</figcaption>
+      </figure>
+    </header>
+
+    <!-- 幸福になるための考え方と行動 -->
+    <section>
+      <h2 class="sec-title">幸福になるための考え方と行動</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>1. 感謝の習慣を育てる</h3>
+          <p>お金や物が少なくても、日常の小さな恵みに気づき、感謝することで心は満たされます。</p>
+          <ul class="clean">
+            <li>朝の光や風、自然の美しさ</li>
+            <li>温かい食事をいただけること</li>
+            <li>誰かとの笑顔のやりとり</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>2. 人間関係を大切にする</h3>
+          <p>孤独は貧しさ以上に人を苦しめます。反対に、互いに支え合う人間関係は大きな幸福を生みます。</p>
+          <ul class="clean">
+            <li>家族や友人と時間を過ごす</li>
+            <li>隣人に親切をする</li>
+            <li>感謝や愛情を言葉にして伝える</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>3. 無償の喜びを積み重ねる</h3>
+          <p>お金を使わなくても楽しめることはたくさんあります。</p>
+          <ul class="clean">
+            <li>自然の中を散歩する</li>
+            <li>本を読む、歌う、絵を描く</li>
+            <li>誰かに親切をする、助ける</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>4. 目的意識と希望を持つ</h3>
+          <p>「生きる意味」や「目標」があると、苦しい生活を乗り越える力になります。</p>
+          <ul class="clean">
+            <li>家族のために働く</li>
+            <li>誰かを喜ばせるために努力する</li>
+            <li>信仰や哲学に基づいた希望を抱く</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>5. シンプルに生きる</h3>
+          <p>欲望を追いかけ続けると不満が尽きません。必要最低限で満足する心を養えば、少ない中でも豊かに暮らせます。</p>
+          <ul class="clean">
+            <li>「持たない暮らし」を楽しむ</li>
+            <li>小さな成功や工夫を喜ぶ</li>
+            <li>無駄を減らし、本当に大切なものを見極める</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <hr class="split"/>
+
+    <!-- 不幸に陥る考え方と行動 -->
+    <section>
+      <h2 class="sec-title">不幸に陥る考え方と行動</h2>
+      <div class="grid">
+        <article class="card"><h3>1. 比較と嫉妬にとらわれる</h3><p>他人と比べて落ち込む、SNSで嫉妬するなどは、不満と焦りを生みます。</p></article>
+        <article class="card"><h3>2. 欲望を抑えられない</h3><p>浪費や借金を繰り返すと、現実とのギャップで苦しみが増します。</p></article>
+        <article class="card"><h3>3. 他人や環境のせいにする</h3><p>責任転嫁ばかりしていると、自分の成長を妨げ、心の自由を失います。</p></article>
+        <article class="card"><h3>4. 孤立を選ぶ</h3><p>人間関係を避けたり壊したりすると、孤独が幸福感を奪います。</p></article>
+        <article class="card"><h3>5. 希望や目的を失う</h3><p>未来に期待を持てないと、無力感に支配されてしまいます。</p></article>
+        <article class="card"><h3>6. 自分を大切にしない</h3><p>体を酷使し、心身を弱らせ、自尊心を傷つけるのも不幸の要因です。</p></article>
+      </div>
+    </section>
+
+    <!-- 挿絵（場面転換） -->
+    <figure class="figure-wide">
+      <img src="img/bible_sec05_1_2.png" alt="池の家の東屋でカエルとネズミがお茶とお菓子を楽しむイラスト">
+      <figcaption>池の東屋でお茶を楽しむカエルとネズミ（挿絵）</figcaption>
+    </figure>
+
+    <!-- 聖書から見る「幸福」 -->
+    <section>
+      <h2 class="sec-title">聖書から見る「幸福」</h2>
+
+      <article class="card">
+        <h3>1. 幸福の意味（マカリオス）</h3>
+        <p>
+          新約聖書で「幸福」と訳されているギリシャ語 <strong>マカリオス</strong> は、<strong>一時的な楽しさではなく深い満たしと安定した福祉</strong>を意味します。神やキリスト自身が「幸福なお方」と呼ばれることからも、これは<strong>神との関係に基づく幸福</strong>を示しています（テモテ第一 1:11、6:15）。
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>2. 「心の深い必要を感じている人」が幸福である理由</h3>
+        <p>イエスは「心の貧しい人たちは幸福です」（マタイ 5:3）と語りました。つまり、自分の<strong>内面的な必要</strong>を自覚する人が真に幸福であるということです。</p>
+        <ol>
+          <li>神に依存する姿勢を持つ</li>
+          <li>神のみことばを求め、学ぶ心がある</li>
+          <li>罪の赦しと清い良心を得る</li>
+          <li>他者に良いたよりを分かち合う喜びを味わう</li>
+        </ol>
+      </article>
+
+      <div class="grid">
+        <article class="card">
+          <h3>3. 聖書的な生き方の実際的な益</h3>
+          <ul class="clean">
+            <li>有害な習慣を避け、心身を守る（箴言 20:1）</li>
+            <li>金銭への愛を退け、浪費やギャンブルを避ける（テモテ第一 6:10）</li>
+            <li>物質主義に流されない（ルカ 12:15）</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>4. 満足する心と神を喜ばせる生き方</h3>
+          <p>衣食住に苦労しても、<strong>「満足する心」</strong>を持つことで幸福に近づけます。<br>
+          「エホバの祝福，それが人を富ませるのであり，神はそれに痛みを加えられない」（箴言 10:22）。</p>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>5. 幸福の三つの段階</h3>
+        <ol>
+          <li><strong>今の幸福</strong> ― 神の助けによる安心感と希望</li>
+          <li><strong>将来の希望</strong> ― 神の王国のもとで生きられる展望</li>
+          <li><strong>最終的な幸福</strong> ― 罪や死から解放された完全な幸福</li>
+        </ol>
+      </article>
+    </section>
+
+    <hr class="split"/>
+
+    <!-- まとめ -->
+    <section class="summary">
+      <h2 class="sec-title">まとめ</h2>
+      <p>幸福は「心の豊かさ」を積み重ねることで築かれるものです。聖書も、<strong>物質的な豊かさや一時的な快楽ではなく、神との関係を基盤とした内面的な満たしこそが真の幸福</strong>だと教えています。</p>
+      <ul>
+        <li>感謝</li><li>良い人間関係</li><li>無償の喜び</li>
+        <li>目的意識と希望</li><li>シンプルな生き方</li><li>神との関係</li>
+      </ul>
+      <p class="small">これらを実践するなら、貧しくても人は確かに幸福になれるのです。</p>
+    </section>
+  </div>
+
+  <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲ TOP</button>
+</body>
+</html>
