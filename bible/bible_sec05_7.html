@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お世辞を言う人は邪悪な人かもしれない</title>
+  <style>
+    :root{
+      --bg:#0f1221;
+      --panel:#141833;
+      --card:#1b2147;
+      --ink:#eef3ff;
+      --muted:#b9c2ffcc;
+      --accent:#ffc857;
+      --accent-ink:#2a1f00;
+      --line:#2a3266;
+      --ok:#7dd3fc;
+      --warn:#fca5a5;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(1200px 800px at 10% 0%, #1a1f3e 0%, #0d1022 55%, #0a0d1d 100%); color:var(--ink); font-family: "Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans JP", Arial, sans-serif; line-height:1.75}
+    a{color:#b3d4ff}
+    .wrap{max-width: 1000px; margin: 28px auto 80px; padding: 0 16px}
+    header.hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, #171c3b 0%, #111735 100%);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+      position:relative;
+      padding: 28px 24px 22px;
+    }
+    .kicker{display:inline-block; padding:.25rem .6rem; border-radius:999px; background:rgba(255,200,87,.16); color:#ffe9a8; border:1px solid rgba(255,200,87,.35); font-size:.82rem; letter-spacing:.06em}
+    h1{
+      margin: 12px 0 8px; font-size: clamp(1.6rem, 2.4vw + 1rem, 2.4rem);
+      line-height:1.25; letter-spacing:.02em;
+    }
+    .lede{color:var(--muted); margin:0}
+    .hero-figure{
+      margin: 20px auto 6px; text-align:center;
+    }
+    .hero-figure figure{
+      margin:0; display:inline-block; background: #0e1430; border:1px solid var(--line);
+      border-radius: 16px; overflow:hidden; box-shadow: var(--shadow);
+    }
+    .hero-figure img{
+      display:block; width: clamp(260px, 58vw, 680px); height:auto;
+      aspect-ratio: 2/3; object-fit: cover;
+      transform: translateZ(0);
+    }
+    figcaption{
+      font-size:.88rem; color:var(--muted); padding:10px 12px; background:#0f1433; border-top:1px solid var(--line)
+    }
+
+    /* section blocks */
+    section.card{
+      background: linear-gradient(180deg, #14193a 0%, #0f1533 100%);
+      border:1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; margin-top: 20px;
+      box-shadow: var(--shadow);
+    }
+    section.card h2{
+      margin: 0 0 12px; font-size: clamp(1.15rem,1.2vw + .9rem,1.6rem);
+    }
+    .subtitle{color:var(--muted); margin-top:-6px; margin-bottom:14px; font-size:.95rem}
+
+    .callout{
+      border-left: 4px solid var(--accent);
+      background: rgba(255,200,87,.08);
+      padding: 14px 16px; border-radius: 10px; color:#ffefbf; margin: 10px 0 14px;
+    }
+    .callout small{color:#ffe8a3}
+    .checklist{list-style:none; padding-left:0; margin:12px 0 0}
+    .checklist li{
+      padding:10px 12px; margin: 10px 0; border:1px dashed #32408a; border-radius: 12px; background: rgba(255,255,255,.02)
+    }
+    .checklist li b{color:#d6e3ff}
+    ul.clean{padding-left: 1.1em}
+    ul.clean li{margin: .35rem 0}
+    .verse{
+      margin: 14px 0; padding: 14px; border:1px solid #2c356b; border-radius: 12px;
+      background: #10163a; color:#d9e2ff;
+    }
+    .chip{
+      display:inline-block; font-size:.78rem; padding:.25rem .55rem; border-radius:999px; border:1px solid #33408b; color:#bfc9ff; margin-bottom:8px; background:#0f1535;
+    }
+
+    .divider{
+      margin: 26px 0; height:1px; background: linear-gradient(90deg, transparent, #2a3266, transparent)
+    }
+    footer{
+      text-align:center; color:#9aa7ffb3; margin-top:28px; font-size:.92rem
+    }
+
+    /* drop-cap for opening line */
+    .lead-paragraph:first-letter{
+      float:left; font-size:2.6rem; line-height:1; padding:.28rem .5rem .1rem .28rem; margin:.12rem .45rem 0 0;
+      background: rgba(255,200,87,.18); color:#ffe6a1; border:1px solid rgba(255,200,87,.35); border-radius: 10px;
+      font-weight:700; font-family: Georgia, "Noto Serif JP", "Hiragino Mincho ProN", serif;
+    }
+
+    @media (min-width: 880px){
+      .grid-2{
+        display:grid; grid-template-columns: 1.1fr .9fr; gap:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <span class="kicker">お世辞とへつらい / 聖書の視点</span>
+      <h1>お世辞を言う人は邪悪な人かもしれない</h1>
+      <p class="lede">丁寧な言葉に見えても、内側に不誠実や操作の意図が潜むことがあります。聖書はそれをどのように見ているのでしょうか。</p>
+
+      <div class="hero-figure">
+        <figure>
+          <img src="img/bible_sec05_7.png" alt="ゴマすりしながらライオンににやけた顔でお世辞を言うタヌキ（法廷の場面）">
+          <figcaption>挿絵：お世辞が「罠」になり得ることを寓意的に描写</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- へつらいの定義 -->
+    <section class="card">
+      <h2>聖書に見る「へつらい」の定義</h2>
+      <p class="subtitle">「聖書に対する洞察」に基づく整理</p>
+
+      <div class="grid-2">
+        <div>
+          <ul class="clean">
+            <li><b>巧みな称賛の言葉で人に取り入ること</b></li>
+            <li><b>偽りや度を超えたほめそやし</b></li>
+            <li><b>相手の自己愛や虚栄心を満足させるための言動</b></li>
+          </ul>
+
+          <div class="callout">
+            動機は多くの場合、物質的な利益や立場上の有利を得るため、または相手に負い目を負わせ支配するため。<br />
+            つまり、へつらいは本質的に<strong>不誠実</strong>であり、<strong>利己的</strong>な行為。
+          </div>
+        </div>
+
+        <div class="verse">
+          <span class="chip">ヤコブ 3:17</span><br />
+          「天からの知恵は清く、平和を求め、<b>偽善的ではない</b>」――へつらいはその逆で、<b>不誠実さ</b>と<b>偽善</b>の証拠。
+          <div style="margin-top:10px; color:#a9b6ff">
+            （関連：<span>コリント第二 1:12</span>・<span>エフェソス 4:25</span>）
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 網を張る比喩 -->
+    <section class="card">
+      <h2>お世辞と「網を張る」という比喩（箴言 29:5）</h2>
+      <p class="lead-paragraph">
+        箴言 29:5 は「隣人にお世辞を言う人は，隣人が通る所に網を張っている」と語ります。お世辞は単なる好意的な言葉ではなく、
+        <strong>相手を落とし入れるための罠</strong>になり得ます。狩人が獲物に網を張るように、へつらう人は相手の虚栄心をくすぐり、結果的に不利益や罪へと導く危険があります。
+      </p>
+    </section>
+
+    <!-- 神に受け入れられる姿勢 -->
+    <section class="card">
+      <h2>神に受け入れられる姿勢</h2>
+      <ul class="checklist">
+        <li><b>人を喜ばせるためではなく、神を喜ばせるために行動する</b>（ガラテア 1:10）</li>
+        <li><b>互いに偽りを語らない</b>（コロサイ 3:9）</li>
+        <li><b>偽りを語る者は神に退けられる</b>（啓示 21:8）</li>
+      </ul>
+      <div class="callout">
+        一見ただの社交辞令に見えても、神の視点では<strong>偽りや虚飾</strong>に満ちた振る舞いとなり、信仰者にはふさわしくありません。
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- うそとお世辞 -->
+    <section class="card">
+      <h2>「うそをついてはならない」とお世辞（コロサイ 3:9）</h2>
+      <p>
+        コロサイ 3:9 は「互いにうそをついてはなりません。古い人格とそれに伴う習慣を脱ぎ捨て」と命じます。お世辞は表面的にはほめ言葉でも、内実は
+        <strong>偽りの言葉</strong>になり得ます。心にないことを言って相手を喜ばせたり操ったりするのは「うそ」の一種です。
+      </p>
+      <p>
+        「古い人格」とは自己中心的で利己的な生き方。へつらいはこの古い人格の習慣であり、相手を利用するための言葉――だからこそ、それを
+        <strong>脱ぎ捨てる</strong>よう勧められています。
+      </p>
+    </section>
+
+    <!-- 人を喜ばせる危うさ -->
+    <section class="card">
+      <h2>「人を喜ばせる」の危うさ（ガラテア 1:10）</h2>
+      <p>
+        パウロは「人の好意か、神の好意か」を問いかけます。神の基準を犠牲にしてまで人に気に入られようとする姿勢は、へつらいへと傾きます。
+        お世辞はしばしば相手の虚栄心に迎合し、<strong>真実や正義をゆがめる危険</strong>があります。
+      </p>
+      <div class="callout">
+        結果として、人間の承認を優先し、<strong>神の承認を失う</strong>という逆転が起こり得ます。<br>
+        誠実と真理を最優先にすることが、信仰の芯を守ります。
+      </div>
+    </section>
+
+    <footer>
+      © 聖書的価値に基づく整理 / “お世辞・へつらい”の見抜き方と避け方
+    </footer>
+  </div>
+</body>
+</html>

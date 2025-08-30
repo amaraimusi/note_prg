@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>先行きが見えない ― 不安にどのように対処するか</title>
+  <style>
+    :root{
+      --bg:#0e1116;
+      --panel:#141a22;
+      --panel-2:#0f141b;
+      --text:#e8eff7;
+      --muted:#a7b3c4;
+      --accent:#7cc6ff;
+      --accent-2:#5ee0c2;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background: radial-gradient(1200px 1200px at 10% -10%, #082033 0%, transparent 40%),
+                               radial-gradient(1400px 1000px at 110% 0%, #06252d 0%, transparent 45%),
+                               var(--bg);
+              color:var(--text); font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    header{
+      padding:64px 20px 28px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    header h1{
+      margin:0 auto 12px;
+      line-height:1.2;
+      letter-spacing:.02em;
+      font-size:clamp(28px, 4vw, 40px);
+      background: linear-gradient(90deg,var(--accent), var(--accent-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 0 24px rgba(124,198,255,.25);
+      max-width: 900px;
+    }
+    header p.lead{
+      margin:0 auto; max-width: 900px; color:var(--muted); font-size:clamp(14px, 2.2vw, 18px)
+    }
+    .shell{max-width: 980px; margin: 0 auto 80px; padding: 0 18px;}
+    .hero{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:24px; align-items:center;
+      margin-top:24px;
+    }
+    .hero .card{padding:22px 22px; background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);}
+    .hero figure{
+      margin:0; border-radius: var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow: var(--shadow);
+    }
+    .hero img{display:block; width:100%; height:auto}
+    h2{
+      font-size:clamp(20px, 2.6vw, 26px);
+      margin: 26px 0 12px;
+      letter-spacing:.01em;
+    }
+    section.card{
+      padding:26px 22px; margin-top:18px; background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    p{line-height:1.9; color:var(--text); margin: 10px 0 0}
+    ul{margin:10px 0 0 1.2em}
+    li{margin:.35em 0}
+    .callout{
+      border-left:4px solid var(--accent); padding:14px 16px; background:rgba(124,198,255,.07);
+      border-radius:12px; margin:12px 0; color:var(--text)
+    }
+    blockquote{
+      margin:14px 0; padding:14px 16px;
+      border-left:4px solid var(--accent-2); background: rgba(94,224,194,.08);
+      border-radius:12px; color:var(--text)
+    }
+    blockquote footer{color:var(--muted); margin-top:6px; font-size:.95em}
+    .two-col{
+      display:grid; grid-template-columns: 1fr 1fr; gap:16px;
+    }
+    .tip{background: rgba(255,255,255,.03); border:1px solid var(--border); border-radius:14px; padding:14px 14px}
+    .muted{color:var(--muted)}
+    hr.sep{
+      border:0; height:1px; background:linear-gradient(90deg, transparent, var(--border), transparent);
+      margin:26px 0;
+    }
+    .summary li{margin:.4em 0}
+    .center{text-align:center}
+    .caption{color:var(--muted); font-size:.92em; margin-top:8px}
+    @media (max-width: 860px){
+      .hero{grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>先行きが見えない ― 不安にどのように対処するか</h1>
+    <p class="lead">状況が変化するときに不安になるのは自然なことです。新しい仕事や新しい環境では、先行きが見えないために心が落ち着かず、不安や緊張が強まります。ただし、その不安にどう向き合うかで、前進の仕方が変わります。</p>
+
+    <div class="shell hero">
+      <div class="card">
+        <p class="muted">このガイドでは、実践的なステップと哲学・聖書の視点から、不安との健全な向き合い方をまとめます。</p>
+      </div>
+      <figure>
+        <img src="img/bible_sec05_6.png" alt="古い家の部屋の中で不安でうつむいているネズミ（挿絵）">
+        <figcaption class="caption center">挿絵：古い家の部屋の中で不安でうつむいているネズミ</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <main class="shell">
+
+    <section class="card" id="sec1">
+      <h2>1. 不安を「正常な反応」と受け止める</h2>
+      <p>不安は危険や不確実さに備えるための心のアラームです。完全に消そうとするのではなく、「新しいことに挑戦しているからこそ不安を感じている」と認めることが第一歩になります。</p>
+      <div class="callout">不安＝悪ではありません。<strong>前進のサイン</strong>として扱う視点転換が鍵。</div>
+    </section>
+
+    <section class="card" id="sec2">
+      <h2>2. 小さな一歩を踏み出す</h2>
+      <p>未来をすべて予測することはできません。そこで、まずは <strong>今日できる小さな行動</strong> に集中します。</p>
+      <ul>
+        <li>新しい仕事なら「一日の流れをメモする」</li>
+        <li>新しい環境なら「周囲の人に挨拶してみる」</li>
+      </ul>
+      <p>小さな成功体験の積み重ねが、不安を自信に変えていきます。</p>
+    </section>
+
+    <section class="card" id="sec3">
+      <h2>3. サポートを得る</h2>
+      <p>一人で抱え込むと不安は大きくなります。信頼できる人に率直に話すことで、不安が整理され、安心感が得られます。</p>
+    </section>
+
+    <section class="card" id="sec4">
+      <h2>4. 視点を変える ― 困難は成長の糧</h2>
+      <p>変化はリスクでもありますが、同時に <strong>成長のチャンス</strong> でもあります。新しい状況は、新しい学びや出会いをもたらす可能性を秘めています。</p>
+
+      <div class="two-col">
+        <div class="tip">
+          <h3 style="margin:0 0 6px;">ニーチェ</h3>
+          <blockquote>
+            「不安や困難を成長の糧にせよ」<br>
+            <span class="muted">→ 困難を克服する中でこそ本当の力は育ち、先行きの不透明さを「自分を試す舞台」と見なすことができます。</span>
+          </blockquote>
+        </div>
+
+        <div class="tip">
+          <h3 style="margin:0 0 6px;">聖書の視点</h3>
+          <blockquote>
+            「さまざまな試練に会うときは、それをこの上もない喜びと思いなさい。あなた方の信仰が試されることで忍耐が生じることを知っているからです。」（ヤコブ 1:2-4）<br>
+            <span class="muted">→ 試練を通して「忍耐」が育ち、人格が完成されると述べています。</span>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <section class="card" id="sec5">
+      <h2>5. 不安を避け続ける愚かさ</h2>
+
+      <h3 style="margin-top:8px">成長の機会を失う</h3>
+      <p>新しいことには必ず不安が伴います。それを避ければ「安心」は得られても、学びや成長は止まってしまいます。</p>
+
+      <h3 style="margin-top:14px">停滞と後悔</h3>
+      <p>挑戦しなかった人は、後から「あの時やっていれば…」と悔やむことが多いものです。安全圏に閉じこもるのは、短期的には楽でも長期的には人生を貧しくします。</p>
+    </section>
+
+    <section class="card" id="sec6">
+      <h2>6. 哲学と聖書からの警告</h2>
+      <blockquote>
+        セネカ（ストア派）：<br>
+        「危険を恐れて行動を避ける者は、結局もっと大きな危険に直面する」<br>
+        <span class="muted">→ 不安を恐れて動かないと、時代の変化や環境に取り残され、より大きな苦境に陥ります。</span>
+      </blockquote>
+
+      <blockquote>
+        タラントのたとえ（マタイ25:14-30）：<br>
+        主人から預かった一タラントを「失うのが怖い」と地に埋めた僕は、「怠け者」と叱責されました。<br>
+        <span class="muted">→ 「不安ゆえに挑戦を避ける」のは怠惰であり、神から託された機会を無駄にすることだと示されています。</span>
+      </blockquote>
+    </section>
+
+    <section class="card" id="sec7">
+      <h2>7. 愚かさの本質と信仰の助け</h2>
+      <p>不安を恐れて挑戦しない人は、</p>
+      <ul>
+        <li><strong>現状に縛られて未来を失う</strong></li>
+        <li><strong>神や人から託された可能性を埋もれさせる</strong></li>
+        <li><strong>「安心」という小さな利得と引き換えに、大きな幸福を逃す</strong></li>
+      </ul>
+      <p>という愚かさを犯してしまいます。</p>
+
+      <blockquote>
+        「あなたの重荷を神にゆだねよ。そうすれば，彼があなたを支えてくださる」（詩編55:22）
+      </blockquote>
+      <p>先行きが見えなくても、神にゆだねる姿勢を持つと、心の平安を得られます。</p>
+    </section>
+
+    <section class="card" id="summary">
+      <h2>まとめ</h2>
+      <ul class="summary">
+        <li>不安は自然な反応であり、挑戦の証拠</li>
+        <li>小さな行動を積み重ねることで前進できる</li>
+        <li>周囲や神の支えを受ければ心は強められる</li>
+        <li>不安を避け続けることこそ、人生最大の愚かさである</li>
+      </ul>
+      <p class="center" style="margin-top:10px">不安を乗り越えて挑戦する姿勢が、成長と幸福への道を切り開いていきます。</p>
+    </section>
+
+  </main>
+</body>
+</html>
