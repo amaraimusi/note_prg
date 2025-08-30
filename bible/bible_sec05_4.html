@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SNSでも友を選ぶ大切さ ― 考察</title>
+  <style>
+    :root{
+      --bg:#0f172a;           /* slate-900 */
+      --panel:#0b1226;        /* deeper panel */
+      --card:#101b36;         /* card surface */
+      --muted:#94a3b8;        /* slate-400 */
+      --text:#e2e8f0;         /* slate-200 */
+      --accent:#60a5fa;       /* blue-400 */
+      --accent-2:#34d399;     /* emerald-400 */
+      --border:#1f2a44;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+      color:var(--text); background: radial-gradient(1200px 600px at 70% -10%, rgba(51,65,85,.35), transparent), var(--bg);
+      line-height:1.8;
+    }
+    .wrap{max-width:980px; margin:auto; padding:28px 20px 80px}
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .9fr; gap:18px; align-items:stretch;
+      background:linear-gradient(180deg, rgba(96,165,250,.08), rgba(96,165,250,.02));
+      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px;
+    }
+    .hero h1{margin:0 0 8px; font-size:clamp(22px,3vw,30px); letter-spacing:.02em}
+    .hero p{color:var(--muted); margin:.25rem 0 0}
+    .hero .illus{
+      border-radius:14px; overflow:hidden; border:1px solid var(--border); background:#0a1227;
+      display:flex; align-items:center; justify-content:center; min-height:280px;
+    }
+    .hero img{
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(16,27,54,.9), rgba(16,27,54,.75));
+      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:26px; margin-top:22px;
+    }
+    h2,h3,h4{line-height:1.4}
+    h2{font-size:clamp(20px,2.6vw,26px); margin:.2rem 0 1rem; color:#dbeafe}
+    h3{font-size:clamp(18px,2.1vw,22px); margin:1.2rem 0 .6rem; color:#c7d2fe}
+    h4{font-size:18px; margin:1rem 0 .4rem; color:#cbd5e1}
+    ul{padding-left:1.2rem; margin:.4rem 0 .6rem}
+    li+li{margin-top:.25rem}
+    .note{
+      border-left:4px solid var(--accent); padding:.6rem .9rem; background:rgba(96,165,250,.08);
+      border-radius:10px; margin:.8rem 0; color:#e5e7eb;
+    }
+    .quote{
+      margin:.8rem 0; padding:.9rem 1rem; border:1px dashed #2b3a63; border-radius:12px; background:#0c1630;
+      color:#e6f0ff;
+    }
+    .hr{height:1px; background:linear-gradient(90deg, transparent, #2a355a, transparent); margin:26px 0}
+    .summary{
+      display:flex; gap:14px; align-items:flex-start; border:1px solid #234265; background:linear-gradient(180deg, rgba(52,211,153,.08), rgba(52,211,153,.03));
+      padding:18px; border-radius:14px;
+    }
+    .summary .badge{
+      font-weight:700; color:#022c22; background:rgba(52,211,153,.9); border-radius:10px; padding:.35rem .55rem;
+    }
+    figcaption{font-size:.9rem; color:var(--muted); margin-top:.4rem}
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; }
+      .hero .illus{min-height:220px}
+    }
+    a.top{position:fixed; right:18px; bottom:18px; text-decoration:none; color:#0b1226;
+      background:linear-gradient(180deg, #60a5fa, #34d399); padding:.6rem .8rem; border-radius:999px; box-shadow: var(--shadow); font-weight:700}
+  </style>
+</head>
+<body id="top">
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1>SNSでも友を選ぶ大切さ ― 考察</h1>
+        <p>誰とつながるかは、あなたの思考・感情・行動を左右します。慎重な選択が心の健全さを守ります。</p>
+      </div>
+      <figure class="illus">
+        <!-- 挿絵（1024×1536） -->
+        <img src="img/bible_sec05_4.png" alt="スマホに熱中するアライグマの子どもと注意する母親。倒木を組んだ家の温かな部屋。" loading="lazy">
+      </figure>
+    </section>
+
+    <!-- 本文 -->
+    <article class="card">
+      <h3>友の影響力は大きい</h3>
+      <p>古来から「友を見ればその人が分かる」と言われるように、人は周囲の人間関係から大きな影響を受けます。SNSにおいても同じで、誰をフォローし、誰と関わるかによって、自分の考え方や感情、さらには行動までも左右されます。ポジティブな人とつながれば励まされ、逆に不満や悪意に満ちた投稿ばかりを見ると、自分の心も荒みやすくなります。</p>
+
+      <h3>SNS特有のリスク</h3>
+      <p>SNSは現実の交友関係と違い、匿名性や距離感の希薄さがあります。そのため、実際に会ったことのない人とも簡単につながれますが、それは同時に危険も伴います。</p>
+      <ul>
+        <li>偽情報や偏った思想に染まりやすい</li>
+        <li>承認欲求を刺激され、比較や嫉妬に陥りやすい</li>
+        <li>不健全な人間関係（誹謗中傷・マウントの取り合い）が拡散しやすい</li>
+      </ul>
+      <div class="note">だからこそ「誰とつながるか」を慎重に選ぶ必要があります。</div>
+
+      <h3>良い友の基準</h3>
+      <p>SNS上で選ぶべき友は、現実の友と同じ基準で見極められます。</p>
+      <ul>
+        <li><strong>誠実さ</strong>：うそやごまかしでなく、真心のある投稿をする人</li>
+        <li><strong>思いやり</strong>：他者を尊重し、相手を傷つける言葉を使わない人</li>
+        <li><strong>前向きさ</strong>：希望や学びを与えてくれる人</li>
+        <li><strong>節度</strong>：愚痴や自慢ばかりせず、バランスのある発信をする人</li>
+      </ul>
+      <p>そのような友と関わることで、SNSは心を豊かにするツールになります。</p>
+
+      <h3>聖書的視点</h3>
+      <div class="quote">
+        <p>聖書は「悪い交わりは有益な習慣を損なう」（コリント第一 15:33）と警告しています。つまり、SNS上の友人選びも霊的・道徳的な生活に直結するということです。反対に、正しい人との交わりは「鉄が鉄を研ぐように、人はその友の顔を研ぐ」（箴言 27:17）ように、自分を磨き成長させます。</p>
+      </div>
+
+      <h3>哲学者セネカの助言</h3>
+      <div class="quote">
+        <p>哲学者セネカは「誰と交わるかによって人は変わる。だから、自分を高めてくれる人を選びなさい」と助言しています。SNSでの交友もまた「心の食べ物」のようなものです。粗悪な情報や攻撃的な人と関われば心は荒れ、知恵や希望を与える人と関われば心は強くなるということです。</p>
+      </div>
+
+      <div class="hr"></div>
+
+      <h2>親が子にSNSを禁止した場合</h2>
+      <p>親がSNSを禁止するのは、子どもの自由を奪うためではなく <strong>守るため</strong> です。実際、SNSには多くの利点がある一方で、次のようなリスクもあります。</p>
+      <ul>
+        <li>メンタルヘルスの悪化（不安、うつ、自己肯定感の低下）</li>
+        <li>ネットいじめや誹謗中傷</li>
+        <li>ポルノや依存を生むコンテンツ</li>
+        <li>比較や嫉妬によるストレス</li>
+      </ul>
+      <p>親が禁止するのは「時代遅れ」だからではなく、これらのリスクを理解しているからだと受け止めることができます。</p>
+
+      <div class="hr"></div>
+
+      <div class="summary">
+        <span class="badge">✅ まとめ</span>
+        <p style="margin:0">SNSは日常生活以上に、人間関係の影響力が増幅されやすい世界です。だからこそ「誰を友とするか」を意識的に選ぶことが、心の健全さと人生の質を守る鍵になります。</p>
+      </div>
+    </article>
+
+    <a class="top" href="#top">↑ TOP</a>
+  </div>
+</body>
+</html>
