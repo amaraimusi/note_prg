@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>大きなミスをし、謝らならないときどうすることができるか？</title>
+  <style>
+    :root{
+      --bg:#0f172a;           /* slate-900 */
+      --card:#0b1229;         /* deeper slate */
+      --muted:#94a3b8;        /* slate-400 */
+      --text:#e5e7eb;         /* gray-200 */
+      --accent:#7c3aed;       /* violet-600 */
+      --accent-2:#22d3ee;     /* cyan-400 */
+      --ok:#10b981;           /* emerald-500 */
+      --warn:#f59e0b;         /* amber-500 */
+      --danger:#ef4444;       /* red-500 */
+      --ring: rgba(124,58,237,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at 85% -10%, rgba(34,211,238,.15), transparent 60%),
+        radial-gradient(1000px 600px at -10% -10%, rgba(124,58,237,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font:16px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,system-ui,Helvetica,Arial,"Noto Sans JP","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    }
+    .wrap{max-width:980px;margin:auto;padding:28px 20px 80px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)) , var(--card);
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    /* Header */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap:20px;
+      align-items:center;
+      padding:28px;
+    }
+    .hero h1{
+      font-size: clamp(26px, 2.4vw + 12px, 40px);
+      line-height:1.2;
+      margin:0 0 10px;
+      letter-spacing:.02em;
+    }
+    .hero p.lead{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(14px, .6vw + 12px, 18px);
+    }
+    .hero figure{
+      margin:0;
+      position:relative;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 10px 40px rgba(124,58,237,.25);
+      isolation:isolate;
+    }
+    .hero img{
+      width:100%;
+      height:auto;
+      display:block;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      filter:contrast(1.05) saturate(1.05);
+    }
+    .cap{
+      position:absolute;left:12px;bottom:12px;
+      background:rgba(2,6,23,.72);
+      border:1px solid rgba(255,255,255,.08);
+      padding:6px 10px;border-radius:10px;
+      font-size:12px;color:var(--muted);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Section */
+    section{padding:8px 28px 28px}
+    section + section{border-top:1px solid rgba(255,255,255,.06)}
+    h2{
+      margin:18px 0 8px;
+      font-size: clamp(20px, 1.2vw + 14px, 26px);
+      letter-spacing:.01em;
+      display:flex;align-items:center;gap:10px;
+    }
+    h2 .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 0 6px var(--ring)}
+    p{margin:.6em 0}
+
+    /* Callout */
+    .callout{
+      display:flex;gap:12px;align-items:flex-start;
+      background:linear-gradient(180deg, rgba(124,58,237,.10), rgba(34,211,238,.08));
+      border:1px solid rgba(124,58,237,.35);
+      padding:12px 14px;border-radius:14px;margin:.8em 0 1.2em
+    }
+    .callout .badge{
+      user-select:none;
+      font-weight:700;
+      font-size:12px;
+      letter-spacing:.08em;
+      color:white;
+      padding:6px 10px;border-radius:999px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px var(--ring);
+      white-space:nowrap;
+    }
+    .callout p{margin:.2em 0}
+
+    /* List */
+    ol.check{
+      counter-reset:num; list-style:none; padding:0; margin:.6em 0 .2em;
+      display:grid; gap:10px;
+    }
+    .check li{
+      counter-increment:num;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+      padding:12px 12px 12px 44px;border-radius:12px;position:relative
+    }
+    .check li::before{
+      content: counter(num);
+      position:absolute;left:10px;top:10px;
+      width:24px;height:24px;border-radius:7px;
+      display:grid;place-items:center;
+      font-weight:700;font-size:13px;
+      background:linear-gradient(135deg,var(--ok),#34d399);
+      color:#062b22;box-shadow:0 6px 18px rgba(16,185,129,.35);
+    }
+
+    /* Quote / scripture */
+    blockquote{
+      margin:.8em 0;padding:14px 16px;border-left:4px solid var(--warn);
+      background:rgba(245,158,11,.08); border-radius:10px;
+      color:#fde68a;
+    }
+    blockquote small{display:block;color:#fbbf24}
+
+    /* Footer note */
+    .note{
+      margin-top:18px;color:var(--muted);font-size:14px
+    }
+
+    /* Responsive */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;gap:16px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <article class="card">
+      <header class="hero">
+        <div>
+          <h1>大きなミスをし、謝らならないときどうすることができるか？</h1>
+          <p class="lead">
+            一時的な自己防衛（恐れ・言い訳・ごまかし・責任転嫁）は、長期的な信頼と関係を蝕みます。ここでは、誠実に向き合うための実践的ヒントと、聖書からの視点をまとめます。
+          </p>
+        </div>
+
+        <!-- 挿絵（ヒーロー） -->
+        <figure>
+          <img src="img/bible_sec05_8.png" alt="上司のカバに怒られる部下のリクガメ（アニマルファンタジー、リアル調）" width="1024" height="1024">
+          <figcaption class="cap">挿絵：上司のカバに叱責され、気まずそうにうつむくリクガメ</figcaption>
+        </figure>
+      </header>
+
+      <!-- 本文 -->
+      <section>
+        <h2><span class="dot"></span>怒られるのが怖い</h2>
+        <p>恐怖心から謝罪を避けると、問題が大きくなったり、他者から「誠実さがない」と見なされます。</p>
+        <div class="callout">
+          <span class="badge">対処法</span>
+          <div>
+            <p>恐れを感じるのは自然ですが、「怒られる」より「誠実さを欠く」ことのほうが信頼に致命的な傷を残すと意識することが大切です。率直な謝罪は、短期的に厳しい反応を受けても、長期的に信頼回復につながります。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="dot"></span>言い訳をする</h2>
+        <p>状況を説明することと「言い訳をする」ことは違います。言い訳は自分の責任を小さく見せかけようとする行為であり、相手に「責任転嫁している」と感じさせます。</p>
+        <div class="callout">
+          <span class="badge">対処法</span>
+          <div>
+            <p>「まず責任を認める」ことを優先し、その後に必要なら経緯を冷静に説明するのが望ましい流れです。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="dot"></span>ごまかそうとする</h2>
+        <p>事実を隠したり小さく見せると、後で必ず矛盾が露呈します。ごまかしが発覚したときの失信は、ミスそのものよりも大きな損害をもたらします。</p>
+        <div class="callout">
+          <span class="badge">対処法</span>
+          <div>
+            <p>小さな失敗であっても正直に伝える習慣をつけること。透明性は信頼を築く土台です。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="dot"></span>誰かのせいにする</h2>
+        <p>「自分は悪くない」と示したい気持ちから他者を巻き込むのは、最悪の場合、人間関係を破壊します。責任転嫁は一度でもすれば周囲から「信用できない人」と見られる可能性が高いです。</p>
+        <div class="callout">
+          <span class="badge">対処法</span>
+          <div>
+            <p>自分に責任がある部分を率直に認める。もし外部要因があったとしても、それを「責任逃れ」と混同せず、あくまで「事実説明」として伝えるよう意識することが大事です。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="dot"></span>✨ 建設的な謝罪のポイント</h2>
+        <ol class="check">
+          <li><strong>まず責任を認める：</strong>「私のミスでした」とはっきり言う。</li>
+          <li><strong>相手への影響を認める：</strong>「ご迷惑をおかけしました」と気持ちを示す。</li>
+          <li><strong>改善策を伝える：</strong>「今後は○○を徹底します」と再発防止を約束する。</li>
+          <li><strong>感情より誠実さを優先する：</strong>恐れや弁解心に負けず、誠実であることを第一に。</li>
+        </ol>
+        <p>「怒られる恐怖」「言い訳」「ごまかし」「責任転嫁」はすべて“自己防衛の本能”ですが、結果的には信頼を大きく損ないます。逆に、率直な謝罪と再発防止策は、失敗を“信頼を深める機会”に変えることすらあります。</p>
+      </section>
+
+      <section>
+        <h2><span class="dot"></span>怒られる勇気について聖書からのアドバイス</h2>
+        <p>「怒られる勇気」とは、失敗や過ちを正直に認めて謝罪する勇気とも言えます。聖書はこの姿勢についていくつかの角度から助言を与えています。</p>
+
+        <h2><span class="dot"></span>真実を語る勇気 ― 神が喜ばれる姿勢</h2>
+        <p>聖書は「真実を語りなさい」（エフェソス 4:25）と勧めています。怒られるのが怖くても、事実を隠さずに伝えることは神の前で誠実な歩みです。短期的には相手に叱られるかもしれませんが、長期的には信頼が築かれます。</p>
+        <blockquote>
+          「正しい人は大胆に歩む」（箴言 28:1）<br />
+          <small>恐怖に負けずに真実を示す人は、最終的に強く立つことができます。</small>
+        </blockquote>
+
+        <h2><span class="dot"></span>責任を取ることは謙遜の表れ</h2>
+        <p>言い訳せずに謝るのは「謙遜」の行いです。聖書は「神は高ぶる者に敵対し、謙遜な者に恵みを与える」（ヤコブ 4:6）と述べています。怒られるのを恐れてごまかすのではなく、謙虚に責任を認めるとき、神からの助けや周囲からの理解を得やすくなります。</p>
+
+        <h2><span class="dot"></span>恐れより愛を選ぶ</h2>
+        <p>ヨハネ第一 4:18 は「愛には恐れがない」と語ります。「怒られるかもしれない」という恐怖に支配される代わりに、「相手に迷惑をかけてしまったことを正したい」「関係を大切にしたい」という愛を動機に行動すると、恐れに勝てます。</p>
+
+        <h2><span class="dot"></span>怒られることも訓練になる</h2>
+        <p>箴言 3:11-12 では、神の懲らしめは愛から出ていると説明されています。怒られる経験も成長のための訓練になり得ます。叱責を受け入れる人はより強く、賢くなります。</p>
+
+        <h2><span class="dot"></span>まとめ</h2>
+        <ul>
+          <li><strong>真実を語る勇気</strong>は、神が喜ばれる誠実な生き方。</li>
+          <li><strong>謝罪は謙遜の表れ</strong>であり、信頼を築く基盤。</li>
+          <li><strong>恐れより愛を動機に</strong>すると勇気が湧く。</li>
+          <li><strong>叱責は訓練</strong>と受け止めれば、恐怖が成長の機会に変わる。</li>
+        </ul>
+        <p class="note">つまり聖書は「怒られる勇気」を「愛と謙遜をもって真実を語ること」と結びつけています。恐怖を避けるのではなく、それを乗り越えて誠実に生きることが、神の前でも人の前でも尊ばれる姿勢です。</p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
