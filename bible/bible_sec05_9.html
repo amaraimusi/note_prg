@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>片づけ――職場ではできるのに自分の部屋は辛いのはなぜ？</title>
+<style>
+  :root{
+    --bg: #0f172a;            /* slate-900 */
+    --card:#ffffff;
+    --ink:#0b1220;            /* near-black */
+    --muted:#5b6b82;
+    --accent:#5b9df9;
+    --accent-2:#7c3aed;
+    --ring:#e6ecff;
+    --shadow: 0 10px 30px rgba(2,6,23,.15);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #1e293b 0%, transparent 60%),
+      radial-gradient(1200px 700px at 110% 10%, #111827 0%, transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font:16px/1.8 system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN",
+          "BIZ UDPGothic", "Noto Sans JP", "Yu Gothic UI", "YuGothic", "Meiryo", sans-serif;
+  }
+  .wrap{
+    max-width:1100px;
+    margin-inline:auto;
+    padding:min(5vw,40px);
+  }
+  .card{
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #eef2ff;
+  }
+  .header{
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap:28px;
+    align-items:center;
+    padding:36px 34px 10px;
+  }
+  @media (max-width: 900px){
+    .header{grid-template-columns: 1fr; padding-bottom:0}
+  }
+  .eyebrow{
+    display:inline-block;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#334155;
+    background:#eef2ff;
+    border:1px solid var(--ring);
+    padding:6px 10px;
+    border-radius:999px;
+  }
+  h1{
+    margin:.6rem 0 0.2rem;
+    font-size:clamp(1.4rem, 1.2rem + 1.6vw, 2.2rem);
+    line-height:1.25;
+    color:#0b1220;
+  }
+  .lede{color:var(--muted); margin:.6rem 0 0}
+  .hero{
+    position:relative;
+    aspect-ratio: 2/3;
+    border-radius:16px;
+    overflow:hidden;
+    background:#f8fafc;
+    box-shadow:0 6px 20px rgba(15,23,42,.12);
+    border:1px solid #e5e7eb;
+  }
+  .hero img{width:100%; height:100%; object-fit:cover; display:block}
+  .content{padding:10px 34px 34px}
+  .hr{
+    height:1px; background:linear-gradient(90deg, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent);
+    margin:20px 0 26px;
+  }
+  section{margin:28px 0}
+  h2{
+    font-size:1.12rem; margin:0 0 .6rem; display:flex; align-items:center; gap:.6rem;
+  }
+  .badge{
+    width:28px; height:28px; flex:0 0 28px;
+    display:inline-grid; place-items:center;
+    border-radius:8px;
+    font-weight:700; color:white;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 6px 18px rgba(91,157,249,.35);
+  }
+  ul{margin:.2rem 0 0; padding-left:1.1rem}
+  li{margin:.35rem 0}
+  mark{
+    background: #fffbeb;
+    color:inherit;
+    padding:.05em .25em;
+    border-radius:.35em;
+    box-shadow: inset 0 0 0 1px #fde68a66;
+  }
+  .tips{
+    border:1px solid #e6f0ff;
+    background: linear-gradient(180deg, #f8fbff, #ffffff);
+    border-radius:14px;
+    padding:18px 18px 6px;
+    box-shadow: 0 4px 14px rgba(2,6,23,.06) inset;
+  }
+  .tips ul{list-style:none; padding-left:0}
+  .tips li{
+    margin:.55rem 0 .75rem;
+    padding-left:1.75rem;
+    position:relative;
+  }
+  .tips li::before{
+    content:"✓";
+    position:absolute; left:.35rem; top:.1rem;
+    width:1.1rem; height:1.1rem; display:grid; place-items:center;
+    font-weight:800; color:#0f766e;
+    border:2px solid #99f6e4; border-radius:6px; background:#ecfeff;
+    box-shadow:0 2px 6px rgba(13,148,136,.15);
+  }
+  .summary{
+    margin-top:26px;
+    padding:16px 18px;
+    border-left:4px solid var(--accent);
+    background:#f8fafc;
+    color:#0b1220;
+    border-radius:12px;
+  }
+  .foot{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; color:#475569;
+  }
+  .tag{
+    font-size:.85rem; padding:.3rem .6rem; border-radius:999px;
+    background:#eef2ff; border:1px solid var(--ring);
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <article class="card">
+      <header class="header">
+        <div>
+          <span class="eyebrow">心理 × 生活術</span>
+          <h1>片づけ―― 職場では片づけられるのに、自分の部屋は辛く感じるのはなぜですか？</h1>
+          <p class="lede">
+            職場では片づけられるのに、自分の部屋は辛く感じる――これは心理学的にとてもよくある現象です。いくつかの要因が関係しています。
+          </p>
+        </div>
+        <figure class="hero">
+          <!-- 挿絵：上司のカバに怒られる部下のリグガメ（1024x1536） -->
+          <img src="img/bible_sec05_9.png" alt="上司のカバに怒られる部下のリグガメの挿絵" />
+        </figure>
+      </header>
+
+      <div class="content">
+        <div class="hr" aria-hidden="true"></div>
+
+        <section id="reason-1">
+          <h2><span class="badge">1</span>外部からの「評価」と「基準」の有無</h2>
+          <ul>
+            <li><strong>職場</strong>では上司や同僚の目があります。「片づけなければならない」という外部の基準やプレッシャーがあるため、自然と行動できます。</li>
+            <li><strong>自分の部屋</strong>は完全にプライベート空間なので、誰からも評価されません。そのため<mark>「片づけなくても困らない」</mark>という心理が働きやすく、行動のハードルが上がります。</li>
+          </ul>
+        </section>
+
+        <section id="reason-2">
+          <h2><span class="badge">2</span>感情の結びつき</h2>
+          <ul>
+            <li>自分の部屋の物は <strong>思い出や感情と強く結びついている</strong> ことが多く、「捨てる」「動かす」こと自体が精神的に負担になります。</li>
+            <li>職場の物は「仕事の道具」であり、感情的な価値が少ないため淡々と整理できます。</li>
+          </ul>
+        </section>
+
+        <section id="reason-3">
+          <h2><span class="badge">3</span>認知負荷と意思決定の疲れ</h2>
+          <ul>
+            <li>職場では「この書類はここ」「この道具はあそこ」といった <strong>ルールや習慣が決まっている</strong> ため、迷わず片づけられます。</li>
+            <li>自分の部屋では「これは取っておくべき？」「どこにしまおう？」と <strong>決断が多く必要</strong> になり、脳が疲れて「辛い」と感じやすくなります。</li>
+          </ul>
+        </section>
+
+        <section id="reason-4">
+          <h2><span class="badge">4</span>心理的エネルギーの残量</h2>
+          <ul>
+            <li>職場では「業務の一環」としてエネルギーを割り当てられますが、家に帰るとエネルギーが残っていない場合が多いです。</li>
+            <li>結果として「やらなきゃ」と思っても動けず、「辛い」感覚になります。</li>
+          </ul>
+        </section>
+
+        <section id="tips">
+          <h2><span class="badge">5</span>解決のヒント</h2>
+          <div class="tips">
+            <ul>
+              <li><strong>小さく区切る</strong>：「机の上の一角だけ」「10分だけ」と範囲を限定する。</li>
+              <li><strong>ルール化する</strong>：職場のように「本は棚」「紙はボックス」などシンプルな仕組みを作る。</li>
+              <li><strong>第三者の視点を借りる</strong>：誰かに見てもらうつもりで整えると客観性が持てます。</li>
+              <li><strong>感情を切り離す</strong>：写真に残してから処分するなど、「思い出」と「物」を分ける工夫が有効です。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="summary" id="summary">
+          <strong>まとめ：</strong>
+          職場では「外部基準」「感情の薄さ」「明確なルール」があるため片づけやすく、
+          自分の部屋では「感情的価値」「決断の多さ」「エネルギー不足」で辛くなるのです。
+          小さく始めて、仕組みで楽にしましょう。
+        </section>
+
+        <div class="foot" aria-label="tags">
+          <span class="tag">#掃除</span>
+          <span class="tag">#片付け</span>
+          <span class="tag">#生活改善</span>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
