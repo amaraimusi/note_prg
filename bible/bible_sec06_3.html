@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>内気な性格は短所ではない</title>
+  <style>
+    :root{
+      --bg: #0f1216;
+      --bg-soft:#151a20;
+      --card:#0f172a;
+      --ink:#e6edf3;
+      --ink-soft:#c8d1da;
+      --accent:#7dd3fc;
+      --accent-2:#a78bfa;
+      --muted:#9aa7b5;
+      --ring: 0 0 0 2px color-mix(in oklab, var(--accent) 65%, transparent);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f6f7fb; --bg-soft:#fff; --card:#ffffff;
+        --ink:#0f172a; --ink-soft:#22304a; --muted:#5b6b7e;
+        --accent:#0ea5e9; --accent-2:#7c3aed;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
+        radial-gradient(1000px 500px at 110% 10%, color-mix(in oklab, var(--accent-2) 22%, transparent), transparent 60%),
+        var(--bg);
+      font: 16px/1.8 system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      letter-spacing: .02em;
+    }
+
+    .wrap{ max-width: 980px; margin-inline:auto; padding: 28px 20px 80px; }
+    header.hero{
+      position: relative;
+      border-radius: 20px;
+      padding: 28px;
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--card) 88%, transparent) 0%, color-mix(in oklab, var(--card) 92%, transparent) 100%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06);
+      overflow: clip;
+      border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+    }
+    .eyebrow{
+      display:inline-flex; gap:.5em; align-items:center;
+      font-size: .85rem; color:var(--muted); letter-spacing:.08em; text-transform: uppercase;
+    }
+    .eyebrow::before{
+      content:""; width: 28px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 2px;
+    }
+    h1{
+      margin: .2em 0 .6em;
+      font-weight: 800; line-height:1.2;
+      font-size: clamp(1.8rem, 2.6vw + 1.4rem, 3rem);
+      letter-spacing: .01em;
+      background: linear-gradient(90deg, var(--ink) 30%, color-mix(in oklab, var(--ink) 75%, var(--accent)) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead{
+      max-width: 72ch;
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, .5vw + 1rem, 1.2rem);
+      margin: 0;
+    }
+
+    .body{
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    @media (min-width: 900px){
+      .body{ grid-template-columns: 1.1fr .9fr; align-items: start; gap: 28px; }
+    }
+
+    article{
+      background: color-mix(in oklab, var(--card) 96%, transparent);
+      border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+      border-radius: 16px;
+      padding: 26px clamp(18px, 3vw, 28px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    article p{ margin: 1.1em 0; }
+    article p:first-of-type::first-letter{
+      float:left; font-size: 3.1rem; line-height:.9; padding:.1em .18em .05em .1em;
+      margin:.06em .18em 0 0; border-radius:.2em;
+      color: var(--ink);
+      background: color-mix(in oklab, var(--accent) 22%, transparent);
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 42%, transparent) inset;
+    }
+
+    figure.illu{
+      margin: 0;
+      background: color-mix(in oklab, var(--card) 94%, transparent);
+      border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+      border-radius: 16px;
+      overflow: clip;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+    .illu img{
+      display:block; width:100%; height:auto; aspect-ratio: 1 / 1; object-fit: cover;
+    }
+    figcaption{
+      padding: 12px 16px;
+      font-size: .9rem; color: var(--muted);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 86%, transparent), transparent);
+      display:flex; align-items:center; gap:.6em;
+      border-top: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+    }
+    figcaption::before{
+      content:"●"; font-size:.7rem; color: var(--accent);
+    }
+
+    .callout{
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: linear-gradient(180deg,
+        color-mix(in oklab, var(--accent) 12%, transparent),
+        color-mix(in oklab, var(--card) 92%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+      color: var(--ink-soft);
+    }
+
+    .tags{
+      margin-top: 18px;
+      display:flex; flex-wrap: wrap; gap:10px;
+    }
+    .tag{
+      padding: 6px 10px; border-radius: 999px;
+      font-size: .85rem; color: var(--ink);
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--accent) 22%, transparent), color-mix(in oklab, var(--card) 94%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+      box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+    }
+
+    .footer-note{
+      max-width:72ch; margin: 26px auto 0; text-align:center; color:var(--muted); font-size:.9rem;
+    }
+
+    /* print */
+    @media print{
+      body{ background: #fff; color:#111; }
+      header.hero, article, figure.illu{ box-shadow:none; }
+      .wrap{ padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Feature · 心のケア</div>
+      <h1>内気な性格は短所ではない</h1>
+      <p class="lead">
+        内気さは「直すべき欠点」ではなく、活かし方次第で静かな強みになります。無理に明るくふるまうより、親切心を動機に小さな勇気を積み重ねていく——その姿が周囲の心に深く届きます。
+      </p>
+    </header>
+
+    <div class="body">
+      <article>
+        <p>
+          内気な人の多くは、「この性格を直したい」「もっと積極的になりたい」と感じています。確かに、人前で堂々と話したり、初対面の人とすぐに打ち解けられたりする姿を見ると、自分との差を強く意識してしまうかもしれません。しかし、無理に自分を明るく変えようとすると、多くの場合は失敗に終わります。所詮は「演じている」だけであり、長続きしないどころか、心に過剰なストレスをかけてしまうからです。
+        </p>
+        <p>
+          けれども、内気さは必ずしも悪いことではありません。むしろ、内気な人ならではの強みや利点があります。例えば、相手の話をよく聞く姿勢や、周囲をよく観察する力は、人間関係を築くうえで非常に重要です。軽率に発言しないため、言葉に重みがあり、信頼感を与えることもできます。また、控えめな態度は人に安心感を与え、そっと寄り添う存在として周囲に貴重な支えを提供することもできるのです。
+        </p>
+        <p>
+          一方で、内気な人は日常生活のなかで勇気を必要とする場面に多く直面します。会議での発言、相手への提案、断るべき場面など、ちょっとした一歩にも大きな緊張を覚えることがあります。自分のために勇気を振り絞るのは難しいかもしれません。しかし不思議なことに、他の人のためであれば勇気を出しやすいのも、内気な人の特徴です。誰かを助けたい、励ましたい、困っている人を支えたい――そうした親切心が原動力になると、驚くほど自然に行動できることがあります。
+        </p>
+        <p>
+          つまり、内気さを「治すべき欠点」と考えるのではなく、「どう活かせるか」を見つけることが大切です。自分の内気な性格を受け入れたうえで、必要なときに愛や親切心を動機に勇気を出す――その姿は、無理に明るく振る舞う人よりも、むしろ人々の心に深く響くでしょう。
+        </p>
+        <div class="callout">
+          <strong>結論：</strong>内気さは弱点ではなく個性です。そして、その個性を活かしながら他の人のために勇気を出すとき、内気な人は大きな力を発揮できます。
+        </div>
+
+        <div class="tags" aria-label="tags">
+          <span class="tag">#内気</span>
+          <span class="tag">#性格</span>
+        </div>
+      </article>
+
+      <figure class="illu">
+        <img src="img/bible_sec06_3.png" width="1024" height="1024" alt="内気なライオンと陽気なガゼル（サバンナの質素な住居を背景に、擬人化・リアル調アニマルファンタジー）" />
+        <figcaption>挿絵：内気なライオンと陽気なガゼル（リアル調アニマルファンタジー／サバンナと質素な住居）</figcaption>
+      </figure>
+    </div>
+
+    <p class="footer-note">© 2025 — “Quiet strength” article layout. このページは印刷にも最適化されています。</p>
+  </div>
+</body>
+</html>
