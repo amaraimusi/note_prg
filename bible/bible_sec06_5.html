@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>貧しい人でもなぜ豊かになれるのか？</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1221;
+    --panel:#171a2c;
+    --card:#1c2036;
+    --text:#e7e9f4;
+    --muted:#c3c7e6;
+    --brand:#7bdcb5;
+    --accent:#a5b4fc;
+    --line:rgba(255,255,255,.08);
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 100% -10%, rgba(165,180,252,.10), transparent 60%),
+      radial-gradient(800px 500px at -10% 10%, rgba(123,220,181,.10), transparent 60%),
+      var(--bg);
+    line-height:1.85;
+    letter-spacing:.02em;
+  }
+  .wrap{max-width:1100px;margin:auto;padding:28px}
+  header.hero{
+    background:linear-gradient(135deg, rgba(165,180,252,.18), rgba(123,220,181,.18));
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:36px 28px;
+    border-radius:24px;
+    backdrop-filter: blur(6px);
+  }
+  h1{margin:0 0 10px;font-weight:800;font-size:clamp(28px,4vw,40px);letter-spacing:.02em}
+  .lead{font-size:clamp(15px,2.1vw,18px);color:var(--muted)}
+  .grid{
+    display:grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap:26px;
+    margin-top:18px
+  }
+  .figure{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    box-shadow:var(--shadow);
+  }
+  .figure img{display:block;width:100%;height:auto;object-fit:cover}
+  .figure figcaption{
+    padding:10px 14px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);
+    background:rgba(255,255,255,.02)
+  }
+
+  section{
+    margin-top:34px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  section > header{
+    padding:18px 20px;
+    background:linear-gradient(90deg, rgba(123,220,181,.12), rgba(165,180,252,.10));
+    border-bottom:1px solid var(--line);
+  }
+  section h2{
+    margin:0;font-weight:800;font-size:clamp(20px,2.6vw,26px)
+  }
+  .content{padding:20px}
+  hr.sep{
+    border:none;height:1px;background:var(--line);margin:18px 0;
+  }
+  ul,ol{margin:0 0 0 1.1em;padding:0}
+  li{margin:.35em 0}
+  .callout{
+    display:flex;gap:14px;align-items:flex-start;
+    padding:16px 18px;border:1px dashed rgba(255,255,255,.18);
+    border-radius:14px;background:rgba(165,180,252,.08)
+  }
+  .badge{font-weight:700;color:#111;background:var(--brand);border-radius:999px;padding:3px 10px;font-size:12px}
+  .cards{
+    display:grid;gap:16px;
+    grid-template-columns: repeat( auto-fit, minmax(240px, 1fr) );
+    margin-top:10px
+  }
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px
+  }
+  .quote{
+    margin:10px 0 0;padding:14px;border-left:4px solid var(--accent);
+    background:rgba(165,180,252,.08);border-radius:10px
+  }
+  .foot{
+    margin-top:30px;padding:20px;border:1px solid var(--line);
+    border-radius:var(--radius);background:linear-gradient(135deg, rgba(123,220,181,.10), rgba(165,180,252,.12))
+  }
+  .pill{
+    display:inline-block;margin:6px 8px 0 0;padding:6px 10px;border-radius:999px;
+    background:rgba(255,255,255,.10);color:var(--muted);font-size:13px;border:1px solid var(--line)
+  }
+  /* Responsive tweak for top grid */
+  @media (max-width:880px){
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- Hero -->
+    <header class="hero">
+      <h1>貧しい人でもなぜ豊かになれるのか？</h1>
+      <div class="grid">
+        <p class="lead">
+          世の中では「豪華な物をたくさん所有＝幸福」という発想が根強いけれど、実際には<strong>所有の多さ＝人生の豊かさ</strong>ではありません。むしろ、物を増やすほど不安や比較が増え、心が貧しくなることすらある。ここでは、<strong>強欲が幸せを遠ざける理由</strong>と、<strong>お金が少なくても豊かに生きる具体策</strong>をまとめます。
+        </p>
+        <figure class="figure">
+          <img src="img/bible_sec06_5a3.png" alt="貧しい家の猫とイタチが仲良く質素な食事を楽しんでいる様子の絵（アニマルファンタジー、やさしい色調）" />
+          <figcaption>仲良く分かち合うことが心の豊かさを育てる</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- Section 1 -->
+    <section id="s1">
+      <header><h2>🏰 1) なぜ「豪華な所有＝幸福」ではないのか</h2></header>
+      <div class="content">
+        <ul>
+          <li><strong>満足は慣れる</strong>：新しい物の喜びは慣れで薄れ、すぐ次を欲する（快楽順応）。</li>
+          <li><strong>比較が止まらない</strong>：上を見ればキリがなく「不足感」が常態化。</li>
+          <li><strong>維持コストが増える</strong>：お金・時間・手間・故障リスクが心を圧迫。</li>
+          <li><strong>寿命や価値は延びない</strong>：所有は人生の“長さ”も“価値”も保証しない。</li>
+        </ul>
+        <hr class="sep" />
+        <figure class="figure">
+          <img src="img/bible_sec06_5a1.png" alt="幸せではないお金持ちのキツネの絵（高級家具に囲まれ、うなだれる狐狸の肖像）" />
+          <figcaption>所有が増えても、心の充足が増えるとは限らない</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section id="s2">
+      <header><h2>💸 2) 強欲な人は幸せになれない理由</h2></header>
+      <div class="content">
+        <ul>
+          <li><strong>終わりなき渇き</strong>：手に入れても“もっと”が生まれ、心が安まらない。</li>
+          <li><strong>判断が濁る</strong>：倫理より利益を優先し、人間関係と信頼を失う。</li>
+          <li><strong>不安の増幅</strong>：失う恐れ・値動き・周囲との比較が常に頭を占領。</li>
+          <li><strong>自己像の脆弱化</strong>：持ち物で自分を測ると、失った瞬間に自己価値も崩れる。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section id="s3">
+      <header><h2>🌱 3) 貧しくても豊かな人の共通点</h2></header>
+      <div class="content">
+        <ol>
+          <li><strong>軸がモノではない</strong>：信念・信仰・使命・家族・共同体など“奪われにくい価値”に根を張る。</li>
+          <li><strong>感謝の筋力</strong>：小さな充足を見つける訓練ができている。</li>
+          <li><strong>与える習慣</strong>：時間・労力・言葉・知恵を分かち合い、関係資本を増やす。</li>
+          <li><strong>簡素の技術</strong>：見栄の消費を削ぎ落とし、「必要十分」を見極められる。</li>
+          <li><strong>勤勉と誠実</strong>：少ない資源でも工夫して価値を生み、人の信頼を財産に変える。</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section id="s4">
+      <header><h2>🛠 4) 貧しくても豊かになるための実践ステップ</h2></header>
+      <div class="content">
+        <div class="cards">
+          <div class="card">
+            <span class="badge">A</span>
+            <p><strong>思考を整える</strong>（感謝メモ／比較断食／用途テスト）</p>
+          </div>
+          <div class="card">
+            <span class="badge">B</span>
+            <p><strong>関係資本を増やす</strong>（週1助け合い／言葉の投資／共同体に根を張る）</p>
+          </div>
+          <div class="card">
+            <span class="badge">C</span>
+            <p><strong>お金の設計</strong>（必要十分の定義／複線収入／所有より利用）</p>
+          </div>
+          <div class="card">
+            <span class="badge">D</span>
+            <p><strong>与える習慣</strong>（寄付・譲渡／時間奉仕）</p>
+          </div>
+          <div class="card">
+            <span class="badge">E</span>
+            <p><strong>誠実と休息</strong>（信頼を守る／魂の整備をする安息）</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section id="s5">
+      <header><h2>🙏 神から見て豊かな人とは？</h2></header>
+      <div class="content">
+        <div class="quote">
+          <p>📖 ルカ12:21<br>
+          「自分のために宝をたくわえても、神に対して富んでいない人はこのようになります」</p>
+        </div>
+        <div class="quote">
+          <p>📖 マタイ6:19-20<br>
+          「地上に宝を積むな…むしろ天に宝を積みなさい」</p>
+        </div>
+        <div class="quote">
+          <p>📖 1テモテ6:17-19<br>
+          「不確かな富にではなく神に希望を託し、良い業に富みなさい」</p>
+        </div>
+        <div class="callout">
+          <strong>👉 富は「どれだけ持つか」ではなく「どう用いるか」。</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section id="summary">
+      <header><h2>✨ まとめ（X投稿向け）</h2></header>
+      <div class="content">
+        <ul>
+          <li>💔 強欲は不足感を永久機関化し、幸福から遠ざける</li>
+          <li>🌱 豊かさは所有量でなく、心の軸・感謝・誠実・与える心から</li>
+          <li>🙌 貧しくても、感謝と誠実と与える精神を持つ人は豊か</li>
+          <li>🙏 神から見て富んだ人とは「信仰と愛と良い業」に満ちた人</li>
+          <li>🔑 真の安心と希望は「神との関係」から</li>
+        </ul>
+        <div class="callout" style="margin-top:14px">
+          <strong>👉 結局のところ、<br>
+          <span style="display:inline-block;margin-top:6px">「どれだけ持つか」ではなく「どう神と歩み、他者に与えるか」で人生は本当に豊かになる。」</span></strong>
+        </div>
+        <div class="foot">
+          <span class="pill">#強欲</span>
+          <span class="pill">#幸福</span>
+          <span class="pill">#貧しい</span>
+          <span class="pill">#富</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
