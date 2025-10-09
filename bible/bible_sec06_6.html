@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>「愛する時」ではない時の見極め</title>
+  <style>
+    :root{
+      --bg:#0f1221;
+      --card:#181c30;
+      --muted:#9aa3b2;
+      --text:#e9eef7;
+      --accent:#8ad1ff;
+      --accent2:#ffd166;
+      --danger:#ff6b6b;
+      --success:#7bd389;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+    html,body{background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif; line-height:1.8; }
+    .wrap{max-width:940px; margin:32px auto; padding:0 16px;}
+    .hero{
+      background: linear-gradient(180deg, rgba(138,209,255,.12), rgba(0,0,0,0));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero figure{margin:0; position:relative;}
+    .hero img{width:100%; display:block; object-fit:cover; aspect-ratio:3/2;}
+    .hero figcaption{
+      padding:12px 18px;
+      font-size:.92rem;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,.35);
+    }
+    h1{
+      font-size: clamp(1.75rem, 2.4vw + 1rem, 2.4rem);
+      line-height:1.3; margin:22px 0 10px;
+      letter-spacing:.02em;
+    }
+    .lead{
+      margin:14px 0 22px;
+      color:#eaf6ff;
+      font-size:1.05rem;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:22px;
+      margin:18px 0;
+      box-shadow: var(--shadow);
+    }
+    .rule{height:1px; background:var(--border); margin:24px 0;}
+    h2{
+      font-size: clamp(1.2rem, 1.4vw + .8rem, 1.5rem);
+      margin:0 0 10px;
+      letter-spacing:.02em;
+    }
+    .tagline{color:var(--muted); font-size:.95rem;}
+    ul{margin:10px 0 0 0; padding:0 0 0 1.1em;}
+    li{margin:.35em 0;}
+    .callout{border-left:4px solid var(--accent); padding:14px 16px; background:rgba(138,209,255,.08); border-radius:12px; }
+    .bad{border-left-color:var(--danger); background:rgba(255,107,107,.08);}
+    .good{border-left-color:var(--success); background:rgba(123,211,137,.08);}
+    .em{color:var(--accent2); font-weight:700;}
+    .small{font-size:.92rem; color:var(--muted);}
+    .footer{color:var(--muted); font-size:.9rem; margin-top:14px;}
+    code.k{background:rgba(255,255,255,.06); padding:2px 6px; border-radius:8px;}
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f6f8fc; --card:#ffffff; --text:#0b1020; --muted:#5b6573; --border:rgba(7,12,32,.08); }
+      .hero figcaption{background: rgba(255,255,255,.8); color:#394150;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- ヒーロー画像 -->
+    <section class="hero">
+      <figure>
+        <img src="img/bible_sec06_6.png" alt="贅沢にふける権力者や金持ちたちが聖書をあざ笑う情景" width="1536" height="1024" />
+        <figcaption>贅沢と嘲笑──「義を愛し、不法を憎む」という視点から見た象徴的な場面</figcaption>
+      </figure>
+    </section>
+
+    <h1>「愛する時」ではない時の見極め</h1>
+    <p class="lead">
+      多くのキリスト教の宗派では「神の愛は無条件にだれにでも与えられる」と教えていますが、実はそうではありません。<br/>
+      愛が与えられるべきではないこともあります。
+    </p>
+
+    <div class="card">
+      <div class="callout">
+        愛そのものを否定しているのではなく、<span class="em">⚠️ 愛を注ぐべき対象や状況を誤ってはいけない ⚠️</span>ということです。<br/>
+        愛が万能で常に無条件に向けられるべきだと考えると、聖書の他の部分と矛盾します。なぜなら、神やキリスト自身が「義を愛し、不法を憎む」と記されているからです。
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <section class="card">
+      <h2>💠 愛を差し控える相手</h2>
+      <p class="tagline small">（聖句参照：詩139:21,22／イザ26:10／詩21:8,9）</p>
+      <ul>
+        <li>🔹 神を激しく憎む者（詩139:21,22）— 神を敵とみなし、反抗をやめない者は「紛れもない敵」。</li>
+        <li>🔹 悪の道に凝り固まった者（イザ26:10）— 慈しみを受けても正しさを学ばず、悪を続ける人に愛を示しても益はない。</li>
+        <li>🔹 義を拒む者（詩21:8,9）— 神が敵として扱い裁かれる相手に、人間が愛を注ぎ続けるのは神の義に反する。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>💡 なぜ一部の人は神と敵対するのか？</h2>
+      <ul>
+        <li>➡️ 神を厳しく自由を奪う存在と見なす。</li>
+        <li>➡️ 神の規範を束縛とみなし拒否する。</li>
+        <li>➡️ 「自分が神のようになりたい」という誇りと独立心。</li>
+        <li>➡️ 自分の利益や権力を守るため。</li>
+        <li>➡️ 神に対する誤った見方を改めようとしない。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>💡 なぜ愛すべき時ではないのか</h2>
+      <ul>
+        <li>・🚫 <b>愛が無駄になる場合</b>： 神を憎む人は愛に応答せず、実を結ばない。</li>
+        <li>・⚖️ <b>義を守るため</b>： 神もイエスも「正しいことを愛し、悪を憎む」姿勢を示された。</li>
+        <li>・🔥 <b>裁きの時</b>： 神が敵に裁きを下す時は、憐れみの時ではなく、公正を行使する時。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>🌿 バランスの理解</h2>
+      <p>
+        とはいえ聖書は「隣人を自分のように愛せよ」（マタ22:39）とも命じています。つまり、<b>⏳人が神を憎む者となるまでは、すべての人に愛を差し伸べる</b>べきです。<br/>
+        「愛するのに時がある」とは、愛が無条件に続くわけではなく、<span class="em">❌ 対象が完全に神を敵とした時点で終わる ❌</span>という区切りを示しています。
+      </p>
+    </section>
+
+    <section class="card good">
+      <h2>✅ 結論</h2>
+      <p class="tagline">「愛する時ではない」のは…</p>
+      <ul>
+        <li>・神を激しく憎み、反抗をやめず、悪の道に固執しているとき</li>
+        <li>・神が敵として裁きを下す時</li>
+      </ul>
+      <p class="small">
+        その時には、愛を示し続けることは義に反し、むしろ「憎むべき時」とされます。
+      </p>
+    </section>
+
+    <p class="footer">© Study Notes — テキストと図版は学習用レイアウトです。</p>
+  </div>
+</body>
+</html>
