@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>幸せを感じるためには「感謝」が不可欠！</title>
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f7f8fb;
+    --card: #ffffff;
+    --ink: #1f2a44;
+    --muted:#56607a;
+    --accent:#5c8df6;
+    --accent-2:#8bd3dd;
+    --ring: rgba(92,141,246,.25);
+    --shadow: 0 10px 25px rgba(28,43,76,.08);
+    --radius: 18px;
+    --gap: clamp(14px, 2vw, 20px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1320;
+      --card:#131a2b;
+      --ink:#e8ecf8;
+      --muted:#b7c0d9;
+      --accent:#89a7ff;
+      --accent-2:#66c7d0;
+      --ring: rgba(137,167,255,.3);
+      --shadow: 0 12px 28px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:linear-gradient(180deg, var(--bg), #eef1f9 60%, var(--bg));
+    color:var(--ink); font-family:"Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    line-height:1.85;
+  }
+  .wrap{max-width:min(1100px, 92vw); margin: clamp(18px,4vw,38px) auto; display:grid; gap: var(--gap);}
+  .hero{
+    display:grid; gap:var(--gap); align-items:center;
+    grid-template-columns: 1.1fr .9fr;
+  }
+  @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
+  .card{
+    background:var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    border:1px solid rgba(92,141,246,.08);
+  }
+  .hero .copy{ padding: clamp(16px,2.2vw,28px) clamp(18px,2.6vw,32px); }
+  .kicker{
+    display:inline-flex; gap:.5em; align-items:center;
+    padding:.35em .75em; border-radius:999px;
+    background:linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    color:white; font-weight:700; letter-spacing:.03em; box-shadow: var(--shadow);
+  }
+  h1{
+    margin:.5em 0 .2em; font-size:clamp(24px, 3.2vw, 38px);
+    font-family: "Zen Maru Gothic", system-ui, sans-serif;
+  }
+  .sub{
+    color:var(--muted); margin: .3em 0 0;
+    font-size:clamp(14px,1.4vw,16px);
+  }
+  .hero figure{
+    margin:0; position:relative; overflow:hidden; border-radius: var(--radius);
+    border:1px solid rgba(92,141,246,.12);
+  }
+  .hero img{
+    display:block; width:100%; height:auto; object-fit:cover; aspect-ratio: 4 / 5;
+    transform: scale(1.01);
+  }
+  .badge{
+    position:absolute; bottom:12px; left:12px; background: rgba(19,26,43,.6);
+    color:#fff; padding:.45em .7em; border-radius: 10px; font-size:.9rem; backdrop-filter: blur(4px);
+  }
+  .grid{
+    display:grid; gap: var(--gap);
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+  .section{ padding: clamp(16px,2.1vw,26px) clamp(18px,2.6vw,30px); position:relative; }
+  .section h2{
+    margin:0 0 .4em; font-size: clamp(18px,2.2vw,24px);
+    display:flex; align-items:center; gap:.6em;
+  }
+  .section h2 .icon{ font-size:1.2em }
+  .rule{ height:2px; background: linear-gradient(90deg, var(--accent), transparent); border:0; margin:.8em 0 1.2em }
+  .quote{
+    margin:.6em 0 0; padding:.9em 1em .9em 1.1em; border-left:4px solid var(--accent);
+    background: linear-gradient(90deg, rgba(92,141,246,.08), transparent);
+    border-radius: 10px;
+  }
+  ul.clean{ list-style:none; padding-left:0; margin:.4em 0 0 }
+  ul.clean li{ display:flex; gap:.6em; align-items:flex-start; padding:.2em 0 }
+  ul.clean .dot{ width:1.15em; text-align:center }
+  .footer{
+    text-align:center; color:var(--muted); padding: 10px 0 18px; font-size:.95rem;
+  }
+  /* focus & links */
+  a{ color:var(--accent); text-decoration: none; }
+  a:focus-visible, .kicker:focus-visible, .section:focus-within{
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 12px;
+  }
+  /* print tweaks */
+  @media print{
+    body{ background:#fff }
+    .card{ box-shadow:none; }
+    .hero{ grid-template-columns: 1fr 1fr }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="copy card">
+        <span class="kicker">🌸 幸せを感じるためには「感謝」が不可欠！</span>
+        <h1>日常を味わい、感謝で満たす。</h1>
+        <p class="sub">挿絵：池のサカナにパンくずをやりながら、平和な日常に感謝するイタチ。</p>
+      </div>
+
+      <figure class="card">
+        <img src="img/bible_sec06_8.png"
+             alt="池のサカナにパンくずをやりながら、平和な日常に感謝するイタチの絵（リアル調のアニマルファンタジー、広い池・農村風景）"
+             width="1024" height="1536" loading="lazy" />
+        <figcaption class="badge">Illustration</figcaption>
+      </figure>
+    </section>
+
+    <!-- CONTENT GRID -->
+    <section class="grid">
+      <!-- 1 -->
+      <article class="section card" id="sec1" aria-labelledby="h2-1">
+        <h2 id="h2-1"><span class="icon">💫</span>1. 感謝とは「欠け」ではなく「満ち」を意識する精神</h2>
+        <hr class="rule" />
+        <p>感謝の根本は、「足りないもの」ではなく「すでに与えられているもの」に意識を向ける姿勢です。
+        多くの人は無意識のうちに「まだ手に入れていないもの」「他人が持っているもの」と比較して心を乱します。
+        しかし感謝の心は、比較ではなく存在への気づきに立脚しています。</p>
+
+        <div class="quote">
+          <p>🌿 例：</p>
+          <ul class="clean" role="list">
+            <li><span class="dot">☀️</span><span>朝目覚めることができた</span></li>
+            <li><span class="dot">🍚</span><span>食事がある</span></li>
+            <li><span class="dot">🤝</span><span>誰かが話を聞いてくれた</span></li>
+          </ul>
+          <p style="margin:.6em 0 0">→ こうした小さな事実を「当然」と見なさず、価値として再認識することが感謝の始まりです。</p>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="section card" id="sec2" aria-labelledby="h2-2">
+        <h2 id="h2-2"><span class="icon">🌈</span>2. 感謝は「不足を埋める」よりも「満足を深める」考え方</h2>
+        <hr class="rule" />
+        <p>感謝を持つ人は、状況が完全でなくても心の安定を保てます。
+        これは現実を肯定的に再解釈する能力とも言えます。
+        不運や試練の中でも、「この経験が自分を成長させる」「周囲の支えを感じられた」と意味づけることで、
+        心のエネルギーが再び流れ始めます。</p>
+        <p>一方、感謝の欠如は「何があっても満たされない心」を生み出します。
+        その状態では、どれほど外的条件が整っても幸福は長続きしません。</p>
+      </article>
+
+      <!-- 3 -->
+      <article class="section card" id="sec3" aria-labelledby="h2-3">
+        <h2 id="h2-3"><span class="icon">🌍</span>3. 感謝は「現実の受容」と「他者とのつながり」を生む</h2>
+        <hr class="rule" />
+        <p>感謝は単なる個人の感情ではなく、関係性の認識でもあります。
+        「自分一人でここまで来たのではない」と気づいたとき、
+        他者や自然、あるいは神（創造主）への尊敬と謙虚さが生まれます。</p>
+        <p>この認識は、傲慢や孤立を和らげ、心の柔軟さと平安を育てます。
+        感謝を持つ人は他者を支えやすくなり、支えられやすくもなります。</p>
+      </article>
+
+      <!-- 4 -->
+      <article class="section card" id="sec4" aria-labelledby="h2-4">
+        <h2 id="h2-4"><span class="icon">🧘‍♀️</span>4. 感謝は「瞬間的な感情」ではなく「訓練された精神状態」</h2>
+        <hr class="rule" />
+        <p>感謝は、意識的に鍛えられる「心の習慣」です。
+        不満が浮かんだときに、それを否定するのではなく、
+        「今あるもの」「助けてくれた人」「学べたこと」に意識を切り替える訓練を積み重ねる。
+        それが「感謝を生きる」ということです。</p>
+        <p>心理学的にも、感謝を日々言語化（感謝日記など）することで幸福度が上がることが確認されています。
+        つまり感謝は、思考の再配線（reframing）を通じて幸福を維持する精神技術でもあります。</p>
+      </article>
+
+      <!-- 5 -->
+      <article class="section card" id="sec5" aria-labelledby="h2-5">
+        <h2 id="h2-5"><span class="icon">💖</span>5. 結論：感謝とは「心の方向性」であり、満足とはその果実</h2>
+        <hr class="rule" />
+        <p>感謝は、状況に依存しない心の自由をもたらします。
+        「あるものを見て喜ぶ」姿勢が続くと、やがて満足という静かな幸福が芽生えます。
+        満足は外界の停止ではなく、内面の充足。
+        そして感謝は、その満足を日々新しく生み出す心の泉なのです。</p>
+      </article>
+    </section>
+
+    <p class="footer">© 感謝のノート — Quiet joy in ordinary days.</p>
+  </main>
+</body>
+</html>
