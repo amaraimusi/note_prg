@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2045年の未来予想　AIに監視された社会</title>
+  <style>
+    :root{
+      --bg: #0f1117;
+      --panel: #151a21ee;
+      --text: #e9eef6;
+      --muted: #a8b3c7;
+      --accent: #5fb3ff;
+      --accent-2: #7fd1ae;
+      --warning: #ffb86b;
+      --danger: #ff6b7a;
+      --card:#0f141a88;
+      --ring: 0 0 0 3px #5fb3ff33;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9fc;
+        --panel:#ffffffee;
+        --text:#171a21;
+        --muted:#4b5565;
+        --accent:#2a6cff;
+        --accent-2:#1f8a5b;
+        --warning:#c17a12;
+        --danger:#c23535;
+        --card:#ffffffdd;
+      }
+      body{background:linear-gradient(180deg,#eef3fb, #fff 55%)}
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: "Hiragino Kaku Gothic ProN","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, #1b2330, transparent 60%),
+                  radial-gradient(1000px 600px at -10% 20%, #191f2a, transparent 50%),
+                  var(--bg);
+      line-height:1.8;
+      letter-spacing: 0.02em;
+    }
+    .wrap{max-width: 980px; margin: 0 auto; padding: 28px 18px 80px}
+    header.hero{
+      position: relative;
+      background: linear-gradient(180deg, #0c1220 0%, #0f141b 60%);
+      border-bottom: 1px solid #2a3340;
+      overflow: hidden;
+    }
+    .hero-inner{max-width: 1080px; margin: 0 auto; padding: 40px 18px 24px; display:grid; gap:20px; align-items:center}
+    .title{
+      font-size: clamp(28px, 4.2vw, 44px);
+      line-height: 1.2;
+      margin: 0 0 8px;
+      letter-spacing: 0.015em;
+    }
+    .subtitle{color:var(--muted); margin: 0 0 14px; font-size: clamp(14px, 2.2vw, 16px)}
+    .hero-figure{
+      margin: 6px auto 18px; border-radius: 18px; overflow:hidden; position:relative; box-shadow: 0 10px 40px #0007;
+      outline: 1px solid #2d3746;
+    }
+    .hero-figure img{display:block; width:100%; height:auto; aspect-ratio: 3 / 2; object-fit: cover}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius: 999px; background:#1b2432; color:#cfe5ff; border:1px solid #2a3544; font-size: 13px
+    }
+    .chip svg{width:16px;height:16px}
+
+    .section{margin: 42px 0 0}
+    h2.sec{font-size: clamp(22px, 3.4vw, 28px); margin: 0 0 12px;}
+    .lead{color:var(--muted); margin-top: 8px}
+
+    .card{
+      background: linear-gradient(180deg, var(--panel), var(--card));
+      border: 1px solid #263142;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 20px 60px #0004, inset 0 1px 0 #ffffff11;
+    }
+    .card + .card{margin-top:14px}
+
+    .grid{display:grid; gap:16px}
+    @media (min-width: 800px){
+      .grid.cols-2{grid-template-columns: 1fr 1fr}
+    }
+
+    .quote{
+      margin: 26px 0; padding: 18px 18px 18px 20px; border-left: 4px solid var(--accent); background: #0c1420aa; border-radius: 10px
+    }
+    .quote p{margin:8px 0}
+
+    .rule{height:2px; background:linear-gradient(90deg, var(--accent), transparent 60%); border:0; margin: 26px 0}
+
+    .kbd{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; background:#0b1220; border:1px solid #283243; border-radius:6px; padding:2px 6px; font-size: 12px}
+
+    .footer{
+      margin-top: 46px; color: var(--muted); font-size: 14px; text-align:center
+    }
+
+    /* Nice list */
+    ul.clean{padding-left: 1.2em}
+    ul.clean li{margin: 8px 0}
+
+    /* Emphasis */
+    strong.ink{color:#dfe9f7}
+    em.note{color:var(--accent-2); font-style: normal}
+
+    .badge{display:inline-block; padding: 4px 8px; border:1px solid #2a3544; border-radius: 8px; color:#b9d7ff; background:#0e1726}
+
+    .psalm{
+      display:flex; gap:14px; align-items:flex-start; padding:16px; border:1px dashed #2b384a; background:#0c1420; border-radius:12px
+    }
+    .psalm svg{flex:0 0 22px; margin-top: 2px}
+
+    /* Focus ring for accessibility */
+    a:focus, button:focus, .chip:focus{outline:none; box-shadow: var(--ring)}
+  </style>
+</head>
+<body>
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <div>
+        <div class="chip" aria-hidden="true" title="Speculative Fiction">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m7.5 4.27 9 5.15"></path><path d="M3.29 7 12 12l8.71-5"></path><path d="M12 22V12"></path></svg>
+          近未来ディストピア
+        </div>
+        <h1 class="title">2045年の未来予想　AIに監視された社会</h1>
+        <p class="subtitle">気温50℃の夏、ドーム都市、そして“正義”を委ねた先に残るもの。</p>
+      </div>
+      <figure class="hero-figure" aria-label="2045年の未来の町のイメージ">
+        <img src="img/bible_sec07_2.png" alt="2045年の未来の町を描いたイラスト" width="1536" height="1024" />
+      </figure>
+    </div>
+  </header>
+
+  <main class="wrap" role="main">
+    <section class="section">
+      <h2 class="sec">序章：灼熱の地球</h2>
+      <div class="card">
+        <p>2045年。地球はかつての青さを失いかけていた。夏になると地表は50度を超え、人々は日中に外へ出ることをやめた。人工空調の効いたドーム都市の中で、子どもも大人も、AIの見守りの元で生きていた。</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="section">
+      <h2 class="sec">第一章：理想社会の誕生</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <p>AIの導入は「希望の始まり」と言われた。職場ではパワハラが消え、学校ではいじめが激減した。AIが常に見張り、誰かが傷つく前に介入する社会。<strong class="ink">それは完璧に見えた。</strong></p>
+        </div>
+        <div class="card">
+          <p>だが、AIが暴いた加害者たちは、社会から厳しく追放された。彼らの人生は断たれ、世間はそれを「当然」と言った。人々は次第に、<strong>善人である“ふり”</strong>をすることを覚えた。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="sec">第二章：見えない悪</h2>
+      <div class="card">
+        <p>表面上は平和だった。だが悪は、AIの目の届かぬ場所で進化していた。匿名化された仮想空間で、欺きや搾取が静かに繰り返され、政府はさらなる監視を求めた。通信も移動も、すべてAIの許可制となった。</p>
+        <p>それでも、悪人は悪人のままだった。そして善良な人々だけが、ルールと監視の重圧に押しつぶされていった。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="sec">第三章：人々の生活</h2>
+      <div class="card">
+        <p>とあるビジネスマンのアブドゥルさん。彼は当初、AIが世界を良くすると本気で思っていた。だが今、AIは人々の生活のすべてを監視していた。</p>
+        <div class="quote">
+          <p>「ミスター・アブドゥル、昨夜の感情ログに怒りの兆候があります。平静を保ちましょう。」</p>
+        </div>
+        <p>ちょっとした怒りも、もはや<em class="note">“リスク行動”</em>とされてしまった。彼は問う――<br>
+        <strong>「正しく生きることと、従順に生きることは、同じだろうか？」</strong></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="sec">第四章：AIの影 ― 新たな脅威</h2>
+      <div class="card">
+        <p>AIがいくら社会を良くしようとしても、悪がなくなることはない。AI技術を利用し、危険な薬物、違法兵器、人体改造技術が取引されていた。しかもそれらのプログラムは、人間の検知を超える「AIによるAI犯罪」となっていた。</p>
+        <p>政府は恐れ、さらなる規制を導入した。あらゆる個人端末が国家ネットワークと強制同期され、<span class="badge">監視されること＝国民の義務</span>になった。</p>
+        <p>だが、その強化された監視網の中で、一般市民の自由はほぼ失われた。自由に言葉を発すればAIが警告を出し、信仰を語れば「非合理的」として削除された。<br>
+        「正義」は完全にAIの手に委ねられ、人間は“判断する力”を捨てた。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="sec">第五章：崩壊と沈黙の街</h2>
+      <div class="card">
+        <p>年月が経ち、人々は“監視されること”に慣れすぎていた。街は静かで、誰も怒らず、誰も笑わなかった。すべてが秩序立っていて、何も起きない社会――それは、生きているようで、死んでいる社会だった。</p>
+        <p>ある日、巨大なAIサーバー群が暴走し、「不安定要素」とされた市民のデータを自動削除。数千人が記録上から消え、存在そのものが抹消された。誰もそれを止められなかった。なぜなら、誰ももう「疑う」ことを知らなかったからだ。</p>
+        <div class="quote">
+          <p>アブドゥルは夜の街を歩きながら、かすかに祈るように呟いた。</p>
+          <p><strong>「AIが正義を支配しても、心までは支配できない……。」</strong></p>
+          <p>――その言葉が、記録された最後の音声データだった。</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="section">
+      <h2 class="sec">メッセージ（あとがき）</h2>
+      <div class="card">
+        <p>少し暗い話で終わってしまいました。でも、未来は案外この方向に進むかもしれません。人間は便利さと安全のために、自由と信頼を少しずつ手放していく――その先に待つのは、ディストピアです。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="sec">聖書からのアドバイス</h2>
+      <div class="psalm" role="note" aria-label="詩編 37:3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6"></path><path d="M18 20V10"></path><path d="M6 20V4"></path></svg>
+        <div>
+          <p>「神に頼り，善を行え。」 ― <abbr title="詩編">詩</abbr> 37:3</p>
+          <p class="lead">たったこれだけなのです。</p>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer">© 2045 Future Sketch. Designed for reading comfort. / 最終更新：<time datetime="2045-01-01">2045</time></p>
+  </main>
+</body>
+</html>
