@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>うわさ話の本当の危険 — ５つの理由</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1115;
+    --panel:#171a21;
+    --text:#e8ebf1;
+    --muted:#a7b0c0;
+    --accent:#7fd1ae;
+    --accent-2:#5aa3ff;
+    --danger:#ff6b6b;
+    --ring: 0 10px 30px rgb(0 0 0 / .35);
+    --shadow: 0 6px 24px rgb(0 0 0 / .25);
+    --card:#141821;
+    --rule: linear-gradient(90deg,var(--accent),transparent 60%);
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f7f8fb;
+      --panel:#ffffff;
+      --text:#1b212c;
+      --muted:#5c6373;
+      --accent:#208e6e;
+      --accent-2:#2a6cff;
+      --danger:#c23535;
+      --card:#ffffff;
+      --ring: 0 10px 30px rgb(32 108 255 / .10);
+      --shadow: 0 6px 24px rgb(0 0 0 / .08);
+    }
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN","Yu Gothic", sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #2a3344 0%, transparent 60%),
+      radial-gradient(1000px 600px at -10% 20%, #20323a 0%, transparent 60%),
+      var(--bg);
+    line-height:1.85;
+  }
+
+  .wrap{max-width:1040px;margin:auto;padding:28px 18px 64px}
+  header.hero{
+    display:grid; gap:18px; align-items:center;
+    grid-template-columns: 1fr min(42%,520px);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0));
+    border-radius:24px; padding:22px; box-shadow:var(--shadow);
+    border:1px solid rgba(255,255,255,.06);
+  }
+  .hero h1{
+    font-size:clamp(28px,2.8vw,42px);
+    line-height:1.2; margin:.1em 0 .2em; font-weight:800;
+    letter-spacing:.02em;
+  }
+  .hero p.lead{color:var(--muted); margin:0; font-size:clamp(14px,1.4vw,16.5px)}
+  .illust{
+    border-radius:18px; overflow:hidden; box-shadow:var(--ring);
+    border:1px solid rgba(255,255,255,.08); background:#0003;
+    aspect-ratio:1/1; display:block; width:100%; object-fit:cover;
+  }
+
+  .grid{
+    display:grid; gap:22px; margin-top:26px;
+    grid-template-columns: 1fr;
+  }
+  @media(min-width:960px){ .grid{grid-template-columns: 1.15fr .85fr} }
+
+  .card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px; padding:20px 20px;
+    box-shadow:var(--shadow);
+  }
+  .kicker{
+    display:inline-flex; gap:10px; align-items:center;
+    font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    font-size:12px; color:var(--accent-2);
+    background:linear-gradient(90deg, rgba(90,163,255,.12), transparent);
+    padding:8px 12px; border-radius:999px;
+  }
+  h2.section{
+    margin:18px 0 10px;
+    font-size:clamp(18px,2.1vw,22px);
+  }
+  .rule{height:2px;background:var(--rule);border:0;margin:10px 0 16px}
+  .verse{
+    padding:14px 16px; border-left:4px solid var(--accent);
+    background:linear-gradient(90deg, rgba(127,209,174,.12), transparent 70%);
+    border-radius:8px; color:var(--text);
+  }
+  .note{
+    color:var(--muted); font-size:14px; margin-top:6px
+  }
+  ul.good{
+    margin:.2em 0 .8em 1.2em; padding:0;
+  }
+  ul.good li{margin:.35em 0}
+  .pill{
+    display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px;
+    background:rgba(90,163,255,.15); color:var(--accent-2); margin-right:8px
+  }
+
+  .side{
+    display:grid; gap:18px;
+    position:relative;
+  }
+  .side .mini{
+    border-radius:14px; overflow:hidden; box-shadow:var(--shadow);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .footer{
+    margin-top:30px; text-align:center; color:var(--muted); font-size:13.5px
+  }
+
+  /* readable links on both themes */
+  a{color:var(--accent-2); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* figure caption */
+  figure{margin:0}
+  figcaption{color:var(--muted); font-size:13px; margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <div>
+        <span class="kicker">Words & Wisdom</span>
+        <h1>💬 うわさ話の本当の危険 — ５つの理由</h1>
+        <p class="lead">
+          うわさ話は「ちょっとした情報共有」から始まりますが、いつの間にか人を傷つけ、自分の信頼も失います。聖書は言葉の扱いに強い警告を与えています。
+        </p>
+      </div>
+      <!-- 主挿絵 -->
+      <figure>
+        <!-- 指定のパスをそのまま使用（提供画像のファイル名に拡張子 .html が含まれていますが、依頼に合わせて src をそのまま記載） -->
+        <img class="illust" src="img/bible_sec06_10.png" alt="井戸の前で談笑するワニ、ネコ、ゾウ（リアル調アニマルファンタジー）">
+        <figcaption>井戸端で談笑（＝井戸端会議）。家事や買い物を中断して会話に夢中。</figcaption>
+      </figure>
+    </header>
+
+    <div class="grid">
+      <main class="card">
+        <!-- 1 -->
+        <h2 class="section">🗣️ 1. うわさ話は「愚かな言葉」として自分を破滅させる</h2>
+        <hr class="rule">
+        <div class="verse">
+          <div class="pill">伝道の書 10:12-14</div>
+          「賢い人の口から出る言葉は喜びをもたらす。一方，愚かな人の唇は当人を破滅させる。」
+        </div>
+        <p>
+          言葉には、人を建て上げる力も、壊す力もあります。軽い話のつもりでも誇張や誤解を生み、信頼を失うことがあります。<strong>不用意な言葉</strong>は他人だけでなく、自分の心の平安まで壊してしまいます。
+        </p>
+
+        <!-- 2 -->
+        <h2 class="section">🔥 2. 中傷へと発展しやすく、悪魔の性質をまねる</h2>
+        <hr class="rule">
+        <div class="verse">
+          <div class="pill">ヨハネ 8:44／啓示 12:9-10／創世記 3:2-5</div>
+          「悪魔サタンは、神を訴える者、兄弟たちを昼も夜も訴える者。」
+        </div>
+        <p>
+          聖書で「中傷する者」は <strong>ディアボロス（悪魔）</strong> と同じ語。人を悪く言う姿勢はサタンの性質を反映します。うわさは「真実の一部を装った偽り」になり、人を惑わせる危険があります。
+        </p>
+
+        <!-- 3 -->
+        <h2 class="section">⚖️ 3. うわさ話は神の憎まれる行為の一つ</h2>
+        <hr class="rule">
+        <div class="verse">
+          <div class="pill">箴言 6:16-19</div>
+          「エホバがひどく嫌うもの…兄弟の間に口論を引き起こす者。」
+        </div>
+        <p>
+          うわさは友情や信頼を壊し、<strong>不信と対立</strong>を生みます。神はこのような分裂を「ひどく嫌う」と述べています。うわさを止めることはマナーにとどまらず、<strong>神への忠誠</strong>のあらわれです。
+        </p>
+
+        <!-- 4 -->
+        <h2 class="section">💔 4. 「聞く側の心」も汚す</h2>
+        <hr class="rule">
+        <div class="verse">
+          <div class="pill">マタイ 15:11</div>
+          「人を汚すのは口から出るもの。」
+        </div>
+        <p>
+          悪い話を聞き続けると、他人を見る目が濁り、愛や信頼を失います。<strong>うわさを断ち切る勇気</strong>こそ、自分の心を守る賢明な選択です。
+        </p>
+
+        <!-- 5 -->
+        <h2 class="section">🌿 5. 賢い人は「他人を喜ばせる言葉」を選ぶ</h2>
+        <hr class="rule">
+        <div class="verse">
+          <div class="pill">エフェソス 4:29</div>
+          「悪い言葉を一切口から出さず、人を建て上げるのに役立つ言葉だけを話しなさい。」
+        </div>
+        <p>
+          励まし・感謝・親切の言葉は、人を癒し、神を喜ばせます。語る前に<span style="white-space:nowrap">「これは相手を立てる言葉か？」</span>と自問しましょう。これが<strong>愛と知恵に満ちた生き方</strong>です。
+        </p>
+
+        <!-- 結論 -->
+        <h2 class="section">✨ 結論：うわさ話は “霊的な危険信号”</h2>
+        <hr class="rule">
+        <p class="note">うわさ話に潜む3つの深刻な危険👇</p>
+        <ul class="good">
+          <li>自分の信頼と人格を損なう（伝10:12-14）</li>
+          <li>悪魔の性質である中傷の道に近づく（ヨハ8:44／啓12:9-10）</li>
+          <li>神が憎まれる「口論」を引き起こす（箴6:19）</li>
+        </ul>
+        <p>
+          だからこそ、うわさを避けることは単なる道徳ではなく、<strong>霊的な守り</strong>であり、神の愛と一致を保つための大切な一歩です。賢い人は、人を非難する代わりに、人を励まし、平和を築く言葉を選びます。
+        </p>
+      </main>
+
+      <!-- サイドカラム（補助挿絵・ポイント） -->
+      <aside class="side">
+        <figure class="mini">
+          <img class="illust" src="img/bible_sec06_10a2.png" alt="うわさされ悲しむ人">
+        </figure>
+        <div class="card">
+          <h3 style="margin:0 0 8px;font-size:18px">要点サマリー</h3>
+          <ul class="good">
+            <li>軽い気持ちの共有が、誇張と誤解を生む。</li>
+            <li>中傷はサタンの性質と同質で、霊的に危険。</li>
+            <li>一致を壊す行為は神がひどく嫌う。</li>
+            <li>聞き続ける側の心も汚れる。断つ勇気を。</li>
+            <li>「人を建て上げる言葉」を選ぶのが知恵。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 8px;font-size:18px">実践ヒント</h3>
+          <ul class="good">
+            <li>出どころ不明の話は “共有前に保留”。</li>
+            <li>本人不在の評価・推測は書かない/言わない。</li>
+            <li>称賛・感謝・祈りでタイムラインを満たす。</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <p class="footer">© 2025 — 言葉は光にも刃にもなる。賢く選び、平和を築こう。</p>
+  </div>
+</body>
+</html>
