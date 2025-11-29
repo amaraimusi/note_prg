@@ -1,165 +1,275 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🌿 なぜ人は苦しみを「神のせい」にするのか</title>
-  <meta name="description" content="苦しみを神のせいにしてしまう心理と、聖書の視点から見た希望をやさしい言葉でまとめた読み物ページ。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#f7f7fb;          /* base background */
-      --paper:#ffffff;        /* card background */
-      --ink:#1f2937;          /* main text */
-      --muted:#64748b;        /* secondary text */
-      --accent:#4f46e5;       /* indigo */
-      --accent-2:#16a34a;     /* green for highlights */
-      --ring:rgba(79,70,229,.2);
-      --shadow:0 10px 30px rgba(15,23,42,.08), 0 2px 8px rgba(15,23,42,.06);
-      --radius:18px;
-      --max: 980px;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#0b0d12;
-        --paper:#111827;
-        --ink:#e5e7eb;
-        --muted:#9ca3af;
-        --accent:#8b5cf6;
-        --ring:rgba(139,92,246,.25);
-        --shadow:0 10px 30px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.4);
-      }
-      img.hero{filter:brightness(.92) contrast(1.05);}  
-    }
-    html,body{height:100%; background:var(--bg); color:var(--ink);}
-    body{margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", sans-serif; line-height:1.8; letter-spacing:.02em;}
-    .wrap{max-width:var(--max); margin:auto; padding:28px 20px 80px;}
-    .card{background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
-    .hero-wrap{position:relative;}
-    img.hero{width:100%; height:360px; object-fit:cover; display:block;}
-    .badge{position:absolute; inset:auto 20px -20px auto; background:var(--accent); color:#fff; padding:10px 16px; font-weight:700; border-radius:12px; box-shadow:var(--shadow); letter-spacing:.05em;}
-
-    header{padding:36px 30px 18px;}
-    h1{font-family:"Noto Serif JP", serif; font-size:clamp(1.8rem, 3vw, 2.4rem); line-height:1.3; margin:0 0 8px;}
-    .lead{color:var(--muted); font-size:1rem;}
-
-    .content{padding:10px 30px 34px;}
-    section{background:linear-gradient(180deg, transparent, rgba(79,70,229,.05)); border:1px solid rgba(79,70,229,.12); border-radius:16px; padding:22px 18px; margin:16px 0;}
-    section h2{margin:0 0 6px; font-size:1.1rem; letter-spacing:.03em;}
-    section p{margin:.2rem 0;}
-
-    .pull{border-left:4px solid var(--accent); padding:10px 14px; background:rgba(79,70,229,.06); color:var(--ink); border-radius:8px;}
-
-    .verse{font-family:"Noto Serif JP", serif; background:linear-gradient(180deg, rgba(22,163,74,.07), rgba(22,163,74,.03)); border:1px solid rgba(22,163,74,.18); border-radius:16px; padding:16px; margin:12px 0 4px;}
-    .verse b{color:var(--accent-2);}    
-    .aside{color:var(--muted); font-size:.95rem;}
-
-    .footer{display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between; padding:18px 30px 28px; border-top:1px dashed rgba(79,70,229,.25);}    
-    .tag{display:inline-block; background:rgba(79,70,229,.1); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:600;}
-
-    .grid-illust{display:grid; grid-template-columns: 1fr; gap:14px; margin:8px 0 22px;}
-    .grid-illust img{width:100%; border-radius:14px; box-shadow:var(--shadow);}
-    @media (min-width:820px){
-      .grid-illust{grid-template-columns: 3fr 2fr;}
-      .grid-illust img.secondary{height:100%; object-fit:cover;}
-    }
-
-    .toc{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 12px;}
-    .toc a{padding:8px 10px; border-radius:10px; text-decoration:none; color:var(--accent); background:rgba(79,70,229,.08);}
-    .toc a:hover{box-shadow:0 0 0 4px var(--ring);}    
-  </style>
+	<meta charset="UTF-8">
+	<title>聖書は普通の本ではなかった──科学が認めた最大の証拠</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+			background: radial-gradient(circle at top, #fdfbff 0, #e5ecff 40%, #dde7f0 100%);
+			color: #222;
+			line-height: 1.8;
+		}
+		.wrapper {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 32px 16px 48px;
+		}
+		.article-card {
+			background: #ffffffee;
+			border-radius: 18px;
+			box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+			padding: 32px 24px 40px;
+		}
+		@media (min-width: 768px) {
+			.article-card {
+				padding: 40px 56px 48px;
+			}
+		}
+		h1 {
+			font-size: 1.9rem;
+			line-height: 1.4;
+			margin: 0 0 8px;
+			color: #1b2a4a;
+		}
+		.lead-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 10px;
+			border-radius: 999px;
+			background: #ffe9d9;
+			color: #c4531f;
+			font-size: 0.8rem;
+			font-weight: 600;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+		.lead-text {
+			margin: 18px 0 0;
+			font-size: 0.98rem;
+			color: #444;
+		}
+		.hero {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			margin-top: 16px;
+			margin-bottom: 32px;
+		}
+		@media (min-width: 768px) {
+			.hero {
+				flex-direction: row;
+				align-items: center;
+			}
+		}
+		.hero-visual {
+			flex: 0 0 320px;
+			max-width: 360px;
+			margin: 0 auto;
+		}
+		.hero-visual img {
+			width: 100%;
+			border-radius: 16px;
+			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.26);
+			display: block;
+		}
+		.hero-visual figcaption {
+			margin-top: 8px;
+			font-size: 0.8rem;
+			color: #666;
+			text-align: center;
+		}
+		.hero-text {
+			flex: 1;
+		}
+		h2 {
+			font-size: 1.25rem;
+			color: #23345b;
+			border-left: 4px solid #f97316;
+			padding-left: 10px;
+			margin: 32px 0 10px;
+		}
+		p {
+			margin: 8px 0 0;
+		}
+		.point-list {
+			margin: 10px 0 0;
+			padding-left: 0;
+			list-style: none;
+		}
+		.point-list li {
+			position: relative;
+			padding-left: 26px;
+			margin: 4px 0;
+		}
+		.point-list li::before {
+			content: "✦";
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: #f97316;
+		}
+		.highlight-box {
+			margin-top: 18px;
+			padding: 14px 16px;
+			border-radius: 12px;
+			background: #f3f6ff;
+			border: 1px solid #d3ddff;
+			font-size: 0.95rem;
+		}
+		.highlight-box strong {
+			color: #1b2a4a;
+		}
+		.quote {
+			margin-top: 16px;
+			padding: 16px 18px;
+			border-radius: 12px;
+			background: #111827;
+			color: #f9fafb;
+			font-size: 0.95rem;
+			position: relative;
+			overflow: hidden;
+		}
+		.quote::before {
+			content: "“";
+			position: absolute;
+			font-size: 5rem;
+			color: rgba(156, 163, 175, 0.25);
+			top: -24px;
+			left: 12px;
+		}
+		.quote p {
+			margin: 0;
+			position: relative;
+			z-index: 1;
+		}
+		.section-footer {
+			margin-top: 26px;
+			font-size: 0.9rem;
+			color: #555;
+			border-top: 1px dashed #cbd5e1;
+			padding-top: 14px;
+		}
+	</style>
 </head>
 <body>
-  <main class="wrap">
-    <article class="card">
-      <!-- Hero -->
+	<div class="wrapper">
+		<article class="article-card">
+			<div class="lead-badge">
+				<span>🔥 EVIDENCE</span>
+				<span>考古学と写本研究</span>
+			</div>
 
+			<h1>聖書は普通の本ではなかった──科学が認めた最大の証拠</h1>
 
-      <header>
-        <h1>🌿 なぜ人は苦しみを「神のせい」にするのか</h1>
-        <p class="lead">私たちは苦しい出来事に直面すると、「なぜ神はこれを止めなかったのか」と思うことがあります。それは自然な反応ですが、そこには深い人間の心理と、見落としがちな真実があります。</p>
-        <nav class="toc" aria-label="目次">
-          <a href="#q1">1️⃣ 悪の問題</a>
-          <a href="#q2">2️⃣ 信頼の裏返し</a>
-          <a href="#q3">3️⃣ 責任の転嫁</a>
-          <a href="#q4">4️⃣ 聖書が教える源</a>
-          <a href="#q5">5️⃣ 意味を見いだす</a>
-          <a href="#q6">6️⃣ 苦しみは永遠ではない</a>
-          <a href="#q7">7️⃣ 意味を探る視点へ</a>
-        </nav>
-      </header>
+			<div class="hero">
+				<div class="hero-text">
+					<p class="lead-text">
+						人類史上、多くの宗教書が生まれてきました。しかし聖書だけは、他と決定的に異なる根拠を持っています。<br>
+						それは、<strong>「預言が成就する前にすでに存在していた」</strong>という事実です。そしてこの事実は、単なる信仰ではなく、考古学と科学的分析によって裏付けられました。
+					</p>
+				</div>
+				<figure class="hero-visual">
+					<img src="img/bible_sec07_6.png" alt="発掘された古代文献を調べる学者の絵">
+					<figcaption>発掘された古代文献を調べる学者 ― イザヤ書写本のような古文書もこのように検証される。</figcaption>
+				</figure>
+			</div>
 
-      <div class="content">
-        <div class="grid-illust">
-          <img src="img/bible_sec07_4.png" alt="挿絵：空を仰ぐ姿のシルエット" />
-       </div>
+			<h2>■ 驚愕の事実：紀元前のイザヤ書に、後の時代の出来事が書いてある</h2>
+			<p>
+			 1947年、死海北西岸のクムランで、歴史を揺るがす大発見がありました。<br>
+			 それが、<strong>イザヤ書の完全版写本（イザヤ大巻 1QIsa¹）</strong>です。
+			</p>
+			<ul class="point-list">
+				<li>長さ約7.3m</li>
+				<li>イザヤ書66章をほぼ完全収録</li>
+				<li>現存するもっとも古い旧約の完全写本</li>
+			</ul>
 
-        <section id="q1">
-          <h2>1️⃣ 「悪の問題」という古くからの問い</h2>
-          <p>世界には、災害・病気・戦争・裏切りなど、どうしても説明できない“悪”が存在します。だから人は問います。</p>
-          <p class="pull"><b>「神が全能で善なら、なぜ悪を許すのか？」</b></p>
-          <p>この疑問は古代から「悪の問題」として議論されてきました。信仰を持つ人でも、心の中で一度はこの問いにぶつかります。</p>
-        </section>
+			<div class="highlight-box">
+				<p>
+					📌 この写本は、古筆学（文字形解析）と放射性炭素年代測定という2つの科学的手法によって、<strong>約紀元前3〜前2世紀（およそ前150年ごろ）</strong>に作られたと判定されています。<br>
+					つまり、<strong>イエス誕生の数百年前</strong>の段階で、すでに今とほぼ同じイザヤ書が存在していたことになります。
+				</p>
+			</div>
 
-        <section id="q2">
-          <h2>2️⃣ 信頼の裏返しとしての怒り</h2>
-          <p>人は神に「守ってもらえる」と信じているからこそ、悲劇が起きると「裏切られた」と感じてしまいます。これは、神を信頼していた証拠でもあります。怒りや失望の裏に、かつての信頼の深さが隠れています。</p>
-        </section>
+			<p>
+				しかし、そのイザヤ書には次のようなテーマがすでに刻まれていました。
+			</p>
+			<ul class="point-list">
+				<li>救い主（メシア）の到来</li>
+				<li>苦しみと死</li>
+				<li>民族の解放と回復</li>
+				<li>世界の救い</li>
+			</ul>
+			<p>
+				これらは、新約聖書に登場する出来事を細かく預言する内容です。言い換えればこうなります。
+			</p>
+			<div class="highlight-box">
+				<p><strong>✦ イザヤ書は、成就する前から存在していた。</strong><br>
+				「出来事の後に書き換えられた」という説明は、写本の実在によって完全に破綻しました。</p>
+			</div>
 
-        <section id="q3">
-          <h2>3️⃣ 責任の転嫁としての“神のせい”</h2>
-          <p>つらい現実の中で、人は「なぜ自分が？」という思いを抱きます。しかし、時にそれは人間自身の選択や社会の歪みから生じている場合も多いのです。それを直視するのは痛みを伴うため、人は「神のせい」にして心を守ろうとします。これもまた、傷ついた心の自然な防衛反応です。</p>
-        </section>
+			<h2>■ さらに衝撃なのは、内容が改ざんされていなかったこと</h2>
+			<p>
+				イザヤ大巻は、現在用いられているヘブライ語聖書（マソラ本文）と比較しても、<strong>1000年以上の時を経て内容の違いはごくわずか</strong>であることが分かっています。
+			</p>
+			<ul class="point-list">
+				<li>大規模な書き換え・編集・加工は確認されない</li>
+				<li>伝承の過程で「都合よく改ざんされた」という主張は成り立たない</li>
+			</ul>
+			<p>
+				歴史上これほど厳密に保存された古文書は極めて稀です。
+			</p>
 
-        <section id="q4">
-          <h2>4️⃣ 聖書が教える苦しみの源</h2>
-          <div class="verse">
-            <p>聖書はこう教えます。</p>
-            <p>「神は地を人の住むために造った」<b>（イザヤ45:18）</b><br>
-               「この世は悪い者の支配下にある」<b>（ヨハネ第一5:19）</b></p>
-          </div>
-          <p>つまり、神が苦しみを作ったのではなく、人間が神から離れた結果として苦しみが生まれたのです。神は自由を与えましたが、それは「結果に責任を取る自由」でもありました。</p>
-        </section>
+			<h2>■ イザヤ書の預言の中身こそ、最大の衝撃</h2>
+			<p>
+				特に有名なのは<strong>イザヤ53章</strong>です。そこには、次のようなメシア像が描かれています。
+			</p>
+			<ul class="point-list">
+				<li>メシアは「苦しむ僕」として現れる</li>
+				<li>人々の罪を負う</li>
+				<li>殺されるが、やがて復活する</li>
+				<li>その名によって異邦人が救われる</li>
+			</ul>
+			<p>
+				これは後世になって書き足された記述ではありません。<strong>紀元前に書かれた写本に、すでに存在していた</strong>のです。
+			</p>
+			<div class="highlight-box">
+				<p>
+					つまり、<strong>イザヤ書の預言は事後的に書かれたのではなく、後世の出来事が預言に一致した</strong>ということになります。普通の人間の知識では説明できない領域です。
+				</p>
+			</div>
 
-        <section id="q5">
-          <h2>5️⃣ 苦しみの中にも意味がある</h2>
-          <p>ヨブ記に登場するヨブは、原因不明の苦しみに襲われながらも、「なぜ」と問う心と「それでも神を信じる」心の間で葛藤しました。その結末は、苦しみが信仰を深め、人間を浄化することがあるという教訓を残します。</p>
-        </section>
+			<h2>■ 結論：聖書は偶然では説明できない</h2>
+			<p>考古学と科学が示すのは、次のような事実です。</p>
+			<ul class="point-list">
+				<li>イザヤ書は紀元前から存在した</li>
+				<li>その内容は改変されていない</li>
+				<li>そこには後世に起こる出来事の預言が書かれている</li>
+				<li>それらの多くは歴史上すでに成就している</li>
+			</ul>
 
-        <section id="q6">
-          <h2>6️⃣ 苦しみは永遠ではない</h2>
-          <div class="verse">
-            <p>聖書は、苦しみがいつか終わると約束しています。</p>
-            <p>「神は彼らの目の涙をすっかりぬぐい取ってくださる。<br>
-            死も悲しみも叫びも苦痛も、もはやない。」<b>（啓示21:4）</b></p>
-          </div>
-          <p>神は無関心ではありません。むしろ、苦しみを終わらせるためにすでに動いているのです。その時が来れば、人は再び「神は愛である」と心から言えるでしょう。</p>
-        </section>
+			<p>
+				もはやこれは、<strong>普通の書物ではありません</strong>。<br>
+				偶然か、捏造か、それとも神による啓示か――。
+			</p>
 
-        <section id="q7">
-          <h2>7️⃣ 神を責めるより、意味を探る視点へ</h2>
-          <p>神を責めても答えは見えません。しかし、「この苦しみを通して何を学べるのか」と問うなら、そこに希望が生まれます。</p>
-          <p class="aside">苦しみは神の罰ではなく、しばしば人の成長や再生のための“通過点”。</p>
-        </section>
+			<div class="quote">
+				<p>科学はこう語っています。「捏造でも、偶然でも説明できない。」</p>
+			</div>
 
-        <section>
-          <h2>🌅 結び</h2>
-          <p>神を責める声は、実は「理解したい」という願いの裏返し。苦しみを通して、私たちはより深く「愛とは何か」「生きるとは何か」を学びます。そしていつか、「苦しみの意味」さえも感謝に変わる日が来るでしょう。</p>
-        </section>
-      </div>
-
-      <div class="footer">
-        <div>
-          <span class="tag">#信仰</span>
-          <span class="tag">#希望</span>
-          <span class="tag">#聖書</span>
-          <span class="tag">#人生の意味</span>
-        </div>
-        <small class="aside">© 2025 – Essay Layout by ChatGPT｜画像: <code>img/bible_sec07_4.png</code></small>
-      </div>
-    </article>
-  </main>
+			<p class="section-footer">
+				ここにこそ、聖書が世界で最も注目され、研究され続ける理由があります。<br>
+				さらに掘り下げるなら、イザヤ53章がイエスの生涯にどれほど一致するか、イザヤ書のメシア預言が全部でいくつあるか、死海文書以外の写本学的裏付けなど、多くのテーマが広がっています。
+			</p>
+		</article>
+	</div>
 </body>
 </html>
