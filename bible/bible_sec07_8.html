@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>草木灰からモルタルへ ─ 化学変化のやさしい図解</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		:root{
+			--bg:#f5f4f0;
+			--card-bg:#ffffff;
+			--accent:#4a8f7b;
+			--accent-light:#e0f0ea;
+			--accent-strong:#2f5f4e;
+			--text:#333333;
+			--muted:#777777;
+			--shadow:0 10px 25px rgba(0,0,0,0.08);
+			--radius-lg:18px;
+			--radius-md:12px;
+		}
+		*{box-sizing:border-box;}
+		body{
+			margin:0;
+			padding:0;
+			font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+			background:var(--bg);
+			color:var(--text);
+			line-height:1.7;
+		}
+		.wrapper{
+			max-width:960px;
+			margin:0 auto;
+			padding:24px 16px 48px;
+		}
+		header.hero{
+			display:flex;
+			flex-wrap:wrap;
+			gap:24px;
+			align-items:center;
+			background:linear-gradient(135deg,#f8faf9,#e7f1ec);
+			border-radius:var(--radius-lg);
+			padding:28px 24px;
+			box-shadow:var(--shadow);
+			margin-bottom:32px;
+		}
+		.hero-text{
+			flex:1 1 260px;
+		}
+		.hero-title{
+			margin:0 0 10px;
+			font-size:1.7rem;
+			color:var(--accent-strong);
+		}
+		.hero-sub{
+			margin:0;
+			color:var(--muted);
+		}
+		.hero-figure{
+			flex:0 0 260px;
+			text-align:center;
+		}
+		.hero-figure img{
+			max-width:100%;
+			border-radius:var(--radius-md);
+			box-shadow:var(--shadow);
+		}
+		.section{
+			background:var(--card-bg);
+			border-radius:var(--radius-lg);
+			box-shadow:var(--shadow);
+			padding:22px 20px 24px;
+			margin-bottom:24px;
+		}
+		.section-header{
+			display:flex;
+			align-items:center;
+			gap:10px;
+			margin-bottom:10px;
+		}
+		.section-icon{
+			width:32px;
+			height:32px;
+			border-radius:999px;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			background:var(--accent-light);
+			font-size:18px;
+		}
+		.section-title{
+			margin:0;
+			font-size:1.15rem;
+			color:var(--accent-strong);
+			font-weight:600;
+		}
+		p{
+			margin:0 0 8px;
+		}
+		ul{
+			margin:6px 0 8px 1.2em;
+			padding:0;
+		}
+		ul li{
+			margin-bottom:4px;
+		}
+		.note{
+			font-size:0.9rem;
+			color:var(--muted);
+		}
+		.table-wrapper{
+			margin-top:10px;
+			border-radius:var(--radius-md);
+			overflow:hidden;
+			border:1px solid #e1e1e1;
+			background:#fff;
+		}
+		table{
+			width:100%;
+			border-collapse:collapse;
+			font-size:0.95rem;
+		}
+		thead{
+			background:var(--accent);
+			color:#fff;
+		}
+		th,td{
+			padding:8px 10px;
+			text-align:left;
+			vertical-align:top;
+		}
+		tbody tr:nth-child(even){
+			background:#fafafa;
+		}
+		tbody tr:nth-child(odd){
+			background:#ffffff;
+		}
+		.badge{
+			display:inline-block;
+			padding:2px 8px;
+			border-radius:999px;
+			font-size:0.75rem;
+			background:var(--accent-light);
+			color:var(--accent-strong);
+			margin-bottom:4px;
+		}
+		.chem{
+			font-family:"Segoe UI",system-ui,sans-serif;
+		}
+		.chem sub{
+			font-size:0.75em;
+		}
+		.highlight{
+			background:#fffaf2;
+			border-left:4px solid #ffb347;
+			padding:10px 12px;
+			border-radius:var(--radius-md);
+			margin-top:10px;
+			font-size:0.95rem;
+		}
+		@media (max-width:720px){
+			header.hero{
+				padding:20px 16px;
+			}
+			.hero-title{
+				font-size:1.45rem;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper">
+
+	<header class="hero">
+		<div class="hero-text">
+			<h1 class="hero-title">草木灰からモルタルへ ─ 化学変化の流れ</h1>
+			<p class="hero-sub">
+				草木灰に水を加え、さらに高温で焼成すると何が起きるのか。<br>
+				主成分の変化と、モルタルとの関係を分かりやすくまとめた解説です。
+			</p>
+		</div>
+		<div class="hero-figure">
+			<img src="img/bible_sec07_8.png" alt="草木灰からモルタルになるまでの図解">
+		</div>
+	</header>
+
+	<!-- 1. 主成分 -->
+	<section class="section">
+		<div class="section-header">
+			<div class="section-icon">🔬</div>
+			<h2 class="section-title">1. 草木灰の主成分（焼成前）</h2>
+		</div>
+
+		<ul>
+			<li class="chem">炭酸カリウム（K<sub>2</sub>CO<sub>3</sub>）</li>
+			<li class="chem">炭酸カルシウム（CaCO<sub>3</sub>）</li>
+			<li class="chem">炭酸マグネシウム（MgCO<sub>3</sub>）</li>
+			<li>微量のリン酸塩、シリカ（SiO<sub>2</sub>）、酸化鉄（Fe<sub>2</sub>O<sub>3</sub>）など</li>
+		</ul>
+
+		<p>
+			これらは、燃焼時に有機物が燃え尽き、無機ミネラルが酸化・炭酸化したものです。
+		</p>
+	</section>
+
+	<!-- 2. 水を加えたとき -->
+	<section class="section">
+		<div class="section-header">
+			<div class="section-icon">💧</div>
+			<h2 class="section-title">2. 水を加えて粘土状にしたときの変化</h2>
+		</div>
+
+		<p>灰に水を加えると、次のようなことが起こります。</p>
+		<ul>
+			<li>一部の炭酸カリウムが溶けて<strong>アルカリ性溶液（pH10〜12）</strong>になる。</li>
+			<li>一部の CaCO<sub>3</sub> や MgCO<sub>3</sub> は水に溶けにくく、懸濁状態のまま残る。</li>
+		</ul>
+		<p>
+			この段階では、化学的な硬化反応はほとんど起きません。<br>
+			「乾くと固まる」のは、主に<strong>水分が蒸発して粒子同士が物理的に結びつくため</strong>です。
+		</p>
+	</section>
+
+	<!-- 3. 焼成時の変化 -->
+	<section class="section">
+		<div class="section-header">
+			<div class="section-icon">🔥</div>
+			<h2 class="section-title">3. 焼成（高温加熱）時の変化</h2>
+		</div>
+
+		<p>
+		 温度によって起こる変化の概要は次のとおりです。
+		</p>
+
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>温度</th>
+						<th>主な変化</th>
+						<th>化学反応例</th>
+						<th>結果</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>200–400&nbsp;°C</td>
+						<td>水分・有機残留物の除去</td>
+						<td class="chem">H<sub>2</sub>O → 蒸発</td>
+						<td>乾燥・脱水</td>
+					</tr>
+					<tr>
+						<td>600–800&nbsp;°C</td>
+						<td>炭酸塩の分解</td>
+						<td class="chem">
+							CaCO<sub>3</sub> → CaO + CO<sub>2</sub>↑<br>
+							MgCO<sub>3</sub> → MgO + CO<sub>2</sub>↑
+						</td>
+						<td>酸化カルシウム（生石灰）や酸化マグネシウム生成</td>
+					</tr>
+					<tr>
+						<td>900–1100&nbsp;°C</td>
+						<td>酸化物・シリカ・リン酸塩が部分的に反応</td>
+						<td class="chem">CaO + SiO<sub>2</sub> → CaSiO<sub>3</sub> など</td>
+						<td>カルシウムシリケート類（軽いガラス質）</td>
+					</tr>
+					<tr>
+						<td>1200&nbsp;°C 以上</td>
+						<td>融着（ガラス化）</td>
+						<td>—</td>
+						<td>ガラス状固体（脆い塊）</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="highlight">
+			<strong>焼成後の主成分</strong>は、<br>
+			CaO（酸化カルシウム）、MgO、K<sub>2</sub>O（酸化カリウム）、SiO<sub>2</sub>（シリカ）などの
+			<strong>金属酸化物</strong>が主体になります。
+		</div>
+	</section>
+
+	<!-- 4. モルタルとの比較 -->
+	<section class="section">
+		<div class="section-header">
+			<div class="section-icon">⚙️</div>
+			<h2 class="section-title">4. モルタルとの類似点・相違点</h2>
+		</div>
+
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>項目</th>
+						<th>草木灰団子</th>
+						<th>セメントモルタル</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>主成分</td>
+						<td>炭酸塩・酸化物（Ca, K, Mg）</td>
+						<td>石灰石 + 粘土（CaO, SiO<sub>2</sub>, Al<sub>2</sub>O<sub>3</sub>）</td>
+					</tr>
+					<tr>
+						<td>硬化機構</td>
+						<td>水分蒸発（物理的）または焼成による焼結</td>
+						<td>水和反応（化学的）</td>
+					</tr>
+					<tr>
+						<td>焼成後</td>
+						<td>酸化物・シリケートの塊（ガラス質）</td>
+						<td>高温焼成後にクリンカーとして粉砕</td>
+					</tr>
+					<tr>
+						<td>再び水を加えた場合</td>
+						<td class="chem">CaO が水と反応して Ca(OH)<sub>2</sub> を生成し、一部硬化</td>
+						<td>水和反応により再固化（セメント硬化）</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<p class="highlight">
+			つまり、草木灰団子を高温で焼くと、
+			<strong>「生石灰を含む酸化物の塊」</strong>になります。<br>
+			この塊を粉砕して再び水を加えると、
+			<span class="chem"><strong>CaO + H<sub>2</sub>O → Ca(OH)<sub>2</sub>（消石灰）</strong></span>
+			の反応が起こり、モルタルのように硬化します。<br>
+			しかし、セメントのような<strong>強固な結晶構造（C–S–Hゲル）</strong>は形成されないため、
+			<strong>脆く、水に弱い</strong>という特徴があります。
+		</p>
+	</section>
+
+	<!-- 5. まとめ -->
+	<section class="section">
+		<div class="section-header">
+			<div class="section-icon">🧱</div>
+			<h2 class="section-title">5. まとめ ─ 段階ごとの主成分変化</h2>
+		</div>
+
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>段階</th>
+						<th>主な変化</th>
+						<th>主成分</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>混練前</td>
+						<td>灰（炭酸塩）の状態</td>
+						<td class="chem">K<sub>2</sub>CO<sub>3</sub>, CaCO<sub>3</sub>, MgCO<sub>3</sub></td>
+					</tr>
+					<tr>
+						<td>乾燥後</td>
+						<td>水分が蒸発</td>
+						<td>主成分は混練前と同じ</td>
+					</tr>
+					<tr>
+						<td>焼成後（600–1000&nbsp;°C）</td>
+						<td>脱炭酸・酸化</td>
+						<td class="chem">CaO, MgO, K<sub>2</sub>O, SiO<sub>2</sub></td>
+					</tr>
+					<tr>
+						<td>焼成物＋水</td>
+						<td>消石灰生成・軽度の固化</td>
+						<td class="chem">Ca(OH)<sub>2</sub>, Mg(OH)<sub>2</sub></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<p class="highlight">
+			もし目的が「自然素材でモルタル代替を作る」ことであれば、<br>
+			草木灰に <strong>粘土（SiO<sub>2</sub>・Al<sub>2</sub>O<sub>3</sub>）</strong> を多めに混ぜて焼くことで、<br>
+			<strong>天然セメント（古代ローマンセメント）</strong> に近い反応を起こす可能性があります。
+		</p>
+	</section>
+
+	<p class="note">
+		※ 本ページは学習・イメージ理解のための概略図解であり、実験・施工の際は安全対策と詳細な専門資料の確認をおすすめします。
+	</p>
+
+</div>
+</body>
+</html>
