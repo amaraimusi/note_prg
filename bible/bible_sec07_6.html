@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🌿 なぜ人は苦しみを「神のせい」にするのか</title>
+  <meta name="description" content="苦しみを神のせいにしてしまう心理と、聖書の視点から見た希望をやさしい言葉でまとめた読み物ページ。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f7fb;          /* base background */
+      --paper:#ffffff;        /* card background */
+      --ink:#1f2937;          /* main text */
+      --muted:#64748b;        /* secondary text */
+      --accent:#4f46e5;       /* indigo */
+      --accent-2:#16a34a;     /* green for highlights */
+      --ring:rgba(79,70,229,.2);
+      --shadow:0 10px 30px rgba(15,23,42,.08), 0 2px 8px rgba(15,23,42,.06);
+      --radius:18px;
+      --max: 980px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b0d12;
+        --paper:#111827;
+        --ink:#e5e7eb;
+        --muted:#9ca3af;
+        --accent:#8b5cf6;
+        --ring:rgba(139,92,246,.25);
+        --shadow:0 10px 30px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.4);
+      }
+      img.hero{filter:brightness(.92) contrast(1.05);}  
+    }
+    html,body{height:100%; background:var(--bg); color:var(--ink);}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", sans-serif; line-height:1.8; letter-spacing:.02em;}
+    .wrap{max-width:var(--max); margin:auto; padding:28px 20px 80px;}
+    .card{background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+    .hero-wrap{position:relative;}
+    img.hero{width:100%; height:360px; object-fit:cover; display:block;}
+    .badge{position:absolute; inset:auto 20px -20px auto; background:var(--accent); color:#fff; padding:10px 16px; font-weight:700; border-radius:12px; box-shadow:var(--shadow); letter-spacing:.05em;}
+
+    header{padding:36px 30px 18px;}
+    h1{font-family:"Noto Serif JP", serif; font-size:clamp(1.8rem, 3vw, 2.4rem); line-height:1.3; margin:0 0 8px;}
+    .lead{color:var(--muted); font-size:1rem;}
+
+    .content{padding:10px 30px 34px;}
+    section{background:linear-gradient(180deg, transparent, rgba(79,70,229,.05)); border:1px solid rgba(79,70,229,.12); border-radius:16px; padding:22px 18px; margin:16px 0;}
+    section h2{margin:0 0 6px; font-size:1.1rem; letter-spacing:.03em;}
+    section p{margin:.2rem 0;}
+
+    .pull{border-left:4px solid var(--accent); padding:10px 14px; background:rgba(79,70,229,.06); color:var(--ink); border-radius:8px;}
+
+    .verse{font-family:"Noto Serif JP", serif; background:linear-gradient(180deg, rgba(22,163,74,.07), rgba(22,163,74,.03)); border:1px solid rgba(22,163,74,.18); border-radius:16px; padding:16px; margin:12px 0 4px;}
+    .verse b{color:var(--accent-2);}    
+    .aside{color:var(--muted); font-size:.95rem;}
+
+    .footer{display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between; padding:18px 30px 28px; border-top:1px dashed rgba(79,70,229,.25);}    
+    .tag{display:inline-block; background:rgba(79,70,229,.1); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:600;}
+
+    .grid-illust{display:grid; grid-template-columns: 1fr; gap:14px; margin:8px 0 22px;}
+    .grid-illust img{width:100%; border-radius:14px; box-shadow:var(--shadow);}
+    @media (min-width:820px){
+      .grid-illust{grid-template-columns: 3fr 2fr;}
+      .grid-illust img.secondary{height:100%; object-fit:cover;}
+    }
+
+    .toc{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 12px;}
+    .toc a{padding:8px 10px; border-radius:10px; text-decoration:none; color:var(--accent); background:rgba(79,70,229,.08);}
+    .toc a:hover{box-shadow:0 0 0 4px var(--ring);}    
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <article class="card">
+      <!-- Hero -->
+
+
+      <header>
+        <h1>🌿 なぜ人は苦しみを「神のせい」にするのか</h1>
+        <p class="lead">私たちは苦しい出来事に直面すると、「なぜ神はこれを止めなかったのか」と思うことがあります。それは自然な反応ですが、そこには深い人間の心理と、見落としがちな真実があります。</p>
+        <nav class="toc" aria-label="目次">
+          <a href="#q1">1️⃣ 悪の問題</a>
+          <a href="#q2">2️⃣ 信頼の裏返し</a>
+          <a href="#q3">3️⃣ 責任の転嫁</a>
+          <a href="#q4">4️⃣ 聖書が教える源</a>
+          <a href="#q5">5️⃣ 意味を見いだす</a>
+          <a href="#q6">6️⃣ 苦しみは永遠ではない</a>
+          <a href="#q7">7️⃣ 意味を探る視点へ</a>
+        </nav>
+      </header>
+
+      <div class="content">
+        <div class="grid-illust">
+          <img src="img/bible_sec07_4.png" alt="挿絵：空を仰ぐ姿のシルエット" />
+       </div>
+
+        <section id="q1">
+          <h2>1️⃣ 「悪の問題」という古くからの問い</h2>
+          <p>世界には、災害・病気・戦争・裏切りなど、どうしても説明できない“悪”が存在します。だから人は問います。</p>
+          <p class="pull"><b>「神が全能で善なら、なぜ悪を許すのか？」</b></p>
+          <p>この疑問は古代から「悪の問題」として議論されてきました。信仰を持つ人でも、心の中で一度はこの問いにぶつかります。</p>
+        </section>
+
+        <section id="q2">
+          <h2>2️⃣ 信頼の裏返しとしての怒り</h2>
+          <p>人は神に「守ってもらえる」と信じているからこそ、悲劇が起きると「裏切られた」と感じてしまいます。これは、神を信頼していた証拠でもあります。怒りや失望の裏に、かつての信頼の深さが隠れています。</p>
+        </section>
+
+        <section id="q3">
+          <h2>3️⃣ 責任の転嫁としての“神のせい”</h2>
+          <p>つらい現実の中で、人は「なぜ自分が？」という思いを抱きます。しかし、時にそれは人間自身の選択や社会の歪みから生じている場合も多いのです。それを直視するのは痛みを伴うため、人は「神のせい」にして心を守ろうとします。これもまた、傷ついた心の自然な防衛反応です。</p>
+        </section>
+
+        <section id="q4">
+          <h2>4️⃣ 聖書が教える苦しみの源</h2>
+          <div class="verse">
+            <p>聖書はこう教えます。</p>
+            <p>「神は地を人の住むために造った」<b>（イザヤ45:18）</b><br>
+               「この世は悪い者の支配下にある」<b>（ヨハネ第一5:19）</b></p>
+          </div>
+          <p>つまり、神が苦しみを作ったのではなく、人間が神から離れた結果として苦しみが生まれたのです。神は自由を与えましたが、それは「結果に責任を取る自由」でもありました。</p>
+        </section>
+
+        <section id="q5">
+          <h2>5️⃣ 苦しみの中にも意味がある</h2>
+          <p>ヨブ記に登場するヨブは、原因不明の苦しみに襲われながらも、「なぜ」と問う心と「それでも神を信じる」心の間で葛藤しました。その結末は、苦しみが信仰を深め、人間を浄化することがあるという教訓を残します。</p>
+        </section>
+
+        <section id="q6">
+          <h2>6️⃣ 苦しみは永遠ではない</h2>
+          <div class="verse">
+            <p>聖書は、苦しみがいつか終わると約束しています。</p>
+            <p>「神は彼らの目の涙をすっかりぬぐい取ってくださる。<br>
+            死も悲しみも叫びも苦痛も、もはやない。」<b>（啓示21:4）</b></p>
+          </div>
+          <p>神は無関心ではありません。むしろ、苦しみを終わらせるためにすでに動いているのです。その時が来れば、人は再び「神は愛である」と心から言えるでしょう。</p>
+        </section>
+
+        <section id="q7">
+          <h2>7️⃣ 神を責めるより、意味を探る視点へ</h2>
+          <p>神を責めても答えは見えません。しかし、「この苦しみを通して何を学べるのか」と問うなら、そこに希望が生まれます。</p>
+          <p class="aside">苦しみは神の罰ではなく、しばしば人の成長や再生のための“通過点”。</p>
+        </section>
+
+        <section>
+          <h2>🌅 結び</h2>
+          <p>神を責める声は、実は「理解したい」という願いの裏返し。苦しみを通して、私たちはより深く「愛とは何か」「生きるとは何か」を学びます。そしていつか、「苦しみの意味」さえも感謝に変わる日が来るでしょう。</p>
+        </section>
+      </div>
+
+      <div class="footer">
+        <div>
+          <span class="tag">#信仰</span>
+          <span class="tag">#希望</span>
+          <span class="tag">#聖書</span>
+          <span class="tag">#人生の意味</span>
+        </div>
+        <small class="aside">© 2025 – Essay Layout by ChatGPT｜画像: <code>img/bible_sec07_4.png</code></small>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
