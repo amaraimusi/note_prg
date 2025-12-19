@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SNSで奉仕するための基本（聖句を効果的に紹介する）</title>
+	<style>
+		:root{
+			--bg:#f6f7fb;
+			--card:#ffffff;
+			--text:#1f2937;
+			--muted:#6b7280;
+			--line:#e5e7eb;
+			--accent:#2563eb;
+			--accent2:#0ea5e9;
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+			color:var(--text);
+			background:linear-gradient(180deg, var(--bg), #fff);
+			line-height:1.8;
+		}
+		header{
+			padding:42px 16px 18px;
+			max-width:980px;
+			margin:0 auto;
+		}
+		.badge{
+			display:inline-block;
+			padding:4px 10px;
+			border:1px solid var(--line);
+			border-radius:999px;
+			background:#fff;
+			color:var(--muted);
+			font-size:12px;
+		}
+		h1{
+			margin:12px 0 8px;
+			font-size:26px;
+			letter-spacing:.02em;
+		}
+		.lead{
+			margin:0;
+			color:var(--muted);
+			font-size:15px;
+		}
+		main{
+			max-width:980px;
+			margin:0 auto;
+			padding:18px 16px 60px;
+		}
+		.card{
+			background:var(--card);
+			border:1px solid var(--line);
+			border-radius:14px;
+			box-shadow:0 8px 24px rgba(0,0,0,.06);
+			padding:18px 18px;
+			margin:14px 0;
+		}
+		h2{
+			margin:0 0 10px;
+			font-size:18px;
+			display:flex;
+			gap:10px;
+			align-items:center;
+		}
+		.dot{
+			width:10px;height:10px;border-radius:50%;
+			background:linear-gradient(135deg, var(--accent), var(--accent2));
+			flex:0 0 auto;
+		}
+		h3{
+			margin:16px 0 8px;
+			font-size:16px;
+		}
+		ul{margin:8px 0 0 18px}
+		li{margin:6px 0}
+		hr{
+			border:none;
+			border-top:1px solid var(--line);
+			margin:16px 0;
+		}
+		.kv{
+			display:grid;
+			grid-template-columns: 1fr;
+			gap:12px;
+			margin-top:14px;
+		}
+		@media(min-width:780px){
+			.kv{grid-template-columns: 1fr 1fr;}
+		}
+		.pill{
+			border:1px solid var(--line);
+			border-radius:12px;
+			padding:12px 12px;
+			background:#fff;
+		}
+		.pill .t{
+			font-weight:700;
+			font-size:14px;
+			margin:0 0 6px;
+		}
+		.pill .d{
+			margin:0;
+			color:var(--muted);
+			font-size:14px;
+		}
+		.note{
+			border-left:4px solid var(--accent);
+			padding:10px 12px;
+			background:rgba(37,99,235,.06);
+			border-radius:10px;
+			color:#1f2a44;
+		}
+		.example{
+			background:#0b1220;
+			color:#e5e7eb;
+			border-radius:12px;
+			padding:12px 14px;
+			overflow:auto;
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			font-size:13px;
+			line-height:1.7;
+		}
+		.example b{color:#93c5fd}
+		.footer{
+			color:var(--muted);
+			font-size:12px;
+			margin-top:18px;
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<span class="badge">奉仕メモ / SNS向け</span>
+		<h1>SNSで奉仕するための基本</h1>
+		<p class="lead">
+			聖句を「提示」するのではなく、「導入」する。読み手の心を整え、聖句が届く通路を作る。
+		</p>
+	</header>
+
+	<main>
+
+		<section class="card">
+			<h2><span class="dot"></span>1. 核心：聖句は「導入」する</h2>
+			<p>
+				SNSでは、読み手は必ずしも「聴く準備」ができていません。だからこそ、聖句を読む前に<strong>思いを整える</strong>工夫が必要です。
+			</p>
+
+			<div class="kv">
+				<div class="pill">
+					<p class="t">❌ NG</p>
+					<p class="d">「この聖句を読んでください」だけで終わる。</p>
+				</div>
+				<div class="pill">
+					<p class="t">⭕ OK</p>
+					<p class="d">「読みたくなる流れ」を作ってから聖句へ導く。</p>
+				</div>
+			</div>
+
+			<hr>
+
+			<h3>2つの基本目標</h3>
+			<ul>
+				<li><strong>期待を起こす</strong>（「何が書いてあるんだろう？」と思わせる）</li>
+				<li><strong>その聖句を使う理由に注意を引く</strong>（「なぜ今これなのか」が分かる）</li>
+			</ul>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>2. SNS向き「聖句導入」4つの基本型</h2>
+
+			<h3>① 質問型（最重要）</h3>
+			<p>
+				SNSでは質問が「立ち止まらせる力」を持ちます。正解を急がず、読み手に考えてもらう導入が効果的です。
+			</p>
+			<ul>
+				<li>正解をすぐに出さない</li>
+				<li>読み手自身に考えさせる</li>
+				<li>日常の感覚と結びつける</li>
+			</ul>
+			<div class="example">
+<b>例</b><br>
+・「神には名前があると思いますか？」<br>
+・「この世界は、いつか本当に良くなると思いますか？」<br>
+・「正直でいることは、損でしょうか？」
+			</div>
+
+			<hr>
+
+			<h3>② 問題提起型（現実と結びつける）</h3>
+			<p>
+			 今の社会や感情に触れる「問題」を提示し、その視点として聖句を示します。
+			</p>
+			<div class="example">
+<b>例</b><br>
+・「なぜ誠実な人が損をする社会になっているのでしょうか」<br>
+・「努力しても報われないと感じることはありませんか」
+			</div>
+			<p class="note">
+				※ 1つの聖句ですべての答えを出そうとせず、「考える方向」を示すだけでも十分です。
+			</p>
+
+			<hr>
+
+			<h3>③ 権威提示型（聖書の立場を明確に）</h3>
+			<p>
+			 SNSでは「誰の意見か」が問われやすいので、聖句は「神の言葉」としての立場を明確にします。
+			</p>
+			<div class="example">
+<b>言い回し例</b><br>
+・「聖書はこう述べています」<br>
+・「神の言葉はこう示しています」<br>
+・「この点について聖書は…」
+			</div>
+
+			<hr>
+
+			<h3>④ 文脈・背景を一言で補足する型</h3>
+			<p>
+			 長い説明は避けつつ、一言の背景が理解を助けます。「理想論」ではなく「現実の中で語られた言葉」だと伝わります。
+			</p>
+			<div class="example">
+<b>一言補足例</b><br>
+・「これは苦しみの中で語られた言葉です」<br>
+・「迫害下にいた人々に向けて書かれました」
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>3. SNS奉仕で特に意識すべき点</h2>
+
+			<h3>① 読み手は「聞く準備」ができていない</h3>
+			<ul>
+				<li>偶然目にする</li>
+				<li>心が別のことで満たされている</li>
+				<li>短時間しか集中できない</li>
+			</ul>
+			<p class="note">➡ 導入の一文が、投稿の成果を左右します。</p>
+
+			<h3>② よく知られた聖句ほど「導入」が必要</h3>
+			<p>
+			 何回も聞いたことがある聖句は、読み手が流し読みしがちです。質問や角度を変えて「改めて見たい」気持ちを起こします。
+			</p>
+
+			<h3>③ 聖句を「押しつけない」</h3>
+			<p>
+			 SNSでは強制感は逆効果です。読み手の自主性を尊重する言い方が、結果的に聖句の力を引き出します。
+			</p>
+			<div class="example">
+<b>例</b><br>
+・「もし関心があれば、この言葉を見てください」<br>
+・「一度だけ比べてみませんか」
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>4. 実用フレーム（投稿構成）</h2>
+			<p>おすすめの流れ（1投稿またはスレッドで活用）</p>
+			<ol>
+				<li>共感・疑問・問題提起（1〜2行）</li>
+				<li>考えさせる質問（1行）</li>
+				<li>聖句の紹介（理由付き）</li>
+				<li>聖句本文（短め or 次投稿）</li>
+				<li>静かな余韻（結論を押しつけない）</li>
+			</ol>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>5. まとめ</h2>
+			<p>
+				SNS奉仕の本質は、聖句を目立たせることではなく、<strong>聖句が心に入る通路を作ること</strong>です。
+			</p>
+			<p class="note">
+				「聖句を上手に紹介できるようになれば，神の言葉に一層の注意を引くことができる」
+			</p>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>練習テンプレ</h2>
+			<p>
+				区域や対象者を思い浮かべ、よく使える聖句を1つ選んで次を作ってみてください。
+			</p>
+			<ul>
+				<li>（1）期待を起こす質問／問題提起は何にするか</li>
+				<li>（2）その聖句を読む理由を、どう一言で示すか</li>
+			</ul>
+			<div class="example">
+<b>テンプレ</b><br>
+【共感/問題】……<br>
+【質問】……？<br>
+【聖句紹介】この点について、聖書は……と述べています。<br>
+【聖句】（引用）<br>
+【一言余韻】……
+			</div>
+		</section>
+
+		<p class="footer">© メモ用HTML（ローカル保存して自由に編集OK）</p>
+
+	</main>
+</body>
+</html>
