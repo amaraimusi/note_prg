@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>ダニエル11章・12章 — 終わりの日に向けた預言の読み取り</title>
+	<style>
+		:root{
+			--bg:#0b0f16;
+			--card:#111827;
+			--card2:#0f172a;
+			--text:#e5e7eb;
+			--muted:#a7b0c0;
+			--line:rgba(255,255,255,.10);
+			--accent:#60a5fa;
+			--accent2:#34d399;
+			--warn:#fbbf24;
+			--shadow: 0 18px 60px rgba(0,0,0,.35);
+			--radius: 18px;
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+			color:var(--text);
+			background:
+				radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.25), transparent 60%),
+				radial-gradient(1000px 500px at 100% 10%, rgba(52,211,153,.18), transparent 55%),
+				linear-gradient(180deg, var(--bg), #05070c 80%);
+		}
+		a{color:var(--accent)}
+		.container{
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 28px 18px 64px;
+		}
+		header.hero{
+			position: relative;
+			border: 1px solid var(--line);
+			background: linear-gradient(180deg, rgba(17,24,39,.92), rgba(15,23,42,.78));
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			overflow:hidden;
+			padding: 26px 22px;
+		}
+		.hero:before{
+			content:"";
+			position:absolute;
+			inset:-2px;
+			background: radial-gradient(800px 200px at 20% 0%, rgba(96,165,250,.18), transparent 60%),
+						radial-gradient(700px 220px at 90% 20%, rgba(52,211,153,.12), transparent 55%);
+			pointer-events:none;
+		}
+		.kicker{
+			display:inline-flex;
+			align-items:center;
+			gap:10px;
+			padding:8px 12px;
+			border:1px solid var(--line);
+			border-radius:999px;
+			background: rgba(0,0,0,.12);
+			color: var(--muted);
+			font-size: 13px;
+			position: relative;
+			z-index:1;
+		}
+		.kicker b{
+			color: var(--text);
+			font-weight: 700;
+		}
+		h1{
+			margin: 14px 0 10px;
+			font-size: clamp(22px, 3.1vw, 34px);
+			line-height: 1.2;
+			letter-spacing: .02em;
+			position: relative;
+			z-index:1;
+		}
+		.lead{
+			margin: 0;
+			color: var(--muted);
+			line-height: 1.75;
+			font-size: 15.5px;
+			position: relative;
+			z-index:1;
+			max-width: 72ch;
+		}
+		.grid{
+			display:grid;
+			grid-template-columns: 1.2fr .8fr;
+			gap:18px;
+			margin-top: 18px;
+		}
+		@media (max-width: 860px){
+			.grid{grid-template-columns:1fr}
+		}
+		.card{
+			border: 1px solid var(--line);
+			background: linear-gradient(180deg, rgba(17,24,39,.86), rgba(15,23,42,.76));
+			border-radius: var(--radius);
+			box-shadow: 0 10px 30px rgba(0,0,0,.22);
+			overflow:hidden;
+		}
+		.card .inner{
+			padding: 18px 18px 16px;
+		}
+		.section-title{
+			display:flex;
+			align-items:center;
+			gap:10px;
+			margin: 0 0 10px;
+			font-size: 16px;
+			letter-spacing:.02em;
+		}
+		.badge{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			padding:6px 10px;
+			border-radius:999px;
+			border:1px solid var(--line);
+			background: rgba(0,0,0,.12);
+			color: var(--muted);
+			font-size: 12.5px;
+			white-space:nowrap;
+		}
+		.badge .dot{
+			width:8px; height:8px; border-radius:999px;
+			background: var(--accent);
+			box-shadow: 0 0 0 3px rgba(96,165,250,.15);
+		}
+		p{
+			margin: 10px 0 0;
+			line-height: 1.85;
+			color: var(--text);
+			font-size: 15.2px;
+		}
+		p.muted{color: var(--muted)}
+		hr.sep{
+			border:0;
+			border-top:1px solid var(--line);
+			margin: 14px 0;
+		}
+
+		.figure{
+			padding: 0;
+		}
+		.figure img{
+			display:block;
+			width: 100%;
+			height:auto;
+			aspect-ratio: 3 / 2;
+			object-fit: cover;
+			filter: contrast(1.04) saturate(1.02);
+		}
+		.figure figcaption{
+			padding: 12px 14px 14px;
+			color: var(--muted);
+			font-size: 12.5px;
+			line-height: 1.6;
+			border-top:1px solid var(--line);
+			background: rgba(0,0,0,.10);
+		}
+
+		ul{
+			margin: 10px 0 0;
+			padding: 0 0 0 18px;
+			line-height: 1.85;
+			color: var(--text);
+			font-size: 15.2px;
+		}
+		li{margin: 6px 0}
+		.quote{
+			margin-top: 12px;
+			border-left: 4px solid rgba(96,165,250,.55);
+			background: rgba(96,165,250,.08);
+			padding: 12px 14px;
+			border-radius: 12px;
+		}
+		.quote p{
+			margin:0;
+			color: var(--text);
+		}
+		.small{
+			color: var(--muted);
+			font-size: 12.5px;
+			margin-top: 8px;
+		}
+		.callout{
+			margin-top: 14px;
+			padding: 14px 14px;
+			border: 1px solid rgba(251,191,36,.25);
+			background: rgba(251,191,36,.08);
+			border-radius: 14px;
+		}
+		.callout strong{
+			color: #fde68a;
+		}
+		.listbox{
+			margin-top: 12px;
+			border: 1px solid var(--line);
+			background: rgba(0,0,0,.10);
+			border-radius: 14px;
+			padding: 12px 14px;
+		}
+		.listbox ul{margin-top: 6px}
+		.tags{
+			margin-top: 14px;
+			display:flex;
+			flex-wrap:wrap;
+			gap:8px;
+		}
+		.tag{
+			padding:7px 10px;
+			border-radius:999px;
+			border:1px solid var(--line);
+			background: rgba(0,0,0,.10);
+			color: var(--muted);
+			font-size: 12.5px;
+		}
+		footer{
+			margin-top: 18px;
+			padding-top: 12px;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-size: 12.5px;
+			line-height: 1.7;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header class="hero">
+			<div class="kicker"><b>ダニエル11章・12章</b> / 終わりの日に向けた預言</div>
+			<h1>ダニエル11章と12章は将来到来する「終わりの日」と預言と言われています。</h1>
+			<p class="lead">
+				古代の出来事として読める部分がある一方で、後半では歴史の枠を超えた描写が現れます。
+				聖書は、将来の出来事を理解しやすくするために、過去の出来事や預言成就を“見本”として示すことがあります。
+			</p>
+		</header>
+
+		<div class="grid">
+			<article class="card">
+				<div class="inner">
+					<div class="section-title">
+						<span class="badge"><span class="dot"></span>概要</span>
+						<span style="color:var(--muted);font-size:12.5px">本文はできるだけ原文を保持</span>
+					</div>
+
+					<p>
+						ダニエル書は、バビロンの王ネブカドネザルが見た不可解な夢を、神に示された通りにダニエルが解き明かすところから始まります。
+						その夢は当時の王国だけでなく、はるか将来の出来事を示すものでした。そこには、もしかすると現代の私たちが生きる時代も含まれている可能性があります。
+					</p>
+
+					<hr class="sep" />
+
+					<p>
+						ダニエル11章を読むと、前半は一見すると古代史そのものです。ペルシャ、ギリシャ、そして北の王と南の王の争い――これは実際に起きた歴史とよく一致します。
+						そのため「これはすでに成就した過去の話だ」と考える人も多いでしょう。
+					</p>
+
+					<p>
+						しかし後半に入ると様子が変わります。描写は歴史の枠を超え、「終わりの日の前に起こる出来事」として語られる内容になります。<br>
+						ここで重要なのは、聖書自身が、預言の読み取り方を実例で示しているという点です。<br>
+						聖書では、過去に起きた出来事が、その後に起こる出来事をより理解しやすくするための“型”として用いられることがあります。
+					</p>
+
+					<p>
+						この預言の書き方は、ダニエル書だけでなく、イザヤ書や福音書など、他の預言にも共通しています。<br>
+						つまり、聖書は、将来の出来事をいきなり知らせるのではなく、一度、過去の出来事や預言成就を「見本」や「予告編」として示しているということです。
+					</p>
+
+					<div class="callout">
+						<strong>ポイント</strong><br>
+						そのダニエル11章の型の一つが、北の王と南の王の衝突です。これは単なる国同士の戦争ではなく、権力同士の対立を象徴しています。
+						特に北の王には、繰り返し現れる行動パターンがあります。
+					</div>
+
+					<div class="listbox">
+						<ul>
+							<li>侵略行為を行う</li>
+							<li>南の王と衝突する</li>
+							<li>聖なるものを冒涜する</li>
+							<li>神に対抗する</li>
+							<li>最後まで耐える者を試す</li>
+						</ul>
+					</div>
+
+					<hr class="sep" />
+
+					<p>中でも注目されてきたのが11章31節です。</p>
+					<div class="quote">
+						<p>「彼らは聖なる所を汚し、常供の捧げ物を取り除き、荒廃をもたらす忌むべきものを据える」</p>
+					</div>
+
+					<p>
+						この言葉は理解が難しく、多くの人が戸惑う箇所です。しかし重要なのは、この出来事が12章でも再び言及され、「日数を数える起点」として扱われている点です。
+						つまりこれは、単なる象徴的表現ではなく、「終わりの日へ向かう流れが動き出す合図」となる重要な出来事だと考えられます。
+					</p>
+
+					<p>
+						では北の王とは誰なのでしょうか。現在の社会情勢を見ると、当てはまりそうな国や勢力を思い浮かべる人もいるかもしれませんね。
+					</p>
+
+					<hr class="sep" />
+
+					<p>
+						ただ、ダニエルの預言は、ネブカドネザルの夢がそうであったように、解読が極めて難しいものです。ダニエル書自身もこう述べています。
+					</p>
+
+					<div class="quote">
+						<p>「悟りのある者は理解する。しかし悪しき者は悟らない」（ダニエル12章）</p>
+					</div>
+
+					<p>
+						すべてが分かるわけではありません。それでも、型を見ることで分かることもある――それがダニエルの預言です。
+					</p>
+				</div>
+			</article>
+
+			<aside class="card">
+				<figure class="figure">
+					<!-- 指定画像：適当な箇所に挿入 -->
+					<img src="img/bible_sec08_1.png" width="1536" height="1024" alt="北の王のイメージイラスト（対比）">
+					<figcaption>
+						北の王のイメージ（挿入画像）<br>
+						本文は国名の断定を目的とせず、「型」として現れる特徴に注意を向けます。
+					</figcaption>
+				</figure>
+
+				<div class="inner">
+					<div class="section-title">
+						<span class="badge"><span class="dot" style="background:var(--accent2);box-shadow:0 0 0 3px rgba(52,211,153,.15)"></span>ヒント</span>
+					</div>
+
+					<p class="muted">
+						「終わりの日はいつなのか」を知りたいと思うことでしょう。ダニエル書11章36から40節からヒントが得られます。
+						終わりの日の前に「北の王」は以下のようなことをするようです。
+					</p>
+
+					<div class="listbox">
+						<ul>
+							<li>
+								思うままに行動し，高慢になり，自分はあらゆる神より上だと考え，神の中の神に向かって厚かましいことを語り，
+								糾弾の時が終わるまで成功を収める。（36節）
+							</li>
+							<li>
+								自分の父祖たちの神や女たちの願い，その他あらゆる神々を無視し，自分を全ての者より上だと考える。（37節）
+							</li>
+							<li>
+								要塞の神をたたえ，父祖たちが知らなかった神を金や銀や宝石や他の貴重な物によってたたえる。（38節）
+							</li>
+							<li>
+								なじみのない神と共に強固に防備されたとりでに対して行動し，自分を認めてくれる者たちに大きな栄誉を与え，
+								大勢を支配させ，代価と引き換えに土地を配分する。（39節）
+							</li>
+							<li>
+								終わりの時に南の王と押し合い，兵車や騎手や多くの船で南の王を激しく攻撃し，
+								国々に入り，洪水のように勢いよく通っていく。（40節）
+							</li>
+						</ul>
+					</div>
+
+					<div class="callout" style="border-color:rgba(96,165,250,.25);background:rgba(96,165,250,.08);">
+						<strong style="color:#bfdbfe">見守る視点</strong><br>
+						これらが重なり合う時代は、「終わりの日」が近づいている兆候として、注意深く見守る必要があるのかもしれません。
+					</div>
+
+					<p class="muted" style="margin-top:14px">
+						ダニエル書11章と12章には、今後も注目しておきましょう。
+					</p>
+
+					<div class="tags" aria-label="hashtags">
+						<span class="tag">#聖書</span>
+						<span class="tag">#預言</span>
+						<span class="tag">#北の王</span>
+						<span class="tag">#南の王</span>
+						<span class="tag">#審判の日</span>
+						<span class="tag">#終わりの日</span>
+					</div>
+				</div>
+			</aside>
+		</div>
+
+		<footer>
+			※ 本ページは文章をできるだけ改変せずにHTML化し、読みやすさのために見出し・強調・レイアウトのみ整えています。<br>
+			画像パス：<code>img/bible_sec08_1.png</code>
+		</footer>
+	</div>
+</body>
+</html>
