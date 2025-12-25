@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>なぜリンゴは透けないのか？──物が「ぶつからない」の理由</title>
+	<style>
+		:root{
+			--bg:#0b1220;
+			--card:#101a33;
+			--card2:#0f1a2f;
+			--text:#e9eefc;
+			--muted:#b8c2e3;
+			--accent:#7aa7ff;
+			--accent2:#7fffd4;
+			--line:rgba(255,255,255,.10);
+			--shadow: 0 18px 45px rgba(0,0,0,.35);
+			--radius: 18px;
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+			color:var(--text);
+			background:
+				radial-gradient(900px 520px at 18% 10%, rgba(122,167,255,.22), transparent 55%),
+				radial-gradient(720px 420px at 82% 15%, rgba(127,255,212,.14), transparent 55%),
+				radial-gradient(900px 520px at 50% 95%, rgba(122,167,255,.12), transparent 55%),
+				var(--bg);
+			line-height:1.85;
+		}
+		a{color:var(--accent)}
+		.container{
+			max-width: 920px;
+			margin: 0 auto;
+			padding: 28px 18px 56px;
+		}
+		header.hero{
+			position:relative;
+			padding: 34px 22px 28px;
+			border:1px solid var(--line);
+			border-radius: var(--radius);
+			background:
+				linear-gradient(135deg, rgba(122,167,255,.18), rgba(127,255,212,.10)),
+				linear-gradient(180deg, rgba(16,26,51,.92), rgba(16,26,51,.72));
+			box-shadow: var(--shadow);
+			overflow:hidden;
+		}
+		.badge{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			font-size: 12px;
+			letter-spacing:.08em;
+			color: rgba(255,255,255,.85);
+			background: rgba(255,255,255,.08);
+			border:1px solid var(--line);
+			padding: 6px 10px;
+			border-radius: 999px;
+		}
+		h1{
+			margin: 14px 0 10px;
+			font-size: clamp(22px, 3.2vw, 34px);
+			line-height:1.25;
+			letter-spacing:.02em;
+		}
+		.lead{
+			margin: 0;
+			color: var(--muted);
+			font-size: 15.5px;
+		}
+		.grid{
+			display:grid;
+			grid-template-columns: 1.1fr .9fr;
+			gap: 18px;
+			margin-top: 18px;
+		}
+		@media (max-width: 860px){
+			.grid{grid-template-columns:1fr}
+		}
+		.card{
+			border:1px solid var(--line);
+			border-radius: var(--radius);
+			background: linear-gradient(180deg, rgba(16,26,51,.78), rgba(15,26,47,.72));
+			box-shadow: 0 12px 28px rgba(0,0,0,.28);
+			overflow:hidden;
+		}
+		.card .inner{padding: 22px}
+		.h2{
+			margin:0 0 10px;
+			font-size: 18px;
+			letter-spacing:.03em;
+		}
+		hr.sep{
+			border:0;
+			border-top: 1px solid var(--line);
+			margin: 18px 0;
+		}
+		.quote{
+			margin: 14px 0 0;
+			padding: 14px 14px 14px 16px;
+			border-left: 4px solid rgba(122,167,255,.8);
+			background: rgba(255,255,255,.06);
+			border-radius: 12px;
+			color: rgba(255,255,255,.92);
+			white-space: pre-line;
+		}
+		.kicker{
+			display:flex;
+			align-items:center;
+			gap:10px;
+			color: rgba(255,255,255,.88);
+			margin: 0 0 10px;
+			font-weight:600;
+		}
+		.dot{
+			width:10px;height:10px;border-radius:999px;
+			background: var(--accent2);
+			box-shadow: 0 0 0 4px rgba(127,255,212,.16);
+		}
+		.list{
+			margin: 10px 0 0;
+			padding-left: 18px;
+			color: var(--muted);
+		}
+		figure{
+			margin:0;
+		}
+		figure img{
+			width:100%;
+			height:auto;
+			display:block;
+			border-top-left-radius: var(--radius);
+			border-top-right-radius: var(--radius);
+			border-bottom: 1px solid var(--line);
+		}
+		figcaption{
+			padding: 12px 16px 16px;
+			color: var(--muted);
+			font-size: 12.5px;
+		}
+		.callout{
+			margin-top: 18px;
+			padding: 16px 16px 16px 18px;
+			border-radius: 16px;
+			border:1px solid rgba(122,167,255,.28);
+			background: linear-gradient(135deg, rgba(122,167,255,.14), rgba(127,255,212,.08));
+		}
+		.callout strong{
+			color:#ffffff;
+		}
+		.punch{
+			font-size: 18px;
+			font-weight: 700;
+			letter-spacing:.02em;
+			margin: 0 0 6px;
+		}
+		.small{
+			color: var(--muted);
+			margin:0;
+		}
+		footer{
+			margin-top: 18px;
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+			gap: 12px;
+			color: rgba(255,255,255,.62);
+			font-size: 12px;
+		}
+		.tag{
+			color: rgba(255,255,255,.82);
+			border:1px solid var(--line);
+			background: rgba(255,255,255,.06);
+			padding: 6px 10px;
+			border-radius: 999px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<header class="hero">
+			<div class="badge">🍎 SCIENCE / 図解</div>
+			<h1>なぜリンゴは透けないのか？──物が「ぶつからない」の理由</h1>
+			<p class="lead">
+				「原子はスカスカなのに、なぜ物はすり抜けないの？」<br>
+				答えは、目に見えない <strong>電子の電磁力</strong> にあります。
+			</p>
+		</header>
+
+		<section class="grid">
+
+			<article class="card">
+				<div class="inner">
+					<div class="kicker"><span class="dot"></span>日常の「当たり前」から</div>
+
+					<p>
+						私たちが手に持つリンゴ。<br>
+						通り抜けて、すり抜けたりしませんよね🍎<br>
+						しっかり掴めます。
+					</p>
+
+					<div class="quote">「いやいや、何を言ってるんだ。
+リンゴがすり抜けるわけないだろう」</div>
+
+					<p>
+						そう思いますよね。<br>
+						その感覚は、まったく正しいです。
+					</p>
+
+					<hr class="sep" />
+
+					<div class="kicker"><span class="dot"></span>でも実は──原子はスカスカ</div>
+
+					<p>
+						でも実は――<br>
+						原子レベルで見ると、リンゴはスカスカです。
+					</p>
+
+					<p>
+						原子は<br>
+						「小さな核 ＋ その周りを回る電子」<br>
+						でできていますが、<br>
+						そのほとんどは空間。
+					</p>
+
+					<ul class="list">
+						<li>例えるなら、原子核がビー玉なら、電子は数百メートル先。</li>
+						<li>リンゴ全体は、ほぼ「空洞の集合体」。</li>
+					</ul>
+
+					<p>
+						それなのに、なぜリンゴは手をすり抜けないのでしょう？
+					</p>
+
+					<hr class="sep" />
+
+					<div class="kicker"><span class="dot"></span>答え：電子の電磁力</div>
+
+					<p>
+						答えは <strong>電子の電磁力</strong>。<br>
+						あなたの手の電子と、リンゴの電子は、同じマイナス電荷を持っています。
+					</p>
+
+					<p>
+						近づくと――<br>
+						見えない力で、強く反発する。
+					</p>
+
+					<p>
+						つまり私たちは、物を「触っている」のではなく、<br>
+						<strong>電子同士が反発して止まっているだけ</strong>。
+					</p>
+
+					<div class="callout">
+						<p class="punch">「硬さ」や「手応え」の正体</p>
+						<p class="small">
+							私たちが触れている「硬さ」や「手応え」は、実は物そのものではありません。<br>
+							目に見えない電子の反発が、世界の形を支えています。
+						</p>
+					</div>
+
+					<p style="margin:18px 0 0;color:var(--muted);">
+						ミクロの世界は、想像以上に不思議です。
+					</p>
+				</div>
+			</article>
+
+			<aside class="card">
+				<figure>
+					<img src="img/bible_sec08_2.png" alt="図解：原子はスカスカだが、電子の電磁力で物はすり抜けない" />
+					<figcaption>
+						図解：原子は「核＋電子」だが大部分は空間。それでも物がすり抜けないのは、電子同士の反発（電磁力）が働くため。
+					</figcaption>
+				</figure>
+
+				<div class="inner">
+					<p class="h2">ポイント（超要約）</p>
+					<ul class="list">
+						<li>原子は見た目よりずっと「空間」が多い</li>
+						<li>それでも物が形を保つのは「電子の反発」</li>
+						<li>私たちが感じる“硬さ”は電磁力の手応え</li>
+					</ul>
+
+					<hr class="sep" />
+
+					<p class="h2">ハッシュタグ</p>
+					<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+						<span class="tag">#科学</span>
+						<span class="tag">#物理</span>
+						<span class="tag">#量子</span>
+						<span class="tag">#電磁力</span>
+					</div>
+				</div>
+			</aside>
+
+		</section>
+
+		<footer>
+			<div>© Infographic / Physics note</div>
+			<div class="tag">SNS用・読みやすい縦長レイアウト</div>
+		</footer>
+
+	</div>
+</body>
+</html>
