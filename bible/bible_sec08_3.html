@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>ストレスとは何か ─ 脳と体の仕組み</title>
+	<style>
+		:root{
+			--bg: #0b1020;
+			--panel: rgba(255,255,255,0.06);
+			--panel2: rgba(255,255,255,0.08);
+			--text: rgba(255,255,255,0.92);
+			--muted: rgba(255,255,255,0.72);
+			--line: rgba(255,255,255,0.14);
+			--accent: #7dd3fc;
+			--accent2:#a78bfa;
+			--good:#34d399;
+			--warn:#fbbf24;
+			--bad:#fb7185;
+			--shadow: 0 18px 50px rgba(0,0,0,0.35);
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic", "Meiryo", sans-serif;
+			color: var(--text);
+			background:
+				radial-gradient(1200px 700px at 15% 10%, rgba(125,211,252,0.18), transparent 60%),
+				radial-gradient(1000px 600px at 85% 20%, rgba(167,139,250,0.18), transparent 55%),
+				radial-gradient(900px 600px at 50% 90%, rgba(52,211,153,0.10), transparent 55%),
+				linear-gradient(180deg, #070a14 0%, var(--bg) 40%, #070a14 100%);
+		}
+		a{color: var(--accent); text-decoration:none}
+		a:hover{text-decoration:underline}
+		.wrap{max-width: 1024px; margin: 0 auto; padding: 28px 18px 64px}
+		header.hero{
+			background: linear-gradient(135deg, rgba(125,211,252,0.12), rgba(167,139,250,0.10));
+			border: 1px solid var(--line);
+			border-radius: 22px;
+			padding: 22px 18px;
+			box-shadow: var(--shadow);
+			position: relative;
+			overflow:hidden;
+		}
+		header.hero:before{
+			content:"";
+			position:absolute; inset:-2px;
+			background: radial-gradient(700px 300px at 20% 20%, rgba(125,211,252,0.16), transparent 55%),
+						radial-gradient(700px 300px at 80% 20%, rgba(167,139,250,0.14), transparent 55%);
+			pointer-events:none;
+		}
+		.hero-inner{position:relative; display:grid; gap:12px}
+		.kicker{
+			display:inline-flex; gap:10px; align-items:center;
+			color: var(--muted);
+			font-weight:600;
+			letter-spacing:.02em;
+		}
+		.badge{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			padding: 6px 10px;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: rgba(255,255,255,0.06);
+			font-size: 12px;
+			color: var(--muted);
+		}
+		h1{
+			margin: 4px 0 0;
+			font-size: clamp(26px, 3.2vw, 40px);
+			line-height: 1.12;
+			letter-spacing: .01em;
+		}
+		.lead{
+			margin: 0;
+			color: var(--muted);
+			font-size: 15px;
+			line-height: 1.7;
+			max-width: 78ch;
+		}
+		.grid{
+			margin-top: 18px;
+			display:grid;
+			grid-template-columns: 1.3fr 0.7fr;
+			gap: 16px;
+		}
+		@media (max-width: 880px){
+			.grid{grid-template-columns:1fr}
+		}
+		.card{
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			padding: 16px;
+			box-shadow: var(--shadow);
+		}
+		.card h2{
+			margin:0 0 10px;
+			font-size: 18px;
+			letter-spacing:.01em;
+		}
+		.card h3{
+			margin:18px 0 8px;
+			font-size: 16px;
+		}
+		.card p{margin: 8px 0; color: var(--text); line-height:1.8}
+		.muted{color: var(--muted)}
+		.hr{
+			height:1px; background: var(--line);
+			margin: 14px 0;
+		}
+		.callout{
+			background: rgba(255,255,255,0.06);
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			padding: 12px 12px;
+		}
+		.callout strong{color: #ffffff}
+		.bullets{
+			margin: 10px 0 0;
+			padding-left: 1.1em;
+			color: var(--text);
+			line-height: 1.8;
+		}
+		.bullets li{margin: 6px 0}
+		.pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+		.pill{
+			display:inline-flex; align-items:center; gap:8px;
+			padding: 7px 10px;
+			border-radius: 999px;
+			border:1px solid var(--line);
+			background: rgba(255,255,255,0.06);
+			font-size: 13px;
+			color: var(--muted);
+		}
+		.dot{width:8px; height:8px; border-radius:99px; display:inline-block}
+		.dot.good{background: var(--good)}
+		.dot.warn{background: var(--warn)}
+		.dot.bad{background: var(--bad)}
+		figure{
+			margin: 0;
+			border-radius: 16px;
+			overflow:hidden;
+			border: 1px solid var(--line);
+			background: rgba(0,0,0,0.25);
+		}
+		figure img{
+			width:100%;
+			height:auto;
+			display:block;
+		}
+		figcaption{
+			padding: 10px 12px;
+			color: var(--muted);
+			font-size: 12.5px;
+			line-height: 1.6;
+			border-top: 1px solid var(--line);
+			background: rgba(255,255,255,0.04);
+		}
+
+		/* Table */
+		.table-wrap{overflow:auto; border-radius: 14px; border:1px solid var(--line)}
+		table{
+			width:100%;
+			border-collapse: collapse;
+			min-width: 560px;
+			background: rgba(255,255,255,0.03);
+		}
+		th, td{
+			padding: 10px 12px;
+			border-bottom: 1px solid rgba(255,255,255,0.10);
+			vertical-align: top;
+		}
+		th{
+			text-align:left;
+			font-size: 13px;
+			color: rgba(255,255,255,0.80);
+			background: rgba(255,255,255,0.05);
+			position: sticky;
+			top: 0;
+			backdrop-filter: blur(6px);
+		}
+		td{color: rgba(255,255,255,0.88); line-height:1.7}
+		tr:last-child td{border-bottom:none}
+
+		/* Section headings */
+		.sec{
+			margin-top: 16px;
+			padding-top: 6px;
+		}
+		.sec-title{
+			display:flex;
+			align-items: baseline;
+			gap:10px;
+			margin: 0 0 8px;
+		}
+		.num{
+			font-weight:800;
+			color: rgba(255,255,255,0.92);
+			background: linear-gradient(135deg, rgba(125,211,252,0.22), rgba(167,139,250,0.18));
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			padding: 6px 10px;
+			font-size: 13px;
+			letter-spacing:.02em;
+		}
+		.sec-title h2{
+			margin:0;
+			font-size: 18px;
+		}
+
+		/* Bengali block */
+		.lang{
+			font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans Bengali", "Hind Siliguri", "SolaimanLipi", sans-serif;
+		}
+		.quote{
+			background: rgba(255,255,255,0.05);
+			border: 1px solid var(--line);
+			border-left: 4px solid rgba(125,211,252,0.65);
+			border-radius: 14px;
+			padding: 14px 14px;
+		}
+		.hash{
+			display:flex;
+			flex-wrap:wrap;
+			gap:10px;
+			margin-top: 10px;
+			color: rgba(255,255,255,0.70);
+			font-size: 13px;
+		}
+		footer{
+			margin-top: 18px;
+			color: rgba(255,255,255,0.65);
+			font-size: 12.5px;
+			line-height: 1.7;
+			text-align:center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<header class="hero">
+			<div class="hero-inner">
+				<div class="kicker">
+					<span class="badge">脳と体のメカニズム</span>
+					<span class="badge">ストレス理解・セルフケア</span>
+				</div>
+				<h1>ストレスとは何か ─ 脳が体を守る「正常反応」</h1>
+				<p class="lead">
+					ストレスは「弱さ」ではなく、脳が危険・負担・変化を察知したときに体を守るために起こす生理反応です。
+					短期では役立ちますが、長期化すると心身の不調として表に出てきます。
+				</p>
+				<div class="pills">
+					<span class="pill"><span class="dot good"></span>短期：集中・行動の助け</span>
+					<span class="pill"><span class="dot warn"></span>中期：疲労・睡眠の乱れ</span>
+					<span class="pill"><span class="dot bad"></span>長期：体調不良・不安の増大</span>
+				</div>
+			</div>
+		</header>
+
+		<div class="grid">
+			<main class="card">
+				<!-- 1 -->
+				<section class="sec" id="sec1">
+					<div class="sec-title">
+						<span class="num">1</span>
+						<h2>ストレスとは何か（結論）</h2>
+					</div>
+
+					<div class="callout">
+						<p><strong>ストレスとは「脳が危険・負担・変化を察知したときに、体を守るために起こす生理反応の総称」</strong>です。</p>
+						<p class="muted">重要なのは 👉 <strong>ストレス＝悪いものではない</strong> という点です。</p>
+					</div>
+
+					<p>もともとは次の目的をもつ防御システムです。</p>
+					<ul class="bullets">
+						<li>生き延びるため</li>
+						<li>すぐ行動できるようにするため</li>
+					</ul>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 2 -->
+				<section class="sec" id="sec2">
+					<div class="sec-title">
+						<span class="num">2</span>
+						<h2>ストレスが起こるとき、脳で何が起きるか</h2>
+					</div>
+
+					<h3>① 扁桃体（へんとうたい）が「危険」を察知</h3>
+					<ul class="bullets">
+						<li>扁桃体は「警報装置」</li>
+						<li>外敵・不安・プレッシャー・失敗の可能性などを感知</li>
+						<li>現実の危険だけでなく、想像・予測でも反応する</li>
+					</ul>
+					<p class="muted">例：上司の視線 / 〆切 / 将来への不安 👉 実際に危険がなくても作動する</p>
+
+					<h3>② 視床下部が非常事態宣言</h3>
+					<p>扁桃体の信号を受けて、視床下部が指令を出します。ここで <strong>2つの経路</strong> が動きます。</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 3 -->
+				<section class="sec" id="sec3">
+					<div class="sec-title">
+						<span class="num">3</span>
+						<h2>体に起こる2つのストレス反応</h2>
+					</div>
+
+					<h3>① 自律神経ルート（即効型）</h3>
+					<ul class="bullets">
+						<li>交感神経が優位</li>
+						<li>数秒〜数分で反応</li>
+					</ul>
+					<p><strong>起こること：</strong></p>
+					<ul class="bullets">
+						<li>心拍数↑</li>
+						<li>血圧↑</li>
+						<li>筋肉が緊張</li>
+						<li>瞳孔が開く</li>
+						<li>消化が抑制される</li>
+					</ul>
+					<p class="muted">👉「戦うか逃げるか（Fight or Flight）」状態</p>
+
+					<h3>② ホルモンルート（持続型）</h3>
+					<ul class="bullets">
+						<li><strong>HPA軸（視床下部→下垂体→副腎）</strong>が作動</li>
+						<li>副腎からコルチゾールが分泌</li>
+					</ul>
+
+					<p><strong>コルチゾールの役割：</strong></p>
+					<ul class="bullets">
+						<li>血糖値を上げてエネルギー確保</li>
+						<li>炎症を抑える</li>
+						<li>集中力を一時的に高める</li>
+					</ul>
+					<p class="muted">👉 短期なら有益、長期だと問題になる</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 4 -->
+				<section class="sec" id="sec4">
+					<div class="sec-title">
+						<span class="num">4</span>
+						<h2>なぜ「ストレスが体調不良になる」のか</h2>
+					</div>
+
+					<p>ストレスが長引くと起こること：</p>
+
+					<div class="table-wrap" role="region" aria-label="ストレス長期化の影響テーブル">
+						<table>
+							<thead>
+								<tr>
+									<th style="width: 30%;">部位</th>
+									<th>影響</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td>脳</td><td>集中力低下、意欲低下、不安増大</td></tr>
+								<tr><td>自律神経</td><td>交感神経が切れなくなる</td></tr>
+								<tr><td>免疫</td><td>免疫力低下・感染しやすくなる</td></tr>
+								<tr><td>消化器</td><td>胃痛、下痢、便秘</td></tr>
+								<tr><td>筋肉</td><td>肩こり、頭痛</td></tr>
+								<tr><td>睡眠</td><td>寝つけない、浅い眠り</td></tr>
+							</tbody>
+						</table>
+					</div>
+
+					<p class="muted" style="margin-top:10px;">👉 「休め」というサインが体に出る</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 5 -->
+				<section class="sec" id="sec5">
+					<div class="sec-title">
+						<span class="num">5</span>
+						<h2>ストレスは「出来事」ではなく「反応」</h2>
+					</div>
+
+					<p>ここがとても大切なポイントです。</p>
+
+					<div class="callout">
+						<p>❌ <strong>ストレスの正体</strong>：「仕事」「人間関係」「騒音」</p>
+						<p>⭕ <strong>本当の正体</strong>：それをどう脳が解釈したか</p>
+					</div>
+
+					<p>同じ出来事でも：</p>
+					<ul class="bullets">
+						<li>「脅威」と認識 → 強いストレス</li>
+						<li>「対処可能」と認識 → ほぼストレスなし</li>
+					</ul>
+					<p class="muted">👉 ストレスは脳内現象</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 6 -->
+				<section class="sec" id="sec6">
+					<div class="sec-title">
+						<span class="num">6</span>
+						<h2>ストレスが強い人ほど真面目な理由</h2>
+					</div>
+
+					<p>脳は次のような人ほど反応しやすいです。</p>
+					<ul class="bullets">
+						<li>責任感が強い</li>
+						<li>先を考える</li>
+						<li>他人を気遣う</li>
+						<li>完璧を目指す</li>
+					</ul>
+					<p class="muted">👉 能力が高い脳ほど、ストレス反応が出やすい（これは弱さではありません）</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 7 -->
+				<section class="sec" id="sec7">
+					<div class="sec-title">
+						<span class="num">7</span>
+						<h2>回復に必要なのは「意志」ではない</h2>
+					</div>
+
+					<p>ストレスから回復するには「頑張って休む」では不十分です。</p>
+
+					<p><strong>脳が必要としているのは：</strong></p>
+					<ul class="bullets">
+						<li>安全だと感じる時間</li>
+						<li>予測できる環境</li>
+						<li>評価されない時間</li>
+						<li>意味を考えなくていい行動（散歩・入浴・単純作業）</li>
+					</ul>
+					<p class="muted">👉 これが副交感神経を戻します。</p>
+				</section>
+
+				<div class="hr"></div>
+
+				<!-- 8 -->
+				<section class="sec" id="sec8">
+					<div class="sec-title">
+						<span class="num">8</span>
+						<h2>まとめ（重要ポイント）</h2>
+					</div>
+
+					<ul class="bullets">
+						<li>ストレスは生存のための正常反応</li>
+						<li>脳（扁桃体）が危険を察知すると体が動く</li>
+						<li>短期は有益、長期は不調の原因</li>
+						<li>問題は「量」と「持続」</li>
+						<li>ストレスが出る人はむしろ真面目で能力が高い</li>
+						<li>回復には「安心感」が最優先</li>
+					</ul>
+
+					<div class="callout" style="margin-top:12px;">
+						<p class="muted" style="margin:0;">
+							もしよければ次に「疲労との違い」「なぜ休んでも回復しないのか」「不安が夜に強くなる理由」なども、脳の仕組みから解説できます。
+						</p>
+					</div>
+				</section>
+			</main>
+
+			<aside class="card">
+
+				<figure>
+					<img src="img/bible_sec08_3.png" width="1536" height="1080" alt="年老いた親と子供をあやしながら料理を作る、ストレスを感じた母キツネのイラスト" />
+					<figcaption>
+						忙しさと責任が重なると、脳は「非常事態」と判断しやすくなります。<br/>
+						ストレス反応は弱さではなく、体を守るための仕組みです。
+					</figcaption>
+				</figure>
+
+				<div class="hr"></div>
+
+				<h2 class="lang">【স্ট্রেস আসলে কী?】</h2>
+				<div class="quote lang">
+					<p style="margin-top:0;"><strong>এটা আপনার মন দুর্বল বলেই নয়।</strong></p>
+					<p>স্ট্রেস হলো—মস্তিষ্ক শরীরকে রক্ষা করার জন্য যে স্বাভাবিক প্রতিক্রিয়া তৈরি করে।</p>
+
+					<p>স্ট্রেস সৃষ্টি হয় না শুধু কাজ বা মানুষের সম্পর্কের কারণে। বরং, মস্তিষ্ক যখন কোনো বিষয়কে “ঝুঁকি” বা “বড় চাপ” বলে মনে করে, তখনই স্ট্রেস তৈরি হয়।</p>
+
+					<p>বাস্তবে বিপদ না থাকলেও, দুশ্চিন্তা, ভবিষ্যৎ ভাবনা, দায়িত্ববোধ—এই সব কিছুর কারণেই মস্তিষ্ক সতর্ক সংকেত চালু করে।</p>
+
+					<p>মস্তিষ্ক যখন বিপদ অনুভব করে, তখন<br/>
+						✔ হৃদস্পন্দন বেড়ে যায়<br/>
+						✔ শরীর শক্ত হয়ে যায়<br/>
+						✔ হজম ও ঘুম পিছিয়ে যায়
+					</p>
+
+					<p>এটা হলো “লড়াই বা পালানোর জন্য প্রস্তুত” অবস্থা। (শরীর বাঁচার মোডে চলে যায়)</p>
+
+					<p>মূলত, স্বল্প সময়ের জন্য স্ট্রেস উপকারী। কিন্তু যদি তা দীর্ঘ সময় বন্ধ না হয়, তাহলে তা ক্লান্তি, উদ্বেগ, অনিদ্রা ও শারীরিক অসুস্থতা হিসেবে প্রকাশ পায়।</p>
+
+					<p>একটি খুব গুরুত্বপূর্ণ সত্য আছে। যাদের স্ট্রেস বেশি হয়, তারা সাধারণত দায়িত্বশীল এবং গভীরভাবে চিন্তা করতে পারে। এটা দুর্বলতার লক্ষণ নয়। বরং, চিন্তাশীল ও দায়িত্ববান মস্তিষ্কের স্বাভাবিক প্রতিক্রিয়া।</p>
+
+					<p>তাই প্রয়োজন নেই “আরও বেশি চেষ্টা করার”。</p>
+
+					<p>মস্তিষ্কের আসল প্রয়োজন হলো—<br/>
+						✔ নিরাপদ বলে মনে হওয়া সময়<br/>
+						✔ কারও মূল্যায়ন ছাড়া থাকা সময়<br/>
+						✔ কিছু না ভেবে করা সহজ কাজ
+					</p>
+
+					<p>এগুলোই হলো আরোগ্যের সুইচ।</p>
+
+					<p>সহজেই ক্লান্ত হয়ে পড়া নিজেকে দোষ দেওয়ার দরকার নেই। এটা প্রমাণ করে—আপনার শরীর ও মস্তিষ্ক ঠিকভাবেই কাজ করছে।</p>
+
+					<p style="margin-bottom:0;">বিশ্রাম নেওয়া কোনো দুর্বলতা নয়। এটা শরীরের স্বাভাবিক ও প্রয়োজনীয় চাহিদা। অনুগ্রহ করে এটা ভুলবেন না।</p>
+				</div>
+
+				<div class="hash">
+					<span>#চাপ</span>
+					<span>#ストレス</span>
+					<span>#脳と体</span>
+				</div>
+
+				<div class="hr"></div>
+
+				<h2>参考</h2>
+				<p class="muted" style="margin-bottom:6px;">আরও তথ্য（外部リンク）</p>
+				<p style="margin:0;">
+					<a href="https://www.jw.org/finder?wtlocale=BE&docid=102020006&srcid=share" target="_blank" rel="noopener noreferrer">
+						jw.org（資料）
+					</a>
+				</p>
+			</aside>
+		</div>
+
+		<footer>
+			<p style="margin:0;">このHTMLは1ファイルで動く構成です。画像ファイル <strong>img/bible_sec08_3.png</strong> を同階層の img フォルダに配置してください。</p>
+		</footer>
+	</div>
+</body>
+</html>

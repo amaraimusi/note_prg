@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>孤独と寂しさの違い｜孤独は恥ずかしい事ではありません</title>
+	<style>
+		:root{
+			--bg:#0b1220;
+			--card:#111a2e;
+			--card2:#0f172a;
+			--text:#e8eefc;
+			--muted:#b8c4e6;
+			--sub:#9fb0dd;
+			--line:rgba(255,255,255,.10);
+			--accent:#7dd3fc;
+			--accent2:#a78bfa;
+			--good:#34d399;
+			--warn:#fbbf24;
+			--shadow: 0 18px 40px rgba(0,0,0,.35);
+			--radius: 18px;
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN",
+				"Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+			background:
+				radial-gradient(1200px 700px at 20% -10%, rgba(167,139,250,.22), transparent 55%),
+				radial-gradient(900px 600px at 80% 0%, rgba(125,211,252,.20), transparent 60%),
+				linear-gradient(180deg, #071022 0%, #0b1220 50%, #070b14 100%);
+			color:var(--text);
+			line-height:1.75;
+		}
+		a{color:var(--accent)}
+		.container{
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 28px 18px 64px;
+		}
+		.hero{
+			border:1px solid var(--line);
+			background: linear-gradient(135deg, rgba(125,211,252,.14), rgba(167,139,250,.12));
+			border-radius: calc(var(--radius) + 6px);
+			box-shadow: var(--shadow);
+			padding: 26px 22px;
+			position: relative;
+			overflow:hidden;
+		}
+		.hero:before{
+			content:"";
+			position:absolute;
+			inset:-40px -40px auto auto;
+			width:260px;height:260px;
+			background: radial-gradient(circle at 30% 30%, rgba(125,211,252,.25), transparent 60%);
+			filter: blur(0px);
+			transform: rotate(18deg);
+		}
+		.kicker{
+			display:inline-flex;
+			gap:10px;
+			align-items:center;
+			font-weight:700;
+			letter-spacing:.05em;
+			color:var(--muted);
+			font-size: 13px;
+			text-transform: uppercase;
+		}
+		.badge{
+			display:inline-block;
+			padding:6px 10px;
+			border-radius:999px;
+			border:1px solid var(--line);
+			background: rgba(15,23,42,.55);
+		}
+		h1{
+			margin: 14px 0 8px;
+			font-size: clamp(24px, 3.4vw, 38px);
+			line-height:1.25;
+		}
+		.lead{
+			margin: 0;
+			color: var(--muted);
+			font-size: 16px;
+			max-width: 70ch;
+		}
+		.grid{
+			display:grid;
+			grid-template-columns: 1.05fr .95fr;
+			gap: 18px;
+			margin-top: 18px;
+		}
+		@media (max-width: 860px){
+			.grid{grid-template-columns: 1fr;}
+		}
+		.card{
+			border:1px solid var(--line);
+			background: rgba(17,26,46,.70);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			padding: 18px 18px;
+		}
+		.card h2{
+			margin: 0 0 10px;
+			font-size: 20px;
+			display:flex;
+			align-items:center;
+			gap:10px;
+		}
+		.icon{
+			width:34px;height:34px;
+			display:inline-grid;
+			place-items:center;
+			border-radius: 12px;
+			background: rgba(125,211,252,.12);
+			border:1px solid rgba(125,211,252,.22);
+		}
+		.card p{margin: 8px 0; color: var(--text);}
+		.small{color: var(--muted); font-size: 14px;}
+		hr.sep{
+			border:0;
+			border-top:1px solid var(--line);
+			margin: 18px 0;
+		}
+		.list{
+			margin: 10px 0 0;
+			padding-left: 1.15em;
+			color: var(--muted);
+		}
+		.list li{margin: 6px 0;}
+		.callout{
+			margin-top: 14px;
+			padding: 14px 14px;
+			border-radius: 16px;
+			border:1px solid rgba(52,211,153,.22);
+			background: rgba(52,211,153,.08);
+			color: var(--text);
+		}
+		.callout strong{color: #d7ffe9;}
+		.figure{
+			border-radius: calc(var(--radius) + 4px);
+			overflow:hidden;
+			border:1px solid var(--line);
+			background: rgba(15,23,42,.65);
+			box-shadow: var(--shadow);
+		}
+		.figure img{
+			width:100%;
+			height:auto;
+			display:block;
+		}
+		.figcap{
+			padding: 10px 12px;
+			color: var(--muted);
+			font-size: 13px;
+		}
+		.table-wrap{
+			overflow:auto;
+			border-radius: 16px;
+			border:1px solid var(--line);
+			background: rgba(15,23,42,.55);
+		}
+		table{
+			width:100%;
+			border-collapse: collapse;
+			min-width: 620px;
+		}
+		th, td{
+			padding: 12px 12px;
+			border-bottom:1px solid var(--line);
+			vertical-align: top;
+		}
+		th{
+			color: var(--text);
+			text-align:left;
+			background: rgba(255,255,255,.03);
+			position: sticky;
+			top: 0;
+			z-index: 1;
+		}
+		td{color: var(--muted);}
+		td b{color: var(--text);}
+		.pill{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			padding: 7px 10px;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(17,26,46,.75);
+			color: var(--muted);
+			font-size: 13px;
+		}
+		.pill .dot{
+			width:10px;height:10px;border-radius:999px;
+			background: var(--accent);
+			box-shadow: 0 0 0 3px rgba(125,211,252,.15);
+		}
+		.pill.warn .dot{background: var(--warn); box-shadow: 0 0 0 3px rgba(251,191,36,.15);}
+		.pill.good .dot{background: var(--good); box-shadow: 0 0 0 3px rgba(52,211,153,.15);}
+		.section{
+			margin-top: 18px;
+		}
+		.section h3{
+			margin: 0 0 10px;
+			font-size: 18px;
+			display:flex;
+			gap:10px;
+			align-items:center;
+		}
+		.section .emoji{
+			font-size: 18px;
+			width:30px;height:30px;
+			display:inline-grid;
+			place-items:center;
+			border-radius: 12px;
+			background: rgba(167,139,250,.12);
+			border:1px solid rgba(167,139,250,.22);
+		}
+		.quote{
+			margin: 14px 0 0;
+			padding: 14px 16px;
+			border-left: 4px solid rgba(125,211,252,.55);
+			background: rgba(125,211,252,.07);
+			border-radius: 12px;
+			color: var(--muted);
+		}
+		.footer{
+			margin-top: 26px;
+			padding-top: 18px;
+			border-top: 1px solid var(--line);
+			color: var(--sub);
+			font-size: 13px;
+		}
+		.kbd{
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Mono", monospace;
+			background: rgba(255,255,255,.08);
+			border: 1px solid rgba(255,255,255,.12);
+			padding: 2px 7px;
+			border-radius: 8px;
+			color: var(--text);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<header class="hero">
+			<div class="kicker">
+				<span class="badge">Loneliness &amp; Loneliness-feeling</span>
+				<span class="badge">読みもの</span>
+				<span class="badge">心の整理</span>
+			</div>
+			<h1>孤独と寂しさの違いを知る<br>そして「孤独＝恥」という思い込みから自由になる</h1>
+			<p class="lead">
+				「孤独」と「寂しさ」は似ているようで、性質が異なります。
+				この違いを理解するだけでも、自分の状態を客観視しやすくなり、必要なケアが見えやすくなります。
+			</p>
+		</header>
+
+		<div class="grid">
+
+			<!-- 左：本文の前置き＋要点 -->
+			<section class="card">
+				<h2><span class="icon">🧭</span>この記事のポイント</h2>
+				<div style="display:flex; gap:10px; flex-wrap:wrap;">
+					<span class="pill good"><span class="dot"></span>孤独＝状態（外的）</span>
+					<span class="pill warn"><span class="dot"></span>寂しさ＝心の痛み（内的）</span>
+					<span class="pill"><span class="dot"></span>問題は「一人」より「つながれていない感覚」</span>
+				</div>
+
+				<div class="callout">
+					<strong>覚えておきたいこと：</strong><br>
+					孤独そのものは必ずしも悪いものではありません。集中・創造・内省・回復の時間として、積極的に選ばれる孤独もあります。
+				</div>
+
+				<hr class="sep">
+
+				<p class="small">
+					※ 本ページは読みやすさ重視の構成です。SNS投稿や配布資料への転用もしやすいよう、見出し・表・要点を整理しています。
+				</p>
+			</section>
+
+			<!-- 右：挿絵 -->
+			<aside class="figure">
+				<img src="img/bible_sec08_4.png" width="1080" height="1536" alt="パーティ会場にて孤独を感じる人の挿絵">
+				<div class="figcap">挿絵：パーティ会場で孤独を感じるイメージ（img/bible_sec08_4.png）</div>
+			</aside>
+
+		</div>
+
+		<!-- 1. 孤独とは何か -->
+		<section class="card section" id="sec1">
+			<h3><span class="emoji">①</span>孤独とは何か</h3>
+			<p>
+				<strong>孤独</strong>とは、<br>
+				<b>人とのつながりが実際に少ない、または物理的・社会的に一人でいる状態</b>を指します。
+			</p>
+
+			<div class="grid" style="grid-template-columns:1fr 1fr; margin-top:12px;">
+				<div class="card" style="background: rgba(15,23,42,.55); box-shadow:none;">
+					<h2 style="margin:0 0 8px; font-size:16px;"><span class="icon">🧾</span>特徴</h2>
+					<ul class="list">
+						<li>客観的・外的な状態</li>
+						<li>人数や接触の有無で判断されやすい</li>
+					</ul>
+				</div>
+				<div class="card" style="background: rgba(15,23,42,.55); box-shadow:none;">
+					<h2 style="margin:0 0 8px; font-size:16px;"><span class="icon">📌</span>例</h2>
+					<ul class="list">
+						<li>一人暮らし</li>
+						<li>周囲に知り合いがいない環境</li>
+						<li>会話や交流の機会がほとんどない生活</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="callout" style="margin-top:12px;">
+				<strong>ポイント：</strong>
+				孤独そのものは、必ずしも悪いものではありません。集中、創造、内省、回復の時間として、積極的に選ばれる孤独もあります。
+			</div>
+		</section>
+
+		<!-- 2. 寂しさとは何か -->
+		<section class="card section" id="sec2">
+			<h3><span class="emoji">②</span>寂しさとは何か</h3>
+			<p>
+				<strong>寂しさ</strong>とは、<br>
+				<b>つながりを求めているのに、それが満たされていないと感じる心の状態</b>です。
+			</p>
+
+			<div class="grid" style="grid-template-columns:1fr 1fr; margin-top:12px;">
+				<div class="card" style="background: rgba(15,23,42,.55); box-shadow:none;">
+					<h2 style="margin:0 0 8px; font-size:16px;"><span class="icon">🫀</span>特徴</h2>
+					<ul class="list">
+						<li>主観的・内面的な感情</li>
+						<li>人が周囲にいても生じる</li>
+					</ul>
+				</div>
+				<div class="card" style="background: rgba(15,23,42,.55); box-shadow:none;">
+					<h2 style="margin:0 0 8px; font-size:16px;"><span class="icon">📌</span>例</h2>
+					<ul class="list">
+						<li>家族や同僚に囲まれているのに理解されていないと感じる</li>
+						<li>SNSで多くのやり取りがあっても虚しさを覚える</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="callout" style="border-color: rgba(251,191,36,.22); background: rgba(251,191,36,.08);">
+				<strong>ポイント：</strong>
+				寂しさは「関係の量」ではなく「関係の質」によって生じます。
+			</div>
+		</section>
+
+		<!-- 3. 違い -->
+		<section class="card section" id="sec3">
+			<h3><span class="emoji">③</span>孤独と寂しさの決定的な違い</h3>
+
+			<div class="table-wrap" aria-label="孤独と寂しさの違い">
+				<table>
+					<thead>
+						<tr>
+							<th>項目</th>
+							<th>孤独</th>
+							<th>寂しさ</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>性質</b></td>
+							<td>状態</td>
+							<td>感情</td>
+						</tr>
+						<tr>
+							<td><b>判断基準</b></td>
+							<td>外的・客観的</td>
+							<td>内的・主観的</td>
+						</tr>
+						<tr>
+							<td><b>人がいても起こる？</b></td>
+							<td>起こりにくい</td>
+							<td>起こる</td>
+						</tr>
+						<tr>
+							<td><b>一人でも平気？</b></td>
+							<td>平気な場合あり</td>
+							<td>平気ではない</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p class="quote">
+				一人でも寂しくない人もいれば、<br>
+				人に囲まれていても強い寂しさを感じる人もいます。
+			</p>
+		</section>
+
+		<!-- 4. なぜ増える -->
+		<section class="card section" id="sec4">
+			<h3><span class="emoji">④</span>なぜ現代では寂しさが増えているのか</h3>
+			<p>現代社会では、次のような要因が重なっています。</p>
+			<ul class="list">
+				<li>表面的なつながり（SNS・効率重視の人間関係）</li>
+				<li>本音を出しにくい空気</li>
+				<li>比較が可視化されやすい環境</li>
+				<li>「弱さを見せてはいけない」という無言の圧力</li>
+			</ul>
+			<div class="callout">
+				<strong>結果：</strong><br>
+				人とつながっている「ように見える」けれど、心が触れ合っていないという状況が増えています。
+			</div>
+		</section>
+
+		<!-- 5. メッセージ -->
+		<section class="card section" id="sec5">
+			<h3><span class="emoji">⑤</span>寂しさが伝えているメッセージ</h3>
+			<p>
+				寂しさは敵ではありません。<br>
+				それは心からのサインです。
+			</p>
+			<ul class="list">
+				<li>「誰かと理解し合いたい」</li>
+				<li>「安心できる関係がほしい」</li>
+				<li>「自分の存在を大切に扱ってほしい」</li>
+			</ul>
+			<p class="quote">
+				つまり寂しさは、<br>
+				人が人として健全である証拠でもあります。
+			</p>
+		</section>
+
+		<!-- 6. ヒント -->
+		<section class="card section" id="sec6">
+			<h3><span class="emoji">⑥</span>向き合い方のヒント</h3>
+			<ul class="list">
+				<li>無理に埋めようとしない</li>
+				<li>「誰といるか」より「どう関われているか」を見直す</li>
+				<li>一人の時間を敵視しない</li>
+				<li>自分の気持ちを言葉にする練習をする</li>
+			</ul>
+			<div class="callout">
+				<strong>大切なこと：</strong><br>
+				孤独を恐れず、寂しさを否定せず、その奥にある「本当の欲求」を見つめることが大切です。
+			</div>
+		</section>
+
+		<!-- まとめ -->
+		<section class="card section" id="summary">
+			<h3><span class="emoji">✅</span>まとめ</h3>
+			<ul class="list">
+				<li><b>孤独</b>は状態</li>
+				<li><b>寂しさ</b>は心の痛み</li>
+				<li>問題なのは「一人でいること」ではなく、心が誰ともつながれていないと感じること</li>
+			</ul>
+			<p class="quote">
+				この区別を知るだけでも、<br>
+				自分自身への理解は一段深まります。
+			</p>
+		</section>
+
+		<!-- 孤独＝恥 について -->
+		<section class="card section" id="shame">
+			<h3><span class="emoji">🫧</span>孤独であることを恥ずかしいと感じる人もいます</h3>
+			<p>
+				はい、その感覚はとても多くの人が抱いていますし、社会的に作られたものでもあります。<br>
+				なぜ「孤独＝恥ずかしい」と感じてしまうのかを整理してみます。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">①</span>社会が「つながっている人」を評価するから</h3>
+			<p>現代社会では、</p>
+			<ul class="list">
+				<li>友人が多い</li>
+				<li>家族・恋人がいる</li>
+				<li>常に誰かと行動している</li>
+			</ul>
+			<p>
+				こうした状態が「普通」「成功」「健全」と暗黙に評価されがちです。<br>
+				そのため、孤独は<strong>人間関係に失敗している証拠</strong>のように誤解されてしまいます。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">②</span>「孤独＝欠陥」という思い込み</h3>
+			<p>多くの人は無意識にこう考えています。</p>
+			<ul class="list">
+				<li>性格に問題がある</li>
+				<li>努力が足りない</li>
+				<li>魅力がない</li>
+			</ul>
+			<p>
+				しかしこれは事実ではなく思い込みです。<br>
+				孤独は状況・環境・価値観の結果であり、人格の欠陥ではありません。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">③</span>他人の目を内面化している</h3>
+			<p>
+				「一人でいるところを見られたらどう思われるか」<br>
+				「寂しい人だと思われたくない」
+			</p>
+			<p>
+				これは他人の評価を、自分自身の裁判官として心の中に置いている状態です。<br>
+				すると孤独そのものよりも、<strong>孤独である自分を恥じる気持ち</strong>が苦しさを増幅させます。
+			</p>
+
+			<div class="callout" style="border-color: rgba(167,139,250,.25); background: rgba(167,139,250,.10);">
+				<strong>実は「恥」は孤独そのものから生まれていない</strong><br>
+				<ul class="list" style="margin-top:10px;">
+					<li>孤独 → 苦しい（ことがある）</li>
+					<li>孤独を恥だと判断する → さらに苦しい</li>
+				</ul>
+				<p style="margin:8px 0 0; color: var(--muted);">
+					つまり、二重の苦しみが生まれています。恥は感情ですが、その根拠は社会的な価値観に由来することが多いのです。
+				</p>
+			</div>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">🌿</span>孤独は人間の自然な状態でもある</h3>
+			<p>歴史的・心理学的に見ても、</p>
+			<ul class="list">
+				<li>思索</li>
+				<li>創作</li>
+				<li>信仰</li>
+				<li>回復</li>
+				<li>成熟</li>
+			</ul>
+			<p>
+				これらは多くの場合、孤独な時間の中で育まれてきました。<br>
+				孤独を経験しない人生のほうが、むしろ不自然です。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">🤍</span>「恥ずかしい」と感じる人ほど、実は真面目</h3>
+			<p>孤独を恥ずかしいと感じる人は、</p>
+			<ul class="list">
+				<li>周囲と調和しようとする</li>
+				<li>他人の気持ちを想像できる</li>
+				<li>社会的感受性が高い</li>
+			</ul>
+			<p>
+				という側面を持っていることが多いです。<br>
+				それ自体は弱さではなく、感受性の高さです。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">🔄</span>視点を少し変えると</h3>
+			<ul class="list">
+				<li>「孤独でいる」＝「今は一人の時間を生きている」</li>
+				<li>「孤独」＝「関係を大切にしたい証拠」</li>
+				<li>「恥」＝「他人の物差しを一時的に借りているだけ」</li>
+			</ul>
+			<p>
+				孤独は隠すべき欠点ではなく、人生のある局面にすぎません。
+			</p>
+
+			<hr class="sep">
+
+			<h3><span class="emoji">✅</span>まとめ</h3>
+			<ul class="list">
+				<li>孤独を恥ずかしいと感じるのは珍しいことではない</li>
+				<li>その恥は、社会的な価値観から生まれやすい</li>
+				<li>孤独は人格の欠陥ではない</li>
+				<li>孤独を恥じる人ほど、他者を大切にしようとしている</li>
+			</ul>
+			<p class="quote">
+				もし孤独を恥ずかしいと感じたら、<br>
+				それは「あなたが人とのつながりを軽視していない」証拠でもあります。
+			</p>
+
+			<p class="small">
+				必要なら、「孤独を恥と感じなくなるための具体的な考え方」や、「宗教・哲学・心理学からの視点」でも、さらに掘り下げられます。
+			</p>
+		</section>
+
+		<footer class="footer">
+			<p>
+			Tips：文中のキーワードを強調したい場合は <span class="kbd">strong</span> を増やす／
+				見出しを短くしたい場合は「①〜⑥」を削るだけで簡潔になります。
+			</p>
+		</footer>
+
+	</div>
+</body>
+</html>
