@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>脳の仕組みから考えるダイエット</title>
+	<style>
+		:root{
+			--bg:#0b1220;
+			--panel:rgba(255,255,255,.08);
+			--panel2:rgba(255,255,255,.06);
+			--text:rgba(255,255,255,.92);
+			--muted:rgba(255,255,255,.72);
+			--line:rgba(255,255,255,.14);
+			--accent:#7dd3fc;
+			--accent2:#a7f3d0;
+			--warn:#fbbf24;
+			--ok:#86efac;
+			--shadow: 0 12px 40px rgba(0,0,0,.35);
+			--radius: 18px;
+			--radius2: 28px;
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+			color:var(--text);
+			background:
+				radial-gradient(1100px 700px at 20% -10%, rgba(125,211,252,.25), transparent 60%),
+				radial-gradient(900px 700px at 90% 10%, rgba(167,243,208,.18), transparent 60%),
+				radial-gradient(900px 900px at 40% 120%, rgba(251,191,36,.10), transparent 55%),
+				linear-gradient(180deg, #070b14, var(--bg));
+			line-height:1.85;
+		}
+		a{color:var(--accent); text-decoration:none}
+		a:hover{text-decoration:underline}
+		.container{
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 28px 16px 72px;
+		}
+
+		/* Header */
+		.hero{
+			position:relative;
+			padding: 34px 22px;
+			border: 1px solid var(--line);
+			background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+			border-radius: var(--radius2);
+			box-shadow: var(--shadow);
+			overflow:hidden;
+		}
+		.hero::before{
+			content:"";
+			position:absolute;
+			inset:-2px;
+			background:
+				radial-gradient(500px 280px at 15% 20%, rgba(125,211,252,.30), transparent 60%),
+				radial-gradient(480px 300px at 85% 0%, rgba(167,243,208,.22), transparent 60%);
+			filter: blur(2px);
+			opacity:.85;
+			pointer-events:none;
+		}
+		.hero > *{position:relative; z-index:1}
+		.badge{
+			display:inline-flex;
+			align-items:center;
+			gap:10px;
+			padding: 8px 12px;
+			border: 1px solid var(--line);
+			background: rgba(0,0,0,.22);
+			border-radius: 999px;
+			color: var(--muted);
+			font-size: 13px;
+			letter-spacing:.02em;
+			margin-bottom: 14px;
+		}
+		.badge b{color:var(--text)}
+		h1{
+			margin: 0 0 8px;
+			font-size: clamp(26px, 3.4vw, 40px);
+			line-height:1.25;
+			letter-spacing:.01em;
+		}
+		.subttl{
+			margin: 0;
+			color: var(--muted);
+			font-size: 15px;
+			max-width: 70ch;
+		}
+
+		.grid{
+			display:grid;
+			grid-template-columns: 1.25fr .75fr;
+			gap: 16px;
+			margin-top: 18px;
+		}
+		@media (max-width: 860px){
+			.grid{grid-template-columns:1fr}
+		}
+
+		.card{
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.06);
+			border-radius: var(--radius);
+			box-shadow: 0 12px 34px rgba(0,0,0,.25);
+			padding: 18px;
+		}
+
+		/* Figure */
+		.figure{
+			padding: 12px;
+		}
+		.figure img{
+			width:100%;
+			height:auto;
+			display:block;
+			border-radius: 16px;
+			border: 1px solid rgba(255,255,255,.14);
+			box-shadow: 0 14px 40px rgba(0,0,0,.35);
+		}
+		.figcap{
+			margin-top: 10px;
+			color: var(--muted);
+			font-size: 13px;
+		}
+
+		/* Sections */
+		section{margin-top: 18px}
+		h2{
+			margin: 0 0 10px;
+			font-size: 18px;
+			letter-spacing:.01em;
+		}
+		h2 .dot{
+			display:inline-block;
+			width:10px;
+			height:10px;
+			border-radius: 999px;
+			background: var(--accent);
+			margin-right: 10px;
+			box-shadow: 0 0 0 6px rgba(125,211,252,.12);
+			vertical-align: middle;
+		}
+		p{margin: 10px 0}
+		hr.sep{
+			border:0;
+			border-top:1px solid var(--line);
+			margin: 18px 0;
+		}
+
+		/* Lists */
+		ul,ol{margin:10px 0 0 0; padding-left: 1.2em}
+		li{margin: 6px 0; color: var(--text)}
+		.note{
+			border-left: 3px solid rgba(125,211,252,.65);
+			background: rgba(125,211,252,.08);
+			padding: 12px 14px;
+			border-radius: 14px;
+			color: var(--muted);
+		}
+		.kvs{
+			display:grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin-top: 10px;
+		}
+		@media (max-width: 720px){
+			.kvs{grid-template-columns: 1fr}
+		}
+		.kv{
+			padding: 12px 14px;
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.05);
+			border-radius: 16px;
+		}
+		.kv h3{
+			margin:0 0 4px;
+			font-size: 14px;
+			color: var(--text);
+		}
+		.kv p{
+			margin:0;
+			font-size: 13px;
+			color: var(--muted);
+		}
+
+		/* Callouts */
+		.callout{
+			border: 1px solid rgba(251,191,36,.25);
+			background: rgba(251,191,36,.08);
+			border-radius: 16px;
+			padding: 14px;
+		}
+		.callout strong{color:rgba(255,255,255,.95)}
+		.steps{
+			counter-reset: step;
+			margin: 10px 0 0;
+			padding:0;
+			list-style:none;
+			display:grid;
+			gap:10px;
+		}
+		.steps li{
+			counter-increment: step;
+			padding: 12px 14px;
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.05);
+			border-radius: 16px;
+		}
+		.steps li::before{
+			content: counter(step);
+			display:inline-grid;
+			place-items:center;
+			width: 26px;
+			height: 26px;
+			border-radius: 999px;
+			margin-right: 10px;
+			background: rgba(125,211,252,.18);
+			border: 1px solid rgba(125,211,252,.35);
+			color: var(--text);
+			font-weight: 700;
+			vertical-align: middle;
+		}
+		.footer{
+			margin-top: 22px;
+			color: var(--muted);
+			font-size: 13px;
+			text-align:center;
+		}
+		.tagrow{
+			display:flex;
+			flex-wrap:wrap;
+			gap:8px;
+			margin-top: 10px;
+		}
+		.tag{
+			font-size: 12px;
+			color: rgba(255,255,255,.82);
+			padding: 6px 10px;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(0,0,0,.18);
+		}
+		.highlight{
+			color: var(--text);
+			background: linear-gradient(180deg, rgba(125,211,252,.16), rgba(167,243,208,.10));
+			border: 1px solid rgba(125,211,252,.22);
+			padding: 2px 8px;
+			border-radius: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<header class="hero">
+			<div class="badge">🧠 <b>脳科学 × ダイエット</b>｜我慢しない設計で“ブレーキ”を味方にする</div>
+			<h1>脳の仕組みから考えるダイエット</h1>
+			<p class="subttl">――なぜ「我慢」は失敗し、「少し食べる」は成功するのか。<br />
+			空腹は思考より先に、脊髄から感情系（扁桃体）へ信号が届く。だから“根性勝負”は不利。勝ち筋は「戦わない」ことにある。</p>
+
+			<div class="grid">
+				<div class="card">
+					<section>
+						<h2><span class="dot"></span>この記事の要点</h2>
+						<ul>
+							<li>空腹は <span class="highlight">思考で制御できない経路</span>（脊髄→扁桃体）で先に動く</li>
+							<li>思考で制御できるのは <span class="highlight">前頭前野（理性）</span> だけ</li>
+							<li>前頭前野のブレーキは高コスト、扁桃体の欲望は低コスト＝正面衝突は不利</li>
+							<li>「少し食べて血糖を少し上げる」だけで、5〜10分で扁桃体が落ち着く</li>
+							<li>ブレーキは踏み続けず、ピンポイントで使い、身体入力（歩く・呼吸）で支える</li>
+							<li>“考えない”＝感情・欲望を追わない。これは瞑想・マインドフルネスの核心</li>
+						</ul>
+						<div class="tagrow">
+							<span class="tag">🍽 空腹</span>
+							<span class="tag">🧠 前頭前野</span>
+							<span class="tag">🔥 扁桃体</span>
+							<span class="tag">🌬 呼吸</span>
+							<span class="tag">🚶 歩く</span>
+							<span class="tag">🧘 マインドフルネス</span>
+						</div>
+					</section>
+				</div>
+
+				<aside class="card figure">
+					<img src="img/bible_sec08_6.png" alt="少しだけナッツを食べる理性のブタ" />
+					<div class="figcap">挿絵：少しだけナッツを食べる理性のブタ（リアル調アニマルファンタジー）</div>
+				</aside>
+			</div>
+		</header>
+
+		<section class="card">
+			<h2><span class="dot"></span>1. 空腹は、思考より先に脳を支配する</h2>
+			<p>
+				ダイエットが続かないとき、人はつい「意志が弱い」と思いがちです。
+				しかし、脳の仕組みから見ると、空腹はそもそも<span class="highlight">“思考で制御できない場所”</span>から始まります。
+			</p>
+			<div class="note">
+				🔁 空腹の情報はまず、胃や内臓の状態として検知され、脊髄を通り、感情系の中枢である <b>扁桃体</b> へ送られます。<br />
+				この段階では、まだ理性（思考）は関与していません。<br />
+				つまり空腹とは「考える前に、すでに感情系が動いている状態」です。
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>2. 思考で制御できるのは「前頭前野」だけ</h2>
+			<p>
+				人間の脳で「我慢しよう」「やめておこう」と判断できるのは、
+				<b>前頭前野（理性の中枢）</b>だけです。
+			</p>
+			<div class="kvs">
+				<div class="kv">
+					<h3>⚡ 前頭前野（理性）</h3>
+					<p>高いエネルギーが必要。疲労・空腹・ストレスで消耗しやすい。</p>
+				</div>
+				<div class="kv">
+					<h3>🔥 扁桃体（感情・欲望）</h3>
+					<p>低エネルギーで作動。生存反応として「食べろ」を出し続けられる。</p>
+				</div>
+			</div>
+			<p>
+				つまり空腹時の脳内では、<b>前頭前野（理性） VS 扁桃体（欲望・生存反応）</b>という構図が生まれます。
+				そしてこの勝負は、最初から不利な条件で始まっています。
+			</p>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>3. 「我慢」している時、脳で起きていること</h2>
+			<p>空腹を「我慢」しているとき、脳では次のことが起きています。</p>
+			<ul>
+				<li>🔥 扁桃体：<b>「エネルギー不足＝危険」</b>と判断</li>
+				<li>🧠 前頭前野：高いエネルギーを使って必死にブレーキを踏む</li>
+			</ul>
+			<p>
+				しかし前頭前野は、空腹・疲労・ストレスがあるとすぐに消耗します。
+				一方、扁桃体は「食べろ」というシンプルな指令を低コストで出し続けられます。
+			</p>
+			<div class="callout">
+				<strong>👉 真っ向から理性で食欲を抑えるのは、構造的に無謀。</strong><br />
+				勝ち筋は「正面衝突しない」ことです。
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>4. 解決策は「戦わない」こと</h2>
+			<p>ここで発想を切り替えます。</p>
+			<ul>
+				<li>❌ 食欲を消そうとしない</li>
+				<li>❌ 我慢でねじ伏せない</li>
+				<li>✅ 代わりに：<b>扁桃体を“落ち着かせる条件”を作る</b></li>
+			</ul>
+			<hr class="sep" />
+			<h2><span class="dot"></span>5. ほんの少し食べると、脳は5〜10分で変わる</h2>
+			<p>
+				空腹時にほんの少しだけ食べ、血糖をわずかに上げると、脳はすぐに反応します。
+				目安は <b>100kcal前後</b>、<b>一口〜軽食レベル</b>。
+			</p>
+			<ul>
+				<li>✅ 低血糖の警報が解除される</li>
+				<li>✅ 扁桃体の緊急モードが解除される</li>
+				<li>✅ 5〜10分で感情系が落ち着く</li>
+			</ul>
+			<div class="note">
+				👉 満腹になる必要はありません。<br />
+				「もう飢餓ではない」と脳が判断するだけで十分です。
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>6. 理性のブレーキは「踏み続けない」</h2>
+			<p>
+				重要なのは、前頭前野の理性ブレーキを踏みっぱなしにしないことです。
+				ブレーキは「持久戦」ではなく「ピンポイント」。
+			</p>
+
+			<ol class="steps">
+				<li><b>判断は一度だけ</b>（例：今日は“少しだけ”で終える）</li>
+				<li><b>その後はブレーキを緩める</b>（踏み続けない）</li>
+				<li><b>身体側からの入力で支える</b>（歩く／ゆっくり吐く／体感覚へ）</li>
+			</ol>
+
+			<div class="note">
+				👉 これは「気合」ではなく、神経系の正しい使い方です。<br />
+				トップダウン（思考）だけで勝とうとせず、ボトムアップ（身体）で扁桃体を落ち着かせます。
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>7. 感情・欲望を「追わない」間隔を身につける</h2>
+			<p>
+				ここで最も重要な考え方に入ります。<br />
+				「考えない」とは、感情や欲望を無理に消すことではありません。
+			</p>
+
+			<div class="kvs">
+				<div class="kv">
+					<h3>🧘 本当の意味での「考えない」</h3>
+					<p>抑えない／否定しない／解決しようとしない</p>
+				</div>
+				<div class="kv">
+					<h3>👉 距離感のコツ</h3>
+					<p>「出てるな」と認識して、行動に乗せない</p>
+				</div>
+			</div>
+
+			<hr class="sep" />
+
+			<h2><span class="dot"></span>8. これは瞑想・マインドフルネスの核心</h2>
+			<p>
+				瞑想やマインドフルネスが目指しているのは「無になること」ではありません。
+				欲望が出ても、それが自動的に行動へつながらない回路を育てることです。
+			</p>
+			<ul>
+				<li>✅ ドーパミンは出る</li>
+				<li>✅ 辺縁系も動く</li>
+				<li>✅ それでも <b>行動に直結しない</b></li>
+			</ul>
+			<div class="callout">
+				<strong>👉 これが「ブレーキの持続力がある状態」</strong><br />
+				欲望を消すのではなく、欲望に“乗らない”。
+			</div>
+		</section>
+
+		<section class="card">
+			<h2><span class="dot"></span>まとめ：脳の仕組みから見たダイエットの本質</h2>
+			<ul>
+				<li>🧠 空腹は思考で制御できない</li>
+				<li>⚔️ 理性と欲望の正面衝突は必ず負ける</li>
+				<li>🍌 少し食べると脳はすぐ落ち着く</li>
+				<li>🛑 理性はピンポイントで使う</li>
+				<li>👀 欲望は「追わなければ」弱まる</li>
+			</ul>
+			<hr class="sep" />
+			<p class="note">
+				✨ 最後に一言：<br />
+				<b>ダイエットは「自分を抑える技術」ではなく「脳を安心させる技術」</b><br />
+				ここに気づいた時点で、もう根性論のダイエットに戻る必要はありません。
+			</p>
+		</section>
+
+		<div class="footer">
+			© 脳の仕組みから考えるダイエット / HTMLテンプレート（日本語）<br />
+			画像パス：<code>img/bible_sec08_6.png</code>
+		</div>
+
+	</div>
+</body>
+</html>
