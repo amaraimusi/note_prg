@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>戦争はなぜなくならないのか</title>
+	<style>
+		:root{
+			--bg:#0f1216;
+			--card:#151a21;
+			--text:#e8edf3;
+			--muted:#b8c0cc;
+			--line:#2a3140;
+			--accent:#7cc4ff;
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+			background: radial-gradient(1200px 600px at 10% 0%, #1a2230 0%, var(--bg) 55%, #0b0e12 100%);
+			color:var(--text);
+			line-height:1.9;
+		}
+		a{color:var(--accent)}
+		.container{
+			max-width: 920px;
+			margin: 0 auto;
+			padding: 28px 16px 48px;
+		}
+		header{
+			padding: 18px 18px 8px;
+			border: 1px solid var(--line);
+			background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+			border-radius: 16px;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+		}
+		h1{
+			margin: 6px 0 6px;
+			font-size: clamp(26px, 3.2vw, 40px);
+			letter-spacing: 0.02em;
+		}
+		.subtitle{
+			margin: 0 0 14px;
+			color: var(--muted);
+			font-size: 0.98rem;
+		}
+		.hero{
+			margin-top: 14px;
+			border-radius: 14px;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			background: #0b0e12;
+		}
+		.hero img{
+			display:block;
+			width:100%;
+			height:auto;
+		}
+		.hero .cap{
+			padding: 10px 14px;
+			color: var(--muted);
+			font-size: 0.9rem;
+			border-top: 1px solid var(--line);
+			background: rgba(255,255,255,0.02);
+		}
+
+		main{
+			margin-top: 18px;
+		}
+		section{
+			margin-top: 16px;
+			padding: 18px;
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			background: rgba(255,255,255,0.02);
+		}
+		h2{
+			margin: 0 0 10px;
+			font-size: 1.25rem;
+			letter-spacing: 0.02em;
+		}
+		p{margin: 0.7em 0}
+		hr{
+			border: none;
+			border-top: 1px solid var(--line);
+			margin: 14px 0;
+		}
+		ul{
+			margin: 10px 0 10px 1.2em;
+			padding: 0;
+		}
+		li{margin: 0.35em 0}
+		.quote{
+			margin-top: 12px;
+			padding: 14px 14px 12px;
+			border-left: 4px solid var(--accent);
+			background: rgba(124,196,255,0.08);
+			border-radius: 10px;
+		}
+		.quote p{margin:0.3em 0}
+		.note{
+			margin-top: 10px;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+		footer{
+			margin-top: 18px;
+			padding: 14px 10px 0;
+			color: var(--muted);
+			text-align: center;
+			font-size: 0.9rem;
+		}
+		.badge{
+			display:inline-block;
+			padding: 2px 10px;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: rgba(255,255,255,0.02);
+			margin-top: 8px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>戦争はなぜなくならないのか</h1>
+			<div class="subtitle">――国家ではなく「国民の心」から考える</div>
+
+			<div class="hero">
+				<img src="img/bible_sec09_1.png" alt="人はなぜ戦争をするのか？">
+				<div class="cap">画像：人はなぜ戦争をするのか？（img/bible_sec09_1.png）</div>
+			</div>
+		</header>
+
+		<main>
+			<section>
+				<p>
+					戦争というと、私たちはつい
+					「国家の判断」「指導者の野心」「地政学的な衝突」
+					といった上からの理由を思い浮かべる。
+				</p>
+
+				<p>
+					しかし歴史を振り返ると、
+					どんな戦争も一定数の国民の支持なしには続かなかった。
+				</p>
+
+				<p>
+					では、なぜ国民は戦争を支持するのか。
+					それも、自分たちが利用されていると分かっていても。
+				</p>
+
+				<p>
+					この問いに正面から向き合ったのが、
+					1930年代、アルベルト・アインシュタイン と
+					ジークムント・フロイト の往復書簡
+					『戦争はなぜなくならないのか（Why War?）』だった。
+				</p>
+
+				<p>
+					本稿では、彼らの視点を手がかりに、
+					国民が戦争を支持してしまう動機と感情、
+					そして2026年の現代情勢との重なりを考察する。
+				</p>
+			</section>
+
+			<section>
+				<h2>1. 戦争支持は「無知」や「狂気」だけではない</h2>
+
+				<p>
+					戦争支持というと、
+					「洗脳された」「だまされている」と説明されがちだ。
+				</p>
+
+				<p>
+					しかしアインシュタインは、
+					それだけでは説明できないと考えた。
+				</p>
+
+				<p>
+					国民はしばしば<br>
+					利用されていることを感じながらも<br>
+					それでも戦争に傾く
+				</p>
+
+				<p>
+					ここに重要な前提がある。<br>
+					平時の生活が、すでに耐えがたい場合だ。
+				</p>
+			</section>
+
+			<section>
+				<h2>2. 「今の不幸」を壊したいという衝動</h2>
+
+				<p>
+					人は、ある程度の不満には耐えられる。
+					だが次の状態が重なると、心理は変わる。
+				</p>
+
+				<ul>
+					<li>物価は上がるが収入は増えない</li>
+					<li>将来が見えず、努力が報われない</li>
+					<li>社会から切り離された感覚がある</li>
+				</ul>
+
+				<p>
+					このとき人は、理性的にこう考え始める。
+				</p>
+
+				<p>
+					このまま静かに苦しみ続けるより、<br>
+					何かが壊れてでも変わった方がいいのではないか
+				</p>
+
+				<p>
+					戦争は破滅的だ。<br>
+					それでも「現状を一度リセットできるかもしれない手段」に見える。
+				</p>
+
+				<p>
+					これは好戦的欲望ではなく、<br>
+					追い詰められた末の希望の歪みである。
+				</p>
+			</section>
+
+			<section>
+				<h2>3. 戦争は「意味」と「役割」を与えてしまう</h2>
+
+				<p>
+					フロイトが指摘した核心の一つがここだ。
+				</p>
+
+				<p>平時の苦しみは、</p>
+
+				<ul>
+					<li>理由が分からない</li>
+					<li>誰にも感謝されない</li>
+					<li>何の価値も生まない</li>
+				</ul>
+
+				<p>
+					しかし戦争が始まると、同じ苦しみがこう変換される。
+				</p>
+
+				<ul>
+					<li>国家のための犠牲</li>
+					<li>仲間を守る行為</li>
+					<li>歴史的使命への参加</li>
+				</ul>
+
+				<p>
+					人間は、<br>
+					理由のない苦しみより、意味のある苦しみに耐えやすい。
+				</p>
+
+				<p>
+					戦争はこの心理を巧みに利用する。
+				</p>
+			</section>
+
+			<section>
+				<h2>4. 怒りの「出口」としての戦争</h2>
+
+				<p>
+					不満や怒りは、溜まり続けると人を壊す。
+				</p>
+
+				<p>平時ではそれは、</p>
+
+				<ul>
+					<li>自己嫌悪</li>
+					<li>抑うつ</li>
+					<li>無力感</li>
+				</ul>
+
+				<p>
+					として内側に向かいやすい。
+				</p>
+
+				<p>だが戦争は、</p>
+
+				<ul>
+					<li>敵国</li>
+					<li>外部の集団</li>
+					<li>抽象化された「悪」</li>
+				</ul>
+
+				<p>
+					という正当な攻撃対象を与える。
+				</p>
+
+				<p>
+					怒りを外に向けられると、<br>
+					人は一時的に楽になる。
+				</p>
+
+				<p>
+					この心理的解放感が、<br>
+					戦争支持を「感情的に納得できるもの」にしてしまう。
+				</p>
+			</section>
+
+			<section>
+				<h2>5. 「分かっていても従う」現実</h2>
+
+				<p>多くの国民は、こうしたことも薄々分かっている。</p>
+
+				<ul>
+					<li>利益を得るのは一部の権力層</li>
+					<li>犠牲になるのは普通の人</li>
+					<li>戦争は長期的に損しか生まない</li>
+				</ul>
+
+				<p>
+					それでも支持が起きるのは、<br>
+					他に出口が見えないからだ。
+				</p>
+
+				<ul>
+					<li>政治に期待できない</li>
+					<li>抗議しても変わらない</li>
+					<li>個人の努力では限界がある</li>
+				</ul>
+
+				<p>
+					この閉塞感が、<br>
+					「大きな流れに身を任せる」という選択を生む。
+				</p>
+			</section>
+
+			<section>
+				<h2>6. 2026年の世界と重なる構造</h2>
+
+				<p>2026年現在、世界は次の特徴を持つ。</p>
+
+				<ul>
+					<li>物価上昇と生活不安</li>
+					<li>国家間の緊張と分断</li>
+					<li>SNSによる感情の急速な拡散</li>
+				</ul>
+
+				<p>
+					特に危ういのは、<br>
+					生活不安が外部の敵の物語と結びつくときだ。
+				</p>
+
+				<ul>
+					<li>「誰かのせいで苦しい」</li>
+					<li>「強く出なければ奪われる」</li>
+					<li>「妥協は裏切りだ」</li>
+				</ul>
+
+				<p>
+					こうした言葉が支持され始めた社会は、<br>
+					すでに戦争支持の心理的条件を満たしつつある。
+				</p>
+			</section>
+
+			<section>
+				<h2>7. 戦争がなくならない本当の理由</h2>
+
+				<p>
+					アインシュタインとフロイトの議論が示す結論は、厳しい。
+				</p>
+
+				<p>
+					戦争は、<br>
+					悪意ある国家だけが起こすのではない
+				</p>
+
+				<p>
+					行き詰まった社会で、<br>
+					希望を失った人々の心が、<br>
+					戦争を「意味ある選択」に見せてしまう
+				</p>
+
+				<hr>
+
+				<h2>結び ―― 心から出てくるもの</h2>
+
+				<p>
+					ここまで見てきたように、<br>
+					戦争を支える力は、必ずしも国家や指導者だけにあるのではない。
+				</p>
+
+				<p>
+					生活の苦しさ、将来への不安、怒りの行き場のなさ。<br>
+					そうしたものが積み重なったとき、<br>
+					人の心は「破壊による変化」を希望として受け入れてしまう。
+				</p>
+
+				<p>
+					この構造を、イエスは非常に簡潔な言葉で表した。
+				</p>
+
+				<div class="quote">
+					<p>「心から，邪悪な考えが出てきます。</p>
+					<p>殺人，姦淫，性的不道徳，盗み，偽証，冒瀆です。」</p>
+					<p class="note">―― マタイ 15:19</p>
+				</div>
+
+				<p>
+					戦争は、ある日突然どこかで発生する災害ではない。<br>
+					それは、人々の心の中で育った考えが、<br>
+					社会という舞台に現れた姿にすぎない。
+				</p>
+
+				<p>
+					外に敵を見つける前に、<br>
+					強さを求める前に、<br>
+					私たちは問われている。
+				</p>
+
+				<p>
+					―― いま、自分の心から何が出てきているのか。
+				</p>
+
+				<p>
+					戦争がなくならない理由は、<br>
+					遠い国の指導者の中だけでなく、<br>
+					私たち一人一人の内側にも存在している。
+				</p>
+
+				<p>
+					だからこそ、<br>
+					平和は制度だけでなく、<br>
+					心の向きが変わるところから始まるのだと、<br>
+					聖書は静かに語っている。
+				</p>
+			</section>
+
+		</main>
+
+		<footer>
+			<div class="badge">作成日：2026-01-31</div>
+		</footer>
+	</div>
+</body>
+</html>
