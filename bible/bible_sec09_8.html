@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>ユーモアが大切である理由</title>
+	<style>
+		:root{
+			--bg:#0f172a;
+			--card:#0b1224;
+			--text:#e5e7eb;
+			--muted:#a7b0c0;
+			--accent:#60a5fa;
+			--line:rgba(255,255,255,.08);
+		}
+		body{
+			margin:0;
+			font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+			background: radial-gradient(1200px 800px at 20% -10%, rgba(96,165,250,.18), transparent 55%),
+						radial-gradient(1000px 700px at 90% 10%, rgba(34,197,94,.10), transparent 55%),
+						var(--bg);
+			color:var(--text);
+			line-height:1.9;
+		}
+		.container{
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 28px 16px 40px;
+		}
+		header{
+			padding: 22px 18px 10px;
+		}
+		.kicker{
+			display:inline-flex;
+			align-items:center;
+			gap:10px;
+			color:var(--muted);
+			font-size:14px;
+			letter-spacing:.02em;
+		}
+		.kicker::before{
+			content:"";
+			width:10px;
+			height:10px;
+			border-radius:999px;
+			background: var(--accent);
+			box-shadow: 0 0 0 4px rgba(96,165,250,.18);
+		}
+		h1{
+			margin: 10px 0 6px;
+			font-size: 30px;
+			line-height: 1.25;
+		}
+		.subtitle{
+			margin:0;
+			color:var(--muted);
+			font-size:16px;
+		}
+		.card{
+			background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			box-shadow: 0 20px 60px rgba(0,0,0,.35);
+			overflow:hidden;
+		}
+		.hero{
+			padding: 16px 18px 0;
+		}
+		figure{
+			margin: 14px 0 0;
+			border-radius: 16px;
+			overflow:hidden;
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.02);
+		}
+		figure img{
+			display:block;
+			width:100%;
+			height:auto;
+		}
+		figcaption{
+			padding: 10px 12px;
+			font-size: 13px;
+			color: var(--muted);
+			border-top: 1px solid var(--line);
+			background: rgba(0,0,0,.18);
+		}
+		main{
+			padding: 18px;
+		}
+		h2{
+			margin: 26px 0 10px;
+			font-size: 18px;
+			color: var(--text);
+			padding-left: 12px;
+			border-left: 4px solid rgba(96,165,250,.75);
+		}
+		p{
+			margin: 10px 0 0;
+			color: var(--text);
+		}
+		.lead{
+			margin-top: 6px;
+			color: var(--text);
+			font-size: 16px;
+		}
+		.list{
+			margin: 12px 0 0;
+			padding: 12px 14px;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			background: rgba(0,0,0,.18);
+		}
+		.list ul{
+			margin: 0;
+			padding-left: 1.2em;
+		}
+		.list li{
+			margin: 6px 0;
+			color: var(--text);
+		}
+		.quote{
+			margin: 14px 0 0;
+			padding: 12px 14px;
+			border-left: 4px solid rgba(34,197,94,.65);
+			border-radius: 12px;
+			background: rgba(0,0,0,.18);
+			color: var(--muted);
+		}
+		hr{
+			border: none;
+			border-top: 1px solid var(--line);
+			margin: 22px 0;
+		}
+		footer{
+			margin-top: 18px;
+			padding: 14px 18px;
+			color: var(--muted);
+			font-size: 13px;
+			border-top: 1px solid var(--line);
+			background: rgba(0,0,0,.12);
+			display:flex;
+			justify-content: space-between;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+		.badge{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			padding: 6px 10px;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(255,255,255,.04);
+		}
+		@media (max-width: 520px){
+			h1{font-size: 24px;}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<article class="card">
+			<header>
+				<div class="kicker">失敗をユーモアで流す</div>
+				<h1>ユーモアが大切である理由</h1>
+				<p class="subtitle">生活にユーモアを ― 心を守り、人を結ぶ力</p>
+			</header>
+
+			<section class="hero">
+				<figure>
+					<img src="img/bible_sec09_8.png" width="1024" height="1536" alt="失敗をユーモアで流す" />
+					<figcaption>失敗をユーモアで流す</figcaption>
+				</figure>
+			</section>
+
+			<main>
+				<p class="lead">
+					人生には、怒りや緊張、失敗、恐れ、恥をかく出来事がつきものです。<br />
+					思い通りにいかない日もあれば、気まずさに顔が熱くなる瞬間もあります。<br />
+					そんなとき、私たちを守ってくれる力の一つが「ユーモア」です。
+				</p>
+
+				<p>では、なぜユーモアはそれほど役に立つのでしょうか。</p>
+
+				<h2>ユーモアは神からの贈り物</h2>
+				<div class="quote">
+					聖書は「笑うのに時がある」（伝道の書 3:4）と述べています。
+				</div>
+				<p>
+					笑う能力は、人間に備えられた尊い特性です。自然界を見ても、子猫や子犬の無邪気なしぐさ、
+					思いがけない動きなど、思わず微笑んでしまう場面がたくさんあります。創造の中には、楽しさや軽やかさが織り込まれているのです。
+				</p>
+				<p>
+					ユーモアは軽薄なものではありません。<br />
+					それは、私たちの心を支えるために与えられた贈り物と言えるでしょう。
+				</p>
+
+				<h2>ユーモアは「距離」をつくる力</h2>
+				<p>
+					怒りや恐れの中にいるとき、人は出来事に飲み込まれます。<br />
+					しかし、少し笑えるとき、私たちはその出来事から一歩引くことができます。
+				</p>
+
+				<div class="list">
+					<ul>
+						<li>失敗を「終わり」ではなく「笑い話」に変える</li>
+						<li>恥を「自己否定」ではなく「人間らしさ」に変える</li>
+						<li>緊張を「重圧」から「ほぐれ」に変える</li>
+					</ul>
+				</div>
+
+				<p>
+					つまり、心に“距離”をつくるのです。<br />
+					この距離があるからこそ、感情に押し流されず、冷静さを取り戻せます。
+					怒りながら笑い続けるのは難しいものです。ユーモアは、感情の暴走を穏やかに鎮めます。
+				</p>
+
+				<h2>ユーモアは人間関係の最短距離</h2>
+				<p>「笑いは二人の人間の最短距離」と言われます。</p>
+				<p>
+					一緒に笑えるということは、物の見方や感性がどこか通じているということです。ユーモアはその人の価値観や想像力を映し出します。
+				</p>
+				<p>
+					家庭でも、職場でも、緊張した空気を和らげる一言が関係を守ることがあります。
+					強い言葉よりも、柔らかいユーモアの方が人の心を動かすことも少なくありません。
+				</p>
+				<p>
+					人を攻撃する笑いではなく、状況を軽くする笑い。<br />
+					それが関係を深めるユーモアです。
+				</p>
+
+				<h2>ユーモアと創造性</h2>
+				<p>
+					ユーモアの本質は「意外な組み合わせ」にあります。<br />
+					一見合わないものを結びつける発想が、笑いを生みます。
+				</p>
+				<p>これは創造性と同じ構造です。</p>
+
+				<div class="list">
+					<ul>
+						<li>視点を変える力</li>
+						<li>固定観念を崩す力</li>
+						<li>新しい見方を見つける力</li>
+					</ul>
+				</div>
+
+				<p>
+					ユーモアのある人は、柔軟で、新しい考えを受け入れやすい傾向があります。<br />
+					だからこそ、ユーモアは問題解決にも役立つのです。
+				</p>
+
+				<h2>しかし、分別が必要</h2>
+				<p>ユーモアは力ですが、使い方を誤れば傷を生みます。</p>
+
+				<div class="list">
+					<ul>
+						<li>弱い立場の人を笑いものにする</li>
+						<li>人種や背景をけなす</li>
+						<li>悲しんでいる人に軽薄な冗談を向ける</li>
+					</ul>
+				</div>
+
+				<p>
+					そのような笑いは人を遠ざけます。聖書は「愛は不義を歓ばない」（コリント第一 13:6）と述べています。<br />
+					ユーモアには思いやりが必要です。
+				</p>
+				<p>
+					人を笑うのではなく、状況を軽くする。<br />
+					からかうのではなく、和らげる。<br />
+					その分別があってこそ、ユーモアは祝福になります。
+				</p>
+
+				<hr />
+
+				<h2>結び</h2>
+				<p>
+					怒りや緊張、失敗や恐れに満ちたこの世界で、ユーモアは心を守るクッションです。
+				</p>
+				<p>
+					それは神から与えられた軽やかな力。距離をつくり、人を結び、創造性を育み、時に健康さえ支えます。
+				</p>
+				<p>
+					生活の中にユーモアを取り入れましょう。<br />
+					分別と愛を伴った笑いは、あなた自身を、そして周りの人々を、驚くほど穏やかに、強くしてくれるでしょう。
+				</p>
+			</main>
+
+			<footer>
+				<span class="badge">📅 2026-02-28</span>
+				<span>© 生活にユーモアを</span>
+			</footer>
+		</article>
+	</div>
+</body>
+</html>
