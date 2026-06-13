@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運動はきつい？そんなことはない</title>
+<style>
+	body {
+		margin: 0;
+		font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+		background: #f4f7f2;
+		color: #263328;
+		line-height: 1.9;
+	}
+
+	.container {
+		max-width: 860px;
+		margin: 0 auto;
+		background: #ffffff;
+		box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+	}
+
+	header {
+		padding: 48px 32px 28px;
+		background: linear-gradient(135deg, #e8f5e9, #fffde7);
+		text-align: center;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: 2.1rem;
+		color: #2e5d34;
+		line-height: 1.4;
+	}
+
+	.lead {
+		margin-top: 18px;
+		font-size: 1.1rem;
+		color: #516052;
+	}
+
+	.main-image {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		display: block;
+	}
+
+	main {
+		padding: 34px 32px;
+	}
+
+	p {
+		margin: 0 0 1.3em;
+	}
+
+	.quote {
+		margin: 30px 0;
+		padding: 22px 24px;
+		background: #f1f8e9;
+		border-left: 6px solid #7cb342;
+		font-size: 1.15rem;
+		font-weight: bold;
+		color: #33691e;
+	}
+
+	.card-list {
+		display: grid;
+		gap: 16px;
+		margin: 28px 0;
+	}
+
+	.card {
+		padding: 18px 20px;
+		background: #fafdf7;
+		border: 1px solid #dce8d5;
+		border-radius: 14px;
+	}
+
+	.card strong {
+		display: block;
+		color: #2e7d32;
+		font-size: 1.1rem;
+		margin-bottom: 4px;
+	}
+
+	.exercise-list {
+		margin: 24px 0;
+		padding: 22px 26px;
+		background: #fffde7;
+		border-radius: 14px;
+	}
+
+	.exercise-list div {
+		margin: 8px 0;
+	}
+
+	footer {
+		padding: 24px 32px;
+		text-align: center;
+		background: #2e5d34;
+		color: #ffffff;
+		font-size: 0.95rem;
+	}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		<h1>運動はきつい？そんなことはない</h1>
+		<p class="lead">軽い運動は、心と体を少しずつ元気にしてくれる。</p>
+	</header>
+
+	<img src="img/bible_sec11_10.png" alt="軽い運動をイメージしたイラスト" class="main-image">
+
+	<main>
+		<p>「運動はつらい」「筋トレは苦しい」。そう感じる人は少なくありません。特に運動習慣がない人にとって、運動は“苦行”のように思えることもあります。</p>
+
+		<p>しかし実際には、軽い運動は私たちの心と体に良い影響を与えることが分かっています。</p>
+
+		<p>激しいトレーニングをする必要はありません。むしろ、軽い運動でも脳には大きな変化が起こります。</p>
+
+		<p>例えば、軽いウォーキングや軽い筋トレをすると、脳内では次のような物質が分泌されます。</p>
+
+		<div class="card-list">
+			<div class="card">
+				<strong>ドーパミン</strong>
+				やる気や達成感に関係する
+			</div>
+			<div class="card">
+				<strong>セロトニン</strong>
+				心の安定や安心感に関係する
+			</div>
+			<div class="card">
+				<strong>エンドルフィン</strong>
+				幸福感や高揚感に関係する
+			</div>
+		</div>
+
+		<div class="quote">
+			つまり、軽い運動は「幸福」に寄与するのです。
+		</div>
+
+		<p>運動後に「少しスッキリした」「気分が軽くなった」と感じる人がいるのは、気のせいではありません。脳が実際に良い反応を起こしているのです。</p>
+
+		<p>もちろん、最初から無理をすると逆効果です。息切れするほど追い込んだり、筋肉痛になるまで頑張る必要はありません。</p>
+
+		<div class="quote">
+			大切なのは、「少し体を動かす」という習慣です。
+		</div>
+
+		<p>例えば、次のような軽い運動でも十分効果があります。</p>
+
+		<div class="exercise-list">
+			<div>◆ 10〜20分の散歩</div>
+			<div>◆ 軽いスクワット</div>
+			<div>◆ 軽いストレッチ</div>
+			<div>◆ ラジオ体操</div>
+		</div>
+
+		<p>特に現代人は、座りっぱなしや運動不足で血流が悪くなりやすく、疲れやすい状態になっています。軽い運動は血流を改善し、疲れにくい体づくりにも役立ちます。</p>
+
+		<p>「運動＝苦しいもの」。そう思い込む必要はありません。</p>
+
+		<p>まずは“少し気持ちよく終われる程度”から始めてみましょう。続けているうちに、体だけでなく心も少しずつ変わっていくかもしれません。</p>
+	</main>
+
+	<footer>
+		作成日：<span id="today"></span>
+	</footer>
+
+</div>
+
+<script>
+	const today = new Date();
+	const formatted = today.getFullYear() + "年" + 
+		(today.getMonth() + 1) + "月" + 
+		today.getDate() + "日";
+	document.getElementById("today").textContent = formatted;
+</script>
+
+</body>
+</html>
