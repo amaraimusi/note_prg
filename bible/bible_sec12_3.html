@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反出生主義：「子供を生むべきではない」 なぜそのような主張が増えているのか</title>
+  <style>
+    :root {
+      --bg: #f4f1eb;
+      --paper: #fffdf8;
+      --ink: #242424;
+      --muted: #6f6a63;
+      --accent: #5d4a3a;
+      --accent-soft: #e8ded2;
+      --danger: #6f2d2d;
+      --hope: #2f5d4a;
+      --line: #ded3c6;
+      --shadow: 0 20px 60px rgba(40, 31, 24, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(111, 45, 45, 0.12), transparent 34rem),
+        linear-gradient(180deg, #ece6dd 0%, var(--bg) 45%, #eee7dd 100%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 56px;
+    }
+
+    .article {
+      background: var(--paper);
+      border: 1px solid rgba(93, 74, 58, 0.16);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: clamp(34px, 6vw, 70px) clamp(24px, 6vw, 72px) 32px;
+      background:
+        linear-gradient(120deg, rgba(36, 36, 36, 0.80), rgba(75, 56, 43, 0.72)),
+        url("img/bible_sec12_3.png") center/cover no-repeat;
+      color: #fff;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 120px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.36));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 4px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 999px;
+      color: #f3dfcf;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      text-wrap: balance;
+    }
+
+    .lead {
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      max-width: 760px;
+    }
+
+    .content {
+      padding: clamp(28px, 5vw, 64px) clamp(22px, 6vw, 78px);
+    }
+
+    .intro-card {
+      margin: 0 0 34px;
+      padding: 22px 24px;
+      background: #f8f2eb;
+      border-left: 6px solid var(--danger);
+      border-radius: 14px;
+      color: #3a312d;
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 46px 0 16px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      color: var(--accent);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1.45;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+    }
+
+    .quote-list {
+      margin: 24px 0 32px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .quote-list li {
+      padding: 14px 18px;
+      background: #faf6f1;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #453a34;
+      font-weight: 700;
+    }
+
+    .quote-list li::before {
+      content: "“";
+      color: var(--danger);
+      font-size: 1.4em;
+      line-height: 0;
+      margin-right: 2px;
+    }
+
+    figure {
+      margin: 38px 0;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(48, 38, 30, 0.2);
+      background: #141414;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    figcaption {
+      padding: 10px 16px 12px;
+      color: #e5ded6;
+      background: #2d2926;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .section-divider {
+      margin: 42px auto;
+      width: 96px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .question-box {
+      margin: 30px 0;
+      padding: 24px 26px;
+      background: #f5f0e9;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .warning {
+      margin: 30px 0;
+      padding: 22px 24px;
+      border-radius: 16px;
+      background: #f7eeee;
+      border: 1px solid #e5caca;
+      color: #432626;
+    }
+
+    .hope-box {
+      margin: 48px 0 0;
+      padding: clamp(24px, 4vw, 34px);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(47, 93, 74, 0.12), rgba(232, 222, 210, 0.55));
+      border: 1px solid rgba(47, 93, 74, 0.24);
+      box-shadow: 0 12px 28px rgba(47, 93, 74, 0.08);
+    }
+
+    .hope-box h2 {
+      margin-top: 0;
+      border-bottom-color: rgba(47, 93, 74, 0.22);
+      color: var(--hope);
+    }
+
+    .scripture {
+      margin: 22px 0;
+      padding: 20px 22px;
+      background: rgba(255, 255, 255, 0.72);
+      border-left: 6px solid var(--hope);
+      border-radius: 14px;
+      color: #253b32;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 22px clamp(22px, 6vw, 78px);
+      border-top: 1px solid var(--line);
+      background: #f6efe7;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 18px, 980px);
+        padding: 16px 0 32px;
+      }
+
+      .hero {
+        min-height: 360px;
+      }
+
+      .content {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .quote-list li {
+        padding: 12px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article class="article">
+      <header class="hero">
+        <div class="hero-inner">
+          <span class="eyebrow">現代社会と希望</span>
+          <h1>反出生主義：「子供を生むべきではない」<br>なぜそのような主張が増えているのか</h1>
+          <p class="lead">競争社会の疲労、少子化、そして聖書が示す希望について考えます。</p>
+        </div>
+      </header>
+
+      <div class="content">
+        <p class="intro-card">近年、先進国を中心に「反出生主義」という思想が注目されるようになっています。</p>
+
+        <h2>反出生主義とは何か</h2>
+        <p>反出生主義とは、簡単に言えば「子どもを新しく生まれさせるべきではない」と考える思想です。</p>
+        <p>人間は生まれれば、病気、老い、死、貧困、孤独、失敗、競争、差別など、さまざまな苦しみを経験します。ならば、そもそも新しい命をこの世界に生み出さない方がよい、という考え方です。</p>
+
+        <p>率直に言えば、これはかなり極端な思想です。</p>
+        <p>普通に考えれば、人が生まれることには喜びもあります。家族の愛情、友情、成長、創作、自然の美しさ、信仰、希望など、人生には苦しみだけでは説明できない価値があります。</p>
+
+        <p>それにもかかわらず、反出生主義が一部で支持されるようになっているのは、現代の先進国社会が人々に大きな疲労感と絶望感を与えているからではないでしょうか。</p>
+
+        <figure>
+          <img src="img/bible_sec12_3.png" alt="競争社会の疲労と経済的圧迫を表すイメージ">
+          <figcaption>子どもを持つことが「希望」ではなく「重い責任」として感じられる社会</figcaption>
+        </figure>
+
+        <h2>少子化問題との関係</h2>
+        <p>この思想は、少子化問題とも深く関係しています。</p>
+        <p>少子化というと、よく「若者が結婚しなくなった」「子どもを欲しがらなくなった」「価値観が変わった」と説明されます。もちろんそれも一部にはあるでしょう。</p>
+        <p>しかし、もっと根本には「子どもを育てる自信が持てない社会」になってしまったという問題があります。</p>
+
+        <h2>競争社会の中で失われる自信</h2>
+        <p>資本主義の競争社会では、労働環境そのものが競争です。</p>
+        <p>よい学校に入り、よい会社に入り、安定した収入を得て、住宅を確保し、教育費を用意し、将来の不安にも備えなければなりません。会社では成果を求められ、長時間労働や人間関係のストレスもあります。非正規雇用や低賃金の人であれば、なおさら生活の見通しは立てにくくなります。</p>
+
+        <p>そのような社会では、子どもを持つことが大きな責任になります。</p>
+
+        <ul class="quote-list">
+          <li>自分一人が生きるだけでも精一杯なのに、子どもを育てられるのか</li>
+          <li>十分な教育を与えられるのか</li>
+          <li>貧しい思いをさせてしまうのではないか</li>
+          <li>社会で負けた自分が、親になってよいのか</li>
+        </ul>
+
+        <p>こう考える人が増えても不思議ではありません。</p>
+        <p>本当は子どもが欲しい。しかし、社会的に成功していない自分には、子どもを持つ資格がないように感じてしまう。この感覚は、現代社会の少子化の大きな原因の一つだと思います。</p>
+
+        <h2>恨みが思想に変わる時</h2>
+        <p>そして、そこからさらに暗い方向へ進むと、反出生主義につながります。</p>
+        <p>社会の競争に負けたと感じる人は、自分の人生を肯定しにくくなります。自分は社会から十分に報われなかった。努力しても豊かになれなかった。家庭を持つことも、子どもを育てることも難しい。そう感じた時、人は社会そのものを恨むようになります。</p>
+        <p>やがて、その恨みは「こんな世界に子どもを生むべきではない」という思想に変わります。</p>
+
+        <p>これは単なる理性的な哲学というより、競争社会の中で傷ついた人々の感情が混ざった思想ではないでしょうか。</p>
+        <p>社会の勝利者たちは結婚し、子どもを持ち、教育にもお金をかける。一方で、社会的に敗北したと感じる人々は、子どもを持つことをあきらめる。その不公平感が、社会そのものへの怒りとなり、反出生主義を支持する心理につながっていくのです。</p>
+
+        <div class="warning">
+          <p>もちろん、反出生主義を支持する人すべてが恨みだけで考えているわけではありません。中には、真剣に倫理の問題として考えている人もいます。</p>
+          <p>「苦しむ可能性のある命を、本人の同意なしに生み出してよいのか」という問いには、考えさせられる部分もあります。</p>
+        </div>
+
+        <h2>それでも危うい思想である理由</h2>
+        <p>しかし、それでも反出生主義は危険な思想です。</p>
+        <p>なぜなら、人生の苦しみだけを見て、人生の喜びや価値を見失いやすいからです。</p>
+        <p>人間は苦しむ存在ですが、同時に愛する存在でもあります。助け合い、学び、成長し、希望を持つ存在でもあります。苦しみがあるからといって、誕生そのものを否定してしまうのは、あまりにも暗い結論です。</p>
+
+        <div class="question-box">本当に問うべきなのは、「人は生まれない方がよいのか」ではありません。</div>
+
+        <p>問うべきなのは、「なぜ現代社会は、人々に子どもを持つ自信を失わせているのか」ということです。</p>
+        <p>長時間労働、低賃金、不安定雇用、高い教育費、住宅費、孤立した育児、将来不安。これらが積み重なれば、若い人々が子どもを持つことをためらうのは当然です。</p>
+
+        <p>反出生主義は、とんでもない主義です。しかし、それが生まれてくる背景には、現代の競争社会が人々を追い詰めている現実があります。</p>
+
+        <p>少子化を本気で解決したいなら、「子どもを産め」と言うだけでは不十分です。人々が安心して働き、暮らし、家庭を築ける社会にしなければなりません。</p>
+        <p>子どもを持つことが「ぜいたく」や「勝者だけの特権」のように感じられる社会では、少子化は止まりません。そして、その社会の影の部分から、反出生主義のような暗い思想が生まれてくるのです。</p>
+
+        <div class="section-divider"></div>
+
+        <section class="hope-box">
+          <h2>聖書が示す希望</h2>
+          <p>しかし、聖書は絶望ではなく希望を示しています。</p>
+          <div class="scripture">詩編 72編2-4節には、神が任命する王が、立場の低い人を公正に扱い、貧しい人の子たちを救い、虐げる者を打ち砕くことが述べられています。</div>
+          <p>今の競争社会では、弱い立場の人が追い詰められ、「子どもを持つ自信がない」と感じることがあります。しかし、神の王国は、そのような人々を見捨てません。</p>
+          <p>反出生主義は、現代社会の苦しみや絶望を映し出しているのかもしれません。しかし、本当に希望を置くべきなのは、人間の競争社会ではなく、立場の低い人を守り、公正な世界を実現する神の王国です。</p>
+        </section>
+      </div>
+
+      <footer>
+        作成日：2026年6月26日
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
