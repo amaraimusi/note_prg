@@ -1,185 +1,499 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>運動はきつい？そんなことはない</title>
-<style>
-	body {
-		margin: 0;
-		font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
-		background: #f4f7f2;
-		color: #263328;
-		line-height: 1.9;
-	}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悪いニュースばかりで毎日、怒っていませんか？</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --paper: #fffdf8;
+      --text: #2f2a24;
+      --subtext: #6b6258;
+      --accent: #9b6a32;
+      --accent-dark: #65401c;
+      --line: #e3d8c8;
+      --quote-bg: #f8efe2;
+      --soft-gold: #d8ad63;
+    }
 
-	.container {
-		max-width: 860px;
-		margin: 0 auto;
-		background: #ffffff;
-		box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-	}
+    * {
+      box-sizing: border-box;
+    }
 
-	header {
-		padding: 48px 32px 28px;
-		background: linear-gradient(135deg, #e8f5e9, #fffde7);
-		text-align: center;
-	}
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height: 1.9;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(216, 173, 99, 0.22), transparent 38%),
+        linear-gradient(180deg, #f7f0e5 0%, var(--bg) 45%, #ebe4d8 100%);
+    }
 
-	h1 {
-		margin: 0;
-		font-size: 2.1rem;
-		color: #2e5d34;
-		line-height: 1.4;
-	}
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 18px 48px;
+    }
 
-	.lead {
-		margin-top: 18px;
-		font-size: 1.1rem;
-		color: #516052;
-	}
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: #1f1b18;
+      box-shadow: 0 24px 60px rgba(55, 37, 19, 0.22);
+      margin-bottom: 34px;
+    }
 
-	.main-image {
-		width: 100%;
-		aspect-ratio: 16 / 9;
-		object-fit: cover;
-		display: block;
-	}
+    .hero img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      opacity: 0.92;
+    }
 
-	main {
-		padding: 34px 32px;
-	}
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(20, 16, 13, 0.78) 0%, rgba(20, 16, 13, 0.38) 46%, rgba(20, 16, 13, 0.05) 100%),
+        linear-gradient(0deg, rgba(20, 16, 13, 0.62) 0%, transparent 45%);
+    }
 
-	p {
-		margin: 0 0 1.3em;
-	}
+    .hero-title {
+      position: absolute;
+      left: 6%;
+      bottom: 8%;
+      right: 6%;
+      z-index: 2;
+      color: #fffaf0;
+    }
 
-	.quote {
-		margin: 30px 0;
-		padding: 22px 24px;
-		background: #f1f8e9;
-		border-left: 6px solid #7cb342;
-		font-size: 1.15rem;
-		font-weight: bold;
-		color: #33691e;
-	}
+    .hero-title .label {
+      display: inline-block;
+      padding: 5px 12px;
+      border: 1px solid rgba(255, 250, 240, 0.45);
+      border-radius: 999px;
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      background: rgba(255, 250, 240, 0.12);
+      backdrop-filter: blur(6px);
+      margin-bottom: 12px;
+    }
 
-	.card-list {
-		display: grid;
-		gap: 16px;
-		margin: 28px 0;
-	}
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.28;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+    }
 
-	.card {
-		padding: 18px 20px;
-		background: #fafdf7;
-		border: 1px solid #dce8d5;
-		border-radius: 14px;
-	}
+    .lead {
+      margin: 18px 0 0;
+      max-width: 720px;
+      font-size: 1.08rem;
+      color: #f7ead7;
+    }
 
-	.card strong {
-		display: block;
-		color: #2e7d32;
-		font-size: 1.1rem;
-		margin-bottom: 4px;
-	}
+    article {
+      background: rgba(255, 253, 248, 0.9);
+      border: 1px solid rgba(227, 216, 200, 0.9);
+      border-radius: 28px;
+      box-shadow: 0 18px 48px rgba(72, 52, 30, 0.12);
+      padding: clamp(24px, 5vw, 54px);
+    }
 
-	.exercise-list {
-		margin: 24px 0;
-		padding: 22px 26px;
-		background: #fffde7;
-		border-radius: 14px;
-	}
+    p {
+      margin: 0 0 1.35em;
+    }
 
-	.exercise-list div {
-		margin: 8px 0;
-	}
+    .intro-box {
+      border-left: 6px solid var(--soft-gold);
+      background: linear-gradient(90deg, #fff5e4, #fffdf8);
+      padding: 20px 22px;
+      border-radius: 0 18px 18px 0;
+      margin: 26px 0 34px;
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
 
-	footer {
-		padding: 24px 32px;
-		text-align: center;
-		background: #2e5d34;
-		color: #ffffff;
-		font-size: 0.95rem;
-	}
-</style>
+    .question-list {
+      margin: 28px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .question-list li {
+      background: #f8efe2;
+      border: 1px solid #ead7bd;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 700;
+      color: #4c3420;
+    }
+
+    .question-list li::before {
+      content: "“";
+      color: var(--accent);
+      font-size: 1.4rem;
+      line-height: 0;
+      margin-right: 2px;
+    }
+
+    .question-list li::after {
+      content: "”";
+      color: var(--accent);
+      font-size: 1.4rem;
+      line-height: 0;
+      margin-left: 2px;
+    }
+
+    h2 {
+      margin: 2.1em 0 0.8em;
+      padding-bottom: 0.35em;
+      border-bottom: 2px solid var(--line);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      color: var(--accent-dark);
+      line-height: 1.45;
+    }
+
+    .scripture {
+      position: relative;
+      margin: 30px 0;
+      padding: 26px 28px 24px;
+      background: var(--quote-bg);
+      border: 1px solid #ead7bd;
+      border-radius: 22px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+    }
+
+    .scripture::before {
+      content: "聖句";
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      padding: 3px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .scripture .ref {
+      margin-bottom: 8px;
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    blockquote {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #3d2b1f;
+    }
+
+    .danger-list,
+    .summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 30px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .danger-list li,
+    .summary-list li {
+      position: relative;
+      padding: 12px 16px 12px 42px;
+      border-radius: 14px;
+      background: #fffaf2;
+      border: 1px solid #eadfce;
+    }
+
+    .danger-list li::before {
+      content: "◆";
+      position: absolute;
+      left: 17px;
+      top: 12px;
+      color: #a64b31;
+    }
+
+    .summary-list li::before {
+      content: "◇";
+      position: absolute;
+      left: 17px;
+      top: 12px;
+      color: var(--accent);
+    }
+
+    .calm-box {
+      margin: 36px 0;
+      padding: 28px;
+      border-radius: 24px;
+      color: #fff8e8;
+      background:
+        linear-gradient(135deg, rgba(79, 55, 28, 0.94), rgba(139, 93, 43, 0.92)),
+        radial-gradient(circle at top right, rgba(255, 218, 138, 0.34), transparent 42%);
+      box-shadow: 0 18px 38px rgba(80, 55, 28, 0.18);
+    }
+
+    .calm-box h2 {
+      margin-top: 0;
+      color: #fff4d9;
+      border-bottom-color: rgba(255, 244, 217, 0.32);
+    }
+
+    .calm-box p {
+      color: #fff8e8;
+    }
+
+    .closing {
+      margin-top: 38px;
+      padding: 30px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, #fff7e9, #fffdf8);
+      border: 1px solid #ead7bd;
+      text-align: center;
+    }
+
+    .closing strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      color: var(--accent-dark);
+    }
+
+    footer {
+      margin: 30px auto 0;
+      text-align: center;
+      color: var(--subtext);
+      font-size: 0.92rem;
+    }
+
+    .footer-line {
+      width: 80px;
+      height: 3px;
+      margin: 0 auto 14px;
+      border-radius: 999px;
+      background: var(--soft-gold);
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 12px 36px;
+      }
+
+      .hero {
+        border-radius: 20px;
+      }
+
+      .hero-title {
+        left: 5%;
+        bottom: 6%;
+      }
+
+      .lead {
+        font-size: 0.98rem;
+      }
+
+      article {
+        border-radius: 20px;
+      }
+
+      .scripture,
+      .calm-box,
+      .closing {
+        padding: 22px 18px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
 
-<div class="container">
+    <header class="hero">
+      <img src="img/bible_sec12_1.png" alt="悪いニュースによる怒りから、聖書の言葉によって平和へ向かうイメージ">
+      <div class="hero-title">
+        <div class="label">聖書から考える心の守り方</div>
+        <h1>悪いニュースばかりで毎日、怒っていませんか？</h1>
+        <p class="lead">
+          不公正や犯罪に心を乱される時、聖書は怒りに支配されないための見方を教えています。
+        </p>
+      </div>
+    </header>
 
-	<header>
-		<h1>運動はきつい？そんなことはない</h1>
-		<p class="lead">軽い運動は、心と体を少しずつ元気にしてくれる。</p>
-	</header>
+    <article>
+      <p>
+        毎日のニュースを見ていると、不公正や犯罪、暴力、詐欺、権力の乱用など、腹が立つことばかりが目に入ることがあります。
+      </p>
 
-	<img src="img/bible_sec11_10.png" alt="軽い運動をイメージしたイラスト" class="main-image">
+      <ul class="question-list">
+        <li>なぜ悪い人が平然としているのか</li>
+        <li>なぜ正直な人や弱い人が苦しむのか</li>
+        <li>こんな世の中はおかしい</li>
+      </ul>
 
-	<main>
-		<p>「運動はつらい」「筋トレは苦しい」。そう感じる人は少なくありません。特に運動習慣がない人にとって、運動は“苦行”のように思えることもあります。</p>
+      <p>
+        そう感じるのは自然なことです。悪を見ても何も感じない人間になる必要はありません。
+        しかし聖書は、悪に対する怒りに心を支配されないようにと教えています。
+      </p>
 
-		<p>しかし実際には、軽い運動は私たちの心と体に良い影響を与えることが分かっています。</p>
+      <div class="scripture">
+        <div class="ref">詩編37編1節</div>
+        <blockquote>
+          悪人のことで腹を立ててはならない。<br>
+          不正を行う人をうらやんではならない。
+        </blockquote>
+      </div>
 
-		<p>激しいトレーニングをする必要はありません。むしろ、軽い運動でも脳には大きな変化が起こります。</p>
+      <p>
+        この言葉は、「悪を見ても気にするな」という意味ではありません。
+        むしろ、悪に注目し続けて、怒りや憎しみで心をいっぱいにしてはならない、という助言です。
+      </p>
 
-		<p>例えば、軽いウォーキングや軽い筋トレをすると、脳内では次のような物質が分泌されます。</p>
+      <p>
+        悪いニュースを見続けると、心がいつも怒りの状態になります。
+        事件を見て怒り、不正を見て怒り、人の悪意を見て怒る。
+        そうしているうちに、自分の心まで荒れてしまいます。
+      </p>
 
-		<div class="card-list">
-			<div class="card">
-				<strong>ドーパミン</strong>
-				やる気や達成感に関係する
-			</div>
-			<div class="card">
-				<strong>セロトニン</strong>
-				心の安定や安心感に関係する
-			</div>
-			<div class="card">
-				<strong>エンドルフィン</strong>
-				幸福感や高揚感に関係する
-			</div>
-		</div>
+      <div class="scripture">
+        <div class="ref">詩編37編8節</div>
+        <blockquote>
+          怒るのをやめ，憤りを捨てよ。<br>
+          腹を立てて悪を行ってはならない。
+        </blockquote>
+      </div>
 
-		<div class="quote">
-			つまり、軽い運動は「幸福」に寄与するのです。
-		</div>
+      <h2>怒りを抱え続ける危険</h2>
 
-		<p>運動後に「少しスッキリした」「気分が軽くなった」と感じる人がいるのは、気のせいではありません。脳が実際に良い反応を起こしているのです。</p>
+      <p>
+        怒りそのものがすべて悪いわけではありません。
+        不公正に対して怒りを感じるのは、正義感があるからです。
+        しかし、怒りを抱え続けると危険です。
+      </p>
 
-		<p>もちろん、最初から無理をすると逆効果です。息切れするほど追い込んだり、筋肉痛になるまで頑張る必要はありません。</p>
+      <ul class="danger-list">
+        <li>怒りは、やがて憎しみに変わることがあります。</li>
+        <li>人を見下す気持ちにつながることもあります。</li>
+        <li>言葉が荒くなり、自分自身も攻撃的になることがあります。</li>
+      </ul>
 
-		<div class="quote">
-			大切なのは、「少し体を動かす」という習慣です。
-		</div>
+      <p>
+        つまり、悪に怒っているつもりが、いつの間にか自分の心まで悪に引きずられてしまうのです。
+      </p>
 
-		<p>例えば、次のような軽い運動でも十分効果があります。</p>
+      <h2>悪を見た時、どう考えればよいか</h2>
 
-		<div class="exercise-list">
-			<div>◆ 10〜20分の散歩</div>
-			<div>◆ 軽いスクワット</div>
-			<div>◆ 軽いストレッチ</div>
-			<div>◆ ラジオ体操</div>
-		</div>
+      <div class="scripture">
+        <div class="ref">ローマ12章19節</div>
+        <blockquote>
+          自分で復讐してはなりません。神の憤りに任せなさい。
+        </blockquote>
+      </div>
 
-		<p>特に現代人は、座りっぱなしや運動不足で血流が悪くなりやすく、疲れやすい状態になっています。軽い運動は血流を改善し、疲れにくい体づくりにも役立ちます。</p>
+      <p>
+        人間の怒りだけでは、本当の公正を実現することはできません。
+        私たちが見るニュースは、物事の一部にすぎません。
+        事件の背景も、人の心も、すべてを正確に知ることはできません。
+      </p>
 
-		<p>「運動＝苦しいもの」。そう思い込む必要はありません。</p>
+      <p>
+        しかし、神はすべてを見ておられます。
+        隠れた悪も、弱い人の苦しみも、不正を行う人の行動も見ています。
+        だからこそ、聖書は「自分の怒りで裁こうとする」のではなく、神の公正な裁きに任せるよう勧めています。
+      </p>
 
-		<p>まずは“少し気持ちよく終われる程度”から始めてみましょう。続けているうちに、体だけでなく心も少しずつ変わっていくかもしれません。</p>
-	</main>
+      <p>
+        もちろん、これは悪に無関心でよいという意味ではありません。
+        できる範囲で善を行い、正しいことを支持し、困っている人に親切を示すことは大切です。
+      </p>
 
-	<footer>
-		作成日：<span id="today"></span>
-	</footer>
+      <div class="intro-box">
+        しかし、すべての悪を自分の心に背負い込む必要はありません。
+        世界中の不公正を毎日見続け、怒り続けるなら、心が疲れ果ててしまいます。
+      </div>
 
-</div>
+      <div class="calm-box">
+        <h2>悪はずっと続くわけではない</h2>
 
-<script>
-	const today = new Date();
-	const formatted = today.getFullYear() + "年" + 
-		(today.getMonth() + 1) + "月" + 
-		today.getDate() + "日";
-	document.getElementById("today").textContent = formatted;
-</script>
+        <p>
+          詩編37編は、悪人が一時的に栄えているように見えても、
+          それは長く続かないと繰り返し述べています。
+        </p>
 
+        <div class="scripture">
+          <div class="ref">詩編37編から</div>
+          <blockquote>
+            ほんのもう少しすれば悪人はいなくなる。
+          </blockquote>
+        </div>
+
+        <div class="scripture">
+          <div class="ref">詩編37編から</div>
+          <blockquote>
+            温厚な人は地上に住み続け，<br>
+            豊かな平和にこの上ない喜びを得る。
+          </blockquote>
+        </div>
+
+        <p>
+          今の世の中を見ると、悪が強く見えることがあります。
+          正直者が損をし、ずるい人が得をしているように見えることもあります。
+          しかし聖書は、悪が永遠に続くわけではないと教えています。
+        </p>
+
+        <p>
+          神は不公正を見過ごされません。
+          悪人が一時的に成功しているように見えても、それは永続するものではありません。
+          最終的に、神は悪を終わらせ、温厚な人たちに平和を与えると約束しています。
+        </p>
+      </div>
+
+      <h2>怒りに支配されないために</h2>
+
+      <p>
+        ですから、悪いニュースを見て腹が立つ時こそ、詩編37編の言葉を思い出したいものです。
+      </p>
+
+      <ul class="summary-list">
+        <li>悪を悪として見る。</li>
+        <li>しかし、怒りに支配されない。</li>
+        <li>不公正を憎む。</li>
+        <li>しかし、復讐心を育てない。</li>
+        <li>今の世の中に失望しても、神の公正な裁きに信頼する。</li>
+      </ul>
+
+      <p>
+        悪いニュースばかりを見ると、心は暗くなります。
+        しかし、聖書の見方を持つなら、怒りに振り回されずにすみます。
+      </p>
+
+      <div class="closing">
+        <strong>悪はいつまでも続くわけではありません。</strong>
+        <p>
+          神はすべてを見ておられます。<br>
+          そして、温厚な人たちには豊かな平和が約束されています。
+        </p>
+        <p>
+          だからこそ、悪に腹を立て続けるのではなく、
+          心を守り、善を行い、神の公正を待つことができます。
+        </p>
+      </div>
+    </article>
+
+    <footer>
+      <div class="footer-line"></div>
+      <p>作成日：2026年6月27日</p>
+    </footer>
+
+  </div>
 </body>
 </html>
