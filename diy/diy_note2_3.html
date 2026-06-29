@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家の歪み修繕についての考え方</title>
+  <style>
+    :root {
+      --main: #344f68;
+      --sub: #eef4f8;
+      --accent: #b66a2d;
+      --danger: #a33a3a;
+      --safe: #2f6b4f;
+      --text: #2b2b2b;
+      --muted: #666;
+      --border: #d8e1e6;
+      --bg: #f6f8fa;
+      --card: #ffffff;
+    }
+
+```
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  line-height: 1.9;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 18px 60px;
+}
+
+header {
+  background: linear-gradient(135deg, #344f68, #4f7895);
+  color: #fff;
+  padding: 34px 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  margin-bottom: 28px;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+}
+
+header p {
+  margin: 0;
+  opacity: 0.92;
+  font-size: 1rem;
+}
+
+section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 28px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+
+h2 {
+  margin: 0 0 18px;
+  color: var(--main);
+  font-size: 1.45rem;
+  border-left: 7px solid var(--main);
+  padding-left: 12px;
+  line-height: 1.45;
+}
+
+h3 {
+  margin: 26px 0 12px;
+  color: #29445a;
+  font-size: 1.16rem;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul, ol {
+  margin: 0 0 1.2em 1.4em;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 0.45em;
+}
+
+.lead {
+  font-size: 1.08rem;
+  background: var(--sub);
+  border-left: 6px solid var(--main);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.warning {
+  background: #fff1f1;
+  border-left: 6px solid var(--danger);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.note {
+  background: #fff7ed;
+  border-left: 6px solid var(--accent);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.safe {
+  background: #eef8f2;
+  border-left: 6px solid var(--safe);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.emphasis {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #8c2f2f;
+}
+
+.check-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px 18px;
+  margin-top: 12px;
+  margin-left: 0;
+}
+
+.check-list li {
+  background: #f8fbfc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  list-style: none;
+}
+
+.check-list li::before {
+  content: "✓";
+  color: var(--main);
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+.danger-list li::before {
+  content: "!";
+  color: var(--danger);
+}
+
+.number-list {
+  background: #fafcff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px 18px 40px;
+}
+
+.cause-card {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fffdfb;
+  margin: 16px 0;
+}
+
+.cause-card h3 {
+  margin-top: 0;
+}
+
+blockquote {
+  margin: 18px 0;
+  padding: 16px 20px;
+  background: #f1f5f7;
+  border-left: 6px solid #7aa6b5;
+  border-radius: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-box {
+  background: #eef7f2;
+  border: 1px solid #c7dfd0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-top: 16px;
+}
+
+.summary-box strong {
+  color: #24613d;
+}
+
+.page-break {
+  height: 24px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  header, section {
+    box-shadow: none;
+  }
+
+  header {
+    border-radius: 0;
+  }
+
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cause-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+    height: 0;
+  }
+}
+```
+
+  </style>
+</head>
+<body>
+  <div class="page">
+
+```
+<header>
+  <h1>家の歪み修繕についての考え方</h1>
+  <p>家全体をジャッキで持ち上げる前に確認すべきこと</p>
+</header>
+
+<section>
+  <h2>1. 基本方針</h2>
+
+  <p>家に歪みがあるとしても、いきなり家全体をジャッキで持ち上げるのは危険だと思う。</p>
+
+  <p>特にこの家は、鉄骨に壁ボードを張った古い住宅で、築50年近い。これまでにも、壁ボードを剥がし、サビた鉄材を交換する修繕をしてきた。</p>
+
+  <p>そのため、歪みの原因も、家全体が単純に沈んでいるというより、以下のような部分的な原因である可能性がある。</p>
+
+  <ul class="check-list">
+    <li>一部の鉄骨のサビ</li>
+    <li>柱や梁の劣化</li>
+    <li>柱の根元の傷み</li>
+    <li>雨漏りによる鉄材の腐食</li>
+    <li>台所やサッシまわりの局所的な歪み</li>
+    <li>外壁ボードや下地材の劣化</li>
+  </ul>
+
+  <div class="safe">
+    <p><strong>まずは、家全体を大きく動かすのではなく、どこが、どれくらい歪んでいるのかを測り、原因箇所を確認してから、必要な場所だけ修繕するという方針が安全だと思う。</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2>2. 家全体をジャッキで持ち上げるのは無謀に近い</h2>
+
+  <p>家全体をジャッキで持ち上げるという方法は、非常に大がかりで危険が大きい。</p>
+
+  <p>特に古い鉄骨住宅では、家全体を無理に動かすことで、かえって別の部分を壊す可能性がある。</p>
+
+  <p>考えられる危険は以下。</p>
+
+  <ul class="check-list danger-list">
+    <li>外壁ボードが割れる</li>
+    <li>サッシやドアの建付けがさらに悪くなる</li>
+    <li>配管が引っ張られて破損する</li>
+    <li>電気配線に負担がかかる</li>
+    <li>古い鉄骨の弱い部分に力が集中する</li>
+    <li>柱の根元や基礎を傷める</li>
+    <li>屋根や外壁の取り合いが狂い、雨漏りが増える</li>
+    <li>内装にひびやズレが出る</li>
+    <li>工事中に住む人の安全性が下がる</li>
+  </ul>
+
+  <p>家全体を持ち上げる場合、どこにジャッキをかけるのか、どこで荷重を受けるのか、どの順番で何mmずつ上げるのかを、構造的に判断しなければならない。</p>
+
+  <p>感覚的に「歪んでいるから持ち上げる」という判断で行うのは危険。</p>
+
+  <div class="warning">
+    <p class="emphasis">家全体のジャッキアップは、素人判断や通常の部分修繕の延長で行うべきものではない。</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>3. 歪みを直すなら、まず測定が必要</h2>
+
+  <p>歪みを直す前に、まず本当にどこがどれくらい歪んでいるのかを測る必要がある。</p>
+
+  <p>目視や感覚だけでは判断できない。</p>
+
+  <p>確認したい場所は以下。</p>
+
+  <ul class="check-list">
+    <li>1階床の水平</li>
+    <li>2階床の水平</li>
+    <li>柱の傾き</li>
+    <li>サッシ枠の歪み</li>
+    <li>ドア枠の歪み</li>
+    <li>台所周辺の沈み</li>
+    <li>外壁の膨らみ</li>
+    <li>基礎の高さ</li>
+    <li>以前修繕した場所の周辺</li>
+  </ul>
+
+  <p>レーザー測量機などで測り、簡単な図面に記録する。</p>
+
+  <div class="note">
+    <p>特に重要なのは、<strong>家全体が歪んでいるのか、一部だけ歪んでいるのか</strong>を分けて考えること。</p>
+  </div>
+
+  <p>もし台所や特定のサッシまわりだけが悪いなら、家全体を持ち上げる必要はない可能性が高い。</p>
+</section>
+
+<section>
+  <h2>4. 歪みの原因を先に確認する</h2>
+
+  <p>歪みには原因がある。</p>
+
+  <p>原因を確認せずに家を持ち上げても、根本解決にはならない。</p>
+
+  <p>考えられる原因は以下。</p>
+
+  <div class="cause-card">
+    <h3>鉄骨のサビ・腐食</h3>
+    <p>雨漏りによって鉄骨がサビて弱くなると、柱や梁が少し下がったり、歪んだりする可能性がある。</p>
+    <p>この場合、家全体を持ち上げるより、<strong>サビた鉄骨を交換・補強することが先</strong>になる。</p>
+  </div>
+
+  <div class="cause-card">
+    <h3>柱の根元の傷み</h3>
+    <p>柱の根元がサビていたり、基礎との接合部が弱っている場合、その部分が歪みの原因になる。</p>
+    <p>この場合も、家全体を持ち上げるのではなく、柱脚部を確認して補修する必要がある。</p>
+  </div>
+
+  <div class="cause-card">
+    <h3>サッシまわりの下地劣化</h3>
+    <p>台所のドアやサッシだけに開閉不良があるなら、家全体ではなく、サッシ枠や周囲の下地だけが歪んでいる可能性がある。</p>
+    <p>この場合は、サッシ調整、枠補修、下地補強で済むこともある。</p>
+  </div>
+
+  <div class="cause-card">
+    <h3>地盤や基礎の沈下</h3>
+    <p>もし基礎や地盤が沈んでいるなら、単純に家を持ち上げるだけでは再発する可能性がある。</p>
+    <p>なぜ沈んだのかを確認しないといけない。</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>5. 良い修繕方針</h2>
+
+  <p>現実的な修繕方針は、以下だと思う。</p>
+
+  <h3>まず測る</h3>
+  <p>レーザーで歪みを測定する。</p>
+  <p>どの部屋が何mm下がっているか、どの柱や壁が傾いているかを記録する。</p>
+
+  <h3>壁を開けて確認する</h3>
+  <p>歪みが大きい場所や雨漏りしている場所の壁ボードを剥がし、中の鉄骨を確認する。</p>
+
+  <h3>傷んだ鉄骨を交換する</h3>
+  <p>サビた鉄骨、弱った鉄骨、柱や梁の傷んだ部分を交換・補強する。</p>
+
+  <h3>必要な場所だけ仮支え・部分ジャッキを使う</h3>
+  <p>ジャッキを使うなら、家全体を持ち上げるのではなく、鉄骨交換や補強をする箇所の周辺で、荷重を一時的に受けたり、わずかな歪みを調整したりする目的で使う。</p>
+
+  <blockquote>
+    家を丸ごと持ち上げるためのジャッキではなく、修繕箇所を安全に直すための部分的な仮支えとして使う。
+  </blockquote>
+
+  <p>この方が現実的で安全だと思う。</p>
+
+  <h3>防錆と防水を強化する</h3>
+  <p>鉄骨を交換しても、また水が入れば再びサビる。</p>
+
+  <p>そのため、以下を組み合わせ、コーキングだけに頼らない防水にする。</p>
+
+  <ul class="check-list">
+    <li>防錆塗装</li>
+    <li>防水テープ</li>
+    <li>板金水切り</li>
+    <li>外部用変成シリコーン系シーリング材</li>
+  </ul>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>6. おすすめしない修繕方法</h2>
+
+  <p>以下の方法は避けた方がよいと思う。</p>
+
+  <div class="cause-card">
+    <h3>家全体をジャッキで持ち上げる</h3>
+    <p>歪みの原因が分からないまま、家全体を持ち上げるのは危険。</p>
+    <p>古い家全体に無理な力がかかり、かえって破損箇所を増やす可能性がある。</p>
+  </div>
+
+  <div class="cause-card">
+    <h3>重いコンクリート壁を増設する</h3>
+    <p>コンクリート壁は頑丈そうに見えるが、非常に重い。</p>
+    <p>既存の基礎や地盤に負担がかかる可能性がある。また、既存の鉄骨住宅とうまく一体化しなければ、本当の補強になるとは限らない。</p>
+    <p>さらに、コンクリート壁と既存建物の取り合い部分から新たな雨漏りが起きる可能性もある。</p>
+  </div>
+
+  <div class="cause-card">
+    <h3>コーキングだけで防水する</h3>
+    <p>これまでの弱点は、防水をコーキングに頼りすぎていたことだと思う。</p>
+    <p>今後は、コーキングだけで隙間を埋めるのではなく、板金水切りや防水テープで水を逃がす構造にした方がよい。</p>
+  </div>
+</section>
+
+<section>
+  <h2>7. 修繕手順案</h2>
+
+  <ol class="number-list">
+    <li>家全体の歪みをレーザーで測定する</li>
+    <li>歪みが大きい場所を図に記録する</li>
+    <li>台所、サッシまわり、雨漏り箇所を重点確認する</li>
+    <li>必要な部分の壁ボードを剥がす</li>
+    <li>中の鉄骨、柱、梁、柱脚部を確認する</li>
+    <li>サビた鉄骨や弱った鉄骨を交換する</li>
+    <li>必要に応じて補強鉄骨を追加する</li>
+    <li>鉄骨交換時に、部分的な仮支えやジャッキで歪みを微調整する</li>
+    <li>鉄骨に防錆塗装を行う</li>
+    <li>防水テープを施工する</li>
+    <li>板金水切りを取り付け、水が外へ逃げるようにする</li>
+    <li>外壁ボードを戻す、または張り替える</li>
+    <li>外部用変成シリコーン系シーリング材で目地を仕上げる</li>
+    <li>必要に応じて塗装する</li>
+    <li>修繕後に再測量する</li>
+    <li>台風後、半年後、1年後に再点検する</li>
+  </ol>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>8. 結論</h2>
+
+  <p>家の歪みを直すこと自体は大事だと思う。</p>
+
+  <div class="warning">
+    <p class="emphasis">ただし、家全体をジャッキで持ち上げるのは危険で、無謀に近い。</p>
+  </div>
+
+  <p>まずは、レーザーで歪みを測り、原因を確認する。そのうえで、壁を開けて、サビた鉄骨や弱った部分を交換・補強する。</p>
+
+  <p>必要な場合だけ、修繕箇所の周辺で部分的にジャッキや仮支えを使い、歪みを調整する。</p>
+
+  <blockquote>
+    家全体を無理に持ち上げるのではなく、悪い鉄骨を直す時に、必要な箇所だけ歪みを修正する。
+  </blockquote>
+
+  <p>この方法の方が、安全で現実的だと思う。</p>
+
+  <div class="summary-box">
+    <p><strong>また、修繕後に再び水が入ると鉄骨がサビるため、防錆塗装、防水テープ、板金水切り、外部用変成シリコーン系シーリング材を組み合わせ、コーキングだけに頼らない防水にする必要がある。</strong></p>
+  </div>
+</section>
+
+<footer>
+  家の歪み修繕についての考え方
+</footer>
+```
+
+  </div>
+</body>
+</html>

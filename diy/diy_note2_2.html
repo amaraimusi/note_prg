@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>鉄骨住宅へコンクリート壁増設による補強をおすすめしにくい理由</title>
+  <style>
+    :root {
+      --main: #5a4a3f;
+      --sub: #f3eee8;
+      --accent: #b06a2c;
+      --danger: #a33a2f;
+      --text: #2e2b28;
+      --muted: #666;
+      --border: #ddd2c7;
+      --bg: #f7f5f2;
+      --card: #ffffff;
+    }
+
+```
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  line-height: 1.9;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 18px 60px;
+}
+
+header {
+  background: linear-gradient(135deg, #5a4a3f, #8a6a4e);
+  color: #fff;
+  padding: 34px 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  margin-bottom: 28px;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+}
+
+header p {
+  margin: 0;
+  opacity: 0.92;
+  font-size: 1rem;
+}
+
+section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 28px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+
+h2 {
+  margin: 0 0 18px;
+  color: var(--main);
+  font-size: 1.45rem;
+  border-left: 7px solid var(--main);
+  padding-left: 12px;
+  line-height: 1.45;
+}
+
+h3 {
+  margin: 26px 0 12px;
+  color: #4c3c32;
+  font-size: 1.18rem;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul, ol {
+  margin: 0 0 1.2em 1.4em;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 0.45em;
+}
+
+.lead {
+  font-size: 1.08rem;
+  background: var(--sub);
+  border-left: 6px solid var(--main);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+
+.warning {
+  background: #fff0ee;
+  border-left: 6px solid var(--danger);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.note {
+  background: #fff7ed;
+  border-left: 6px solid var(--accent);
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+
+.reason {
+  counter-increment: reason;
+  margin-top: 22px;
+  padding: 20px 20px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fffdfb;
+}
+
+.reasons {
+  counter-reset: reason;
+}
+
+.reason h3 {
+  margin-top: 0;
+}
+
+.reason h3::before {
+  content: counter(reason) ". ";
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.check-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px 18px;
+  margin-top: 12px;
+  margin-left: 0;
+}
+
+.check-list li {
+  background: #f9f7f4;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  list-style: none;
+}
+
+.check-list li::before {
+  content: "✓";
+  color: var(--main);
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+.number-list {
+  background: #faf8f5;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px 18px 40px;
+}
+
+.summary-box {
+  background: #eef7f2;
+  border: 1px solid #c7dfd0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-top: 16px;
+}
+
+.summary-box strong {
+  color: #24613d;
+}
+
+.emphasis {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #6b2f25;
+}
+
+.page-break {
+  height: 24px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  header, section {
+    box-shadow: none;
+  }
+
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .reason {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+    height: 0;
+  }
+
+  header {
+    border-radius: 0;
+  }
+}
+```
+
+  </style>
+</head>
+<body>
+  <div class="page">
+
+```
+<header>
+  <h1>鉄骨住宅へコンクリート壁増設による補強をおすすめしにくい理由</h1>
+  <p>既存の鉄骨住宅に、あとから重いコンクリート壁を追加する案についての注意点</p>
+</header>
+
+<section>
+  <h2>基本的な考え方</h2>
+
+  <p>家の補強として、外周に新しくコンクリート壁を増設する案は、一見すると頑丈そうに見える。</p>
+
+  <p>しかし、既存の鉄骨造の家に、あとから重いコンクリート壁を追加する方法は、慎重に考えた方がよい。</p>
+
+  <div class="warning">
+    <p><strong>見た目には強そうでも、既存の家・基礎・地盤・鉄骨との相性を考えないと、補強どころか別の問題を生む可能性がある。</strong></p>
+  </div>
+</section>
+
+<section class="reasons">
+  <h2>おすすめしにくい理由</h2>
+
+  <div class="reason">
+    <h3>コンクリート壁は非常に重い</h3>
+
+    <p>コンクリートは重いので、新しく壁を作ると、既存の基礎や地盤に大きな負担がかかる。</p>
+
+    <p>築50年近い家の場合、基礎や地盤がその追加重量に耐えられるか分からない。</p>
+
+    <div class="note">
+      <p>補強のつもりが、逆に一部の沈下や歪みを悪化させる可能性もある。</p>
+    </div>
+  </div>
+
+  <div class="reason">
+    <h3>既存の鉄骨住宅との接合が難しい</h3>
+
+    <p>新しいコンクリート壁を作っても、それが既存の鉄骨と正しく一体化していなければ、十分な補強にならない。</p>
+
+    <p>ただ壁を外側に作っただけでは、家本体を支える構造として働くとは限らない。</p>
+
+    <p>鉄骨とコンクリート壁の接合方法を誤ると、台風や地震の時に力の流れが不自然になる可能性がある。</p>
+  </div>
+
+  <div class="reason">
+    <h3>歪みの原因を直す方法ではない可能性がある</h3>
+
+    <p>家が歪んでいる原因が、鉄骨のサビ、柱脚部の劣化、梁の変形、雨漏りによる腐食であるなら、外側にコンクリート壁を追加しても根本解決にならない。</p>
+
+    <p>まず直すべきなのは、今ある家を支えている鉄骨そのものだと思う。</p>
+
+    <div class="summary-box">
+      <p><strong>サビた鉄骨を交換し、必要な場所に鉄骨を追加し、防錆塗装と防水対策を強化する方が、家本体の修繕としては筋が通っている。</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<section class="reasons">
+  <h2>さらに注意したい点</h2>
+
+  <div class="reason">
+    <h3>雨仕舞いが難しくなる</h3>
+
+    <p>既存の家の外側にコンクリート壁を増設すると、元の外壁との間や屋根との接合部に、新しい雨漏りリスクが生まれる。</p>
+
+    <p>特に沖縄では、台風の横殴りの雨があるため、コンクリート壁と既存建物の取り合い部分から水が入りやすくなる可能性がある。</p>
+
+    <div class="warning">
+      <p>防水をきちんと設計しないと、かえって水がこもり、鉄骨のサビを進める恐れがある。</p>
+    </div>
+  </div>
+
+  <div class="reason">
+    <h3>将来の修繕が難しくなる</h3>
+
+    <p>コンクリート壁を外側に作ると、あとで鉄骨の状態を確認したり、壁を剥がして修繕したりするのが難しくなる。</p>
+
+    <p>今後も部分的に鉄骨を交換していく必要があるなら、コンクリートで覆うより、点検・修繕しやすい構造にしておいた方がよい。</p>
+  </div>
+
+  <div class="reason">
+    <h3>工事規模が大きくなりすぎる</h3>
+
+    <p>コンクリート壁増設、屋根の新設、家のジャッキアップが組み合わさると、部分修繕ではなく大規模改修になる。</p>
+
+    <p>住みながら行うには、雨漏り、騒音、粉じん、安全面のリスクも大きい。</p>
+
+    <p>特に築50年近い家では、工事中に別の古い部分へ負担が出る可能性もある。</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>提案したい代替案</h2>
+
+  <p>コンクリート壁で補強するより、以下の方法を中心に考えたい。</p>
+
+  <ol class="number-list">
+    <li>家全体の歪みをレーザーで測定する</li>
+    <li>歪みが大きい場所を記録する</li>
+    <li>壁ボードを部分的に剥がす</li>
+    <li>サビた鉄骨、弱った鉄骨、柱脚部を確認する</li>
+    <li>悪い鉄骨を交換・補強する</li>
+    <li>必要な場所だけ仮支えやジャッキで微調整する</li>
+    <li>防錆塗装を行う</li>
+    <li>防水テープ、板金水切り、外部用変成シリコーン系シーリング材で防水を強化する</li>
+    <li>修繕後に再測量する</li>
+  </ol>
+
+  <div class="summary-box">
+    <p>つまり、家全体を無理に持ち上げたり、重いコンクリート壁を追加したりするのではなく、</p>
+    <p class="emphasis">悪い鉄骨を直す時に、必要な範囲だけ歪みを調整する</p>
+    <p>という方法がよいと思う。</p>
+  </div>
+</section>
+
+<div class="page-break"></div>
+
+<section>
+  <h2>結論</h2>
+
+  <p>コンクリート壁の増設は、見た目には頑丈そうだが、既存の鉄骨住宅に後から追加する補強としてはリスクが大きい。</p>
+
+  <p>まずは、今ある家を支えている鉄骨を確認し、サビた部分を交換し、防錆と防水を強化する方が安全で現実的だと思う。</p>
+
+  <div class="warning">
+    <p><strong>家の歪みを直す場合も、家全体をジャッキで持ち上げるのではなく、鉄骨交換や補強のタイミングで、必要な箇所だけ仮支えや部分ジャッキを使って調整する方がよい。</strong></p>
+  </div>
+</section>
+
+<footer>
+  コンクリート壁増設による補強をおすすめしにくい理由
+</footer>
+```
+
+  </div>
+</body>
+</html>

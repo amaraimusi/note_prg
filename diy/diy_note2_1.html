@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鉄骨住宅の部分修繕手順案</title>
+  <style>
+    :root {
+      --main: #2f5f73;
+      --sub: #e8f3f6;
+      --accent: #c96f2d;
+      --danger: #b33a3a;
+      --text: #2b2b2b;
+      --muted: #666;
+      --border: #d7e1e5;
+      --bg: #f6f8f9;
+      --card: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.9;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2f5f73, #457f92);
+      color: #fff;
+      padding: 34px 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+      margin-bottom: 28px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      line-height: 1.35;
+      letter-spacing: 0.04em;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.92;
+      font-size: 1rem;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      color: var(--main);
+      font-size: 1.5rem;
+      border-left: 7px solid var(--main);
+      padding-left: 12px;
+      line-height: 1.45;
+    }
+
+    h3 {
+      margin: 26px 0 12px;
+      color: #244b5b;
+      font-size: 1.2rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    ul, ol {
+      margin: 0 0 1.2em 1.4em;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 0.35em;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      background: var(--sub);
+      border-left: 6px solid var(--main);
+      padding: 16px 18px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 6px solid var(--accent);
+      padding: 15px 18px;
+      border-radius: 10px;
+      margin: 18px 0;
+    }
+
+    .warning {
+      background: #fff1f1;
+      border-left: 6px solid var(--danger);
+      padding: 15px 18px;
+      border-radius: 10px;
+      margin: 18px 0;
+    }
+
+    .check-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px 18px;
+      margin-top: 12px;
+    }
+
+    .check-list li {
+      background: #f7fafb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      list-style: none;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--main);
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+
+    blockquote {
+      margin: 18px 0;
+      padding: 16px 20px;
+      background: #f1f5f7;
+      border-left: 6px solid #7aa6b5;
+      border-radius: 10px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .step {
+      counter-increment: step;
+      position: relative;
+    }
+
+    .step h3::before {
+      content: counter(step) ". ";
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .steps {
+      counter-reset: step;
+    }
+
+    .summary-box {
+      background: #eef7f2;
+      border: 1px solid #c7dfd0;
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-top: 16px;
+    }
+
+    .summary-box strong {
+      color: #24613d;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      header, section {
+        box-shadow: none;
+      }
+
+      section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <h1>鉄骨住宅の部分修繕手順案</h1>
+      <p>従来工法の改善版：鉄骨交換に加え、防錆・防水・水切りを強化する修繕方法</p>
+    </header>
+
+    <section>
+      <h2>基本方針</h2>
+
+      <p>これまでの修繕方法である、</p>
+
+      <ol>
+        <li>壁ボードを剥がす</li>
+        <li>サビた鉄材を交換する</li>
+        <li>ボードを戻す</li>
+        <li>隙間をコーキングで埋める</li>
+      </ol>
+
+      <p>という方法は、鉄骨の悪い部分を直すという意味では妥当だと思う。</p>
+
+      <div class="warning">
+        <p><strong>ただし、これまでの弱点は、修繕後の防水をコーキングに頼りすぎていた点にある。</strong></p>
+        <p>そのため、時間がたつとコーキングが劣化し、再び水が入り、鉄骨がサビる可能性がある。</p>
+      </div>
+
+      <p>今後は、単にコーキングで隙間を埋めるのではなく、以下を組み合わせて、雨水が入りにくく、入っても鉄骨に回りにくい構造にする。</p>
+
+      <ul class="check-list">
+        <li>鉄骨の防錆塗装</li>
+        <li>防水テープ</li>
+        <li>板金水切り</li>
+        <li>外部用変成シリコーン系シーリング材</li>
+      </ul>
+    </section>
+
+    <section class="steps" style="break-before: page;">
+      <h2>改善後の修繕手順</h2>
+
+      <div class="step">
+        <h3>修繕箇所の確認</h3>
+
+        <p>まず、雨漏りしている場所、サビが出ている場所、外壁ボードが傷んでいる場所を確認する。</p>
+
+        <p>確認する場所は以下。</p>
+
+        <ul class="check-list">
+          <li>台所まわり</li>
+          <li>サッシまわり</li>
+          <li>外壁ボードの継ぎ目</li>
+          <li>屋根と壁の取り合い</li>
+          <li>柱や梁の周辺</li>
+          <li>以前修繕した箇所</li>
+          <li>コーキングが切れている箇所</li>
+        </ul>
+
+        <p>雨水がどこから入り、どこへ流れているのかを確認する。</p>
+      </div>
+
+      <div class="step">
+        <h3>外壁ボードを剥がす</h3>
+
+        <p>修繕する部分の外壁ボードを剥がす。</p>
+
+        <p>この時、単に鉄骨だけを見るのではなく、以下も確認する。</p>
+
+        <ul class="check-list">
+          <li>ボード裏側の湿気</li>
+          <li>下地材の腐食</li>
+          <li>鉄骨のサビ</li>
+          <li>サッシ枠まわりの水の侵入跡</li>
+          <li>古いコーキングの劣化</li>
+          <li>雨水が通った跡</li>
+        </ul>
+
+        <p>ボードを剥がした段階で、想定より広く傷んでいる場合は、修繕範囲を広げる。</p>
+      </div>
+
+      <div class="step" style="break-before: page;">
+        <h3>サビた鉄材を撤去する</h3>
+
+        <p>サビがひどい鉄材、強度が落ちている鉄材を撤去する。</p>
+
+        <p>表面だけのサビで済む部分は、ケレンしてサビを落とす。穴が開いている、厚みが減っている、叩くと弱い部分は交換する。</p>
+
+        <p>特に注意する場所。</p>
+
+        <ul class="check-list">
+          <li>柱の根元</li>
+          <li>梁との接合部</li>
+          <li>サッシ下</li>
+          <li>雨漏り箇所の周辺</li>
+          <li>外壁に近い鉄骨</li>
+          <li>水が溜まりやすい部分</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>新しい鉄材を入れる</h3>
+
+        <p>撤去した部分に、新しい鉄材を入れる。</p>
+
+        <p>必要に応じて、以下のような形にする。</p>
+
+        <ul class="check-list">
+          <li>同等以上の鉄材に交換</li>
+          <li>補強材を追加</li>
+          <li>接合部を強化</li>
+          <li>水が溜まりにくい形にする</li>
+        </ul>
+
+        <div class="note">
+          <p>この段階では、単に元通りに戻すだけでなく、前より水が回りにくい納まりにすることを意識する。</p>
+        </div>
+      </div>
+
+      <div class="step " style="break-before: page;">
+        <h3>鉄材の防錆処理をする</h3>
+
+        <p>新しく入れた鉄材、既存の鉄材のサビを落とした部分に、防錆塗装を行う。</p>
+
+        <p>手順は以下。</p>
+
+        <ol>
+          <li>サビ、汚れ、古い塗膜を落とす</li>
+          <li>油分や粉を清掃する</li>
+          <li>防錆プライマーを塗る</li>
+          <li>防錆塗料を塗る</li>
+          <li>必要なら上塗りを行う</li>
+        </ol>
+
+        <p>鉄骨が水に触れてもすぐにサビないようにする。</p>
+
+        <div class="note">
+          <p>特に沖縄では、湿気、台風、塩害があるため、防錆塗装は重要。</p>
+        </div>
+      </div>
+
+      <div class="step" style="break-before: page;">
+        <h3>ボードを戻す前に防水テープを入れる</h3>
+
+        <p>外壁ボードを戻す前に、雨水が入りやすい部分へ防水テープを施工する。</p>
+
+        <p>特に入れる場所。</p>
+
+        <ul class="check-list">
+          <li>サッシまわり</li>
+          <li>外壁ボードの継ぎ目の裏側</li>
+          <li>板金の重なり部分</li>
+          <li>屋根と壁の取り合い</li>
+          <li>鉄骨に水が回りそうな部分</li>
+        </ul>
+
+        <p>表面のコーキングだけでなく、裏側にも防水層を作る。</p>
+
+        <p>これにより、表面のシーリングが劣化しても、すぐに鉄骨へ水が回りにくくなる。</p>
+      </div>
+
+      <div class="step">
+        <h3>板金水切りを取り付ける</h3>
+
+        <p>雨水が直接隙間に当たる場所には、板金水切りを取り付ける。</p>
+
+        <div class="lead">
+          目的は、雨水をコーキングで止めるのではなく、外へ逃がすこと。
+        </div>
+
+        <p>取り付けを検討する場所。</p>
+
+        <ul class="check-list">
+          <li>サッシの上</li>
+          <li>サッシの下</li>
+          <li>外壁ボードの横継ぎ目</li>
+          <li>屋根と壁の取り合い</li>
+          <li>雨が強く当たる壁面</li>
+          <li>後から補修した部分の境目</li>
+        </ul>
+
+        <p>板金水切りを入れることで、雨水が壁の中へ入りにくくなる。コーキングへの負担も減る。</p>
+      </div>
+
+      <div class="step"  style="break-before: page;">
+        <h3>外壁ボードを戻す、または張り替える</h3>
+
+        <p>傷んでいないボードは戻す。割れ、反り、劣化があるボードは新しいものに交換する。</p>
+
+        <p>ボードを戻す時は、隙間の位置、水の流れ、固定ビスの状態に注意する。</p>
+
+        <div class="note">
+          <p>特に、継ぎ目に水が溜まる形は避ける。可能なら、雨水が下へ流れて外へ抜ける形にする。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <h3>目地を整える</h3>
+
+        <p>コーキングを打つ前に、目地を整える。</p>
+
+        <p>重要な点。</p>
+
+        <ul class="check-list">
+          <li>古いコーキングはできるだけ撤去する</li>
+          <li>ほこり、サビ、油分を落とす</li>
+          <li>目地の幅と深さを確保する</li>
+          <li>深すぎる隙間にはバックアップ材を入れる</li>
+          <li>三面接着にならないようにする</li>
+          <li>必要に応じてプライマーを塗る</li>
+        </ul>
+
+        <p>表面だけに薄くコーキングを塗るのではなく、きちんと目地として施工する。</p>
+      </div>
+
+      <div class="step"  style="break-before: page;">
+        <h3>外部用変成シリコーン系シーリング材を打つ</h3>
+
+        <p>外気、雨、紫外線に当たる部分には、外部用の変成シリコーン系シーリング材を使う。</p>
+
+        <p>選ぶ目安。</p>
+
+        <ul class="check-list">
+          <li>外壁用</li>
+          <li>変成シリコーン系</li>
+          <li>高耐候タイプ</li>
+          <li>ノンブリードタイプ</li>
+          <li>塗装可能なタイプ</li>
+          <li>下地に合うプライマーがあるもの</li>
+        </ul>
+
+        <div class="warning">
+          <p>ウレタン系を使う場合は、基本的に上から塗装する前提にする。露出したままにする場所では、紫外線劣化に注意する。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <h3>必要に応じて外壁塗装を行う</h3>
+
+        <p>シーリング材が硬化した後、必要に応じて外壁塗装を行う。</p>
+
+        <p>塗装により、以下が期待できる。</p>
+
+        <ul class="check-list">
+          <li>外壁ボードの保護</li>
+          <li>シーリング材の保護</li>
+          <li>紫外線対策</li>
+          <li>防水性の向上</li>
+        </ul>
+
+        <p>ただし、使用したシーリング材が塗装可能か事前に確認する。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>従来工法との違い</h2>
+
+      <p>従来は、</p>
+
+      <blockquote>
+        鉄材を交換して、ボードを戻し、隙間をコーキングで埋める
+      </blockquote>
+
+      <p>という形だった。</p>
+
+      <p>改善後は、</p>
+
+      <blockquote>
+        鉄材を交換し、防錆塗装を行い、防水テープと板金水切りで雨水を逃がし、最後に外部用変成シリコーン系シーリング材で仕上げる
+      </blockquote>
+
+      <p>という形にする。</p>
+
+      <div class="summary-box">
+        <p>つまり、コーキングだけに頼るのではなく、<strong>防錆、防水テープ、板金水切り、シーリング材を組み合わせる修繕方法</strong>に変える。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>重要な考え方</h2>
+
+      <div class="lead">
+        コーキングは最後の仕上げであり、防水の主役にしすぎない。
+      </div>
+
+      <p>防水の基本は、以下の考え方にする。</p>
+
+      <ol>
+        <li>雨水を入れない</li>
+        <li>入りそうな水を外へ逃がす</li>
+        <li>鉄骨に水を触れさせない</li>
+        <li>万一入っても乾きやすくする</li>
+        <li>鉄骨自体を防錆塗装で守る</li>
+      </ol>
+
+      <p>この方法なら、従来の部分修繕の延長でありながら、以前より水漏れ再発を防ぎやすくなる。</p>
+    </section>
+
+    <footer>
+      鉄骨住宅の部分修繕手順案｜従来工法の改善版
+    </footer>
+
+  </div>
+</body>
+</html>
