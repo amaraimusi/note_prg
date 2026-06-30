@@ -1,175 +1,654 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>子供の将来を守るために</title>
-<style>
-body {
-  margin: 0;
-  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
-  background: #f6f1e8;
-  color: #2f2a24;
-  line-height: 1.9;
-}
-.wrapper {
-  max-width: 860px;
-  margin: auto;
-  background: #fffdf8;
-  padding: 42px 26px;
-}
-.hero img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.18);
-}
-h1 {
-  font-size: 1.9rem;
-  line-height: 1.5;
-  color: #4a3524;
-  border-left: 8px solid #b88746;
-  padding-left: 16px;
-  margin-top: 34px;
-}
-h2 {
-  margin-top: 42px;
-  color: #6b4423;
-  border-bottom: 2px solid #e2c79b;
-  padding-bottom: 6px;
-}
-p {
-  font-size: 1.05rem;
-}
-.quote {
-  background: #f3eadc;
-  border-left: 6px solid #b88746;
-  padding: 18px 22px;
-  margin: 28px 0;
-  border-radius: 10px;
-  font-weight: 600;
-}
-.bible {
-  background: #fff6e5;
-  border: 1px solid #e2c79b;
-  padding: 22px;
-  border-radius: 14px;
-  margin: 24px 0;
-}
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-li {
-  margin: 8px 0;
-  padding-left: 1.6em;
-  position: relative;
-}
-li::before {
-  content: "◆";
-  position: absolute;
-  left: 0;
-  color: #b88746;
-}
-footer {
-  margin-top: 50px;
-  padding-top: 20px;
-  border-top: 1px solid #ddd0bd;
-  text-align: center;
-  color: #7b6a58;
-  font-size: .9rem;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIに相談する人ほど不幸になる？――AIを友人にしてしまう危うさと、正しい距離感</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --paper: #fffaf2;
+      --text: #2d2a26;
+      --muted: #6f665b;
+      --accent: #3b6f78;
+      --accent-dark: #21464d;
+      --accent-soft: #e3f0f1;
+      --gold: #b88a3b;
+      --line: #ded4c5;
+      --quote-bg: #f0eadf;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(59, 111, 120, 0.12), transparent 32%),
+        linear-gradient(180deg, #f8f4ed 0%, var(--bg) 100%);
+      color: var(--text);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      line-height: 1.9;
+      letter-spacing: 0.03em;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 18px 56px;
+    }
+
+    article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 18px 45px rgba(75, 56, 34, 0.12);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 48px 46px 34px;
+      background:
+        linear-gradient(135deg, rgba(33, 70, 77, 0.96), rgba(59, 111, 120, 0.88)),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.28), transparent 25%);
+      color: #fff;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 5px 14px;
+      border: 1px solid rgba(255,255,255,0.55);
+      border-radius: 999px;
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
+      color: #f3ead8;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.85rem, 4vw, 3rem);
+      line-height: 1.35;
+      letter-spacing: 0.04em;
+    }
+
+    .lead {
+      margin: 22px 0 0;
+      max-width: 760px;
+      color: #f4efe5;
+      font-size: 1.05rem;
+    }
+
+    .hero-image {
+      margin: 0;
+      background: #1f2e31;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .caption {
+      padding: 10px 18px;
+      background: #efe6d8;
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-align: center;
+    }
+
+    .content {
+      padding: 42px 46px 18px;
+    }
+
+    h2 {
+      position: relative;
+      margin: 54px 0 18px;
+      padding-left: 18px;
+      color: var(--accent-dark);
+      font-size: 1.55rem;
+      line-height: 1.5;
+      border-left: 6px solid var(--accent);
+    }
+
+    h2:first-child {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+    }
+
+    .opening-quote {
+      margin: 0 0 28px;
+      padding: 26px 28px;
+      background: var(--accent-soft);
+      border-left: 6px solid var(--accent);
+      border-radius: 16px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--accent-dark);
+    }
+
+    .note {
+      margin: 28px 0;
+      padding: 22px 24px;
+      background: #fff4dc;
+      border: 1px solid #e3c481;
+      border-radius: 16px;
+    }
+
+    .note strong {
+      color: #7a5412;
+    }
+
+    .thought-list,
+    .action-list {
+      margin: 24px 0 30px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .thought-list li,
+    .action-list li {
+      position: relative;
+      margin: 10px 0;
+      padding-left: 28px;
+    }
+
+    .thought-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    .action-list li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    blockquote {
+      margin: 34px 0;
+      padding: 28px 30px;
+      background: var(--quote-bg);
+      border-left: 7px solid var(--gold);
+      border-radius: 18px;
+      color: #3d352b;
+      font-size: 1.12rem;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-style: normal;
+      text-align: right;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 26px 0 34px;
+    }
+
+    .card {
+      padding: 22px 22px 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(75, 56, 34, 0.07);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      color: var(--accent-dark);
+      font-size: 1.12rem;
+    }
+
+    .card p {
+      margin-bottom: 0.75em;
+    }
+
+    .summary {
+      margin: 44px 0 28px;
+      padding: 30px;
+      background:
+        linear-gradient(135deg, rgba(59, 111, 120, 0.12), rgba(184, 138, 59, 0.12));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+    }
+
+    .summary h2 {
+      margin-top: 0;
+    }
+
+    footer {
+      padding: 24px 46px 34px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+      background: #f4eadc;
+    }
+
+    .footer-title {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent-dark);
+      font-weight: bold;
+    }
+
+    .print-break {
+      break-before: page;
+      page-break-before: always;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 18px 10px 36px;
+      }
+
+      article {
+        border-radius: 16px;
+      }
+
+      .hero,
+      .content,
+      footer {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 1.32rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      article {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        background: #fff;
+        color: #000;
+        border-bottom: 2px solid #aaa;
+      }
+
+      .lead,
+      .eyebrow {
+        color: #333;
+      }
+
+      .hero-image img {
+        max-height: 14cm;
+      }
+
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      p,
+      li,
+      blockquote,
+      .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      footer {
+        background: #fff;
+        border-top: 1px solid #aaa;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="wrapper">
+  <div class="page">
+    <article>
+      <header class="hero">
+        <span class="eyebrow">AI時代の知恵ある距離感</span>
+        <h1>AIに相談する人ほど不幸になる？<br>AIを友人にしてしまう危うさと、正しい距離感</h1>
+        <p class="lead">
+          AIは考えを整理する便利な道具です。しかし、人間関係の代わりにしてしまうなら、孤独を深める危険もあります。
+        </p>
+      </header>
 
-  <div class="hero">
-    <img src="img/bible_sec12_4.png" alt="子供の将来を守るための教育を表すイメージ">
+      <figure class="hero-image">
+        <img src="img/bible_sec12_5.png" alt="AIと現実の交友のバランスをイメージしたイラスト">
+        <figcaption class="caption">AIを思考の補助として使いながら、現実の人とのつながりへ戻る。</figcaption>
+      </figure>
+
+      <main class="content">
+        <div class="opening-quote">
+          「AIに相談する人ほど不幸になる」
+        </div>
+
+        <p>
+          最近、このような少し刺激的な言い方を見かけることがあります。実際、AIチャットの利用と孤独感、感情的依存、現実の人間関係との関わりについて調べた研究も出てきています。
+        </p>
+
+        <p>
+          ある研究では、AIチャットを長時間使う人ほど、孤独感やAIへの依存、問題のある使い方が高まり、現実の人との交流が少なくなる傾向が報告されています。
+        </p>
+
+        <p>
+          ただし、これをそのまま「AIに相談する人は不幸になる」と言い切るのは、さすがに少し行きすぎでしょう。
+        </p>
+
+        <p>
+          AIを使うこと自体が悪いわけではありません。文章を整える、考えを整理する、情報を調べる、創作を助けてもらう、気持ちを言葉にする。こうした使い方は、とても有益です。
+        </p>
+
+        <div class="note">
+          <strong>大切な点：</strong>
+          問題は、AIを道具として使うのではなく、人間の代わりにしてしまうことです。
+        </div>
+
+        <h2>AIを友人にしてしまう危うさ</h2>
+
+        <p>
+          人との付き合いは、時に面倒です。
+        </p>
+
+        <ul class="thought-list">
+          <li>相手の都合があります。</li>
+          <li>こちらの気持ちがうまく伝わらないこともあります。</li>
+          <li>時には反対されたり、少し厳しいことを言われたりもします。</li>
+          <li>すぐに返事が来ないこともあります。</li>
+        </ul>
+
+        <p>
+          それに比べると、AIはとても楽です。いつでも返事をしてくれます。話を遮りません。否定も少なく、こちらの気持ちを受け止めるような言葉を返してくれます。
+        </p>
+
+        <p>
+          そのため、孤独な時や疲れている時には、AIの方が人間よりも話しやすく感じることがあります。
+        </p>
+
+        <p>
+          しかし、ここに危うさがあります。
+        </p>
+
+        <p>
+          AIとの会話だけで満足してしまうと、現実の人間関係から少しずつ離れてしまうかもしれません。
+        </p>
+
+        <ul class="thought-list">
+          <li>「人と話すのは面倒だから、AIでいい」</li>
+          <li>「誰かに連絡するより、AIに話した方が楽」</li>
+          <li>「人間は分かってくれないが、AIは分かってくれる」</li>
+        </ul>
+
+        <p>
+          このように考えるようになると、AIは助けではなく、孤立を深めるものになってしまいます。
+        </p>
+
+        <h2>AIは相談相手ではあっても、交友の代わりではない</h2>
+
+        <p>
+          AIは、考えを整理する相手にはなれます。しかし、本当の意味での友人にはなれません。
+        </p>
+
+        <ul class="thought-list">
+          <li>友人は、こちらの生活を知っています。</li>
+          <li>一緒に笑うことがあります。</li>
+          <li>時には心配してくれます。</li>
+          <li>困った時に実際に助けてくれることもあります。</li>
+          <li>また、こちらも相手を気遣い、支えることがあります。</li>
+        </ul>
+
+        <p>
+          人間関係には、「互いに」という要素があります。
+        </p>
+
+        <p>
+          一方、AIとの会話は基本的に一方向です。AIは返答してくれますが、実際に共に生活しているわけではありません。責任を持って関係を築く存在でもありません。
+        </p>
+
+        <p>
+          ですから、AIは相談の補助にはなっても、人との交友の代わりにはなりません。
+        </p>
+
+        <h2 class="print-break">AIのない時代、人は一人で考えていた</h2>
+
+        <p>
+          考えてみると、AIがなかった時代にも、人は一人で多くのことを考えていました。
+        </p>
+
+        <ul class="thought-list">
+          <li>悩みごとを抱えて、自問自答する。</li>
+          <li>今日の出来事を思い返す。</li>
+          <li>自分の言動を反省する。</li>
+          <li>明日どうするか考える。</li>
+          <li>怒りや不安を心の中で整理する。</li>
+        </ul>
+
+        <p>
+          こうした時間は、誰にでもありました。
+        </p>
+
+        <p>
+          そう考えると、AIは「人間の代わり」ではなく、もともと一人で考えていた時間に加わった補助的な存在、と見ることができます。
+        </p>
+
+        <p>
+          一人で考えていた時は、同じ考えがぐるぐる回ることがあります。AIに話すことで、考えが文章になり、別の視点が加わり、整理しやすくなることがあります。
+        </p>
+
+        <p>
+          これは良い使い方です。つまり、AIは「自問自答を助ける道具」として使えばよいのです。
+        </p>
+
+        <ul class="action-list">
+          <li>自分で考える。</li>
+          <li>AIに投げてみる。</li>
+          <li>別の視点を得る。</li>
+          <li>それを吟味する。</li>
+          <li>最後は自分で判断し、現実で行動する。</li>
+        </ul>
+
+        <p>
+          この流れなら、AIは孤独を深めるものではなく、思考を整える助けになります。
+        </p>
+
+        <h2>人との会話は、たわいない話でよい</h2>
+
+        <p>
+          一方で、人との会話を避けてはいけません。
+        </p>
+
+        <p>
+          とはいえ、人と話す時に、毎回深い相談をする必要はありません。むしろ、人間関係の多くは、たわいない話で成り立っています。
+        </p>
+
+        <ul class="thought-list">
+          <li>畑にイノシシが出た。</li>
+          <li>猫が変なことをした。</li>
+          <li>今日は暑かった。</li>
+          <li>雨が多かった。</li>
+          <li>バイクの調子が悪い。</li>
+          <li>動画を作った。</li>
+          <li>歌を作った。</li>
+        </ul>
+
+        <p>
+          こういう話でよいのです。
+        </p>
+
+        <p>
+          友人に畑のイノシシの話をしても、たいていは「大変だね」「面白いね」で終わるかもしれません。たまに良いアドバイスをもらえることもありますが、多くの場合は、ただ近況を共有するだけです。
+        </p>
+
+        <p>
+          しかし、それで十分です。
+        </p>
+
+        <p>
+          人との交友は、問題解決のためだけにあるのではありません。生活を少し共有するためにあります。
+        </p>
+
+        <div class="two-column">
+          <section class="card">
+            <h3>AIの役割</h3>
+            <p>AIには、対策や考え方を整理してもらう。</p>
+            <p>AIは整理の助け。</p>
+          </section>
+
+          <section class="card">
+            <h3>友人の役割</h3>
+            <p>友人には、生活の出来事を話す。</p>
+            <p>友人はつながりの相手。</p>
+          </section>
+        </div>
+
+        <p>
+          この区別を持つことが大切です。
+        </p>
+
+        <h2 class="print-break">孤立を選んではいけない</h2>
+
+        <p>
+          聖書には、孤立について厳しい言葉があります。
+        </p>
+
+        <blockquote>
+          「自分を孤立させる者は利己的な願望を追い求める。その者はあらゆる実際的な知恵に逆らって突き進む」。
+          <cite>箴言 18:1</cite>
+        </blockquote>
+
+        <p>
+          これはとても考えさせられる言葉です。
+        </p>
+
+        <p>
+          もちろん、一人で静かに考える時間は必要です。休む時間も必要です。人と距離を置く時間が必要な時もあります。
+        </p>
+
+        <p>
+          しかし、「人と関わるのは面倒だから、もう誰とも関わらない」「自分の考えだけでよい」「AIだけが分かってくれればよい」と考えるなら、それは危険です。
+        </p>
+
+        <ul class="thought-list">
+          <li>孤立すると、人は自分の考えを修正しにくくなります。</li>
+          <li>怒りや不満を膨らませやすくなります。</li>
+          <li>偏った考えに気づきにくくなります。</li>
+          <li>現実の助けを受けにくくなります。</li>
+        </ul>
+
+        <p>
+          人との交友は、時に面倒です。しかし、その面倒さの中に、人間に必要な知恵や温かさがあります。
+        </p>
+
+        <h2>正しいAIとの付き合い方</h2>
+
+        <p>
+          AIとの健全な付き合い方は、次のようなものだと思います。
+        </p>
+
+        <ul class="action-list">
+          <li>AIを、考えを整理する道具として使う。</li>
+          <li>AIを、文章化や創作の補助として使う。</li>
+          <li>AIを、反対意見や別の視点を得るために使う。</li>
+          <li>AIを、現実の行動に戻るための踏み台として使う。</li>
+        </ul>
+
+        <p>
+          一方で、AIを親友の代わりにしない。人間関係の代わりにしない。祈りの代わりにしない。現実の交友の代わりにしない。
+        </p>
+
+        <p>
+          AIに相談した後は、できれば一つ、現実の行動につなげるとよいでしょう。
+        </p>
+
+        <ul class="action-list">
+          <li>誰かに短い連絡をする。</li>
+          <li>家族と少し話す。</li>
+          <li>友人に近況を伝える。</li>
+          <li>集会で誰かに声をかける。</li>
+          <li>畑に出る。</li>
+          <li>散歩する。</li>
+          <li>猫の世話をする。</li>
+          <li>祈る。</li>
+        </ul>
+
+        <p>
+          小さなことで十分です。大切なのは、AIとの会話で閉じこもらないことです。
+        </p>
+
+        <section class="summary">
+          <h2>まとめ</h2>
+
+          <p>
+            「AIに相談する人ほど不幸になる」という言い方は、かなり単純化されています。AIを使うこと自体が悪いわけではありません。
+          </p>
+
+          <p>
+            しかし、人を避け、AIを友人の代わりにし、自分を孤立させるなら、それは確かに危険です。
+          </p>
+
+          <ul class="action-list">
+            <li>AIは、自問自答に加わる補助的な視点として使う。</li>
+            <li>人との交友は、たわいない話でもよいから続ける。</li>
+            <li>悩みをAIに話したら、最後は現実の行動に戻す。</li>
+          </ul>
+
+          <p>
+            このバランスが大切です。
+          </p>
+
+          <p>
+            AIは便利な道具です。しかし、人間は人とのつながりの中で生きるように造られています。
+          </p>
+
+          <p>
+            AIを使いながらも、人との交友を避けない。孤立ではなく、つながりに戻る。
+          </p>
+
+          <p>
+            それが、AI時代の知恵ある生き方ではないでしょうか。
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <span class="footer-title">AI時代の知恵ある距離感</span>
+        作成日：2026年6月30日
+      </footer>
+    </article>
   </div>
-
-  <h1>子供による性犯罪問題<br>――知識だけでなく判断力と自制心を育てる</h1>
-
-  <p>近年、子供による性犯罪のニュースを目にすることがあります。</p>
-
-  <p>被害に遭った子供や家族の苦しみを思うと、多くの親は強い怒りを覚えるでしょう。</p>
-
-  <div class="quote">「もし自分の子供が被害に遭ったら許せない」</div>
-
-  <p>そう感じるのは当然です。</p>
-
-  <p>しかし、ある物語では、子供の性犯罪を厳しく非難していた親が、ある日、自分の息子が性犯罪の加害者になってしまったことを知ります。</p>
-
-  <p>被害者の親としての立場と、加害者の親としての立場。</p>
-
-  <p>その両方を経験した時、その親は人間の弱さについて深く考えさせられました。</p>
-
-  <p>私たちは時として、「悪いことをするのは特別な家庭の子供だ」と考えがちです。</p>
-
-  <p>しかし現実には、どんな家庭の子供でも間違った判断をする可能性があります。</p>
-
-  <p>だからこそ、子供が幼いうちから善悪の判断力と自制心を育てることが大切です。</p>
-
-  <h2>成績よりも大切なもの</h2>
-
-  <p>現代社会では、学校の成績や進学が重視される傾向があります。</p>
-
-  <p>もちろん勉強は大切です。</p>
-
-  <p>しかし、いくら高い学力を身に付けても、自分の欲望を制御できなければ、その知識は人を傷つけるために使われることさえあります。</p>
-
-  <p>本当に大切なのは、次のような力を身に付けることです。</p>
-
-  <ul>
-    <li>何が正しいことかを判断する力</li>
-    <li>悪い誘惑を退ける力</li>
-    <li>他人を思いやる心</li>
-    <li>自分を制する力</li>
-  </ul>
-
-  <p>こうした力は一度の説教で身に付くものではありません。</p>
-
-  <p>繰り返し教え、繰り返し思い出させる必要があります。</p>
-
-  <h2>聖書が勧める教育</h2>
-
-  <p>聖書は、子供への教育について次のように述べています。</p>
-
-  <div class="bible">
-    <p>「私が今日命じるこれらの言葉を心に留めなければならない。あなたの子供にそれを教え込みなさい。家に座っている時も，道を歩いている時も，横になる時も，起きる時も，それについて話しなさい」。</p>
-    <p>― 申命記 6:6,7</p>
-  </div>
-
-  <p>聖書が勧めているのは、特別な教育の時間だけではありません。</p>
-
-  <p>普段の生活の中で、あらゆる機会を用いて善悪について教えることです。</p>
-
-  <ul>
-    <li>家族で話す時</li>
-    <li>一緒に出掛ける時</li>
-    <li>問題が起きた時</li>
-    <li>良い行いを見た時</li>
-  </ul>
-
-  <p>子供は親の言葉だけでなく、生き方そのものから学びます。</p>
-
-  <p>だからこそ、親自身も判断力と自制心を示しながら、愛情を持って子供を導く必要があります。</p>
-
-  <h2>人間の弱さを前提にする</h2>
-
-  <p>聖書は、人間には弱さがあることを率直に認めています。</p>
-
-  <p>だからこそ、「うちの子は大丈夫」と過信するのではなく、幼い頃から善悪を教え、自制心を育てることを勧めています。</p>
-
-  <p>子供を危険から守るために必要なのは、成績だけではありません。</p>
-
-  <p><strong>正しい判断力と自制心こそが、将来、子供自身を守る大きな力となるのです。</strong></p>
-
-  <footer>
-    作成日：2026年6月28日
-  </footer>
-
-</div>
 </body>
 </html>
+```

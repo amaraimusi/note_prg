@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>「スマホ認知症」――疲れても刺激を求め続ける脳</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --paper: #ffffff;
+      --text: #263238;
+      --muted: #607d8b;
+      --accent: #2f80ed;
+      --accent-dark: #1f5fb8;
+      --soft-blue: #eaf3ff;
+      --soft-yellow: #fff8e1;
+      --soft-green: #edf7ed;
+      --border: #d7e3ef;
+      --shadow: 0 18px 45px rgba(30, 60, 90, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(47, 128, 237, 0.13), transparent 34%),
+        linear-gradient(180deg, #f6f9fd 0%, #edf3f8 100%);
+      color: var(--text);
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+
+    article {
+      background: var(--paper);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(215, 227, 239, 0.8);
+    }
+
+    header {
+      padding: 56px 56px 34px;
+      background:
+        linear-gradient(135deg, rgba(47,128,237,0.13), rgba(255,255,255,0.92)),
+        #ffffff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .label {
+      display: inline-block;
+      padding: 6px 14px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.35;
+      color: #17324d;
+      letter-spacing: 0.01em;
+    }
+
+    .lead {
+      margin-top: 24px;
+      font-size: 1.12rem;
+      color: #40525f;
+    }
+
+    .hero {
+      padding: 34px 56px 12px;
+      text-align: center;
+    }
+
+    .hero img {
+      width: min(100%, 520px);
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 16px 38px rgba(26, 54, 82, 0.18);
+      border: 1px solid var(--border);
+      background: #edf3f8;
+    }
+
+    .caption {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content {
+      padding: 30px 56px 56px;
+    }
+
+    h2 {
+      margin-top: 54px;
+      margin-bottom: 18px;
+      padding-left: 16px;
+      border-left: 6px solid var(--accent);
+      color: #17324d;
+      font-size: 1.55rem;
+      line-height: 1.45;
+    }
+
+    h2:first-child {
+      margin-top: 20px;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+    }
+
+    .symptom-box,
+    .note-box,
+    .bible-box,
+    .summary-box {
+      margin: 28px 0;
+      padding: 24px 26px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+    }
+
+    .symptom-box {
+      background: var(--soft-blue);
+    }
+
+    .note-box {
+      background: var(--soft-green);
+    }
+
+    .bible-box {
+      background: var(--soft-yellow);
+      border-color: #f1df9a;
+    }
+
+    .summary-box {
+      background: #f7f9fc;
+    }
+
+    .list {
+      margin: 18px 0 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      margin: 0.55em 0;
+      padding-left: 1.75em;
+    }
+
+    .list li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.82em;
+      top: 0.25em;
+    }
+
+    .short-lines p {
+      margin-bottom: 0.35em;
+    }
+
+    blockquote {
+      margin: 26px 0;
+      padding: 22px 26px;
+      border-left: 6px solid #d5a900;
+      background: #fffdf1;
+      border-radius: 0 18px 18px 0;
+      color: #4a3a00;
+      font-weight: 600;
+    }
+
+    .page-break {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 72px;
+    }
+
+    footer {
+      padding: 28px 56px;
+      background: #17324d;
+      color: #dce9f7;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    footer .date {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 10px;
+      }
+
+      article {
+        border-radius: 18px;
+      }
+
+      header,
+      .hero,
+      .content,
+      footer {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      header {
+        padding-top: 36px;
+      }
+
+      h2 {
+        font-size: 1.32rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      article {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+      }
+
+      header,
+      .hero,
+      .content,
+      footer {
+        padding-left: 20mm;
+        padding-right: 20mm;
+      }
+
+      h1 {
+        font-size: 24pt;
+      }
+
+      h2 {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      p,
+      li {
+        orphans: 3;
+        widows: 3;
+      }
+
+      .symptom-box,
+      .note-box,
+      .bible-box,
+      .summary-box,
+      blockquote {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .hero img {
+        max-height: 190mm;
+        width: auto;
+      }
+
+      footer {
+        background: #ffffff;
+        color: #333333;
+        border-top: 1px solid #cccccc;
+      }
+
+      footer .date {
+        color: #111111;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article>
+      <header>
+        <div class="label">スマホ時代の心と脳</div>
+        <h1>「スマホ認知症」――疲れても刺激を求め続ける脳</h1>
+        <p class="lead">
+          スマホは便利な道具です。しかし、使いすぎると、脳や心に疲れがたまり、考える余白を失ってしまうことがあります。
+        </p>
+      </header>
+
+      <figure class="hero">
+        <img src="img/bible_sec12_6.png" alt="スマホの刺激に疲れた心を表すイメージ画像">
+        <figcaption class="caption">体は疲れているのに、脳だけが次の刺激を求め続ける。</figcaption>
+      </figure>
+
+      <main class="content">
+        <section>
+          <p>最近、「スマホ認知症」という言葉を見かけることが増えました。</p>
+
+          <div class="symptom-box">
+            <ul class="list">
+              <li>スマホを使いすぎると、物忘れが増える。</li>
+              <li>集中力が落ちる。</li>
+              <li>考えがまとまらなくなる。</li>
+              <li>頭がぼんやりする。</li>
+              <li>やる気が出ない。</li>
+            </ul>
+          </div>
+
+          <p>こうした状態を指して、「スマホ認知症」と呼ぶことがあります。</p>
+
+          <p>ただし、この言葉は少し強い表現です。医学的に正式な病名として確立しているというより、スマホの使いすぎによって起きる脳や心の不調を分かりやすく表した言葉と考えた方がよいでしょう。</p>
+
+          <p>本当の認知症は、脳の病気によって記憶力や判断力などが低下し、生活に支障が出る状態です。</p>
+
+          <p>一方、「スマホ認知症」と呼ばれるものは、多くの場合、スマホによる情報の浴びすぎ、睡眠不足、注意力の低下、脳の疲労などによって、一時的に頭が働きにくくなっている状態を指していると思われます。</p>
+
+          <p>ですから、「スマホを使うと認知症になる」と単純に考えるのは行きすぎです。</p>
+
+          <p>しかし、スマホの使いすぎが脳や精神に影響を与えることは、現代社会で大きな問題になっています。睡眠、集中力、気分、依存的な使用などについて、科学的な研究も行われています。</p>
+        </section>
+
+        <section>
+          <h2>体は疲れているのに、脳は刺激を求めている</h2>
+
+          <p>スマホの問題は、単に「画面を長く見るから疲れる」というだけではありません。</p>
+
+          <p>特にショート動画、SNS、ゲーム、ニュース、通知などは、次々に新しい刺激を与えます。</p>
+
+          <div class="short-lines note-box">
+            <p>少し面白い。</p>
+            <p>次も見たい。</p>
+            <p>もう一本だけ。</p>
+            <p>何か新しい情報があるかもしれない。</p>
+            <p>誰かが反応しているかもしれない。</p>
+          </div>
+
+          <p>こうして脳は、次の刺激を求める状態になります。</p>
+
+          <p>ところが、体や脳はすでに疲れています。</p>
+
+          <div class="short-lines symptom-box">
+            <p>目は疲れている。</p>
+            <p>肩もこっている。</p>
+            <p>眠気もある。</p>
+            <p>頭も重い。</p>
+            <p>本当は休みたい。</p>
+          </div>
+
+          <p>それなのに、脳だけが「もっと刺激を見たい」と求め続けることがあります。</p>
+
+          <p>この状態が続くと、休んでいるつもりなのに休めません。</p>
+
+          <p>スマホを見ている間は、ぼんやりしているようで、実際には大量の情報を処理しています。映像、音、文字、コメント、通知、広告、次のおすすめ。脳はそれらを次々に受け取ります。</p>
+
+          <p>その結果、頭が疲れ、集中力が落ち、物事を深く考える力が弱くなっていくことがあります。</p>
+        </section>
+
+        <section>
+          <h2>情報を浴びすぎると、考える力が鈍る</h2>
+
+          <p>人間の脳には、情報を受け取る時間だけでなく、整理する時間も必要です。</p>
+
+          <div class="note-box short-lines">
+            <p>本を読んだ後に少し考える。</p>
+            <p>一日の出来事を振り返る。</p>
+            <p>何もせずぼんやりする。</p>
+            <p>静かに祈る。</p>
+            <p>散歩しながら考える。</p>
+            <p>眠る。</p>
+          </div>
+
+          <p>こうした時間に、頭の中の情報は整理されます。</p>
+
+          <p>しかしスマホを使いすぎると、空いた時間がすべて情報で埋められてしまいます。</p>
+
+          <div class="symptom-box short-lines">
+            <p>朝起きてすぐスマホを見る。</p>
+            <p>食事中も見る。</p>
+            <p>休憩時間も見る。</p>
+            <p>トイレでも見る。</p>
+            <p>寝る直前まで見る。</p>
+          </div>
+
+          <p>これでは、脳が情報を整理する余白がなくなります。</p>
+
+          <p>その結果、頭の中が散らかった部屋のようになります。情報はたくさん入っているのに、必要な時に取り出しにくい。考えがまとまらない。物忘れが増えたように感じる。</p>
+
+          <p>これが「スマホ認知症」と呼ばれる状態の一部なのかもしれません。</p>
+        </section>
+
+        <section class="page-break">
+          <h2>科学的・医学的にできる対処</h2>
+
+          <p>では、どうすればよいのでしょうか。</p>
+
+          <p>スマホを完全に捨てる必要はありません。現代生活において、スマホは連絡、仕事、調べもの、創作、買い物、地図などに欠かせない道具です。</p>
+
+          <p>問題は、スマホを使うことではなく、スマホに支配されることです。</p>
+
+          <p>対処方法としては、次のようなものがあります。</p>
+
+          <div class="summary-box">
+            <ul class="list">
+              <li><strong>寝る前のスマホ時間を減らす。</strong><br>特に就寝前の動画、SNS、ニュースの見すぎは、睡眠の質を下げやすくなります。寝る前はスマホから離れる時間を作るとよいでしょう。</li>
+              <li><strong>通知を減らす。</strong><br>通知が鳴るたびに注意が奪われます。不要な通知を切るだけでも、心が落ち着きやすくなります。</li>
+              <li><strong>ショート動画を連続で見ない。</strong><br>短い動画は刺激が強く、次々に見たくなります。「数本だけ」と決めても止まりにくいので、最初から時間を区切ることが大切です。</li>
+              <li><strong>スマホを見ない場所を作る。</strong><br>食卓、寝室、トイレ、布団の中など、スマホを持ち込まない場所を決めると、習慣を変えやすくなります。</li>
+              <li><strong>ぼんやりする時間を取り戻す。</strong><br>何もしていない時間は無駄ではありません。脳が情報を整理する大切な時間です。</li>
+              <li><strong>体を動かす。</strong><br>散歩、畑仕事、掃除、軽い運動などは、スマホで疲れた頭を現実に戻してくれます。</li>
+              <li><strong>人と話す。</strong><br>短い会話でも、現実の人とのやり取りは心を整える助けになります。</li>
+              <li><strong>紙に書く。</strong><br>考えがまとまらない時は、スマホではなく紙に書くと、頭が整理されやすくなります。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>スマホは悪ではない。しかし、使いすぎは危険</h2>
+
+          <p>スマホは便利な道具です。</p>
+
+          <div class="note-box short-lines">
+            <p>家族や友人と連絡できます。</p>
+            <p>情報を調べられます。</p>
+            <p>聖書を読むこともできます。</p>
+            <p>音楽を作ることもできます。</p>
+            <p>写真や動画で記録を残すこともできます。</p>
+          </div>
+
+          <p>ですから、スマホそのものを悪者にする必要はありません。</p>
+
+          <p>しかし、便利なものでも、使いすぎれば害になります。</p>
+
+          <p>聖書にはこうあります。</p>
+
+          <blockquote>
+            「蜂蜜を見つけたなら、必要な分だけ食べよ。食べ過ぎると吐き出すことになる」。<br>
+            <span>――箴言 25:16</span>
+          </blockquote>
+
+          <p>蜂蜜は良いものです。甘く、栄養もあります。けれども、食べすぎれば気持ち悪くなります。</p>
+
+          <p>スマホも似ています。</p>
+
+          <div class="short-lines">
+            <p>便利で楽しい。</p>
+            <p>役に立つ。</p>
+            <p>気分転換にもなる。</p>
+          </div>
+
+          <p>しかし、使いすぎれば、心も体も疲れてしまいます。</p>
+
+          <div class="symptom-box short-lines">
+            <p>動画を見すぎる。</p>
+            <p>SNSを見すぎる。</p>
+            <p>ニュースを追いすぎる。</p>
+            <p>通知を気にしすぎる。</p>
+            <p>寝る時間まで削ってしまう。</p>
+          </div>
+
+          <p>こうなると、スマホは助けではなく、負担になります。</p>
+
+          <p>大切なのは、「必要な分だけ」にすることです。</p>
+        </section>
+
+        <section class="page-break">
+          <h2>リラックスも大切。スマホも適度に</h2>
+
+          <p>一方で、休むことや楽しむこと自体は悪いことではありません。</p>
+
+          <p>人は働くだけでは疲れてしまいます。息抜きも必要です。楽しい時間も必要です。美しいものを見ること、音楽を聞くこと、家族や友人と笑うことも大切です。</p>
+
+          <p>聖書にも、食べ、飲み、自分の働きによって良いものを見ることは神からの贈り物である、という考えがあります。（伝道の書 2:24）</p>
+
+          <p>ですから、スマホで少し音楽を聞く。写真を見る。短い動画で笑う。友人と連絡する。調べものをする。</p>
+
+          <p>こうした使い方は、適度であれば楽しみや助けになります。</p>
+
+          <p>問題は、リラックスのために使っていたはずのスマホが、逆に疲れを増やしてしまうことです。</p>
+
+          <div class="symptom-box">
+            <p>休むために見ていたのに、気づけば一時間、二時間と過ぎている。</p>
+            <p>頭はぼんやりし、目は疲れ、寝る時間も遅くなる。</p>
+            <p>楽しかったはずなのに、見終わった後に虚しさが残る。</p>
+          </div>
+
+          <p>このような使い方は、休息ではなく消耗です。</p>
+
+          <p>本当の休息は、心と体を回復させるものです。</p>
+        </section>
+
+        <section>
+          <h2>スマホから現実に戻る</h2>
+
+          <p>スマホを使いすぎていると感じたら、いきなり完璧を目指す必要はありません。</p>
+
+          <p>まずは小さな一歩で十分です。</p>
+
+          <div class="summary-box">
+            <ul class="list">
+              <li>寝る前の15分だけスマホを置く。</li>
+              <li>朝起きてすぐスマホを見ない。</li>
+              <li>ショート動画を見る前に時間を決める。</li>
+              <li>通知を一つ減らす。</li>
+              <li>スマホを見る代わりに、外を少し歩く。</li>
+              <li>猫や植物の世話をする。</li>
+              <li>家族と一言話す。</li>
+              <li>祈る時間を先に取る。</li>
+            </ul>
+          </div>
+
+          <p>大切なのは、スマホの中だけで一日を終わらせないことです。</p>
+
+          <div class="note-box short-lines">
+            <p>現実の空気を吸う。</p>
+            <p>体を動かす。</p>
+            <p>人と話す。</p>
+            <p>自然を見る。</p>
+            <p>静かな時間を持つ。</p>
+          </div>
+
+          <p>こうしたことが、疲れた脳を回復させてくれます。</p>
+        </section>
+
+        <section>
+          <h2>まとめ</h2>
+
+          <div class="summary-box">
+            <p>「スマホ認知症」という言葉は、少し強い表現です。</p>
+
+            <p>スマホを使ったからすぐに認知症になる、という意味ではありません。</p>
+
+            <p>しかし、スマホの使いすぎが、睡眠、集中力、記憶、気分、精神的な安定に影響する可能性は無視できません。</p>
+
+            <p>体や脳は疲れているのに、脳だけが刺激を求め続ける。情報を浴びすぎて、考える余白がなくなる。休んでいるつもりが、かえって疲れてしまう。</p>
+
+            <p>これが現代人に起きやすい問題です。</p>
+
+            <p>スマホは悪ではありません。しかし、使いすぎは危険です。</p>
+
+            <p>蜂蜜も、必要な分だけなら良いものです。スマホも、節度を持って使えば便利な道具です。</p>
+
+            <p>リラックスも大切です。楽しみも大切です。</p>
+
+            <p>けれども、スマホに支配されないようにしたいものです。</p>
+
+            <p>スマホを道具として使い、現実の生活に戻る。静かに考える時間を持つ。体を動かす。人と話す。祈る。</p>
+
+            <p>そのようなバランスが、スマホ時代を健康に生きるための知恵ではないでしょうか。</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        作成日：<span class="date">2026年6月30日</span>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
