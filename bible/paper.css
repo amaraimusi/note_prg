@@ -1,0 +1,28 @@
+ul li{
+	margin-top:0.25em;
+}
+
+.main_sec2{
+	font-size:1.4em;
+	max-width:45em;
+	margin-top:1.8em;
+	margin-left : auto ;
+	margin-right : auto ;
+	line-height: 1.3em;
+}
+.seiku{
+	padding:4px;
+	background-color:white;
+}
+
+.famous_words{
+
+	margin-top:4px;
+	border: solid 1px black;
+	border-radius:5px;
+	padding:4px;
+}
+
+.famous_words_title{
+	font-size:0.7em;
+}
