@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI音楽で埋もれないためのSNS戦略</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --paper: #fffdf8;
+      --ink: #2d2923;
+      --muted: #6f675c;
+      --accent: #8b5e34;
+      --accent-dark: #5d3b1f;
+      --accent-soft: #eadcc8;
+      --green: #4f6f52;
+      --blue: #405c7a;
+      --shadow: rgba(73, 55, 34, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139, 94, 52, 0.15), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(79, 111, 82, 0.12), transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #3d2b1f, #7b5737);
+      color: #fffdf6;
+      border-radius: 28px;
+      padding: 44px 32px;
+      box-shadow: 0 18px 45px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.18), transparent 18%),
+        radial-gradient(circle at 82% 75%, rgba(255,255,255,0.12), transparent 22%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.28);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      line-height: 1.3;
+      margin: 0 0 18px;
+      letter-spacing: 0.03em;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      max-width: 760px;
+      margin: 0;
+      color: #f5eadc;
+    }
+
+    .summary-box {
+      margin: 26px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .summary-item {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 18px;
+      padding: 16px;
+      backdrop-filter: blur(4px);
+    }
+
+    .summary-item strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .summary-item span {
+      font-size: 0.92rem;
+      color: #f1dfc8;
+    }
+
+    main {
+      margin-top: 28px;
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid rgba(139, 94, 52, 0.16);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 28px var(--shadow);
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      color: var(--accent-dark);
+      font-size: 1.45rem;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .num {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .point {
+      background: #f7efe3;
+      border-left: 6px solid var(--accent);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+
+    .quote-card {
+      background: linear-gradient(135deg, #fff8ee, #f3e2ca);
+      border: 1px solid rgba(139, 94, 52, 0.22);
+      border-radius: 18px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+
+    .quote-card .bad,
+    .quote-card .good {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin: 8px 0;
+    }
+
+    .bad {
+      background: #f2dedb;
+      color: #7a2d25;
+    }
+
+    .good {
+      background: #dfeadb;
+      color: #355b38;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag-list li {
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .mini-card {
+      background: #faf5ed;
+      border: 1px solid rgba(139, 94, 52, 0.16);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 1.1rem;
+    }
+
+    .platform-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-top: 16px;
+      background: #fff;
+    }
+
+    .platform-table th,
+    .platform-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eadcc8;
+      vertical-align: top;
+    }
+
+    .platform-table th {
+      background: var(--accent-dark);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .platform-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: #faf5ed;
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(139, 94, 52, 0.16);
+    }
+
+    .step::before {
+      content: counter(step);
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: #fff;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    .step h3 {
+      margin: 0 0 4px;
+      font-size: 1.08rem;
+      color: var(--green);
+    }
+
+    .final {
+      background: linear-gradient(135deg, #243122, #4f6f52);
+      color: #fffdf7;
+    }
+
+    .final h2 {
+      color: #fff;
+    }
+
+    .final .point {
+      background: rgba(255,255,255,0.12);
+      border-left-color: #f1d29b;
+      color: #fffdf7;
+    }
+
+    .final ul {
+      margin: 10px 0 0;
+      padding-left: 1.3em;
+    }
+
+    .final li {
+      margin-bottom: 0.4em;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 28px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding: 34px 22px;
+        border-radius: 22px;
+      }
+
+      .summary-box,
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 24px 20px;
+        border-radius: 20px;
+      }
+
+      .section h2 {
+        align-items: flex-start;
+        font-size: 1.28rem;
+      }
+
+      .platform-table,
+      .platform-table tbody,
+      .platform-table tr,
+      .platform-table td,
+      .platform-table th {
+        display: block;
+        width: 100%;
+      }
+
+      .platform-table thead {
+        display: none;
+      }
+
+      .platform-table tr {
+        border-bottom: 1px solid #eadcc8;
+        padding: 10px 0;
+      }
+
+      .platform-table td {
+        border-bottom: none;
+        padding: 8px 14px;
+      }
+
+      .platform-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 700;
+        color: var(--accent-dark);
+        margin-bottom: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">AI Music Strategy</div>
+        <h1>AI音楽で埋もれないためのSNS戦略</h1>
+        <p class="lead">
+          AI音楽は「作れる人」が急増したため、曲単体では埋もれやすい段階に入っています。
+          これから重要になるのは、良い曲を作ることに加えて、
+          見つけてもらう設計・覚えてもらう設計・短尺動画への展開です。
+        </p>
+
+        <div class="summary-box">
+          <div class="summary-item">
+            <strong>曲より世界観</strong>
+            <span>AI音楽ではなく、物語や感情で覚えてもらう。</span>
+          </div>
+          <div class="summary-item">
+            <strong>1曲を何度も届ける</strong>
+            <span>1曲につき複数の短尺動画を作る。</span>
+          </div>
+          <div class="summary-item">
+            <strong>シリーズ化</strong>
+            <span>単発ではなく、歌の森として育てる。</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+      <section class="section">
+        <h2><span class="num">0</span>大前提：AI音楽そのものを売りにしすぎない</h2>
+        <p>
+          「AI音楽です」と前面に出すより、視聴者にはまず、
+          <strong>何の歌か、どんな感情の歌か、どんな物語か、誰に刺さる歌か</strong>
+          を伝えた方がよいです。
+        </p>
+
+        <div class="quote-card">
+          <span class="bad">弱い見せ方：AIで作った猫の歌です</span>
+          <span class="good">強い見せ方：夜の路地裏で、ひとりぼっちの黒猫が月を探す歌</span>
+        </div>
+
+        <p>
+          AI音楽というジャンル名ではなく、
+          <strong>童話音楽、動物寓話ソング、自然農の畑の歌、暗い森の物語歌、聖書的な希望を含む歌</strong>
+          のように、世界観で覚えてもらう方がよいと思います。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">1</span>曲ではなく「シリーズ」で育てる</h2>
+        <p>
+          単発の歌を毎回バラバラに出すと、視聴者が覚えにくくなります。
+          作品をシリーズ化すると、「この人はこういう世界の歌を作る人だ」と記憶されやすくなります。
+        </p>
+
+        <ul class="tag-list">
+          <li>あまらいむしの歌箱</li>
+          <li>雨の森シリーズ</li>
+          <li>闇の童話シリーズ</li>
+          <li>畑のいきもの歌シリーズ</li>
+          <li>猫と夜の路地裏シリーズ</li>
+          <li>聖書の希望をやさしく歌うシリーズ</li>
+        </ul>
+
+        <div class="point">
+          SNSでは、単発の完成度だけでなく、何度も見たときに覚えられる
+          <strong>“記憶される型”</strong> が重要です。
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">2</span>1曲につき20〜30本の短尺を作る</h2>
+        <p>
+          1曲を1回投稿して終わりでは、当たり外れが大きすぎます。
+          曲を量産するよりも、1曲をいろいろな角度から届ける方が効率的です。
+        </p>
+
+        <div class="two-column">
+          <div class="mini-card">
+            <h3>切り出し方の例</h3>
+            <p>サビ15秒版、導入の物語版、歌詞字幕版、イラストだけ＋サビ版、制作意図を語る版。</p>
+          </div>
+          <div class="mini-card">
+            <h3>見せ方の例</h3>
+            <p>別サムネ版、縦長ショート版、横長フル誘導版、強い歌詞1行だけを見せる版。</p>
+          </div>
+        </div>
+
+        <div class="point">
+          同じ曲でも、見せ方を変えると刺さる層が変わります。
+          <strong>1曲を何度も違う角度で届ける</strong>ことが大切です。
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">3</span>最初の1〜2秒を「状況」でつかむ</h2>
+        <p>
+          AI音楽のショートでありがちなのは、いきなり曲だけ流れるパターンです。
+          しかし初見の人は、その曲を聴く理由がまだありません。
+        </p>
+
+        <div class="quote-card">
+          <p><strong>冒頭フックの例</strong></p>
+          <p>雨の森に、黄色いてぶくろが落ちていた。</p>
+          <p>洞窟の奥で、兄妹ウサギは出口を探していた。</p>
+          <p>戦艦の底では、フジツボたちが静かに暮らしていた。</p>
+          <p>猫に逃げられた男の、ちょっと情けない演歌。</p>
+        </div>
+
+        <p>
+          物語性のある歌は、普通の流行歌よりも
+          <strong>“続きを知りたい”</strong> という力を作りやすいです。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">4</span>AI音楽界隈だけを相手にしない</h2>
+        <p>
+          AI音楽を作っている人同士で見せ合うと、どうしても視聴者が限られます。
+          狙うべきは「AI音楽好き」だけではなく、もっと具体的な層です。
+        </p>
+
+        <ul class="tag-list">
+          <li>猫好き</li>
+          <li>童話好き</li>
+          <li>ダークファンタジー好き</li>
+          <li>自然農・畑好き</li>
+          <li>昆虫や小動物好き</li>
+          <li>癒やし音楽好き</li>
+          <li>昭和歌謡・演歌好き</li>
+          <li>聖書や希望に関心がある人</li>
+        </ul>
+
+        <div class="quote-card">
+          <span class="bad">AIで作りました</span>
+          <span class="good">猫好きな人に聴いてほしい、夜の路地裏の黒猫の歌</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">5</span>サムネイルとタイトルで曲の中身を先に伝える</h2>
+        <p>
+          低再生数になりやすい原因の一つは、タイトルやサムネを見ても
+          「何が面白いのか分からない」ことです。
+        </p>
+
+        <div class="quote-card">
+          <span class="bad">詩的だが分かりにくい：やさしい闇のてぶくろ</span>
+          <span class="good">分かりやすい：雨の森に落ちた黄色いてぶくろの歌</span>
+          <span class="good">さらに具体的：ナメクジ、ヒル、ムカデ、ヘビ、そして猫が来る歌</span>
+        </div>
+
+        <p>
+          作品タイトルは詩的でよいです。  
+          ただしSNS投稿では、<strong>詩的タイトル＋説明的タイトル</strong> の組み合わせが強いです。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">6</span>チャンネル全体を「歌の森」として設計する</h2>
+        <p>
+          「あまらいむしの歌箱」は、単なる曲置き場ではなく、
+          <strong>童話の音楽箱</strong>として見せるとよいです。
+        </p>
+
+        <div class="point">
+          AIと一緒に、猫・虫・森・畑・小さな生き物たちの物語歌を作っています。<br>
+          少し暗くて、少しやさしい歌の箱です。
+        </div>
+
+        <p>
+          これなら、AI音楽というより
+          <strong>世界観の作家</strong>として見えます。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">7</span>伸びた曲を重点的に育てる</h2>
+        <p>
+          すべての曲を平等に扱うより、少し反応がよかった曲を重点的に育てた方がよいです。
+          これは「当たった種に水をやる」考え方です。
+        </p>
+
+        <ul class="tag-list">
+          <li>サビ違い版</li>
+          <li>歌詞解説版</li>
+          <li>別イラスト版</li>
+          <li>ショート動画版</li>
+          <li>フル版誘導</li>
+          <li>制作裏話</li>
+          <li>続編</li>
+          <li>別ジャンルアレンジ</li>
+          <li>多言語版</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">8</span>投稿先ごとに役割を分ける</h2>
+        <p>
+          全部のSNSに同じものを出すのは悪くありません。
+          ただし、それぞれの場所で役割を少し変えると効果的です。
+        </p>
+
+        <table class="platform-table">
+          <thead>
+            <tr>
+              <th>投稿先</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="投稿先">YouTube Shorts</td>
+              <td data-label="役割">発見用。フル版・関連動画・チャンネル登録につなげる。</td>
+            </tr>
+            <tr>
+              <td data-label="投稿先">YouTube通常動画</td>
+              <td data-label="役割">フル版置き場。歌詞、概要、シリーズ説明をしっかり書く。</td>
+            </tr>
+            <tr>
+              <td data-label="投稿先">TikTok</td>
+              <td data-label="役割">短いインパクト重視。サビ、物語フック、キャッチコピー向き。</td>
+            </tr>
+            <tr>
+              <td data-label="投稿先">Instagram Reels</td>
+              <td data-label="役割">サムネ・イラスト・雰囲気重視。作品世界を見せる。</td>
+            </tr>
+            <tr>
+              <td data-label="投稿先">Threads / X</td>
+              <td data-label="役割">制作意図・歌詞の一節・物語説明・思想を書く場所。</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">9</span>コメント欄を作品解説に使う</h2>
+        <p>
+          YouTube ShortsやTikTokのコメント欄に、自分で補足を書くのも有効です。
+          ただの動画ではなく、物語作品として見てもらいやすくなります。
+        </p>
+
+        <div class="quote-card">
+          <p>フル版は関連動画から聴けます。</p>
+          <p>この歌は、雨の日の森で小さな生き物たちが手袋に集まる物語です。</p>
+          <p>ナメクジ、ヒル、ムカデ、ヘビ、猫が順番に出てきます。</p>
+          <p>少し怖いけど、最後はやさしい歌です。</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span class="num">10</span>AI感を消すより、人間の編集を見せる</h2>
+        <p>
+          AI音楽が増えると、視聴者は「またAIか」と感じやすくなります。
+          だからこそ、AIで自動生成しただけではなく、
+          人間が作品として整えたことを見せるのが大切です。
+        </p>
+
+        <ul class="tag-list">
+          <li>なぜこの歌を作ったのか</li>
+          <li>どの歌詞を大事にしたのか</li>
+          <li>どんな絵を合わせたのか</li>
+          <li>どんな物語にしたのか</li>
+          <li>何度作り直したのか</li>
+        </ul>
+
+        <div class="point">
+          歌詞・世界観・サムネ・投稿文まで考えているなら、
+          そこを出した方が「作品」として伝わります。
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>ユーザーさん向けの具体的な投稿パターン</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div>
+              <h3>物語フック型</h3>
+              <p>「雨の森に、黄色い手袋が落ちていた。そこへ最初にやってきたのは……ナメクジだった。」からサビへ入る。</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>歌詞字幕型</h3>
+              <p>一番印象的な歌詞だけを大きく表示。背景はサムネ風イラストにする。</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>キャラクター紹介型</h3>
+              <p>ナメクジ、ヒル、ムカデ、ヘビ、そして猫。登場キャラクターを順番に見せる。</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>作者コメント型</h3>
+              <p>「この歌は、雨の日の森で“怖いもの”たちにも居場所がある、というイメージで作りました。」と説明してから曲へ。</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>フル版誘導型</h3>
+              <p>「少し怖くて、少しやさしい雨の森の歌。フル版はYouTubeで公開中。」と案内する。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section final">
+        <h2>最終的な方向性</h2>
+        <p>
+          AI音楽で伸びるには、次の順番で考えるとよいです。
+        </p>
+
+        <div class="point">
+          <ul>
+            <li>いい曲を作る</li>
+            <li>一瞬で分かる物語にする</li>
+            <li>シリーズ化して覚えてもらう</li>
+            <li>1曲を何本もの短尺に切り出す</li>
+            <li>少し反応が出た作品を重点的に育てる</li>
+            <li>AI音楽ではなく、自分の世界観として見せる</li>
+          </ul>
+        </div>
+
+        <p>
+          目指す立ち位置は、単なる「AI音楽クリエイターの一人」ではなく、
+          <strong>小さな生き物たちの物語歌を作る人</strong>、
+          <strong>少し暗くてやさしい童話音楽を作る人</strong>、
+          <strong>森・畑・猫・虫の歌を作る人</strong>
+          という方向が合っていると思います。
+        </p>
+      </section>
+
+    </main>
+
+    <p class="footer-note">
+      AI Music Strategy / あまらいむしの歌箱 向けメモ
+    </p>
+
+  </div>
+
+</body>
+</html>
