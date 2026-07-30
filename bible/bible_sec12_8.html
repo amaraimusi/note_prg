@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2017年に始めた自然農の9年目。沖縄の夏草対策、刈りバサミ、4脚支柱、架線方式、ミニトマト・ショウガ・シカクマメの成果と今後の課題をまとめます。">
+  <title>2026年度：自然農9年目の感想</title>
+  <style>
+    :root {
+      --ink: #243229;
+      --muted: #627066;
+      --green: #315f3b;
+      --green-dark: #20472b;
+      --green-soft: #eaf2e9;
+      --leaf: #8da15b;
+      --soil: #8a6547;
+      --cream: #f7f5ed;
+      --paper: #fffef9;
+      --line: #d9dfd4;
+      --shadow: 0 16px 42px rgba(35, 55, 39, .11);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(141,161,91,.16), transparent 28rem),
+        linear-gradient(180deg, #f2f4ea 0, #faf9f4 34rem, #f3f1e8 100%);
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif;
+      line-height: 1.95;
+      overflow-wrap: anywhere;
+    }
+    a { color: inherit; }
+    .site-header {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 20px 64px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(24,57,35,.96), rgba(55,93,50,.86)),
+        url("img/bible_sec12_8.png") center/cover;
+    }
+    .site-header::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 72px;
+      background: linear-gradient(to top, rgba(0,0,0,.22), transparent);
+    }
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1040px, 100%);
+      margin: auto;
+    }
+    .eyebrow {
+      display: inline-flex;
+      gap: .55rem;
+      align-items: center;
+      margin: 0 0 18px;
+      padding: 7px 13px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-size: .84rem;
+      letter-spacing: .12em;
+      font-weight: 700;
+      backdrop-filter: blur(6px);
+    }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(2.15rem, 5.4vw, 4.45rem);
+      line-height: 1.25;
+      letter-spacing: .02em;
+      text-wrap: balance;
+      text-shadow: 0 3px 18px rgba(0,0,0,.25);
+    }
+    .subtitle {
+      max-width: 760px;
+      margin: 20px 0 0;
+      color: rgba(255,255,255,.9);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 270px;
+      gap: 42px;
+      width: min(1180px, calc(100% - 36px));
+      margin: 42px auto 0;
+      align-items: start;
+    }
+    main {
+      min-width: 0;
+      padding: clamp(26px, 5vw, 62px);
+      border: 1px solid rgba(49,95,59,.12);
+      border-radius: 24px;
+      background: rgba(255,254,249,.97);
+      box-shadow: var(--shadow);
+    }
+    .lead {
+      margin-bottom: 48px;
+      padding: 27px 29px;
+      border-left: 5px solid var(--leaf);
+      border-radius: 0 16px 16px 0;
+      background: linear-gradient(135deg, #f1f5e9, #fafbf6);
+      font-size: 1.05rem;
+    }
+    .lead p:first-child::first-letter {
+      float: left;
+      margin: .09em .12em 0 0;
+      color: var(--green);
+      font-family: Georgia, serif;
+      font-size: 3.45rem;
+      line-height: .82;
+      font-weight: 700;
+    }
+    .article-section {
+      margin: 0 0 58px;
+      scroll-margin-top: 20px;
+    }
+    .article-section h2 {
+      position: relative;
+      margin: 0 0 27px;
+      padding: 0 0 14px 22px;
+      color: var(--green-dark);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.45;
+    }
+    .article-section h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .18em;
+      width: 7px;
+      height: 1.25em;
+      border-radius: 10px;
+      background: linear-gradient(var(--leaf), var(--green));
+    }
+    .article-section h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--green), var(--line) 50%, transparent);
+    }
+    p { margin: 0 0 1.15em; }
+    .hero-photo {
+      margin: 34px 0 8px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #e5e8df;
+      box-shadow: 0 13px 32px rgba(35,55,39,.15);
+    }
+    .hero-photo img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .hero-photo figcaption {
+      padding: 14px 18px 16px;
+      color: var(--muted);
+      background: #f4f5ef;
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+    .toc {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      padding: 22px 20px;
+      border: 1px solid rgba(49,95,59,.15);
+      border-radius: 18px;
+      background: rgba(255,254,249,.9);
+      box-shadow: 0 10px 28px rgba(35,55,39,.08);
+      backdrop-filter: blur(8px);
+    }
+    .toc h2 {
+      margin: 0 0 13px;
+      color: var(--green-dark);
+      font-size: 1rem;
+      letter-spacing: .12em;
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 1.3em;
+    }
+    .toc li {
+      margin: .55em 0;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.55;
+    }
+    .toc a {
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: var(--green);
+      text-decoration: underline;
+    }
+    .promo {
+      margin: 34px 0;
+      overflow: hidden;
+      border: 1px solid rgba(49,95,59,.16);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(35,55,39,.08);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .promo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(35,55,39,.13);
+    }
+    .promo-label {
+      padding: 8px 16px;
+      color: #fff;
+      background: var(--green);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+    .promo-body {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 17px;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #fbfcf7, #eef4e9);
+    }
+    .promo-icon {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+      font-size: 1.7rem;
+      box-shadow: inset 0 0 0 1px rgba(49,95,59,.13);
+    }
+    .promo h3 {
+      margin: 2px 0 5px;
+      color: var(--green-dark);
+      font-size: 1.14rem;
+      line-height: 1.5;
+    }
+    .promo h3 a {
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+    .promo p { margin: 0; }
+    .promo-kicker {
+      color: var(--soil);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .promo-body > div > p:last-child {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+    .promo-science .promo-label { background: #526176; }
+    .promo-philosophy .promo-label { background: #71584a; }
+    .summary-box {
+      margin-top: 52px;
+      padding: 28px;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+    }
+    .summary-box strong {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 1.15rem;
+    }
+    footer {
+      margin-top: 56px;
+      padding: 38px 20px;
+      color: #dce7dc;
+      text-align: center;
+      background: #1f3527;
+    }
+    footer p { margin: .25rem 0; }
+    .footer-date { color: #aebfad; font-size: .88rem; }
+    @media (max-width: 900px) {
+      .layout { display: block; width: min(760px, calc(100% - 24px)); }
+      .toc { position: static; max-height: none; margin: 0 0 24px; }
+      main { padding: clamp(22px, 5vw, 42px); }
+      .site-header { padding: 56px 18px 50px; }
+    }
+    @media (max-width: 560px) {
+      body { line-height: 1.85; }
+      .layout { margin-top: 18px; }
+      main { border-radius: 16px; }
+      .lead { padding: 20px; }
+      .article-section { margin-bottom: 46px; }
+      .promo-body { grid-template-columns: 1fr; }
+      .promo-icon { width: 48px; height: 48px; }
+    }
+    @media print {
+      body { background: #fff; }
+      .site-header { color: #111; background: #fff; padding: 20px 0; }
+      .subtitle, .eyebrow { color: #333; }
+      .layout { display: block; width: 100%; margin: 0; }
+      .toc { display: none; }
+      main { box-shadow: none; border: 0; padding: 0; }
+      .promo { break-inside: avoid; }
+      footer { color: #222; background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="eyebrow">自然農・協生農法　実践記録</p>
+      <h1>2026年度：自然農9年目の感想</h1>
+      <p class="subtitle">沖縄の夏草、台風、支柱、作物との相性。9年間の試行錯誤から見えてきた成果と、次の課題をまとめました。</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="lead"><p>自然農を始めたのは2017年。今年2026年で9年目になる。</p>
+<p>自然農といっても、最初から順調だったわけではない。草の扱い方、作物の選び方、支柱の作り方など、毎年さまざまな失敗を繰り返しながら、少しずつ技術を改善してきた。</p>
+<p>9年目となる2026年は、これまで長年悩まされてきた夏草への対処に大きな進展があった。また、ミニトマト、ショウガ、シカクマメなど、この畑に適した作物も見えてきた。</p>
+<p>一方で、支柱の強度、サツマイモやナスの栽培、冬野菜の品種選びなど、まだ多くの課題が残されている。</p>
+<p>2026年は大量収穫を達成した年というより、今後の安定栽培と生産拡大につながる基礎技術が整い始めた年だと感じている。</p></section><section class="article-section" id="sec-2"><h2>2025年まで最大の問題だった夏草</h2><p>沖縄の夏草の勢いはすさまじい。</p>
+<p>2025年までは、夏になると毎年のように畑の大部分が草に覆われていた。ミニトマト、ゴーヤ、ショウガなども、草の中に埋もれるようにして生えていた。</p>
+<p>草刈機も使っていたが、作物と草が入り交じった自然農の畑では、草だけを選んで刈ることが難しい。</p>
+<p>支柱やツルが増えるほど草刈機を入れにくくなり、作物を誤って切ってしまう危険もある。地面をはうサツマイモや、自生したミニトマトの苗がある場所では、特に使いにくかった。</p>
+<p>カマを使ったり、草を足で踏み倒したりする方法も試した。しかし、夏草の成長速度に作業が追いつかず、十分に整理できた範囲は、畑全体の1割から2割ほどだったと思う。</p>
+<p>そのような状態でも、草をある程度整理できた場所では、ショウガを比較的よい状態で収穫できた。</p>
+<p>この経験から、自然農では草を完全に排除する必要はないものの、作物が埋もれるほど放置してよいわけでもないことが分かった。</p>
+<p>自然農における草との共生とは、草をそのままにしておくことではなく、作物が生きられるように草の勢力を調整することなのだと思う。</p></section><section class="article-section" id="sec-3"><h2>刈りバサミによって草整理が大きく前進</h2><p>2026年になって本格的に活用し始めたのが、刈りバサミである。</p>
+<p>刈りバサミ自体は珍しい道具ではない。しかし、作物と草が混在する自然農の畑では、非常に使いやすいことに気付いた。</p>
+<p>草刈機のように広範囲を一気に処理することはできないが、作物の近くにある草だけを選んで切ることができる。ミニトマトの自生苗や、草の中に隠れているショウガを残しながら、周囲の草だけを整理できる。</p>
+<p>刈った草はその場に敷き、草マルチとして利用できる。草を根から抜かないため、地表を裸にせず、土の乾燥や流出も抑えられる。</p>
+<p>2026年の夏草も非常に激しいが、現在までに畑全体の約7割を整理できている。</p>
+<p>以前は1割から2割程度しか手が回らなかったので、大きな進歩である。</p>
+<p>これは単に畑が見やすくなったというだけではない。</p>
+<p>これまでは作物が草に埋もれていたため、育たなかった原因が、土にあるのか、品種にあるのか、それとも単純に草に負けたためなのか判別しにくかった。</p>
+<p>草をある程度管理できるようになったことで、今後は作物ごとの性質や自然農への適性を、より正確に観察できるようになる。</p>
+<p>2026年は、長年続いていた草整理の問題に、一つの解決の道が見えてきた年と言える。</p>
+<aside class="promo promo-farm" aria-label="関連記事">
+  <div class="promo-label">自然農の記録</div>
+  <div class="promo-body">
+    <span class="promo-icon" aria-hidden="true">🌱</span>
+    <div>
+      <p class="promo-kicker">春の畑から始まる実践記録</p>
+      <h3><a href="/note_prg/bible/bible_sec10_10.html">自然農日誌｜2026年4月9日</a></h3>
+      <p>2026年春の畑の様子と、自然農で行った作業を記録しています。</p>
+    </div>
+  </div>
+</aside>
+</section><section class="article-section" id="sec-4"><h2>ミニトマトに大量生産の道が見えてきた</h2><p>2026年の大きな成果の一つが、ミニトマトである。</p>
+<p>長年栽培を続ける中で、私の畑の気候や土、草との共存環境に合った品種を見つけることができた。</p>
+<p>毎年、冬の終わりごろになると、前年に落ちた実や種から自然にミニトマトが発芽する。発芽した苗は、そのまま畑の中で勝手に育っていく。</p>
+<p>育ちのよい苗を見つけたら、栽培に適した場所へ移植する。</p>
+<p>もちろん、すべてを自然任せにしているわけではない。特によく育った株や、実付きのよかった株からは種を自家採取し、次の年へつないでいる。</p>
+<p>自然発芽と自家採種の両方を続けることで、畑の環境に適応したミニトマトが少しずつ選ばれてきた可能性がある。</p>
+<p>現在のミニトマトは育ちが非常によく、多くの実を収穫できる状態になっている。</p>
+<p>苗を毎年購入しなくても、自然に発芽した苗を活用できることも大きな利点である。多数の苗を確保しやすいため、栽培面積を増やすことも難しくない。</p>
+<p>ショウガと並び、ミニトマトは今後の大量生産を考えるうえで、最も有力な野菜の一つになっている。</p>
+<p>ただし、株数が増えるほど、支柱への誘引作業が必要になる。</p>
+<p>枝をどの方向へ伸ばすのか、どの程度剪定するのか、4脚支柱や架線へどのように固定するのかについては、まだ改善の余地がある。</p>
+<p>誘引方法を簡略化し、多数の株を少ない作業量で管理できるようになれば、販売や出荷も近いうちに実現できるかもしれない。</p>
+<p>自然農で育てた、この土地に適応したミニトマトとして、将来的には生果だけでなく、ドライトマトなどへの加工も検討できそうである。</p></section><section class="article-section" id="sec-5"><h2>ショウガは安定収穫が期待できる作物</h2><p>これまでの経験から、ショウガは自然農でも比較的安定して育てられる作物だと感じている。</p>
+<p>年に一度の収穫になるが、草の中でもある程度は生き残る。毎年収穫できることを確認しつつあり、現在の畑では再現性の高い作物の一つである。</p>
+<p>ただし、ショウガが草に強いからといって、完全に放置できるわけではない。</p>
+<p>草の量が極端に多くなり、葉が覆われて光が届かなくなると、ショウガも負けてしまう。</p>
+<p>草に強いというより、ほかの野菜よりも、草との競争に耐えられる期間が長いと考えた方がよさそうだ。</p>
+<p>ある程度の草整理を行った場所では良好な収穫ができたため、ショウガについては、夏草が葉を完全に覆う前に周囲を刈ることが重要だと考えている。</p>
+<p>ミニトマトが地上空間を利用する作物だとすれば、ショウガは草の下や半日陰も利用できる作物である。この性質の違いを生かせば、畑を立体的に使える可能性もある。</p>
+<p>今後は、植え付け後、梅雨明け、夏草の最盛期など、草整理の時期と回数を記録し、より安定した栽培方法を探っていきたい。</p>
+<p>ミニトマトとショウガは、現時点で大量生産の可能性が最も高い二つの作物である。</p></section><section class="article-section" id="sec-6"><h2>シカクマメも畑に適している</h2><p>シカクマメも、私の畑の環境にかなり適している。</p>
+<p>沖縄の暑さに強く、夏になるとツルを勢いよく伸ばす。草やほかの植物に絡みながら成長する姿を見ると、自然農や協生的な栽培との相性はよいと感じる。</p>
+<p>ゴーヤと近くに植えた場合も、完全に一方が他方を押しのけるというより、同じ支柱空間を利用しながら育っている。</p>
+<p>ゴーヤとの組み合わせは、作物同士がうまく協生しているように見える点も興味深い。</p>
+<p>ただし、シカクマメでは毎年のように支柱で失敗している。</p>
+<p>ツルの成長が非常に旺盛で、葉や枝の重みも大きくなる。支柱の数や強度が不足すると、途中で傾いたり、台風で倒れたりする。</p>
+<p>作物そのものはよく育つのに、それを支える設備が追いついていない状態である。</p>
+<p>逆に言えば、十分な数と強度を持つ支柱を用意できれば、大量収穫できる可能性は高い。</p>
+<p>4脚支柱と2本の架線を組み合わせた構造が完成すれば、シカクマメを多数育てるための有力な方法になるだろう。</p>
+<p>シカクマメも、ミニトマトやショウガと同様に、将来的な販売や出荷の候補となる野菜である。</p>
+<p>現在の課題は栽培そのものよりも、ツルを受け止める支柱構造の完成にある。</p>
+<figure class="hero-photo">
+  <img src="img/bible_sec12_8.png"
+       alt="生い茂るシカクマメのツルと、重みで倒れ気味になった4脚支柱"
+       width="1600" height="900" loading="lazy">
+  <figcaption>生い茂るシカクマメのツルと、倒れ気味になった4脚支柱。作物の勢いに対して、支柱構造の強化が課題となっている。</figcaption>
+</figure>
+</section><section class="article-section" id="sec-7"><h2>4脚支柱によって開けた大量栽培への道</h2><p>自然農では、ツル植物をどのように支えるかが大きな問題になる。</p>
+<p>ゴーヤ、シカクマメ、ミニトマトなどを増やすには、多くの支柱が必要になる。しかし、従来の支柱は設置に時間がかかり、畑全体へ数を増やすことが難しかった。</p>
+<p>そこで使い始めたのが、4本の竹や支柱を組み合わせた4脚支柱である。</p>
+<p>4脚支柱は比較的短時間で設置でき、単独でも立たせることができる。この方法によって、畑に設置できる支柱の数を大幅に増やせるようになった。</p>
+<p>それまで数本しか育てられなかったツル植物を、より多く栽培できる可能性が見えてきた。</p>
+<p>自然農でも、ある程度まとまった量を生産する道が開けたように感じた。</p>
+<p>一方で、台風に弱いという問題も明らかになった。</p>
+<p>通常の風には耐えられても、ツルや葉が繁茂すると、植物全体が風を受ける帆のようになる。その状態で台風が来ると、4脚支柱ごと倒れてしまう。</p>
+<p>特にシカクマメやゴーヤのように大量のツルと葉を付ける作物では、支柱にかかる重みと風圧が非常に大きくなる。</p>
+<p>4脚支柱は設置の速さでは優れているが、単独ですべてを支える構造としては弱い。この弱点をどのように補うかが、現在の大きな課題である。</p></section><section class="article-section" id="sec-8"><h2>4脚支柱と2本架線の組み合わせ</h2><p>現在は、4脚支柱と架線方式を組み合わせる実験を行っている。</p>
+<p>架線方式そのものは、数年前にも試したことがある。</p>
+<p>当時は4脚支柱の発想がなく、大きな杭を地面に埋めたり、木材を釘で組み合わせたりして構造物を作っていた。そのため、設置に莫大な時間と労力がかかった。</p>
+<p>ようやく完成しても、台風やツル植物の重みによって壊れることがあり、作業量に対して十分な成果が得られなかった。</p>
+<p>現在の方法では、短時間で設置できる4脚支柱を複数配置し、それらを2本の架線でつなぐ。</p>
+<p>架線を2本にすることで、ツルを誘引する場所を増やしたり、支柱の横揺れを抑えたりすることができる。</p>
+<p>上の線を構造補強と主な誘引用に使い、下の線をツルの固定や横方向への広がりに使う方法も考えられる。</p>
+<p>個々の4脚支柱だけを強くするのではなく、複数の支柱を架線で連結し、風や植物の重みを全体へ分散させる考え方である。</p>
+<p>ただし、架線で全体をつなぐと、一つの支柱が倒れた際に、ほかの支柱まで引っ張られる危険もある。</p>
+<p>端部の固定方法、架線の張力、支柱同士の間隔、一つの区画をどの程度の長さにするかなどは、今後さらに検証する必要がある。</p>
+<p>この方式が完成すれば、ミニトマト、ゴーヤ、シカクマメを大量に育てるための共通設備として利用できる。</p>
+<p>4脚支柱と2本架線は、設置の簡単さと大量栽培を両立させるための重要な技術になりそうである。</p></section><section class="article-section" id="sec-9"><h2>サツマイモは今後の大きな課題</h2><p>サツマイモは丈夫で、やせた土地でも育つ作物という印象がある。</p>
+<p>しかし、私の自然農では、これまでまともな収穫ができていない。現在も重要な課題の一つとなっている。</p>
+<p>原因としては、夏草による日照不足、土の硬さ、植え付け時期、水分量、ツルの管理、イノシシによる被害などが考えられる。</p>
+<p>サツマイモはツルが地表を覆うまで成長すれば強いが、植え付け直後から初期成長の段階では、草に負けやすいのかもしれない。</p>
+<p>また、地上部のツルや葉がよく育っていても、地下の芋が大きくなるとは限らない。草の根との競争や、ツルの途中から発根することによる栄養の分散なども考える必要がある。</p>
+<p>今後は、草を多く残す区画と、サツマイモの周囲を強めに整理する区画を分けて比較したい。</p>
+<p>土を少し高くした場所、柔らかくした場所、ヒューゲルカルチャーを行った場所などでも育て、どの条件で芋が肥大するかを確認する必要がある。</p>
+<p>サツマイモは栽培面積を広げやすく、保存性も高いため、安定収穫の方法を見つけられれば重要な作物になる。</p></section><section class="article-section" id="sec-10"><h2>2026年のゴーヤは不作気味</h2><p>2026年のゴーヤは、夏前半の時点では不作気味である。</p>
+<p>株の勢い、花の付き方、実の数などが、期待したほど伸びていない。</p>
+<p>ただし、夏前半が不調だったからといって、年間を通して不作になるとは限らない。</p>
+<p>沖縄では真夏の極端な高温や乾燥、降雨、台風などによって、時期ごとに生育が大きく変化する。</p>
+<p>気温が少し下がる夏後半から秋にかけて、再び成長が活発になり、実を付ける可能性もある。</p>
+<p>今後は、株そのものが弱っているのか、それとも花や受粉の問題によって実が少ないのかを観察したい。</p>
+<p>雄花と雌花の数、小さな実が途中で落ちていないか、葉の色やツルの伸び方などを記録することで、不作の原因が少しずつ見えてくるだろう。</p>
+<p>シカクマメと同じ支柱で育てる場合、両方のツルが過密にならないようにする必要もある。</p>
+<p>ゴーヤとシカクマメの協生状態には可能性を感じているが、どの程度の株数や間隔が適切なのかは、さらに観察したい。</p></section><section class="article-section" id="sec-11"><h2>ナスは成功条件を再現できていない</h2><p>ナスは、現在の自然農では全体的に厳しい作物である。</p>
+<p>以前、大量に収穫できた年もあった。しかし、その成功を再現できていない。</p>
+<p>一度でも大量に収穫できたことがあるため、この土地や気候に全く合わないわけではないと思う。何らかの条件が偶然そろったことで、よく育った可能性が高い。</p>
+<p>ナスは草との競争だけでなく、水分不足、土の状態、害虫、風、極端な高温などの影響を受けやすいように感じる。</p>
+<p>ショウガのように、ある程度草の中へ植えておけば毎年育つ作物ではない。自然農であっても、ナスにはほかの作物より丁寧な管理が必要なのかもしれない。</p>
+<p>今後は大量に植えるのではなく、数株に絞って重点的に観察したい。</p>
+<p>植え付け時期、草整理の範囲、水分、以前よく収穫できた場所の土や植生などを比較し、成功した条件を探る必要がある。</p></section><section class="article-section" id="sec-12"><h2>冬は比較的さまざまな野菜が育つ</h2><p>夏は草、高温、台風との戦いになるが、沖縄の冬は比較的穏やかで、さまざまな野菜を育てやすい。</p>
+<p>夏には難しい葉物や根菜なども、冬であれば比較的よく育つ。</p>
+<p>そのため、現在も特定の野菜だけに絞らず、いろいろな種類を試している。</p>
+<p>自然農では一般的に育てやすいとされる作物であっても、私の畑ではうまくいかないことがある。一方で、特別な管理をしなくてもよく育つ作物もある。</p>
+<p>作物名だけで適性を判断するのではなく、品種と畑との相性まで見る必要があると感じている。</p></section><section class="article-section" id="sec-13"><h2>ジャガイモは沖縄では難しさを感じる</h2><p>冬作の中では、ジャガイモに力を入れている。</p>
+<p>ジャガイモは収穫量が多く、保存や料理にも使いやすいため、安定して栽培できれば非常に有用な作物である。</p>
+<p>しかし、これまで育てた感触では、沖縄の気候にはあまり向いていないようにも感じる。</p>
+<p>気温が高くなりやすく、生育に適した涼しい期間が短い。植え付け時期が少しずれるだけでも、十分に育つ前に気温が上がってしまう可能性がある。</p>
+<p>雨が多い時期には、種芋や地下部分の腐敗も心配になる。</p>
+<p>それでも、品種や植え付け時期によっては、沖縄でも十分に収穫できる可能性がある。</p>
+<p>今後は早生品種や暖地向きの品種を試し、植え付け時期、土の深さ、水はけなどを比較したい。</p>
+<p>ジャガイモについては、畑に適した品種と短い栽培期間を見つけることが課題である。</p></section><section class="article-section" id="sec-14"><h2>ダイコンも品種選びが重要</h2><p>ダイコンも、意外に難しいと感じている作物の一つである。</p>
+<p>冬は比較的育てやすいものの、きれいな形の大きなダイコンを安定して収穫するところまでは至っていない。</p>
+<p>土が硬い場所や、木の根、石などが多い場所では、根が分かれたり、曲がったりしやすい。</p>
+<p>自然農では不耕起を基本としているため、一般的な畑のように深く耕して柔らかい土を作ることはしない。そのため、長くまっすぐ伸びる品種よりも、短く太る品種の方が合っている可能性がある。</p>
+<p>また、沖縄の気温や日長に適した品種を選ぶ必要もある。</p>
+<p>今後は短根系、ミニダイコン、暖地向きの品種などを試し、私の畑でも安定して育つ品種を見つけたい。</p>
+<p>ジャガイモやダイコンは、作物そのものが不向きというより、現在使っている品種や植え付け時期が畑に合っていない可能性もある。</p>
+<p>ミニトマトで畑に合った品種を見つけられたように、冬野菜でも相性のよい品種を探すことが重要だと思う。</p></section><section class="article-section" id="sec-15"><h2>ヒューゲルカルチャーという長期実験</h2><p>2026年から、穴を掘って木の枝や丸太を埋めるヒューゲルカルチャーも始めている。</p>
+<p>畑や周辺で出た木の枝、丸太、段ボールなどの紙系資材を、継続的に土の中へ埋めている。</p>
+<p>木質物はすぐに土へ変わるわけではない。分解には長い時間がかかるため、実験結果がはっきりするのは数年先になるだろう。</p>
+<p>それでも、木や枝が徐々に分解されれば、土の中に空間ができ、水分を保ちやすくなる可能性がある。菌類や土壌生物の活動場所となり、長期的には腐植を増やすことにもつながるかもしれない。</p>
+<p>沖縄では強い雨が降る一方、晴天が続くと土が乾燥する。木質物が水分を蓄える働きをすれば、乾燥への対策としても役立つ可能性がある。</p>
+<p>また、サツマイモ、ダイコン、ジャガイモなど、地下部を収穫する作物にどのような影響が出るのかも興味深い。</p>
+<p>一方で、埋めたばかりの木質物は、分解の過程で作物の生育へ影響を与えることも考えられる。</p>
+<p>どの作物と相性がよいのか、施工直後と数年後でどのような違いが出るのかを、長期的に観察したい。</p>
+<p>紙系資材についても、何でも埋めるのではなく、無地の段ボールや加工の少ない紙を中心にする必要がある。光沢紙、感熱紙、樹脂加工された紙、テープや金属が付いたものは避けた方がよいだろう。</p>
+<aside class="promo promo-science" aria-label="関連記事">
+  <div class="promo-label">考察記事</div>
+  <div class="promo-body">
+    <span class="promo-icon" aria-hidden="true">🧬</span>
+    <div>
+      <p class="promo-kicker">生命と知性の起源を考える</p>
+      <h3><a href="/note_prg/bible/bible_sec0_5.html">創造論と進化論の本質的な対立</a></h3>
+      <p>「知性は何から生まれるのか」という根本的な論点を掘り下げます。</p>
+    </div>
+  </div>
+</aside>
+</section><section class="article-section" id="sec-16"><h2>9年間で自然農に対する考え方が変わった</h2><p>自然農を始めた当初は、自然に任せれば作物も自然に育つという期待があった。</p>
+<p>しかし、沖縄の土地をそのまま放置すれば、最も勢いの強い夏草が畑を占有する。</p>
+<p>野菜も植物ではあるが、その土地に昔から生えている野草との競争に、必ず勝てるわけではない。</p>
+<p>自然農は、何もしない農法ではなかった。</p>
+<p>草をすべて排除する必要はないが、作物が光を受けられるように草を刈る必要がある。ツル植物が空間を使えるように支柱を立てる必要がある。台風が来る土地では、風に耐えられる構造も考えなければならない。</p>
+<p>また、どの野菜でも同じように育つわけではない。</p>
+<p>ミニトマトのように、自家採種と自然発芽を繰り返すことで畑に適応してきたと考えられる野菜もある。</p>
+<p>ショウガのように、草の中でもある程度耐え、毎年安定して収穫できる野菜もある。</p>
+<p>シカクマメのように、作物自体はよく育つものの、支柱設備が収穫量を制限している野菜もある。</p>
+<p>一方で、サツマイモ、ナス、ジャガイモ、ダイコンのように、栽培方法や品種の選択に課題が残っている野菜もある。</p>
+<p>自然の力だけに任せるのではなく、自然の動きを観察しながら、人が必要な部分だけを補助する。</p>
+<p>現在では、そのような考え方へ変わってきた。</p>
+<aside class="promo promo-philosophy" aria-label="関連記事">
+  <div class="promo-label">あわせて読みたい</div>
+  <div class="promo-body">
+    <span class="promo-icon" aria-hidden="true">⌛</span>
+    <div>
+      <p class="promo-kicker">人生の根本的な問い</p>
+      <h3><a href="/note_prg/bible/bible_sec0_3.html">人はなぜ死ぬのか</a></h3>
+      <p>死という避けられない現実を、生命・宗教・哲学の視点から考えます。</p>
+    </div>
+  </div>
+</aside>
+</section><section class="article-section" id="sec-17"><h2>2026年は自然農の転換点</h2><p>2026年の最大の成果は、収穫量そのものだけではなく、自然農を継続的に管理するための基礎技術が見えてきたことである。</p>
+<p>刈りバサミの活用によって、草を整理できる範囲が、畑全体の1割から2割程度から約7割へ増えた。</p>
+<p>4脚支柱によって、短時間で多くの支柱を設置できるようになった。</p>
+<p>さらに、4脚支柱と2本架線を組み合わせることで、以前は設置に莫大な時間がかかっていた架線方式を、より簡単に作れる可能性が出てきた。</p>
+<p>作物についても、今後の主力候補が明確になりつつある。</p>
+<p>ミニトマトは、畑に合った品種を見つけ、自生苗と自家採種によって多数の株を確保できるようになった。育ちもよく、大量生産、販売、出荷への道が見え始めている。</p>
+<p>ショウガは、適度に草を管理すれば、毎年比較的安定した収穫を期待できる。</p>
+<p>シカクマメも畑への適性が高く、十分な支柱を用意できれば、大量収穫と販売を目指せる可能性がある。</p>
+<p>一方、サツマイモでは、まだ十分な収穫を実現できていない。ゴーヤは2026年の夏前半では不作気味であり、後半の生育を見守る必要がある。</p>
+<p>ナスは過去の成功を再現できず、ジャガイモとダイコンについても、沖縄の気候や畑に合った品種と栽培時期を探す必要がある。</p>
+<p>ヒューゲルカルチャーについても、結果が出るのはまだ先である。</p></section><section class="article-section" id="sec-18"><h2>今後の課題</h2><p>今後、特に取り組みたい課題は五つある。</p>
+<p>第一に、刈りバサミによる草整理を、一時的な成功で終わらせず、毎年継続できる作業方法として定着させることである。</p>
+<p>畑全体を一度に整理しようとすると負担が大きい。畑をいくつかの区画に分け、草が作物を覆う前に順番に刈る方法を作りたい。</p>
+<p>第二に、4脚支柱と2本架線を、台風に耐えられる構造へ改善することである。</p>
+<p>端部の固定、支柱の間隔、架線の高さ、2本の線の役割、一つの区画の長さなどを試しながら、設置の簡単さと強度の両立を目指したい。</p>
+<p>第三に、ミニトマトとシカクマメの誘引方法を簡略化することである。</p>
+<p>大量生産を考える場合、一本一本を細かく誘引していては作業量が大きくなる。多少枝が自由に広がっても収穫でき、台風時にも大きな被害を受けない仕組みを作る必要がある。</p>
+<p>第四に、作物ごとの成功条件を記録することである。</p>
+<p>ショウガについては、草整理の回数や時期と収穫量の関係を調べたい。</p>
+<p>サツマイモでは、土の硬さ、草の量、植え付け方法などを比較したい。</p>
+<p>ゴーヤでは夏前半と後半の違いを観察し、ナスでは過去に成功した条件を探りたい。</p>
+<p>ジャガイモとダイコンについては、品種と植え付け時期の比較を進めたい。</p>
+<p>第五に、ヒューゲルカルチャーの施工場所を記録し、施工していない場所との違いを数年かけて観察することである。</p></section><section class="article-section" id="sec-19"><h2>おわりに</h2><p>自然農を始めて9年目になったが、完成したという感覚はない。</p>
+<p>むしろ、9年続けたことで、ようやく何が難しいのか、どこを改善すればよいのか、どの作物がこの土地に合っているのかが見えるようになってきた。</p>
+<p>毎年、夏草に覆われて手が付けられなかった畑が、2026年には刈りバサミによって7割ほど整理できるようになった。この変化は大きい。</p>
+<p>ミニトマトは、自然発芽と自家採種によって、この畑に適応した有望な野菜になった。</p>
+<p>ショウガは安定収穫の可能性が高まり、シカクマメも支柱の問題を解決できれば、大量収穫を目指せる。</p>
+<p>これら三つは、将来的な販売や出荷を考えられる作物になりつつある。</p>
+<p>自然農では、作物を植える技術だけでなく、草をどのように調整するか、支柱をどのように短時間で設置するか、台風にどう備えるか、畑に合う品種をどう選び残していくかといった周辺技術も重要である。</p>
+<p>現在の私の自然農は、草をなくす農法ではない。</p>
+<p>草の勢いを刈りバサミで調整し、4脚支柱と架線によって作物が育つ立体的な空間を作り、自家採種や品種比較を通して、この土地に合った野菜を見極めていく農法である。</p>
+<p>2026年は、大量収穫を達成した年というよりも、今後の安定栽培、生産拡大、販売へ向けた基礎が整い始めた年として記録されるだろう。</p>
+<p>自然農9年目は、これまで蓄積してきた経験が、ようやく一つの技術体系として結び付き始めた一年である。</p></section>
+      <div class="summary-box">
+        <strong>9年目の到達点</strong>
+        草を排除するのではなく、刈りバサミで勢力を調整する。4脚支柱と架線で立体空間を作る。そして自家採種と観察によって、この土地に合う作物を選び残していく。2026年は、その方法が一つの技術体系として形になり始めた年である。
+      </div>
+    </main>
+
+    <aside class="toc" aria-label="目次">
+      <h2>CONTENTS</h2>
+      <ol>
+        <li><a href="#sec-2">2025年まで最大の問題だった夏草</a></li>
+<li><a href="#sec-3">刈りバサミによって草整理が大きく前進</a></li>
+<li><a href="#sec-4">ミニトマトに大量生産の道が見えてきた</a></li>
+<li><a href="#sec-5">ショウガは安定収穫が期待できる作物</a></li>
+<li><a href="#sec-6">シカクマメも畑に適している</a></li>
+<li><a href="#sec-7">4脚支柱によって開けた大量栽培への道</a></li>
+<li><a href="#sec-8">4脚支柱と2本架線の組み合わせ</a></li>
+<li><a href="#sec-9">サツマイモは今後の大きな課題</a></li>
+<li><a href="#sec-10">2026年のゴーヤは不作気味</a></li>
+<li><a href="#sec-11">ナスは成功条件を再現できていない</a></li>
+<li><a href="#sec-12">冬は比較的さまざまな野菜が育つ</a></li>
+<li><a href="#sec-13">ジャガイモは沖縄では難しさを感じる</a></li>
+<li><a href="#sec-14">ダイコンも品種選びが重要</a></li>
+<li><a href="#sec-15">ヒューゲルカルチャーという長期実験</a></li>
+<li><a href="#sec-16">9年間で自然農に対する考え方が変わった</a></li>
+<li><a href="#sec-17">2026年は自然農の転換点</a></li>
+<li><a href="#sec-18">今後の課題</a></li>
+<li><a href="#sec-19">おわりに</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <footer>
+    <p>人生の問いを考える｜ワクガンス</p>
+    <p class="footer-date">作成日：2026年7月30日</p>
+  </footer>
+</body>
+</html>

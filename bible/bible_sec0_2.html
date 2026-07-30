@@ -1,263 +1,852 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-   	<meta name="robots" content="noindex,nofollow,noarchive" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>人生の目的を哲学、仏教、聖書、儒教、科学、思想家、独裁者たちの言葉から考える</title>
-	<link rel='shortcut icon' href='/home/images/favicon.ico' />
-	
-	<link href="/note_prg/css/bootstrap-4.3.1-dist/bootstrap.min.css" rel="stylesheet">
-	<link href="/note_prg/css/bootstrap-4.3.1-dist/font/css/open-iconic.min.css" rel="stylesheet">
-	<link href="/note_prg/css/common2.css" rel="stylesheet">
-	<link href="paper.css" rel="stylesheet">
-	<script src="/note_prg/js/jquery3.js"></script>	<!-- jquery-3.3.1.min.js -->
-	<script src="/note_prg/js/bootstrap-4.3.1-dist/bootstrap.bundle.min.js"></script>
-	
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="人生の目的を哲学、仏教、聖書、儒教、科学、思想家、独裁者たちの言葉から考察します。">
+  <title>人生の目的を哲学・宗教・科学・歴史から考える</title>
+  <link rel="shortcut icon" href="/home/images/favicon.ico">
 
-	
+  <style>
+    :root {
+      --bg: #f4f1e8;
+      --paper: rgba(255, 255, 252, 0.94);
+      --paper-solid: #fffef9;
+      --text: #292b2f;
+      --muted: #696b70;
+      --line: #ded8ca;
+      --accent: #315c52;
+      --accent-deep: #21443d;
+      --accent-soft: #e6efeb;
+      --gold: #a27b35;
+      --gold-soft: #f5ecd8;
+      --danger: #8a3b36;
+      --danger-soft: #f6e7e4;
+      --shadow: 0 18px 50px rgba(51, 45, 32, 0.10);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --content-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(183, 161, 103, 0.16), transparent 34rem),
+        linear-gradient(180deg, #f7f4ec 0%, var(--bg) 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      color: var(--accent-deep);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+
+    .site-shell {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 58px;
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(22, 48, 43, 0.98), rgba(49, 92, 82, 0.90)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 9px);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      right: -170px;
+      top: -220px;
+      background: rgba(235, 215, 157, 0.12);
+    }
+
+    .hero::after {
+      width: 280px;
+      height: 280px;
+      left: -120px;
+      bottom: -180px;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 18px;
+      color: #f0dfad;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      font-size: clamp(2rem, 4.8vw, 3.65rem);
+      line-height: 1.35;
+      letter-spacing: 0.035em;
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      max-width: 820px;
+      margin: 28px 0 0;
+      color: rgba(255,255,255,0.88);
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+    }
+
+    .hero-lead strong {
+      color: #fff6cf;
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .hero-note span {
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.06);
+      font-size: 0.82rem;
+    }
+
+    main {
+      padding: 38px 0 80px;
+    }
+
+    .intro-panel,
+    .toc,
+    .conclusion {
+      border: 1px solid rgba(95, 82, 52, 0.14);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .intro-panel {
+      padding: clamp(24px, 5vw, 44px);
+      margin-top: -78px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-panel p {
+      margin: 0;
+      font-size: 1.04rem;
+    }
+
+    .intro-panel strong {
+      color: var(--accent-deep);
+    }
+
+    .toc {
+      margin-top: 28px;
+      padding: 24px;
+    }
+
+    .toc-title {
+      margin: 0 0 14px;
+      color: var(--accent-deep);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .toc a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .toc a:hover {
+      transform: translateY(-2px);
+      border-color: #a8bdb5;
+      box-shadow: 0 9px 22px rgba(47, 78, 69, 0.10);
+    }
+
+    .section-heading {
+      margin: 64px 0 26px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin: 8px 0 0;
+      color: var(--accent-deep);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      font-size: clamp(1.65rem, 3vw, 2.3rem);
+      line-height: 1.45;
+    }
+
+    .section-heading p {
+      max-width: 720px;
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .person-card {
+      position: relative;
+      overflow: hidden;
+      padding: 26px 26px 24px;
+      border: 1px solid rgba(95, 82, 52, 0.15);
+      border-radius: var(--radius-md);
+      background: var(--paper-solid);
+      box-shadow: 0 10px 28px rgba(54, 49, 37, 0.07);
+    }
+
+    .person-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--accent);
+    }
+
+    .person-card.religion::before {
+      background: var(--gold);
+    }
+
+    .person-card.warning::before {
+      background: var(--danger);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .person-name {
+      margin: 0;
+      color: #1e312c;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      font-size: 1.34rem;
+      line-height: 1.4;
+    }
+
+    .tag {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.religion {
+      color: #755822;
+      background: var(--gold-soft);
+    }
+
+    .tag.warning {
+      color: #76322e;
+      background: var(--danger-soft);
+    }
+
+    .question {
+      margin: 0 0 12px;
+      color: #41444a;
+      font-weight: 700;
+    }
+
+    .person-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .person-card strong {
+      color: var(--accent-deep);
+      background: linear-gradient(transparent 66%, rgba(202, 220, 213, 0.72) 66%);
+    }
+
+    .person-card.warning strong {
+      color: #6f302d;
+      background: linear-gradient(transparent 66%, rgba(231, 190, 184, 0.58) 66%);
+    }
+
+    .feature-card {
+      grid-column: 1 / -1;
+      padding: clamp(28px, 4vw, 40px);
+    }
+
+    .scripture {
+      margin-top: 22px;
+      padding: 20px 22px;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+      background: linear-gradient(135deg, #fbf6e7, #fffdf5);
+    }
+
+    .scripture + .scripture {
+      margin-top: 14px;
+    }
+
+    .scripture-title {
+      margin-bottom: 8px;
+      color: #765923;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .scripture blockquote {
+      margin: 0;
+      color: #3c3a33;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      font-size: 1.06rem;
+      line-height: 1.9;
+      white-space: pre-line;
+    }
+
+    .conclusion {
+      margin-top: 66px;
+      padding: clamp(28px, 5vw, 50px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,242,226,0.96));
+    }
+
+    .conclusion h2 {
+      margin: 0 0 20px;
+      color: var(--accent-deep);
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+    }
+
+    .conclusion p {
+      margin: 0;
+    }
+
+    .conclusion p + p {
+      margin-top: 18px;
+    }
+
+    .closing-line {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--accent-deep);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .page-footer {
+      padding: 0 16px 46px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(33, 68, 61, 0.90);
+      box-shadow: 0 8px 22px rgba(25, 54, 48, 0.25);
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .toc-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        line-height: 1.85;
+      }
+
+      .site-shell {
+        width: min(calc(100% - 22px), var(--content-width));
+      }
+
+      .hero {
+        padding: 52px 0 72px;
+      }
+
+      .intro-panel {
+        margin-top: -50px;
+        padding: 23px 20px;
+        border-radius: 18px;
+      }
+
+      .toc {
+        padding: 18px;
+      }
+
+      .toc-links {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        margin-top: 52px;
+        text-align: left;
+      }
+
+      .section-heading p {
+        margin-left: 0;
+      }
+
+      .person-card {
+        padding: 23px 20px 21px;
+      }
+
+      .card-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .back-to-top {
+        right: 12px;
+        bottom: 12px;
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+        font-size: 10.5pt;
+      }
+
+      .hero {
+        color: #111;
+        background: #fff;
+        padding: 22px 0;
+        border-bottom: 2px solid #555;
+      }
+
+      .hero-lead,
+      .hero-note span,
+      .eyebrow {
+        color: #333;
+      }
+
+      .intro-panel,
+      .toc,
+      .person-card,
+      .conclusion {
+        box-shadow: none;
+        background: #fff;
+      }
+
+      .intro-panel {
+        margin-top: 0;
+      }
+
+      .toc,
+      .back-to-top {
+        display: none;
+      }
+
+      .person-card {
+        break-inside: avoid;
+      }
+
+      .section-heading {
+        break-after: avoid;
+      }
+
+      .print-break {
+        break-before: page;
+      }
+    }
+  </style>
 </head>
-<body>
-<div class="container">
+<body id="top">
+  <header class="hero">
+    <div class="site-shell hero-inner">
+      <div class="eyebrow">The Purpose of Life</div>
+      <h1>「人生の目的」を<br>哲学・宗教・科学・歴史から考える</h1>
+      <p class="hero-lead">
+        哲学者、宗教家、思想家、科学者、文学者、そして独裁者たちは、人生の意味をどのように捉えていたのでしょうか。
+        最後に、<strong>聖書が示す人間の目的と希望</strong>について考えます。
+      </p>
+      <div class="hero-note" aria-label="記事の主な分野">
+        <span>哲学</span>
+        <span>科学</span>
+        <span>仏教</span>
+        <span>思想</span>
+        <span>歴史</span>
+        <span>聖書</span>
+      </div>
+    </div>
+  </header>
 
-<div class="main_sec2" >
-	<h2>"人生の目的"を哲学、仏教、聖書、儒教、科学、思想家、独裁者たちの言葉から考える</h2>
-	<br>
-<strong>人生の目的</strong>を探るなら、歴史に名を刻んだ偉人たちに耳を傾けてみてください。
-哲学者、宗教家、思想家、科学者、そして悪名高い極悪人たちや悪魔サタンは、どのように人生の意味を捉えていたのでしょうか？さらに、神が私たちの人生にどんな目的を見出しているのか、想像してみたことはありますか？
-</div>
+  <main>
+    <div class="site-shell">
+      <section class="intro-panel" aria-label="記事の紹介">
+        <p>
+          <strong>人生の目的</strong>を探るなら、歴史に名を刻んだ人々の考えに耳を傾けることは有益です。
+          善く生きること、知識を求めること、苦しみから自由になること、社会を変えること、自分自身で意味を作ること。
+          人類は時代ごとに異なる答えを提示してきました。本記事では、それぞれの思想が何を大切にしていたのかを整理しながら、人生の意味について考察します。
+        </p>
+      </section>
 
-<div class="main_sec2" >
-有名な哲学者<strong>ソクラテス</strong>は、人生の目的をどのように考えていたのでしょうか？
+      <nav class="toc" aria-label="ページ内目次">
+        <div class="toc-title">目次</div>
+        <div class="toc-links">
+          <a href="#philosophy">哲学・科学・文化</a>
+          <a href="#religion">宗教と実存思想</a>
+          <a href="#dark-history">支配と破壊の思想</a>
+          <a href="#bible">聖書が示す答え</a>
+        </div>
+      </nav>
 
-ソクラテスは、人生の目的について直接述べてはいませんが、無知を自覚すること、知恵を追求すること、善く生きること、そして他人との対話を通じて真理を探求することを大切にしていました。
-</div>
+      <section id="philosophy">
+        <div class="section-heading">
+          <div class="section-kicker">Philosophy & Culture</div>
+          <h2>哲学・科学・文化に見る人生の目的</h2>
+          <p>知恵、徳、幸福、創造性、自然との調和など、さまざまな角度から人間の生き方を考えます。</p>
+        </div>
 
+        <div class="card-grid">
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">ソクラテス</h3>
+              <span class="tag">古代哲学</span>
+            </div>
+            <p class="question">人生の目的をどのように考えていたのでしょうか。</p>
+            <p>ソクラテスは人生の目的について直接的な定義を残してはいませんが、無知を自覚すること、知恵を追求すること、善く生きること、そして他者との対話を通して真理を探究することを大切にしました。</p>
+          </article>
 
-<div class="main_sec2" >
-	20世紀の天才科学者<strong>アインシュタイン</strong>は人生の目的についてなんと言っていますか？<br>
-	アインシュタインも人生の目的について直接言及はしてませんが、好奇心や知識の追求、創造性、社会貢献、そして人間性や倫理を重視していました。<br>
-</div>
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">アインシュタイン</h3>
+              <span class="tag">科学</span>
+            </div>
+            <p class="question">20世紀を代表する科学者は、人生をどう捉えたのでしょうか。</p>
+            <p>アインシュタインも人生の目的を一つの言葉で定義してはいませんが、好奇心、知識の追求、創造性、社会への貢献、そして人間性や倫理を重視していました。</p>
+          </article>
 
-<div class="main_sec2" >
-<strong>哲学者カント</strong>は、『純粋理性批判』で有名ですが、人生の目的についてどのように考えていたのでしょうか？
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">カント</h3>
+              <span class="tag">道徳哲学</span>
+            </div>
+            <p class="question">『純粋理性批判』で知られるカントの答えは何でしょうか。</p>
+            <p>カントは人生において<strong>道徳</strong>を非常に重視し、人間は理性的な存在として道徳法則に従うべきだと考えました。また、人間の最終的な目的を「最高善」と呼び、道徳的な完全さと幸福が結びついた状態を意味するとしました。ただし、この最高善を現世だけで完全に達成するのは難しいとも考えていました。</p>
+          </article>
 
-カントは、人生の目的として<strong>道徳</strong>を非常に重視し、人間は理性的な存在として道徳的な法則に従うべきだと考えました。
-また、彼は人間の最終的な目的を「最高善」と呼び、これは道徳的な完璧さと幸福の結びつきを意味するとしました。
-ただし、この「最高善」をこの世で達成するのは不可能だとも考えていました。
-</div>
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">ルソー</h3>
+              <span class="tag">社会思想</span>
+            </div>
+            <p class="question">ルソーは人生の目的をどこに見いだしたのでしょうか。</p>
+            <p>ルソーは「<strong>自然な状態</strong>」への回帰を重視しました。人間は本来善良であり、文明や社会の影響によってその善良さが損なわれると考えたのです。そのため、教育や生き方を通して、本来の善良さを取り戻すことに価値を見いだしました。</p>
+          </article>
 
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">タゴール</h3>
+              <span class="tag">文学・思想</span>
+            </div>
+            <p class="question">アジア人初のノーベル賞受賞者は、人生をどう考えたのでしょうか。</p>
+            <p>タゴールは、人間が他者や自然との関係の中で本当の幸福と充実を見つけられると信じていました。また、精神的に成長し、創造性を追求することにも人生の重要な意味があると考えました。</p>
+          </article>
 
-<div class="main_sec2" >
-<strong>哲学者ルソー</strong>は、人生の目的についてどのように考えたのでしょうか？
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">紀貫之</h3>
+              <span class="tag">日本文学</span>
+            </div>
+            <p class="question">紀貫之は、人生の価値をどこに見いだしたのでしょうか。</p>
+            <p>紀貫之は、貴族社会の格式やしきたりだけに縛られず、日常の出来事、自然の美しさ、自分の感情を率直に和歌へ表現しました。人生の価値は社会的地位だけでなく、自分が感じ取る心や自然との触れ合いにもある、と考えることができます。</p>
+          </article>
 
-ルソーは「<strong>自然な状態</strong>」への回帰を重視しました。彼は、人間はもともと自然な状態で善良であり、文明や社会によってその善良さが失われていると考えました。
-そのため、教育や生き方を通じて、本来の善良さを取り戻すことが人生の目的だと考えました。
-</div>
+          <article class="person-card feature-card">
+            <div class="card-top">
+              <h3 class="person-name">千利休</h3>
+              <span class="tag">茶道・美意識</span>
+            </div>
+            <p class="question">千利休が重視した「わび・さび」と「一期一会」とは何でしょうか。</p>
+            <p>千利休は、「わび・さび」の精神や「一期一会」の考え方を重視しました。華美さではなく、簡素さ、不完全さ、自然な美しさを尊ぶことによって、人生の真実や深い意義を感じ取ろうとする姿勢です。また、同じ出会いは二度と完全には繰り返されないという意識は、今この時を大切に生きる考えにつながります。</p>
+          </article>
+        </div>
+      </section>
 
+      <section id="religion" class="print-break">
+        <div class="section-heading">
+          <div class="section-kicker">Religion & Existence</div>
+          <h2>宗教と実存思想に見る人生の目的</h2>
+          <p>苦しみからの解放、悟り、自己決定、幸福、社会的自己実現などの考えを比較します。</p>
+        </div>
 
-<div class="main_sec2" >
-アジア人初のノーベル賞受賞者である<strong>タゴール</strong>は、人生の目的についてどのように考えたのでしょうか？
+        <div class="card-grid">
+          <article class="person-card religion">
+            <div class="card-top">
+              <h3 class="person-name">ブッダ</h3>
+              <span class="tag religion">仏教</span>
+            </div>
+            <p class="question">ブッダは人生の目的についてどのように教えたのでしょうか。</p>
+            <p>ブッダが教えた人生の目的は、苦しみの原因を理解して克服し、道徳的で知恵に満ちた生活を送り、悟りを得て、最終的にはニルヴァーナ、すなわち涅槃に至ることでした。</p>
+          </article>
 
-タゴールは、人間が他者や自然との関係の中で本当の幸福と充実感を見つけることができると信じていました。また、精神的に成長し、創造性を追求することも人生の目的だと考えました。
-</div>
+          <article class="person-card religion">
+            <div class="card-top">
+              <h3 class="person-name">親鸞</h3>
+              <span class="tag religion">浄土真宗</span>
+            </div>
+            <p class="question">親鸞は、人間の救いをどのように考えたのでしょうか。</p>
+            <p>親鸞は、自力の修行や行いによって悟りに至ることは、多くの人にとって難しいと考えました。そこで信仰を重視し、阿弥陀仏の本願を信じることによって極楽浄土に往生できるという教えを説きました。</p>
+          </article>
 
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">ハイデガー</h3>
+              <span class="tag">実存哲学</span>
+            </div>
+            <p class="question">ハイデガーは人生の目的をどのように考えたのでしょうか。</p>
+            <p>ハイデガーは、人生の意味が伝統的な基準によってあらかじめ決められているとは考えませんでした。個々の人間が自分の存在と死を自覚し、本来的に生きることを重視しました。周囲に流され、深く考えずに生きるあり方を「ダス・マン」と呼び、批判的に捉えました。</p>
+          </article>
 
-<div class="main_sec2" >
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">アリストテレス</h3>
+              <span class="tag">古代哲学</span>
+            </div>
+            <p class="question">アリストテレスが示した最高の生き方とは何でしょうか。</p>
+            <p>アリストテレスは、人生の目的について「<strong>エウダイモニア</strong>」という概念を提唱しました。単なる一時的な快楽ではなく、徳、知識、理性、適切な行動を生涯にわたり実践することで得られる、人間としての充実した幸福を意味します。</p>
+          </article>
 
-文学者の<strong>紀貫之</strong>は、人生の目的についてどのように考えていたのでしょうか？
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">カール・マルクス</h3>
+              <span class="tag">社会思想</span>
+            </div>
+            <p class="question">マルクスは人生の目的をどこに見いだしたのでしょうか。</p>
+            <p>マルクスは、階級闘争や資本主義の制約から解放された社会において、個々人が自己実現できると考えました。労働者が組織の命令に従って生産するだけの状態では、人間らしい自己実現は難しいと考えていました。</p>
+          </article>
 
-紀貫之は、貴族社会の格式やしきたりに縛られず、日常の出来事や自然の美しさ、そして自分の感情を率直に和歌に表現していました。
-彼にとって、人生の価値や目的は、社会的な地位や価値観よりも、自分の感じ取る感情や自然の中に見出すことにあったと言えます。
-</div>
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">エピクロス</h3>
+              <span class="tag">幸福論</span>
+            </div>
+            <p class="question">「快楽主義」は、単に欲望を満たす教えなのでしょうか。</p>
+            <p>エピクロスが目指したのは、刺激の強い快楽ではありません。人生の最終目的を「<strong>アタラクシア（心の平静）</strong>」とし、不安や恐怖、身体的・精神的苦痛から解放された穏やかな状態こそ、真の幸福につながると考えました。</p>
+          </article>
 
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">サルトル</h3>
+              <span class="tag">実存主義</span>
+            </div>
+            <p class="question">サルトルは、人生の意味を誰が決めると考えたのでしょうか。</p>
+            <p>サルトルは、人生の目的は自分で選び、行動によって作り上げるものだと考えました。目的は神から与えられるものではなく、自分で決めるべきだとし、自由な選択には、それに伴う責任も負わなければならないと考えました。</p>
+          </article>
 
-<div class="main_sec2" >
+          <article class="person-card">
+            <div class="card-top">
+              <h3 class="person-name">ニーチェ</h3>
+              <span class="tag">近代哲学</span>
+            </div>
+            <p class="question">「神は死んだ」で知られるニーチェは、何を目指したのでしょうか。</p>
+            <p>ニーチェは、既存の道徳や価値観を乗り越え、新しい価値を創造する存在として「<strong>超人</strong>」を提示しました。超人とは、世間の価値観に従うだけでなく、自らの力で生き方と価値を作り出す人間像です。なお、ニーチェ自身は晩年に深刻な精神疾患を抱えました。</p>
+          </article>
+        </div>
+      </section>
 
-茶道の<strong>千利休</strong>は、人生の目的についてどのように考えたのでしょうか？
+      <section id="dark-history" class="print-break">
+        <div class="section-heading">
+          <div class="section-kicker">Power & Destruction</div>
+          <h2>支配と破壊をもたらした思想</h2>
+          <p>人生や社会の目的を誤った方向へ定めると、個人だけでなく多くの人々を傷つける結果になり得ます。</p>
+        </div>
 
-千利休は、「わび・さび」の精神や「一期一会」の考え方を重視し、これらは日本人の人生観に大きな影響を与えてきました。わび・さびは、物事のシンプルさや自然な美しさを尊ぶことで、人生の真実や意義を感じ取ることができるという考え方に基づいています。
-</div>
+        <div class="card-grid">
+          <article class="person-card warning feature-card">
+            <div class="card-top">
+              <h3 class="person-name">悪魔サタン</h3>
+              <span class="tag warning">聖書上の論争</span>
+            </div>
+            <p class="question">サタンは、人間がどのように生きるべきだと主張したのでしょうか。</p>
+            <p>聖書によれば、サタンは、神ではなく人間自身が善悪の基準を決めるべきだと主張しました。人間は神の律法に従うよりも、独自に決定する方がうまくいくという主張です。これは、神の統治の正当性をめぐる<strong>宇宙主権の論争</strong>と関係しています。</p>
+            <p>エデンで最初の人間はこの主張を支持し、神による統治を退けました。聖書の観点では、その結果として、人間自身による統治が長く試され、苦しみの多い社会が続いてきたと説明されます。</p>
+          </article>
 
-<div style="break-before: page;"></div><!-- 改ページ Chromeで有効 -->
+          <article class="person-card warning">
+            <div class="card-top">
+              <h3 class="person-name">ヨシフ・スターリン</h3>
+              <span class="tag warning">独裁</span>
+            </div>
+            <p class="question">スターリンは人生の使命をどこに置いていたのでしょうか。</p>
+            <p>スターリンは人生の目的を明確な哲学として述べてはいませんが、社会主義体制の拡大と国家権力の維持を使命とみなしていました。しかし、その手法は極めて残忍で、多くの人々が粛清、強制収容、飢餓によって命を失いました。</p>
+          </article>
 
+          <article class="person-card warning">
+            <div class="card-top">
+              <h3 class="person-name">アドルフ・ヒトラー</h3>
+              <span class="tag warning">独裁・人種主義</span>
+            </div>
+            <p class="question">ヒトラーが定めた目的は、何を生み出したのでしょうか。</p>
+            <p>ヒトラーは人権を軽視し、アーリア人が最も優れた民族であるとする人種主義を掲げ、他民族、共産主義、民主主義との闘争を目的としました。一つの誤った思想は、時として巨大な破壊を生み出します。ヒトラーの思想は、歴史上でも最大級の死者、苦しみ、社会的破壊をもたらしました。</p>
+          </article>
+        </div>
+      </section>
 
-<div class="main_sec2" >
-	<strong>ブッダ</strong>（仏陀、釈迦）は人生の目的についてどのように教えましたか？<br>
-	彼が教えた人生の目的は、苦しみを克服し、道徳的で知恵に満ちた生活を送り、悟りを得、最終的にはニルヴァーナ（涅槃）に至ることでした。<br>
-</div>
+      <section id="bible" class="print-break">
+        <div class="section-heading">
+          <div class="section-kicker">The Biblical View</div>
+          <h2>聖書が示す人生の目的</h2>
+          <p>人間は何のために生きるのか。イエス・キリストと神の言葉から、その答えを考えます。</p>
+        </div>
 
-<div class="main_sec2" >
-日本の仏教の聖人である<strong>親鸞</strong>は、人間の人生の目的についてどのように教えたのでしょうか？
+        <div class="card-grid">
+          <article class="person-card religion feature-card">
+            <div class="card-top">
+              <h3 class="person-name">イエス・キリスト</h3>
+              <span class="tag religion">聖書</span>
+            </div>
+            <p class="question">イエスは、人間が何によって生きると教えたのでしょうか。</p>
+            <p>イエスは、「人はパンだけではなく、神の口から出る全ての言葉によって生きなければならない」とサタンに答えました。食べ物が人間の命に必要であるのと同じように、神の導きも人間に必要だという意味です。</p>
+            <p>また、イエスは<strong>人間に永遠の命</strong>が与えられるという希望を繰り返し教えました。人間は永遠に幸福に生きるよう意図されている一方、悪い行いを悔い改め、正しい生き方へ変化する必要があるとも教えています。</p>
 
-親鸞は、自力での修行や行いによって悟りを得るのは、多くの人にとって難しいと考えました。そこで彼は「信仰心」に焦点を当て、阿弥陀仏に誓願することで極楽浄土に往生できるという、シンプルな教えを説きました。
-</div>
+            <div class="scripture">
+              <div class="scripture-title">聖書 ヨハネ 14章6節</div>
+              <blockquote>「わたしは道であり，真理であり，命です」</blockquote>
+            </div>
+          </article>
 
+          <article class="person-card religion feature-card">
+            <div class="card-top">
+              <h3 class="person-name">神</h3>
+              <span class="tag religion">聖書</span>
+            </div>
+            <p class="question">神は人間の人生に、どのような目的を見いだしているのでしょうか。</p>
+            <p>聖書に記された神の考えを要約すると、<strong>人間が自由意志を持ちながら、悪人のいない世界で永遠に生きること</strong>が本来の目的だと説明できます。そのため神は、人間に罪を悔い改め、善い人へ変化するよう繰り返し教えています。</p>
+            <p>神は人間にご自分の言葉に従うよう望んでいます。一方、サタンと人間は、人間自身ですべてを決定すべきだと主張しました。神はその主張が試されることを一時的に許し、その結果として現代の社会がある、と聖書は説明します。</p>
 
-<div class="main_sec2" >
-ドイツの哲学者<strong>ハイデガー</strong>は、人生の目的をどのように考えていたのでしょうか？
+            <div class="scripture">
+              <div class="scripture-title">聖書 詩編 37編10,11節</div>
+              <blockquote>ほんのもう少しすれば悪人はいなくなる。
+彼らがいた場所を見ても，もういない。
+しかし，温厚な人は地上に住み続け，
+豊かな平和をこの上なく喜ぶ。</blockquote>
+            </div>
 
-ハイデガーは、人生の目的は伝統的な基準や原則によって決まるものではなく、個々の人間が自分で創り出すものだと強調しました。
-彼は「存在」について深く考察することを重視しており、そうしたことを深く考えないで生きる人々をダスマンと呼び、批判しました。
-</div>
+            <div class="scripture">
+              <div class="scripture-title">聖書 ローマ 6章23節</div>
+              <blockquote>罪の代償は死ですが，神が与える贈り物は，私たちの主であるキリスト・イエスによる永遠の命なのです。</blockquote>
+            </div>
+          </article>
+        </div>
+      </section>
 
+      <section class="conclusion" aria-labelledby="conclusion-title">
+        <h2 id="conclusion-title">人生の目的を得るには</h2>
+        <p>人生の目的について、歴史上の偉人、思想家、宗教家、科学者、さらには悪名高い独裁者たちの考えを通して探ることは、非常に興味深いことです。しかし、それらすべての言葉や理論が、私たちに完全な満足や確かな答えを与えているでしょうか。</p>
+        <p>歴史が示すように、人間自身の力だけで統治し、善悪を決定するという考え方は、必ずしも良い結果をもたらしてきませんでした。戦争、飢餓、抑圧、社会的不平等など、数え切れないほどの苦しみが人類史に残されています。</p>
+        <p>それに対して聖書は一貫して、神の導きに従うことが、人間が本来持つべき目的と幸福につながると教えています。聖書は単なる宗教書ではなく、私たちの存在意義や未来に対する希望を提示する書物です。</p>
+        <p>哲学者たちの考えや現代の思想も、多くのことを考えるきっかけになります。しかし、人生の目的と将来の希望について、聖書が示す答えには独自の一貫性があります。</p>
+        <div class="closing-line">人生の意味を探すことは、どのように生きるかを選ぶことでもあります。</div>
+      </section>
+    </div>
+  </main>
 
-<div class="main_sec2" >
-哲学者<strong>アリストテレス</strong>は、人生の目的についてどのように考えたのでしょうか？
+  <footer class="page-footer">
+    人生の目的を考えるための個人考察ページ
+  </footer>
 
-哲学者アリストテレスは、人生の目的について「<strong>エウダイモニア</strong>」という概念を提唱しました。これは「幸福」とも訳され、人間が目指すべき最高の状態を意味します。彼は、徳、知識、理性、そして行動を常に努力して追求することで、このエウダイモニアの状態に到達できると考えました。
-
-</div>
-
-<div class="main_sec2" >
-	思想家<strong>カール・マルクス</strong>は人生の目的についてなんと言っているか？<br>
-	マルクスは階級闘争や資本主義の制約のない、共産主義社会で個々が自己実現、つまり人生の目的を見出せるだろうと考えていました。
-	労働者が会社の言われるがままに生産する社会では、自己実現できないとも考えていました。<br>
-</div>
-
-<div class="main_sec2" >
-
-<strong>エピクロス</strong>は古代ギリシャの哲学者で、彼の考え方は「快楽主義」として知られていますが、単に快楽を追い求めるものとは異なります。エピクロスは、人生の最終目的は「<strong>アタラクシア（不動心）</strong>」という心の平静と不安からの解放であると考えました。彼は、肉体的にも精神的にも苦痛から解放されることが真の幸福につながると信じていました。
-
-</div>
-
-<div class="main_sec2" >
-	実存主義者の<strong>サルトル</strong>は、人生の目的は自分で選び、行動によって作り上げるものだと考えていました。彼は、人生の目的は神から与えられるものではなく、自分で決めるべきだとしました。そして、自由に選択することには、その選択に伴う責任も負わなければならないと考えました。
-</div>
-
-<div class="main_sec2" >
-無神論者<strong>ニーチェ</strong>は「神は死んだ」という言葉で有名ですが、彼は人生の目的を「<strong>超人</strong>」を目指すことだと考えていました。超人とは、自分の能力を最大限に発揮し、自己実現を果たす進化した存在を指します。しかし、ニーチェ自身は超人にはなれず、晩年は精神的に不安定になってしまいました。
-</div>
-
-<div style="break-before: page;"></div><!-- 改ページ Chromeで有効 -->
-
-<div class="main_sec2" >
-	<strong>悪魔サタン</strong>は人間の人生の目的についてなんと主張したか？<br>
-	サタンは、神ではなく人間自身が人間の善悪を決めるべきだと主張しました。人間は神の律法に従うより独自に決定するほうがうまくゆく，と言っていたわけです。（<strong>宇宙主権の論争</strong>）
-	聖書によれば、この主張を用いて、サタンはエデンで最初の人間に働きかけ、人間はサタン側の主張を支持、結果的に神による統治を退けさせました。
-	そして、サタンと人類自身の統治の結果、過去から現代に至るまでの苦しみだらけの人間社会となりました。<br>
-</div>
-
-<div class="main_sec2" >
-	大量粛清の首謀者<strong>ヨシフ・スターリン</strong>は人生の目的についてなんと言ったか？<br>
-	彼は人生の目的について明言してませんが、社会主義の理念を広めることが使命であると考えていました。
-	しかし、彼の手法は極めて残忍であり多くの人を処刑し、彼の無謀な政策のために多くの人が飢えで死亡しました。<br>
-</div>
-
-<div class="main_sec2" >
-	独裁者<strong>ヒトラー</strong>は人生の目的をどのように考えたか？<br>
-	ヒトラーは人権を軽視し、アーリア人が最も優れた民族だと考え、他民族、共産主義、民主主義と戦うことを目的としていました。
-	一つの考えがもたらす結果は、時として多くの被害や破壊につながることがありますが、ヒトラーが考えた「人生の目的」は歴史上最大級の死者と苦しみと破壊を生み出しました。<br>
-</div>
-
-<div class="main_sec2" >
-	<strong>イエス・キリスト</strong>は人間の人生の目的について何と言っていますか？<br>
-	イエスは「人は，パンだけではなく，神の口から出る全ての言葉によって生きなければならない」とサタンに返答しました。
-	人間には食べ物が必須ですが、それと同じように神の導きに従うことも必須であると言っています。<br>
-	また、イエスは<strong>人間に永遠の命</strong>を与える約束しており、聖書中にそのことが何度も言及されています。
-	イエスが教えた人間の目的は、人は永遠に幸せに生きることでした。しかし悪人にその資格はなく悔い改めが必要だとも教えています。
-	<div class="famous_words">
-		<div class="famous_words_title">聖書 ヨハネ 14章6節</div>
-		わたしは道であり，真理であり，命です
-	</div>
-</div>
-
-<div class="main_sec2" >
-	<strong>神（エホバ）</strong>は人間の人生の目的についてどのように考えていますか？<br>
-	聖書には神の考えが記録されています。
-	要約すると、<strong>人間の人生の目的は、人間は自由意志を持ちつつも悪人がいない世の中で永遠に暮らせるようにすること</strong>です。
-	そのため、まず人間は罪を悔い改め善人なるよう繰り返し何度も教えています。<br>
-
-	神は人間に対し、ご自分の言葉に従うよう望んでいます。
-	対してサタンと人間は、人間自身ですべてを決定すべきだと主張し、神は一時的にそれを認めました。
-	その結果が今の世の中であり、サタンと人間の考えは間違っていることを人間は認めるようにと、神は示唆しています。<br>
-
-	<div class="famous_words">
-		<div class="famous_words_title">聖書 詩編37章10,11節</div>
-		ほんのもう少しすれば悪人はいなくなる。
-		彼らがいた場所を見ても，もういない。
-		しかし，温厚な人は地上に住み続け，
-		豊かな平和をこの上なく喜ぶ。
-	</div>
-	
-	<div class="famous_words">
-		<div class="famous_words_title">聖書 ローマ6章23節</div>
-		罪の代償は死ですが，神が与える贈り物は，私たちの主であるキリスト･イエスによる永遠の命なのです。
-	</div>
-</div>
-
-
-<div style="break-before: page;"></div><!-- 改ページ Chromeで有効 -->
-
-<div class="main_sec2" style="display:none;">
-	<strong>まとめ</strong><br>
-	人生の目的は<strong>自由である</strong>ということに関してはヒトラー、スターリンを除き、すべての人物が認めているところです。神エホバはもちろんのこと、あのサタンですら同じです。
-	しかし、真っ向から二手に分かれる考え方が見られます。
-	サタンは、<strong>人間は神の律法に従うより独自に決定するほうがうまくゆく</strong>と主張しましたが、近代から現代の哲学者たちの考え方は実際のところサタンと同じような主張が多いです。
-	神の基準に従うより自分ことは自分で決めるという考え方が支持されています。現代の世の中もそのような感じになっていると思います。
-	聖書によると人間だけではなく、多くの天使たちもサタン側を支持したことが述べられています。<br>
-	<br>
-	神は，人間家族が神の統治を受けずに首尾よく<strong>自らを治めるのは不可能である</strong>，ということをご存じでした。
-	人間は，様々に異なった政治体制，経済体制，宗教体制を設けてきましたが、「人が人を支配してこれに害を及ぼした」という聖書の言葉の通りなりました。
-	神の言葉の中で予告されていたように，邪悪な者とかたりを働く者とは「いよいよ悪に進み」続けてきました。<br>
-	<br>
-	神は、それを黙って見守り続けるということはなく、間もなく人間の物事に介入することが聖書預言の中で記されています。<br>
-</div>
-
-<div class="main_sec2" >
-	<strong>人生の目的を得るには</strong><br>
-人生の目的について、歴史上の偉人たちや思想家、宗教家、さらには悪名高い独裁者たちの考え方を通して深く探ることは非常に興味深いことです。
-しかし、それらすべての言葉や理論が、私たちに完全な満足感や答えを提供しているでしょうか？
-<br><br>
-歴史が示しているように、人間自身の力で統治し、善悪を決定するという考え方は、必ずしも良い結果をもたらしていません。
-戦争や飢餓、社会的な不平等など、数え切れないほどの苦しみが人類の歴史を彩っています。それに対し、聖書は一貫して「神の導き」に従うことが、人間が本来持つべき目的であり、幸福へとつながると教えています。
-<br><br>
-
-もし人生の目的や真の意味を見つけたいのであれば、聖書の教えに目を向けてみてください。
-聖書は単なる宗教書ではなく、私たちの存在意義や未来に対する確かな希望を提供してくれるガイドです。哲学者たちが述べた考えや現代の思想も興味深いものですが、聖書が示す答えには、これまでのどんな思想や理論にもない一貫性と信頼性があります。
-<br><br>
-
-ぜひ一度、聖書を手に取り、そこに記されている神の目的を学んでみてください。
-そうすることで、今の人生だけでなく、永遠に続く豊かな未来への道を見つけることができるかもしれません。
-わたしたちはボランティアで聖書を教えています。
-ぜひとも以下のQRコードもしくはURLからアクセスし、お申込みください。
-</div>
-
-
-
-
-<div class="main_sec2" >
-	
-	<div class="row" style="margin-top:1px">
-		
-		<div class="col-6">
-			ご質問などございましたら、　どうぞお気軽に以下のメールアドレスまでご連絡ください。
-			<a href="mailto:amaraimusi@gmail.com">amaraimusi@gmail.com</a>
-		</div>
-		
-		<div class="col-1"></div>
-		
-		<div class="col-5">
-			<div>聖書を学べます：申込先</div>
-			<div class="row">
-				<div class="col-3">
-					<img src="qr20220924120836210.png" alt="聖書を学べます：申込先" style="width:123px;height:123px;"/>
-				</div>
-				<div class="col-9">
-			
-					<div style="margin-left:0px;margin-top:20px">「jw.org」でご検索ください</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
-	
-
-</div>
-
-
-</div><!-- container -->
-
+  <a class="back-to-top" href="#top" aria-label="ページ上部へ戻る">↑</a>
 </body>
 </html>
