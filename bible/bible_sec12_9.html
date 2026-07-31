@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="なぜ現役世代の人が投資詐欺にひっかかるのか。利益への期待が冷静な判断を曇らせる仕組みと、聖書の警告から考えます。">
+  <title>なぜ現役世代の人が投資詐欺にひっかかるのか？</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --paper:#ffffff;
+      --ink:#172033;
+      --muted:#657087;
+      --line:#dfe5ee;
+      --accent:#b7791f;
+      --accent-deep:#7b4d0b;
+      --accent-soft:#fff4dc;
+      --danger:#b83b3b;
+      --danger-soft:#fff0f0;
+      --blue:#284b7b;
+      --shadow:0 18px 50px rgba(30,45,70,.10);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(40,75,123,.08), transparent 28rem),
+        linear-gradient(180deg,#eef3f9 0,#f8fafc 38rem,#f4f7fb 100%);
+      font-family:
+        "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        "YuGothic",
+        "Meiryo",
+        system-ui,
+        sans-serif;
+      line-height:1.95;
+      letter-spacing:.02em;
+    }
+
+    a{color:inherit}
+
+    .site-header{
+      border-bottom:1px solid rgba(255,255,255,.28);
+      color:#fff;
+      background:
+        linear-gradient(120deg,rgba(16,32,55,.96),rgba(40,75,123,.90)),
+        url("img/bible_sec12_9.png") center 42% / cover no-repeat;
+    }
+
+    .site-header__overlay{
+      background:linear-gradient(90deg,rgba(15,26,44,.93) 0%,rgba(15,26,44,.76) 55%,rgba(15,26,44,.35) 100%);
+    }
+
+    .hero{
+      width:min(1180px,calc(100% - 32px));
+      min-height:520px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      padding:72px 0 78px;
+    }
+
+    .hero__content{
+      max-width:760px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.55em;
+      padding:.42em .85em;
+      border:1px solid rgba(255,255,255,.32);
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      backdrop-filter:blur(8px);
+      font-size:.86rem;
+      font-weight:700;
+      letter-spacing:.12em;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:.72em;
+      height:.72em;
+      border-radius:50%;
+      background:#ffd173;
+      box-shadow:0 0 0 5px rgba(255,209,115,.14);
+    }
+
+    h1{
+      margin:.65em 0 .45em;
+      max-width:820px;
+      font-size:clamp(2.2rem,6vw,4.7rem);
+      line-height:1.18;
+      letter-spacing:-.035em;
+      text-wrap:balance;
+    }
+
+    .hero__lead{
+      margin:0;
+      max-width:700px;
+      color:#e9eef7;
+      font-size:clamp(1rem,2.2vw,1.25rem);
+      line-height:1.9;
+    }
+
+    .page{
+      width:min(1180px,calc(100% - 32px));
+      margin:-46px auto 0;
+      position:relative;
+      z-index:2;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 300px;
+      gap:28px;
+      align-items:start;
+    }
+
+    .article{
+      padding:clamp(26px,5vw,66px);
+      border:1px solid rgba(223,229,238,.9);
+      border-radius:var(--radius);
+      background:var(--paper);
+      box-shadow:var(--shadow);
+    }
+
+    .article p{
+      margin:1.15em 0;
+    }
+
+    .intro{
+      font-size:1.08rem;
+    }
+
+    .quote-stack{
+      margin:26px 0 30px;
+      display:grid;
+      gap:10px;
+    }
+
+    .quote-stack p{
+      margin:0;
+      padding:14px 18px;
+      border-left:4px solid var(--accent);
+      border-radius:0 12px 12px 0;
+      color:#3d4555;
+      background:var(--accent-soft);
+      font-weight:700;
+    }
+
+    h2{
+      margin:2.6em 0 .75em;
+      padding-bottom:.45em;
+      position:relative;
+      font-size:clamp(1.45rem,3vw,2.05rem);
+      line-height:1.45;
+      letter-spacing:-.02em;
+    }
+
+    h2::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:72px;
+      height:4px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),#e3b457);
+    }
+
+    .question-list,
+    .thought-list,
+    .danger-list{
+      margin:24px 0;
+      display:grid;
+      gap:11px;
+    }
+
+    .question-list p,
+    .thought-list p,
+    .danger-list p{
+      margin:0;
+      padding:14px 17px 14px 48px;
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fafbfd;
+    }
+
+    .question-list p::before,
+    .thought-list p::before,
+    .danger-list p::before{
+      position:absolute;
+      left:17px;
+      top:14px;
+      width:22px;
+      height:22px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      font-size:.8rem;
+      font-weight:900;
+    }
+
+    .question-list p::before{
+      content:"?";
+      color:#fff;
+      background:var(--blue);
+    }
+
+    .thought-list p::before{
+      content:"→";
+      color:var(--accent-deep);
+      background:#ffe2a6;
+    }
+
+    .danger-list p::before{
+      content:"!";
+      color:#fff;
+      background:var(--danger);
+    }
+
+    .figure{
+      margin:34px auto 40px;
+      max-width:620px;
+    }
+
+    .figure__frame{
+      overflow:hidden;
+      border-radius:20px;
+      background:#e9edf3;
+      box-shadow:0 14px 40px rgba(25,39,65,.16);
+    }
+
+    .figure img{
+      display:block;
+      width:100%;
+      aspect-ratio:4/5;
+      object-fit:cover;
+    }
+
+    .figure figcaption{
+      margin-top:12px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.9rem;
+      line-height:1.7;
+    }
+
+    .scripture{
+      margin:30px 0;
+      padding:28px clamp(22px,4vw,38px);
+      position:relative;
+      overflow:hidden;
+      border:1px solid #e7c983;
+      border-radius:20px;
+      background:
+        linear-gradient(145deg,rgba(255,250,233,.98),rgba(255,243,208,.92));
+    }
+
+    .scripture::before{
+      content:"“";
+      position:absolute;
+      top:-32px;
+      right:20px;
+      color:rgba(183,121,31,.13);
+      font-family:Georgia,serif;
+      font-size:9rem;
+      line-height:1;
+    }
+
+    .scripture__label{
+      display:inline-block;
+      margin-bottom:10px;
+      color:var(--accent-deep);
+      font-size:.84rem;
+      font-weight:900;
+      letter-spacing:.1em;
+    }
+
+    .scripture blockquote{
+      margin:0;
+      font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+      font-size:clamp(1.06rem,2.4vw,1.27rem);
+      font-weight:600;
+      line-height:2;
+    }
+
+    .highlight{
+      margin:28px 0;
+      padding:24px;
+      border-left:5px solid var(--danger);
+      border-radius:0 16px 16px 0;
+      background:var(--danger-soft);
+      font-weight:700;
+    }
+
+    .conclusion{
+      margin-top:34px;
+      padding:28px;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#233b60,#17283f);
+    }
+
+    .conclusion p:first-child{margin-top:0}
+    .conclusion p:last-child{margin-bottom:0}
+
+    .sidebar{
+      position:sticky;
+      top:20px;
+      display:grid;
+      gap:18px;
+    }
+
+    .side-card{
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.94);
+      box-shadow:0 10px 30px rgba(35,55,85,.08);
+    }
+
+    .side-card h3{
+      margin:0 0 12px;
+      font-size:1.05rem;
+    }
+
+    .side-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.75;
+    }
+
+    .ad{
+      display:block;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:18px;
+      text-decoration:none;
+      background:#fff;
+      box-shadow:0 10px 30px rgba(35,55,85,.08);
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+    }
+
+    .ad:hover{
+      transform:translateY(-3px);
+      border-color:#b8c7dc;
+      box-shadow:0 16px 36px rgba(35,55,85,.14);
+    }
+
+    .ad__top{
+      padding:12px 16px;
+      color:#fff;
+      background:linear-gradient(100deg,#284b7b,#3d6ba4);
+      font-size:.75rem;
+      font-weight:900;
+      letter-spacing:.12em;
+    }
+
+    .ad__body{
+      padding:18px 18px 20px;
+    }
+
+    .ad__title{
+      margin:0 0 8px;
+      font-weight:900;
+      line-height:1.5;
+    }
+
+    .ad__text{
+      margin:0;
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.7;
+    }
+
+    .ad__link{
+      display:inline-block;
+      margin-top:12px;
+      color:var(--blue);
+      font-size:.86rem;
+      font-weight:900;
+    }
+
+    .footer{
+      margin-top:48px;
+      padding:36px 16px;
+      color:#d6dfec;
+      text-align:center;
+      background:#17263b;
+    }
+
+    .footer p{
+      margin:.3em 0;
+    }
+
+    .footer__date{
+      font-size:.9rem;
+      color:#aebbd0;
+    }
+
+    @media (max-width:900px){
+      .hero{
+        min-height:470px;
+        padding-top:56px;
+      }
+
+      .layout{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        position:static;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .side-card{
+        grid-column:1/-1;
+      }
+    }
+
+    @media (max-width:620px){
+      body{line-height:1.85}
+
+      .site-header{
+        background-position:58% center;
+      }
+
+      .site-header__overlay{
+        background:linear-gradient(180deg,rgba(15,26,44,.74),rgba(15,26,44,.94));
+      }
+
+      .hero{
+        min-height:430px;
+        align-items:end;
+        padding-bottom:68px;
+      }
+
+      .page{
+        width:min(100% - 20px,1180px);
+        margin-top:-28px;
+      }
+
+      .article{
+        padding:28px 20px 36px;
+        border-radius:18px;
+      }
+
+      .sidebar{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:2.35rem;
+      }
+
+      .quote-stack p,
+      .question-list p,
+      .thought-list p,
+      .danger-list p{
+        font-size:.96rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="site-header__overlay">
+      <div class="hero">
+        <div class="hero__content">
+          <div class="eyebrow">投資詐欺と人間心理</div>
+          <h1>なぜ現役世代の人が<br>投資詐欺にひっかかるのか？</h1>
+          <p class="hero__lead">
+            社会経験があり、典型的な詐欺を見抜ける人でも、
+            利益への期待が強くなると判断を誤ることがあります。
+            欲望が理性を曇らせる仕組みを、聖書の言葉とともに考えます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="layout">
+      <article class="article">
+        <p class="intro">
+          オレオレ詐欺や還付金詐欺など、高齢者を狙った詐欺のニュースを見て、
+          次のように思う人は少なくないでしょう。
+        </p>
+
+        <div class="quote-stack" aria-label="よくある反応">
+          <p>「なぜ、こんな話を信じてしまうのだろう」</p>
+          <p>「自分なら簡単に見抜ける」</p>
+          <p>「少し冷静に考えれば、詐欺だと分かるはずだ」</p>
+        </div>
+
+        <p>
+          確かに、現役の労働世代がオレオレ詐欺にひっかかることは、
+          それほど多くないかもしれません。社会の中で働き、電話やインターネットを使い、
+          さまざまな人と接しているため、典型的な詐欺の手口には気付きやすいからです。
+        </p>
+
+        <p>
+          しかし、そのような社会経験のある人でも、投資詐欺にはひっかかることがあります。
+        </p>
+
+        <p><strong>なぜなのでしょうか。</strong></p>
+
+        <figure class="figure">
+          <div class="figure__frame">
+            <img src="img/bible_sec12_9.png" alt="利益に目を奪われ、足元の投資詐欺のわなに気付かない人を描いたイラスト">
+          </div>
+          <figcaption>
+            大きな利益に目を奪われると、目の前の危険や周囲からの警告が見えにくくなります。
+          </figcaption>
+        </figure>
+
+        <h2>詐欺を見抜く力がなくなったわけではない</h2>
+
+        <p>
+          投資詐欺にひっかかった人が、必ずしも知識のない人や判断力の低い人とは限りません。
+        </p>
+
+        <p>
+          仕事で責任ある立場にいる人、会社を経営している人、
+          投資について勉強している人でさえ、被害に遭うことがあります。
+        </p>
+
+        <p>
+          詐欺を見抜く能力が全くなかったのではありません。
+          普段であれば、次のような不自然さに気付けたはずです。
+        </p>
+
+        <div class="question-list">
+          <p>なぜ他人に、これほどもうかる話を教えるのか</p>
+          <p>高い利益が保証されるのはおかしい</p>
+          <p>なぜ今日中に決断しなければならないのか</p>
+          <p>出金するために、さらにお金を払うのは変ではないか</p>
+        </div>
+
+        <p>
+          冷静な状態であれば、誰でも疑問に感じるような話です。
+          それでも信じてしまうのは、利益を得られるという期待が、
+          冷静な判断を覆い隠してしまうからでしょう。
+        </p>
+
+        <h2>利益に目がくらむと、周りが見えなくなる</h2>
+
+        <p>
+          人は大きな利益を得られるかもしれないと思うと、
+          その話を疑うよりも、信じるための理由を探し始めることがあります。
+        </p>
+
+        <div class="thought-list">
+          <p>新しい投資方法だから、高い利益が出るのだろう</p>
+          <p>まだ多くの人が知らないだけだ</p>
+          <p>自分は早い段階で情報を得ることができた</p>
+          <p>実際に利益が表示されているから本物だ</p>
+          <p>知人も利益を得ているようなので大丈夫だ</p>
+        </div>
+
+        <p>
+          このように、理性そのものが失われるというよりも、
+          理性が「この投資は本物だ」と自分を納得させるために使われてしまうのです。
+        </p>
+
+        <p>
+          本来なら危険を知らせる材料まで、都合よく解釈するようになります。
+        </p>
+
+        <p>
+          詐欺師から決断を急かされても、
+          「人気がある投資だから急ぐ必要がある」と考えます。
+          異常に高い利益率を提示されても、
+          「画期的な仕組みだから可能なのだ」と信じます。
+        </p>
+
+        <p>
+          家族や友人から止められても、
+          「この人たちは投資を理解していない」
+          「せっかくの機会を邪魔されている」と感じることさえあります。
+        </p>
+
+        <div class="highlight">
+          利益への欲望が強くなると、周囲からの警告さえ耳に入らなくなるのです。
+        </div>
+
+        <h2>欲望は人の見たいものだけを見せる</h2>
+
+        <p>
+          投資詐欺の恐ろしいところは、人間の弱さを巧みに利用する点にあります。
+        </p>
+
+        <p>
+          詐欺師は、最初から多額のお金を要求するとは限りません。
+          少額の投資から始めさせ、画面上で利益が増えているように見せます。
+          場合によっては、最初だけ実際に少額を出金させることもあります。
+        </p>
+
+        <p>
+          そうすると被害者は、「やはり本物だった」
+          「自分の判断は正しかった」と確信します。
+        </p>
+
+        <p>
+          その後、より多くの利益を得るために追加投資を勧められます。
+          すでに利益を経験しているため、警戒心は弱くなっています。
+        </p>
+
+        <p>そして出金しようとすると、次のように言われます。</p>
+
+        <div class="danger-list">
+          <p>税金を先に支払う必要がある</p>
+          <p>保証金を入金すれば出金できる</p>
+          <p>口座の凍結を解除する費用が必要だ</p>
+        </div>
+
+        <p>
+          冷静に考えれば不自然な話です。しかし、すでに多額のお金を入れていると、
+          「ここでやめれば全てを失う」という恐れが生まれます。
+        </p>
+
+        <p>
+          最初は利益を得たいという欲望によって前に進み、
+          最後は損を取り戻したいという欲望によって引き返せなくなるのです。
+        </p>
+
+        <h2>富もうとする強い願いは「わな」になる</h2>
+
+        <p>
+          聖書は、お金そのものが悪いとは述べていません。
+          しかし、富もうとする強い願望が人を危険な状態に陥れることを警告しています。
+        </p>
+
+        <div class="scripture">
+          <div class="scripture__label">テモテ第一 6章9,10節</div>
+          <blockquote>
+            富もうと決意している人たちは、誘惑とわなに陥り、
+            多くの無分別で有害な欲望に捕らわれます。
+            そうした欲望は人を破滅と滅びに陥れます。
+            お金を愛することは、あらゆる悪い事柄の根だからです。
+          </blockquote>
+        </div>
+
+        <p>
+          ここで注目できるのは、「富を持っている人」ではなく、
+          「富もうと決意している人」が警告されていることです。
+        </p>
+
+        <div class="thought-list">
+          <p>何としてもお金を増やしたい</p>
+          <p>一度に大きな利益を得たい</p>
+          <p>今の生活を一気に変えたい</p>
+          <p>人より早く成功したい</p>
+        </div>
+
+        <p>
+          その願いが強くなると、人は「誘惑とわな」に陥りやすくなります。
+        </p>
+
+        <p>
+          投資詐欺は、まさに利益を求める人の心の中にわなを仕掛けます。
+          詐欺師が無理やり欲望を植え付けるというよりも、
+          本人の中にすでにある願いを刺激し、膨らませていくのです。
+        </p>
+
+        <p>
+          お金が欲しいという気持ちは、多くの人にあります。
+          生活費、老後資金、家族のための蓄えを必要とすること自体は自然なことです。
+        </p>
+
+        <p>
+          しかし、その願いが強くなり過ぎると、危険を見抜く目が曇ることがあります。
+        </p>
+
+        <h2>高齢者だけが騙されるのではない</h2>
+
+        <p>
+          高齢者を狙う詐欺では、家族への愛情や不安が利用されます。
+        </p>
+
+        <div class="danger-list">
+          <p>息子が事故を起こした</p>
+          <p>孫が会社のお金をなくした</p>
+          <p>このままでは逮捕される</p>
+        </div>
+
+        <p>
+          このように言われると、家族を助けたいという気持ちから
+          冷静さを失うことがあります。
+        </p>
+
+        <p>
+          一方、現役世代を狙う投資詐欺では、
+          将来への不安や成功への願いが利用されます。
+        </p>
+
+        <div class="thought-list">
+          <p>老後資金が足りなくなる</p>
+          <p>給料だけでは豊かになれない</p>
+          <p>今始めなければ機会を失う</p>
+          <p>他の人はすでに利益を得ている</p>
+        </div>
+
+        <p>
+          恐怖を利用するか、利益への期待を利用するかという違いはありますが、
+          どちらも人間の感情を強く揺さぶり、
+          冷静に考える時間を奪う点では同じです。
+        </p>
+
+        <p>
+          したがって、「高齢者は騙されやすく、現役世代は騙されない」と
+          単純に分けることはできません。
+        </p>
+
+        <p>
+          人はそれぞれ、自分が強く心を動かされる分野で
+          判断を誤る可能性があります。
+        </p>
+
+        <h2>「自分は大丈夫」と思うことの危険</h2>
+
+        <p>
+          投資詐欺から身を守るために必要なのは、
+          投資についての知識だけではありません。
+        </p>
+
+        <p>
+          むしろ、「自分は詐欺を見抜ける」「自分は騙されない」という
+          自信が強過ぎると、危険なことがあります。
+        </p>
+
+        <p>
+          詐欺師は、いかにも怪しい姿で近づいてくるとは限りません。
+          丁寧な言葉を使い、経済や投資の専門用語を並べ、
+          実在する企業や有名人の名前を利用します。
+        </p>
+
+        <p>
+          SNSで長期間交流し、信頼関係を作ってから
+          投資を持ちかけることもあります。
+        </p>
+
+        <p>
+          そのため、自分の知識と経験だけで判断せず、
+          利益への期待が高まった時ほど一度立ち止まる必要があります。
+        </p>
+
+        <div class="question-list">
+          <p>自分は今、利益に目がくらんでいないだろうか</p>
+          <p>この話を、投資に関心のない第三者が聞いたらどう思うだろうか</p>
+          <p>もうかる可能性ではなく、失う可能性を十分に考えただろうか</p>
+          <p>今すぐ決断する必要が本当にあるのだろうか</p>
+        </div>
+
+        <h2>本当の賢さとは何か</h2>
+
+        <p>
+          本当に賢い人とは、どのような詐欺も
+          一人で見抜ける人ではないでしょう。
+        </p>
+
+        <p>
+          自分も感情に動かされることがあると認め、
+          強い欲望が生じた時には自分の判断を過信しない人です。
+        </p>
+
+        <p>
+          利益を得たいという気持ちが強くなった時ほど、
+          決断を遅らせ、家族や信頼できる人に相談する必要があります。
+        </p>
+
+        <div class="highlight">
+          最も危険なのは、知識がないことだけではありません。
+          「この機会を逃したくない」という欲望によって、
+          見えるはずの危険が見えなくなることです。
+        </div>
+
+        <p>
+          テモテ第一 6章9,10節が示すように、
+          富もうとする強い願いは、人を「誘惑とわな」に陥れることがあります。
+        </p>
+
+        <p>
+          高齢者も現役世代も、騙される理由は違って見えるかもしれません。
+          しかし根底にあるのは、恐怖や欲望によって冷静な判断を失うという、
+          人間に共通する弱さです。
+        </p>
+
+        <div class="conclusion">
+          <p>
+            だからこそ、自分は大丈夫だと考えるのではなく、
+            欲望が強くなった時ほど慎重になる必要があります。
+          </p>
+          <p>
+            利益の大きさに目を奪われるのではなく、
+            その話の不自然さ、危険性、そして失う可能性を冷静に見ることが、
+            詐欺のわなから自分を守ることにつながるのです。
+          </p>
+        </div>
+      </article>
+
+      <aside class="sidebar" aria-label="関連記事">
+        <div class="side-card">
+          <h3>あわせて読みたい</h3>
+          <p>
+            人生、生命、聖書について考える関連記事を紹介します。
+          </p>
+        </div>
+
+        <a class="ad" href="/note_prg/bible/bible_sec0_3.html">
+          <div class="ad__top">RECOMMENDED ARTICLE</div>
+          <div class="ad__body">
+            <p class="ad__title">人はなぜ死ぬのか</p>
+            <p class="ad__text">
+              人間が死を避けられない理由を、科学と聖書の視点から考えます。
+            </p>
+            <span class="ad__link">記事を読む →</span>
+          </div>
+        </a>
+
+        <a class="ad" href="/note_prg/bible/bible_sec0_5.html">
+          <div class="ad__top">PICKUP CONTENT</div>
+          <div class="ad__body">
+            <p class="ad__title">創造論と進化論の本質的な対立</p>
+            <p class="ad__text">
+              生命と知性の起源をめぐる、二つの根本的な考え方を整理します。
+            </p>
+            <span class="ad__link">記事を読む →</span>
+          </div>
+        </a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>人生の問いを考える｜ワクガンス</p>
+    <p class="footer__date">更新日：2026年7月31日</p>
+  </footer>
+</body>
+</html>
