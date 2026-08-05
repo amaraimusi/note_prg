@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>風速と車の運転判断｜Windyのkt表示早見表</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --surface: #ffffff;
+      --surface-soft: #f7fafc;
+      --text: #172033;
+      --muted: #617087;
+      --line: #d7e0ea;
+      --safe: #1f9d68;
+      --safe-soft: #e8f7f0;
+      --caution: #d99a13;
+      --caution-soft: #fff5d8;
+      --warning: #e46e20;
+      --warning-soft: #fff0e5;
+      --danger: #cc334d;
+      --danger-soft: #ffe8ed;
+      --critical: #7d2033;
+      --critical-soft: #f8dce3;
+      --shadow: 0 16px 40px rgba(31, 50, 77, 0.11);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(68, 142, 214, 0.14), transparent 30%),
+        linear-gradient(180deg, #f6f9fc 0%, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 64px 0 34px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #17304f 0%, #214d75 58%, #2d6c8f 100%);
+      color: #fff;
+      border-radius: 30px;
+      padding: 44px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      border-radius: 50%;
+      right: -90px;
+      top: -105px;
+      border: 38px solid rgba(255,255,255,0.08);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: rgba(255,255,255,0.08);
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: rgba(255,255,255,0.86);
+      font-size: 1.06rem;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .decision-card {
+      position: relative;
+      z-index: 1;
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .decision-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .decision-card .value {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      align-items: baseline;
+      font-weight: 800;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+    }
+
+    .decision-card .value span {
+      white-space: nowrap;
+    }
+
+    .caution-card { box-shadow: inset 5px 0 0 #f4c64c; }
+    .stop-card { box-shadow: inset 5px 0 0 #ff6f77; }
+
+    main { padding-bottom: 64px; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid rgba(208, 219, 232, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 28px 30px 18px;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+    }
+
+    .panel-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .unit-note {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eaf1f8;
+      color: #31516f;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      padding: 0 20px 24px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+
+    thead th {
+      padding: 10px 14px;
+      color: #5b6a7e;
+      font-size: 0.84rem;
+      text-align: left;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      --row-bg: var(--surface-soft);
+      --accent: #8091a5;
+    }
+
+    tbody td {
+      background: var(--row-bg);
+      padding: 18px 14px;
+      vertical-align: middle;
+      border-top: 1px solid rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+
+    tbody td:first-child {
+      border-radius: 15px 0 0 15px;
+      border-left: 6px solid var(--accent);
+      font-weight: 800;
+    }
+
+    tbody td:last-child { border-radius: 0 15px 15px 0; }
+
+    .row-safe { --row-bg: var(--safe-soft); --accent: var(--safe); }
+    .row-caution { --row-bg: var(--caution-soft); --accent: var(--caution); }
+    .row-warning { --row-bg: var(--warning-soft); --accent: var(--warning); }
+    .row-danger { --row-bg: var(--danger-soft); --accent: var(--danger); }
+    .row-critical { --row-bg: var(--critical-soft); --accent: var(--critical); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .wind-value {
+      font-size: 1.08rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .sub {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .highlight {
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 0 30px 30px;
+    }
+
+    .info-card {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .rule-box {
+      margin: 0 30px 30px;
+      padding: 22px 24px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff5d8 0%, #ffe9e9 100%);
+      border: 1px solid #f0d3a5;
+    }
+
+    .rule-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+    }
+
+    .rule-box p { margin: 0; }
+
+    footer {
+      padding: 0 0 34px;
+      color: #758398;
+      text-align: center;
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 800px) {
+      header { padding-top: 28px; }
+      .hero { padding: 28px 22px; border-radius: 22px; }
+      .decision-grid { grid-template-columns: 1fr; }
+      .panel-head { align-items: flex-start; flex-direction: column; padding: 24px 20px 14px; }
+      .table-wrap { padding: 0 10px 18px; }
+      .info-grid { grid-template-columns: 1fr; padding: 0 20px 20px; }
+      .rule-box { margin: 0 20px 20px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .hero, .panel { box-shadow: none; }
+      .hero { background: #244c72 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .panel { break-inside: avoid; }
+      footer { padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">WINDY × 車の安全運転</span>
+        <h1>風速と車の運転判断<br>早見表</h1>
+        <p class="lead">
+          Windyの「風」と「最大瞬間風速」を見比べ、横風による危険度を判断するための目安です。
+          とくに軽自動車、軽バン、ワンボックス、トラックは早めの判断が重要です。
+        </p>
+
+        <div class="decision-grid">
+          <div class="decision-card caution-card">
+            <strong>警戒開始</strong>
+            <div class="value">
+              <span>風 25kt</span>
+              <span>／ 瞬間 45kt</span>
+            </div>
+          </div>
+          <div class="decision-card stop-card">
+            <strong>運転中止</strong>
+            <div class="value">
+              <span>風 30kt</span>
+              <span>／ 瞬間 50kt</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>運転判断の早見表</h2>
+          <p>どちらか一方でも基準を超えた場合は、より危険な側で判断します。</p>
+        </div>
+        <div class="unit-note">1kt ≒ 0.514m/s</div>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-label="Windyの風速と車の運転判断早見表">
+          <thead>
+            <tr>
+              <th>危険度</th>
+              <th>Windy「風」</th>
+              <th>最大瞬間風速</th>
+              <th>運転判断</th>
+              <th>主な注意点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-safe">
+              <td><span class="badge">通常注意</span></td>
+              <td><span class="wind-value">20kt未満</span><span class="sub">約10.3m/s未満</span></td>
+              <td><span class="wind-value">35kt未満</span><span class="sub">約18.0m/s未満</span></td>
+              <td>周囲を確認しながら運転</td>
+              <td>橋、海岸道路、高台、開けた道路では急な横風に注意。</td>
+            </tr>
+            <tr class="row-caution">
+              <td><span class="badge">注意</span></td>
+              <td><span class="wind-value">20～25kt</span><span class="sub">約10.3～12.9m/s</span></td>
+              <td><span class="wind-value">35～45kt</span><span class="sub">約18.0～23.1m/s</span></td>
+              <td>減速・車間距離を確保</td>
+              <td>ハンドルを両手で持ち、トンネル出口や大型車の横を通る時に警戒。</td>
+            </tr>
+            <tr class="row-warning">
+              <td><span class="badge">警戒開始</span></td>
+              <td><span class="wind-value">25～30kt</span><span class="sub">約12.9～15.4m/s</span></td>
+              <td><span class="wind-value">45～50kt</span><span class="sub">約23.1～25.7m/s</span></td>
+              <td><strong>不要不急の運転を見合わせる</strong></td>
+              <td>軽自動車、軽バン、ワンボックス、トラックは特に危険。経路変更や出発延期を検討。</td>
+            </tr>
+            <tr class="row-danger">
+              <td><span class="badge">運転中止</span></td>
+              <td><span class="wind-value highlight">30kt以上</span><span class="sub">約15.4m/s以上</span></td>
+              <td><span class="wind-value highlight">50kt以上</span><span class="sub">約25.7m/s以上</span></td>
+              <td><strong class="highlight">原則として運転を中止</strong></td>
+              <td>強い横風で車線を外れる、飛来物・倒木に遭う危険が高まる。</td>
+            </tr>
+            <tr class="row-critical">
+              <td><span class="badge">非常に危険</span></td>
+              <td><span class="wind-value">40kt以上</span><span class="sub">約20.6m/s以上</span></td>
+              <td><span class="wind-value">60kt以上</span><span class="sub">約30.9m/s以上</span></td>
+              <td><strong>車で移動せず屋内待機</strong></td>
+              <td>屋外移動そのものが危険。風が強くなる前に安全な場所へ移動。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-box">
+        <strong>判断ルール</strong>
+        <p>
+          「風30kt」と「最大瞬間風速50kt」の両方を超えるまで待つのではなく、
+          <strong>どちらか一方でも基準以上になったら運転中止</strong>と判断します。
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>Windyの「風」</h3>
+          <p>その時刻・地点における持続的な風速の予報です。気象庁の「その日の最大風速」と完全に同じ意味ではありません。</p>
+        </article>
+        <article class="info-card">
+          <h3>最大瞬間風速</h3>
+          <p>短時間だけ吹く強い突風の予報です。車が突然横へ押される危険を考える際に重要です。</p>
+        </article>
+        <article class="info-card">
+          <h3>数値未満でも中止する場合</h3>
+          <p>暴風警報、激しい雨、冠水、視界不良、倒木、飛来物などが重なる場合は、基準未満でも運転を中止します。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      このページの数値は安全判断の目安です。実際の道路状況・警報・車種を優先してください。
+    </div>
+  </footer>
+</body>
+</html>
