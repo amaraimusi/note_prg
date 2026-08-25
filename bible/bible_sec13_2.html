@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="背泳ぎ・背浮きで水の中で体力を温存するためのコツを紹介します。水難事故への備えとして、浮くこと・呼吸を確保することの大切さを分かりやすくまとめました。">
+  <title>背泳ぎ・背浮きのコツ ― 水の中で体力を温存するために</title>
+  <style>
+    :root{
+      --bg:#f5fbff; --surface:#fff; --ink:#17324a; --muted:#587084;
+      --blue:#1f6fae; --blue-dark:#164f7c; --blue-soft:#eaf6ff;
+      --line:#cfe5f3; --warning:#fff4df; --shadow:0 12px 30px rgba(26,86,128,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; color:var(--ink);
+      background:radial-gradient(circle at top right,rgba(157,220,245,.28),transparent 28rem),linear-gradient(180deg,#f8fcff 0%,#eef8fd 100%);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+      line-height:1.9;
+    }
+    a{color:inherit} img{max-width:100%;height:auto;display:block}
+    .page{width:min(100% - 32px,960px);margin:0 auto}
+    .hero{position:relative;overflow:hidden;margin:28px auto 24px;padding:48px clamp(24px,5vw,52px);background:linear-gradient(135deg,#0e5f99 0%,#258cc2 58%,#66c8de 100%);color:#fff;border-radius:28px;box-shadow:var(--shadow)}
+    .hero::after{content:"";position:absolute;right:-80px;bottom:-110px;width:310px;height:310px;border-radius:50%;background:rgba(255,255,255,.12)}
+    .eyebrow{display:inline-block;margin-bottom:10px;padding:5px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(255,255,255,.12);font-size:.88rem;letter-spacing:.06em}
+    h1{position:relative;z-index:1;margin:0 0 14px;font-size:clamp(2rem,5vw,3.25rem);line-height:1.25;letter-spacing:.02em}
+    .hero p{position:relative;z-index:1;margin:0;max-width:760px;font-size:1.04rem;color:rgba(255,255,255,.94)}
+    main{background:var(--surface);border:1px solid rgba(190,218,235,.8);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+    .article{padding:clamp(24px,5vw,56px)}
+    .lead{font-size:1.06rem;color:#294b63}
+    .notice{margin:28px 0;padding:18px 20px;background:linear-gradient(135deg,#eff9ff,#f8fcff);border-left:5px solid var(--blue);border-radius:14px;color:#24465f}
+    h2{margin:52px 0 16px;padding-bottom:10px;color:var(--blue-dark);font-size:clamp(1.35rem,3vw,1.8rem);line-height:1.45;border-bottom:2px solid var(--line)}
+    h2 .num{display:inline-grid;place-items:center;width:2.1em;height:2.1em;margin-right:.45em;border-radius:50%;background:var(--blue);color:#fff;font-size:.7em;vertical-align:.1em}
+    strong{color:#0d5688;font-weight:700}
+    .steps{margin:22px 0;padding:18px 22px;background:var(--blue-soft);border:1px solid var(--line);border-radius:16px;font-weight:700;color:#205476}
+    figure{margin:34px auto}.figure-card{padding:16px;background:#f8fcff;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 20px rgba(26,86,128,.08)}
+    .figure-simple{width:min(100%,620px)}.figure-detail{width:min(100%,500px)}
+    figcaption{margin-top:12px;color:var(--muted);text-align:center;font-size:.9rem}
+    .promo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:34px 0}
+    .promo{display:block;padding:20px;text-decoration:none;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f5fbff);box-shadow:0 8px 18px rgba(28,88,130,.07);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .promo:hover{transform:translateY(-2px);border-color:#8fc7e6;box-shadow:0 12px 24px rgba(28,88,130,.12)}
+    .promo .label{display:inline-block;margin-bottom:8px;color:#6a8396;font-size:.78rem;font-weight:700;letter-spacing:.08em}
+    .promo .title{display:block;margin-bottom:6px;color:var(--blue-dark);font-weight:800;font-size:1.03rem;line-height:1.5}
+    .promo .desc{color:var(--muted);font-size:.9rem;line-height:1.65}
+    .promo.youtube{margin-top:34px;background:linear-gradient(135deg,#fff8f2,#fff);border-color:#f1d8c2}.promo.youtube .title{color:#a34d23}
+    .humor{margin:34px 0;padding:22px;background:var(--warning);border:1px solid #f1d49f;border-radius:18px}.humor strong{color:#9a5a11}
+    .safety{margin-top:36px;padding:22px;border-radius:18px;background:#f4f8fb;border:1px solid #dce8ef;color:#435d70;font-size:.95rem}
+    footer{padding:26px 18px 34px;text-align:center;color:#718697;font-size:.9rem}
+    @media(max-width:680px){.page{width:min(100% - 18px,960px)}.hero{margin-top:10px;border-radius:20px;padding:34px 22px}main{border-radius:20px}.article{padding:24px 18px 30px}.promo-grid{grid-template-columns:1fr}h2{margin-top:42px}.figure-card{padding:10px}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="eyebrow">水難への備え・体力温存</div>
+      <h1>背泳ぎ・背浮きのコツ<br>― 水の中で体力を温存するために</h1>
+      <p>「速く泳ぐ」だけではなく、「浮いて呼吸し続ける」技術も身につけておくと、水難事故への備えとして役立つことがあります。</p>
+    </header>
+
+    <main><article class="article">
+      <div class="lead">
+        <p>近年は、豪雨や洪水による水害のニュースを目にする機会が増えました。</p>
+        <p>もちろん洪水では、水が来る前に安全な場所へ避難することが最優先です。濁流の中を泳いで逃げようとするのは非常に危険です。</p>
+        <p>それでも、予想外の浸水などで水の中に取り残された時、<strong>背泳ぎや背浮きの技術が少し役に立つことがあるかもしれません。</strong></p>
+        <p>また、これは洪水だけの話ではありません。海や川、池などで起こる水難事故全般でも、<strong>慌てずに仰向けになって浮き、呼吸を確保して体力を温存する技術</strong>は覚えておく価値があります。</p>
+        <p>そこで、私自身が背泳ぎをする時に意識しているコツも含めて紹介します。</p>
+      </div>
+
+      <figure class="figure-card figure-simple">
+        <img src="img/bible_sec13_2a1.png" alt="背泳ぎ・背浮きのコツをまとめたシンプルな図解">
+        <figcaption>まず全体像をつかみたい人向けのシンプルな図解</figcaption>
+      </figure>
+
+      <h2><span class="num">1</span>空気をたくさん吸って「風船」になるイメージ</h2>
+      <p>私が背泳ぎで特に意識しているのは、<strong>空気をしっかり吸い、お腹を膨らませること</strong>です。</p>
+      <p>自分自身が大きな風船になったようなイメージを持つと、体を水に預けやすくなります。</p>
+      <p>呼吸するときも、お腹を膨らませる感覚を保ちながら、ゆっくり呼吸します。</p>
+      <p>「沈まないように頑張る」というより、<strong>自分が水に浮かぶ風船になったと考える</strong>とうまくいきやすいです。</p>
+
+      <h2><span class="num">2</span>最初から目まで水面から出そうとしない</h2>
+      <p>初心者がやりがちなのが、</p>
+      <div class="notice">「顔を濡らしたくない」<br>「目まで水面から出したい」</div>
+      <p>と思って頭を持ち上げてしまうことです。</p>
+      <p>頭を起こすと、その反動で腰や脚が沈みやすくなります。</p>
+      <p>最初は<strong>口と鼻で呼吸できれば十分</strong>くらいに考えます。初心者なら「口だけ水面から出して、あとは水の中」というくらいの感覚から始めてもよいでしょう。</p>
+      <p>耳や頬が水につかっていても問題ありません。</p>
+      <p>慣れてくると、どこまで力を抜いても浮いていられるのかが自然に分かってきます。</p>
+
+      <h2><span class="num">3</span>水と戦わず、体を預ける</h2>
+      <p>背浮きでは、沈まないように必死に手足を動かす必要はありません。</p>
+      <div class="steps">力を抜く<br>↓<br>水に体重を預ける<br>↓<br>必要な時だけ手足を少し動かす</div>
+      <p>という感覚のほうが長時間浮いていられます。</p>
+      <p>私の場合、穏やかな水面なら非常に楽な姿勢を維持でき、ラッコのように何かを食べながら背泳ぎすることもできます。</p>
+      <p>それくらい、うまく浮力を使えるようになると必要な力は小さくなります。</p>
+      <p>ただし、安全なプールなどでの話です。<strong>海や川、水害時などに眠ったり、周囲への注意を失ったりするのは危険です。</strong></p>
+
+      <div class="promo-grid">
+        <a class="promo" href="/note_prg/bible/bible_sec0_3.html">
+          <span class="label">RELATED ARTICLE</span>
+          <span class="title">人はなぜ死ぬのか</span>
+          <span class="desc">「死」について考える別の記事もあわせてご覧ください。</span>
+        </a>
+        <a class="promo" href="/note_prg/bible/bible_sec0_5.html">
+          <span class="label">RELATED ARTICLE</span>
+          <span class="title">創造論と進化論の本質的な対立</span>
+          <span class="desc">生命とその起源をめぐる考え方を整理した記事です。</span>
+        </a>
+      </div>
+
+      <h2><span class="num">4</span>頭を水に預ける</h2>
+      <p>頭を持ち上げようとせず、後頭部を水に預けるような感覚にします。</p>
+      <p>目線は基本的に真上です。</p>
+      <p>あごを強く引いたり、前方を見ようとして頭を起こしたりすると、腰が沈みやすくなります。</p>
+
+      <h2><span class="num">5</span>移動するときも力を使いすぎない</h2>
+      <p>普通に背泳ぎで移動するときは、小さなバタ足と腕の動きを使います。</p>
+      <p>水難時に重要なのは速さではありません。</p>
+      <p><strong>できるだけ少ないエネルギーで呼吸できる状態を維持すること</strong>のほうが重要です。</p>
+      <p>疲れたら無理に泳ぎ続けず、再び背浮きになって体力を温存するという考え方もできます。</p>
+
+      <h2><span class="num">6</span>浮く物があれば利用する</h2>
+      <p>救命胴衣はもちろん、浮力を確保できる物があるなら利用します。</p>
+      <p>自分の泳力だけに頼るより、浮く物を使って呼吸を確保できるほうが安全です。</p>
+
+      <figure class="figure-card figure-detail">
+        <img src="img/bible_sec13_2a2.png" alt="背泳ぎ・背浮きのコツをまとめた詳細図解">
+        <figcaption>姿勢や浮き方をより詳しく確認したい人向けの図解</figcaption>
+      </figure>
+
+      <h2>「泳げる」より「浮いていられる」</h2>
+      <p>水泳というと、クロールや平泳ぎで何メートル泳げるかを考えがちです。</p>
+      <p>しかし水難時には、</p>
+      <div class="steps">呼吸できる<br>↓<br>浮いていられる<br>↓<br>体力を失わない</div>
+      <p>という能力が非常に重要になることがあります。</p>
+      <p>そのため、安全なプールで練習するなら「25mを速く泳ぐ」だけでなく、<strong>仰向けになって力を抜き、楽に浮いていられる感覚</strong>を覚えておくのもよいと思います。</p>
+
+      <div class="humor">
+        <p><strong>そして最後に一つ。</strong></p>
+        <p>背浮きが上達して、ほとんど動かず水面にプカプカ浮けるようになると、かなり楽になります。</p>
+        <p>ただし、<strong>あまりにも上手に静止していると、遠くから見た人に「大丈夫なのか!?」と心配されたり、場合によっては死体と見間違えられたりするかもしれません。</strong></p>
+        <p>安全な場所でも、時々手を動かすなどして、<strong>「ちゃんと生きていますよ」</strong>と周囲に分かるようにしておきましょう。</p>
+      </div>
+
+      <a class="promo youtube" href="https://youtu.be/j6VYjFQn4yQ" target="_blank" rel="noopener noreferrer">
+        <span class="label">YOUTUBE</span>
+        <span class="title">『SDGs農法と自然農』協生農法 第11回｜支柱を強化 | ヒューゲルカルチャー1年8カ月後 | 0に戻った畑</span>
+        <span class="desc">自然農・協生農法の記録動画。YouTubeで見る →</span>
+      </a>
+
+      <div class="safety">背泳ぎ・背浮きは便利な技術ですが、実際の海や川、洪水などでは状況が大きく異なります。救命胴衣を利用できる場合は利用し、実際の水難時には専門機関の指針を優先してください。</div>
+    </article></main>
+
+    <footer>更新日：2026年8月25日</footer>
+  </div>
+</body>
+</html>
