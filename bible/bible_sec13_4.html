@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>孤独感は簡単には解決できない</title>
+<style>
+:root{
+  --bg:#f5f3ee;
+  --paper:#fffdf8;
+  --text:#2f332f;
+  --muted:#6f756f;
+  --accent:#657a69;
+  --accent-deep:#465b4b;
+  --soft:#edf1eb;
+  --line:#d9ded6;
+  --quote:#f1f5ef;
+  --warm:#8a6e4b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#f3f0e9 0%,#f8f6f1 45%,#f1efe9 100%);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  line-height:1.95;
+}
+.page{
+  width:min(920px,calc(100% - 28px));
+  margin:42px auto;
+  background:var(--paper);
+  box-shadow:0 18px 55px rgba(55,60,52,.10);
+  border:1px solid rgba(90,100,90,.12);
+}
+.hero{
+  padding:64px 64px 34px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(101,122,105,.09),rgba(138,110,75,.04));
+}
+.kicker{
+  display:inline-block;
+  margin-bottom:12px;
+  padding:5px 10px;
+  font-size:.78rem;
+  letter-spacing:.12em;
+  color:var(--accent-deep);
+  border:1px solid #bcc7bc;
+  border-radius:999px;
+  background:#fbfcfa;
+}
+h1{
+  margin:0 0 18px;
+  font-family:Georgia,"Times New Roman","Yu Mincho","Hiragino Mincho ProN",serif;
+  font-size:clamp(2rem,5vw,3.25rem);
+  line-height:1.28;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.lead{
+  margin:0;
+  font-size:1.08rem;
+  color:#495049;
+}
+.content{padding:42px 64px 64px}
+section{margin:0 0 46px}
+h2{
+  margin:0 0 18px;
+  padding-left:14px;
+  border-left:4px solid var(--accent);
+  font-size:1.42rem;
+  line-height:1.45;
+  color:var(--accent-deep);
+}
+p{margin:0 0 1.15em}
+strong{color:#263b2c}
+.thoughts{
+  margin:18px 0 24px;
+  padding:18px 22px;
+  border-left:3px solid #aab8aa;
+  background:#fafbf8;
+  color:#4d544d;
+}
+.thoughts p{margin:.4em 0}
+.scripture{
+  margin:22px 0;
+  padding:20px 24px;
+  background:var(--quote);
+  border:1px solid #dbe4d8;
+  border-radius:10px;
+}
+.scripture .ref{
+  display:block;
+  margin-bottom:8px;
+  color:var(--accent-deep);
+  font-weight:700;
+}
+.scripture blockquote{
+  margin:0;
+  font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;
+  font-size:1.08rem;
+}
+.figure{
+  margin:36px auto 44px;
+  text-align:center;
+}
+.figure img{
+  display:block;
+  width:min(100%,760px);
+  aspect-ratio:5/4;
+  object-fit:cover;
+  margin:auto;
+  border-radius:12px;
+  box-shadow:0 12px 30px rgba(42,48,42,.13);
+  border:1px solid #d8ddd5;
+}
+.figure figcaption{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:.86rem;
+}
+.highlight{
+  margin:24px 0;
+  padding:22px 24px;
+  background:#f7f2e9;
+  border:1px solid #e5d8c2;
+  border-radius:10px;
+  font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif;
+  font-size:1.13rem;
+  text-align:center;
+}
+.actions{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:18px 0 24px;
+}
+.action{
+  padding:14px 16px;
+  background:#fafbf9;
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+.promo{
+  margin:48px 0 10px;
+  padding:28px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg,#f6f7f3,#fbfaf6);
+}
+.promo-title{
+  margin:0 0 14px;
+  font-size:.82rem;
+  letter-spacing:.14em;
+  color:var(--muted);
+  font-weight:700;
+}
+.promo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.promo a{
+  display:block;
+  padding:18px;
+  text-decoration:none;
+  color:inherit;
+  background:white;
+  border:1px solid #dce1d9;
+  border-radius:10px;
+  transition:.2s ease;
+}
+.promo a:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(55,60,52,.08)}
+.promo small{display:block;color:var(--accent);font-weight:700;margin-bottom:5px}
+.promo strong{display:block;font-size:1.02rem}
+.closing{
+  margin-top:16px;
+  padding:28px 30px;
+  background:var(--soft);
+  border-radius:12px;
+  text-align:center;
+}
+.closing .from,.closing .to{display:block}
+.closing .from{color:#697169}
+.closing .arrow{display:block;font-size:1.35rem;color:var(--accent);margin:6px 0}
+.closing .to{font-size:1.28rem;font-weight:700;color:var(--accent-deep)}
+footer{
+  padding:24px 64px 32px;
+  color:#7a8079;
+  font-size:.84rem;
+  text-align:center;
+  border-top:1px solid var(--line);
+  background:#fbfaf7;
+}
+@media(max-width:680px){
+  .page{width:100%;margin:0;border-left:0;border-right:0}
+  .hero{padding:42px 24px 28px}
+  .content{padding:32px 24px 46px}
+  footer{padding:22px 24px 28px}
+  .actions,.promo-grid{grid-template-columns:1fr}
+  h2{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+  <span class="kicker">人の心を考える</span>
+  <h1>孤独感は簡単には解決できない</h1>
+  <p class="lead">人口が多く、家族や近所の人との距離が近い社会でも、孤独感は生じます。<strong>周囲にたくさんの人がいることと、心の中で「自分は誰かとつながっている」と感じることは同じではないからです。</strong></p>
+</header>
+
+<article class="content">
+  <section>
+    <p>大勢の人に囲まれていても孤独を感じる人はいます。反対に、一人暮らしでも孤独をほとんど感じない人もいます。</p>
+    <p>孤独感を考えるうえで大切なのは、<strong>実際に一人かどうかではなく、「自分は誰かとつながっている」と感じられるかどうか</strong>です。</p>
+  </section>
+
+  <figure class="figure">
+    <img src="img/bible_sec13_4.png" alt="人の多い場所でも孤独を感じることと、小さなつながりによって支えられる様子を表したイメージ">
+    <figcaption>周囲に人がいても、心のつながりを感じられなければ孤独は生じます。</figcaption>
+  </figure>
+
+  <section>
+    <h2>孤独感は知識だけでは消えない</h2>
+    <p>孤独感は、知識を増やせば簡単になくなるものではありません。</p>
+    <div class="thoughts">
+      <p>「人と話したほうがいい」</p>
+      <p>「もっと外に出たほうがいい」</p>
+      <p>「友達を作ればいい」</p>
+    </div>
+    <p>こうした助言が間違っているわけではありません。しかし、孤独を感じている本人にとっては、それを実行すること自体が難しい場合があります。</p>
+    <p>孤独が長く続くと、「自分から話しかけたら迷惑ではないか」「どうせ理解してもらえない」「自分は必要とされていない」と考えやすくなることがあります。</p>
+    <p>すると、人との接触を避けるようになり、さらに孤独が深まります。</p>
+    <p>孤独感は、単なる知識不足ではなく、<strong>人とのつながりを求める感情そのもの</strong>に関係しています。</p>
+  </section>
+
+  <section>
+    <h2>孤独になると、自分を孤立させてしまうことがある</h2>
+    <p>聖書には興味深い警告があります。</p>
+    <div class="scripture">
+      <span class="ref">箴言 18:1</span>
+      <blockquote>「自分を孤立させる人は自分の利己的な願望を追い求め，全ての実際的な知恵を退ける」</blockquote>
+    </div>
+    <p>孤独を感じること自体が悪いという意味ではありません。</p>
+    <p>しかし、傷ついたり寂しくなったりした結果、「もう誰とも関わりたくない」「自分のことは誰にも分からない」と考えて人との関係を完全に断ってしまうと、さらに孤独が深まり、考え方も狭くなってしまうことがあります。</p>
+    <p><strong>孤独な時こそ、人とのつながりをすべて断たないことが大切です。</strong></p>
+  </section>
+
+  <section>
+    <h2>集団に所属していても孤独になる</h2>
+    <p>孤独を防ぐために、グループに所属すればよいと考えることもできます。しかし、所属しているだけでは十分ではありません。</p>
+    <p>学校、職場、地域、家族、宗教的な集まりなどの中にいても、「自分だけ浮いている」「誰も自分のことを気に掛けていない」「ここに自分の居場所がない」と感じることがあります。</p>
+    <p>むしろ、周囲の人たちが楽しそうに交流しているほど、自分だけが取り残されている感覚が強くなることさえあります。</p>
+    <div class="highlight"><strong>所属していることではなく、所属していると感じられること</strong></div>
+  </section>
+
+  <aside class="promo" aria-label="おすすめ記事">
+    <p class="promo-title">あわせて読みたい</p>
+    <div class="promo-grid">
+      <a href="/note_prg/bible/bible_sec0_3.html"><small>人生と聖書</small><strong>人はなぜ死ぬのか</strong></a>
+      <a href="/note_prg/bible/bible_sec0_5.html"><small>考察記事</small><strong>創造論と進化論の本質的な対立</strong></a>
+    </div>
+  </aside>
+
+  <section>
+    <h2>人には支えてくれる人が必要</h2>
+    <p>聖書は、人が他の人とのつながりを必要としていることも認めています。</p>
+    <div class="scripture">
+      <span class="ref">伝道の書 4:9,10</span>
+      <blockquote>「2人は1人よりもよい」とあり、1人が倒れた時にはもう1人が起こしてあげられる、と述べられています。</blockquote>
+    </div>
+    <p>これはとても現実的な考え方です。</p>
+    <p>人はいつでも一人だけで問題を解決できるわけではありません。気持ちが沈んでいる時、判断に迷っている時、苦しい時には、そばにいる人の存在が大きな助けになります。</p>
+    <p>孤独への対策は、「もっと強い人間になること」だけではありません。</p>
+    <p><strong>助けを受けられる関係を持つことも、人間にとって必要なのです。</strong></p>
+  </section>
+
+  <section>
+    <h2>必要とされることと、理解されることは違う</h2>
+    <p>グループの中で役割を持つことは、所属感を高める助けになります。しかし、役割があるからといって孤独を感じないとは限りません。</p>
+    <p>いつも人を助ける人、相談を受ける人、家族を支えている人、責任を任される人でも、「自分の話を聞いてくれる人はいない」と感じることがあります。</p>
+    <p><strong>人から必要とされることと、人から理解されていると感じることは別です。</strong></p>
+    <p>仕事や役割だけではなく、「最近どうですか」「この前話していたこと、その後どうなりましたか」と、その人自身に関心を向けてもらうことが安心感につながります。</p>
+  </section>
+
+  <section>
+    <h2>孤独感を和らげるのは小さなつながり</h2>
+    <p>孤独を感じている人に、大勢の友人が必要とは限りません。</p>
+    <p>むしろ、「この人には少し話せる」「この人なら自分のことを覚えてくれている」と思える人が一人いるだけでも、大きな違いになります。</p>
+    <div class="actions">
+      <div class="action">名前を呼んで挨拶する。</div>
+      <div class="action">隣に座る。</div>
+      <div class="action">会話に自然に加える。</div>
+      <div class="action">以前話した内容を覚えている。</div>
+      <div class="action">しばらく見かけなかった人を気に掛ける。</div>
+      <div class="action"><strong>「あなたの存在を覚えています」</strong>と伝える。</div>
+    </div>
+    <p>孤独感への対策は、大規模なイベントよりも、このような日常的な小さなつながりの積み重ねなのかもしれません。</p>
+  </section>
+
+  <section>
+    <h2>孤独を感じる本人にできること</h2>
+    <p>孤独を感じた時、大きな人間関係を一度に作ろうとすると疲れてしまいます。</p>
+    <p>そのため、「たくさん友達を作ろう」ではなく、<strong>「少し安心して話せる人を一人増やしてみよう」</strong>くらいから始める方が現実的です。</p>
+    <p>また、誰かから連絡が来るのを待つだけでなく、自分から短い挨拶や連絡をしてみることも役立ちます。</p>
+    <p>人は孤独になると、「誰も連絡してこないから、自分は必要とされていない」と考えやすくなることがあります。しかし実際には、相手も忙しかったり、遠慮していたりするだけかもしれません。</p>
+    <p>箴言18:1の言葉を考えると、孤独を感じた時ほど、完全に自分を孤立させないことが大切だと分かります。ほんの小さなつながりからでも構いません。</p>
+  </section>
+
+  <section>
+    <h2>周囲の人にできること</h2>
+    <p>孤独な人を助けるために、特別な知識が必要とは限りません。</p>
+    <p>大切なのは、その人を「孤独な人」として扱うのではなく、一人の人として自然に関心を示すことです。</p>
+    <p>励まそうとして長い助言をするよりも、「今日会えてよかったです」「元気にしていましたか」という一言の方が心に残ることがあります。</p>
+    <p>伝道の書4:9,10が示しているように、人は誰かに支えてもらうことがあります。</p>
+    <p>ですから私たち自身が、<strong>誰かが倒れそうになった時に支えられる人になること</strong>もできます。</p>
+    <p>人は「正しいことを教えてくれる人」だけでなく、<strong>自分を覚えていてくれる人</strong>を必要としています。</p>
+  </section>
+
+  <section>
+    <h2>グループリーダーにできること</h2>
+    <p>リーダーは、参加人数だけでグループの状態を判断しないことが大切です。</p>
+    <p>全員が集まりに参加していても、その中で孤独を感じている人はいるかもしれません。</p>
+    <div class="highlight"><strong>「誰が参加しているか」だけでなく、「誰が誰とつながっているか」を見る</strong></div>
+    <p>いつも一人でいる人、新しく加わった人、あまり発言しない人などが、自然に誰かと関係を築けるよう助けることができます。</p>
+    <p>ただし、孤独そうな人を皆の前で特別扱いする必要はありません。</p>
+    <p>人と人を自然につなぐ。小さな役割を任せる。普段から個人的な関心を示す。</p>
+    <p>そのような環境が、<strong>「私はこのグループの一員だ」</strong>という感覚を育てていきます。</p>
+  </section>
+
+  <section>
+    <h2>孤独感は「なくすもの」ではなく「気付くもの」</h2>
+    <p>孤独感そのものは、人間にとって不自然な感情ではありません。</p>
+    <p>むしろ、「自分にはもっと人とのつながりが必要です」という心からの信号として考えることもできます。</p>
+    <p>空腹を感じた人に「空腹を感じないように考え方を変えなさい」と言っても解決しないように、孤独感も理屈だけで消すことは難しいものです。</p>
+    <p>だからこそ、「なぜこの人は孤独を感じているのだろう」と考えることが大切です。</p>
+    <div class="thoughts">
+      <p>安心して話せる人が必要なのか。</p>
+      <p>誰かに理解してもらいたいのか。</p>
+      <p>自分が役に立っているという感覚が必要なのか。</p>
+      <p>ただ、自分を覚えていてくれる人が必要なのか。</p>
+    </div>
+    <p>答えは人によって違います。</p>
+    <p>孤独感は簡単には解決できません。</p>
+    <p>しかし、聖書が教えているように、<strong>自分を孤立させないこと、そして互いに支え合うことはできます。</strong></p>
+    <p>人と人との小さなつながりを積み重ねることで、心の感じ方は少しずつ変わっていくのではないでしょうか。</p>
+    <div class="closing">
+      <span class="from">「ここにいてもいい」</span>
+      <span class="arrow">↓</span>
+      <span class="to">「ここには自分の居場所がある」</span>
+    </div>
+  </section>
+</article>
+
+<footer>2026年8月26日</footer>
+</main>
+</body>
+</html>
