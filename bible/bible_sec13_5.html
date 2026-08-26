@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>犯罪に遭い心が傷ついたとき</title>
+
+<style>
+:root {
+    --bg: #f5f3ef;
+    --paper: #ffffff;
+    --text: #333333;
+    --subtext: #666666;
+    --primary: #536b78;
+    --primary-dark: #3f5662;
+    --accent: #9a7257;
+    --accent-soft: #f3ebe4;
+    --blue-soft: #edf3f5;
+    --border: #dedbd5;
+    --quote: #f0f4f5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        linear-gradient(180deg, #eef1f0 0, var(--bg) 320px);
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+    line-height: 1.95;
+}
+
+a {
+    color: inherit;
+}
+
+.site-header {
+    padding: 68px 20px 55px;
+    text-align: center;
+}
+
+.site-header .label {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 5px 15px;
+    border: 1px solid #9faeb4;
+    border-radius: 20px;
+    color: var(--primary-dark);
+    background: rgba(255,255,255,.6);
+    font-size: 0.85rem;
+    letter-spacing: .08em;
+}
+
+.site-header h1 {
+    max-width: 900px;
+    margin: 0 auto 18px;
+    color: #2f4149;
+    font-size: clamp(2rem, 5vw, 3.3rem);
+    line-height: 1.35;
+    letter-spacing: .04em;
+}
+
+.site-header .lead {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--subtext);
+    font-size: 1.05rem;
+}
+
+main {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto 60px;
+    padding: 48px clamp(22px, 5vw, 68px);
+    background: var(--paper);
+    border-radius: 18px;
+    box-shadow: 0 12px 45px rgba(40, 55, 60, .08);
+}
+
+.intro {
+    font-size: 1.06rem;
+}
+
+.intro p:first-child::first-letter {
+    float: left;
+    margin: 5px 8px 0 0;
+    color: var(--accent);
+    font-size: 3.3rem;
+    font-family: Georgia, serif;
+    line-height: .9;
+}
+
+figure {
+    margin: 38px auto 44px;
+}
+
+figure img {
+    display: block;
+    width: min(100%, 700px);
+    aspect-ratio: 5 / 4;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+figure figcaption {
+    margin-top: 12px;
+    color: #777;
+    text-align: center;
+    font-size: .85rem;
+}
+
+h2 {
+    position: relative;
+    margin: 58px 0 22px;
+    padding: 0 0 11px 18px;
+    color: var(--primary-dark);
+    font-size: 1.55rem;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+}
+
+h2::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    bottom: 13px;
+    left: 0;
+    width: 5px;
+    border-radius: 4px;
+    background: var(--primary);
+}
+
+p {
+    margin: 0 0 1.4em;
+}
+
+ul {
+    margin: 22px 0 30px;
+    padding-left: 1.4em;
+}
+
+li {
+    margin-bottom: 9px;
+}
+
+blockquote {
+    position: relative;
+    margin: 30px 0;
+    padding: 24px 28px 22px 52px;
+    background: var(--quote);
+    border-left: 5px solid #8299a3;
+    border-radius: 8px;
+    color: #394b52;
+}
+
+blockquote::before {
+    content: "“";
+    position: absolute;
+    top: 3px;
+    left: 17px;
+    color: #98aeb6;
+    font-family: Georgia, serif;
+    font-size: 3rem;
+}
+
+blockquote p {
+    margin: 0;
+}
+
+.scripture-ref {
+    display: block;
+    margin-top: 8px;
+    color: #687a81;
+    font-size: .9rem;
+}
+
+.highlight-box {
+    margin: 34px 0;
+    padding: 24px 26px;
+    border: 1px solid #d9d3ca;
+    border-radius: 12px;
+    background: #faf8f5;
+}
+
+.highlight-box strong {
+    color: var(--accent);
+}
+
+.key-message {
+    margin: 42px 0;
+    padding: 28px;
+    border-radius: 14px;
+    background: var(--blue-soft);
+    color: #334b55;
+    font-size: 1.08rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ページ紹介 */
+.related {
+    margin: 45px 0;
+    padding: 28px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f5eee8, #faf8f5);
+    border: 1px solid #e2d5ca;
+}
+
+.related-title {
+    margin: 0 0 18px;
+    color: #72543f;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.ad-card {
+    display: block;
+    margin: 12px 0;
+    padding: 17px 20px;
+    border: 1px solid #e4ddd5;
+    border-radius: 10px;
+    background: rgba(255,255,255,.85);
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.ad-card:hover {
+    transform: translateY(-2px);
+    border-color: #bda794;
+    box-shadow: 0 6px 16px rgba(70,50,35,.08);
+}
+
+.ad-card .small {
+    display: block;
+    margin-bottom: 3px;
+    color: #9a7257;
+    font-size: .75rem;
+}
+
+.ad-card .title {
+    color: #4b423c;
+    font-weight: 700;
+}
+
+.ad-card .arrow {
+    float: right;
+    color: #a58b77;
+}
+
+.closing {
+    margin-top: 50px;
+    padding: 30px;
+    background: #f5f7f7;
+    border-radius: 14px;
+}
+
+.closing strong {
+    color: var(--primary-dark);
+}
+
+footer {
+    padding: 15px 20px 45px;
+    color: #777;
+    text-align: center;
+    font-size: .85rem;
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        padding: 48px 18px 36px;
+    }
+
+    main {
+        width: calc(100% - 20px);
+        padding: 30px 20px;
+        border-radius: 12px;
+    }
+
+    h2 {
+        margin-top: 44px;
+        font-size: 1.3rem;
+    }
+
+    blockquote {
+        padding: 20px 18px 20px 38px;
+    }
+
+    .related {
+        padding: 20px 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="label">心の傷と聖書からの希望</div>
+
+    <h1>犯罪に遭い心が傷ついたとき</h1>
+
+    <p class="lead">
+        犯罪そのものが終わっても、被害者の心の中では苦しみが続くことがあります。
+        心理面からできることと、聖書が与える励ましについて考えます。
+    </p>
+</header>
+
+<main>
+
+<section class="intro">
+
+<p>
+犯罪は、いつになってもなくなりません。
+</p>
+
+<p>
+しかも犯罪の被害に遭った場合、失ったお金や財産がすべて戻ってくることは稀です。
+犯人が逮捕されたとしても、実際の被害額の一部しか戻らないこともあります。
+</p>
+
+<p>
+さらに、被害者やその家族からすると、
+「これほど苦しめられたのに、刑罰はこれだけなのか」
+と感じることがあります。
+</p>
+
+<p>
+犯人には裁判や更生の仕組みがあります。
+しかし被害者には、失ったものと心の傷が長く残ることがあります。
+</p>
+
+<p>
+では、犯罪によって深く傷ついた時、どうすればよいのでしょうか。
+</p>
+
+</section>
+
+<figure>
+    <img
+        src="img/bible_sec13_5.png"
+        alt="犯罪被害によって心を傷つけられた人に寄り添う様子を描いたイラスト"
+        width="700"
+        height="560"
+        loading="lazy"
+    >
+    <figcaption>
+        心の傷は外からは見えなくても、長く残ることがあります。
+    </figcaption>
+</figure>
+
+
+<h2>犯罪被害は「事件が終われば終わり」ではない</h2>
+
+<p>
+犯罪そのものは数分、数時間で終わるかもしれません。
+</p>
+
+<p>
+しかし、心の中では事件がその後も続くことがあります。
+</p>
+
+<p>犯罪被害を経験した人には、</p>
+
+<ul>
+    <li>また襲われるのではないかという恐怖</li>
+    <li>外出することへの不安</li>
+    <li>人を信用できなくなる気持ち</li>
+    <li>怒りや復讐したいという感情</li>
+    <li>「なぜ気付かなかったのか」という自責の念</li>
+    <li>不眠や悪夢</li>
+    <li>ちょっとした音にも驚くほどの緊張</li>
+    <li>事件を何度も思い出してしまうこと</li>
+</ul>
+
+<p>
+などが起きることがあります。
+</p>
+
+<p>
+これは単に「気が弱くなった」ということではありません。
+</p>
+
+<p>
+大きな危険を経験すると、脳は「もう二度と同じ危険に遭ってはいけない」と警戒を強めます。
+そのため、本来なら危険ではない状況でも体が緊張したり、過敏に反応したりすることがあります。
+</p>
+
+<p>
+被害に遭う前と同じように生活できない自分を責める必要はありません。
+</p>
+
+<p>
+心にも傷ができれば、回復には時間が必要です。
+</p>
+
+
+<h2>「早く忘れよう」としなくてもよい</h2>
+
+<p>
+周囲の人から、
+「もう終わったことだから忘れた方がいい」
+「いつまでも考えない方がいい」
+「前向きになろう」
+と言われることがあります。
+</p>
+
+<p>
+もちろん善意から出た言葉でしょう。
+</p>
+
+<p>
+しかし、深い心の傷は意思の力だけで消せるものではありません。
+</p>
+
+<p>
+むしろ、
+「怖かった」
+「悔しい」
+「腹が立つ」
+「悲しい」
+という自分の感情を認めることが回復の第一歩になる場合があります。
+</p>
+
+<blockquote>
+    <p>
+        「泣くのに時があり，……泣き叫ぶのに時が……ある」。
+        <span class="scripture-ref">― 伝道の書 3:4</span>
+    </p>
+</blockquote>
+
+<p>
+悲しい時に悲しむことは間違いではありません。
+</p>
+
+
+<div class="related">
+    <div class="related-title">関連して考えてみる</div>
+
+    <a class="ad-card" href="/note_prg/bible/bible_sec13_4.html">
+        <span class="arrow">→</span>
+        <span class="small">おすすめ記事</span>
+        <span class="title">孤独感は簡単には解決できない</span>
+    </a>
+
+    <a class="ad-card" href="/note_prg/bible/bible_sec12_2.html">
+        <span class="arrow">→</span>
+        <span class="small">心と行動について</span>
+        <span class="title">やる気を出す方法―考える前に動く</span>
+    </a>
+</div>
+
+
+<h2>まず「安全」を取り戻す</h2>
+
+<p>
+犯罪被害の後には、心理的な安心感が大きく損なわれます。
+</p>
+
+<p>
+そのため、最初に必要なのは「強くなること」ではなく、
+再び安全を感じられる環境を作ることです。
+</p>
+
+<p>
+例えば、戸締まりを見直す、必要なら電話番号や連絡方法を変更する、
+警察や行政の相談窓口を利用する、といった現実的な対策があります。
+</p>
+
+<p>
+こうした小さな対策でも、
+「今はもう、あの時とは違う」
+と脳に知らせる助けになります。
+</p>
+
+
+<h2>一人で抱え込まない</h2>
+
+<blockquote>
+    <p>
+        「心配事があると心が沈み，良い言葉によって心が晴れる」。
+        <span class="scripture-ref">― 格言 12:25</span>
+    </p>
+</blockquote>
+
+<p>
+犯罪被害という大きな重荷を一人だけで背負う必要はありません。
+</p>
+
+<p>
+信頼できる家族や友人に、
+「怖かった」
+「まだ思い出してしまう」
+「腹が立って仕方がない」
+と話すだけでも、混乱していた気持ちが少し整理されることがあります。
+</p>
+
+<p>
+大切なのは、無理に全部話さなくてもよいということです。
+話したくないことまで詳しく説明する必要はありません。
+</p>
+
+<p>
+必要であれば、トラウマについて知識のある心理士、精神科・心療内科、
+行政や犯罪被害者支援の相談機関などに助けを求めることもできます。
+</p>
+
+
+<h2>自分を責めない</h2>
+
+<p>
+犯罪被害者が苦しみやすい問題の一つが、
+「あの時こうしていれば……」
+という考えです。
+</p>
+
+<p>
+「なぜ怪しいと気付かなかったのだろう」
+「なぜ逃げなかったのだろう」
+「家族を守れなかった」
+と、何度も自分を責めてしまうことがあります。
+</p>
+
+<p>
+しかし、後からならいくらでも別の選択肢を考えることができます。
+事件の最中は恐怖や混乱の中にいたのです。
+</p>
+
+<div class="highlight-box">
+    <strong>反省することと、自分を罰し続けることは違います。</strong>
+    犯罪に対する責任の中心にいるのは、犯罪を行った人です。
+</div>
+
+<p>
+もし大切な友人が同じ被害に遭ったなら、どんな言葉を掛けるでしょうか。
+</p>
+
+<p>
+おそらく責めるのではなく、
+「大変だったね」
+「よく耐えたね」
+と言うのではないでしょうか。
+</p>
+
+<p>
+そのような思いやりを、自分自身にも向けることができます。
+</p>
+
+
+<h2>怒りを感じてもおかしくない</h2>
+
+<p>
+犯人への怒り。
+刑罰に対する不満。
+失ったものが戻らないことへの悔しさ。
+</p>
+
+<p>
+こうした感情も自然なものです。
+</p>
+
+<p>
+「怒ってはいけない」と無理に押さえ込む必要はありません。
+</p>
+
+<p>
+一方で、一日中事件について考え続け、怒りや復讐心に心を占領されると、
+今度は被害者自身の心と体が疲れ切ってしまいます。
+</p>
+
+<div class="key-message">
+    心理的な回復とは、犯罪を軽く考えることではありません。<br>
+    事件の記憶があっても、その事件に自分の人生すべてを支配させないようになることです。
+</div>
+
+
+<h2>日常生活を少しずつ取り戻す</h2>
+
+<p>
+犯罪被害の後は、生活そのものが崩れてしまうことがあります。
+</p>
+
+<p>
+そんな時には、大きな目標よりも小さな日常を取り戻すことが役立ちます。
+</p>
+
+<ul>
+    <li>きちんと食事をする</li>
+    <li>眠れる環境を整える</li>
+    <li>少し散歩する</li>
+    <li>自然を見る</li>
+    <li>好きな音楽を聴く</li>
+    <li>絵を描く</li>
+    <li>文章を書く</li>
+    <li>信頼できる人と過ごす</li>
+</ul>
+
+<p>
+こうした普通の行動は小さく見えます。
+</p>
+
+<p>
+しかし、それを繰り返すことで、
+「犯罪に遭った人生」だけではなく、
+「今も続いている自分の人生」
+を少しずつ取り戻していくことができます。
+</p>
+
+<p>
+聖書にも、自分の体を「養って大切にする」ことが述べられています。
+（エフェソス 5:29）
+</p>
+
+
+<h2>小さな良いものにも目を向ける</h2>
+
+<p>
+被害に遭った直後に「感謝しましょう」と言われても、
+受け入れられないことがあるでしょう。
+</p>
+
+<p>
+感謝するというのは、犯罪を忘れることではありません。
+苦しみを小さく考えることでもありません。
+</p>
+
+<p>
+ただ、
+今日食べたものがおいしかった。
+安心して眠れる場所がある。
+話を聞いてくれる人がいる。
+空がきれいだった。
+という小さな良いことにも目を向けるということです。
+</p>
+
+<blockquote>
+    <p>
+        「感謝を表しましょう」。
+        <span class="scripture-ref">― コロサイ 3:15</span>
+    </p>
+</blockquote>
+
+<p>
+苦しい出来事だけが自分の世界のすべてではない、と少しずつ思えるようになることは、
+心を守る助けになります。
+</p>
+
+
+<h2>聖書が与える「将来への希望」</h2>
+
+<p>
+犯罪被害者が抱える苦しみの一つは、
+「この世の中は結局こんなものなのか」
+という絶望感でしょう。
+</p>
+
+<p>
+人間の司法制度には限界があります。
+</p>
+
+<p>
+犯人が捕まらないこともあります。
+失った財産が戻らないこともあります。
+判決が出ても、被害者の心の傷まで元通りになるわけではありません。
+</p>
+
+<p>
+だからこそ聖書は、今の社会が少し改善されるというだけではなく、
+もっと大きな希望を示しています。
+</p>
+
+<p>
+聖書は、神が将来、暴力や不正、苦しみの原因そのものをなくすと約束していることを教えています。
+</p>
+
+<blockquote>
+    <p>
+        「希望は，私たちの命のためのいかり」。
+        <span class="scripture-ref">― ヘブライ 6:19</span>
+    </p>
+</blockquote>
+
+<p>
+船のいかりが嵐の中で船を安定させるように、
+将来に対する確かな希望は、
+今すぐすべての問題を解決できなくても、
+心が流されてしまわないよう支えてくれます。
+</p>
+
+
+<div class="related">
+    <div class="related-title">人生についてさらに考える</div>
+
+    <a class="ad-card" href="/note_prg/bible/bible_sec0_3.html">
+        <span class="arrow">→</span>
+        <span class="small">人生と聖書</span>
+        <span class="title">人はなぜ死ぬのか</span>
+    </a>
+
+    <a class="ad-card" href="/note_prg/bible/bible_sec0_5.html">
+        <span class="arrow">→</span>
+        <span class="small">起源について考える</span>
+        <span class="title">創造論と進化論の本質的な対立</span>
+    </a>
+</div>
+
+
+<h2>被害者を支える人にできること</h2>
+
+<p>
+家族や友人が犯罪被害に遭った場合、
+「何と言えばいいのだろう」
+と困ることがあります。
+</p>
+
+<p>
+しかし、特別な言葉を言う必要はありません。
+</p>
+
+<blockquote>
+    <p>
+        「賢い人たちの舌は人を癒やす」。
+        <span class="scripture-ref">― 格言 12:18</span>
+    </p>
+</blockquote>
+
+<blockquote>
+    <p>
+        「真の友はどんな時にも愛を示す」。
+        <span class="scripture-ref">― 格言 17:17</span>
+    </p>
+</blockquote>
+
+<p>
+助けになるのは、相手の話をじっくり聞くことです。
+</p>
+
+<p>
+「どうしてそんなことをしたの？」
+「こうすれば防げたのに」
+と責めるような言葉は避けます。
+</p>
+
+<p>
+そして、
+「何かできることがあれば言ってね」
+と伝え、必要な時にそばにいることができます。
+</p>
+
+<p>
+心の傷が癒える速度は人によって違います。
+</p>
+
+<p>
+昨日は元気だったのに、今日は突然落ち込むこともあります。
+回復は一直線ではありません。
+</p>
+
+<p>
+だからこそ、辛抱強く寄り添うことが大切です。
+</p>
+
+
+<h2>犯罪に人生を奪わせない</h2>
+
+<section class="closing">
+
+<p>
+犯罪によって失ったものを完全に取り戻せないことがあります。
+事件そのものを消すこともできません。
+</p>
+
+<p>
+それでも、犯罪者にその後の人生まですべて奪わせる必要はありません。
+</p>
+
+<p>
+恐怖や怒りを感じる自分を責めず、一人で抱え込まず、
+体と心を大切にしながら、少しずつ安全な日常を取り戻すことができます。
+</p>
+
+<p>
+そして聖書は、今の苦しみだけを見るのではなく、
+犯罪や恐怖そのものがなくなる将来に目を向けるよう励ましています。
+</p>
+
+<p>
+心の傷が癒えるには時間がかかるかもしれません。
+</p>
+
+<p>
+それでも、
+今日一日を穏やかに過ごせた。
+少し眠れるようになった。
+誰かに話せた。
+笑える瞬間が戻ってきた。
+</p>
+
+<p>
+そうした一つ一つも、大切な回復です。
+</p>
+
+<p>
+<strong>
+犯罪被害から立ち直るとは、出来事を忘れることではありません。<br>
+安心、安全、自尊心、人への信頼、そして未来への希望を少しずつ取り戻していくことなのです。
+</strong>
+</p>
+
+</section>
+
+</main>
+
+<footer>
+    <div>犯罪に遭い心が傷ついたとき</div>
+    <div>2026年8月26日</div>
+</footer>
+
+</body>
+</html>
