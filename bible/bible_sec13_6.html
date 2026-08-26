@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>フェイクへの対処方法：困った時だけ神に従順な人は、偽物の預言にだまされやすい</title>
+  <meta name="description" content="フェイク情報や偽預言に流されないために、聖書のレカブ人の例から、普段から正しい基準に従うことの大切さを考えます。">
+
+  <style>
+    :root {
+      --bg: #f5f3ed;
+      --paper: #fffdf8;
+      --text: #2f312f;
+      --muted: #6f746f;
+      --line: #ded8cc;
+      --main: #4f6757;
+      --main-dark: #35483b;
+      --accent: #b48349;
+      --accent-light: #f2e5d3;
+      --quote: #eef3ed;
+      --shadow: 0 12px 34px rgba(50, 55, 48, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(245, 243, 237, 0.95), rgba(245, 243, 237, 0.95)),
+        radial-gradient(circle at top left, #e7ebe3, transparent 38%);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Yu Gothic",
+        "YuGothic",
+        "Hiragino Kaku Gothic ProN",
+        Meiryo,
+        sans-serif;
+      line-height: 1.9;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(940px, calc(100% - 28px));
+      margin: 32px auto 50px;
+    }
+
+    .article {
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(120, 120, 100, 0.16);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 54px 7% 34px;
+      background:
+        linear-gradient(135deg, rgba(62, 84, 68, 0.97), rgba(86, 103, 82, 0.94));
+      color: #fff;
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 5px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      line-height: 1.42;
+      font-weight: 700;
+      letter-spacing: 0.015em;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.96rem;
+    }
+
+    .hero-image {
+      padding: 0;
+      background: #151a17;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 46px 7% 60px;
+    }
+
+    .lead {
+      margin-bottom: 38px;
+      font-size: 1.06rem;
+    }
+
+    h2 {
+      margin: 52px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      color: var(--main-dark);
+      font-size: clamp(1.3rem, 3vw, 1.65rem);
+      line-height: 1.5;
+    }
+
+    p {
+      margin: 0 0 1.35em;
+    }
+
+    strong {
+      color: var(--main-dark);
+      font-weight: 700;
+    }
+
+    .thoughts,
+    .warning,
+    .principle {
+      margin: 28px 0;
+      padding: 22px 24px;
+      border-radius: 14px;
+    }
+
+    .thoughts {
+      border-left: 4px solid #9a9f99;
+      background: #f6f6f2;
+    }
+
+    .warning {
+      border-left: 4px solid var(--accent);
+      background: #fbf3e8;
+    }
+
+    .principle {
+      position: relative;
+      border: 1px solid #d5dfd4;
+      background: var(--quote);
+      color: #344238;
+      font-size: 1.04rem;
+    }
+
+    .principle::before {
+      content: "聖書からの原則";
+      display: block;
+      margin-bottom: 8px;
+      color: var(--main);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .quote-line {
+      margin: 22px 0;
+      padding: 14px 20px;
+      border-left: 3px solid var(--main);
+      color: #444a45;
+      background: #f7f9f6;
+      font-weight: 600;
+    }
+
+    .habit-list {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0 30px;
+    }
+
+    .habit-item {
+      position: relative;
+      padding: 12px 14px 12px 42px;
+      border: 1px solid #e3e1d9;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .habit-item::before {
+      content: "◆";
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      color: var(--main);
+      font-size: 0.9rem;
+    }
+
+    .ad-section {
+      margin: 48px 0 12px;
+      padding: 26px;
+      border: 1px solid #e4ded1;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, #fffaf1, #fffdf8);
+    }
+
+    .ad-heading {
+      margin: 0 0 17px;
+      color: #7d674f;
+      font-size: 0.83rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .ad-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .ad-card {
+      display: block;
+      min-height: 112px;
+      padding: 18px;
+      border: 1px solid #e4d8c7;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .ad-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbb89e;
+      box-shadow: 0 8px 20px rgba(100, 80, 50, 0.08);
+    }
+
+    .ad-card small {
+      display: block;
+      margin-bottom: 5px;
+      color: #a0774c;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .ad-card span {
+      display: block;
+      color: #3f433e;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .conclusion {
+      margin-top: 36px;
+      padding: 28px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, #edf2ec, #f8f7f0);
+    }
+
+    .conclusion p:last-child {
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 24px 7%;
+      border-top: 1px solid var(--line);
+      background: #f5f3ed;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        width: min(100% - 16px, 940px);
+        margin-top: 12px;
+      }
+
+      .article {
+        border-radius: 15px;
+      }
+
+      .hero {
+        padding: 38px 6% 28px;
+      }
+
+      .content {
+        padding: 34px 6% 46px;
+      }
+
+      .ad-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .thoughts,
+      .warning,
+      .principle,
+      .conclusion {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <article class="article">
+
+      <header class="hero">
+        <div class="eyebrow">情報社会と聖書の原則</div>
+        <h1>フェイクへの対処方法：<br>困った時だけ神に従順な人は、偽物の預言にだまされやすい</h1>
+        <p>
+          不安な時ほど、人は強い言葉や断言に引き寄せられます。
+          聖書に登場するレカブ人の経験から、偽情報に流されにくい判断力について考えます。
+        </p>
+      </header>
+
+      <figure class="hero-image">
+        <img
+          src="img/bible_sec13_6.png"
+          alt="フェイク情報に流される人々と、落ち着いて正しい道を考える人々をイメージしたイラスト"
+          width="1600"
+          height="900"
+          loading="eager"
+        >
+      </figure>
+
+      <div class="content">
+
+        <section class="lead">
+          <p>私たちは、情報があふれる時代に生きています。</p>
+
+          <p>
+            SNSを開けば、「これから大変なことが起きる」「この人だけが真実を知っている」
+            「今すぐ行動しなければ手遅れになる」といった、恐怖や不安を刺激する情報が次々と流れてきます。
+          </p>
+
+          <p>
+            こうしたフェイク情報にだまされないためには、単に知識を増やすだけでは十分ではありません。
+          </p>
+
+          <p>聖書には、もう一つ興味深いヒントがあります。</p>
+
+          <div class="principle">
+            <strong>
+              普段から正しい基準に従っている人ほど、突然判断を迫られた時にも正しい選択をしやすい
+            </strong>
+            ということです。
+          </div>
+        </section>
+
+        <h2>困った時だけ「正しい答え」を探す危険</h2>
+
+        <p>人は追い詰められると、冷静な判断が難しくなります。</p>
+
+        <p>
+          病気、経済的不安、人間関係の問題、災害、戦争への不安などがあると、
+          次のような気持ちが強くなります。
+        </p>
+
+        <div class="thoughts">
+          <p>「誰でもいいから助けてほしい」</p>
+          <p>「安心できる答えがほしい」</p>
+          <p style="margin-bottom:0;">「未来がどうなるのか教えてほしい」</p>
+        </div>
+
+        <p>そのような時ほど、断言する人の言葉が魅力的に聞こえます。</p>
+
+        <div class="warning">
+          <p>「絶対にこうなる」</p>
+          <p>「私の情報だけが本物だ」</p>
+          <p style="margin-bottom:0;">「これをすれば必ず助かる」</p>
+        </div>
+
+        <p>
+          冷静な時なら疑問を感じる話でも、不安の中では信じたくなってしまいます。
+        </p>
+
+        <p>
+          これは宗教的な偽預言だけの問題ではありません。
+          投資詐欺、陰謀論、健康情報、災害時のデマなどにも同じ構造があります。
+        </p>
+
+        <div class="principle">
+          <strong>
+            困ってから急に正しい情報を探そうとすると、
+            自分が聞きたい言葉を「真実」だと思い込む危険があります。
+          </strong>
+        </div>
+
+        <aside class="ad-section">
+          <div class="ad-heading">あわせて読みたい</div>
+
+          <div class="ad-grid">
+            <a class="ad-card" href="/note_prg/bible/bible_sec0_3.html">
+              <small>RELATED ARTICLE</small>
+              <span>人はなぜ死ぬのか</span>
+            </a>
+
+            <a class="ad-card" href="/note_prg/bible/bible_sec0_5.html">
+              <small>RELATED ARTICLE</small>
+              <span>創造論と進化論の本質的な対立</span>
+            </a>
+          </div>
+        </aside>
+
+        <h2>聖書に登場する「レカブ人」</h2>
+
+        <p>
+          聖書のエレミヤ書35章には、レカブ人と呼ばれる人たちが登場します。
+        </p>
+
+        <p>
+          彼らの祖先ヨナダブは、子孫たちにぶどう酒を飲まないよう命じていました。
+          レカブ人たちは、その教えを長年守り続けていました。
+        </p>
+
+        <p>
+          ところがある時、預言者エレミヤ自身が彼らの前にぶどう酒を置き、
+        </p>
+
+        <div class="quote-line">「飲みなさい」</div>
+
+        <p>と言います。</p>
+
+        <p>かなり判断に迷いそうな場面です。</p>
+
+        <p>
+          目の前にいるのは神の預言者です。
+          その預言者から直接勧められているのですから、
+          「今回は飲んでもよいのではないか」と考えても不思議ではありません。
+        </p>
+
+        <p>しかし彼らは断りました。</p>
+
+        <div class="quote-line">「私たちはぶどう酒を飲みません」。</div>
+
+        <p>なぜ、すぐに判断できたのでしょうか。</p>
+
+        <p>その場で長時間考えて答えを出したのではありません。</p>
+
+        <p>
+          <strong>
+            それまで長い間、自分たちが従うべき基準を大切にしてきたからです。
+          </strong>
+        </p>
+
+        <p>その積み重ねが、難しい状況での判断を助けました。</p>
+
+        <h2>聖書からの原則</h2>
+
+        <p>ここから一つの原則を学べます。</p>
+
+        <div class="principle">
+          <strong>
+            「正しい判断は、危機が起きた時に突然身に付くものではない。
+            普段から何に従うかを決めていることが、いざという時の判断力になる」
+          </strong>
+        </div>
+
+        <p>
+          レカブ人は、困った時だけ従順になったのではありません。
+        </p>
+
+        <p>長年同じ姿勢を保っていました。</p>
+
+        <p>
+          だからこそ、一見すると判断しにくい状況でも、
+          その場の雰囲気や権威ある人物の言葉だけに流されませんでした。
+        </p>
+
+        <p>
+          これは現代のフェイク情報への対処にも応用できます。
+        </p>
+
+        <aside class="ad-section">
+          <div class="ad-heading">関連テーマ</div>
+
+          <div class="ad-grid">
+            <a class="ad-card" href="/note_prg/bible/bible_sec07_5.html">
+              <small>RELATED ARTICLE</small>
+              <span>聖書が示す「偽りの宗教の貪欲さ」</span>
+            </a>
+
+            <a class="ad-card" href="/note_prg/bible/bible_sec08_6.html">
+              <small>RELATED ARTICLE</small>
+              <span>脳の仕組みから考えるダイエット</span>
+            </a>
+          </div>
+        </aside>
+
+        <h2>「誰が言ったか」だけで判断しない</h2>
+
+        <p>フェイク情報が広がる時には、</p>
+
+        <div class="thoughts">
+          <p>「有名な先生が言っている」</p>
+          <p>「専門家らしい人が話している」</p>
+          <p>「何万人もフォローしている」</p>
+          <p style="margin-bottom:0;">「知り合いから送られてきた」</p>
+        </div>
+
+        <p>という理由で信じてしまうことがあります。</p>
+
+        <p>
+          しかし、レカブ人の経験で興味深いのは、
+          <strong>
+            話している人物の権威よりも、自分たちが長年守ってきた基準を優先した
+          </strong>
+          ことです。
+        </p>
+
+        <p>現代でも同じです。</p>
+
+        <p>
+          有名人であっても、友人であっても、宗教家であっても、
+          その人が言ったというだけで情報が正しくなるわけではありません。
+        </p>
+
+        <p>「誰が言ったか」と同時に、</p>
+
+        <div class="quote-line">
+          「その内容は、普段自分が信頼している原則や事実と一致しているだろうか」
+        </div>
+
+        <p>と考える必要があります。</p>
+
+        <h2>普段の習慣が、未来の自分を守る</h2>
+
+        <p>
+          フェイクへの最も強い対策は、
+          「フェイクを全部見抜ける人になること」ではないのかもしれません。
+        </p>
+
+        <p>すべての嘘を見抜くことなど、誰にもできないからです。</p>
+
+        <p>それよりも大切なのは、普段から次のような習慣を持つことです。</p>
+
+        <div class="habit-list">
+          <div class="habit-item">情報をすぐに信じない。</div>
+          <div class="habit-item">恐怖をあおる話ほど慎重になる。</div>
+          <div class="habit-item">自分に都合のよい情報も疑ってみる。</div>
+          <div class="habit-item">信頼できる基準に照らして考える。</div>
+          <div class="habit-item">
+            神を信じる人であれば、困った時だけではなく、
+            平穏な時から聖書の原則を大切にする。
+          </div>
+        </div>
+
+        <p>
+          判断力は、一回の大きな決断によって作られるのではありません。
+        </p>
+
+        <p>日々の小さな判断の積み重ねによって作られます。</p>
+
+        <div class="conclusion">
+          <p>
+            <strong>
+              長い過去にわたって何に従ってきたかが、
+              未来の難しい場面で何を選ぶかを左右します。
+            </strong>
+          </p>
+
+          <p>
+            だからこそ、フェイクがあふれる時代に必要なのは、
+            「危機が来たら正しい答えを探そう」という姿勢だけではありません。
+          </p>
+
+          <p>
+            <strong>
+              何も起きていない時から、正しいものに従う習慣を作っておくこと。
+            </strong>
+          </p>
+
+          <p>
+            それが、偽物の声が大きくなった時にも流されないための、
+            静かですが非常に強い備えになります。
+          </p>
+        </div>
+
+      </div>
+
+      <footer>
+        掲載日：2026年8月26日
+      </footer>
+
+    </article>
+  </main>
+</body>
+</html>
