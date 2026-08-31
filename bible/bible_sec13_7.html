@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>猛威を振るう気候変動｜2026年5月～8月に世界で相次いだ気候災害</title>
+
+  <meta name="description" content="2026年5月から8月にかけて世界各地で発生した熱波、洪水、山火事、干ばつ、氷河崩壊などの主な気候災害を時系列で紹介します。">
+
+  <style>
+    :root {
+      --bg: #f4f7f5;
+      --paper: #ffffff;
+      --text: #29332f;
+      --muted: #64716b;
+      --green: #315d4b;
+      --green-dark: #234638;
+      --green-light: #edf5f1;
+      --orange: #a95e36;
+      --orange-light: #fff2e9;
+      --blue-light: #edf5f8;
+      --border: #dbe5e0;
+      --shadow: 0 8px 28px rgba(37, 62, 51, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, #edf4f0 0, #f8faf9 380px, #f4f7f5 100%);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+      line-height: 1.85;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 68px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--green-dark);
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      max-width: 850px;
+      margin: 24px 0 0;
+      color: #4f5d57;
+      font-size: 1.08rem;
+    }
+
+    .hero {
+      margin: 28px 0 38px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #e1e9e5;
+      box-shadow: var(--shadow);
+    }
+
+    .hero img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .hero figcaption {
+      padding: 10px 16px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .note {
+      margin: 0 0 44px;
+      padding: 20px 22px;
+      border-left: 5px solid var(--green);
+      border-radius: 12px;
+      background: #fff;
+      color: #506059;
+      box-shadow: 0 4px 18px rgba(34, 56, 47, 0.05);
+    }
+
+    .note strong {
+      color: var(--green-dark);
+    }
+
+    .month-title {
+      margin: 54px 0 18px;
+      padding-left: 13px;
+      border-left: 7px solid var(--green);
+      color: var(--green-dark);
+      font-size: 1.7rem;
+      line-height: 1.35;
+    }
+
+    .disaster-table-wrap {
+      margin: 0 0 42px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 6px 22px rgba(30, 47, 40, 0.055);
+    }
+
+    .disaster-table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .disaster-table th,
+    .disaster-table td {
+      padding: 14px 15px;
+      border-bottom: 1px solid #e5ece8;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .disaster-table thead th {
+      background: var(--green);
+      color: #fff;
+      font-size: 0.87rem;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .disaster-table tbody tr:nth-child(even) {
+      background: #f8faf9;
+    }
+
+    .disaster-table tbody tr:hover {
+      background: #eef5f1;
+    }
+
+    .disaster-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .no {
+      width: 55px;
+      text-align: center !important;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .date {
+      width: 125px;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .place {
+      width: 190px;
+      font-weight: 650;
+    }
+
+    .type {
+      width: 145px;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .summary {
+      margin-top: 58px;
+      padding: 30px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #244b3b, #3c6854);
+      color: #f8fbf9;
+      box-shadow: var(--shadow);
+    }
+
+    .summary h2 {
+      margin: 0 0 14px;
+      color: #fff;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .summary-card {
+      padding: 17px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.07rem;
+    }
+
+    .flow {
+      margin: 38px 0;
+      padding: 26px;
+      border-radius: 18px;
+      background: var(--blue-light);
+      color: #3d5964;
+    }
+
+    .flow h2 {
+      margin-top: 0;
+      color: #35515d;
+    }
+
+    .flow p {
+      margin: 10px 0;
+      font-weight: 700;
+    }
+
+    .warning {
+      margin: 38px 0;
+      padding: 22px 24px;
+      border: 1px solid #ead8b2;
+      border-radius: 16px;
+      background: #fff8eb;
+      color: #665a42;
+    }
+
+    .related {
+      margin-top: 70px;
+      padding-top: 38px;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-label {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .ad-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .ad {
+      position: relative;
+      display: block;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid #d8e5df;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff 0%, #edf6f1 100%);
+      text-decoration: none;
+      box-shadow: 0 7px 22px rgba(35, 66, 53, 0.06);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .ad:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(35, 66, 53, 0.11);
+    }
+
+    .ad::after {
+      content: "→";
+      position: absolute;
+      right: 20px;
+      bottom: 16px;
+      color: #638572;
+      font-size: 1.5rem;
+    }
+
+    .ad small {
+      display: block;
+      margin-bottom: 7px;
+      color: #7a9185;
+    }
+
+    .ad strong {
+      display: block;
+      padding-right: 32px;
+      color: #2e5342;
+      font-size: 1.08rem;
+    }
+
+    footer {
+      margin-top: 58px;
+      padding: 30px 0 42px;
+      border-top: 1px solid var(--border);
+      color: #7b8882;
+      text-align: center;
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding-top: 42px;
+      }
+
+      .summary-grid,
+      .ad-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        padding: 24px 20px;
+      }
+
+      .disaster-table {
+        font-size: 0.88rem;
+      }
+
+      .disaster-table th,
+      .disaster-table td {
+        padding: 11px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <span class="eyebrow">CLIMATE &amp; DISASTER / 2026</span>
+
+    <h1>
+      猛威を振るう気候変動<br>
+      2026年5月～8月に相次いだ世界の気候災害
+    </h1>
+
+    <p class="lead">
+      2026年の夏は、気候変動と関係する自然災害の多さと規模が、
+      あまりにも驚異的なものとなりました。
+      世界各地で熱波、洪水、山火事、干ばつ、氷河崩壊といった
+      大規模な災害が相次いで発生しています。
+      ここでは、2026年5月から8月末までにニュースとなった主な出来事を日付順にまとめます。
+    </p>
+  </div>
+</header>
+
+
+<main class="container">
+
+  <figure class="hero">
+    <img
+      src="img/bible_sec13_7.png"
+      alt="2026年に世界各地で発生した熱波、洪水、山火事、氷河災害のイメージ"
+      width="1600"
+      height="900">
+
+    <figcaption>
+      2026年5月～8月、世界各地で異常高温、洪水、山火事、干ばつ、氷河災害が相次いだ。
+    </figcaption>
+  </figure>
+
+
+  <div class="note">
+    <strong>注意：</strong>
+    個々の災害をすべて「気候変動が直接の原因」と断定することはできません。
+    この記事では、気候変動によって発生確率や強度が高まる可能性がある
+    熱波、極端な降雨、干ばつ、山火事、雪氷災害などを中心に取り上げています。
+  </div>
+
+
+  <h2 class="month-title">2026年5月</h2>
+
+  <div class="disaster-table-wrap">
+    <table class="disaster-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>日付</th>
+          <th>地域</th>
+          <th>災害</th>
+          <th>主な被害・状況</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="no">1</td>
+          <td class="date">5月1日</td>
+          <td class="place">インド各地</td>
+          <td class="type">熱波</td>
+          <td>4月から異常高温が続き、5月も熱波日数が平年を上回る見通し。最大電力需要は約256GWと過去最高水準。</td>
+        </tr>
+
+        <tr>
+          <td class="no">2</td>
+          <td class="date">5月11日</td>
+          <td class="place">カナダ・アルバータ州</td>
+          <td class="type">森林火災</td>
+          <td>ホワイトコート周辺などで森林火災が拡大。高温・乾燥の中で山火事シーズンが本格化。</td>
+        </tr>
+
+        <tr>
+          <td class="no">3</td>
+          <td class="date">5月20日ごろ</td>
+          <td class="place">米国・カリフォルニア州</td>
+          <td class="type">山火事</td>
+          <td>シミバレー周辺で約1,400エーカーが焼失し、1万世帯以上が避難命令の対象となった。</td>
+        </tr>
+
+        <tr>
+          <td class="no">4</td>
+          <td class="date">5月下旬</td>
+          <td class="place">パキスタン</td>
+          <td class="type">熱波</td>
+          <td>シンド州などで猛烈な暑さ。一部地域では47～50℃に達する可能性が警告された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">5</td>
+          <td class="date">5月31日</td>
+          <td class="place">カナダ・アルバータ州北部</td>
+          <td class="type">森林火災</td>
+          <td>フォートマクマレー周辺などで複数の火災が活動。石油施設や集落に接近し、一部で避難警戒。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2 class="month-title">2026年6月</h2>
+
+  <div class="disaster-table-wrap">
+    <table class="disaster-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>日付</th>
+          <th>地域</th>
+          <th>災害</th>
+          <th>主な被害・状況</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="no">6</td>
+          <td class="date">6月上旬</td>
+          <td class="place">中国・新疆</td>
+          <td class="type">洪水</td>
+          <td>世界有数の乾燥地帯であるタクラマカン砂漠周辺で、例年よりかなり早い洪水が発生。</td>
+        </tr>
+
+        <tr>
+          <td class="no">7</td>
+          <td class="date">6月12日</td>
+          <td class="place">中国・新疆</td>
+          <td class="type">高温・洪水</td>
+          <td>38℃前後の高温に加え大雨が発生。天山・崑崙山脈の雪や氷の融解も河川流量を増加させた。</td>
+        </tr>
+
+        <tr>
+          <td class="no">8</td>
+          <td class="date">6月19日</td>
+          <td class="place">カナダ・ブリティッシュコロンビア州</td>
+          <td class="type">山火事</td>
+          <td>リットン付近で火災が拡大。住民への避難命令や幹線道路の閉鎖が行われた。</td>
+        </tr>
+
+        <tr>
+          <td class="no">9</td>
+          <td class="date">6月23日</td>
+          <td class="place">フランス</td>
+          <td class="type">熱波</td>
+          <td>南西部ピソスで44.3℃を記録。観測史上でも極めて高い気温となった。</td>
+        </tr>
+
+        <tr>
+          <td class="no">10</td>
+          <td class="date">6月24日</td>
+          <td class="place">西ヨーロッパ</td>
+          <td class="type">大規模熱波</td>
+          <td>フランス、英国、イタリアなどが猛烈な熱波に覆われ、パリで40.9℃、英国でも6月として記録的高温。</td>
+        </tr>
+
+        <tr>
+          <td class="no">11</td>
+          <td class="date">6月下旬</td>
+          <td class="place">フランス</td>
+          <td class="type">熱波被害</td>
+          <td>熱関連の死亡や水辺での事故が相次ぎ、多数の溺死も報告された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">12</td>
+          <td class="date">6月下旬</td>
+          <td class="place">ヨーロッパ各地</td>
+          <td class="type">熱波</td>
+          <td>家畜・家禽の大量死、学校や観光施設への影響、河川水温上昇による発電出力制限などが発生。</td>
+        </tr>
+
+        <tr>
+          <td class="no">13</td>
+          <td class="date">6月</td>
+          <td class="place">インド</td>
+          <td class="type">少雨・干ばつ</td>
+          <td>モンスーン降水量が平年を大きく下回り、農業や水資源への影響が懸念された。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2 class="month-title">2026年7月</h2>
+
+  <div class="disaster-table-wrap">
+    <table class="disaster-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>日付</th>
+          <th>地域</th>
+          <th>災害</th>
+          <th>主な被害・状況</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="no">14</td>
+          <td class="date">7月上旬</td>
+          <td class="place">フランス</td>
+          <td class="type">渇水</td>
+          <td>高温と少雨でロワール川などの水位が低下。7月は後に観測史上最も暑い月となった。</td>
+        </tr>
+
+        <tr>
+          <td class="no">15</td>
+          <td class="date">7月中旬</td>
+          <td class="place">英国・ウェールズ</td>
+          <td class="type">山火事</td>
+          <td>イングランドとウェールズで多数の火災が発生。北ウェールズでは重大事態が宣言された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">16</td>
+          <td class="date">7月中旬</td>
+          <td class="place">米国・ミネソタ州</td>
+          <td class="type">森林火災</td>
+          <td>カナダ国境付近で火災が拡大。非常事態が宣言され、州兵が投入された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">17</td>
+          <td class="date">7月中旬</td>
+          <td class="place">中国東北部・華北</td>
+          <td class="type">熱波・豪雨</td>
+          <td>主要農業地帯で高温と豪雨が重なり、トウモロコシや大豆などへの被害が懸念された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">18</td>
+          <td class="date">7月19～20日</td>
+          <td class="place">インド北部・北東部</td>
+          <td class="type">洪水・地滑り</td>
+          <td>豪雨による洪水と地滑りで少なくとも25人が死亡。</td>
+        </tr>
+
+        <tr>
+          <td class="no">19</td>
+          <td class="date">7月21日</td>
+          <td class="place">スペイン・グアダラハラ</td>
+          <td class="type">山火事</td>
+          <td>数日間にわたり火災が拡大し、1,200人以上が避難。40℃超の高温が消火を困難にした。</td>
+        </tr>
+
+        <tr>
+          <td class="no">20</td>
+          <td class="date">7月21日</td>
+          <td class="place">フランス南部</td>
+          <td class="type">山火事</td>
+          <td>ヴァール県で約500ヘクタールが焼失し、住民避難が行われた。</td>
+        </tr>
+
+        <tr>
+          <td class="no">21</td>
+          <td class="date">7月21日</td>
+          <td class="place">バルカン半島</td>
+          <td class="type">雹・暴風雨</td>
+          <td>猛暑の後に激しい雹を伴う嵐が発生し、負傷者や建物被害が出た。</td>
+        </tr>
+
+        <tr>
+          <td class="no">22</td>
+          <td class="date">7月21日</td>
+          <td class="place">セルビア</td>
+          <td class="type">渇水</td>
+          <td>ドナウ川の水位が記録的に低下し、河川輸送に影響。</td>
+        </tr>
+
+        <tr>
+          <td class="no">23</td>
+          <td class="date">7月22日</td>
+          <td class="place">中国北部</td>
+          <td class="type">洪水・地滑り</td>
+          <td>北京、天津、河北、遼寧などで洪水警戒。重慶周辺では地滑りによる死者・行方不明者も発生。</td>
+        </tr>
+
+        <tr>
+          <td class="no">24</td>
+          <td class="date">7月22～27日</td>
+          <td class="place">フランス・ジロンド県</td>
+          <td class="type">巨大森林火災</td>
+          <td>ボルドー周辺で火災が急拡大し、約4万2,000ヘクタールが焼失。</td>
+        </tr>
+
+        <tr>
+          <td class="no">25</td>
+          <td class="date">7月23～27日</td>
+          <td class="place">フランス南西部</td>
+          <td class="type">山火事・避難</td>
+          <td>20万人を超える規模の避難が実施され、多数の住宅が損壊。</td>
+        </tr>
+
+        <tr>
+          <td class="no">26</td>
+          <td class="date">7月25日</td>
+          <td class="place">スペイン</td>
+          <td class="type">巨大山火事</td>
+          <td>マドリード州やアビラ県などで約4万5,000ヘクタールが焼失し、多数が避難。</td>
+        </tr>
+
+        <tr>
+          <td class="no">27</td>
+          <td class="date">7月下旬</td>
+          <td class="place">スペイン</td>
+          <td class="type">山火事</td>
+          <td>バレンシアなどでも火災が拡大し、死者が報告された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">28</td>
+          <td class="date">7月</td>
+          <td class="place">インドネシア</td>
+          <td class="type">森林・泥炭火災</td>
+          <td>約9万5,000ヘクタールが焼失し、煙害や大気汚染も深刻化。</td>
+        </tr>
+
+        <tr>
+          <td class="no">29</td>
+          <td class="date">7月</td>
+          <td class="place">フランス</td>
+          <td class="type">記録的高温</td>
+          <td>全国平均気温は約24.9℃となり、1900年以降で最も暑い月となった。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2 class="month-title">2026年8月</h2>
+
+  <div class="disaster-table-wrap">
+    <table class="disaster-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>日付</th>
+          <th>地域</th>
+          <th>災害</th>
+          <th>主な被害・状況</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="no">30</td>
+          <td class="date">8月1～2日</td>
+          <td class="place">ギリシャ・アッティカ地方</td>
+          <td class="type">山火事</td>
+          <td>住宅地近くまで火災が接近し、住民避難が実施された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">31</td>
+          <td class="date">8月3日</td>
+          <td class="place">インドネシア・ブロモ山</td>
+          <td class="type">山火事</td>
+          <td>国立公園内で火災が発生し、約60ヘクタールが焼失。</td>
+        </tr>
+
+        <tr>
+          <td class="no">32</td>
+          <td class="date">8月7日</td>
+          <td class="place">韓国・ソウル</td>
+          <td class="type">熱波</td>
+          <td>40℃近い高温となり、高齢者や屋外労働者への対策が強化された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">33</td>
+          <td class="date">8月13～14日</td>
+          <td class="place">クロアチア・オミシュ</td>
+          <td class="type">山火事</td>
+          <td>1人死亡、約40人負傷、約1,200人が避難。</td>
+        </tr>
+
+        <tr>
+          <td class="no">34</td>
+          <td class="date">8月13日</td>
+          <td class="place">ギリシャ・ハルキディキ</td>
+          <td class="type">山火事</td>
+          <td>リゾート地に火災が迫り、観光客や住民が船などで避難。</td>
+        </tr>
+
+        <tr>
+          <td class="no">35</td>
+          <td class="date">8月13～14日</td>
+          <td class="place">日本・千葉県</td>
+          <td class="type">集中豪雨・洪水</td>
+          <td>道路や住宅が広範囲に浸水。河川氾濫が発生し、後に死者13人と報じられた。</td>
+        </tr>
+
+        <tr>
+          <td class="no">36</td>
+          <td class="date">8月16日</td>
+          <td class="place">ギリシャ・サラミナ島</td>
+          <td class="type">山火事</td>
+          <td>高齢夫婦2人が死亡し、500人以上が避難。</td>
+        </tr>
+
+        <tr>
+          <td class="no">37</td>
+          <td class="date">8月16～17日</td>
+          <td class="place">ベルギー・ハイフェンス</td>
+          <td class="type">森林火災</td>
+          <td>同国史上最大規模の森林火災となり、約3,000ヘクタールが焼失。</td>
+        </tr>
+
+        <tr>
+          <td class="no">38</td>
+          <td class="date">8月16～17日</td>
+          <td class="place">ドイツ・ベルギー国境</td>
+          <td class="type">山火事</td>
+          <td>ベルギー側の火災が国境近くまで拡大し、ドイツ側でも避難や警戒が行われた。</td>
+        </tr>
+
+        <tr>
+          <td class="no">39</td>
+          <td class="date">8月中旬</td>
+          <td class="place">ヨーロッパ各地</td>
+          <td class="type">山火事</td>
+          <td>フランス、スペイン、ベルギー、ギリシャなどで火災が続き、焼失面積は57万ヘクタール超。</td>
+        </tr>
+
+        <tr>
+          <td class="no">40</td>
+          <td class="date">8月中旬</td>
+          <td class="place">ドイツ・ライン川</td>
+          <td class="type">渇水</td>
+          <td>猛暑と少雨で水位が大幅低下し、船舶輸送や物流に影響。</td>
+        </tr>
+
+        <tr>
+          <td class="no">41</td>
+          <td class="date">8月</td>
+          <td class="place">インド</td>
+          <td class="type">モンスーン不足</td>
+          <td>降雨量が平年を下回り、綿花、大豆、トウモロコシなどへの影響が懸念された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">42</td>
+          <td class="date">8月</td>
+          <td class="place">インドネシア</td>
+          <td class="type">森林・泥炭火災</td>
+          <td>火災ホットスポットが9,000カ所を超え、煙による大気汚染が拡大。</td>
+        </tr>
+
+        <tr>
+          <td class="no">43</td>
+          <td class="date">8月26日</td>
+          <td class="place">ネパール・チベット国境</td>
+          <td class="type">氷河・岩盤崩壊</td>
+          <td>大量の氷と岩石が谷へ落下し、巨大な岩屑流が発生。</td>
+        </tr>
+
+        <tr>
+          <td class="no">44</td>
+          <td class="date">8月26日</td>
+          <td class="place">ネパール</td>
+          <td class="type">巨大洪水</td>
+          <td>氷河崩壊後、河川水位が短時間で急上昇し、村、道路、橋、水力発電施設などが流された。</td>
+        </tr>
+
+        <tr>
+          <td class="no">45</td>
+          <td class="date">8月27日</td>
+          <td class="place">ネパール・中国</td>
+          <td class="type">洪水被害</td>
+          <td>死者・行方不明者が急増し、被害が下流域まで拡大。</td>
+        </tr>
+
+        <tr>
+          <td class="no">46</td>
+          <td class="date">8月27日</td>
+          <td class="place">日本・富山県、石川県</td>
+          <td class="type">大雨・洪水</td>
+          <td>多数の河川が氾濫。約38万人以上に避難が呼びかけられ、孤立集落や停電も発生。</td>
+        </tr>
+
+        <tr>
+          <td class="no">47</td>
+          <td class="date">8月30～31日</td>
+          <td class="place">ネパール</td>
+          <td class="type">氷河災害</td>
+          <td>死者・行方不明者がさらに増加し、水力発電施設やトンネルにも大きな被害。</td>
+        </tr>
+
+        <tr>
+          <td class="no">48</td>
+          <td class="date">8月31日</td>
+          <td class="place">インドネシア</td>
+          <td class="type">森林・泥炭火災</td>
+          <td>大規模火災が継続し、火災由来の炭素排出量も季節平均を大幅に上回った。</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <section class="summary">
+    <h2>わずか4カ月で世界各地に広がった災害</h2>
+
+    <p>
+      2026年5月から8月までを並べてみると、
+      一つの種類の災害だけではなく、
+      熱波、干ばつ、山火事、洪水、地滑り、氷河崩壊などが
+      世界各地で同時進行していたことが分かります。
+    </p>
+
+    <div class="summary-grid">
+
+      <div class="summary-card">
+        <strong>5月</strong>
+        インド・パキスタンで熱波。北米では山火事シーズンが本格化。
+      </div>
+
+      <div class="summary-card">
+        <strong>6月</strong>
+        中国の乾燥地帯で洪水。ヨーロッパでは40℃を超える猛烈な熱波。
+      </div>
+
+      <div class="summary-card">
+        <strong>7月</strong>
+        ヨーロッパで熱波、干ばつ、巨大山火事。中国・インドでは洪水。
+      </div>
+
+      <div class="summary-card">
+        <strong>8月</strong>
+        欧州の山火事が続き、日本では集中豪雨。ヒマラヤでは巨大氷河災害。
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="flow">
+    <h2>同じ温暖化が異なる災害を強める</h2>
+
+    <p>高温 → 土壌・森林の乾燥 → 干ばつ・山火事</p>
+
+    <p>高温 → 大気中の水蒸気増加 → 集中豪雨・洪水</p>
+
+    <p>山岳部の高温 → 氷河・永久凍土の不安定化 → 崩壊・土石流</p>
+  </section>
+
+
+  <div class="warning">
+    洪水、山火事、干ばつ、地滑りなどは昔から存在する自然災害です。
+    また、都市開発、森林管理、河川管理、地形、失火など、
+    気候以外の要因も被害の大きさに影響します。
+
+    そのため、
+    「災害が発生した＝気候変動が原因」
+    と単純化するのではなく、
+    気候変動によってその災害の発生確率や強度が
+    どの程度高まったのかを見る必要があります。
+  </div>
+
+
+  <section class="related">
+    <div class="related-label">RELATED / ページ紹介</div>
+
+    <div class="ad-grid">
+
+      <a class="ad" href="/note_prg/bible/bible_sec0_3.html">
+        <small>おすすめ記事</small>
+        <strong>人はなぜ死ぬのか</strong>
+      </a>
+
+      <a class="ad" href="/note_prg/bible/bible_sec0_5.html">
+        <small>おすすめ記事</small>
+        <strong>創造論と進化論の本質的な対立</strong>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="container">
+    掲載日：2026年8月31日
+  </div>
+</footer>
+
+</body>
+</html>
