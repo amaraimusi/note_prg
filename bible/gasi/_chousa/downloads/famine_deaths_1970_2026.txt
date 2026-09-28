@@ -1,0 +1,613 @@
+﻿1970–2026年 世界の飢饉・飢餓関連死亡 調査データ
+調査基準日：2026-09-26（日本時間）。2026年は年途中。
+
+【範囲】
+世界各地の主要な飢饉、飢餓を伴う複合人道危機と近年の食料危機の事例集。
+World Peace Foundation（WPF）のHistoric Famines表のうち対象期間に重なる全29行を基礎に、インド・ソマリアの補足、年齢限定推計、IPC・国連機関の近年情報を追加した。
+全ての国・全ての年・全ての餓死を網羅する世界統計ではない。慢性的栄養不足、個別の孤立・貧困による餓死、全ての小規模危機は未網羅。
+事例の非掲載は死亡ゼロを意味しない。欧州・米州・オセアニアに個別の餓死がないという意味でもない。
+中国の大躍進飢饉（1958–62）は対象外。ビアフラ（1968–70）とサヘル（1969–74）は期間が重なるため全期間の推計として収録し、1970年以降だけの死者に換算しない。
+
+【何を数えたか】
+死亡数の単位は人。deaths_estimateは出典の採用代表値であり、全行で同一定義の「直接餓死数」ではない。
+飢饉関連超過死亡：通常期待される死亡を超える危機関連死亡。飢えに伴う感染症等を含む。
+複合人道危機の非暴力的超過死亡：食料だけでなく医療・水・衛生・住居などの喪失に関連する広義の死亡。直接の暴力死と区別するWPFの定義。
+栄養失調関連の報告死亡：確認・報告された人数。未報告死や間接死を全て含む推計ではない。
+栄養失調関連死亡モデル：仮定に基づく計算。死亡届の集計ではない。
+参考・混合死因：中国河南省1975年の23万人は死因内訳が確認できないため、餓死数として使わない。
+IPC Phase 5人口、食料不安人口、栄養不良人口は死亡者数ではない。IPC認定とWPFの大規模死亡事例の基準も異なる。
+
+【数値・重複・更新】
+欠測はSQLite/JSONではNULL/null、CSVでは空欄、閲覧表示では「不明」。欠測をゼロに変えない。
+deaths_low/highは出典が示す幅・下限のみ。独自の幅、年度按分、中央値を追加していない。bounds_typeで幅の性質を区別。
+WPF原表の*は最小値・継続中・調査中のいずれかで、一律に厳密な下限と断定しない。100,000*+の行は暫定下限のみとする。
+イエメンの全年齢推計と小児推計は重複する。スーダン・ガザの2026年行は同じ危機の状況更新。event_groupで対応を示す。
+定義・地域・期間・年齢が異なるため、全行の合計や世界の年別死亡数を作成しない。
+最新資料を優先した箇所は行注記に記載。ガザの455人は2025年10月1日時点の確認済み資料値で、2026年9月現在の最新累計と称さない。
+WPFのソマリア2011–12を死亡研究の2010–12に合わせ、スーダン原表1998–89の逆転を別資料で1998年と照合した。サヘル表と方法論の期間・丸めの違いは保留して明記。
+WPF各行の元の人口研究全てを再計算したわけではなく、引用先のカタログ値を採用した。歴史的数字には大きな不確実性がある。
+
+【出力と使い方】
+famine_deaths_1970_2026.sqlite：events、sources、event_sources、metadata、data_dictionaryテーブル。簡易日本語ビュー「調査一覧」も収録。
+famine_deaths_1970_2026.csv：1行1記録、英語の列名、UTF-8 BOM付き。日本語列名対応は下記。
+famine_deaths_1970_2026.txt：本説明、全事例、出典一覧。
+index.html：オフラインで開ける閲覧ページ。検索・年代・地域・死亡定義の絞り込み、件数表示、印刷に対応。
+年代絞り込みは事例期間との重なりで判定する。数値は事例全期間のままで、選択年代の死亡数を示さない。
+HTMLの各行から典拠と注記を確認できる。出典へのアクセスにはインターネット接続が必要。
+
+
+【列の定義】
+record_id：記録ID（主キー）
+event_group：同じ危機・重複関連グループ
+period：おおよその時期／推計対象期間
+start_year：期間開始年
+end_year：期間終了年（継続危機では観察年）
+country_region：国／地域（当時と現在を必要に応じ併記）
+world_region：大地域
+event_name：出来事名
+deaths_estimate：出典の採用死亡代表値（人）、欠測NULL
+deaths_low：出典の下限または幅下端（人）
+deaths_high：出典の幅上端（人）
+estimate_status：推計・報告数・暫定・不明等
+bounds_type：幅の性質。信頼区間・文献幅・仮定の幅を混同しない
+mortality_definition：死亡数の定義
+population_scope：対象人口・年齢範囲
+summary：出来事の概要
+notes：不確実性・重複・修正など
+record_scope：主要／補足／参考／状況更新
+pre1970_overlap：1970年以前を含む場合1
+source_ids：出典ID（|区切り）
+source_titles：出典名（|区切り）
+source_urls：出典URL（|区切り）
+source_locator：出典内の場所
+accessed_date：閲覧・確認日
+
+【全記録】
+
+F001 | 1968–1970年 | ナイジェリア（ビアフラ）
+ビアフラ飢饉
+死亡数：1,300,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：600000 / 2000000（文献上の推計幅）
+概要：内戦と封鎖で食料へのアクセスが失われた。
+注意：1968–70年全体。1970年分を分離できない。
+出典：WPF|METHOD
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://worldpeacefoundation.org/wp-content/uploads/2025/05/Famine-dataset-Methods-updated-20250515.pdf
+
+F002 | 1969–1974年 | サヘル（モーリタニア・マリ・ニジェールの遊牧民）
+サヘル干ばつ
+死亡数：101,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：主に遊牧民
+下限・上限：None / None（未提示）
+概要：干ばつが移動牧畜に依存する世帯の生計を損なった。
+注意：原表101,000を採用。方法論は1969–73年・101,200人と記述し期間・丸めが異なる。定住人口を含む地域全体の値ではない。1970年以降分は分離不能。
+出典：WPF|METHOD
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://worldpeacefoundation.org/wp-content/uploads/2025/05/Famine-dataset-Methods-updated-20250515.pdf
+
+F003 | 1972–1973年 | インド（マハラシュトラ州）
+干ばつと超過死亡（論争あり）
+死亡数：130,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：深刻な干ばつに対して大規模な公共雇用事業が行われた。
+注意：Dyson・Maharatnaの推計。Drèzeは飢饉が回避されたと評価。確認された直接餓死数として扱わない。
+出典：OWID
+https://ourworldindata.org/the-our-world-in-data-dataset-of-famines
+
+F004 | 1973–1974年 | エチオピア（ウォロ・オガデン）
+1970年代エチオピア飢饉
+死亡数：200,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：干ばつと援助の不足が重なり、脆弱な地域で死亡が増えた。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F005 | 1974 | バングラデシュ
+1974年飢饉
+死亡数：1,500,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：洪水と戦争後の経済的混乱、食料援助の途絶が重なった。
+注意：原表の全体推計。直接の餓死のみを数えた値ではない。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F006 | 1975 | 中国（河南省）
+河南洪水と救援崩壊
+死亡数：230,000人（推計等）
+死亡定義：参考値・災害関連死亡（死因分離未確認）
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：大洪水後に救援と生活基盤が損なわれた。
+注意：WPFの飢饉表に収録された値だが、洪水直接死と飢餓・疾病死の内訳を当該表で確認できない。23万人を餓死者数と解釈しない。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F007 | 1975–1979年 | カンボジア
+クメール・ルージュ期の飢餓
+死亡数：1,210,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：強制的な集団化と配給・生存条件の悪化。
+注意：WPFの飢饉関連値。処刑などを含む政権下の総死亡数とは別。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F008 | 1975–1979年 | 東ティモール（現・東ティモール）
+占領・対反乱作戦下の飢餓
+死亡数：103,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：軍事作戦に伴う移動と生計の喪失。
+注意：WPFの1975–79年という期間と値をそのまま採用。他資料の全占領期間とは異なる。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F009 | 1980 | ウガンダ（カラモジャ）
+カラモジャ飢饉
+死亡数：35,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：20000 / 50000（文献上の推計幅）
+概要：家畜の略奪と行政機能の崩壊で食料確保が困難になった。
+注意：
+出典：WPF|METHOD
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://worldpeacefoundation.org/wp-content/uploads/2025/05/Famine-dataset-Methods-updated-20250515.pdf
+
+F010 | 1981–1985年 | モザンビーク
+内戦と干ばつ下の飢饉
+死亡数：300,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：武力紛争による略奪に干ばつが重なった。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F011 | 1983–1985年 | エチオピア（ティグライ・ウォロなど）
+1980年代エチオピア飢饉
+死亡数：800,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：600000 / 1000000（文献上の推計幅）
+概要：干ばつ、戦闘、移住政策と救援不足が重なった。
+注意：WPFは60万–100万人の中央値80万人を採用。
+出典：WPF|METHOD
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://worldpeacefoundation.org/wp-content/uploads/2025/05/Famine-dataset-Methods-updated-20250515.pdf
+
+F012 | 1984–1985年 | スーダン（ダルフール・コルドファン・紅海沿岸）
+干ばつ期の飢饉
+死亡数：240,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：食料供給の悪化に経済政策と援助の問題が重なった。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F013 | 1987–1988年 | 当時のスーダン南部（現・南スーダンを含む）
+南部内戦と飢饉
+死亡数：250,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：避難・略奪・封鎖により住民の食料と生活手段が失われた。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F014 | 1991–1993年 | ソマリア
+1990年代ソマリア飢饉
+死亡数：240,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：内戦による避難と略奪で食料へのアクセスが崩れた。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F015 | 1992–1994年 | スーダン（ヌバ山地・上ナイル、現・南スーダンを含む）
+ヌバ山地・上ナイル危機
+死亡数：225,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：内戦と包囲、強制移動に伴う生活基盤の喪失。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F016 | 1995–1997年 | 朝鮮民主主義人民共和国（北朝鮮）
+1990年代北朝鮮飢饉
+死亡数：330,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：洪水・干ばつと経済・配給制度の機能不全。
+注意：WPFの1995–97年・33万人。1995–99年など異なる期間のより大きい推計との混用を避ける。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F017 | 1998 | 当時のスーダン（バハル・エル・ガザール、現・南スーダン）
+1998年バハル・エル・ガザール飢饉
+死亡数：70,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：戦闘、略奪と避難が食料不足を深刻化させた。
+注意：WPF原表の年表記「1998–89」は逆転している。HRWの記述で1998年と照合して整理。
+出典：WPF|SUD98
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://www.hrw.org/news/2014/08/15/famine-crimes-south-sudan
+
+F018 | 1998–2007年 | コンゴ民主共和国（東部）
+紛争下の長期人道危機
+死亡数：290,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：紛争と避難が公衆衛生・生活基盤を破壊した。
+注意：原表290,000*。しばしば引用される戦争全体の540万人を餓死数として採用しない。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F019 | 2002 | マラウイ
+2002年食料危機
+死亡数：3,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：干ばつと救援の不足。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F020 | 2003–2005年 | スーダン（ダルフール）
+ダルフール人道危機
+死亡数：200,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：紛争と強制移動が住民の生存条件を損なった。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F021 | 2003–2006年 | ウガンダ（アチョリ地域）
+北部ウガンダ人道危機
+死亡数：100,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：武装勢力との戦闘と略奪の影響。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F022 | 2005 | ニジェール
+2005年食料危機
+死亡数：40,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：干ばつ下で食料不足と救援の問題が生じた。
+注意：WPFに収録された推計。地域全体の慢性的栄養失調死亡とは区別。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F023 | 2010–2012年（2011年に飢饉確認） | ソマリア（南部・中部）
+2011年飢饉を含む食料危機
+死亡数：258,000人（推計等）
+死亡定義：飢饉関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：143000 / 273000（資料要約の蓋然的範囲）
+概要：降雨不足と紛争、救援へのアクセス制約。
+注意：死亡研究の対象は2010–12年危機。WPF年表では2011–12年。推計期間とIPCの飢饉分類期間は一致しない。
+出典：SOM11|WPF
+https://www.ipcinfo.org/ipcinfo-website/resources/resources-details/en/c/1129216/ | https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F024 | 2012–2023年 | シリア
+内戦と包囲下の生存基盤崩壊
+死亡数：268,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：包囲とインフラの破壊で生活・医療へのアクセスが失われた。
+注意：直接の戦闘死亡ではなく、WPFの広い集団飢餓概念に基づく値。直接餓死数は分離不能。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F025 | 2014–2018年 | 南スーダン
+内戦下の人道危機（2017年飢饉を含む）
+死亡数：193,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：戦闘と避難、略奪による食料・医療アクセスの喪失。
+注意：2017年の飢饉地域だけの死亡数ではない。暴力死を含む約40万人の研究総数と区別。
+出典：WPF|SOM18
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf | https://www.lshtm.ac.uk/research/centres/health-humanitarian-crises-centre/south-sudan-report-2018
+
+F026 | 2015年4月–2018年10月 | イエメン
+未治療の重度急性栄養失調による小児死亡推計
+死亡数：84,701人（推計等）
+死亡定義：栄養失調関連死亡モデル
+対象人口：5歳未満児
+下限・上限：60115 / 109288（MUAC仮定によるモデル幅）
+概要：栄養治療を受けられなかった幼児の死亡をモデル化した。
+注意：実測された死亡登録数ではない。全年齢のイエメン危機推計F028と期間・人口が重なり、加算不可。
+出典：YEMCH
+https://www.savethechildren.net/news/yemen-85000-children-may-have-died-starvation-start-war
+
+F027 | 2016–2019年 | ナイジェリア（北東部）
+ボコ・ハラム紛争下の人道危機
+死亡数：340,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：武力紛争、包囲と食料の徴発で生活が損なわれた。
+注意：
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F028 | 2016–2021年 | イエメン
+内戦・封鎖下の人道危機
+死亡数：223,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：戦争と物流制約、避難・経済危機が生活基盤を壊した。
+注意：原表の2016–21年・223,000*を採用。子どもに限ったF026と加算不可。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F029 | 2017–2018年 | ソマリア
+干ばつ・感染症と避難の危機
+死亡数：44,700人（推計等）
+死亡定義：干ばつ危機関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：37600 / 52000（95%信頼区間（採用シナリオ内））
+概要：降雨不足に避難、コレラ・はしかなどが重なった。
+注意：2017年1月–2018年12月。最も妥当な反実仮想基準線のシナリオ。悲観シナリオ163,800、楽観シナリオ19,400という基準線依存性もある。これらを信頼区間に混ぜない。
+出典：SOM18PDF|SOM18
+https://www.lshtm.ac.uk/media/40136 | https://www.lshtm.ac.uk/research/centres/health-humanitarian-crises-centre/south-sudan-report-2018
+
+F031 | 2020–2021年 | 南スーダン（ピボール）
+ピボールの飢饉状況
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：深刻な食料不安が発生し、IPC専門家がFamine Likelyと判断した。
+注意：2020年末のFRC評価。対象住民数やIPC第5段階の人数を死亡数として扱わない。
+出典：Pibor|FACTS
+https://www.ipcinfo.org/ipcinfo-website/alerts-archive/issue-31 | https://www.ipcinfo.org/famine-facts
+
+F030 | 2020–2023年 | 中央アフリカ共和国
+長期人道危機
+死亡数：553,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：紛争と国家機能の衰弱による生存条件の悪化。
+注意：大規模飢饉表にある広義の死亡推計。IPCによる全国飢饉認定や、直接餓死の人数を意味しない。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F033 | 2021 | マダガスカル（南部）
+南部の干ばつと食料危機
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：干ばつ下で深刻な食料不足と栄養不良が報告された。
+注意：飢饉リスクと死亡総数を区別。急性食料不安人口は死亡人数ではない。
+出典：MAD
+https://www.ipcinfo.org/ipcinfo-website/resources/resources-details/en/c/1154919/
+
+F032 | 2021–2023年 | エチオピア（ティグライ）
+ティグライの飢餓・生活基盤崩壊
+死亡数：336,000人（推計等）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：包囲、略奪と必須インフラの破壊。
+注意：WPFの期間・採用値。戦闘死を含む戦争総死亡数とは異なる。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F034 | 2022年1月–2024年6月 | ソマリア（主に南中部）
+2022年干ばつに起因する死亡
+死亡数：71,100人（推計等）
+死亡定義：干ばつ危機関連超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：干ばつの影響による死亡増を人口モデルで推計。
+注意：2025年公表の更新推計。旧2022年単年43,000人と重ねない。飢饉は回避されたが超過死亡が推計された。
+出典：SOM24
+https://www.unicef.org/somalia/press-releases/71000-drought-related-excess-deaths
+
+F035 | 2023–2024年 | スーダン
+2023年以降の内戦と飢餓
+死亡数：100,000人以上（暫定）
+死亡定義：複合人道危機の非暴力的超過死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：100000 / None（原表の100,000*+）
+概要：戦争で食料・医療・避難先へのアクセスが悪化。
+注意：原表100,000*+。精密な計測値ではないため代表値をNULLにし下限欄に保存。2026年までの累計ではない。
+出典：WPF
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+
+F036 | 2023年10月–2025年10月1日 | パレスチナ（ガザ地区）
+ガザの栄養失調関連死（報告累計）
+死亡数：455人（報告数）
+死亡定義：栄養失調関連の報告死亡
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：紛争と食料供給・医療アクセスの制約下で死亡が報告された。
+注意：OCHAがガザ保健省の455人（子ども151人）を引用。全ての飢饉関連超過死亡を表す値ではない。2026年累計ではない。
+出典：GAZA25|FACTS
+https://www.ochaopt.org/content/humanitarian-situation-update-327-gaza-strip | https://www.ipcinfo.org/famine-facts
+
+F037 | 2025年9月–2026年6月（予測を含む） | ハイチ
+武装集団の拡大と急性食料不安
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：武装集団による流通の妨げと経済的困難。
+注意：IPCの食料不安分析。死亡人数を提供する資料ではない。
+出典：HAITI26
+https://www.ipcinfo.org/fileadmin/user_upload/ipcinfo/docs/IPC_Haiti_AcuteFoodInsec_Sept2025_June2026_Snapshot_French.pdf
+
+F038 | 2026年（参照分析は2–5月、以降の予測を含む） | スーダン（ダルフール・コルドファンなど）
+2026年の食料・栄養危機
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：紛争が継続し、飢饉リスクと重度栄養不良への懸念が続く。
+注意：2025年の飢饉認定を全年・全国に延長しない。2026年5月のIPC分析では区域レベルの飢饉なし、14区域にリスク。F035とは状況更新であり加算不可。
+出典：SUD26|FACTS
+https://www.ipcinfo.org/ipcinfo-website/countries-in-focus-archive/issue-151/en/ | https://www.ipcinfo.org/famine-facts
+
+F039 | 2026年（最新参照公表2026年8月24日） | パレスチナ（ガザ地区）
+2026年の栄養状態と支援状況
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：支援拡大後、調査可能地域の急性栄養不良は改善したが慢性栄養不良が残る。
+注意：5月31日–6月15日の横断調査。死亡推計ではなく、立入り不能地域を代表しない。1月OCHAの「10月初旬以降の小児急性栄養失調死の報告なし」を全年齢の死亡ゼロにしない。
+出典：GAZA26|GAZAJAN
+https://www.unicef.org/press-releases/new-smart-survey-provides-updated-assessment-child-and-maternal-nutrition-accessible | https://www.ochaopt.org/content/humanitarian-situation-update-355-gaza-strip
+
+F040 | 2026 | ソマリア
+2026年の食料危機
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：食料・水不足に資金不足による支援縮小が重なった。
+注意：2022–24年の71,100人を2026年の値に流用しない。
+出典：SOM26
+https://www.fao.org/emergencies/where-we-work/SOM/
+
+F041 | 2026 | アフガニスタン
+2026年の飢餓・栄養治療危機
+死亡数：不明
+死亡定義：死亡総数未確認
+対象人口：全年齢（資料の対象人口）
+下限・上限：None / None（未提示）
+概要：急性食料不安と栄養治療需要に対し支援が不足。
+注意：参照したWFP資料には全国の餓死・関連死亡総数がない。
+出典：AFG26
+https://www.wfp.org/emergencies/afghanistan
+
+【出典一覧】
+
+WPF：World Peace Foundation / Historic Famines, 1870–2024
+公表：2025-01（URLによる。本文に刊行日の明記なし）
+https://worldpeacefoundation.org/wp-content/uploads/2025/01/Historic-Famines-synthesis-table-191224.pdf
+pp.5–6。約10万人以上の大規模事例と一部の小規模事例。*の意味は最小値・継続中・調査中のいずれか。原表の数値を保持。
+
+METHOD：World Peace Foundation / Famine Datasets Methodological Annex
+公表：2025-05
+https://worldpeacefoundation.org/wp-content/uploads/2025/05/Famine-dataset-Methods-updated-20250515.pdf
+直接の餓死と、集団的な生存基盤の喪失に起因する死亡は異なる。
+
+OWID：Our World in Data / The Our World in Data Dataset of Famines
+公表：2017（旧データセット解説）
+https://ourworldindata.org/the-our-world-in-data-dataset-of-famines
+旧版の推計を採用する場合は明記。現在のWPF系列とは合算しない。
+
+SOM11：FAO / FEWS NET（IPC掲載） / Mortality among populations of Southern and Central Somalia affected by severe food insecurity and famine 2010–2012
+公表：2013
+https://www.ipcinfo.org/ipcinfo-website/resources/resources-details/en/c/1129216/
+IPC要約では143,000–273,000、最良推計258,000。区間を95%信頼区間と断定しない。
+
+SOM24：ソマリア保健省 / UNICEF / WHO / New study estimates that 71,000 drought-related excess deaths may have occurred in Somalia between 2022–2024
+公表：2025-01-21
+https://www.unicef.org/somalia/press-releases/71000-drought-related-excess-deaths
+2022年単年43,000という旧報告を更新。新旧推計の差を2023–24年死亡数として使わない。
+
+SOM18：London School of Hygiene & Tropical Medicine / Estimates of crisis-attributable mortality
+公表：2020-01（ソマリア報告）
+https://www.lshtm.ac.uk/research/centres/health-humanitarian-crises-centre/south-sudan-report-2018
+ソマリア2017–18年危機の概要と南スーダン報告へのリンク。
+
+SOM18PDF：London School of Hygiene & Tropical Medicine / Retrospective estimation of mortality in Somalia, 2014–2018: a statistical analysis
+公表：2020-01
+https://www.lshtm.ac.uk/media/40136
+p.13 Table 5：2017–18年の危機関連超過死亡44,700、95%CI 37,600–52,000（最も妥当な反実仮想シナリオ）。
+
+YEMCH：Save the Children / Yemen: 85,000 children may have died from starvation since start of war
+公表：2018-11-21
+https://www.savethechildren.net/news/yemen-85000-children-may-have-died-starvation-start-war
+本文・注記。未治療の重度急性栄養失調（SAM）の死亡モデル。
+
+SUD98：Human Rights Watch / Famine crimes in South Sudan
+公表：2014-08-15
+https://www.hrw.org/news/2014/08/15/famine-crimes-south-sudan
+1998年の飢饉という年代を照合。
+
+Pibor：IPC / South Sudan: IPC Results October 2020–July 2021
+公表：2020-12
+https://www.ipcinfo.org/ipcinfo-website/alerts-archive/issue-31
+Famine ReviewとQuality Reviewの結果。
+
+MAD：IPC / Madagascar: Acute Food Insecurity Situation April–September 2021 and Projection October–December 2021
+公表：2021-07
+https://www.ipcinfo.org/ipcinfo-website/resources/resources-details/en/c/1154919/
+食料不安・栄養状態の分析。死亡総数ではない。
+
+GAZA25：OCHA（ガザ保健省の報告を引用） / Humanitarian Situation Update #327 | Gaza Strip
+公表：2025-10-01
+https://www.ochaopt.org/content/humanitarian-situation-update-327-gaza-strip
+2023年10月以降、2025年10月1日時点で栄養失調関連死455人、うち子ども151人。
+
+GAZA26：UNICEF / New SMART survey provides updated assessment of child and maternal nutrition in accessible areas of Gaza
+公表：2026-08-24
+https://www.unicef.org/press-releases/new-smart-survey-provides-updated-assessment-child-and-maternal-nutrition-accessible
+調査期間2026年5月31日–6月15日。アクセス可能地域の横断調査。過去の飢饉死亡総数の推計ではない。
+
+GAZAJAN：OCHA / Humanitarian Situation Update #355 | Gaza Strip
+公表：2026-01-28
+https://www.ochaopt.org/content/humanitarian-situation-update-355-gaza-strip
+2025年10月初旬以降、急性栄養失調による子どもの死亡は報告されていないと記載。全死亡ゼロの証明ではない。
+
+SUD26：IPC / Sudan: Major food and nutrition crisis persists as conflict enters fourth year and risk of Famine looms
+公表：2026-05
+https://www.ipcinfo.org/ipcinfo-website/countries-in-focus-archive/issue-151/en/
+2026年2–5月の現状と以降の予測。分析対象内でFamine区域なし、14区域でリスク。全国死亡数の資料ではない。
+
+FACTS：IPC / Famine facts
+公表：ページに明記なし・継続更新
+https://www.ipcinfo.org/famine-facts
+継続更新ページ。2025年のスーダン・ガザ、2020年南スーダンなどの分類履歴。
+
+SOM26：FAO / Somalia | FAO Emergency and Resilience
+公表：ページに明記なし・継続更新
+https://www.fao.org/emergencies/where-we-work/SOM/
+2026年の人道支援と急性食料不安。死亡数の確定資料ではない。
+
+AFG26：WFP / Afghanistan emergency
+公表：ページに明記なし・継続更新
+https://www.wfp.org/emergencies/afghanistan
+2026年の栄養治療需要と支援不足。死亡総数なし。
+
+HAITI26：IPC / Haiti: IPC Acute Food Insecurity, September 2025–June 2026
+公表：2025-10-10
+https://www.ipcinfo.org/fileadmin/user_upload/ipcinfo/docs/IPC_Haiti_AcuteFoodInsec_Sept2025_June2026_Snapshot_French.pdf
+2025年9月–2026年2月の推計と2026年6月までの予測。

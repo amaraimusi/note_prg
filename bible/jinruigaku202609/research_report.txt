@@ -1,0 +1,781 @@
+﻿ホモ・サピエンスの祖先をめぐる見解の変遷
+1970年代〜2026年9月27日
+44項目／48出典／8時期区分
+
+調査対象：1970年〜2026年9月27日に公表された研究と、その時期の見解の変化。中心はホモ・サピエンスの成立・祖先集団・旧人との関係。遠い祖先と初期ホモ属の研究は、系統観の変化を理解するために含めた。文化人類学全般の歴史ではない。
+方法：出版社、PubMed、研究機関の公開論文・抄録・公開抜粋、専門家総説を優先した論点別の文献調査。主要な転換点の選択的年表であり、全論文の系統的レビューでも、研究者の賛否を集計した調査でもない。検索対象語は modern human origins / multiregional / assimilation / African origin / ancient DNA / structured stem / Homo ancestors と個々の論文題名。各行の旧見解は比較のための要約であり、その時代の全研究者が共有した意見ではない。
+確認範囲：出典表 checked_scope に記録。全文を読めなかった資料もあり、公開抄録・抜粋で確認できた内容を中心に採録した。原著の提案と、複数研究を踏まえた編集上の位置づけを区別する。status_as_of_2026 は引用論文に基づく定性的整理で、数値化した合意率ではない。
+年代：year_start / year_end は研究・議論の時期。ancient_age_text は化石・祖先集団の過去の年代で、混同しない。オンライン先行公開が確認できればその年を採用。複数年の項目は発見から論文化、またはオンライン年から巻号年を含む。±値、上限・下限、当時の推定は原文の意味を保ち、異なる方法の誤差を同じ信頼区間とみなさない。
+最新範囲：調査基準日は2026年9月27日。採録した最新の個別原著は2026年9月9日公開。2026年の通年を網羅したものではなく、この日までの全研究を収集したという意味でもない。2026年の主要検索では原著まで確認できたものを採録し、未査読プレプリントは年表に採録しなかった。
+重要な区別：①アフリカ起源と完全置換は同義ではない。②世界規模の古典的多地域進化とアフリカ内の集団構造は別のモデル。③mtDNAの共通祖先と全ゲノム・種全体の共通祖先は別。④化石の最古記録は種の誕生日ではない。⑤姉妹群や近縁種と直系祖先は別。⑥化石種の名称、遺伝的集団、研究上のモデル集団は一対一には対応しない。
+解釈：大きな流れは、化石による系統の復元から、遺伝学・年代測定・古代分子を統合した集団史へ。旧説の全面否定だけでなく、支持の追加、適用範囲の限定、交雑の組み込み、年代の更新が重なってきた。アフリカでの成立と旧人からの遺伝的寄与は両立する。一つの化石種をサピエンスの確定した直接祖先として一本の系譜に並べる段階にはない。
+
+時期別の概観
+
+1970年代：化石の増加と形態の数量化
+アフリカの初期人類資料が増え、祖先候補と分岐の議論が具体化。現生人類起源はまだ形態解釈への依存が大きい。
+出典：S01;S02;S03;S04;S46
+
+1980年代：多地域進化・アフリカ起源・同化が競合
+mtDNAと年代測定が最近アフリカ起源を支持。完全置換だけでなく、交雑を認める同化モデルも存在した。
+出典：S05;S06;S07;S08;S09;S10
+
+1990年代：モデル検証と古代DNAの登場
+形態の統計検証とネアンデルタールmtDNAが直接祖先説を弱めた。ただし交雑を否定できるほどの全ゲノム証拠はなかった。
+出典：S12;S13;S14
+
+2000年代：アフリカ化石の年代が古くなる
+ヘルトとオモがアフリカ起源を補強。遠い祖先の姿や、同時代にいた人類の多様性も更新された。
+出典：S15;S16;S17;S18;S19;S20
+
+2010–2014年：ゲノムによる交雑の確認
+ネアンデルタールとデニソワの核ゲノムにより、完全置換を修正。起源史に集団間の遺伝子流動を組み込む。
+出典：S21;S22;S23
+
+2015–2019年：約30万年前・大陸規模の起源へ
+北アフリカの古い化石とアフリカ内の多様性から、単一地域・単一集団だけに還元しにくい成立過程を議論。
+出典：S24;S26;S27;S28;S29
+
+2020–2025年：複数集団モデルと分子分類
+古代タンパク質・再年代測定・集団遺伝モデルが系統図を更新。同じ遺伝データを異なる人口史で説明できる問題も焦点に。
+出典：S30;S31;S32;S33;S34;S36;S39;S40;S41
+
+2026年（9月27日まで）：共通祖先の候補と推定方法を再検討
+トマ採石場、鄖県再年代、TRACE、中国南西部のデニソワ同定を収録。新しい発見が直ちに学界の合意を意味するわけではない。
+出典：S42;S43;S44;S45;S47;S48
+
+詳細年表
+
+[E01] 1973–1973 KNM-ER 1470が初期ヒト属の系統論争を拡大
+論点：遠い祖先・初期ヒト属
+以前の見解：初期ヒト属を少数の化石から一本の系統に並べる復元があった。
+変化：大きな脳と独特な顔の組合せが、同時代の人類の多様性とホモ属の境界を問題にした。
+証拠：1972年発見、1973年記載の頭蓋骨。
+2026年時点の位置づけ：分類・系統は論争継続
+限界：当初の約290万年前という年代を現在値として使わない。化石の存在と直系祖先であることは別。
+過去の年代：当初推定約290万年前。後の年代・分類は再検討。
+関連項目：E20;E41
+出典 [S01] Evidence for an Advanced Plio-Pleistocene Hominid from East Rudolf, Kenya https://www.nature.com/articles/242447a0
+出典 [S23] New fossils from Koobi Fora in northern Kenya confirm taxonomic diversity in early Homo https://www.nature.com/articles/nature11322
+
+[E02] 1974–1974 頭蓋の数量比較が現生人類起源の議論を変える
+論点：起源モデル
+以前の見解：形態の似た部分を地域的連続性やネアンデルタール祖先説に結びつける議論があった。
+変化：多数の頭蓋計測値の比較が、現生人類とネアンデルタールの区別、アフリカ化石の位置を検討する基盤となった。
+証拠：Stringerの多変量頭蓋比較。
+2026年時点の位置づけ：後のモデル形成の基盤
+限界：1974年に学界全体がアフリカ起源へ転換したという意味ではない。
+過去の年代：後期更新世を中心とする比較。
+関連項目：E08
+出典 [S02] Population relationships of later Pleistocene hominids: A multivariate study of available crania https://www.sciencedirect.com/science/article/pii/030544037490051X
+出典 [S46] One hundred years of paleoanthropology: An American perspective https://onlinelibrary.wiley.com/doi/full/10.1002/ajpa.23330
+
+[E03] 1974–1979 ルーシーとアファレンシスの祖先候補化
+論点：遠い祖先・初期ヒト属
+以前の見解：アウストラロピテクス間の系統関係は標本不足で不明瞭だった。
+変化：アファレンシスをホモ属や後続のアウストラロピテクスにつながる基部の候補に置く仮説が具体化した。
+証拠：1974年ルーシー発見、1978年命名、1979年の系統評価。
+2026年時点の位置づけ：有力な祖先候補・直系は未確定
+限界：ルーシーという個体を全人類の直接の祖先と証明したわけではない。
+過去の年代：約320万年前のルーシーなど。
+関連項目：E18;E41
+出典 [S03] A systematic assessment of early African hominids https://pubmed.ncbi.nlm.nih.gov/104384/
+
+[E04] 1978–1979 ラエトリ足跡で早い時期の二足歩行を裏づけ
+論点：遠い祖先・初期ヒト属
+以前の見解：二足歩行の復元は主として骨格形態に依存していた。
+変化：大きな脳をもつホモ属の出現より前に、二足歩行していたことが足跡からも支持された。
+証拠：1978年の主要足跡列発掘と1979年報告。
+2026年時点の位置づけ：基本的知見として支持
+限界：足跡の製作者の種と歩き方の細部は、足跡だけで一意に決まらない。
+過去の年代：約360万年前。
+関連項目：E03
+出典 [S04] Pliocene footprints in the Laetolil Beds at Laetoli, northern Tanzania https://www.nature.com/articles/278317a0
+
+[E05] 1982–1982 ラマピテクスを人類祖先とする説が後退
+論点：遠い祖先・初期ヒト属
+以前の見解：歯・顎の特徴からラマピテクスを古い人類祖先とする説が有力だった。
+変化：シヴァピテクスとの関係やオランウータンとの形態的類似が、人類直系説を弱めた。
+証拠：より多くの顔面・顎資料を用いる比較解剖。
+2026年時点の位置づけ：人類直系説は支持を失う
+限界：分類の整理は段階的だった。1982年の一論文だけで全化石の所属が確定したわけではない。
+過去の年代：中新世の類人猿。
+関連項目：E03;E18
+出典 [S05] The relationships of Sivapithecus and Ramapithecus and the evolution of the orang-utan https://www.nature.com/articles/297541a0
+
+[E06] 1984–1984 古典的多地域進化モデルの定式化
+論点：起源モデル
+以前の見解：現生人類への地域的連続性を主張する複数の歴史的説があった。
+変化：アフリカから広がった古いホモ集団が、地域間の遺伝子流動を保ちつつ世界各地で進化したと説明。
+証拠：Wolpoff・Wu・Thorneによる化石形態の地域的連続性の議論。
+2026年時点の位置づけ：古典的な形では支持が大幅に弱まる
+限界：独立した別起源や、地域間の交流がない説と混同しない。2010年以降の交雑確認だけで全体が立証されたわけでもない。
+過去の年代：ホモ属の長期進化を対象。
+関連項目：E08;E19
+出典 [S06] The Context of Human Genetic Evolution https://doi.org/10.1101/gr.8.4.339
+出典 [S46] One hundred years of paleoanthropology: An American perspective https://onlinelibrary.wiley.com/doi/full/10.1002/ajpa.23330
+
+[E07] 1987–1987 ミトコンドリアDNAが最近のアフリカ起源を支持
+論点：遺伝学・交雑
+以前の見解：化石の解釈だけでは起源地域と時期のモデルを判別しにくかった。
+変化：現代人の母系系統をたどる解析が、比較的最近のアフリカ共通祖先を支持した。
+証拠：Cann・Stoneking・WilsonによるmtDNA比較。
+2026年時点の位置づけ：基本方向は支持・推定は精密化
+限界：ミトコンドリア・イブは最初の女性でも、当時ただ一人の女性でもない。mtDNAの祖先と種の誕生は別。
+過去の年代：原論文の母系共通祖先推定は約20万年前。
+関連項目：E14;E19
+出典 [S07] Mitochondrial DNA and human evolution https://www.nature.com/articles/325031a0
+
+[E08] 1988–1988 化石と遺伝学を統合した最近アフリカ起源説
+論点：起源モデル
+以前の見解：多地域進化と単一起源をめぐり異なる証拠の評価が競合していた。
+変化：Stringer・Andrewsが化石と遺伝学の双方から最近アフリカ起源を論証。
+証拠：1988年Science論文による証拠の統合。
+2026年時点の位置づけ：アフリカ起源の骨格は強く支持
+限界：交雑を全く認めない完全置換の解釈は後に修正。アフリカ起源そのものの否定ではない。
+過去の年代：現生人類の比較的最近の成立と拡散。
+関連項目：E10;E19;E25
+出典 [S08] Genetic and fossil evidence for the origin of modern humans https://pubmed.ncbi.nlm.nih.gov/3125610/
+
+[E09] 1988–1988 カフゼーの年代が単純な旧人→新人の順序を崩す
+論点：年代・拡散
+以前の見解：レヴァントで現代的形態の人類をネアンデルタールより一律に新しいと見る解釈があった。
+変化：早い現生人類と後のネアンデルタールという複雑な地域史を考える必要が生じた。
+証拠：焼けたフリントの熱ルミネッセンス年代測定。
+2026年時点の位置づけ：早期の域外拡散を支持
+限界：一地域の存在記録から、現在の非アフリカ人の主な祖先集団を直接特定できない。
+過去の年代：カフゼーの報告値は約9.2万年前。
+関連項目：E26;E32
+出典 [S09] Thermoluminescence dating of Mousterian ‘Proto-Cro-Magnon’ remains from Israel and the origin of modern man https://www.nature.com/articles/331614a0
+
+[E10] 1989–1989 同化モデルが二者択一を超える
+論点：起源モデル
+以前の見解：完全置換と世界規模の多地域進化が対立軸として目立っていた。
+変化：アフリカで成立した現生人類の拡大と、在地の古い人類の一部吸収を組み合わせた。
+証拠：Smith・Falsetti・Donnellyの1989年総説と後のモデル史。
+2026年時点の位置づけ：交雑を含む枠組みは後に支持
+限界：同化の程度・方向・地域別の人口史まですべてが予測どおりだったわけではない。
+過去の年代：後期更新世の現生人類の拡大。
+関連項目：E19;E21
+出典 [S10] Modern human origins https://onlinelibrary.wiley.com/doi/abs/10.1002/ajpa.1330320504
+出典 [S11] The Assimilation Model of modern human origins in light of current genetic and genomic knowledge https://www.sciencedirect.com/science/article/pii/S104061821630386X
+
+[E11] 1994–1994 形態データから単一起源モデルを検証
+論点：起源モデル
+以前の見解：地域的な形態の類似をそのまま連続した祖先関係とみなす議論があった。
+変化：形態の距離とモデル予測を統計的に比較し、単一起源への支持を提示した。
+証拠：頭蓋形態の行列相関を用いたモデル比較。
+2026年時点の位置づけ：当時の単一起源支持の一例
+限界：形態一研究の結果を学界全体の投票や最終判定として扱わない。
+過去の年代：更新世と現代人の形態比較。
+関連項目：E08;E12
+出典 [S12] Matrix correlation tests support a single origin for modern humans https://www.nature.com/articles/368452a0
+
+[E12] 1997–1997 ネアンデルタールのmtDNAを初めて比較
+論点：遺伝学・交雑
+以前の見解：化石形態からの交雑・祖先関係の議論に直接の遺伝的証拠が乏しかった。
+変化：ネアンデルタールmtDNAが現代人の変異の外に位置し、単純な直接祖先説を弱めた。
+証拠：古代骨からのmtDNA抽出・配列比較。
+2026年時点の位置づけ：結果は支持・交雑否定への拡張は修正
+限界：母系の一系統が残らないことは、核ゲノムへの遺伝的寄与がないことを意味しない。
+過去の年代：ネアンデルタールと現代人の母系分岐。
+関連項目：E19
+出典 [S13] Neandertal DNA sequences and the origin of modern humans https://pubmed.ncbi.nlm.nih.gov/9230299/
+
+[E13] 1997–1997 ホモ・アンテセッサーを共通祖先候補として提案
+論点：共通祖先・分類
+以前の見解：サピエンスとネアンデルタールの共通祖先の化石同定が不明瞭だった。
+変化：スペインの化石の特徴の組合せから、新種と共通祖先候補を提案。
+証拠：グラン・ドリナTD6の頭蓋・顎・歯の形態。
+2026年時点の位置づけ：直系祖先仮説は後に再評価
+限界：候補の提案であり確定ではない。2020年のタンパク質解析は共通祖先に近い姉妹系統を支持。
+過去の年代：前期更新世。
+関連項目：E27
+出典 [S14] A Hominid from the Lower Pleistocene of Atapuerca, Spain: Possible Ancestor to Neandertals and Modern Humans https://doi.org/10.1126/science.276.5317.1392
+出典 [S30] The dental proteome of Homo antecessor https://www.nature.com/articles/s41586-020-2153-8
+
+[E14] 2000–2000 mtDNAの部分配列から全配列へ
+論点：遺伝学・交雑
+以前の見解：初期の母系解析は主に短い制御領域に依存していた。
+変化：ミトコンドリア全配列の比較により、母系系統史と最近アフリカ起源を再検討・補強した。
+証拠：全ミトコンドリアゲノムの配列解析。
+2026年時点の位置づけ：解析範囲の拡張として定着
+限界：全mtDNAでも一つの母系座位であり、核ゲノム全体の歴史と同じではない。
+過去の年代：現代人の母系共通祖先。
+関連項目：E07;E19
+出典 [S15] Mitochondrial genome variation and the origin of modern humans https://www.nature.com/articles/35047064
+
+[E15] 2002–2002 サヘラントロプスが初期人類の地域像を拡大
+論点：遠い祖先・初期ヒト属
+以前の見解：最初期人類の説明は東アフリカ資料への依存が強かった。
+変化：チャドの非常に古い化石が、起源を考える地理的範囲を中央アフリカへ広げた。
+証拠：頭蓋・歯の形態による新種記載。
+2026年時点の位置づけ：初期人類候補・系統的位置は論争
+限界：頭蓋のみから二足歩行やサピエンスへの直系を確定できない。
+過去の年代：後期中新世、約600万〜700万年前。
+関連項目：E18
+出典 [S16] A new hominid from the Upper Miocene of Chad, Central Africa https://www.nature.com/articles/nature00879
+
+[E16] 2003–2003 ヘルト化石がアフリカでの移行を裏づけ
+論点：年代・拡散
+以前の見解：アフリカで現生人類が成立する時期の化石記録に空白があった。
+変化：古い特徴と現代的特徴を備えた頭蓋が、アフリカでの段階的な成立を支持した。
+証拠：エチオピア・ヘルトの形態と層序・放射年代。
+2026年時点の位置づけ：アフリカ起源を支持
+限界：H. sapiens idaltuという亜種名の採用と、化石の重要性への評価は区別する。
+過去の年代：約16万〜15.4万年前。
+関連項目：E17;E23
+出典 [S17] Pleistocene Homo sapiens from Middle Awash, Ethiopia https://www.nature.com/articles/nature01669
+
+[E43] 2004–2004 フローレス人が後期まで残る人類の多様性を拡大
+論点：共通祖先・分類
+以前の見解：後期更新世の人類を少数の大型脳の系統だけで説明しがちだった。
+変化：非常に小型で小脳の別系統という解釈が、ホモ属の進化と分岐を再検討させた。
+証拠：インドネシアの骨格に基づく新種記載。
+2026年時点の位置づけ：別系統の存在は支持・起源は論争
+限界：病理的サピエンス説との論争を経た。2004年当時の若い年代を現在値として流用しない。直系祖先とは位置づけない。
+過去の年代：後期更新世。初報の年代は後に修正。
+関連項目：E24
+出典 [S18] A new small-bodied hominin from the Late Pleistocene of Flores, Indonesia https://www.nature.com/articles/nature02999
+
+[E17] 2005–2005 オモ化石の年代が約19.5万年前に更新
+論点：年代・拡散
+以前の見解：オモ化石の年代には幅があり、現生人類の成立時期を決めにくかった。
+変化：再年代測定でアフリカの早い現生人類記録がさらに古くなった。
+証拠：火山灰層の層序と40Ar/39Ar年代。
+2026年時点の位置づけ：年代は2022年にさらに再評価
+限界：約19.5万年前を現在のオモIの確定年代として固定しない。
+過去の年代：2005年推定約19.5万年前。
+関連項目：E29
+出典 [S19] Stratigraphic placement and age of modern humans from Kibish, Ethiopia https://www.nature.com/articles/nature03258
+
+[E18] 2009–2009 アルディが共通祖先と歩行環境の復元を問い直す
+論点：遠い祖先・初期ヒト属
+以前の見解：ヒトとチンパンジーの共通祖先を現生チンパンジーに近く復元する傾向があった。
+変化：樹上活動と地上の二足歩行に関わる特徴の組合せが、単純な復元を難しくした。
+証拠：アルディピテクス・ラミダスの骨格と環境資料の統合。
+2026年時点の位置づけ：重要な復元・細部は論争
+限界：現生チンパンジーは人類の祖先そのものではない。アルディの直系関係も確定していない。
+過去の年代：約440万年前。
+関連項目：E03;E15
+出典 [S20] Ardipithecus ramidus and the paleobiology of early hominids https://pubmed.ncbi.nlm.nih.gov/19810190/
+
+[E19] 2010–2010 ネアンデルタール核ゲノムが完全置換説を修正
+論点：遺伝学・交雑
+以前の見解：古代mtDNAの結果は、交雑なしの置換と整合的に解釈されることが多かった。
+変化：現在の非アフリカ集団にネアンデルタール由来の遺伝的寄与があることを示した。
+証拠：古代核ゲノムと現代人のゲノム比較。
+2026年時点の位置づけ：交雑の存在は強く支持
+限界：アフリカ起源の否定ではない。現在の個人・集団で寄与率は異なり、単一の固定率ではない。
+過去の年代：出アフリカ後を含む後期更新世の交流。
+関連項目：E08;E10;E12;E32
+出典 [S21] A draft sequence of the Neandertal genome https://pubmed.ncbi.nlm.nih.gov/20448178/
+
+[E21] 2010–2010 デニソワ人をゲノムで識別
+論点：遺伝学・交雑
+以前の見解：アジアの古い人類の系統関係は、断片的な化石形態から推定されていた。
+変化：従来区別されなかった集団をDNAで識別し、現代の一部集団への寄与も検出した。
+証拠：デニソワ洞窟の微小化石から核ゲノムを解析。
+2026年時点の位置づけ：独自系統と交雑は強く支持
+限界：デニソワ人は当初から正式な新種名として命名されたわけではない。
+過去の年代：後期更新世のアジアと現代人の遺伝的つながり。
+関連項目：E35;E40
+出典 [S22] Genetic history of an archaic hominin group from Denisova Cave in Siberia https://www.nature.com/articles/nature09710
+
+[E20] 2012–2012 初期ホモ属の複数系統という解釈を補強
+論点：遠い祖先・初期ヒト属
+以前の見解：KNM-ER 1470などの違いを一種内の変異とするか別種とするかが争われた。
+変化：追加化石が初期ホモ属の分類上の多様性を支持し、単純な一本の進化系列を弱めた。
+証拠：クービ・フォラの顔面・顎化石の比較。
+2026年時点の位置づけ：多様性は支持・種の境界は論争
+限界：各種がサピエンスの直系祖先かどうかは未解決。
+過去の年代：約200万年前前後の初期ホモ属。
+関連項目：E01;E41
+出典 [S23] New fossils from Koobi Fora in northern Kenya confirm taxonomic diversity in early Homo https://www.nature.com/articles/nature11322
+
+[E22] 2016–2016 シマ核DNAがネアンデルタール系統を特定
+論点：共通祖先・分類
+以前の見解：シマ化石のmtDNAはデニソワ人に近く、形態との食い違いがあった。
+変化：核DNAはネアンデルタール側との近縁性を示し、母系史と集団史の違いを明らかにした。
+証拠：シマ・デ・ロス・ウエソス化石の核DNA。
+2026年時点の位置づけ：ネアンデルタール側の位置を支持
+限界：ハイデルベルゲンシスと呼ばれた化石すべてを同じ共通祖先集団にまとめることはできない。
+過去の年代：約43万年前。
+関連項目：E27;E37
+出典 [S24] Nuclear DNA sequences from the Middle Pleistocene Sima de los Huesos hominins https://www.nature.com/articles/nature17405
+出典 [S25] The origin and evolution of Homo sapiens https://pubmed.ncbi.nlm.nih.gov/27298468/
+
+[E23] 2017–2017 ジェベル・イルードがサピエンスの古さと地域像を更新
+論点：年代・拡散
+以前の見解：約20万年前の東アフリカを中心とする簡潔な起源像が広く紹介されていた。
+変化：北アフリカの約30万年前の化石を初期サピエンスに位置づけ、大陸規模の成立を考える材料が増えた。
+証拠：顔・歯と頭蓋形状のモザイク、焼けた石器の熱ルミネッセンス年代。
+2026年時点の位置づけ：重要な化石記録・分類境界に議論
+限界：31.5±3.4万年前は関連資料の年代。モロッコ一地点が唯一の発祥地と確定したわけではない。
+過去の年代：31.5±3.4万年前。
+関連項目：E25;E29
+出典 [S26] New fossils from Jebel Irhoud, Morocco and the pan-African origin of Homo sapiens https://www.nature.com/articles/nature22336
+
+[E24] 2017–2017 ホモ・ナレディの若い年代が形態と時代の対応を崩す
+論点：共通祖先・分類
+以前の見解：小さな脳や古い形態なら非常に古い化石だと予測しやすかった。
+変化：原始的特徴を残す別系統が、初期サピエンスに近い時期にもアフリカに存在した。
+証拠：2015年記載のナレディに対する2017年の年代研究と統合評価。
+2026年時点の位置づけ：年代と同時期の多様性を支持
+限界：同時代の存在は、交雑・同所共存・直系祖先であることをそれだけで示さない。
+過去の年代：約33.5万〜23.6万年前。
+関連項目：E28
+出典 [S27] Homo naledi and Pleistocene hominin evolution in subequatorial Africa https://doi.org/10.7554/eLife.24234
+
+[E25] 2018–2018 汎アフリカ的な集団構造モデルを明示
+論点：起源モデル
+以前の見解：一つの小さな孤立集団から完成した現生人類が拡大する像が使われていた。
+変化：アフリカの分化した集団が断続的につながり、形態・文化・遺伝的特徴が成立したとする枠組みを提示。
+証拠：化石・考古資料・遺伝学・古環境の統合。
+2026年時点の位置づけ：有力な研究枠組み・具体像は未確定
+限界：世界規模の古典的多地域進化説とは地理・時期・内容が異なる。全地域の均等な寄与を意味しない。
+過去の年代：中期〜後期更新世のアフリカ。
+関連項目：E06;E30;E34
+出典 [S28] Did Our Species Evolve in Subdivided Populations across Africa, and Why Does It Matter? https://pubmed.ncbi.nlm.nih.gov/30007846/
+
+[E26] 2019–2019 アピディマが早いヨーロッパ進出の候補に
+論点：年代・拡散
+以前の見解：ヨーロッパの現生人類史を主として約4万〜5万年前以後に置く像が一般的だった。
+変化：ギリシャの頭蓋片を、より早いサピエンスの拡散の証拠とする解釈が提案された。
+証拠：仮想復元・形態比較・ウラン系列年代。
+2026年時点の位置づけ：種同定と解釈は論争継続
+限界：不完全な標本。早い進出の存在と、現代ヨーロッパ人への継続した祖先寄与は別。
+過去の年代：アピディマ1は約21万年前より古いと報告。
+関連項目：E09;E32
+出典 [S29] Apidima Cave fossils provide earliest evidence of Homo sapiens in Eurasia https://www.nature.com/articles/s41586-019-1376-z
+
+[E27] 2020–2020 アンテセッサーのタンパク質が系統推定を更新
+論点：共通祖先・分類
+以前の見解：アンテセッサーはサピエンスとネアンデルタールの直接の共通祖先候補だった。
+変化：歯のタンパク質は、サピエンス・ネアンデルタール・デニソワの共通祖先に近い姉妹系統という位置を支持。
+証拠：古代エナメル質タンパク質の配列解析。
+2026年時点の位置づけ：近縁な姉妹系統を支持
+限界：情報量は全ゲノムより少なく、個々の化石から直接の祖先個体を認定する方法ではない。
+過去の年代：約80万年前級の歯。
+関連項目：E13;E22
+出典 [S30] The dental proteome of Homo antecessor https://www.nature.com/articles/s41586-020-2153-8
+
+[E28] 2020–2020 カブウェ再年代測定でアフリカの同時代の多様性が明確に
+論点：年代・拡散
+以前の見解：古風な大型頭蓋を初期サピエンスより十分古い一段階として置きやすかった。
+変化：約30万年前の年代が、初期サピエンスと別の形態の人類が近い時期にいた像を補強。
+証拠：頭蓋・歯の直接的な年代評価。
+2026年時点の位置づけ：多様性を支持・祖先関係は未確定
+限界：古い形態だから直系祖先とは限らない。ハイデルベルゲンシス等の名称には異論がある。
+過去の年代：29.9±2.5万年前。
+関連項目：E24;E37
+出典 [S31] Dating the skull from Broken Hill, Zambia, and its position in human evolution https://www.nature.com/articles/s41586-020-2165-4
+
+[E29] 2022–2022 オモIの最低年代を再評価
+論点：年代・拡散
+以前の見解：2005年の約19.5万年前という年代が基準として使われた。
+変化：化石より上の火山灰を別地域の噴火と対比し、オモIはその噴火より古いと制約した。
+証拠：火山灰の化学組成対比と40Ar/39Ar年代測定。
+2026年時点の位置づけ：最低年代の制約として支持
+限界：23.3±2.2万年前は上位の火山灰の年代。化石をちょうど23.3万年前と断定しない。
+過去の年代：上位火山灰23.3±2.2万年前より古い。
+関連項目：E17;E23
+出典 [S33] Age of the oldest known Homo sapiens from eastern Africa https://www.nature.com/articles/s41586-021-04275-8
+
+[E30] 2023–2023 弱く構造化された祖先集団モデル
+論点：起源モデル
+以前の見解：アフリカの深い系統を、長期隔離した未知の旧人との一度の交雑で説明するモデルがあった。
+変化：長く遺伝子流動した複数の祖先集団でも現代アフリカ人の変異を説明できると示した。
+証拠：現代ゲノムを使う複数の人口史モデル比較。
+2026年時点の位置づけ：有力な競合モデル
+限界：唯一の確定史ではない。追加集団や旧人交雑を併せたモデルも排除していない。
+過去の年代：中期更新世以前にさかのぼる集団構造。
+関連項目：E25;E31;E34;E39
+出典 [S34] A weakly structured stem for human origins in Africa https://www.nature.com/articles/s41586-023-06055-y
+
+[E31] 2023–2023 約90万年前の極端な人口減少を提案
+論点：遺伝学・交雑
+以前の見解：深い過去の祖先人口規模は現代ゲノムからの推定に不確実性が大きかった。
+変化：FitCoal解析が長期間の非常に小さい有効集団サイズを推定し注目を集めた。
+証拠：現代人ゲノムの対立遺伝子頻度分布。
+2026年時点の位置づけ：強い方法論的反論があり未確立
+限界：約1,280は推定有効集団サイズに関わる値で、実際の生存者の人数ではない。
+過去の年代：約93万〜81.3万年前の減少を提案。
+関連項目：E33
+出典 [S35] Genomic inference of a severe human bottleneck during the Early to Middle Pleistocene transition https://pubmed.ncbi.nlm.nih.gov/37651513/
+出典 [S38] A previously reported bottleneck in human ancestry 900 kya is likely a statistical artifact https://academic.oup.com/genetics/article/229/1/iyae192/7925576
+
+[E32] 2024–2024 交雑の有無から、交雑した時期と集団へ
+論点：遺伝学・交雑
+以前の見解：2010年以降、交雑の存在は明確になったが主な出来事の年代には幅があった。
+変化：初期サピエンスの古代ゲノムから、現在の非アフリカ系統と共有する主要な交雑時期を絞り込んだ。
+証拠：ラニスとズラティー・クーンの古代ゲノム。
+2026年時点の位置づけ：交雑史の精密化
+限界：この研究の約4.5万〜4.9万年前という窓は、あらゆる交雑が一回だけだったという意味ではない。
+過去の年代：主要な共有交雑を約4.5万〜4.9万年前に推定。
+関連項目：E19;E26
+出典 [S37] Earliest modern human genomes constrain timing of Neanderthal admixture https://www.nature.com/articles/s41586-024-08420-x
+
+[E33] 2024–2025 極端なボトルネック説に統計的な反論
+論点：方法論
+以前の見解：2023年の推定が「人類が約1,280人まで減った」と広く伝えられた。
+変化：別手法やシミュレーションは、その急減が解析上の人工的な結果である可能性を指摘。
+証拠：Deng・Nielsen・Songの再解析・方法比較。
+2026年時点の位置づけ：元の強い結論は支持が弱い
+限界：一つの推定の批判であり、人類史のあらゆる人口減少を否定したわけではない。
+過去の年代：約90万年前についての推定を再評価。
+関連項目：E31
+出典 [S38] A previously reported bottleneck in human ancestry 900 kya is likely a statistical artifact https://academic.oup.com/genetics/article/229/1/iyae192/7925576
+
+[E42] 2024–2024 集団構造を省くと交雑を誤推定し得る
+論点：方法論
+以前の見解：単純化したモデルで深い遺伝的枝を旧人交雑と解釈する研究があった。
+変化：集団構造を考慮しないモデルが、実際にはない交雑イベントを推定し得ることを示した。
+証拠：人口史モデルの方法論的検討。
+2026年時点の位置づけ：モデル比較上の重要な注意
+限界：古代DNAで直接裏づけられたネアンデルタール交雑全体を否定するものではない。
+過去の年代：深い祖先史の統計的識別。
+関連項目：E30;E34;E39
+出典 [S36] Ignoring population structure in hominin evolutionary models can lead to the inference of spurious admixture events https://www.nature.com/articles/s41559-024-02591-6
+
+[E34] 2025–2025 深い分岐と再合流を推定する新モデル
+論点：起源モデル
+以前の見解：単一集団の人口規模変化だけでは、深いゲノム系統史を十分説明しにくかった。
+変化：cobraaモデルは約150万年前の分岐と約30万年前の再合流を含む人口史を支持した。
+証拠：現代ゲノムの連鎖情報を使う構造化合祖モデル。
+2026年時点の位置づけ：査読済みの提案・競合モデルあり
+限界：約80対20の寄与はモデル依存の推定。集団の地理や化石種を特定したわけではない。
+過去の年代：分岐約150万年前、再合流約30万年前。
+関連項目：E30;E42
+出典 [S39] A structured coalescent model reveals deep ancestral structure shared by all modern humans https://www.nature.com/articles/s41588-025-02117-1
+
+[E35] 2025–2025 ハルビン頭蓋とデニソワ人を分子情報で結ぶ
+論点：共通祖先・分類
+以前の見解：Homo longiの模式頭蓋は、形態から系統的位置が議論されていた。
+変化：歯石由来mtDNAがデニソワ人との関係を直接示し、形態名と遺伝的集団の対応が進んだ。
+証拠：ハルビン頭蓋の歯石から回収した古代mtDNA。
+2026年時点の位置づけ：デニソワ人との対応を強く支持
+限界：mtDNAによる帰属と、H. longiという種名の適用範囲・全核系統樹は同じ問題ではない。
+過去の年代：少なくとも約14.6万年前。
+関連項目：E21;E36;E40
+出典 [S40] Denisovan mitochondrial DNA from dental calculus of the >146,000-year-old Harbin cranium https://doi.org/10.1016/j.cell.2025.05.040
+
+[E36] 2025–2025 鄖県2号をlongi／デニソワ側に置く形態仮説
+論点：共通祖先・分類
+以前の見解：変形の大きい鄖県頭蓋はホモ・エレクトスとの関係が議論されていた。
+変化：仮想復元と形態系統解析から、longi系統の早い成員とする提案が出た。
+証拠：頭蓋のデジタル復元と系統推定。
+2026年時点の位置づけ：仮説・2026年の年代更新で再検討が必要
+限界：分子による直接同定ではない。約100万年前という時代設定も翌年の研究で変わった。
+過去の年代：当該解析で約100万年前を使用。
+関連項目：E38
+出典 [S41] The phylogenetic position of the Yunxian cranium elucidates the origin of Homo longi and the Denisovans https://pubmed.ncbi.nlm.nih.gov/40997177/
+出典 [S43] The oldest in situ Homo erectus crania in eastern Asia: The Yunxian site dates to ~1.77 Ma https://pubmed.ncbi.nlm.nih.gov/41706848/
+
+[E37] 2026–2026 トマ採石場の化石がアフリカの深い根を補強
+論点：共通祖先・分類
+以前の見解：サピエンスとユーラシア系統の分岐付近のアフリカ化石が乏しかった。
+変化：モロッコの顎・歯などを分岐に近いアフリカ系統と解釈し、アフリカ祖先説を補強。
+証拠：2026年1月7日論文。形態比較と高解像度の古地磁気層序。
+2026年時点の位置づけ：新たな重要証拠・系統仮説は検証中
+限界：77.3万年前のサピエンス発見ではない。直系祖先や最後の共通祖先と確定していない。
+過去の年代：約77.3±0.4万年前。
+関連項目：E22;E28;E36
+出典 [S42] Early hominins from Morocco basal to the Homo sapiens lineage https://www.nature.com/articles/s41586-025-09914-y
+
+[E38] 2026–2026 鄖県の年代を約177万年前に更新
+論点：年代・拡散
+以前の見解：2025年の形態解析では約100万年前が年代の基準だった。
+変化：26Al/10Be埋没年代が大きく古い年代を示し、系統樹の時間設定を再検討する必要が生じた。
+証拠：2026年2月18日公開。地層試料の放射性核種年代。
+2026年時点の位置づけ：新年代の提案・系統への影響は未決着
+限界：年代更新だけで形態解析の結論が全て否定されたとは言えない。論文はH. erectusとして論じる。
+過去の年代：177±8万年前（報告された内部誤差）。
+関連項目：E36
+出典 [S43] The oldest in situ Homo erectus crania in eastern Asia: The Yunxian site dates to ~1.77 Ma https://pubmed.ncbi.nlm.nih.gov/41706848/
+
+[E39] 2026–2026 TRACEが未知の祖先由来の遺伝的寄与を探索
+論点：遺伝学・交雑
+以前の見解：既知の古代ゲノムがない集団からの交雑は同定しにくかった。
+変化：古代の参照ゲノムや非交雑外群に依存しない方法が、未知集団由来の候補領域を推定した。
+証拠：祖先組換えグラフを使うTRACE。Science誌面日2026年8月27日。
+2026年時点の位置づけ：新しい推定・独立検証が必要
+限界：未知の化石種の発見ではない。集団構造などの代替説明、時期・地域・種の対応は検討対象。
+過去の年代：現代ゲノムに残る深い祖先史を推定。
+関連項目：E30;E34;E42
+出典 [S44] Recovering signatures of archaic hominin introgression using ancestral recombination graphs https://pubmed.ncbi.nlm.nih.gov/42531349/
+出典 [S36] Ignoring population structure in hominin evolutionary models can lead to the inference of spurious admixture events https://www.nature.com/articles/s41559-024-02591-6
+
+[E40] 2026–2026 中国南西部の骨・歯をデニソワ人と同定
+論点：共通祖先・分類
+以前の見解：デニソワ人の確実な分子同定資料はアジアの限られた地点に偏っていた。
+変化：雲南省の蝙蝠洞資料を古代タンパク質で同定し、分布と身体資料を拡充。
+証拠：2026年9月9日公開のNature原著。骨片・歯のプロテオーム解析。
+2026年時点の位置づけ：新しい分子同定証拠
+限界：この化石個体が現代人の直接の祖先か、どの交雑に関与したかは示さない。
+過去の年代：中期更新世後半〜後期更新世の遺跡資料。
+関連項目：E21;E35
+出典 [S45] Ancient proteins identify various Denisovan remains from Southwest China https://www.nature.com/articles/s41586-026-10976-9
+
+[E41] 2026–2026 初期ホモ属の定義と祖先関係はなお未決着
+論点：遠い祖先・初期ヒト属
+以前の見解：ハビリス→エレクトス→サピエンスという簡単な並びで説明されやすい。
+変化：最新総説も、初期ホモの標本帰属・収斂・断片的資料の問題を整理し、一本の確定系譜を提示していない。
+証拠：2025年研究集会を踏まえた2026年の専門総説。
+2026年時点の位置づけ：分類・系統は論争継続
+限界：種名の羅列を、証明済みの親子関係として扱わない。
+過去の年代：初期ホモ属の出現前後。
+関連項目：E01;E20
+出典 [S47] The Early Homo Conundrum: Challenges and Potential Solutions https://onlinelibrary.wiley.com/doi/10.1002/evan.70043
+
+[E44] 2026–2026 現代性と「人類革命」の枠組みも再検討
+論点：方法論
+以前の見解：行動の現代性を一時点の急激な革命として扱う枠組みが残っていた。
+変化：2026年総説は年代の精度と「現代性」という概念自体を吟味し、拡散史の解釈を再検討。
+証拠：考古資料・年代研究の総説。
+2026年時点の位置づけ：単一革命モデルへの批判が継続
+限界：文化行動の成立と、生物種としてのサピエンスの成立は同じ日付で表せない。
+過去の年代：中期〜後期更新世。
+関連項目：E25
+出典 [S48] Revolution, modernity, and the dispersal of Homo sapiens beyond Africa https://www.sciencedirect.com/science/article/pii/S0277379126001903
+
+出典と確認範囲
+
+[S01] 1973 Evidence for an Advanced Plio-Pleistocene Hominid from East Rudolf, Kenya
+https://www.nature.com/articles/242447a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S02] 1974 Population relationships of later Pleistocene hominids: A multivariate study of available crania
+https://www.sciencedirect.com/science/article/pii/030544037490051X
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S03] 1979 A systematic assessment of early African hominids
+https://pubmed.ncbi.nlm.nih.gov/104384/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S04] 1979 Pliocene footprints in the Laetolil Beds at Laetoli, northern Tanzania
+https://www.nature.com/articles/278317a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S05] 1982 The relationships of Sivapithecus and Ramapithecus and the evolution of the orang-utan
+https://www.nature.com/articles/297541a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+書誌は国立国会図書館のDOI記録でも照合。
+
+[S06] 1998 The Context of Human Genetic Evolution
+https://doi.org/10.1101/gr.8.4.339
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+1984年の多地域進化モデルとその主張を遡及的に確認。
+
+[S07] 1987 Mitochondrial DNA and human evolution
+https://www.nature.com/articles/325031a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S08] 1988 Genetic and fossil evidence for the origin of modern humans
+https://pubmed.ncbi.nlm.nih.gov/3125610/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S09] 1988 Thermoluminescence dating of Mousterian ‘Proto-Cro-Magnon’ remains from Israel and the origin of modern man
+https://www.nature.com/articles/331614a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S10] 1989 Modern human origins
+https://onlinelibrary.wiley.com/doi/abs/10.1002/ajpa.1330320504
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S11] 2017 The Assimilation Model of modern human origins in light of current genetic and genomic knowledge
+https://www.sciencedirect.com/science/article/pii/S104061821630386X
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+同化モデルが1989年に正式に定式化されたことを確認。
+
+[S12] 1994 Matrix correlation tests support a single origin for modern humans
+https://www.nature.com/articles/368452a0
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S13] 1997 Neandertal DNA sequences and the origin of modern humans
+https://pubmed.ncbi.nlm.nih.gov/9230299/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S14] 1997 A Hominid from the Lower Pleistocene of Atapuerca, Spain: Possible Ancestor to Neandertals and Modern Humans
+https://doi.org/10.1126/science.276.5317.1392
+資料種別：原著論文／確認：著者公開情報・書誌と後続原著の引用／解釈を照合
+
+
+[S15] 2000 Mitochondrial genome variation and the origin of modern humans
+https://www.nature.com/articles/35047064
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S16] 2002 A new hominid from the Upper Miocene of Chad, Central Africa
+https://www.nature.com/articles/nature00879
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S17] 2003 Pleistocene Homo sapiens from Middle Awash, Ethiopia
+https://www.nature.com/articles/nature01669
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S18] 2004 A new small-bodied hominin from the Late Pleistocene of Flores, Indonesia
+https://www.nature.com/articles/nature02999
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S19] 2005 Stratigraphic placement and age of modern humans from Kibish, Ethiopia
+https://www.nature.com/articles/nature03258
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S20] 2009 Ardipithecus ramidus and the paleobiology of early hominids
+https://pubmed.ncbi.nlm.nih.gov/19810190/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S21] 2010 A draft sequence of the Neandertal genome
+https://pubmed.ncbi.nlm.nih.gov/20448178/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S22] 2010 Genetic history of an archaic hominin group from Denisova Cave in Siberia
+https://www.nature.com/articles/nature09710
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S23] 2012 New fossils from Koobi Fora in northern Kenya confirm taxonomic diversity in early Homo
+https://www.nature.com/articles/nature11322
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S24] 2016 Nuclear DNA sequences from the Middle Pleistocene Sima de los Huesos hominins
+https://www.nature.com/articles/nature17405
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S25] 2016 The origin and evolution of Homo sapiens
+https://pubmed.ncbi.nlm.nih.gov/27298468/
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S26] 2017 New fossils from Jebel Irhoud, Morocco and the pan-African origin of Homo sapiens
+https://www.nature.com/articles/nature22336
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S27] 2017 Homo naledi and Pleistocene hominin evolution in subequatorial Africa
+https://doi.org/10.7554/eLife.24234
+資料種別：研究者による統合論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S28] 2018 Did Our Species Evolve in Subdivided Populations across Africa, and Why Does It Matter?
+https://pubmed.ncbi.nlm.nih.gov/30007846/
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S29] 2019 Apidima Cave fossils provide earliest evidence of Homo sapiens in Eurasia
+https://www.nature.com/articles/s41586-019-1376-z
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S30] 2020 The dental proteome of Homo antecessor
+https://www.nature.com/articles/s41586-020-2153-8
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S31] 2020 Dating the skull from Broken Hill, Zambia, and its position in human evolution
+https://www.nature.com/articles/s41586-020-2165-4
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S32] 2021 Origins of modern human ancestry
+https://www.nature.com/articles/s41586-021-03244-5
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S33] 2022 Age of the oldest known Homo sapiens from eastern Africa
+https://www.nature.com/articles/s41586-021-04275-8
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+DOIの2021は発表年ではない。オンライン公開は2022年1月12日。
+
+[S34] 2023 A weakly structured stem for human origins in Africa
+https://www.nature.com/articles/s41586-023-06055-y
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S35] 2023 Genomic inference of a severe human bottleneck during the Early to Middle Pleistocene transition
+https://pubmed.ncbi.nlm.nih.gov/37651513/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S36] 2024 Ignoring population structure in hominin evolutionary models can lead to the inference of spurious admixture events
+https://www.nature.com/articles/s41559-024-02591-6
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+オンライン公開2024年12月13日。
+
+[S37] 2024 Earliest modern human genomes constrain timing of Neanderthal admixture
+https://www.nature.com/articles/s41586-024-08420-x
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+オンライン公開2024年12月12日。巻号は2025年。年表ではオンライン年を使用。
+
+[S38] 2024 A previously reported bottleneck in human ancestry 900 kya is likely a statistical artifact
+https://academic.oup.com/genetics/article/229/1/iyae192/7925576
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+2024年オンライン公開、2025年1月号。年表では2024–2025年と表記。
+
+[S39] 2025 A structured coalescent model reveals deep ancestral structure shared by all modern humans
+https://www.nature.com/articles/s41588-025-02117-1
+資料種別：原著論文／確認：本文・抄録・方法・公開日を確認
+
+
+[S40] 2025 Denisovan mitochondrial DNA from dental calculus of the >146,000-year-old Harbin cranium
+https://doi.org/10.1016/j.cell.2025.05.040
+資料種別：原著論文／確認：著者所属機関公開PDFの抜粋と出版社書誌を照合
+
+
+[S41] 2025 The phylogenetic position of the Yunxian cranium elucidates the origin of Homo longi and the Denisovans
+https://pubmed.ncbi.nlm.nih.gov/40997177/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+
+
+[S42] 2026 Early hominins from Morocco basal to the Homo sapiens lineage
+https://www.nature.com/articles/s41586-025-09914-y
+資料種別：原著論文／確認：本文の考察・結論・方法抜粋・公開日を確認
+公開2026年1月7日。DOIに2025を含むが2026年論文。
+
+[S43] 2026 The oldest in situ Homo erectus crania in eastern Asia: The Yunxian site dates to ~1.77 Ma
+https://pubmed.ncbi.nlm.nih.gov/41706848/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+オンライン公開2026年2月18日。原著全文の公開抜粋も照合。
+
+[S44] 2026 Recovering signatures of archaic hominin introgression using ancestral recombination graphs
+https://pubmed.ncbi.nlm.nih.gov/42531349/
+資料種別：原著論文／確認：出版社・索引の抄録／公開抜粋
+DOI:10.1126/science.aef8874。初回公開7月30日とされるが、採録日の確実なPubMed誌面日8月27日を記録。
+
+[S45] 2026 Ancient proteins identify various Denisovan remains from Southwest China
+https://www.nature.com/articles/s41586-026-10976-9
+資料種別：原著論文／確認：出版社公開抜粋・PubMed抄録・出版社日本語解説を照合
+オンライン公開2026年9月9日。PubMed:42717084。
+
+[S46] 2018 One hundred years of paleoanthropology: An American perspective
+https://onlinelibrary.wiley.com/doi/full/10.1002/ajpa.23330
+資料種別：研究者による学史総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S47] 2026 The Early Homo Conundrum: Challenges and Potential Solutions
+https://onlinelibrary.wiley.com/doi/10.1002/evan.70043
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋
+
+
+[S48] 2026 Revolution, modernity, and the dispersal of Homo sapiens beyond Africa
+https://www.sciencedirect.com/science/article/pii/S0277379126001903
+資料種別：研究者による総説／確認：出版社・索引の抄録／公開抜粋

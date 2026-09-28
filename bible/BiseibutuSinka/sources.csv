@@ -1,0 +1,60 @@
+﻿source_id,study_id,title,url,doi,role,access,checked_on
+S001,EE001,The Production of Polyploid Gametes in Hybrids,https://doi.org/10.1111/j.1601-5223.1927.tb03536.x,10.1111/j.1601-5223.1927.tb03536.x,主要一次資料,一次論文の書誌・歴史的関連論文,2026-09-28
+S002,EE002,Natural selection for reproductive isolation between Drosophila pseudoobscura and Drosophila persimilis,https://doi.org/10.1111/j.1558-5646.1950.tb00048.x,10.1111/j.1558-5646.1950.tb00048.x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S003,EE003,Isolation by Disruptive Selection,https://doi.org/10.1038/1931164a0,10.1038/1931164a0,主要一次資料,一次論文の書誌・公開範囲（詳細限定）,2026-09-28
+S004,EE004,Spontaneous origin of an incipient species in the Drosophila paulistorum complex,https://pubmed.ncbi.nlm.nih.gov/5219677/,10.1073/pnas.55.4.727,主要一次資料,一次論文書誌・同系列一次論文,2026-09-28
+S005,EE005,Experiments on the Incipient Species of the Drosophila paulistorum Complex,https://pmc.ncbi.nlm.nih.gov/articles/PMC1211364/,10.1093/genetics/55.1.141,主要一次資料,一次論文書誌・本文PDF所在確認（詳細限定）,2026-09-28
+S006,EE006,Experimentally Created Incipient Species of Drosophila,https://doi.org/10.1038/230289a0,10.1038/230289a0,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S007,EE007,Development of cellular dependence on infective organisms: micrurgical studies in amoebas,https://pubmed.ncbi.nlm.nih.gov/5035468/,10.1126/science.176.4039.1122,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S008,EE008,Regulation of newly evolved enzymes. I. Selection of a novel lactase regulated by lactose in Escherichia coli,https://pubmed.ncbi.nlm.nih.gov/4598756/,10.1093/genetics/76.3.391,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S009,EE009,Endosymbiosis in amoebae: recently established endosymbionts have become required cytoplasmic components,https://pubmed.ncbi.nlm.nih.gov/972171/,10.1002/jcp.1040890216,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S010,EE010,Experimental evolution of a new enzymatic function. II. Evolution of multiple functions for EBG enzyme in E. coli,https://pubmed.ncbi.nlm.nih.gov/97169/,10.1093/genetics/89.3.453,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S011,EE011,A multifactorial genetic investigation of speciation theory using Drosophila melanogaster,https://pubmed.ncbi.nlm.nih.gov/28563991/,10.1111/j.1558-5646.1980.tb04012.x,主要一次資料,一次書誌・著者公開要旨・同系列一次論文,2026-09-28
+S012,EE012,The effect of metals and alcohol on sexual isolation in Drosophila melanogaster,https://doi.org/10.1007/BF00056030,10.1007/BF00056030,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S013,EE013,Reproductive isolation as a consequence of adaptive divergence in Drosophila pseudoobscura,https://academic.oup.com/evolut/article/43/6/1308/6869288,10.1111/j.1558-5646.1989.tb02577.x,主要一次資料,一次論文書誌・関連一次論文での結果確認,2026-09-28
+S014,EE014,The evolution of reproductive isolation as a correlated character under sympatric conditions: experimental evidence,https://doi.org/10.1111/j.1558-5646.1990.tb05221.x,10.1111/j.1558-5646.1990.tb05221.x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S015,EE015,Microbial evolution in a simple unstructured environment: genetic differentiation in Escherichia coli,https://pmc.ncbi.nlm.nih.gov/articles/PMC1206068/,10.1093/genetics/137.4.903,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S016,EE016,Founder-effect speciation theory: failure of experimental corroboration,https://pubmed.ncbi.nlm.nih.gov/7732017/,10.1073/pnas.92.9.3983,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S017,EE017,Phagotrophy by a flagellate selects for colonial prey: A possible origin of multicellularity,https://www.researchgate.net/publication/263614820_Phagotrophy_by_flagellate_selects_for_colonial_prey_A_possible_origin_of_multicellularity,10.1023/A:1006527528063,主要一次資料,著者論文の公開要旨,2026-09-28
+S018,EE018,Adaptive radiation in a heterogeneous environment,https://doi.org/10.1038/27900,10.1038/27900,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S019,EE019,Hybrid speciation in experimental populations of yeast,https://pubmed.ncbi.nlm.nih.gov/12459586/,10.1126/science.1076374,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S020,EE020,Experimental evidence for sympatric ecological diversification due to frequency-dependent competition in Escherichia coli,https://pubmed.ncbi.nlm.nih.gov/15068343/,10.1111/j.0014-3820.2004.tb01642.x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S021,EE021,Experimental evolution of mating discrimination in budding yeast,https://pubmed.ncbi.nlm.nih.gov/16461281/,10.1016/j.cub.2005.12.028,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S022,EE022,Incipient speciation by divergent adaptation and antagonistic epistasis in yeast,https://pubmed.ncbi.nlm.nih.gov/17538619/,10.1038/nature05856,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S023,EE023,Evolution of host specificity drives reproductive isolation among RNA viruses,https://pubmed.ncbi.nlm.nih.gov/17908251/,10.1111/j.1558-5646.2007.00226.x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S024,EE024,Divergent adaptation promotes reproductive isolation among experimental populations of the filamentous fungus Neurospora,https://pmc.ncbi.nlm.nih.gov/articles/PMC2270261/,10.1186/1471-2148-8-35,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S025,EE025,Historical contingency and the evolution of a key innovation in an experimental population of Escherichia coli,https://pmc.ncbi.nlm.nih.gov/articles/PMC2430337/,10.1073/pnas.0803151105,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S026,EE026,Determinants of divergent adaptation and Dobzhansky-Muller interaction in experimental yeast populations,https://pmc.ncbi.nlm.nih.gov/articles/PMC2938792/,10.1016/j.cub.2010.06.022,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S027,EE027,Experimental Evolution of a Plant Pathogen into a Legume Symbiont,https://pmc.ncbi.nlm.nih.gov/articles/PMC2796954/,10.1371/journal.pbio.1000280,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S028,EE028,Novel cooperation experimentally evolved between species,https://doi.org/10.1111/j.1558-5646.2010.00959.x,10.1111/j.1558-5646.2010.00959.x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S029,EE029,Rapid evolution of stability and productivity at the origin of a microbial mutualism,https://pubmed.ncbi.nlm.nih.gov/20133857/,10.1073/pnas.0908456107,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S030,EE030,Commensal bacteria play a role in mating preference of Drosophila melanogaster,https://pubmed.ncbi.nlm.nih.gov/21041648/,10.1073/pnas.1009906107,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S031,EE031,Experimental evolution of multicellularity,https://pmc.ncbi.nlm.nih.gov/articles/PMC3277146/,10.1073/pnas.1115323109,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S032,EE032,Repeatability and Contingency in the Evolution of a Key Innovation in Phage Lambda,https://pmc.ncbi.nlm.nih.gov/articles/PMC3306806/,10.1126/science.1214449,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S033,EE033,Genomic analysis of a key innovation in an experimental Escherichia coli population,https://doi.org/10.1038/nature11514,10.1038/nature11514,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S034,EE034,Experimental evolution of an alternating uni- and multicellular life cycle in Chlamydomonas reinhardtii,https://pmc.ncbi.nlm.nih.gov/articles/PMC3831279/,10.1038/ncomms3742,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S035,EE035,"Life cycles, fitness decoupling and the evolution of multicellularity",https://doi.org/10.1038/nature13884,10.1038/nature13884,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S036,EE036,Erosion of functional independence early in the evolution of a microbial mutualism,https://pmc.ncbi.nlm.nih.gov/articles/PMC4205623/,10.1073/pnas.1407986111,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S037,EE037,Origins of multicellular evolvability in snowflake yeast,https://doi.org/10.1038/ncomms7102,10.1038/ncomms7102,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S038,EE038,"Experimental evolution: Assortative mating and sexual selection, independent of local adaptation, lead to reproductive isolation in the nematode Caenorhabditis remanei",https://pubmed.ncbi.nlm.nih.gov/26542312/,10.1111/evo.12815,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S039,EE039,Ecological speciation of bacteriophage lambda in allopatry and sympatry,https://pubmed.ncbi.nlm.nih.gov/27884940/,10.1126/science.aai8446,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S040,EE040,Rapid evolution of microbe-mediated protection against pathogens in a worm host,https://doi.org/10.1038/ismej.2015.259,10.1038/ismej.2015.259,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S041,EE041,Gut microbiomes and reproductive isolation in Drosophila,https://pmc.ncbi.nlm.nih.gov/articles/PMC5715749/,10.1073/pnas.1708345114,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S042,EE042,De novo origins of multicellularity in response to predation,https://doi.org/10.1038/s41598-019-39558-8,10.1038/s41598-019-39558-8,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S043,EE043,Rapid experimental evolution of reproductive isolation from a single natural population,https://pmc.ncbi.nlm.nih.gov/articles/PMC6613143/,10.1073/pnas.1901247116,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S044,EE044,Conversion of Escherichia coli to Generate All Biomass Carbon from CO2,https://pmc.ncbi.nlm.nih.gov/articles/PMC6904909/,10.1016/j.cell.2019.11.009,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S045,EE045,Regulation of sedimentation rate shapes the evolution of multicellularity in a close unicellular relative of animals,https://doi.org/10.1371/journal.pbio.3001551,10.1371/journal.pbio.3001551,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S046,EE046,De novo evolution of macroscopic multicellularity,https://pmc.ncbi.nlm.nih.gov/articles/PMC10425966/,10.1038/s41586-023-06052-1,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S047,EE047,Bacteria evolve macroscopic multicellularity by the genetic assimilation of phenotypically plastic cell clustering,https://doi.org/10.1038/s41467-023-39320-9,10.1038/s41467-023-39320-9,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S048,EE048,Reproductive isolation arises during laboratory adaptation to a novel hot environment,https://doi.org/10.1186/s13059-024-03285-9,10.1186/s13059-024-03285-9,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S049,EE049,Emergence and maintenance of stable coexistence during a long-term multicellular evolution experiment,https://pmc.ncbi.nlm.nih.gov/articles/PMC11090753/,10.1038/s41559-024-02367-y,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S050,EE050,Experimental evolution of multicellularity via cuboidal cell packing in fission yeast,https://pmc.ncbi.nlm.nih.gov/articles/PMC11827335/,10.1093/evlett/qrae024,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S051,EE051,Inducing novel endosymbioses by implanting bacteria in fungi,https://pmc.ncbi.nlm.nih.gov/articles/PMC11560845/,10.1038/s41586-024-08010-x,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S052,EE052,Genome duplication in a long-term multicellularity evolution experiment,https://doi.org/10.1038/s41586-025-08689-6,10.1038/s41586-025-08689-6,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S053,EE053,Reproductive Isolation due to Divergent Ecological Selection Is Accompanied by Vast Genomic Instability in Experimentally Evolved Yeast Populations,https://pmc.ncbi.nlm.nih.gov/articles/PMC12617035/,10.1111/mec.70110,主要一次資料,一次論文の要旨・本文抜粋,2026-09-28
+S054,EE054,Genetic switch between unicellularity and multicellularity in marine yeasts,https://doi.org/10.1038/s41586-025-09881-4,10.1038/s41586-025-09881-4,主要一次資料,一次論文要旨・図説明・補足資料一覧（方法詳細未確認）,2026-09-28
+X001,,Correction for Sharon et al. (2013),https://doi.org/10.1073/pnas.1302326110,,統計解析の訂正,公開資料確認,2026-09-28
+X002,,Correction for Leftwich et al. (2018),https://doi.org/10.1073/pnas.1801321115,,訂正の所在,公開資料確認,2026-09-28
+X003,,Diet-induced mating preference in Drosophila (2018),https://pmc.ncbi.nlm.nih.gov/articles/PMC5877995/,,原報側の応答,公開資料確認,2026-09-28
+X004,,Errata (1982),https://doi.org/10.1111/j.1558-5646.1982.tb05028.x,,訂正の所在,公開資料確認,2026-09-28
+X005,,Data: Ecological speciation of bacteriophage lambda in allopatry and sympatry,https://doi.org/10.5061/dryad.4qb79,,著者の実験データと要旨,公開資料確認,2026-09-28

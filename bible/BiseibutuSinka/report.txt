@@ -1,0 +1,1204 @@
+﻿実験室で進化はどこまで進んだか — 1900–2026年9月の研究データベース
+
+収録 54論文：{'補足': 5, '主収録': 47, '否定・再検証': 2}
+
+調査結果の読み方
+
+実験で実現したのは、単なる耐性向上にとどまらない。交配選好の分化、雑種の生殖成功低下、ファージの遺伝的不和合、細胞集団の遺伝的安定化、多細胞生活環、好気的クエン酸利用、新受容体利用、共生依存の成立までが一次研究で報告されている。一方で「新種を何種類作ったか」という一つの数には還元できない。
+
+種分化の到達点：Rice & Salt (1990)は実験装置内の生息場所選好による完全な隔離を報告。Greig et al. (2002)は雑種内稔性と戻し交配稔性の大きな差を示した。Meyer et al. (2016)はファージで生態的分岐と遺伝的不和合を結び付けた。Dodd (1989)、酵母、線虫、シラミ、2024–2025年の実験の多くは部分的な隔離であり、交配不能な新種としての完成や分類学的命名とは別である。対応するDB行の一次資料を参照。
+
+多細胞化の到達点：Boraas et al. (1998)の捕食回避群体、Ratcliff et al. (2012, 2013)の雪片型と交互生活環、Hammerschmidt et al. (2014)の集団レベルの繁殖、Herron et al. (2019)の捕食下での独立移行、2022–2024年の別系統の細胞集団、MuLTEEの肉眼的大型化・ニッチ分化・全ゲノム重複へと進んだ。単純な多細胞性と、複雑な組織・器官を持つ多細胞生物は同じ到達点ではない。
+
+新機能の到達点：乳糖利用の代替系、好気的クエン酸利用、新しいファージ受容体利用、交差栄養、新規の防御共生などが確認される。新しい表現型は既存遺伝子の転用や調節変化でも生まれる。「新機能」であることは遺伝子が無から生まれたことを意味しない。共生プラスミド導入、炭素固定経路導入、菌類への細菌移植などは人工導入後に進化がどの部分を担ったかを区別する。
+
+否定結果：Moya et al. (1995)は10年間の創始者効果実験で持続的隔離を確認しなかった。Sharon et al. (2010)の餌・腸内細菌による交配選好は、統計訂正とLeftwich et al. (2017)の再現失敗を併記する。後者をDoddの別種・別実験の直接反証としない。
+
+時代区分：1900–1949＝植物交雑・倍数性による種形成の補足。1950–1989＝隔離の直接選択と環境分化の実験。1990–2009＝生態的隔離、微生物の適応放散、雑種不和合と新機能。2010–2019＝機構解析、主要移行、生活環と共生の実験。2020–2026＝長期の多細胞進化と複数系統への拡張、ゲノム変化と隔離の統合。
+
+範囲と限界：これは代表的研究を整理した文献データベースで、全世界の全論文を漏れなく収録したものではない。各研究の未確認の世代数は推測で埋めていない。2026年の海洋酵母論文は既存の任意的多細胞性の遺伝スイッチの解明であり、実験進化と直接改変の寄与を分離できない部分があるため補足とした。2026年9月まで検索したことと、同月に適格な成功論文を確認したことは異なる。
+
+調査方法・データ定義
+調査名：実験室で進化はどこまで進んだか — 1900–2026年9月の研究データベース
+対象開始日：1900-01-01
+依頼対象の終期：2026-09-30
+実際の調査締切：2026-09-28
+検索・採用方法：主要研究を一次論文の公開要旨・本文・図説明・書誌から抽出した重点的スコーピング調査。網羅的なシステマティックレビューではない。
+年代順の基準：年代順は査読論文の公表年（オンライン先行公表を含む）。実験開始年・変化の発生年とは区別。年内は安定ID順。
+集計単位：1行は論文単位。研究系列IDが同じ行は独立した実験成功数として合算しない。
+欠測と単位：未確認は未確認と記載。世代・日数・継代・核世代は換算せず区別。空欄は欠測でゼロを意味しない。
+年代の空白：1900–1926年には本調査で採用条件と一次資料を十分確認できた行なし。1927年は植物交雑の補足。空白年代は研究が存在しなかったことの証明ではない。2026年9月29–30日は調査日より先なので対象外。
+生物群の範囲：細菌・酵母・その他の菌類・単細胞真核生物・藻類・ファージ・線虫・昆虫を収録。古細菌は相互栄養共培養の一員として収録。古細菌単独の種分化、脊椎動物自体の適格実験は今回確認できず。
+資料確認の限界：全論文の全文と補足資料を精読した調査ではない。各行に確認範囲を記載し、公開範囲が限られる古典研究は結果・期間を保守的に記述。
+用語の区別：生殖隔離・生態的分化・新機能・多細胞化を別々に評価する。無性生物のニッチ分化を有性生物の交配不能と同一視しない。新しい機能は実験祖先に対して新しいという意味で、生物史上初めてとは限らない。
+収録区分：主収録＝A–Dに対応する変化を扱う実験とその機構的続報。補足＝既存種間強化、倍数体交雑、人工依存系の初期適応、進化と直接操作が未分離の研究。否定・再検証＝種分化の試行に対する陰性・再現検証。
+
+============================================================================
+ID：EE001
+公表年：1927
+著者：G. D. Karpechenko
+論文名：The Production of Polyploid Gametes in Hybrids
+対象生物：Raphanus sativus × Brassica oleracea
+生物群：植物
+採用条件：A
+研究系列：RAPHANOBRASSICA
+実験・選択条件：異属交雑の後代で倍数性と稔性を追跡
+世代数・期間：複数世代；今回の確認範囲では正確な世代数未確認
+実際に観察された変化：非還元配偶子と倍数体後代を通じ、交雑系統が生殖可能になる機構を実験的に扱った。
+解釈上の限界：長期継代選択ではなく人工交雑・倍数化による種形成の歴史的補足。単一祖先からの分岐とは区別。
+DOI：10.1111/j.1601-5223.1927.tb03536.x
+一次資料URL：https://doi.org/10.1111/j.1601-5223.1927.tb03536.x
+収録区分：補足
+今回確認できた資料範囲：一次論文の書誌・歴史的関連論文
+人為操作の性質：人工交雑・倍数化
+掲載誌：Hereditas
+確認日：2026-09-28
+
+============================================================================
+ID：EE002
+公表年：1950
+著者：K. F. Koopman
+論文名：Natural selection for reproductive isolation between Drosophila pseudoobscura and Drosophila persimilis
+対象生物：Drosophila pseudoobscura / D. persimilis
+生物群：昆虫
+採用条件：A
+研究系列：KOOPMAN
+実験・選択条件：既存の近縁種を混合した実験集団で異種交配に不利な選択
+世代数・期間：数世代；正確な世代数未確認
+実際に観察された変化：既存種間の交配前隔離が選択によって強まることを示した。
+解釈上の限界：すでに分かれた二種間の隔離の強化であり、新種をゼロから作った実験ではない。
+DOI：10.1111/j.1558-5646.1950.tb00048.x
+一次資料URL：https://doi.org/10.1111/j.1558-5646.1950.tb00048.x
+収録区分：補足
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE003
+公表年：1962
+著者：J. M. Thoday; J. B. Gibson
+論文名：Isolation by Disruptive Selection
+対象生物：Drosophila melanogaster
+生物群：昆虫
+採用条件：A
+研究系列：THODAY
+実験・選択条件：剛毛数の両極端を選ぶ分断選択と交配の追跡
+世代数・期間：多世代；正確な世代数未確認
+実際に観察された変化：分断選択に伴う交配隔離の成立を報告した古典的実験。
+解釈上の限界：剛毛数の育種そのものではなく交配隔離を対象として採用。一次ページでは詳細な効果量を確認できず、普遍的・再現的な種分化の証明とは扱わない。
+DOI：10.1038/1931164a0
+一次資料URL：https://doi.org/10.1038/1931164a0
+収録区分：主収録
+今回確認できた資料範囲：一次論文の書誌・公開範囲（詳細限定）
+人為操作の性質：形質への人工選択
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE004
+公表年：1966
+著者：T. Dobzhansky; O. Pavlovsky
+論文名：Spontaneous origin of an incipient species in the Drosophila paulistorum complex
+対象生物：Drosophila paulistorum complex
+生物群：昆虫
+採用条件：A
+研究系列：PAULISTORUM
+実験・選択条件：実験室維持系統と近縁系統を交配して不和合を検査
+世代数・期間：1958–1963年に変化が検出された系列；世代数未確認
+実際に観察された変化：飼育系統で、以前と異なる交雑不稔の関係が現れたと報告。
+解釈上の限界：種複合体由来の系統であり、初期の遺伝的背景と細胞質・共生要因に注意。核ゲノムだけによる新種成立とは断定しない。
+DOI：10.1073/pnas.55.4.727
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/5219677/
+収録区分：主収録
+今回確認できた資料範囲：一次論文書誌・同系列一次論文
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE005
+公表年：1967
+著者：T. Dobzhansky; O. Pavlovsky
+論文名：Experiments on the Incipient Species of the Drosophila paulistorum Complex
+対象生物：Drosophila paulistorum complex
+生物群：昆虫
+採用条件：A
+研究系列：PAULISTORUM
+実験・選択条件：前報の実験室系統について交配実験を継続
+世代数・期間：前報からの続報；正確な世代数未確認
+実際に観察された変化：実験室で生じた初期的種分化・隔離の交配関係を追跡した。
+解釈上の限界：1966年と同じ研究系列。独立した新種形成の反復成功例としては数えない。
+DOI：10.1093/genetics/55.1.141
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC1211364/
+収録区分：主収録
+今回確認できた資料範囲：一次論文書誌・本文PDF所在確認（詳細限定）
+人為操作の性質：環境選択・継代
+掲載誌：Genetics
+確認日：2026-09-28
+
+============================================================================
+ID：EE006
+公表年：1971
+著者：T. Dobzhansky; O. Pavlovsky
+論文名：Experimentally Created Incipient Species of Drosophila
+対象生物：Drosophila paulistorum complex
+生物群：昆虫
+採用条件：A
+研究系列：PAULISTORUM
+実験・選択条件：以前は性的に隔離されていなかった系統間で世代を重ねて選択
+世代数・期間：多数世代；公開要旨に正確な世代数なし
+実際に観察された変化：行動的・性的な生殖隔離を選択によって構築した。
+解釈上の限界：論文自体がincipient species（初期的な種）と表現。1966–1967年系列の続報で、正式な新種命名とは区別。
+DOI：10.1038/230289a0
+一次資料URL：https://doi.org/10.1038/230289a0
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE007
+公表年：1972
+著者：K. W. Jeon
+論文名：Development of cellular dependence on infective organisms: micrurgical studies in amoebas
+対象生物：Amoeba discoides と細胞内細菌
+生物群：単細胞真核生物＋細菌
+採用条件：C;D
+研究系列：AMOEBA
+実験・選択条件：偶発的な細菌感染を受けたアメーバ系統を実験室で継代；核・細胞質交換で依存性を検査
+世代数・期間：数年間の維持；世代数未確認
+実際に観察された変化：感染後のアメーバが細胞内細菌に依存する状態を獲得したことを示した。
+解釈上の限界：自然感染を出発点とする室内追跡。細胞小器官の誕生や新しい真核生物の創成を示したわけではない。
+DOI：10.1126/science.176.4039.1122
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/5035468/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Science
+確認日：2026-09-28
+
+============================================================================
+ID：EE008
+公表年：1974
+著者：B. G. Hall; D. L. Hartl
+論文名：Regulation of newly evolved enzymes. I. Selection of a novel lactase regulated by lactose in Escherichia coli
+対象生物：Escherichia coli（lacZ欠失株）
+生物群：細菌
+採用条件：C
+研究系列：EBG
+実験・選択条件：乳糖利用能を失った細胞集団から、別の酵素系で増殖できる系統を選択
+世代数・期間：段階的な選択；総世代数未確認
+実際に観察された変化：34の乳糖利用系統を得て、ebg系による乳糖分解と調節を調べた。
+解釈上の限界：生きた細菌の資源利用獲得なので採用。祖先は人工欠失株であり、大腸菌という種に乳糖利用が初めて現れたわけではない。
+DOI：10.1093/genetics/76.3.391
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/4598756/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：遺伝子欠失を出発点とする細胞選択
+掲載誌：Genetics
+確認日：2026-09-28
+
+============================================================================
+ID：EE009
+公表年：1976
+著者：K. W. Jeon
+論文名：Endosymbiosis in amoebae: recently established endosymbionts have become required cytoplasmic components
+対象生物：アメーバと細胞内細菌
+生物群：単細胞真核生物＋細菌
+採用条件：C;D
+研究系列：AMOEBA
+実験・選択条件：継代後の共生体を微細操作・電子顕微鏡で検査
+世代数・期間：1972年の続報；正確な世代数未確認
+実際に観察された変化：当初は寄生的だった細菌が宿主の生存に必要な細胞質成分となったことを検証。
+解釈上の限界：細菌を餌として消化した結果とは区別されたが、ミトコンドリア成立全体の再現ではない。
+DOI：10.1002/jcp.1040890216
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/972171/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Journal of Cellular Physiology
+確認日：2026-09-28
+
+============================================================================
+ID：EE010
+公表年：1978
+著者：B. G. Hall
+論文名：Experimental evolution of a new enzymatic function. II. Evolution of multiple functions for EBG enzyme in E. coli
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C
+研究系列：EBG
+実験・選択条件：複数の糖に対して、細菌の増殖を通じた段階的選択
+世代数・期間：連続した選択段階；総世代数未確認
+実際に観察された変化：祖先のebg酵素で有効に利用できなかった複数のガラクトシドに対応する機能の進化を追跡。
+解釈上の限界：分子活性のみの試験ではなく細胞の選択系列として採用。既存酵素の転用であり無からの酵素創成ではない。
+DOI：10.1093/genetics/89.3.453
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/97169/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：人工改変祖先からの細胞選択
+掲載誌：Genetics
+確認日：2026-09-28
+
+============================================================================
+ID：EE011
+公表年：1980
+著者：G. Kilias; S. N. Alahiotis; M. Pelecanos
+論文名：A multifactorial genetic investigation of speciation theory using Drosophila melanogaster
+対象生物：Drosophila melanogaster
+生物群：昆虫
+採用条件：A
+研究系列：KILIAS
+実験・選択条件：異なる温度・湿度などの飼育条件で隔離集団を維持し交配を比較
+世代数・期間：約5年間；世代数未確認
+実際に観察された変化：異なる環境で維持された集団間の性的隔離を報告した。
+解釈上の限界：環境耐性だけでなく隔離を測っているため採用。1982年の訂正がある。詳細な遺伝機構の断定は避ける。
+DOI：10.1111/j.1558-5646.1980.tb04012.x
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/28563991/
+収録区分：主収録
+今回確認できた資料範囲：一次書誌・著者公開要旨・同系列一次論文
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+訂正の所在：Errata (1982) https://doi.org/10.1111/j.1558-5646.1982.tb05028.x
+
+============================================================================
+ID：EE012
+公表年：1987
+著者：G. Kilias; S. N. Alahiotis
+論文名：The effect of metals and alcohol on sexual isolation in Drosophila melanogaster
+対象生物：Drosophila melanogaster
+生物群：昆虫
+採用条件：A
+研究系列：KILIAS
+実験・選択条件：長期系統を共通環境または化学的選択環境に移して隔離の持続性を比較
+世代数・期間：起源から12年；共通条件で約2年
+実際に観察された変化：性的隔離は共通条件でも持続したが、金属やエタノールを含む環境では大きく減少。
+解釈上の限界：隔離は一度成立すれば不変というわけではない。1980年系列の再評価。
+DOI：10.1007/BF00056030
+一次資料URL：https://doi.org/10.1007/BF00056030
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Genetica
+確認日：2026-09-28
+訂正の所在：Errata (1982) https://doi.org/10.1111/j.1558-5646.1982.tb05028.x
+
+============================================================================
+ID：EE013
+公表年：1989
+著者：D. M. B. Dodd
+論文名：Reproductive isolation as a consequence of adaptive divergence in Drosophila pseudoobscura
+対象生物：Drosophila pseudoobscura
+生物群：昆虫
+採用条件：A
+研究系列：DODD
+実験・選択条件：デンプン系と麦芽糖系の餌で別々に継代し、交配選好を比較
+世代数・期間：多世代；世代数の二次資料間の不一致があり本DBでは数値保留
+実際に観察された変化：同じ餌環境に適応した集団同士で交配しやすい傾向を報告。
+解釈上の限界：部分的な交配前隔離。完全な交配不能・雑種不稔・正式な新種成立を示した実験ではない。2017年の別種の腸内細菌研究と同一実験ではない。
+DOI：10.1111/j.1558-5646.1989.tb02577.x
+一次資料URL：https://academic.oup.com/evolut/article/43/6/1308/6869288
+収録区分：主収録
+今回確認できた資料範囲：一次論文書誌・関連一次論文での結果確認
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE014
+公表年：1990
+著者：W. R. Rice; G. W. Salt
+論文名：The evolution of reproductive isolation as a correlated character under sympatric conditions: experimental evidence
+対象生物：Drosophila melanogaster
+生物群：昆虫
+採用条件：A
+研究系列：RICE_SALT
+実験・選択条件：複雑な生息場所迷路と局所交配を組み合わせ、生息場所選好に分断選択
+世代数・期間：35世代
+実際に観察された変化：異なる時空間的生息場所を選ぶ集団間で、実験条件下の完全な生殖隔離を報告。
+解釈上の限界：親と同じ場所に戻って交配することで移住が減った。強制的に出会わせても交配不能という意味でも、雑種不稔の証明でもない。
+DOI：10.1111/j.1558-5646.1990.tb05221.x
+一次資料URL：https://doi.org/10.1111/j.1558-5646.1990.tb05221.x
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE015
+公表年：1994
+著者：R. F. Rosenzweig; R. R. Sharp; D. S. Treves; J. Adams
+論文名：Microbial evolution in a simple unstructured environment: genetic differentiation in Escherichia coli
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C
+研究系列：ECOLI_CROSSFEED
+実験・選択条件：単純な連続培養系で分化したクローンの資源利用・共存を検査
+世代数・期間：長期連続培養；正確な世代数未確認
+実際に観察された変化：異なる代謝産物の利用により、交差栄養を伴う生態的分化が維持された。
+解釈上の限界：単一資源下でもニッチが生じる例として採用。生殖隔離や新しい化学反応の成立は直接示さない。
+DOI：10.1093/genetics/137.4.903
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC1206068/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Genetics
+確認日：2026-09-28
+
+============================================================================
+ID：EE016
+公表年：1995
+著者：A. Moya; A. Galiana; F. J. Ayala
+論文名：Founder-effect speciation theory: failure of experimental corroboration
+対象生物：Drosophila pseudoobscura
+生物群：昆虫
+採用条件：A
+研究系列：FOUNDER_TEST
+実験・選択条件：少数個体による創始と個体群増大を繰り返し隔離を検査
+世代数・期間：10年間
+実際に観察された変化：大規模な検証で、持続的な集団間生殖隔離は確認できなかった。
+解釈上の限界：創始者効果だけで容易に種分化するという予測に対する否定結果。全条件で種分化が不可能という意味ではない。
+DOI：10.1073/pnas.92.9.3983
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/7732017/
+収録区分：否定・再検証
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE017
+公表年：1998
+著者：M. E. Boraas; D. B. Seale; J. E. Boxhorn
+論文名：Phagotrophy by a flagellate selects for colonial prey: A possible origin of multicellularity
+対象生物：Chlorella vulgaris / Ochromonas vallescia
+生物群：藻類
+採用条件：B
+研究系列：CHLORELLA
+実験・選択条件：捕食者を導入した連続培養で藻類を継代
+世代数・期間：100世代未満；8細胞群体の優占は約10–20世代
+実際に観察された変化：捕食されにくい安定した群体型が成立し、捕食者のいない培養でも群体形態が維持された。
+解釈上の限界：単純な群体形成であり、複雑な組織分化の誕生ではない。遺伝子レベルの原因は本論文では特定されていない。
+DOI：10.1023/A:1006527528063
+一次資料URL：https://www.researchgate.net/publication/263614820_Phagotrophy_by_flagellate_selects_for_colonial_prey_A_possible_origin_of_multicellularity
+収録区分：主収録
+今回確認できた資料範囲：著者論文の公開要旨
+人為操作の性質：環境選択・継代
+掲載誌：Evolutionary Ecology
+確認日：2026-09-28
+
+============================================================================
+ID：EE018
+公表年：1998
+著者：P. B. Rainey; M. Travisano
+論文名：Adaptive radiation in a heterogeneous environment
+対象生物：Pseudomonas fluorescens
+生物群：細菌
+採用条件：C;D
+研究系列：PSEUDOMONAS
+実験・選択条件：空間構造のある培養と構造を制限した培養を比較
+世代数・期間：短期継代；正確な世代数未確認
+実際に観察された変化：同一祖先から異なる場所を利用するニッチ専門型が分化し、競争により多様性が維持。
+解釈上の限界：適応放散の実験であり、生殖隔離に基づく新種の証明ではない。
+DOI：10.1038/27900
+一次資料URL：https://doi.org/10.1038/27900
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE019
+公表年：2002
+著者：D. Greig; E. J. Louis; R. H. Borts; M. Travisano
+論文名：Hybrid speciation in experimental populations of yeast
+対象生物：Saccharomyces cerevisiae × S. paradoxus
+生物群：酵母
+採用条件：A
+研究系列：HYBRID_YEAST
+実験・選択条件：種間雑種の実験集団を作成・繁殖し稔性を選抜・比較
+世代数・期間：繁殖選択系列；正確な世代数未確認
+実際に観察された変化：雑種内の稔性約82%に対し親種への戻し交配では約7.5%。核型変化も観察。
+解釈上の限界：既存二種の交雑から出発。生殖隔離は強いが戻し交配稔性はゼロではない。論文はhomoploid hybrid speciationと記載し、単純な全ゲノム倍加の例と混同しない。
+DOI：10.1126/science.1076374
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/12459586/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：人工種間交雑・選択
+掲載誌：Science
+確認日：2026-09-28
+
+============================================================================
+ID：EE020
+公表年：2004
+著者：M. L. Friesen; G. Saxer; M. Travisano; M. Doebeli
+論文名：Experimental evidence for sympatric ecological diversification due to frequency-dependent competition in Escherichia coli
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C;D
+研究系列：FREQUENCY_ECOLI
+実験・選択条件：複数資源を含む環境で同一祖先集団を進化させ頻度依存競争を検査
+世代数・期間：多世代継代；正確な世代数未確認
+実際に観察された変化：単一祖先から資源利用戦略の分化と安定した多型を形成。
+解釈上の限界：生態的分化を直接扱うため採用。無性交代中心の細菌で交配隔離を証明したわけではない。
+DOI：10.1111/j.0014-3820.2004.tb01642.x
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/15068343/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE021
+公表年：2006
+著者：J.-Y. Leu; A. W. Murray
+論文名：Experimental evolution of mating discrimination in budding yeast
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：A
+研究系列：MATING_YEAST
+実験・選択条件：望ましい相手との交配を有利にする選択を反復
+世代数・期間：反復交配選択；正確な世代数未確認
+実際に観察された変化：交配相手の識別が進化し、同類交配の実験モデルを得た。
+解釈上の限界：交配への直接的な人工選択。自然環境への適応だけで隔離が副産物として生じた証明ではない。
+DOI：10.1016/j.cub.2005.12.028
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/16461281/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：交配への直接選択
+掲載誌：Current Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE022
+公表年：2007
+著者：J. R. Dettman; C. Sirjusingh; L. M. Kohn; J. B. Anderson
+論文名：Incipient speciation by divergent adaptation and antagonistic epistasis in yeast
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：A
+研究系列：DETTMAN_YEAST
+実験・選択条件：高塩分と低グルコース環境に独立適応させ、系統間雑種を作成
+世代数・期間：多世代継代；正確な世代数未確認
+実際に観察された変化：異環境由来の雑種で有糸分裂増殖と減数分裂生殖の効率が低下。
+解釈上の限界：部分的な接合後隔離。単なる耐塩性向上ではなく、雑種不利益が採用理由。
+DOI：10.1038/nature05856
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/17538619/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE023
+公表年：2007
+著者：S. Duffy; C. L. Burch; P. E. Turner
+論文名：Evolution of host specificity drives reproductive isolation among RNA viruses
+対象生物：RNAバクテリオファージ φ6
+生物群：ファージ
+採用条件：A;C
+研究系列：PHI6
+実験・選択条件：新しい宿主上で4集団を進化させ宿主範囲と遺伝子交流の機会を検査
+世代数・期間：150世代
+実際に観察された変化：4集団のうち3集団が代替宿主の一部を使えなくなり、宿主特殊化が共感染と遺伝子交流を制限。
+解釈上の限界：ウイルスの隔離は交尾ではなく共感染・遺伝子交換で定義。新宿主を使える祖先からの特殊化と獲得の瞬間を区別。
+DOI：10.1111/j.1558-5646.2007.00226.x
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/17908251/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE024
+公表年：2008
+著者：J. R. Dettman et al.
+論文名：Divergent adaptation promotes reproductive isolation among experimental populations of the filamentous fungus Neurospora
+対象生物：Neurospora（N. crassa / N. intermedia由来を含む）
+生物群：その他の菌類
+採用条件：A
+研究系列：NEUROSPORA
+実験・選択条件：異なる環境と遺伝子流動条件で系統を選択し有性生殖を比較
+世代数・期間：反復継代；正確な世代数未確認
+実際に観察された変化：同じ環境に適応した組合せに比べ、異なる環境の系統間で有性生殖成功が低下。
+解釈上の限界：既存の種間変異を含む創始集団がある。全ての不和合が新規突然変異だけで生じたとは言えない。
+DOI：10.1186/1471-2148-8-35
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC2270261/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：BMC Evolutionary Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE025
+公表年：2008
+著者：Z. D. Blount; C. Z. Borland; R. E. Lenski
+論文名：Historical contingency and the evolution of a key innovation in an experimental population of Escherichia coli
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C;D
+研究系列：LTEE_CIT
+実験・選択条件：1988年開始の長期継代実験と凍結祖先からの再演
+世代数・期間：約31,500世代以降にCit+検出
+実際に観察された変化：祖先が使えなかった好気条件のクエン酸を利用する形質が一系列で成立。
+解釈上の限界：クエン酸利用は条件依存の新機能であり、全く新しい化学反応の創出とは違う。Cit+だけで新種と認定しない。
+DOI：10.1073/pnas.0803151105
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC2430337/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE026
+公表年：2010
+著者：J. B. Anderson et al.
+論文名：Determinants of divergent adaptation and Dobzhansky-Muller interaction in experimental yeast populations
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：A
+研究系列：DETTMAN_YEAST
+実験・選択条件：2007年系列のゲノム配列と変異再構成を解析
+世代数・期間：2007年実験の機構解析
+実際に観察された変化：適応変異と、その組合せが雑種に不利となる遺伝的相互作用を結び付けた。
+解釈上の限界：独立した種分化実験ではなく同一系列の機構的裏付け。
+DOI：10.1016/j.cub.2010.06.022
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC2938792/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Current Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE027
+公表年：2010
+著者：M. Marchetti et al.
+論文名：Experimental Evolution of a Plant Pathogen into a Legume Symbiont
+対象生物：Ralstonia solanacearum / Mimosa pudica
+生物群：細菌＋植物
+採用条件：C;D
+研究系列：RALSTONIA_SYMBIOSIS
+実験・選択条件：共生プラスミド導入後、植物を通じて細菌を選択
+世代数・期間：植物を用いた反復選択；総世代数未確認
+実際に観察された変化：病原細菌の系統が根粒形成と細胞内感染という共生関連形質を獲得。
+解釈上の限界：外来共生遺伝子を導入済み。窒素固定による植物への利益まで成立したとはしない。
+DOI：10.1371/journal.pbio.1000280
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC2796954/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：共生プラスミド導入＋継代選択
+掲載誌：PLOS Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE028
+公表年：2010
+著者：W. Harcombe
+論文名：Novel cooperation experimentally evolved between species
+対象生物：Escherichia coli / Salmonella enterica
+生物群：細菌
+採用条件：C;D
+研究系列：HARCOMBE
+実験・選択条件：資源の授受が可能な空間環境で異種細菌を共培養・選択
+世代数・期間：反復選択；総世代数未確認
+実際に観察された変化：一方への資源供与が他方からの利益で支えられる新しい異種間協力が進化。
+解釈上の限界：栄養要求株・変異誘発を用いた設計。完全に未操作の野生型からの共生誕生ではない。
+DOI：10.1111/j.1558-5646.2010.00959.x
+一次資料URL：https://doi.org/10.1111/j.1558-5646.2010.00959.x
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：栄養要求株・変異誘発＋共培養選択
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE029
+公表年：2010
+著者：K. L. Hillesland; D. A. Stahl
+論文名：Rapid evolution of stability and productivity at the origin of a microbial mutualism
+対象生物：Desulfovibrio vulgaris / Methanococcus maripaludis
+生物群：細菌＋古細菌
+採用条件：C;D
+研究系列：SYNTROPHY
+実験・選択条件：環境によって相互依存を強制した24共培養系を継代
+世代数・期間：300群集倍加
+実際に観察された変化：新たに組み合わせた細菌・古細菌の相互栄養系で安定性と生産性が進化。
+解釈上の限界：依存関係の必要条件は実験者が設定。新しい代謝経路の自然発生ではなく共生成立初期の適応として補足。
+DOI：10.1073/pnas.0908456107
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/20133857/
+収録区分：補足
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE030
+公表年：2010
+著者：G. Sharon et al.
+論文名：Commensal bacteria play a role in mating preference of Drosophila melanogaster
+対象生物：Drosophila melanogaster と腸内細菌
+生物群：昆虫＋細菌
+採用条件：A
+研究系列：MICROBIOME_MATING
+実験・選択条件：餌別に飼育し、抗生物質処理と細菌再導入で交配選好を検査
+世代数・期間：1世代で出現；少なくとも37世代維持と報告
+実際に観察された変化：餌と腸内細菌に依存する同類交配を報告。
+解釈上の限界：宿主ゲノムの進化と即時の微生物効果を分離できない。2013年統計訂正、2017年再現失敗、2018年応答があり、確立した種分化例に数えない。
+DOI：10.1073/pnas.1009906107
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/21041648/
+収録区分：補足
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+統計解析の訂正：Correction for Sharon et al. (2013) https://doi.org/10.1073/pnas.1302326110
+訂正の所在：Correction for Leftwich et al. (2018) https://doi.org/10.1073/pnas.1801321115
+原報側の応答：Diet-induced mating preference in Drosophila (2018) https://pmc.ncbi.nlm.nih.gov/articles/PMC5877995/
+
+============================================================================
+ID：EE031
+公表年：2012
+著者：W. C. Ratcliff; R. F. Denison; M. Borrello; M. Travisano
+論文名：Experimental evolution of multicellularity
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：B;D
+研究系列：SNOWFLAKE
+実験・選択条件：沈降の速い細胞集団を繰り返し選択
+世代数・期間：60日以内；2実験で計15集団
+実際に観察された変化：細胞分裂後に娘細胞が残る雪片型集団が進化し、集団の成長・断片による繁殖・細胞死との関係を観察。
+解釈上の限界：単なる細胞凝集とは区別。細胞死を分業の初期段階と解釈するが、動物のような多様な組織分化の完成ではない。
+DOI：10.1073/pnas.1115323109
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC3277146/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE032
+公表年：2012
+著者：J. R. Meyer et al.
+論文名：Repeatability and Contingency in the Evolution of a Key Innovation in Phage Lambda
+対象生物：バクテリオファージ λ / Escherichia coli
+生物群：ファージ
+採用条件：C
+研究系列：LAMBDA
+実験・選択条件：細菌とファージを共進化させ感染経路の変化を追跡
+世代数・期間：日単位の継代；総世代数未確認
+実際に観察された変化：従来のLamBに加え、OmpFを利用する感染経路が進化。
+解釈上の限界：受容体利用の革新であり、別の動物種への宿主転換や人への感染獲得ではない。
+DOI：10.1126/science.1214449
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC3306806/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Science
+確認日：2026-09-28
+著者の実験データと要旨：Data: Ecological speciation of bacteriophage lambda in allopatry and sympatry https://doi.org/10.5061/dryad.4qb79
+
+============================================================================
+ID：EE033
+公表年：2012
+著者：Z. D. Blount; J. E. Barrick; C. J. Davidson; R. E. Lenski
+論文名：Genomic analysis of a key innovation in an experimental Escherichia coli population
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C;D
+研究系列：LTEE_CIT
+実験・選択条件：長期実験の凍結試料のゲノム解析と進化再演
+世代数・期間：30,000世代超に及ぶ系列の解析
+実際に観察された変化：好気的クエン酸利用（Cit+）の成立を解析。遺伝子重複に伴うプロモーターの取り込みで輸送体が好気条件で発現することを示した。
+解釈上の限界：2008年発表と同じ革新の機構解析。既存の輸送・代謝機構の再配置が中心。
+DOI：10.1038/nature11514
+一次資料URL：https://doi.org/10.1038/nature11514
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE034
+公表年：2013
+著者：W. C. Ratcliff et al.
+論文名：Experimental evolution of an alternating uni- and multicellular life cycle in Chlamydomonas reinhardtii
+対象生物：Chlamydomonas reinhardtii
+生物群：藻類
+採用条件：B;D
+研究系列：CHLAMY_SETTLING
+実験・選択条件：沈降選択を繰り返し群体の繁殖過程を追跡
+世代数・期間：反復継代；正確な世代数未確認
+実際に観察された変化：集団成長期と、運動性の単細胞繁殖体による分散期を交互に持つ生活環が成立。
+解釈上の限界：全処理集団で同じ結果が得られたわけではない。複雑な器官の成立ではなく生活環の移行。
+DOI：10.1038/ncomms3742
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC3831279/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature Communications
+確認日：2026-09-28
+
+============================================================================
+ID：EE035
+公表年：2014
+著者：K. Hammerschmidt; C. J. Rose; B. Kerr; P. B. Rainey
+論文名：Life cycles, fitness decoupling and the evolution of multicellularity
+対象生物：Pseudomonas fluorescens
+生物群：細菌
+採用条件：B;D
+研究系列：PSEUDOMONAS
+実験・選択条件：集団の存続を選び、協力しない型を含む・除く生活環を比較
+世代数・期間：複数の集団生活環；細胞世代数未確認
+実際に観察された変化：協力しない型を繁殖段階に組み込む生活環と、細胞適応度からの集団適応度の分離を示した。
+解釈上の限界：実験者が生活環と集団選択を支える。自然界で自律した複雑な多細胞体全体を再現したものではない。
+DOI：10.1038/nature13884
+一次資料URL：https://doi.org/10.1038/nature13884
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：集団選択・生活環の実験的支持
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE036
+公表年：2014
+著者：K. L. Hillesland et al.
+論文名：Erosion of functional independence early in the evolution of a microbial mutualism
+対象生物：Desulfovibrio vulgaris / Methanococcus maripaludis
+生物群：細菌＋古細菌
+採用条件：C;D
+研究系列：SYNTROPHY
+実験・選択条件：相互栄養を必要とする共培養を長期継代
+世代数・期間：1,000世代
+実際に観察された変化：細菌が硫酸呼吸能力を失う変異を獲得し、機能的な独立性が低下。
+解釈上の限界：新機能の追加ではなく、喪失による依存の固定化。古細菌が新種化した証拠ではない。
+DOI：10.1073/pnas.1407986111
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC4205623/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE037
+公表年：2015
+著者：W. C. Ratcliff et al.
+論文名：Origins of multicellular evolvability in snowflake yeast
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：B;D
+研究系列：SNOWFLAKE
+実験・選択条件：雪片型の遺伝基盤・集団形質の遺伝と選択応答を検査
+世代数・期間：既存進化系列の解析；正確な世代数未確認
+実際に観察された変化：クローン的発生と集団形質の遺伝が多細胞レベルの進化可能性を支えることを示した。
+解釈上の限界：新しい独立の多細胞化事例というより、雪片型が選択単位になる仕組みの続報。
+DOI：10.1038/ncomms7102
+一次資料URL：https://doi.org/10.1038/ncomms7102
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature Communications
+確認日：2026-09-28
+
+============================================================================
+ID：EE038
+公表年：2015
+著者：D. M. Castillo; M. K. Burger; C. M. Lively; L. F. Delph
+論文名：Experimental evolution: Assortative mating and sexual selection, independent of local adaptation, lead to reproductive isolation in the nematode Caenorhabditis remanei
+対象生物：Caenorhabditis remanei
+生物群：線虫
+採用条件：A
+研究系列：REMANEI
+実験・選択条件：2環境で進化させ、局所適応、交配選好、雑種適応度を比較
+世代数・期間：100世代；30・64・100世代等で検査
+実際に観察された変化：同一反復集団の相手を選ぶ交配前隔離と、一部交配で接合後隔離を観察。
+解釈上の限界：交配前隔離は環境への局所適応と同期せず、性相互作用の分化が重要。完全な新種成立とはしない。
+DOI：10.1111/evo.12815
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/26542312/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE039
+公表年：2016
+著者：J. R. Meyer et al.
+論文名：Ecological speciation of bacteriophage lambda in allopatry and sympatry
+対象生物：バクテリオファージ λ
+生物群：ファージ
+採用条件：A;C
+研究系列：LAMBDA
+実験・選択条件：LamBまたはOmpFを持つ宿主を別々・同時に与えて継代
+世代数・期間：反復継代；正確な世代数未確認
+実際に観察された変化：受容体選好の異なる系統が分岐し、一部で遺伝的不和合による生殖隔離が進化。
+解釈上の限界：反復間で分化程度が異なる。ウイルスでの遺伝子交流を用いた種概念であり、正式な分類名とは別。2012年の機能獲得と関連する系列。
+DOI：10.1126/science.aai8446
+一次資料URL：https://pubmed.ncbi.nlm.nih.gov/27884940/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Science
+確認日：2026-09-28
+著者の実験データと要旨：Data: Ecological speciation of bacteriophage lambda in allopatry and sympatry https://doi.org/10.5061/dryad.4qb79
+
+============================================================================
+ID：EE040
+公表年：2016
+著者：K. C. King et al.
+論文名：Rapid evolution of microbe-mediated protection against pathogens in a worm host
+対象生物：Enterococcus faecalis / Caenorhabditis elegans
+生物群：細菌＋線虫
+採用条件：C
+研究系列：DEFENSIVE_MICROBE
+実験・選択条件：線虫内で微生物間競争を伴う継代選択
+世代数・期間：反復宿主継代；世代数未確認
+実際に観察された変化：弱い病原性を持つ細菌が、より強い病原体に対して宿主を保護する機能を進化させた。
+解釈上の限界：保護は競争相手がいる文脈に依存。常に相利的な必須共生や新種化ではない。
+DOI：10.1038/ismej.2015.259
+一次資料URL：https://doi.org/10.1038/ismej.2015.259
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：The ISME Journal
+確認日：2026-09-28
+
+============================================================================
+ID：EE041
+公表年：2017
+著者：P. T. Leftwich; N. V. E. Clarke; M. I. Hutchings; T. Chapman
+論文名：Gut microbiomes and reproductive isolation in Drosophila
+対象生物：Drosophila melanogaster
+生物群：昆虫＋細菌
+採用条件：A
+研究系列：MICROBIOME_MATING
+実験・選択条件：餌と腸内微生物を変え、交配選好を再検証
+世代数・期間：世代を重ねた比較；正確な世代数未確認
+実際に観察された変化：腸内細菌の差は得たが、餌・細菌に対応する以前の同類交配パターンは再現しなかった。
+解釈上の限界：Sharon 2010への検証であり、Dodd 1989の別種実験を直接否定したと読み替えない。2018年に訂正・著者間応答あり。
+DOI：10.1073/pnas.1708345114
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC5715749/
+収録区分：否定・再検証
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+統計解析の訂正：Correction for Sharon et al. (2013) https://doi.org/10.1073/pnas.1302326110
+訂正の所在：Correction for Leftwich et al. (2018) https://doi.org/10.1073/pnas.1801321115
+原報側の応答：Diet-induced mating preference in Drosophila (2018) https://pmc.ncbi.nlm.nih.gov/articles/PMC5877995/
+
+============================================================================
+ID：EE042
+公表年：2019
+著者：M. D. Herron et al.
+論文名：De novo origins of multicellularity in response to predation
+対象生物：Chlamydomonas reinhardtii / Paramecium tetraurelia
+生物群：藻類
+採用条件：B;D
+研究系列：CHLAMY_PREDATION
+実験・選択条件：捕食者のある環境と非選択対照で世代を追跡
+世代数・期間：約750無性世代
+実際に観察された変化：5実験集団中2集団で、対照にない多細胞構造が進化。細胞数と繁殖体の大きさに異なる生活環を得た。
+解釈上の限界：捕食による初期多細胞化を支持。複雑な分業・器官の成立ではなく、全反復で必然的に起こるわけでもない。
+DOI：10.1038/s41598-019-39558-8
+一次資料URL：https://doi.org/10.1038/s41598-019-39558-8
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Scientific Reports
+確認日：2026-09-28
+
+============================================================================
+ID：EE043
+公表年：2019
+著者：S. M. Villa et al.
+論文名：Rapid experimental evolution of reproductive isolation from a single natural population
+対象生物：Columbicola columbae（羽毛シラミ）
+生物群：昆虫
+採用条件：A
+研究系列：LICE
+実験・選択条件：大きさの異なる飼育ハトへ寄生虫を移し世代交代させる
+世代数・期間：4年・約60世代
+実際に観察された変化：宿主体サイズへの適応がシラミのサイズ分化を生み、機械的な交配隔離と雄間競争に結び付いた。
+解釈上の限界：体サイズ選択だけなら除外だが、隔離を直接検査したため採用。完全な隔離ではなく、野外観察のみでもない。
+DOI：10.1073/pnas.1901247116
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC6613143/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PNAS
+確認日：2026-09-28
+
+============================================================================
+ID：EE044
+公表年：2019
+著者：S. Gleizer et al.
+論文名：Conversion of Escherichia coli to Generate All Biomass Carbon from CO2
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：C;D
+研究系列：AUTOTROPHY
+実験・選択条件：炭素固定系などの遺伝子導入・代謝改変後に継代選択
+世代数・期間：長期培養選択；正確な世代数未確認
+実際に観察された変化：菌体炭素をCO2から得る増殖様式へ転換し、同位体によって炭素源を検証。
+解釈上の限界：人工設計と進化の組合せ。エネルギー・還元力にはギ酸を利用し、CO2だけからエネルギーも得るわけではない。未操作祖先の自然発生的独立栄養化ではない。
+DOI：10.1016/j.cell.2019.11.009
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC6904909/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：代謝経路導入・改変＋継代選択
+掲載誌：Cell
+確認日：2026-09-28
+
+============================================================================
+ID：EE045
+公表年：2022
+著者：O. Dudin; S. Wielgoss; A. M. New; I. Ruiz-Trillo
+論文名：Regulation of sedimentation rate shapes the evolution of multicellularity in a close unicellular relative of animals
+対象生物：Sphaeroforma arctica
+生物群：単細胞真核生物
+採用条件：B;D
+研究系列：SPHAEROFORMA
+実験・選択条件：沈降の速い型を選択し、細胞集団形成と遺伝性を検証
+世代数・期間：56継代・8週間；約364核世代
+実際に観察された変化：細胞接着・集塊形成が複数系列で進化し、遺伝可能な沈降形質と多細胞表現型を得た。
+解釈上の限界：核分裂の世代数は個体・集団の繁殖世代数と同じではない。動物そのものの多細胞化の完全再演ではない。
+DOI：10.1371/journal.pbio.3001551
+一次資料URL：https://doi.org/10.1371/journal.pbio.3001551
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：PLOS Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE046
+公表年：2023
+著者：G. O. Bozdag et al.
+論文名：De novo evolution of macroscopic multicellularity
+対象生物：Saccharomyces cerevisiae（雪片型）
+生物群：酵母
+採用条件：B;D
+研究系列：MULTEE
+実験・選択条件：既存の雪片型集団から大きな集団サイズを選択し代謝条件を比較
+世代数・期間：600日次継代・約3,000世代
+実際に観察された変化：一部の代謝条件で肉眼的な大きさの強固な集団が進化。細胞形状や絡み合いが大型化に寄与。
+解釈上の限界：開始時点ですでに単純な多細胞型。単細胞から肉眼的個体までを本論文だけで一段階に再現したものではない。
+DOI：10.1038/s41586-023-06052-1
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC10425966/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE047
+公表年：2023
+著者：Y. Chavhan; S. Dey; P. A. Lind
+論文名：Bacteria evolve macroscopic multicellularity by the genetic assimilation of phenotypically plastic cell clustering
+対象生物：Escherichia coli
+生物群：細菌
+採用条件：B;D
+研究系列：BACTERIAL_ASSIMILATION
+実験・選択条件：環境誘導される細胞集塊を出発点に継代選択
+世代数・期間：反復継代；正確な世代数未確認
+実際に観察された変化：誘導条件なしでも巨視的集塊を作る形質が遺伝的に固定され、細胞壁関連変異が対応。
+解釈上の限界：環境可塑性の遺伝的同化。未分化の集団であり、高度な組織分業や新種としての隔離は未実証。
+DOI：10.1038/s41467-023-39320-9
+一次資料URL：https://doi.org/10.1038/s41467-023-39320-9
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature Communications
+確認日：2026-09-28
+
+============================================================================
+ID：EE048
+公表年：2024
+著者：S.-K. Hsu et al.
+論文名：Reproductive isolation arises during laboratory adaptation to a novel hot environment
+対象生物：Drosophila simulans
+生物群：昆虫
+採用条件：A
+研究系列：HOT_DROSOPHILA
+実験・選択条件：高温への適応系列を祖先および同じ条件の反復集団と交配比較
+世代数・期間：100世代超
+実際に観察された変化：祖先と高温適応系統間の同類交配を確認。同環境反復間では交配後隔離の可能性を示す結果。
+解釈上の限界：交配前隔離と交配後隔離の証拠の強さが異なる。後者の機構は突然変異順序・system drift等の仮説を区別できていない。
+DOI：10.1186/s13059-024-03285-9
+一次資料URL：https://doi.org/10.1186/s13059-024-03285-9
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Genome Biology
+確認日：2026-09-28
+
+============================================================================
+ID：EE049
+公表年：2024
+著者：R. M. Pineau; E. Libby; D. Demory et al.
+論文名：Emergence and maintenance of stable coexistence during a long-term multicellular evolution experiment
+対象生物：Saccharomyces cerevisiae（雪片型）
+生物群：酵母
+採用条件：B;C
+研究系列：MULTEE
+実験・選択条件：増殖と集団サイズの双方に選択がかかる長期継代
+世代数・期間：715日次継代
+実際に観察された変化：単一の多細胞祖先から、異なるニッチに特化して安定共存する系統が分岐。
+解釈上の限界：新しい生態的分化だが、交配隔離の成立を直接示してはいない。MuLTEEの続報。
+DOI：10.1038/s41559-024-02367-y
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC11090753/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature Ecology & Evolution
+確認日：2026-09-28
+
+============================================================================
+ID：EE050
+公表年：2024
+著者：R. M. Pineau et al.
+論文名：Experimental evolution of multicellularity via cuboidal cell packing in fission yeast
+対象生物：Schizosaccharomyces pombe（球状細胞系統）
+生物群：酵母
+採用条件：B;D
+研究系列：FISSION_YEAST
+実験・選択条件：球状の分裂酵母モデルで沈降選択を反復
+世代数・期間：334日次継代；5反復集団
+実際に観察された変化：立方体状の細胞配置をもつ多細胞形態と、そのサイズ・形態の進化を追跡。
+解釈上の限界：出芽酵母とは異なる形態での移行。使用祖先の形態・改変背景を踏まえ、全ての分裂酵母で同じ移行が起こるとはしない。
+DOI：10.1093/evlett/qrae024
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC11827335/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Evolution Letters
+確認日：2026-09-28
+
+============================================================================
+ID：EE051
+公表年：2024
+著者：G. H. Giger et al.
+論文名：Inducing novel endosymbioses by implanting bacteria in fungi
+対象生物：Rhizopus microsporus / Mycetohabitans rhizoxinica（ほか導入比較）
+生物群：その他の菌類＋細菌
+採用条件：C;D
+研究系列：FUNGAL_ENDOSYMBIOSIS
+実験・選択条件：細菌を菌類細胞内へ人工導入し、継承される組合せを継代選択
+世代数・期間：複数回の胞子継代；第7回の系統解析を含む
+実際に観察された変化：新しい宿主組合せで細胞内共生が継承・安定化し、宿主の遺伝的変化と関連。
+解釈上の限界：物理的な導入と正の選択に依存。自由生活からの自然侵入や細胞小器官化までを再現したものではない。
+DOI：10.1038/s41586-024-08010-x
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC11560845/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：細胞内人工移植＋継代選択
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE052
+公表年：2025
+著者：K. Tong; S. Datta et al.
+論文名：Genome duplication in a long-term multicellularity evolution experiment
+対象生物：Saccharomyces cerevisiae（雪片型）
+生物群：酵母
+採用条件：B;D
+研究系列：MULTEE
+実験・選択条件：大型化選択下でゲノム倍数性と形態進化を長期追跡
+世代数・期間：MuLTEE長期系列；総世代数は本DBで未確定
+実際に観察された変化：二倍体から四倍体への全ゲノム重複が繰り返し生じ、多細胞サイズの進化とその後の変異可能性を支えた。
+解釈上の限界：全ゲノム重複を検出したことだけで生殖隔離・新種成立と判定しない。既存の雪片型からの進化。
+DOI：10.1038/s41586-025-08689-6
+一次資料URL：https://doi.org/10.1038/s41586-025-08689-6
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Nature
+確認日：2026-09-28
+
+============================================================================
+ID：EE053
+公表年：2025
+著者：D. P. Bendixsen et al.
+論文名：Reproductive Isolation due to Divergent Ecological Selection Is Accompanied by Vast Genomic Instability in Experimentally Evolved Yeast Populations
+対象生物：Saccharomyces cerevisiae
+生物群：酵母
+採用条件：A
+研究系列：BENDIXSEN
+実験・選択条件：塩・エタノール・酢酸リチウム等の異なる環境と並行環境で進化させ、経時的に交配
+世代数・期間：最大1,000無性世代
+実際に観察された変化：異環境適応に伴う部分的な接合後隔離を配偶子生存率で確認し、ゲノム不安定性を併せて解析。
+解釈上の限界：部分的隔離であり完全な新種誕生とはしない。多様な二倍体創始集団を使用。オンライン公表2025年9月17日、巻号は11月。
+DOI：10.1111/mec.70110
+一次資料URL：https://pmc.ncbi.nlm.nih.gov/articles/PMC12617035/
+収録区分：主収録
+今回確認できた資料範囲：一次論文の要旨・本文抜粋
+人為操作の性質：環境選択・継代
+掲載誌：Molecular Ecology
+確認日：2026-09-28
+
+============================================================================
+ID：EE054
+公表年：2026
+著者：G. Kurita; K. A. Adachi; K. Uesaka; G. Goshima
+論文名：Genetic switch between unicellularity and multicellularity in marine yeasts
+対象生物：Hortaea werneckii / Neodothiora pruni
+生物群：酵母
+採用条件：B;D
+研究系列：MARINE_YEAST
+実験・選択条件：栄養応答性の多細胞化、遺伝子欠失、実験進化等で得た変異を解析
+世代数・期間：継代条件・正確な世代数は今回未確認
+実際に観察された変化：Myb等の調節系と第二部位変異による、単細胞性・多細胞性の喪失・回復を解明。
+解釈上の限界：祖先がすでに任意的多細胞性を持つ。実験進化由来変異と直接改変の寄与を本調査で完全には分離できないため補足扱い。2026年の新規de novo多細胞化成功として数えない。
+DOI：10.1038/s41586-025-09881-4
+一次資料URL：https://doi.org/10.1038/s41586-025-09881-4
+収録区分：補足
+今回確認できた資料範囲：一次論文要旨・図説明・補足資料一覧（方法詳細未確認）
+人為操作の性質：遺伝子改変・実験進化・機能検証の併用
+掲載誌：Nature
+確認日：2026-09-28
+
+
+除外検討の具体例
+2026 Parallel but distinct adaptive routes in the budding and fission yeasts after 10,000 generations of experimental evolution
+長期進化として重要だが、確認できた要旨は主に適応経路の比較。生殖隔離・新資源利用・主要移行を直接示す例としては採らない。
+https://doi.org/10.1038/s41559-026-03017-1
+
+2026 A secreted endosymbiont protein essential for colonizing host cells
+既存共生の分子機構研究。今回の確認範囲で世代継代による新共生の成立を示す研究ではない。
+https://doi.org/10.1038/s41586-026-10711-4
+
+2025 A constellation of dysfunctional hybrid phenotypes enforces reproductive isolation between Caenorhabditis nematode species
+既存種間の交雑障壁の測定。実験室内で新たに隔離を進化させた研究と区別。
+https://doi.org/10.1093/evolut/qpaf112
+
+2024 Experimental evolution of hybrid populations to identify Dobzhansky–Muller incompatibility loci
+既存の雑種不和合座位を特定する目的が中心。新たに不和合が生じたことと分けて除外。
+https://doi.org/10.1002/ece3.10972
+
+2024 Reproductive system, temperature, and genetic background effects in experimentally evolving populations of Caenorhabditis elegans
+実験進化だが、今回の公開要旨から種境界に近い変化の実証を確認できず。
+https://doi.org/10.1371/journal.pone.0300276
+
+2016 Experimental evolution reveals that high relatedness protects multicellular cooperation from cheaters
+既存の多細胞協力の維持・崩壊が中心。単細胞からの移行の新規成立例としては数えない。
+https://doi.org/10.1038/ncomms11435
