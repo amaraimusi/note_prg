@@ -1,0 +1,209 @@
+{
+  "method": "保存済み名護月別値の1991〜2020年30件／2016〜2025年10件の算術平均。normal/quasi_normalのみ。気象庁公表平年値そのものではない。期間は重複し因果推定ではない。",
+  "months": [
+    {
+      "month": 1,
+      "baseline": {
+        "precipitation_mm": 96.82,
+        "mean_temperature_c": 16.49,
+        "mean_daily_max_temperature_c": 19.41,
+        "mean_daily_min_temperature_c": 13.7,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 101.45,
+        "mean_temperature_c": 16.86,
+        "mean_daily_max_temperature_c": 19.81,
+        "mean_daily_min_temperature_c": 14.17,
+        "n": 10
+      }
+    },
+    {
+      "month": 2,
+      "baseline": {
+        "precipitation_mm": 109.92,
+        "mean_temperature_c": 16.77,
+        "mean_daily_max_temperature_c": 19.75,
+        "mean_daily_min_temperature_c": 13.94,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 110.8,
+        "mean_temperature_c": 17.29,
+        "mean_daily_max_temperature_c": 20.29,
+        "mean_daily_min_temperature_c": 14.65,
+        "n": 10
+      }
+    },
+    {
+      "month": 3,
+      "baseline": {
+        "precipitation_mm": 140.8,
+        "mean_temperature_c": 18.47,
+        "mean_daily_max_temperature_c": 21.53,
+        "mean_daily_min_temperature_c": 15.61,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 166.35,
+        "mean_temperature_c": 19.11,
+        "mean_daily_max_temperature_c": 22.18,
+        "mean_daily_min_temperature_c": 16.36,
+        "n": 10
+      }
+    },
+    {
+      "month": 4,
+      "baseline": {
+        "precipitation_mm": 160.77,
+        "mean_temperature_c": 20.95,
+        "mean_daily_max_temperature_c": 23.97,
+        "mean_daily_min_temperature_c": 18.19,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 181.2,
+        "mean_temperature_c": 21.5,
+        "mean_daily_max_temperature_c": 24.55,
+        "mean_daily_min_temperature_c": 18.93,
+        "n": 10
+      }
+    },
+    {
+      "month": 5,
+      "baseline": {
+        "precipitation_mm": 220.07,
+        "mean_temperature_c": 23.76,
+        "mean_daily_max_temperature_c": 26.74,
+        "mean_daily_min_temperature_c": 21.21,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 232.4,
+        "mean_temperature_c": 24.24,
+        "mean_daily_max_temperature_c": 27.21,
+        "mean_daily_min_temperature_c": 21.87,
+        "n": 10
+      }
+    },
+    {
+      "month": 6,
+      "baseline": {
+        "precipitation_mm": 291.67,
+        "mean_temperature_c": 26.91,
+        "mean_daily_max_temperature_c": 29.54,
+        "mean_daily_min_temperature_c": 24.88,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 499.85,
+        "mean_temperature_c": 27.11,
+        "mean_daily_max_temperature_c": 29.77,
+        "mean_daily_min_temperature_c": 25.11,
+        "n": 10
+      }
+    },
+    {
+      "month": 7,
+      "baseline": {
+        "precipitation_mm": 182.63,
+        "mean_temperature_c": 28.9,
+        "mean_daily_max_temperature_c": 31.88,
+        "mean_daily_min_temperature_c": 26.69,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 204.3,
+        "mean_temperature_c": 29.16,
+        "mean_daily_max_temperature_c": 32.08,
+        "mean_daily_min_temperature_c": 27.03,
+        "n": 10
+      }
+    },
+    {
+      "month": 8,
+      "baseline": {
+        "precipitation_mm": 265.92,
+        "mean_temperature_c": 28.76,
+        "mean_daily_max_temperature_c": 31.88,
+        "mean_daily_min_temperature_c": 26.42,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 265.45,
+        "mean_temperature_c": 29.26,
+        "mean_daily_max_temperature_c": 32.4,
+        "mean_daily_min_temperature_c": 26.97,
+        "n": 10
+      }
+    },
+    {
+      "month": 9,
+      "baseline": {
+        "precipitation_mm": 238.43,
+        "mean_temperature_c": 27.58,
+        "mean_daily_max_temperature_c": 30.77,
+        "mean_daily_min_temperature_c": 25.12,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 272.8,
+        "mean_temperature_c": 28.33,
+        "mean_daily_max_temperature_c": 31.49,
+        "mean_daily_min_temperature_c": 25.94,
+        "n": 10
+      }
+    },
+    {
+      "month": 10,
+      "baseline": {
+        "precipitation_mm": 184.73,
+        "mean_temperature_c": 24.98,
+        "mean_daily_max_temperature_c": 28.01,
+        "mean_daily_min_temperature_c": 22.52,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 186.7,
+        "mean_temperature_c": 25.89,
+        "mean_daily_max_temperature_c": 29.03,
+        "mean_daily_min_temperature_c": 23.58,
+        "n": 10
+      }
+    },
+    {
+      "month": 11,
+      "baseline": {
+        "precipitation_mm": 119.23,
+        "mean_temperature_c": 21.85,
+        "mean_daily_max_temperature_c": 24.75,
+        "mean_daily_min_temperature_c": 19.31,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 147.7,
+        "mean_temperature_c": 22.43,
+        "mean_daily_max_temperature_c": 25.41,
+        "mean_daily_min_temperature_c": 19.98,
+        "n": 10
+      }
+    },
+    {
+      "month": 12,
+      "baseline": {
+        "precipitation_mm": 109.73,
+        "mean_temperature_c": 18.23,
+        "mean_daily_max_temperature_c": 21.14,
+        "mean_daily_min_temperature_c": 15.57,
+        "n": 30
+      },
+      "recent": {
+        "precipitation_mm": 116.4,
+        "mean_temperature_c": 18.63,
+        "mean_daily_max_temperature_c": 21.41,
+        "mean_daily_min_temperature_c": 16.16,
+        "n": 10
+      }
+    }
+  ]
+}

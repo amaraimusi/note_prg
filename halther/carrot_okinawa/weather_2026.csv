@@ -1,0 +1,9 @@
+﻿period,days,precipitation_mm,mean_temperature_c,mean_daily_max_temperature_c,mean_daily_min_temperature_c,source_url,status
+2026-05,,242.0,23.7,26.6,21.3,https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=,保存済み月別観測値
+2026-06,,532.5,26.5,29.0,24.8,https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=,保存済み月別観測値
+2026-07,,40.5,29.2,32.4,27.0,https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=,保存済み月別観測値
+2026-08,,339.0,29.0,31.7,26.9,https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=,保存済み月別観測値
+2026-09,,230.5,27.9,31.2,25.6,https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=,保存済み月別観測値
+2026-10-01〜03,3,2.5,27.53,30.23,25.73,https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=91&block_no=47940&year=2026&month=10&day=&view=,保存済み日別値から独自集計・月全体ではない
+2026-10-01〜10,10,7.0,26.62,29.8,24.66,https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=91&block_no=47940&year=2026&month=10&day=&view=,保存済み日別値から独自集計・月全体ではない
+2026-10-01〜11,11,30.0,26.6,29.92,24.68,https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=91&block_no=47940&year=2026&month=10&day=&view=,保存済み日別値から独自集計・月全体ではない

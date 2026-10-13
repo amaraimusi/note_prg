@@ -1,0 +1,137 @@
+[
+  {
+    "id": "S1",
+    "title": "大宜味村農業委員会だより 第48号",
+    "publisher": "大宜味村農業委員会",
+    "published": "2016-10",
+    "url": "https://www.vill.ogimi.okinawa.jp/material/files/group/10/h28_10.pdf",
+    "use_and_limit": "PDF 2ページ末尾。沖縄県野菜栽培要領を参考に10月の露地播種作物としてダイコンを掲載。古い資料であり、現在の自然農の最適日を示すものではない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S2",
+    "title": "ダイコン・島ダイコン",
+    "publisher": "沖縄の伝統的な食文化（沖縄美ら島財団）",
+    "published": "年記載なし",
+    "url": "https://jmapps.ne.jp/okinawacyura/det.html?data_id=1252&data_idx=0&referer_id=1381",
+    "use_and_limit": "地域系統の紹介と、9月から播種・100〜120日で収穫する従来の目安。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S3",
+    "title": "タキイのダイコン栽培マニュアル",
+    "publisher": "タキイ種苗",
+    "published": "年記載なし",
+    "url": "https://www.takii.co.jp/tsk/manual/daikon.html",
+    "use_and_limit": "発芽・生育段階別の温度、低温感応と抽苔。全国向けであり、沖縄の月日を直接指定していない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S4",
+    "title": "沖縄の在来作物に関する調査研究",
+    "publisher": "沖縄美ら島財団・野原敏次ほか",
+    "published": "令和6年度（2024年度）",
+    "url": "https://churashima.okinawa/userfiles/files/page/ocrc/r6nenpou/r6_nenpo_19.pdf",
+    "use_and_limit": "PDF 3〜4ページ。地域系統と市販系統の違い、屋部系統の抽苔例、播種遅延・ホウ素処理・農薬を組み合わせた中城での現地実証。播種遅延単独の効果や自然農の収量は未確認。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S5",
+    "title": "中城村との島野菜生産振興に関する連携協定の成果",
+    "publisher": "沖縄美ら島財団・砂川春樹、山下大作",
+    "published": "令和3年度（2021年度）",
+    "url": "https://churashima.okinawa/ocrc/overview/nenpo/business_report_r3/s_04/",
+    "use_and_limit": "第3節。中城島ダイコンの被覆栽培でキスジミノハムシ害を軽減。潅水の工夫と耐病性の課題も記載。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S6",
+    "title": "農業研究センター 平成28年度業務年報",
+    "publisher": "沖縄県農業研究センター",
+    "published": "2016年度",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/709/h28_gyoumunenpou1.pdf",
+    "use_and_limit": "冊子17ページ（PDF 20ページ）。宮古島支所の固定系統R12-77s-27s2は、10月上旬播種で1月中旬までの収穫が望ましい。108日以降の裂根増加は当該系統・試験条件の結果。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S7",
+    "title": "対象農産物及び農薬並びに化学肥料の使用基準（県慣行レベル）",
+    "publisher": "沖縄県",
+    "published": "2024-02時点",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/679/kankokijun.pdf",
+    "use_and_limit": "PDF 2ページ、ダイコン行。化学肥料由来窒素18kg/10a、節減対象農薬の有効成分延べ6回。認証比較の基準であり、必ず施す量や散布回数の指示ではない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S8",
+    "title": "「ダイコン」の栽培について",
+    "publisher": "JA京都",
+    "published": "2020-08",
+    "url": "https://jakyoto.com/garden/221-daikon/",
+    "use_and_limit": "一般的な直播・間引き、秋ダイコンの収穫60〜90日。京都の暦や施肥量は沖縄へそのまま転用しない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S9",
+    "title": "三太郎 品種カタログ",
+    "publisher": "タキイ種苗",
+    "published": "2026-10-12確認",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000769",
+    "use_and_limit": "短形・晩抽性、適期約60日。比較的浅い耕土で栽培可能という特性から不耕起の試験候補とした。沖縄自然農の実証ではない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S10",
+    "title": "耐病総太り 品種カタログ",
+    "publisher": "タキイ種苗",
+    "published": "2026-10-12確認",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000132",
+    "use_and_limit": "青首総太り、ス入りが遅い。作りやすい比較品種。品種名だけから全病害への抵抗性を推定しない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S11",
+    "title": "沖縄島大根 島風",
+    "publisher": "トーホク",
+    "published": "2026-10-12確認",
+    "url": "https://www.tohokuseed.co.jp/list_seed/vegetable/daikonsonota.html",
+    "use_and_limit": "沖縄向けの中ぶくら型。販売地域限定。特定の地域在来系統と同一とは確認できていない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S12",
+    "title": "沖縄島大根",
+    "publisher": "野口種苗研究所",
+    "published": "2026-10-12確認",
+    "url": "https://noguchiseed.com/hanbai/products/detail/492",
+    "use_and_limit": "市販の島大根。販売元は株間50〜60cm、晩抽性なし、極端な遅まきを避ける旨を記載。商品説明の8〜9月播種を名護の自然農に最適と断定しない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S13",
+    "title": "だいこん中間母本農6号",
+    "publisher": "農研機構",
+    "published": "2026-10-12確認",
+    "url": "https://www.naro.go.jp/collab/breed/0300/0316/136037.html",
+    "use_and_limit": "沖縄在来シマダイコンを耐内部褐変症の育種素材として利用。内部褐変症への強さと、無肥料・無農薬での適性は別。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S14",
+    "title": "ダイコン属の自家不和合性について",
+    "publisher": "日本植物生理学会",
+    "published": "2026-10-12確認",
+    "url": "https://jspp.org/hiroba/q_and_a/detail.html?id=4721",
+    "use_and_limit": "異系統花粉の混入を避け、選抜した個体群で採種する考え方。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "S15",
+    "title": "ダイコンの覆土量について",
+    "publisher": "サカタのタネ FAQ",
+    "published": "2023-04-05",
+    "url": "https://faq.sakataseed.co.jp/faq/show/2618?site_domain=default",
+    "use_and_limit": "2〜3cmの覆土を推奨。他の資料には1〜2cmの案内もあり、播種条件とともに比較する。",
+    "accessed": "2026-10-12"
+  }
+]

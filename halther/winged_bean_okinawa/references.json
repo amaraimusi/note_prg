@@ -1,0 +1,72 @@
+[
+  {
+    "id": "r1",
+    "title": "国際農研「シカクマメ種『ウリズン』」",
+    "url": "https://www.jircas.go.jp/ja/patent/plant/urizun",
+    "verification": "育成機関の公式特性資料。沖縄の播種・収穫時期と温度、若莢の収穫基準を確認。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r2",
+    "title": "Abe et al. (1988), Response of Winged Bean to Temperature and Photoperiod… JARQ 21(4):308–313",
+    "url": "https://www.jircas.go.jp/ja/publication/jarq/21/4/308",
+    "verification": "公式掲載抄録を確認。ウリズンと熱帯品種の開花反応を比較。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r3",
+    "title": "Nakamura & Abe (1989), Growth and Yields of Winged Bean Grown in Different Seasons in Okinawa. JARQ 23(1):71–77",
+    "url": "https://www.jircas.go.jp/sites/default/files/publication/jarq/23-1-071-077_0.pdf",
+    "verification": "本文確認。石垣での播種期試験、若莢生産、長日感応性、干ばつ・台風の影響。表1・本文pp.72–76を参照。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r4",
+    "title": "シカクマメ「ウリズン」育種グループ（代表・花田俊雄）(1993)「シカクマメ品種『ウリズン』の育成と栽培技術の確立」熱帯農業37(3):248–250",
+    "url": "https://www.jstage.jst.go.jp/article/jsta1957/37/3/37_3_248/_pdf",
+    "verification": "本文の文字抽出に欠落がある。明瞭に読める播種期・施肥の記述を採用し、不明な図表値は使用しない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r5",
+    "title": "佐倉朗夫 (2016)「第5回 シカクマメ」サカタのタネ・園芸通信",
+    "url": "https://sakata-tsushin.com/yomimono/howto_sakuraakio/detail_245/",
+    "verification": "栽培者向け技術解説。硬実種子、育苗、敷き草と水分管理を参照。有機栽培の説明であり、無肥料自然農の実証ではない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r6",
+    "title": "タキイ「マメ（豆）の栽培方法・育て方を種類別に解説！」シカクマメの節",
+    "url": "https://shop.takii.co.jp/s/selection/beens1604.html",
+    "verification": "一般家庭菜園の慣行栽培例。中間地の播種期を沖縄にそのまま適用しない。肥料の数値はWeb本文で単位欠落があるため転載しない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r7",
+    "title": "トーホク「シカクマメ」野菜のビギナーズマニュアル",
+    "url": "https://www.tohokuseed.co.jp/beginners/shikaku.html",
+    "verification": "早咲き系統の説明、育苗・施肥・若莢の収穫目安。一般栽培例であって沖縄専用の施肥基準ではない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r8",
+    "title": "Teruya et al. (1984), Nematological Survey on Winged Bean Fields in Okinawa… JARQ 18(2):142–147",
+    "url": "https://www.jircas.go.jp/en/publication/jarq/18/2/142",
+    "verification": "公式抄録を確認。石垣のネコブセンチュウ調査と系統間差。現行ウリズンの抵抗性はこの抄録から判定できない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r9",
+    "title": "野口正樹ほか (1986)『亜熱帯における夏野菜としてのシカクマメ新品種ウリズンの栽培と利用方法』熱研沖縄支所研究資料4、20頁",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000002188563",
+    "verification": "書誌のみ確認。国会図書館館内限定公開のため本文未確認。本記事の具体的な栽培数値の直接根拠にはしない。",
+    "accessed": "2026-10-12"
+  },
+  {
+    "id": "r10",
+    "title": "気象庁「過去の気象データ検索」名護・月別値",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2024&month=&day=&view=",
+    "verification": "指定作業フォルダから作成された既存データを再集計。1991–2020年および2016–2025年の完了月を使用。",
+    "accessed": "2026-10-12"
+  }
+]

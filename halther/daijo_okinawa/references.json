@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "遠城道雄（2004）鹿児島から南西諸島におけるヤムイモ栽培",
+    "url": "https://ir.kagoshima-u.ac.jp/records/8408",
+    "scope": "奄美ニューズレター11、1–7頁。第6節の地域栽培暦・肥大開始・台風と支柱を参照。PDF本文は検索サービスで抽出された第4頁を確認。沖縄県の現行公式栽培指針ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 2,
+    "title": "陳淑婉ほか（2010）ダイジョおよびナガイモにおけるムカゴの成長に及ぼす日長の影響",
+    "url": "https://www.jstage.jst.go.jp/article/nettai/3/1/3_6/_pdf/-char/ja",
+    "scope": "熱帯農業研究3(1)、6–12頁。本文・Table 2を確認。台湾在来1系統の施肥栽培であり、無肥料自然農の試験ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 3,
+    "title": "Sanada et al.（2018）Bulbil Dormancy and Formation in Water Yam",
+    "url": "https://www.jstage.jst.go.jp/article/jsta/62/3/62_109/_pdf/-char/ja",
+    "scope": "Tropical Agriculture and Development 62(3)、109–114頁。宮古島のTaiwan red、栽培方法とムカゴの温度・形成試験。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 4,
+    "title": "朴炳宰ほか（2003）ダイジョ塊茎の休眠並びに休眠覚せいと外的要因との関係",
+    "url": "https://www.jstage.jst.go.jp/article/jsta1957/47/1/47_1_42/_article/-char/ja/",
+    "scope": "熱帯農業47(1)、42–50頁。抄録を確認。鹿児島栽培48系統の貯蔵試験。畑の気温と貯蔵温度を同一視しない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 5,
+    "title": "遠城道雄ほか（2005）島嶼域におけるヤムイモ栽培とその品種保存：南西諸島におけるヤムイモ類",
+    "url": "https://ir.kagoshima-u.ac.jp/record/4441/files/AN1013531X_v42_p131-135.pdf",
+    "scope": "南太平洋海域調査研究報告42、131–135頁。検索サービスの本文抽出で調査方法・結果を確認。栽培状況の聞き取りは2003–2004年。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 6,
+    "title": "美濃地弘樹・寺内良平（2024）伊勢市横輪町特産物「横輪いも」に関する調査報告",
+    "url": "https://www.city.ise.mie.jp/_res/projects/default_project/_page_/001/018/552/kyoudaireport.pdf",
+    "scope": "京都大学大学院農学研究科、伊勢市公開。形態による同定と扇イモ・石垣在来などの遺伝的比較。適期・耐風性の比較試験ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 7,
+    "title": "沖縄植物資源研究所（2022年12月1日）ヤマイモ（ダイジョ）",
+    "url": "https://oki-instplants.com/ヤマイモダイジョ/",
+    "scope": "沖縄の栽培者自身による収穫開始の記録。1地点・1年の事例であり全県の適期を保証しない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 8,
+    "title": "気象庁：名護の過去の気象データ",
+    "url": "https://www.data.jma.go.jp/stats/etrn/index.php?prec_no=91&block_no=47940",
+    "scope": "ユーザー指定の年間気温調査で整理済みの月別CSVを再集計。1991–2020年のnormal/quasi_normal値を使用。",
+    "checked": "2026-10-13"
+  }
+]

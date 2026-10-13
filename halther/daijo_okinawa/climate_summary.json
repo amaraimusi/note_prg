@@ -1,0 +1,137 @@
+{
+  "method": "1991–2020年月別値の単純平均。気象庁公表平年値ではない。normal/quasi_normalのみ。各指標各月30件。",
+  "records": [
+    {
+      "month": 1,
+      "mean_temperature_c": 16.5,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 13.7,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 96.8,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 94.7,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 2,
+      "mean_temperature_c": 16.8,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 13.9,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 109.9,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 91.4,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 3,
+      "mean_temperature_c": 18.5,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 15.6,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 140.8,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 112.6,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 4,
+      "mean_temperature_c": 20.9,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 18.2,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 160.8,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 121.3,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 5,
+      "mean_temperature_c": 23.8,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 21.2,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 220.1,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 136.7,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 6,
+      "mean_temperature_c": 26.9,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 24.9,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 291.7,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 152.3,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 7,
+      "mean_temperature_c": 28.9,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 26.7,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 182.6,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 235.7,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 8,
+      "mean_temperature_c": 28.8,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 26.4,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 265.9,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 211.9,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 9,
+      "mean_temperature_c": 27.6,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 25.1,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 238.4,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 183.4,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 10,
+      "mean_temperature_c": 25.0,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 22.5,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 184.7,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 166.2,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 11,
+      "mean_temperature_c": 21.9,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 19.3,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 119.2,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 124.5,
+      "sunshine_hours_n": 30
+    },
+    {
+      "month": 12,
+      "mean_temperature_c": 18.2,
+      "mean_temperature_c_n": 30,
+      "mean_daily_min_temperature_c": 15.6,
+      "mean_daily_min_temperature_c_n": 30,
+      "precipitation_mm": 109.7,
+      "precipitation_mm_n": 30,
+      "sunshine_hours": 108.0,
+      "sunshine_hours_n": 30
+    }
+  ]
+}

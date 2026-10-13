@@ -1,0 +1,51 @@
+[
+  {
+    "year_month": "2024-09",
+    "mean_temperature_c": 28.5,
+    "mean_daily_max_temperature_c": 31.5,
+    "mean_daily_min_temperature_c": 26.2,
+    "precipitation_mm": 400.5
+  },
+  {
+    "year_month": "2024-10",
+    "mean_temperature_c": 26.9,
+    "mean_daily_max_temperature_c": 30.2,
+    "mean_daily_min_temperature_c": 24.6,
+    "precipitation_mm": 315.0
+  },
+  {
+    "year_month": "2024-11",
+    "mean_temperature_c": 23.3,
+    "mean_daily_max_temperature_c": 25.9,
+    "mean_daily_min_temperature_c": 21.5,
+    "precipitation_mm": 406.5
+  },
+  {
+    "year_month": "2024-12",
+    "mean_temperature_c": 17.7,
+    "mean_daily_max_temperature_c": 20.8,
+    "mean_daily_min_temperature_c": 15.1,
+    "precipitation_mm": 31.5
+  },
+  {
+    "year_month": "2025-01",
+    "mean_temperature_c": 15.9,
+    "mean_daily_max_temperature_c": 19.0,
+    "mean_daily_min_temperature_c": 13.3,
+    "precipitation_mm": 76.5
+  },
+  {
+    "year_month": "2025-02",
+    "mean_temperature_c": 15.3,
+    "mean_daily_max_temperature_c": 18.2,
+    "mean_daily_min_temperature_c": 12.9,
+    "precipitation_mm": 81.5
+  },
+  {
+    "year_month": "2025-03",
+    "mean_temperature_c": 18.9,
+    "mean_daily_max_temperature_c": 22.0,
+    "mean_daily_min_temperature_c": 16.3,
+    "precipitation_mm": 120.5
+  }
+]

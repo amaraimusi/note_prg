@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "title": "沖縄県農業研究センター（令和4年度）「ちゅら恋紅」は化学肥料窒素を9kg/10a施用すると増収する",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/035/093/r408kansyotyurakoikagakuhiryouzousyu.pdf",
+    "use": "一次試験・普及技術。6節苗、船底植え、春夏5か月・秋7か月の収穫条件。島尻マージ限定の施肥研究。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 2,
+    "title": "嘉手納町・甘藷の植え付け（町史系の歴史解説）",
+    "url": "https://www.town.kadena.okinawa.jp/kadena/soukan/book/142.html",
+    "use": "歴史資料。4～9月の植付け、5月が適期との記述。現代の自然農試験ではない。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 3,
+    "title": "農研機構（2023年度成果）沖縄向け「おぼろ紅」",
+    "url": "https://www.naro.go.jp/project/results/5th_laboratory/karc/2023/23_012.html",
+    "use": "基腐病抵抗性が強い紫肉品種。沖縄の慣行春植え試験。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 4,
+    "title": "農研機構（2024年9月6日）沖縄向け「ニライむらさき」",
+    "url": "https://www.naro.go.jp/publicity_report/press/laboratory/karc/165287.html",
+    "use": "基腐病抵抗性、土壌型別適応、食味、ゾウムシ被害、種苗入手の情報。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 5,
+    "title": "農研機構（2020年度成果）沖縄向け「ちゅらかなさ」",
+    "url": "https://www.naro.go.jp/project/results/4th_laboratory/karc/2020/karc20_s07.html",
+    "use": "秋植え多収性、萌芽性、貯蔵性の比較。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 6,
+    "title": "農研機構（2023年8月29日）青果用「べにひなた」",
+    "url": "https://www.naro.go.jp/publicity_report/press/laboratory/karc/159534.html",
+    "use": "基腐病抵抗性が強い青果用品種。主な普及対象は南九州。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 7,
+    "title": "小林晃ほか（2025）サツマイモ47品種のサツマイモ基腐病に対する抵抗性の評価",
+    "url": "https://doi.org/10.1270/jsbbr.24J14",
+    "use": "育種学研究27(1):19–29。2020・2021年の汚染圃場試験。名護の自然農試験ではない。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 8,
+    "title": "農研機構（2022年度成果）サツマイモ基腐病防除のための総合対策マニュアル",
+    "url": "https://www.naro.go.jp/project/results/5th_laboratory/karc/2022/22_016.html",
+    "use": "感染源・水による伝播・残渣・複合対策。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 9,
+    "title": "農研機構（2025）本圃におけるサツマイモ基腐病の発病リスク低減マニュアル",
+    "url": "https://www.naro.go.jp/publicity_report/publication/files/motogusarebyo_hatsubyorisuku_teigen_manial.pdf",
+    "use": "健全種苗、排水、残渣処理、連作回避を扱う新しい技術資料。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 10,
+    "title": "沖縄県・かんしょの病害虫（生態と被害）",
+    "url": "https://www.pref.okinawa.jp/shigoto/nogyo/1010700/1002906/1024512/1002909.html",
+    "use": "県内の病害虫資料への入口。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 11,
+    "title": "農林水産省植物防疫所・植物等の移動規制について",
+    "url": "https://www.maff.go.jp/pps/j/introduction/domestic/didoukisei/index.html",
+    "use": "沖縄のゾウムシ類などに伴う生茎葉・地下部の移動規制。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 12,
+    "title": "沖縄県農業研究センター・令和6年度業務年報",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/709/r6gyoumunenpou.pdf",
+    "use": "沖夢紫・ちゅら恋紅の在ほ期間比較。長期化と収量・品質の関係が作型で異なる。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 13,
+    "title": "農林水産省・サツマイモを育ててみよう",
+    "url": "https://www.maff.go.jp/j/kids/agri/satuma/s04.html",
+    "use": "つる苗で栽培する基本。全国向けの暦を沖縄の適期と混同しない。",
+    "checked_at": "2026-10-13"
+  },
+  {
+    "id": 14,
+    "title": "気象庁・名護の過去の気象データ検索",
+    "url": "https://www.data.jma.go.jp/stats/etrn/index.php?prec_no=91&block_no=47940",
+    "use": "提供された気温調査の原出典。手元データ取得日は2026年10月12日。",
+    "checked_at": "2026-10-13"
+  }
+]

@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "title": "沖縄県：特別栽培農産物栽培マニュアル・ニンジン編（p.5、7、9〜14）",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/680/tokusai_ninjin_1-14.pdf",
+    "scope": "県公式の地域資料。掲載ページ更新2025年5月27日。本文の作型、沖縄県野菜栽培要領に基づく施肥基準、pH・障害の図表を画像で確認。特別栽培は無肥料自然農とは異なる。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 2,
+    "title": "沖縄美ら島財団：令和6年度年報「沖縄の在来作物に関する調査研究」p.3〜4",
+    "url": "https://churashima.okinawa/userfiles/files/page/ocrc/r6nenpou/r6_nenpo_19.pdf",
+    "scope": "2024年度の島ニンジン試験。旧暦七夕付近の播種失敗と遅播き改善。遅らせた具体日付、処理の比較数値は本文にない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 3,
+    "title": "内閣府沖縄総合事務局：平成25年度農林水産業の情勢・島にんじん生産者事例 p.25",
+    "url": "https://www.ogb.go.jp/-/media/Files/OGB/nousui/area-gaiyo/201407/h25_honbun_all.pdf",
+    "scope": "7〜8月播種、12〜3月収穫の歴史的な中城村の生産事例。現在の北部自然農の推奨暦ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 4,
+    "title": "農林水産省：中城島にんじん・GI明細書",
+    "url": "https://www.maff.go.jp/j/shokusan/gi_act/register/0147/pdf/0147_specification.pdf",
+    "scope": "更新2025年7月22日。系統、黄色い長根、初期水分要求、中城の土壌条件を確認。GIは中城村の産品に関する記述。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 5,
+    "title": "タキイ種苗：ニンジン栽培マニュアル",
+    "url": "https://www.takii.co.jp/tsk/manual/ninjin.html",
+    "scope": "一般ニンジンの温度、間引き、肥大開始、抽苔・又根の原理。沖縄での全品種・自然農の検証ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 6,
+    "title": "タキイ種苗：春ニンジン栽培のポイント",
+    "url": "https://www.takii.co.jp/tsk/saizensen_web/cultivation/harumakininjin/",
+    "scope": "2021年2月22日。発芽15〜25℃、低温感応と抽苔を解説。10℃以下などの条件を島ニンジン固有の閾値に置き換えない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 7,
+    "title": "タキイ種苗：向陽二号・品種カタログ",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000076search_word%3Dachsearch_type%3D002page%3D1",
+    "scope": "晩抽性、耐暑性、土質への適応、間引き・初期乾燥への注意。無肥料での優劣は確認されていない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 8,
+    "title": "サカタのタネ：ベーターリッチ・商品情報",
+    "url": "https://www.sakataseed.co.jp/product/item/?code=925600",
+    "scope": "条間20cm、最終株間5〜6cm、約110日収穫。北部自然農では日数を保証しない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 9,
+    "title": "フタバ種苗：沖縄 島ニンジン",
+    "url": "https://www.futaba-seed.co.jp/17_112.html",
+    "scope": "地元種苗会社の長根系統の情報。耐暑性の説明は近年の8月播き成功を保証しない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 10,
+    "title": "福島県：有機栽培推進技術資料・ニンジン p.165",
+    "url": "https://www4.pref.fukushima.jp/uploaded/attachment/622447.pdf",
+    "scope": "初期生育が緩慢で雑草競合が課題とする栽培事例。沖縄以外、有機肥料を用いた試験。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 11,
+    "title": "Hole & Sutherland (1990)：光条件とニンジンの乾物分配",
+    "url": "https://doi.org/10.1093/oxfordjournals.aob.a087909",
+    "scope": "Annals of Botany 65:63–69。公開要旨を確認、全文未読。光環境と株サイズ・地上部／貯蔵根比の関係を扱う。遮光で分配が必ず地上部優先になるという単純な説明は支持しない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 12,
+    "title": "気象庁：名護2026年・月別観測値",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2026&month=&day=&view=",
+    "scope": "数値は指定フォルダの2026年10月12日取得済みデータを採用。今回のWeb閲覧では数値表の取得が不完全。再取得で最新値を確認できたものとしては扱わない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 13,
+    "title": "気象庁：名護2026年10月・日別観測値",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=91&block_no=47940&year=2026&month=10&day=&view=",
+    "scope": "保存済みHTML（10月11日まで）を読み、1〜3日・1〜10日・1〜11日を集計。10月12〜13日の値は含めない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 14,
+    "title": "沖縄気象台：令和8年台風第6号・顕著気象現象速報",
+    "url": "https://www.data.jma.go.jp/okinawa/data/kencho/2026/T2606.pdf",
+    "scope": "2026年6月の経路・気象の速報。個別畑の病変や収量低下の原因を証明する資料ではない。",
+    "checked": "2026-10-13"
+  },
+  {
+    "id": 15,
+    "title": "沖縄気象台：公式ページ・2026年の農業気象災害速報案内",
+    "url": "https://www.data.jma.go.jp/okinawa/",
+    "scope": "2026年7〜8月の台風9・13・18号関連の速報案内を確認。県全体への影響と今帰仁の同一地点への襲来回数は区別する。",
+    "checked": "2026-10-13"
+  }
+]
