@@ -1,0 +1,107 @@
+[
+  {
+    "id": "s1",
+    "title": "タキイ種苗「タキイのナス栽培マニュアル」",
+    "url": "https://www.takii.co.jp/tsk/manual/nasu.html",
+    "scope": "種苗会社の一次資料。生育適温、苗、元肥・追肥、整枝。全国向けであり、掲載暦を沖縄の県推奨暦とは扱わない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s2",
+    "title": "高知県・こうち農業ネット「ナスの栽培方法―本圃の準備～定植―」（2014）",
+    "url": "https://www.nogyo.tosa.pref.kochi.lg.jp/info/dtl.php?ID=6283",
+    "scope": "行政技術資料。排水・土づくり・活着期の水管理。施設栽培を含み、施肥量の沖縄露地への転用はしない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s3",
+    "title": "高知県・こうち農業ネット「ナスの栽培方法―定植後の管理―」（2014）",
+    "url": "https://www.nogyo.tosa.pref.kochi.lg.jp/info/dtl.php?ID=6284",
+    "scope": "行政技術資料。日照、整枝、温度、灌水。ハウス管理値と露地気象を区別する。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s4",
+    "title": "自然農法国際研究開発センター「ナスの栽培」",
+    "url": "https://www.infrc.or.jp/breeding/point/point-eggplant/",
+    "scope": "育種・技術普及機関の一次資料。育苗、品種、水分、採種。堆肥・ボカシを用いる体系で、無肥料・不耕起試験ではない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s5",
+    "title": "茨城県農業総合センター園芸研究所「不耕起栽培イチゴの後作に適用する夏どり野菜の種類」（平成17年度成果）",
+    "url": "https://www.pref.ibaraki.jp/nourinsuisan/enken/seika/yasai/kasai/documents/s1707.pdf",
+    "scope": "試験成績。千両2号の不耕起栽培で収穫を確認。イチゴ後作のハウス試験であり無肥料の証明ではない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s6",
+    "title": "野口種苗研究所「無肥料栽培の驚異！」",
+    "url": "https://noguchiseed.com/hanashi/muhiryou/muhiryou.html",
+    "scope": "種苗販売者による栽培者紹介。真黒茄子の無肥料事例だが耕起・資材利用あり。対照区を置いた比較試験ではない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s7",
+    "title": "沖縄県病害虫防除技術センター「ナスミバエの防除対策」（2024更新）",
+    "url": "https://www.pref.okinawa.jp/shigoto/nogyo/1010700/1018771/1010577.html",
+    "scope": "沖縄の公的資料。地域の発生状況と防除資料への入口。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s8",
+    "title": "沖縄県「ナスミバエ防除ハンドブック（普及版）」",
+    "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/577/2023nasumibaehandbookbojo.pdf",
+    "scope": "沖縄の公的防除資料。果実被害を疑う場合の照合用。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s9",
+    "title": "沖縄県「野菜の病害虫（生態と被害）」",
+    "url": "https://www.pref.okinawa.jp/shigoto/nogyo/1010700/1002906/1024512/1002916.html",
+    "scope": "沖縄の公的資料。なす科の病害虫の確認用。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s10",
+    "title": "タキイ種苗「千両二号」品種カタログ",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000348",
+    "scope": "育成元の品種情報。夏秋用の比較品種として参照。沖縄無肥料適性の証明ではない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s11",
+    "title": "フタバ種苗卸部「トマト・ナス類」",
+    "url": "https://www.futaba-seed.co.jp/39.html",
+    "scope": "沖縄の種苗販売元。絹ごし長なすの扱いを確認。県内流通と無肥料適性は別。旧サイトのため購入時は現行商品を確認。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s12",
+    "title": "Locone「VOL10 ナス農家 金城義明さん」",
+    "url": "https://locone.net/blogs/locone-story/vol10",
+    "scope": "うるま市の生産者インタビュー。ハウスでの生産事例。県の栽培指針や対照試験ではない。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s13",
+    "title": "沖縄県「特別栽培農産物 栽培マニュアル」（2025更新）",
+    "url": "https://www.pref.okinawa.jp/shigoto/nogyo/1010362/1010676/1010680.html",
+    "scope": "県の減化学肥料・減化学合成農薬資料。特別栽培と無肥料は同義ではない。今回、ナスの播種から収穫までを定める県の公開推奨暦は確認できなかった。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s14",
+    "title": "気象庁「過去の気象データ検索」名護",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2025&month=&day=&view=",
+    "scope": "提供フォルダで既に収集された月別データの原出典。再集計方法・品質区分は本記事に明示。",
+    "accessed": "2026-10-16"
+  },
+  {
+    "id": "s15",
+    "title": "サカタのタネ「ナスの育て方・栽培方法」",
+    "url": "https://sakata-tsushin.com/oyakudachi/lesson/vegetable/post_1.html",
+    "scope": "種苗会社の一次資料。育苗日数60～80日、輪作、接ぎ木、ダニ対策など。",
+    "accessed": "2026-10-16"
+  }
+]

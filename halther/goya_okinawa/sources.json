@@ -1,0 +1,65 @@
+{
+  "checked": "2026-10-16",
+  "sources": [
+    {
+      "id": 1,
+      "title": "沖縄県「特別栽培農産物 栽培マニュアル・ゴーヤー編」",
+      "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/010/680/tokusai_goya_1-14.pdf",
+      "note": "印刷頁5–6の作型・品種供給時期、9–14の肥培管理を画像で確認。施設の特別栽培が中心。慣行基準の引用を含むが、自然農の実証ではない。掲載ページ更新2025年5月27日。"
+    },
+    {
+      "id": 2,
+      "title": "JAおきなわ南部地区・新垣かおる「沖縄の太陽を浴びた夏野菜ゴーヤーの生産」ALIC、2020年8月",
+      "url": "https://vegetable.alic.go.jp/yasaijoho/santi/2008_santi1.html",
+      "note": "産地の実態。施設の促成・半促成の播種期、収穫開始、季節別品種。県北部の露地へは条件を分けて読む。"
+    },
+    {
+      "id": 3,
+      "title": "沖縄県北部農林水産振興センター「ちむ美らさ 第65号」2014年7月、1頁",
+      "url": "https://www.pref.okinawa.lg.jp/_res/projects/default_project/_page_/001/010/385/no65.pdf",
+      "note": "「ゴーヤーの高温対策について」。検索サービス収録本文で日中適温25〜30℃、高温障害と施設の管理を確認。PDF全頁は未精読。"
+    },
+    {
+      "id": 4,
+      "title": "米盛重保・藤枝國光「ニガウリ（Momordica charantia L.）の性表現について」1985年",
+      "url": "https://cir.nii.ac.jp/crid/1050001338600923392",
+      "note": "琉球大学農学部学術報告32：183–187。公開抄録を確認、本文未精読。19在来系統の性表現と温度・日長処理。一次論文の抄録として利用。"
+    },
+    {
+      "id": 5,
+      "title": "沖縄県農業研究センター「短太系のニガウリを改良した生産力の高い新品種候補研交7号」令和3年度成果",
+      "url": "https://www.pref.okinawa.jp/_res/projects/default_project/_page_/001/009/917/03_r3yasaikaki_bunya.pdf",
+      "note": "PDF冒頭2頁。アバシの雌花節率の課題、F1の研交7号、着果負担。資料当時の名称・供給計画であり現在の販売状況は未確認。"
+    },
+    {
+      "id": 6,
+      "title": "沖縄県「野菜（新品種・新技術）」",
+      "url": "https://www.pref.okinawa.lg.jp/shigoto/nogyo/1010362/1021613/1010771.html",
+      "note": "2024年1月更新。てぃだみどりの特性、冬期低温による花粉障害と着果不安定。"
+    },
+    {
+      "id": 7,
+      "title": "タカヤマシード「沖縄中長ゴーヤ」",
+      "url": "https://takayama-seed.co.jp/hinshu/okinawa.html",
+      "note": "育種・販売元の栽培説明。最低気温17℃以上を直播きの目安とし、本葉3〜4枚定植、湿害・収穫期の水分に言及。単一品種の説明。"
+    },
+    {
+      "id": 8,
+      "title": "トーホク「ニガウリのビギナーズマニュアル」",
+      "url": "https://www.tohokuseed.co.jp/beginners/nigauri.html",
+      "note": "発芽地温25〜30℃、株間、摘心、早朝授粉、開花後14〜20日の収穫。全国向けの説明で沖縄の播種暦ではない。"
+    },
+    {
+      "id": 9,
+      "title": "トーホク「ニガウリ・品種紹介」",
+      "url": "https://www.tohokuseed.co.jp/list_seed/vegetable/nigauri.html",
+      "note": "節成り・あばしのF1品種。メーカーの特性説明であり、名護の無肥料比較試験ではない。"
+    },
+    {
+      "id": 10,
+      "title": "気象庁「過去の気象データ検索・名護」および既存の集計データ",
+      "url": "https://www.data.jma.go.jp/stats/etrn/index.php?prec_no=91&block_no=47940",
+      "note": "既存SQLiteを再集計。取得2026年10月12日。1991〜2020年の月別観測値の算術平均。気象庁公表平年値そのものではない。"
+    }
+  ]
+}

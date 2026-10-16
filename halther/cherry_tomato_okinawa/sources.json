@@ -1,0 +1,86 @@
+[
+  {
+    "id": "JA",
+    "title": "JAおきなわ「豊見城市・安谷屋剛さん」",
+    "url": "https://www.ja-okinawa.or.jp/wp/archives/3714",
+    "note": "沖縄のミニトマト生産者事例。8月後半定植、11月初め〜翌6月収穫、TY小鈴の利用。県全域の推奨暦ではない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "OK",
+    "title": "沖縄県「特別栽培農産物 栽培マニュアル」",
+    "url": "https://www.pref.okinawa.lg.jp/shigoto/nogyo/1010362/1010676/1010680.html",
+    "note": "2025年5月27日更新の案内を確認。土づくり・肥培・病害虫管理を扱う。特別栽培は化学肥料・化学合成農薬の5割以上低減であり、無肥料・無農薬とは異なる。PDF図表の詳細数値は本文根拠に採用していない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "ALIC",
+    "title": "農畜産業振興機構「沖縄県・冬春トマト（2025年産）」",
+    "url": "https://vegetan.alic.go.jp/trend/y2025/s06/p47.html",
+    "note": "豊見城市の冬春トマト調査。9月中旬〜10月中旬定植、12月中旬〜翌5月下旬収穫。大玉を含む情報として補助的に利用。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "KO",
+    "title": "高知県「トマト栽培方法―作型、品種、栽培のポイント」",
+    "url": "https://www.nogyo.tosa.pref.kochi.lg.jp/info/dtl.php?ID=702",
+    "note": "2014年5月2日。7月中旬〜8月上旬播種の促成作型、育苗期の高温と冬の採光管理。沖縄・ミニトマト専用の暦ではない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "MAFF",
+    "title": "農林水産省「ミニトマトの主な管理作業」",
+    "url": "https://www.maff.go.jp/j/kanbo/tukuba/mito/nouhuku/minitomato.html",
+    "note": "誘引・芽かき・葉かき・選別収穫の工程を確認。水戸ほ場の月別暦は沖縄に転用しない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "TYC",
+    "title": "タキイ種苗「TY千果」",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000852",
+    "note": "TYLCV（Ty-3a型）・葉かび病等への耐病性、耐裂果性。メーカー情報であり名護自然農の比較試験ではない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "TYB",
+    "title": "園芸植物育種研究所「TYべにすずめ」",
+    "url": "https://www.enken.jp/seeds/distribution/tomato/ty-benisuzume",
+    "note": "黄化葉巻病耐病性・単為結果性・小葉・短節間。沖縄無肥料での多収実証は未確認。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "TYH",
+    "title": "渡辺農事「TYほれまる」",
+    "url": "https://watanabenoji.com/05goods/05goods_detail.php?id=7407",
+    "note": "発芽適温25〜30℃、黄化葉巻病耐病性、比較的少ない裂果。施肥管理を前提とする品種説明。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "VM",
+    "title": "ヴィルモランみかど「ウルとまシリーズ誕生」",
+    "url": "https://www.vilmorinmikado.jp/news/urutomar-shirisu-dansheng",
+    "note": "2024年6月9日。小鈴シリーズの短節間・草勢等を確認。旧TY小鈴と現行各品種を同一視しない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "SATO",
+    "title": "Sato, Peet & Thomas「Physiological factors limit fruit set of tomato under chronic, mild heat stress」",
+    "url": "https://doi.org/10.1046/j.1365-3040.2000.00589.x",
+    "note": "Plant, Cell & Environment 23:719–726（2000）。昼夜32/26℃での着果・花粉放出等の品種差を調べた制御環境実験。露地の月平均値と実験処理は同等ではない。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "KAWA",
+    "title": "河崎靖・安東赫「夏季高温期の夜間における開花花房付近の局所的な冷却がトマトの果実収量に及ぼす影響」",
+    "url": "https://www.jstage.jst.go.jp/article/shita/27/3/27_137/_article/-char/ja/",
+    "note": "植物環境工学27(3):137–143（2015）、DOI 10.2525/shita.27.137。施設内の局所冷却試験。自然農に冷房を提案する根拠ではなく、夜間高温を考慮する根拠。",
+    "checked": "2026-10-16"
+  },
+  {
+    "id": "JMA",
+    "title": "気象庁「過去の気象データ検索・名護」",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2025&month=&day=&view=",
+    "note": "提供された保存データ（2026年10月12日取得）を再集計。観測地点47940。元データ・原文値・品質区分は既存気象データベースに保存。",
+    "checked": "保存データ取得2026-10-12"
+  }
+]
