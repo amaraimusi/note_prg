@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-19",
+  "http_status": 200,
+  "local_links": "passed",
+  "unique_ids": "passed",
+  "index_first_entry": "passed",
+  "csv_columns": "passed",
+  "visual_check": "IAB mobile-width viewport: heading/navigation readable; full desktop layout not visually checked",
+  "files": [
+    "climate_summary.csv",
+    "potato_okinawa.html",
+    "subtitle_evidence.json",
+    "trial_log.csv"
+  ]
+}

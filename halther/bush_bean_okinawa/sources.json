@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "title": "JAおきなわ「サヤインゲン」",
+    "url": "https://www.ja-okinawa.or.jp/agriculture/detail.php?id=15",
+    "scope": "県内の生産期11〜5月、主な品種。播種適期の表ではない。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 2,
+    "title": "農研機構「新里さんのインゲン作り（現地生産例）」",
+    "url": "https://www.naro.go.jp/laboratory/karc/vege_flow_manu/products/03/026117.html",
+    "scope": "沖縄本島北部の露地わい性栽培。秋10月上旬、春1月下旬から段播き。個別の経営事例で、県全域の現行標準ではない。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 3,
+    "title": "農畜産業振興機構（2018）宮古島市のさやいんげん栽培",
+    "url": "https://vegetable.alic.go.jp/yasaijoho/senmon/1807_chosa03.html",
+    "scope": "産地調査。施設・ジベレリン処理を含む。自然農と条件が異なる。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 4,
+    "title": "タキイ種苗「インゲン栽培マニュアル」",
+    "url": "https://www.takii.co.jp/tsk/manual/ingen.html",
+    "scope": "生育・発芽温度、播種、乾燥対策、短い収穫期間。一般地の播種暦を沖縄へ直接転用しない。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 5,
+    "title": "サカタのタネ「サクサク王子ネオ」",
+    "url": "https://www.sakataseed.co.jp/product/item/?code=927082",
+    "scope": "品種特性と播種後55〜60日の収穫開始目安。名護の冬季の日数保証ではない。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 6,
+    "title": "国際農研（2000年度成果）高温処理による生理的花粉不稔を利用したサヤインゲン簡易交配法",
+    "url": "https://www.jircas.go.jp/ja/publication/research_results/2000_28",
+    "scope": "35℃・72時間処理の実験。一般圃場の一律の障害温度とは異なる。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 7,
+    "title": "Nakanoほか（1998）Sensitive Stages to Heat Stress in Pod Setting of Common Bean",
+    "url": "https://www.jstage.jst.go.jp/article/jsta1957/42/2/42_2_78/_article",
+    "scope": "熱帯農業42巻2号、78–84。高温の影響は発育段階と継続時間にも依存。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 8,
+    "title": "インゲンマメの生殖生理に関する研究 VI（1956）",
+    "url": "https://www.jstage.jst.go.jp/article/jjshs1925/25/3/25_3_152/_article/-char/en",
+    "scope": "園芸学会雑誌25巻3号、152頁〜。遮光による落花・着莢低下の実験。古い条件限定の研究。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 9,
+    "title": "日本土壌協会「有機栽培技術の手引き」（平成25年度）",
+    "url": "https://japan-soil.net/report/h25tebiki_02.pdf",
+    "scope": "自家受精主体の作物区分と採種上の整理。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 10,
+    "title": "タキイ種苗「山田式家庭菜園教室 インゲン」",
+    "url": "https://www.takii.co.jp/tsk/y_garden/spring/ingen/index.html",
+    "scope": "根粒形成、栽植間隔、養分管理。マメ科でも無肥料が常に成立するわけではない。",
+    "accessed": "2026-10-19"
+  },
+  {
+    "id": 11,
+    "title": "国際農研「耐暑性サヤインゲン品種ハイブシの開発」",
+    "url": "https://www.jircas.go.jp/sites/default/files/publication/30th/30th-_111-204.pdf",
+    "scope": "耐暑性の背景資料。ハイブシはつる性で、本記事のつるなし候補から除外。",
+    "accessed": "2026-10-19"
+  }
+]
