@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "沖縄県北部農林水産振興センター（2016）「ちむ美らさ」第78号、2ページ「タマネギ栽培のポイント」",
+    "url": "https://www.pref.okinawa.lg.jp/_res/projects/default_project/_page_/001/010/385/9gatu.pdf",
+    "scope": "沖縄・北部の普及資料。秋〜春の作期、極早生推奨、施肥、苗、活着・防風・収穫後乾燥。平成26年版栽培要領を参照した当時の資料であり、最新版要領そのものではない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 2,
+    "title": "タキイ種苗「タキイのタマネギ栽培マニュアル」",
+    "url": "https://www.takii.co.jp/tsk/manual/tamanegi.html",
+    "scope": "一般的な生育生理、日長反応、育苗、浅根・乾燥と雑草、成熟判断。本文の本土向け日付を沖縄に直用しない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 3,
+    "title": "カネコ種苗「貴錦」品種紹介",
+    "url": "https://kanekoseeds-p.jp/products/貴錦/",
+    "scope": "暖地9月15〜20日播種、3月下旬〜4月上旬収穫。暖地マルチ作型の値で、名護の無施肥区の実証ではない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 4,
+    "title": "カネコ種苗「濱の宝」品種紹介",
+    "url": "https://kanekoseeds-p.jp/products/濱の宝/",
+    "scope": "極早生、暖地作型と肥大前の葉数確保の重要性。沖縄自然農での品種比較結果ではない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 5,
+    "title": "沖縄県農業研究センター（平成29年度）業務年報・研究概要「宮古地域に適した生食用タマネギの安定生産技術の確立」",
+    "url": "https://www.pref.okinawa.lg.jp/_res/projects/default_project/_page_/001/010/709/h29_gyoumunenpou1.pdf",
+    "scope": "宮古島の特定系統で8月下旬播種・40〜45日育苗が可能との試験概要。名護にそのまま適用しない。PDFの47ページ（閲覧ソフトのページ番号）。課題名・「グラネックス」で検索。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 6,
+    "title": "タキイ種苗（2021）「有機栽培のすすめ 第7回 タマネギ」",
+    "url": "https://www.takii.co.jp/tsk/saizensen_web/yuukisaibainosusume/vol07.html",
+    "scope": "有機栽培の育苗・排水・栽植間隔・苗選びの実践資料。有機施肥を行う方法で、無肥料の証拠にはしない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 7,
+    "title": "くゎっちーおきなわ！「タマネギ」沖縄県農林水産物総合情報発信事業",
+    "url": "https://kuwachii-okinawa.com/newfood/5800/",
+    "scope": "県内の生産・早期出荷と「たまQちゃん」ブランドの紹介。ブランド名を種子の品種名と同一視しない。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 8,
+    "title": "気象庁「過去の気象データ検索」名護・月別値",
+    "url": "https://www.data.jma.go.jp/stats/etrn/view/monthly_s1.php?prec_no=91&block_no=47940&year=2025&month=&day=&view=",
+    "scope": "提供された収集済みデータの原出典。2026年10月12日取得、1990年〜2026年の442か月。この記事は完了年の月値だけを再集計。",
+    "accessed": "2026-10-20"
+  },
+  {
+    "id": 9,
+    "title": "タキイ種苗「ソニック」品種紹介",
+    "url": "https://www.takii.co.jp/CGI/tsk/shohin/shohin.cgi?breed_seq=00000517",
+    "scope": "早生品種。極早生との比較候補とし、沖縄での優位性・貯蔵可能期間は未検証。",
+    "accessed": "2026-10-20"
+  }
+]

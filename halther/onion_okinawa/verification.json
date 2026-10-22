@@ -1,0 +1,12 @@
+{
+  "local_links_and_fragments": "pass",
+  "unique_ids": "pass",
+  "index_first_entry_and_no_duplicates": "pass",
+  "http_status": 200,
+  "browser_visual_review": "passed at narrow viewport; header, contents, climate table",
+  "trial_rows": 60,
+  "subtitle_records": 9,
+  "sources": 9,
+  "climate_months": 12,
+  "date": "2026-10-20"
+}
